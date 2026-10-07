@@ -760,3 +760,26 @@ a {
         height: 48px;
     }
 }
+
+/* =========================================================
+   TRANG BÀI HỌC
+   ========================================================= */
+
+.lesson-level-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.lesson-level-grid .course-card {
+    height: 100%;
+}
+
+/* Điện thoại */
+@media (max-width: 700px) {
+    .lesson-level-grid {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+    }
+}
