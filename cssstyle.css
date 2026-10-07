@@ -1,4 +1,3 @@
-```css
 /* =========================================================
    TIẾNG HÀN MR LEE
    STYLE.CSS - VERSION 1
@@ -738,4 +737,26 @@ a {
     font-size: 38px;
   }
 
+}
+/* ===== LOGO TIẾNG HÀN MR LEE ===== */
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.logo-img {
+    display: block;
+    width: auto;
+    height: 64px;
+    object-fit: contain;
+}
+
+/* Logo trên điện thoại */
+@media (max-width: 768px) {
+    .logo-img {
+        height: 48px;
+    }
 }
