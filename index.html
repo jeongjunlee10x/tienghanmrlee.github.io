@@ -1,45 +1,380 @@
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tiếng Hàn Mr Lee - Ôn Luyện & Kiểm Tra Sơ Cấp</title>
+
+  <meta name="description"
+        content="Tiếng Hàn Mr Lee - Hệ thống học tiếng Hàn, luyện tập và kiểm tra trực tuyến.">
+
+  <title>Tiếng Hàn Mr Lee | Học & Luyện thi tiếng Hàn</title>
+
+  <!-- CSS chính -->
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-  <header>
-    <h1>Tiếng Hàn Mr Lee</h1>
-    <p>Hệ thống luyện thi & kiểm tra trực tuyến dành cho học sinh</p>
+
+  <!-- ================= HEADER ================= -->
+  <header class="header">
+
+    <div class="header-inner">
+
+      <a href="index.html" class="logo">
+        <span class="logo-icon">🇰🇷</span>
+        <span class="logo-text">
+          <strong>Tiếng Hàn Mr Lee</strong>
+          <small>Học tiếng Hàn hiệu quả</small>
+        </span>
+      </a>
+
+      <!-- Nút menu trên điện thoại -->
+      <button class="menu-toggle" aria-label="Mở menu">
+        ☰
+      </button>
+
+      <!-- MENU -->
+      <nav class="nav">
+        <a href="index.html" class="active">Trang chủ</a>
+        <a href="so-cap-1.html">Sơ cấp 1</a>
+        <a href="so-cap-2.html">Sơ cấp 2</a>
+        <a href="kiem-tra-online.html">Kiểm tra</a>
+      </nav>
+
+    </div>
+
   </header>
 
-  <nav>
-    <a href="index.html">Trang chủ</a>
-    <a href="so-cap-1.html">Sơ cấp 1</a>
-    <a href="so-cap-2.html">Sơ cấp 2</a>
-    <a href="kiem-tra-online.html">Kiểm tra Online</a>
-  </nav>
 
-  <main class="container">
-    <h2>Chào mừng các em học sinh!</h2>
-    <p>Hãy chọn bộ đề bên dưới hoặc tham gia bài kiểm tra trực tuyến để đánh giá năng lực:</p>
-    <div class="card-grid">
-      <a href="so-cap-1.html" class="card">
-        <h3>Luyện Tập Sơ Cấp 1</h3>
-        <p>Tổng hợp từ vựng và bài tập nền tảng.</p>
-      </a>
-      <a href="so-cap-2.html" class="card">
-        <h3>Luyện Tập Sơ Cấp 2</h3>
-        <p>Củng cố ngữ pháp và đề ôn luyện nâng cao.</p>
-      </a>
-      <a href="kiem-tra-online.html" class="card highlight">
-        <h3>Kiểm Tra Trực Tuyến</h3>
-        <p>Bài thi 15 phút có tính thời gian & chấm điểm tự động.</p>
-      </a>
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <span class="hero-label">
+        🇰🇷 TIẾNG HÀN MR LEE
+      </span>
+
+      <h1>
+        Học tiếng Hàn<br>
+        <span>mỗi ngày một chút</span>
+      </h1>
+
+      <p>
+        Học từ vựng, ngữ pháp, giao tiếp và luyện tập
+        tiếng Hàn theo từng cấp độ.
+      </p>
+
+      <div class="hero-buttons">
+
+        <a href="so-cap-1.html" class="btn btn-primary">
+          📚 Bắt đầu học
+        </a>
+
+        <a href="kiem-tra-online.html" class="btn btn-secondary">
+          📝 Kiểm tra ngay
+        </a>
+
+      </div>
+
     </div>
+
+  </section>
+
+
+  <!-- ================= MAIN ================= -->
+  <main class="container">
+
+    <!-- GIỚI THIỆU -->
+    <section class="section intro">
+
+      <div class="section-heading">
+        <span class="section-label">HỌC TIẾNG HÀN</span>
+
+        <h2>
+          Chào mừng các em học sinh!
+        </h2>
+
+        <p>
+          Hãy lựa chọn chương trình phù hợp với trình độ
+          và bắt đầu hành trình học tiếng Hàn cùng Mr Lee.
+        </p>
+      </div>
+
+    </section>
+
+
+    <!-- ================= KHÓA HỌC ================= -->
+    <section class="section">
+
+      <div class="section-heading">
+
+        <span class="section-label">
+          CHƯƠNG TRÌNH HỌC
+        </span>
+
+        <h2>
+          Lựa chọn cấp độ
+        </h2>
+
+      </div>
+
+
+      <div class="card-grid">
+
+        <!-- SƠ CẤP 1 -->
+        <a href="so-cap-1.html" class="course-card">
+
+          <div class="card-icon">
+            📘
+          </div>
+
+          <div class="card-content">
+
+            <span class="card-level">
+              CẤP ĐỘ 01
+            </span>
+
+            <h3>
+              Sơ cấp 1
+            </h3>
+
+            <p>
+              Làm quen với tiếng Hàn, từ vựng cơ bản,
+              ngữ pháp và những mẫu câu giao tiếp đơn giản.
+            </p>
+
+            <span class="card-link">
+              Bắt đầu học →
+            </span>
+
+          </div>
+
+        </a>
+
+
+        <!-- SƠ CẤP 2 -->
+        <a href="so-cap-2.html" class="course-card">
+
+          <div class="card-icon">
+            📙
+          </div>
+
+          <div class="card-content">
+
+            <span class="card-level">
+              CẤP ĐỘ 02
+            </span>
+
+            <h3>
+              Sơ cấp 2
+            </h3>
+
+            <p>
+              Củng cố ngữ pháp, mở rộng vốn từ vựng
+              và luyện các cấu trúc câu thường gặp.
+            </p>
+
+            <span class="card-link">
+              Bắt đầu học →
+            </span>
+
+          </div>
+
+        </a>
+
+
+        <!-- KIỂM TRA -->
+        <a href="kiem-tra-online.html" class="course-card test-card">
+
+          <div class="card-icon">
+            📝
+          </div>
+
+          <div class="card-content">
+
+            <span class="card-level">
+              KIỂM TRA
+            </span>
+
+            <h3>
+              Kiểm tra Online
+            </h3>
+
+            <p>
+              Làm bài kiểm tra trực tuyến,
+              tính thời gian và nhận kết quả ngay sau khi nộp bài.
+            </p>
+
+            <span class="card-link">
+              Làm bài kiểm tra →
+            </span>
+
+          </div>
+
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= TÍNH NĂNG ================= -->
+    <section class="section features">
+
+      <div class="section-heading">
+
+        <span class="section-label">
+          HỌC HIỆU QUẢ HƠN
+        </span>
+
+        <h2>
+          Những gì các em có thể làm
+        </h2>
+
+      </div>
+
+
+      <div class="feature-grid">
+
+        <div class="feature">
+
+          <div class="feature-icon">
+            📚
+          </div>
+
+          <h3>
+            Học theo cấp độ
+          </h3>
+
+          <p>
+            Nội dung được sắp xếp từ cơ bản
+            đến nâng cao.
+          </p>
+
+        </div>
+
+
+        <div class="feature">
+
+          <div class="feature-icon">
+            💬
+          </div>
+
+          <h3>
+            Luyện giao tiếp
+          </h3>
+
+          <p>
+            Học những mẫu câu thường gặp
+            trong cuộc sống hàng ngày.
+          </p>
+
+        </div>
+
+
+        <div class="feature">
+
+          <div class="feature-icon">
+            📝
+          </div>
+
+          <h3>
+            Kiểm tra trực tuyến
+          </h3>
+
+          <p>
+            Làm bài kiểm tra và biết kết quả
+            ngay sau khi hoàn thành.
+          </p>
+
+        </div>
+
+
+        <div class="feature">
+
+          <div class="feature-icon">
+            🎯
+          </div>
+
+          <h3>
+            Theo dõi tiến bộ
+          </h3>
+
+          <p>
+            Từng bước cải thiện vốn từ vựng
+            và khả năng sử dụng tiếng Hàn.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
   </main>
 
-  <footer>
-    <p>© 2026 Tiếng Hàn Mr Lee. All rights reserved.</p>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+
+    <div class="footer-inner">
+
+      <div>
+        <h3>🇰🇷 Tiếng Hàn Mr Lee</h3>
+
+        <p>
+          Hệ thống học tập và luyện thi tiếng Hàn
+          dành cho học sinh.
+        </p>
+      </div>
+
+      <div class="footer-links">
+
+        <a href="index.html">
+          Trang chủ
+        </a>
+
+        <a href="so-cap-1.html">
+          Sơ cấp 1
+        </a>
+
+        <a href="so-cap-2.html">
+          Sơ cấp 2
+        </a>
+
+        <a href="kiem-tra-online.html">
+          Kiểm tra Online
+        </a>
+
+      </div>
+
+    </div>
+
+    <div class="copyright">
+
+      © 2026 Tiếng Hàn Mr Lee.
+      All rights reserved.
+
+    </div>
+
   </footer>
+
+
+  <!-- ================= JAVASCRIPT ================= -->
+  <script>
+
+    // Menu mobile
+    const menuToggle = document.querySelector(".menu-toggle");
+    const nav = document.querySelector(".nav");
+
+    menuToggle.addEventListener("click", function () {
+      nav.classList.toggle("show");
+    });
+
+  </script>
+
 </body>
 </html>
+```
