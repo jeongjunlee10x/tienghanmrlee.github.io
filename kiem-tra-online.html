@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kiểm Tra Online - Tiếng Hàn Mr Lee</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Bài Kiểm Tra Sơ Cấp</h2>
+    <div id="timer-box">Thời gian còn lại: <span id="time">15:00</span></div>
+
+    <form id="quiz-form">
+      <div class="question">
+        <p><strong>Câu 1:</strong> "안녕하세요" có nghĩa là gì?</p>
+        <label><input type="radio" name="q1" value="A"> A. Xin cảm ơn</label><br>
+        <label><input type="radio" name="q1" value="B"> B. Xin chào</label><br>
+        <label><input type="radio" name="q1" value="C"> C. Tạm biệt</label>
+      </div>
+
+      <div class="question">
+        <p><strong>Câu 2:</strong> Từ nào sau đây có nghĩa là "Sách"?</p>
+        <label><input type="radio" name="q2" value="A"> A. 책</label><br>
+        <label><input type="radio" name="q2" value="B"> B. 물</label><br>
+        <label><input type="radio" name="q2" value="C"> C. 가방</label>
+      </div>
+
+      <button type="button" id="submit-btn" onclick="submitQuiz()">Nộp bài</button>
+    </form>
+
+    <div id="result-box" class="hidden">
+      <h3>Kết quả: <span id="score"></span> / 2 điểm</h3>
+      <p id="feedback"></p>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
