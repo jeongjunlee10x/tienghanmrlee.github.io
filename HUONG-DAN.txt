@@ -1,35 +1,30 @@
-TIẾNG HÀN MR LEE — BỘ 3 NGÔN NGỮ (VI / KO / EN)
-
-1. Chép index.html, mrlee-i18n.js và thư mục images từ bộ này vào:
-   C:\Users\Surface\Documents\tienghanmrlee.github.io
-   Chọn thay index.html hiện tại. Giữ nguyên firebase-config.js,
-   auth-firebase.js, auth-guard.js và các trang kiểm tra, lịch sử.
-
-2. Mở index.html bằng Live Server để thử 3 nút:
-   Tiếng Việt | 한국어 | English
-   Nút đang chọn lưu trong trình duyệt và được dùng lại khi mở trang sau.
-
-3. NẾU MUỐN hiển thị thanh chọn ngôn ngữ và dịch menu chung trên tất cả
-   các trang con, chép CAI-3-NGON-NGU.ps1 vào thư mục dự án rồi chạy:
-   powershell -ExecutionPolicy Bypass -File .\CAI-3-NGON-NGU.ps1
-   Chương trình lưu bản sao trước khi chỉnh sửa. Đừng chạy các script
-   cài đặt cũ sau bước này mà không kiểm tra lại nội dung đã thay đổi.
-
-4. Chạy trong Terminal:
-   git add index.html mrlee-i18n.js images/nen-seoul-namsan.webp
-   git commit -m "Fix Vietnamese encoding and add VI KO EN homepage"
+TIẾNG HÀN MR LEE - LUYỆN PHÁT ÂM MIỄN PHÍ
+========================================
+1. Chép 3 file mrlee-voice.js, mrlee-voice.css, CAI-LUYEN-GIONG-NOI.ps1
+   vào thư mục C:\Users\Surface\Documents\tienghanmrlee.github.io
+2. Mở Terminal trong VS Code, chạy:
+   powershell -ExecutionPolicy Bypass -File .\CAI-LUYEN-GIONG-NOI.ps1
+3. Kiểm tra 4 trang: so-cap-1.html, so-cap-2.html,
+   giao-tiep-theo-chu-de.html, on-luyen-phong-van.html.
+4. Kiểm tra trong Chrome hoặc Edge; cho phép micro khi được hỏi.
+5. Đưa lên GitHub:
+   git add so-cap-1.html so-cap-2.html giao-tiep-theo-chu-de.html on-luyen-phong-van.html mrlee-voice.js mrlee-voice.css CAI-LUYEN-GIONG-NOI.ps1
+   git commit -m "Add free Korean speaking practice"
    git push origin main
 
-   Nếu đã chạy bước 3, dùng git add . (kiểm tra git status trước khi commit).
+TÍNH NĂNG:
+- Mỗi ô từ vựng có nút Nghe và nút Luyện nói.
+- Trang giao tiếp: nút Luyện nói ở từng câu.
+- Trang phỏng vấn: nút Luyện nói câu hỏi và câu trả lời mẫu.
+- Bài tập ôn trong Sơ cấp 1/2: nút Gợi ý cách làm; không tiết lộ đáp án trước khi nộp.
+- Không sửa bài kiểm tra đầu vào và không thay Firebase Rules.
 
-5. Tải lại bằng Ctrl+F5.
-
-PHẠM VI: Trang CHỦ đã có bản dịch hoàn chỉnh cho ba ngôn ngữ.
-Ở trang con, bộ cài chỉ thêm công tắc và dịch MENU chung; KHÔNG tự dịch
-nội dung giảng dạy, đề thi, biểu mẫu hay dữ liệu học viên.
-
-BẢO MẬT: Giữ nguyên các file Firebase và Firestore Rules. Mọi chế độ
-ngôn ngữ vẫn dùng chung tài khoản, dữ liệu và link học tập.
-
-MÃ HÓA: Lưu file UTF-8. Nếu lỡ dán chữ Việt sai dấu, lỗi là mojibake;
-đổi font KHÔNG tự sửa chuỗi đã hỏng — phải dùng chữ Unicode chuẩn.
+GIỚI HẠN:
+- Giọng đọc dựa trên giọng tiếng Hàn của trình duyệt/hệ điều hành.
+- Nhận diện tiếng nói thường hoạt động trên Chrome/Edge, có thể không hỗ trợ trên một số thiết bị.
+- Không tính phí API của website, nhưng cần mạng và trình duyệt có thể chuyển âm thanh tới nhà cung cấp dịch vụ nhận diện.
+- So sánh văn bản nhận diện KHÔNG phải AI đánh giá phát âm từng âm vị.
+- Website không ghi âm hoặc gửi bản ghi lên Firebase bằng mã này.
+- Các gợi ý bài tập dựa trên quy tắc, KHÔNG phải AI tạo sinh.
+- Muốn AI chấm phát âm chuẩn (nhấn mạnh âm tiết, độ chính xác) cần dịch vụ chuyên dụng/back-end; có thể mất phí.
+- Tạo bản sao lưu trong thư mục Documents, không đưa file sao lưu lên GitHub.

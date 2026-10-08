@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#102b4d">
+<meta name="description" content="Trung tâm học viên Tiếng Hàn Mr Lee — theo dõi điểm luyện tập và tiến trình học cá nhân.">
+<title>Trung tâm học viên | Tiếng Hàn Mr Lee</title>
+<link rel="icon" href="images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="mrlee-core.css">
+<style>
+:root{--navy:#102b4d;--ink:#1c344e;--muted:#6c7d8c;--bg:#f3f7fb;--line:#dfe8f1}
+*{box-sizing:border-box}body{background:var(--bg);margin:0;color:var(--ink);font:400 14px/1.75 "Be Vietnam Pro","Noto Sans KR",sans-serif}
+a{text-decoration:none;color:inherit}button,select{font:inherit}
+.main{width:min(1120px,calc(100% - 36px));margin:34px auto 65px}
+.topbar{background:#fff;border-bottom:1px solid var(--line);padding:15px max(18px,calc((100vw - 1120px)/2));display:flex;gap:20px;justify-content:space-between;align-items:center}
+.brand{display:flex;align-items:center;gap:13px;font-size:17px;font-weight:800;color:var(--navy)}.brand img{width:58px;height:48px;object-fit:contain}
+.links{display:flex;align-items:center;flex-wrap:wrap;gap:15px}.links a{font-size:12px;font-weight:700;color:#315471}.links .primary{background:#102b4d;color:white;padding:9px 13px;border-radius:10px}
+.intro{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin:24px 0 18px}
+.eyebrow{color:#c66d3d;font-weight:800;font-size:11px;letter-spacing:.11em;text-transform:uppercase}
+h1{font-size:clamp(25px,3.7vw,37px);line-height:1.4;color:var(--navy);margin:6px 0}p{margin:7px 0}.muted{color:var(--muted)}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}button,.btn,select{border:1px solid #cfdeeb;border-radius:11px;background:#fff;padding:11px 14px;color:#17395a;font-weight:700;cursor:pointer}
+button:hover,.btn:hover{background:#edf5fc}.btn{display:inline-flex;align-items:center;justify-content:center}button:disabled{opacity:.55;cursor:wait}
+.status{padding:13px 17px;background:#e8f1fb;border:1px solid #caddec;border-radius:12px;color:#284867;margin:16px 0 22px;font-size:12px}.status.error{background:#fff0ee;border-color:#f4c5c0;color:#a02d2d}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin:20px 0 27px}
+.stat,.panel{background:#fff;border:1px solid #dfe7ef;box-shadow:0 6px 26px #1538580c;border-radius:18px}
+.stat{padding:24px 19px}.stat small{color:#768696;font-weight:700;font-size:12px}.stat strong{display:block;font-weight:800;font-size:31px;line-height:1.35;color:#102b4d;margin-top:8px}
+.columns{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:18px}.panel{padding:25px;margin-bottom:17px}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:16px}.panel h2{margin:0;font-size:19px;color:var(--navy)}.panel-head a{font-size:12px;color:#25649b;font-weight:700}
+.row{display:flex;gap:10px;align-items:center;justify-content:space-between;border-top:1px solid #ecf1f6;padding:13px 0}.row:first-child{border-top:0}.row h3{font-size:12px;margin:0 0 4px;font-weight:700}.row small{font-size:11px;color:#687d8f}.score{font-size:18px;font-weight:800;color:#205887;white-space:nowrap}
+.bar-track{height:7px;max-width:200px;border-radius:99px;background:#edf3fa;overflow:hidden;margin-top:8px}.bar-fill{height:100%;background:#ee8450;border-radius:99px}
+.empty{color:#8291a0;background:#f5f8fb;border-radius:12px;padding:20px;text-align:center;font-size:12px}
+.shortcuts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.shortcut{border:1px solid #dbe7f1;padding:13px 15px;border-radius:12px;background:#f7fafd;color:#1b4369;font-weight:700;font-size:12px}.shortcut:hover{background:#eaf4fd}
+.mini{font-size:11px;color:#657d91;line-height:1.8}.foot{text-align:center;font-size:11px;color:#8593a4;padding:0 20px 35px}
+@media(max-width:870px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.columns{grid-template-columns:1fr}}
+@media(max-width:570px){.main{margin:20px auto 40px}.topbar{padding:13px 15px}.brand{font-size:13px}.brand img{width:45px;height:40px}.links{gap:7px}.links a{font-size:10px}.links .primary{padding:8px}.intro{flex-direction:column}.panel{padding:18px}.stats{gap:10px}.stat{padding:16px}.stat strong{font-size:26px}.shortcuts{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="topbar">
+<a class="brand" href="index.html"><img src="images/logo.png" alt=""><span>TIẾNG HÀN MR LEE</span></a>
+<nav class="links" aria-label="Trang học viên"><a href="index.html" data-i18n="home">Trang chủ</a><a href="lich-su-hoc-tap.html" data-i18n="history">Lịch sử</a><a href="dang-nhap.html" class="primary" data-i18n="account">Tài khoản</a></nav>
+</header>
+<main class="main">
+<div class="intro">
+<div><div class="eyebrow" data-i18n="eyebrow">TRUNG TÂM HỌC VIÊN</div><h1 data-i18n="heading">Hành trình học tập của bạn</h1><p class="muted" id="studentEmail" aria-live="polite" data-i18n="authWaiting">Đang xác minh tài khoản...</p></div>
+<div class="controls"><label for="levelFilter" data-i18n="level">Trình độ</label><select id="levelFilter"><option value="all" data-i18n="all">Tất cả</option><option value="sc1" data-i18n="sc1">Sơ cấp 1</option><option value="sc2" data-i18n="sc2">Sơ cấp 2</option><option value="tc1" data-i18n="tc1">Trung cấp 1</option><option value="general" data-i18n="general">Tổng hợp</option></select><button id="refreshBtn" type="button" data-i18n="refresh">Làm mới</button></div>
+</div>
+<div id="status" class="status" role="status" aria-live="polite" data-i18n="loading">Đang tải lịch sử trên Firebase...</div>
+<div class="stats">
+<div class="stat"><small data-i18n="attempts">Lượt kiểm tra</small><strong id="statAttempts">—</strong></div>
+<div class="stat"><small data-i18n="average">Điểm trung bình</small><strong id="statAverage">—</strong></div>
+<div class="stat"><small data-i18n="unique">Đề đã luyện</small><strong id="statUnique">—</strong></div>
+<div class="stat"><small data-i18n="events">Hoạt động gần đây</small><strong id="statEvents">—</strong></div>
+</div>
+<div class="columns">
+<div>
+<section class="panel"><div class="panel-head"><h2 data-i18n="latest">Điểm luyện tập gần đây</h2><a href="lich-su-hoc-tap.html" data-i18n="viewAll">Xem tất cả →</a></div><div id="attemptRows"></div><p class="mini" data-i18n="practiceNote">Đây là điểm luyện tập tự chấm trong trình duyệt, không phải điểm thi được xác nhận bởi giáo viên.</p></section>
+<section class="panel"><div class="panel-head"><h2 data-i18n="quickLinks">Học nhanh</h2></div><div class="shortcuts"><a class="shortcut" href="so-cap-1.html" data-i18n="sc1">Sơ cấp 1</a><a class="shortcut" href="so-cap-2.html" data-i18n="sc2">Sơ cấp 2</a><a class="shortcut" href="kiem-tra-online.html" data-i18n="test">Kiểm tra Online</a><a class="shortcut" href="giao-tiep-theo-chu-de.html" data-i18n="speaking">Luyện giao tiếp</a></div></section>
+</div>
+<div>
+<section class="panel"><div class="panel-head"><h2 data-i18n="activity">Hoạt động học gần đây</h2><a href="lich-su-hoc-tap.html" data-i18n="viewAll">Xem tất cả →</a></div><div id="eventRows"></div></section>
+<section class="panel"><h2 data-i18n="privacy">Bảo vệ dữ liệu</h2><p class="muted" data-i18n="privacyDesc">Điểm và hoạt động ở trang này chỉ được truy vấn theo UID của tài khoản đang đăng nhập. Quyền đọc do Firestore Security Rules quyết định.</p></section>
+</div>
+</div>
+</main><footer class="foot">© 2026 Tiếng Hàn Mr Lee · <span data-i18n="footer">Trung tâm học viên</span></footer>
+<script src="mrlee-core.js" defer></script>
+<script src="mrlee-i18n.js" defer></script>
+<script type="module" src="mrlee-student.js"></script>
+</body></html>

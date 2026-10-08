@@ -1,0 +1,58 @@
+TIẾNG HÀN MR LEE — KIỂM TRA ONLINE THEO TỪNG 2 BÀI
+===================================================
+
+1) NỘI DUNG
+- Hai cấp độ: Sơ cấp 1 và Sơ cấp 2.
+- Mỗi cấp độ có 8 đợt:
+  Lần 1: Bài 1–2
+  Lần 2: Bài 3–4
+  Lần 3: Bài 5–6
+  Lần 4: Bài 7–8
+  Lần 5: Bài 9–10
+  Lần 6: Bài 11–12
+  Lần 7: Bài 13–14
+  Lần 8: Bài 15 (riêng, vì mỗi cấp có 15 bài)
+- 10 câu/đợt, 4 đáp án/câu, 15 phút; tự chấm, xem giải thích, làm lại.
+- Câu hỏi dựa trên từ vựng và ngữ pháp tài liệu Sách Từ Vựng Sơ Cấp (1,2) của Mr Lee.
+- Điểm luyện tập được phát thông qua sự kiện mrlee:practice-finished để module learning-tracker.js lưu vào Firebase.
+
+2) CÀI ĐẶT KHÔNG ẢNH HƯỞNG WEBSITE HIỆN TẠI
+Sao lưu kiem-tra-online.html cũ trong VS Code trước khi thay.
+Chép bốn file sau vào thư mục gốc repo:
+  kiem-tra-online.html  (thay file cũ)
+  mrlee-online-bank.js  (mới)
+  mrlee-online.js       (mới)
+  mrlee-online.css      (mới)
+
+Các file bên dưới PHẢI tồn tại ở thư mục gốc website (đã được xây dựng ở các bước trước):
+  firebase-config.js
+  auth-guard.js
+  learning-tracker.js
+Chúng đã hoạt động từ bộ đăng nhập/bảo mật/lịch sử. Không ghi đè bản đang dùng.
+Nếu thiếu auth-guard.js hoặc learning-tracker.js, xem bản tham khảo trong thư mục phu-tro-neu-chua-co/ của ZIP; cần kiểm tra trước khi chép.
+
+3) ĐƯA LÊN GITHUB
+Trong Terminal VS Code tại thư mục tienghanmrlee.github.io chạy:
+  git add kiem-tra-online.html mrlee-online-bank.js mrlee-online.js mrlee-online.css
+  git commit -m "Create lesson-pair online tests for beginner levels"
+  git push origin main
+
+4) ĐƯỜNG DẪN
+  https://jeongjunlee10x.github.io/tienghanmrlee.github.io/kiem-tra-online.html
+
+5) LƯU ĐIỂM THEO TÀI KHOẢN
+- Học viên đăng nhập Email+Password và xác minh email.
+- Bạn phải Publish Firestore Rules cho /users/{uid}/practiceAttempts (file rules từ bộ lưu lịch sử trước đó).
+- Mở lịch sử của học viên:
+  https://jeongjunlee10x.github.io/tienghanmrlee.github.io/lich-su-hoc-tap.html
+- Bản ghi có examId: online-sc1-lan-1 ... online-sc2-lan-8; level: sc1/sc2; source: client_practice.
+- Chỉ là ĐIỂM LUYỆN TẬP; dữ liệu câu hỏi/đáp án nằm trong JS công khai, không dùng làm kỳ thi chống gian lận.
+
+6) NẾU GẶP LỖI
+- Trang trắng: kiểm tra auth-guard.js và firebase-config.js, xem Chrome DevTools → Console (F12).
+- Có giao diện nhưng không hiện câu hỏi: kiểm tra mrlee-online-bank.js và mrlee-online.js có cùng thư mục với HTML.
+- Không lưu điểm: kiểm tra learning-tracker.js, Firebase Email Verification và Firestore Rules /practiceAttempts.
+- Các script ES module cần chạy qua localhost/Live Server hoặc GitHub Pages, không mở bằng file:// khi chạy thực tế.
+- Sau khi push, ấn Ctrl + F5 tải lại trang.
+
+KHÔNG cần sửa index.html: nút Kiểm tra Online vẫn giữ đúng đường dẫn như trước.

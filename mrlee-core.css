@@ -1,0 +1,48 @@
+/* Mr Lee 2026 — nâng cấp giao diện bổ trợ, không đè bố cục hiện hữu. */
+:root{--ml-navy:#102b4d;--ml-blue:#205887;--ml-orange:#eb7842;--ml-paper:#f6f9fd}
+html{scroll-padding-top:86px}
+html:lang(vi) body{font-family:"Be Vietnam Pro","Noto Sans KR",system-ui,sans-serif}
+html:lang(ko) body{font-family:"Noto Sans KR","Be Vietnam Pro",system-ui,sans-serif}
+html:lang(en) body{font-family:Inter,"Be Vietnam Pro",system-ui,sans-serif}
+[lang="ko"]{font-family:"Noto Sans KR","Malgun Gothic",sans-serif;word-break:keep-all}
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:3px solid #f59e56!important;outline-offset:3px}
+:where(a,button){-webkit-tap-highlight-color:rgba(16,43,77,.12)}
+.mrlee-search-top{display:inline-flex;align-items:center;gap:7px;justify-content:center;color:#17375c;background:#eef4fa;border:1px solid #dce6ef;border-radius:11px;padding:9px 12px;min-height:43px;font:700 12px/1.4 "Be Vietnam Pro",sans-serif;cursor:pointer;flex-shrink:0}
+.mrlee-search-top:hover{background:#deecf8}
+.mrlee-search-top svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2}
+.mrlee-search-top kbd{font-size:10px;opacity:.67;border:1px solid #c9d6e2;padding:1px 4px;border-radius:4px}
+.mrlee-search-fab{position:fixed;bottom:94px;right:24px;z-index:1302;border:1px solid #cdd9e7;background:#fff;color:#17365b;box-shadow:0 9px 25px #102b4d29;border-radius:50%;width:48px;height:48px;display:grid;place-items:center;cursor:pointer}
+.mrlee-search-fab svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2}
+.mrlee-to-top{position:fixed;bottom:30px;right:24px;z-index:1300;width:44px;height:44px;border-radius:50%;border:1px solid #dce6f1;background:#fff;box-shadow:0 7px 22px #102b4d25;color:#102b4d;display:grid;place-items:center;cursor:pointer;opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .2s,transform .2s}
+.mrlee-to-top.is-visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.mrlee-to-top svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
+.mrlee-reading-progress{position:fixed;left:0;top:0;z-index:2000;height:3px;background:#ef8544;width:0;pointer-events:none}
+.mrlee-modal{position:fixed;inset:0;z-index:2200;background:#08192bbb;display:none;align-items:flex-start;justify-content:center;padding:8vh 16px 24px;overflow:auto}
+.mrlee-modal[aria-hidden="false"]{display:flex}
+.mrlee-search-panel{width:min(680px,100%);background:#fff;border-radius:20px;box-shadow:0 24px 70px #071b3670;overflow:hidden;color:#163451;font-family:"Be Vietnam Pro","Noto Sans KR",sans-serif}
+.mrlee-search-header{display:flex;gap:12px;padding:18px;border-bottom:1px solid #e4eaf2;align-items:center}
+.mrlee-search-header svg{width:23px;height:23px;stroke:#406183;fill:none;stroke-width:2;flex:none}
+.mrlee-search-input{min-width:0;flex:1;padding:8px 2px;border:none;background:#fff;color:#142b4c;outline:none!important;font:500 16px "Be Vietnam Pro",sans-serif}
+.mrlee-search-close{background:#f1f5fa;border:0;border-radius:9px;color:#304861;padding:9px 12px;cursor:pointer}
+.mrlee-search-results{max-height:min(62vh,470px);overflow-y:auto;padding:12px}
+.mrlee-search-item{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:13px 15px;text-decoration:none;border-radius:12px;color:#17365c}
+.mrlee-search-item:hover,.mrlee-search-item:focus-visible{background:#eef5fd}
+.mrlee-search-item strong{display:block;font-size:14px}
+.mrlee-search-item small{display:block;font-size:11px;color:#687d93;margin-top:3px}
+.mrlee-search-item span:last-child{color:#67809a}
+.mrlee-search-empty{padding:28px 14px;text-align:center;color:#728297}
+.mrlee-search-hint{font-size:11px;border-top:1px solid #e5ecf5;color:#728297;padding:10px 17px}
+.mrlee-home-tools{width:min(1180px,calc(100% - 42px));margin:28px auto 0;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;font-family:"Be Vietnam Pro","Noto Sans KR",sans-serif}
+.mrlee-tool-card{background:rgba(255,255,255,.97);border:1px solid #dfe9f4;border-radius:18px;padding:23px;box-shadow:0 8px 25px #163a5712;min-width:0}
+.mrlee-tool-label{display:inline-block;margin-bottom:8px;font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:800;color:#d26836}
+.mrlee-tool-title{font-size:19px;line-height:1.5;font-weight:800;color:#17365a;margin:0 0 7px}
+.mrlee-tool-desc{font-size:12px;color:#667d93;line-height:1.75;margin:0 0 15px}
+.mrlee-tool-actions{display:flex;flex-wrap:wrap;gap:9px}
+.mrlee-tool-link{display:inline-flex;align-items:center;gap:7px;text-decoration:none;border-radius:9px;padding:11px 14px;background:#17365b;color:#fff;font-size:12px;font-weight:700}
+.mrlee-tool-link.outline{background:#eff5fa;color:#17365b}
+.mrlee-tool-link:hover{filter:brightness(.94)}
+.mrlee-nav-extras{font-size:12px;font-weight:700}
+@media(min-width:1151px){.site-nav .mrlee-nav-extras{display:none}}
+@media(max-width:1150px){.mrlee-search-top{margin-left:auto}.mrlee-search-top span,.mrlee-search-top kbd{display:none}.mrlee-home-tools{grid-template-columns:1fr}}
+@media(max-width:700px){.mrlee-home-tools{width:calc(100% - 28px);margin:18px auto 0;gap:11px}.mrlee-tool-card{padding:18px}.mrlee-tool-title{font-size:17px}.mrlee-search-top{padding:9px}.mrlee-search-fab,.mrlee-to-top{right:15px}.mrlee-modal{padding:5vh 10px 15px}.mrlee-search-header{padding:12px}.mrlee-search-input{font-size:14px}}
+@media(prefers-reduced-motion:reduce){.mrlee-to-top{transition:none}html{scroll-behavior:auto}}
