@@ -1,0 +1,14 @@
+TIẾNG HÀN MR LEE - THÔNG TIN LIÊN HỆ
+
+Bổ sung:
+- Điện thoại 1: 0376 991 180
+- Điện thoại 2: 0866 761 403
+- Email: tienghanmrlee@gmail.com
+
+Nếu website đã có giao diện mới, chỉ cần thay index.html.
+Nếu chưa, chép cả thư mục images và font-chuan-mrlee.css từ ZIP.
+
+Cập nhật GitHub:
+ git add index.html
+ git commit -m "Add homepage contact information"
+ git push origin main

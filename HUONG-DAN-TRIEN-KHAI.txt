@@ -1,0 +1,41 @@
+TIẾNG HÀN MR LEE — BẮT BUỘC ĐĂNG NHẬP ĐỂ DÙNG CHỨC NĂNG
+
+MỤC TIÊU
+- index.html (trang chủ): ai cũng xem được.
+- dang-nhap.html: ai cũng truy cập để đăng ký / đăng nhập.
+- TẤT CẢ file .html khác trong thư mục website: yêu cầu đăng nhập Firebase VÀ xác minh email.
+- Người dùng không hợp lệ được chuyển đến dang-nhap.html?next=... rồi quay lại đúng trang sau xác minh.
+- TOPIK: qua trang trung gian thi-topik-online.html để yêu cầu đăng nhập trước khi mở website TOPIK.
+
+CÀI ĐẶT (WINDOWS / VS CODE)
+1) Giải nén ZIP này vào C:\Users\Surface\Documents\tienghanmrlee.github.io
+   (Thay index.html và dang-nhap.html bằng file mới. KHÔNG xóa các bài học cũ.)
+2) Trong VS Code → Terminal → New Terminal, nhập:
+   powershell -ExecutionPolicy Bypass -File .\CAI-KHOA-DANG-NHAP.ps1
+   Lệnh tự thêm đoạn kiểm tra vào TẤT CẢ các trang HTML hiện có,
+   ngoại trừ index.html và dang-nhap.html.
+3) Firebase Console → Authentication → Connection method → Email/Password: Enable (chỉ cần mục Email/Password).
+4) Firebase Console → Authentication → Settings → Authorized domains:
+   thêm jeongjunlee10x.github.io (không thêm https:// hay đường dẫn phía sau).
+5) Cập nhật GitHub:
+   git add .
+   git commit -m "Require verified email login for all features"
+   git push origin main
+6) Kiểm tra:
+   - Mở trang chủ khi chưa đăng nhập: vẫn thấy các nút.
+   - Chọn Bài học / TOPIK / Phỏng vấn: chuyển đến trang đăng nhập.
+   - Đăng ký, nhấn liên kết xác minh email, chọn Tôi đã xác minh:
+     quay lại trang đã chọn.
+   - Đăng xuất và dán đường dẫn trực tiếp /so-cap-1.html: lại yêu cầu đăng nhập.
+
+LƯU Ý QUAN TRỌNG VỀ BẢO MẬT
+Đây chỉ là KHÓA GIAO DIỆN chạy bằng JavaScript trong trình duyệt.
+Do GitHub Pages là website TĨNH, mã HTML và các tệp PDF/audio/JS trên repository public
+vẫn có thể truy cập trực tiếp hoặc đọc bằng cách khác. Điều này KHÔNG bảo vệ
+nội dung học tập trước người cố tình vượt qua JavaScript.
+Để kiểm soát truy cập THẬT SỰ, chuyển dữ liệu riêng sang Firestore / Cloud Storage
+với Firebase Security Rules dựa trên request.auth và email_verified, hoặc backend.
+Google Drive có link công khai cũng không được bảo vệ bởi đăng nhập trên website.
+
+Nếu không thể tải Firebase (mạng bị chặn / lỗi CDN), trang sẽ không hiển thị nội dung
+và có thể cần tải lại khi có mạng. Không cần dịch vụ SMS.

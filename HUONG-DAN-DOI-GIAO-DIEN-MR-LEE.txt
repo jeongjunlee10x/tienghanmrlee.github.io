@@ -1,0 +1,42 @@
+NÂNG CẤP GIAO DIỆN TRANG CHỦ - TIẾNG HÀN MR LEE
+
+1. GIẢI NÉN BỘ ZIP
+Gồm:
+  index.html
+  images/trang-bia-mr-lee-hero.webp
+  font-chuan-mrlee.css
+
+2. CHÉP VÀO THƯ MỤC WEBSITE
+  C:\Users\Surface\Documents\tienghanmrlee.github.io
+
+- Chọn Replace khi Windows hỏi thay thế index.html.
+- Giữ nguyên cssstyle.css, images/logo.png, các file HTML khác.
+- Đảm bảo ảnh bìa mới nằm trong thư mục images/ (không đặt ở thư mục gốc).
+- Trang chủ dùng một ảnh bìa cắt gọn, đáp ứng cả máy tính và điện thoại.
+
+3. FONT CHO CÁC TRANG KHÁC (NẾU MUỐN ĐỒNG BỘ)
+Trong phần <head> của mỗi file HTML khác, sau dòng
+  <link rel="stylesheet" href="cssstyle.css">
+chèn thêm
+  <link rel="stylesheet" href="font-chuan-mrlee.css">
+
+Font tiếng Việt: Be Vietnam Pro
+Font tiếng Hàn: Noto Sans KR
+Trình duyệt tải font từ Google Fonts. Nếu mạng chặn Google Fonts, máy dùng font dự phòng.
+Các chữ Hàn nên đặt <span lang="ko">안녕하세요</span> để bảo đảm chính xác kiểu chữ.
+
+4. CẬP NHẬT LÊN GITHUB
+  git add index.html images/trang-bia-mr-lee-hero.webp font-chuan-mrlee.css
+  git commit -m "Redesign homepage buttons and Vietnamese Korean fonts"
+  git push origin main
+
+5. KIỂM TRA
+  https://jeongjunlee10x.github.io/tienghanmrlee.github.io/
+  Nhấn Ctrl+F5 nếu Chrome đang lưu trang cũ.
+
+LƯU Ý
+- Có 9 thẻ chức năng thật với icon SVG, không phụ thuộc bộ icon bên ngoài.
+- Giữ liên kết TOPIK chính thức mở tab mới.
+- Giữ id mrlee-auth-nav cho auth-status.js, nếu Firebase đã được cấu hình.
+- Không thay đổi các file luyện phỏng vấn, giao tiếp, kiểm tra hoặc dữ liệu học viên.
+- Không sửa bộ ảnh bìa gốc của bạn; ảnh hero là bản cắt chỉ phần phía trên để không lặp các ô chức năng vẽ sẵn.

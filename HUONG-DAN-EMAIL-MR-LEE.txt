@@ -1,0 +1,33 @@
+TIẾNG HÀN MR LEE – ĐĂNG KÝ / ĐĂNG NHẬP BẰNG EMAIL (FIREBASE SPARK)
+
+1. MỞ Firebase Console → dự án tieng-han-mr-lee.
+2. Authentication → Sign-in method (hoặc Connection method) → Email/Password.
+   - Bật Email/Password.
+   - Không cần bật "Email link (passwordless)".
+   - Nhấn Save.
+3. Authentication → Settings → Authorized domains: thêm jeongjunlee10x.github.io.
+4. Giữ gói Spark miễn phí; KHÔNG cần bật SMS, Blaze hoặc tài khoản thanh toán.
+5. Sao chép bốn file vào thư mục gốc của dự án website:
+   - dang-nhap.html
+   - auth-firebase.js
+   - auth-status.js
+   - firebase-config.js
+   Giữ nguyên index.html hiện tại vì trang chủ đã có nút đăng nhập.
+6. Trong Terminal VS Code:
+   git add dang-nhap.html auth-firebase.js auth-status.js firebase-config.js
+   git commit -m "Switch login from SMS to free email authentication"
+   git push origin main
+7. Truy cập:
+   https://jeongjunlee10x.github.io/tienghanmrlee.github.io/dang-nhap.html
+8. Thử Đăng ký với một email bạn sở hữu → nhận email xác minh → nhấn link → quay lại trang nhấn Tôi đã xác minh.
+9. Đăng xuất và đăng nhập lại; thử nút Quên mật khẩu.
+10. Kiểm tra Firebase → Authentication → Users xem tài khoản mới.
+
+LƯU Ý
+- Xác minh email và đặt lại mật khẩu có giới hạn số email/ngày trên gói Spark.
+- Xác minh email chỉ được xác nhận sau khi bạn nhấn liên kết trong email.
+- Chưa có lưu kết quả thi lên tài khoản, chưa có kiểm soát truy cập trang tĩnh.
+- Không đăng khóa quản trị hay file service-account lên GitHub.
+- Nếu gặp auth/unauthorized-domain, hãy kiểm tra Authorized domains.
+- Nếu gặp auth/operation-not-allowed, bật Email/Password.
+- Nếu cần làm thử trên Live Server localhost, thêm localhost vào Authorized domains (chỉ phục vụ thử nghiệm), nhưng nên thử trực tiếp trên tên miền GitHub Pages.
