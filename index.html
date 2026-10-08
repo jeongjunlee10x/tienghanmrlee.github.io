@@ -168,6 +168,31 @@
       .site-footer{padding:28px 0 19px}
     }
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.feature-card,.action-btn,.site-nav a{transition:none}}
+
+    /* ===== NỀN CHÌM SEOUL - THÁP NAMSAN (MẪU 2) =====
+       Ảnh dùng riêng trên trang chủ, không thay ảnh bìa nổi.
+       Lớp màu trắng 87% giúp nút và chữ luôn dễ đọc. */
+    body {
+      background-color: #f6f9fe;
+      background-image:
+        linear-gradient(180deg, rgba(247,250,254,.87), rgba(247,250,254,.88)),
+        url("images/nen-seoul-namsan.webp");
+      background-repeat: no-repeat;
+      background-position: center center, center center;
+      background-size: cover, cover;
+      background-attachment: fixed, fixed;
+    }
+    /* Không làm mờ banner và các thẻ chức năng thật */
+    .hero-banner { background-color: #dcecf8; }
+    .hero-overview, .feature-card { background-color: rgba(255,255,255,.98); }
+    .notice { background-color: rgba(237,243,251,.96); }
+    /* Trình duyệt điện thoại xử lý background-attachment fixed không giống nhau */
+    @media (max-width: 768px) {
+      body {
+        background-position: center center, 64% center;
+        background-attachment: scroll, scroll;
+      }
+    }
   </style>
 </head>
 <body>
@@ -191,7 +216,6 @@
     <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.6 8.5-6.6"/></symbol>
   </svg>
   <a class="skip" href="#chuc-nang">Bỏ qua menu, đến chức năng học tập</a>
-
   <header class="site-header">
     <div class="page-wrap header-layout">
       <a class="brand" href="index.html" aria-label="Tiếng Hàn Mr Lee - Trang chủ">
@@ -209,12 +233,11 @@
         <a href="de-thi-topik.html">Đề TOPIK</a>
         <a href="thi-topik-online.html">Thi TOPIK <svg class="icon icon-sm" aria-hidden="true"><use href="#i-external"></use></svg></a>
         <a href="kiem-tra-dau-vao.html">Kiểm tra đầu vào</a>
-        <a href="lich-su-hoc-tap.html">Lá»‹ch sá»­ há»c táº­p</a>
+        <a href="lich-su-hoc-tap.html">Lịch sử học tập</a>
         <a href="dang-nhap.html" id="mrlee-auth-nav" class="nav-account"><svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg>Đăng ký / Đăng nhập</a>
       </nav>
     </div>
   </header>
-
   <main>
     <section class="hero page-wrap" aria-label="Trang bìa Tiếng Hàn Mr Lee">
       <div class="hero-banner">
@@ -234,7 +257,6 @@
         </div>
       </div>
     </section>
-
     <section class="learning page-wrap" id="chuc-nang" aria-labelledby="learning-title">
       <div class="section-head">
         <span class="section-pill">9 CHỨC NĂNG HỌC TẬP</span>
@@ -293,13 +315,11 @@
         <p><strong>Lưu ý:</strong> Vui lòng đăng nhập và xác minh email trước khi mở bài học, luyện tập hoặc TOPIK. Thi TOPIK Online dẫn tới trang thi chính thức sau khi xác thực.</p>
       </aside>
     </section>
-
     <section class="page-wrap bottom-cta" aria-labelledby="cta-title">
       <div><h2 id="cta-title">Bắt đầu hành trình chinh phục tiếng Hàn</h2><p><span lang="ko">오늘도 한국어를 함께 공부해요!</span> · Cùng học tiếng Hàn mỗi ngày.</p></div>
       <a class="action-btn" href="giao-tiep-theo-chu-de.html">Khám phá câu giao tiếp <svg class="icon icon-sm" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
     </section>
   </main>
-
   <footer class="site-footer">
     <div class="page-wrap">
       <div class="footer-top">
@@ -335,7 +355,6 @@
       <div class="footer-copy">© 2026 Tiếng Hàn Mr Lee. All rights reserved.</div>
     </div>
   </footer>
-
   <!-- Giữ khả năng hiện tên học viên sau khi cấu hình Firebase; menu vẫn chạy nếu Firebase chưa bật. -->
   <script type="module" src="auth-status.js"></script>
   <script>
