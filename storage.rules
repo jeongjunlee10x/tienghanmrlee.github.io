@@ -1,0 +1,17 @@
+// TÙY CHỌN TƯƠNG LAI — Cloud Storage for Firebase yêu cầu Blaze (có thể phát sinh phí).
+// Không cần sử dụng file này khi chỉ dùng Firebase Spark + Cloud Firestore.
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function verified() {
+      return request.auth != null && request.auth.token.email_verified == true;
+    }
+    match /privateLessons/{allPaths=**} {
+      allow read: if verified();
+      allow write: if false;  // Chỉ quản trị viên tải lên bằng công cụ đáng tin cậy.
+    }
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

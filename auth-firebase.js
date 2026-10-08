@@ -42,7 +42,7 @@ function errText(err) {
   const messages = {
     'auth/email-already-in-use': 'Email đã được đăng ký. Hãy chuyển sang Đăng nhập hoặc dùng Quên mật khẩu.',
     'auth/invalid-email': 'Địa chỉ email không hợp lệ.',
-    'auth/weak-password': 'Mật khẩu quá yếu. Hãy đặt mật khẩu có ít nhất 8 ký tự, kết hợp chữ và số.',
+    'auth/weak-password': 'Mật khẩu quá yếu. Hãy đặt từ 10 ký tự, gồm chữ hoa, chữ thường và số.',
     'auth/invalid-credential': 'Email hoặc mật khẩu không đúng.',
     'auth/wrong-password': 'Email hoặc mật khẩu không đúng.',
     'auth/user-not-found': 'Email hoặc mật khẩu không đúng.',
@@ -69,7 +69,7 @@ function setMode(mode) {
   $('full-name').required = signup;
   $('confirm-password').required = signup;
   $('consent').required = signup;
-  $('password').minLength = signup ? 8 : 6;
+  $('password').minLength = signup ? 10 : 6;
   $('password').autocomplete = signup ? 'new-password' : 'current-password';
   $('form-title').textContent = signup ? 'Đăng ký học viên' : 'Đăng nhập học viên';
   $('form-subtitle').textContent = signup ? 'Tạo tài khoản và xác minh email miễn phí.' : 'Dùng email và mật khẩu đã đăng ký.';
@@ -103,7 +103,7 @@ $('auth-form').addEventListener('submit', async e => {
   if (!email) return message('message', 'Vui lòng nhập email.', 'error');
   if (selectedMode === 'register') {
     if ($('full-name').value.trim().length < 2) return message('message', 'Hãy nhập họ và tên.', 'error');
-    if (password.length < 8) return message('message', 'Mật khẩu đăng ký cần ít nhất 8 ký tự.', 'error');
+    if (password.length < 10 || !/[a-z]/.test(password) || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) return message('message', 'Mật khẩu cần ít nhất 10 ký tự, có chữ hoa, chữ thường và số.', 'error');
     if (password !== $('confirm-password').value) return message('message', 'Hai lần nhập mật khẩu không giống nhau.', 'error');
     if (!$('consent').checked) return message('message', 'Vui lòng xác nhận đồng ý với điều khoản xác thực.', 'error');
   }

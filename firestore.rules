@@ -1,0 +1,90 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+    function verified() {
+      return signedIn() && request.auth.token.email_verified == true;
+    }
+    function owner(uid) {
+      return verified() && request.auth.uid == uid;
+    }
+    function profileValid() {
+      return request.resource.data.keys().hasOnly(['displayName', 'createdAt', 'updatedAt'])
+        && request.resource.data.keys().hasAll(['displayName', 'createdAt', 'updatedAt'])
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() >= 2
+        && request.resource.data.displayName.size() <= 80
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.updatedAt is timestamp;
+    }
+    function noteValid() {
+      return request.resource.data.keys().hasOnly(['text', 'createdAt', 'updatedAt'])
+        && request.resource.data.keys().hasAll(['text', 'createdAt', 'updatedAt'])
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 2000
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.updatedAt is timestamp;
+    }
+
+    // Hồ sơ: học viên chỉ xem và sửa tên của chính mình.
+    // Không chứa role/admin/grade vì người dùng có thể sửa dữ liệu phía trình duyệt.
+    match /users/{uid} {
+      allow get: if owner(uid);
+      allow list: if false;
+      allow create: if owner(uid)
+        && profileValid()
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+      allow update: if owner(uid)
+        && profileValid()
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.updatedAt == request.time
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName', 'updatedAt']);
+      allow delete: if false;
+
+      // Sổ tay cá nhân, không học viên nào đọc được ghi chú của người khác.
+      match /notes/{noteId} {
+        allow get, list: if owner(uid);
+        allow create: if owner(uid)
+          && noteValid()
+          && request.resource.data.createdAt == request.time
+          && request.resource.data.updatedAt == request.time;
+        allow update: if owner(uid)
+          && noteValid()
+          && request.resource.data.createdAt == resource.data.createdAt
+          && request.resource.data.updatedAt == request.time
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text', 'updatedAt']);
+        allow delete: if owner(uid);
+      }
+    }
+
+    // Bài học riêng: CHỈ lưu tại Firestore, không đặt bản sao HTML/PDF công khai.
+    // Quản trị viên tạo/sửa qua Firebase Console hoặc backend đáng tin cậy.
+    match /secureLessons/{lessonId} {
+      allow get, list: if verified();
+      allow create, update, delete: if false;
+    }
+
+    // Đề riêng chỉ dành cho tài khoản email đã xác minh.
+    // Chú ý: đáp án nằm trong tài liệu tải về có thể bị xem; không dùng để tổ chức thi chống gian lận.
+    match /secureExams/{examId} {
+      allow get, list: if verified();
+      allow create, update, delete: if false;
+    }
+
+    // Kết quả thi chính thức: chỉ đọc kết quả của mình.
+    // Trình duyệt không thể tự tạo/sửa điểm; cần Cloud Functions hoặc server Admin SDK.
+    match /examResults/{uid}/attempts/{attemptId} {
+      allow get, list: if owner(uid);
+      allow create, update, delete: if false;
+    }
+
+    // Không có quyền mặc định cho các collection khác.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
