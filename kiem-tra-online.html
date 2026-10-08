@@ -1,141 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-<!-- MR LEE AUTH GUARD START -->
-<style id="mrlee-auth-hide">body { visibility: hidden !important; }</style>
-<noscript><style>body { visibility: visible !important; } body > * { display: none !important; } body:before { content:"Can bat JavaScript de su dung trang hoc."; display:block!important; padding:45px; font:16px Arial,sans-serif; }</style></noscript>
-<script type="module" src="auth-guard.js"></script>
-<!-- MR LEE AUTH GUARD END -->
-
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kiểm tra Online - Tiếng Hàn Mr Lee</title>
-  <link rel="stylesheet" href="cssstyle.css">
-  <style>
-    body { background:#f5f7fb; color:#243247; font-family:Arial,sans-serif; margin:0; }
-    .quiz-container { max-width:780px; margin:36px auto; padding:24px; background:white; border-radius:14px; box-shadow:0 4px 20px #152b4915; }
-    .quiz-container h1 { color:#142b4c; margin-top:0; }
-    .quiz-nav { margin-bottom:20px; } .quiz-nav a { color:#142b4c; }
-    #timer-box { padding:12px 16px; background:#edf3fa; border-radius:9px; font-weight:bold; margin:18px 0; }
-    #time { color:#b42318; }
-    .quiz-question { border:1px solid #e3e8ef; padding:18px; margin:18px 0; border-radius:10px; }
-    .quiz-question p { margin-top:0; } .quiz-question label { display:block; padding:8px 5px; cursor:pointer; }
-    .quiz-btn { border:0; border-radius:8px; background:#142b4c; color:white; padding:12px 22px; font-weight:bold; cursor:pointer; }
-    .quiz-btn:disabled { opacity:.5; cursor:not-allowed; }
-    .quiz-hidden { display:none; } #result-box { padding:18px; background:#f0f8f4; border-radius:10px; margin-top:20px; }
-    .answer-detail { margin:8px 0; } .quiz-note { color:#667085; font-size:14px; }
-    @media(max-width:600px){ .quiz-container{margin:12px; padding:18px;} }
-  </style>
-<script defer src="mrlee-i18n.js?v=20261008"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kiểm tra tiếng Hàn theo từng hai bài học Sơ cấp 1 và Sơ cấp 2 — Tiếng Hàn Mr Lee.">
+  <meta name="theme-color" content="#102b4d">
+  <title>Kiểm tra Online theo từng 2 bài | Tiếng Hàn Mr Lee</title>
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="mrlee-online.css">
+  <!-- Giữ lớp kiểm tra đăng nhập Firebase đang sử dụng trên toàn bộ trang học. -->
+  <style id="mrlee-auth-hide">html{visibility:hidden!important}</style>
+  <script type="module" src="auth-guard.js"></script>
+  <!-- Ghi kết quả vào /users/{uid}/practiceAttempts (điểm LUYỆN TẬP). -->
+  <script type="module" src="learning-tracker.js"></script>
+  <script type="module" src="mrlee-online.js"></script>
 </head>
 <body>
-  <main class="quiz-container">
-    <div class="quiz-nav"><a href="index.html">← Về trang chủ</a></div>
-    <h1>Bài kiểm tra Sơ cấp</h1>
-    <p class="quiz-note">Bài kiểm tra mẫu gồm 2 câu, thời gian 15 phút. Nộp bài để xem điểm và đáp án.</p>
-    <div id="timer-box">Thời gian còn lại: <span id="time">15:00</span></div>
-    <form id="quiz-form">
-      <div class="quiz-question">
-        <p><strong>Câu 1:</strong> "안녕하세요" có nghĩa là gì?</p>
-        <label><input type="radio" name="q1" value="A"> A. Xin cảm ơn</label>
-        <label><input type="radio" name="q1" value="B"> B. Xin chào</label>
-        <label><input type="radio" name="q1" value="C"> C. Tạm biệt</label>
+  <a class="skip-link" href="#main">Bỏ qua menu</a>
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="index.html"><img src="images/logo.png" alt="" onerror="this.style.display='none'"><span><strong>TIẾNG HÀN MR LEE</strong><small>KIỂM TRA ONLINE · 온라인 테스트</small></span></a>
+      <nav aria-label="Menu học tập"><a href="index.html">Trang chủ</a><a href="bai-hoc.html">Bài học</a><a class="is-current" href="kiem-tra-online.html" aria-current="page">Kiểm tra Online</a><a href="lich-su-hoc-tap.html">Lịch sử học tập</a><a href="dang-nhap.html">Tài khoản</a></nav>
+    </div>
+  </header>
+  <main id="main" class="shell">
+    <section id="select-view" aria-labelledby="page-title">
+      <div class="page-intro">
+        <span class="eyebrow">ÔN TẬP THEO TIẾN ĐỘ · 단계별 복습</span>
+        <h1 id="page-title">Kiểm tra Online theo từng 2 bài học</h1>
+        <p>Học xong hai bài, làm một bài kiểm tra ngắn. Mỗi đợt gồm <strong>10 câu trắc nghiệm · 15 phút · tự động chấm</strong>, có xem lời giải và lưu điểm theo tài khoản.</p>
       </div>
-      <div class="quiz-question">
-        <p><strong>Câu 2:</strong> Từ nào sau đây có nghĩa là "Sách"?</p>
-        <label><input type="radio" name="q2" value="A"> A. 책</label>
-        <label><input type="radio" name="q2" value="B"> B. 물</label>
-        <label><input type="radio" name="q2" value="C"> C. 가방</label>
+      <div class="choose-level" aria-label="Chọn trình độ">
+        <button type="button" class="level-tab is-active" data-level="sc1" aria-pressed="true">Sơ cấp 1 <span lang="ko">초급 1</span></button>
+        <button type="button" class="level-tab" data-level="sc2" aria-pressed="false">Sơ cấp 2 <span lang="ko">초급 2</span></button>
       </div>
-      <button type="submit" id="submit-btn" class="quiz-btn">Nộp bài</button>
-    </form>
-    <section id="result-box" class="quiz-hidden" aria-live="polite">
-      <h2>Kết quả: <span id="score"></span> / 2 điểm</h2>
-      <p id="feedback"></p>
-      <div id="answer-review"></div>
-      <button type="button" class="quiz-btn" id="retry-btn">Làm lại</button>
+      <div class="section-row"><div><h2 id="level-title">Các lần kiểm tra – Sơ cấp 1</h2><p>Chọn đợt tương ứng với những bài đã học.</p></div><span class="count-label" id="batch-count">8 đợt kiểm tra</span></div>
+      <div id="test-list" class="test-grid"></div>
+      <div class="explain-note"><span aria-hidden="true">ⓘ</span><p>Giáo trình có 15 bài mỗi cấp nên <strong>Lần 8 ôn riêng Bài 15</strong>. Kết quả lưu lên Firebase (khi đăng nhập, đã xác minh email và Firestore Rules cho phép) là <strong>điểm luyện tập tham khảo</strong>, không phải điểm thi chính thức.</p></div>
+    </section>
+    <section id="exam-view" class="hidden" aria-label="Làm bài kiểm tra">
+      <div class="exam-heading"><button id="back-to-tests" class="text-btn" type="button">← Danh sách đợt kiểm tra</button><h1 id="exam-title">Đợt kiểm tra</h1><p id="exam-subtitle"></p></div>
+      <div class="exam-toolbar"><div class="toolbar-stat"><span class="stat-label">Đã trả lời</span><strong id="answered-count">0/10</strong></div><div class="toolbar-stat"><span class="stat-label">Thời gian còn lại</span><strong class="timer" id="timer" role="timer">15:00</strong></div><button type="button" id="submit-top" class="primary-btn">Nộp bài</button></div>
+      <div class="bar" aria-hidden="true"><span id="completion-bar"></span></div>
+      <div id="questions" class="questions"></div>
+      <div class="bottom-actions"><button type="button" id="submit-bottom" class="primary-btn">Nộp bài và xem kết quả</button></div>
+    </section>
+    <section id="result-box" class="result-area hidden" aria-live="polite" aria-labelledby="result-title">
+      <span class="eyebrow">KẾT QUẢ ÔN TẬP · 학습 결과</span><h1 id="result-title">Bạn đã hoàn thành bài kiểm tra!</h1>
+      <p id="result-description"></p>
+      <div class="result-summary"><div><span class="stat-label">Điểm</span><strong id="result-score">0/10</strong></div><div><span class="stat-label">Tỷ lệ đúng</span><strong id="result-percent">0%</strong></div><div><span class="stat-label">Thời gian</span><strong id="result-duration">0 phút</strong></div></div>
+      <div id="lesson-breakdown" class="lesson-breakdown"></div>
+      <div class="result-actions"><button type="button" id="review-toggle" class="secondary-btn" aria-expanded="false">Xem đáp án và giải thích</button><button type="button" id="retry-btn" class="primary-btn">Làm lại đề này</button><button type="button" id="next-btn" class="secondary-btn">Kiểm tra lần tiếp theo →</button><a href="lich-su-hoc-tap.html" class="secondary-btn">Lịch sử điểm</a><button type="button" id="return-btn" class="text-btn">Danh sách đề</button></div>
+      <div id="answer-review" class="hidden"></div>
     </section>
   </main>
-  <script>
-    (() => {
-      'use strict';
-      const form = document.getElementById('quiz-form');
-      const time = document.getElementById('time');
-      const submitButton = document.getElementById('submit-btn');
-      const result = document.getElementById('result-box');
-      const correct = { q1: 'B', q2: 'A' };
-      const descriptions = { q1: '안녕하세요 = Xin chào.', q2: '책 = Sách.' };
-      let remaining = 15 * 60;
-      let finished = false;
-      let timer;
-
-      function formatTime(seconds) {
-        return `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
-      }
-      function submitQuiz(expired = false) {
-        if (finished) return;
-        finished = true;
-        clearInterval(timer);
-        let score = 0;
-        const details = [];
-        Object.entries(correct).forEach(([question, answer], index) => {
-          const chosen = form.elements[question].value;
-          const isCorrect = chosen === answer;
-          if (isCorrect) score++;
-          details.push(`Câu ${index + 1}: ${isCorrect ? 'Đúng' : 'Sai hoặc chưa trả lời'} — ${descriptions[question]}`);
-        });
-        document.getElementById('score').textContent = String(score);
-        window.dispatchEvent(new CustomEvent('mrlee:practice-finished', {
-          detail: {
-            examId: 'online-demo', examTitle: 'Kiá»ƒm tra Online (bÃ i máº«u)',
-            level: 'general', score: score, total: 2,
-            durationSeconds: Math.max(0, 15 * 60 - remaining)
-          }
-        }));
-        document.getElementById('feedback').textContent = (expired ? 'Đã hết giờ. ' : '') +
-          (score === 2 ? 'Bạn đã trả lời đúng cả 2 câu!' : 'Bạn hãy xem lại đáp án và luyện tập thêm nhé.');
-        const review = document.getElementById('answer-review');
-        review.replaceChildren();
-        details.forEach(detail => {
-          const p = document.createElement('p');
-          p.className = 'answer-detail';
-          p.textContent = detail;
-          review.appendChild(p);
-        });
-        submitButton.disabled = true;
-        form.querySelectorAll('input').forEach(input => { input.disabled = true; });
-        result.classList.remove('quiz-hidden');
-        result.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-      function startTimer() {
-        time.textContent = formatTime(remaining);
-        timer = setInterval(() => {
-          if (finished) return;
-          remaining = Math.max(0, remaining - 1);
-          time.textContent = formatTime(remaining);
-          if (remaining === 0) submitQuiz(true);
-        }, 1000);
-      }
-      form.addEventListener('submit', event => {
-        event.preventDefault();
-        const answered = Object.keys(correct).filter(q => form.elements[q].value).length;
-        if (answered < 2 && !window.confirm('Bạn chưa trả lời hết câu hỏi. Vẫn nộp bài?')) return;
-        submitQuiz();
-      });
-      document.getElementById('retry-btn').addEventListener('click', () => {
-        clearInterval(timer);
-        form.reset();
-        finished = false;
-        remaining = 15 * 60;
-        submitButton.disabled = false;
-        form.querySelectorAll('input').forEach(input => { input.disabled = false; });
-        result.classList.add('quiz-hidden');
-        startTimer();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-      startTimer();
-    })();
-  </script>
-<script type="module" src="learning-tracker.js"></script>
+  <footer class="footer">© 2026 Tiếng Hàn Mr Lee · <a href="index.html">Trang chủ</a> · <a href="mailto:tienghanmrlee@gmail.com">Liên hệ</a></footer>
 </body>
 </html>
