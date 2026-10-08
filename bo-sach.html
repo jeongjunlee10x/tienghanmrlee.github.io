@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Thư viện Bộ sách Tiếng Hàn Tổng Hợp gồm 6 cấp độ tại Tiếng Hàn Mr Lee.">
+  <title>Bộ sách Tiếng Hàn Tổng Hợp | Tiếng Hàn Mr Lee</title>
+  <link rel="stylesheet" href="cssstyle.css">
+  <style>
+    .books-hero { background:linear-gradient(125deg,#102d58,#1c5790); color:#fff; padding:76px 22px; text-align:center; }
+    .books-hero .books-eyebrow {display:inline-block;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:8px 16px;font-weight:700;letter-spacing:.04em}
+    .books-hero h1 {font-size:clamp(2rem,4vw,3.2rem);margin:18px 0 12px;line-height:1.25;color:#fff}
+    .books-hero p {max-width:690px;margin:0 auto;color:#e1ebf8;line-height:1.8}
+    .books-section {padding-top:54px;padding-bottom:65px}
+    .books-intro {text-align:center;margin-bottom:32px}
+    .books-intro h2 {margin:10px 0;font-size:clamp(1.5rem,3vw,2.1rem)}
+    .books-intro p {color:#64748b;margin:0 auto;max-width:720px;line-height:1.7}
+    .books-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+    .book-card {display:flex;flex-direction:column;min-width:0;background:#fff;border:1px solid #e5eaf2;border-radius:20px;overflow:hidden;box-shadow:0 8px 25px rgba(15,35,68,.06);transition:transform .2s,box-shadow .2s}
+    .book-card:hover {transform:translateY(-4px);box-shadow:0 16px 35px rgba(15,35,68,.13)}
+    .book-cover {padding:32px 22px;min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:linear-gradient(135deg,#e7f1ff,#c6ddfa);color:#183c72;text-align:center}
+    .book-cover.intermediate {background:linear-gradient(135deg,#e8f8f2,#c2e9dc);color:#17674e}
+    .book-cover.advanced {background:linear-gradient(135deg,#fff3e7,#ffe0b7);color:#955319}
+    .book-cover .book-icon {font-size:3.1rem;line-height:1}
+    .book-cover strong {font-size:1.25rem}
+    .book-body {padding:25px;display:flex;flex-direction:column;flex:1}
+    .book-badge {font-size:.77rem;font-weight:800;letter-spacing:.08em;color:#2464a7;text-transform:uppercase}
+    .book-body h3 {margin:10px 0;font-size:1.4rem;color:#173153}
+    .book-body p {color:#52647a;line-height:1.75;margin:0 0 24px;flex:1}
+    .book-open {display:inline-flex;justify-content:center;align-items:center;gap:8px;text-align:center;text-decoration:none!important;background:#1755a0;color:white!important;border-radius:12px;padding:13px 16px;font-weight:700;transition:background .2s}
+    .book-open:hover,.book-open:focus-visible {background:#0c3971}
+    .books-note {margin-top:30px;padding:18px 22px;background:#f1f6fd;border:1px solid #d9e6f5;border-radius:14px;color:#415674;line-height:1.75}
+    @media(max-width:950px){.books-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:640px){.books-grid{grid-template-columns:1fr}.books-hero{padding:56px 18px}.books-section{padding-top:35px}.book-cover{min-height:155px}}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo"><img src="images/logo.png" alt="Tiếng Hàn Mr Lee" class="logo-img"></a>
+      <button class="menu-toggle" type="button" aria-label="Mở menu" aria-controls="main-nav" aria-expanded="false">☰</button>
+      <nav class="nav" id="main-nav" aria-label="Điều hướng chính">
+        <a href="index.html">Trang chủ</a>
+        <a href="bai-hoc.html">Bài học</a>
+        <a href="bo-sach.html" class="active" aria-current="page">Bộ sách</a>
+        <a href="de-thi-topik.html">Đề TOPIK</a>
+        <a href="thi-topik-online.html">Thi TOPIK</a>
+        <a href="kiem-tra-dau-vao.html">Kiểm tra đầu vào</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="books-hero">
+    <span class="books-eyebrow">📖 THƯ VIỆN TÀI LIỆU</span>
+    <h1>Bộ sách Tiếng Hàn Tổng Hợp</h1>
+    <p>Khám phá tài liệu học tiếng Hàn theo 6 cấp độ. Chọn trình độ để mở thư mục tài liệu tương ứng trên Google Drive.</p>
+  </section>
+
+  <main class="container">
+    <section class="books-section" aria-labelledby="books-title">
+      <div class="books-intro">
+        <span class="section-label">6 CẤP ĐỘ HỌC TẬP</span>
+        <h2 id="books-title">Chọn bộ sách phù hợp</h2>
+        <p>Từ nền tảng sơ cấp đến kiến thức cao cấp. Tài liệu được mở trong tab mới để bạn dễ quay lại website.</p>
+      </div>
+      <div class="books-grid">
+        <article class="book-card">
+          <div class="book-cover"><span class="book-icon" aria-hidden="true">📘</span><strong>SƠ CẤP 1</strong></div>
+          <div class="book-body"><span class="book-badge">Cấp độ 01 · Beginner</span><h3>Tiếng Hàn Tổng Hợp – Sơ cấp 1</h3><p>Bắt đầu với bảng chữ cái, từ vựng, ngữ pháp và giao tiếp căn bản.</p><a class="book-open" href="https://drive.google.com/drive/folders/1bQkJ8RwA8xjjxoXiRkSmUesPzV4145C5?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Mở tài liệu Sơ cấp 1 trên Google Drive">Mở tài liệu ↗</a></div>
+        </article>
+        <article class="book-card">
+          <div class="book-cover"><span class="book-icon" aria-hidden="true">📗</span><strong>SƠ CẤP 2</strong></div>
+          <div class="book-body"><span class="book-badge">Cấp độ 02 · Beginner</span><h3>Tiếng Hàn Tổng Hợp – Sơ cấp 2</h3><p>Mở rộng vốn từ, cấu trúc câu và các tình huống giao tiếp hằng ngày.</p><a class="book-open" href="https://drive.google.com/drive/folders/1sAUiSTleNQOF9YANU_xYA5pplGFpwU5s?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Mở tài liệu Sơ cấp 2 trên Google Drive">Mở tài liệu ↗</a></div>
+        </article>
+        <article class="book-card">
+          <div class="book-cover intermediate"><span class="book-icon" aria-hidden="true">📙</span><strong>TRUNG CẤP 1</strong></div>
+          <div class="book-body"><span class="book-badge">Cấp độ 03 · Intermediate</span><h3>Tiếng Hàn Tổng Hợp – Trung cấp 1</h3><p>Phát triển khả năng diễn đạt và sử dụng các cấu trúc ngữ pháp trung cấp.</p><a class="book-open" href="https://drive.google.com/drive/folders/1C_oV26Axk5Uhhd9_5OzZNACRK5E5GjMH?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Mở tài liệu Trung cấp 1 trên Google Drive">Mở tài liệu ↗</a></div>
+        </article>
+        <article class="book-card">
+          <div class="book-cover intermediate"><span class="book-icon" aria-hidden="true">📒</span><strong>TRUNG CẤP 2</strong></div>
+          <div class="book-body"><span class="book-badge">Cấp độ 04 · Intermediate</span><h3>Tiếng Hàn Tổng Hợp – Trung cấp 2</h3><p>Luyện đọc hiểu, diễn đạt ý kiến và giao tiếp trong tình huống đa dạng.</p><a class="book-open" href="https://drive.google.com/drive/folders/1uBJfLh1Ee35eAxAXfqXXLT98akSwlPoU?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Mở tài liệu Trung cấp 2 trên Google Drive">Mở tài liệu ↗</a></div>
+        </article>
+        <article class="book-card">
+          <div class="book-cover advanced"><span class="book-icon" aria-hidden="true">📕</span><strong>CAO CẤP 1</strong></div>
+          <div class="book-body"><span class="book-badge">Cấp độ 05 · Advanced</span><h3>Tiếng Hàn Tổng Hợp – Cao cấp 1</h3><p>Tiếp cận ngôn ngữ học thuật và các chủ đề phức tạp hơn.</p><a class="book-open" href="https://drive.google.com/drive/folders/17qVx5BkNjd1EcYg0v5-wqQaK6FQk-VKK?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Mở tài liệu Cao cấp 1 trên Google Drive">Mở tài liệu ↗</a></div>
+        </article>
+        <article class="book-card">
+          <div class="book-cover advanced"><span class="book-icon" aria-hidden="true">📚</span><strong>CAO CẤP 2</strong></div>
+          <div class="book-body"><span class="book-badge">Cấp độ 06 · Advanced</span><h3>Tiếng Hàn Tổng Hợp – Cao cấp 2</h3><p>Nâng cao khả năng sử dụng tiếng Hàn trong học tập và giao tiếp chuyên sâu.</p><a class="book-open" href="https://drive.google.com/drive/folders/1h71vUoaPBGApwqiQFYVpY_bGMwRpk3X1?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Mở tài liệu Cao cấp 2 trên Google Drive">Mở tài liệu ↗</a></div>
+        </article>
+      </div>
+      <div class="books-note"><strong>💡 Lưu ý:</strong> Tài liệu được lưu trên Google Drive. Nếu một liên kết yêu cầu quyền truy cập, hãy kiểm tra cài đặt chia sẻ của thư mục đó. Chỉ chia sẻ công khai tài liệu khi bạn có quyền phân phối.</div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div><h3>🇰🇷 Tiếng Hàn Mr Lee</h3><p>Hệ thống học tập và luyện thi tiếng Hàn dành cho học sinh.</p></div>
+      <div class="footer-links"><a href="index.html">Trang chủ</a><a href="bai-hoc.html">Bài học</a><a href="bo-sach.html">Bộ sách</a><a href="de-thi-topik.html">Đề TOPIK</a><a href="thi-topik-online.html">Thi TOPIK</a><a href="kiem-tra-dau-vao.html">Kiểm tra đầu vào</a></div>
+    </div>
+    <div class="copyright">© 2026 Tiếng Hàn Mr Lee. All rights reserved.</div>
+  </footer>
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav');
+    if (menuToggle && nav) {
+      menuToggle.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('show');
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+      });
+    }
+  </script>
+</body>
+</html>
