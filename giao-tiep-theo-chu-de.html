@@ -85,4 +85,5 @@ e('flashPrev').addEventListener('click',()=>{if(st.flashIndex>0){st.flashIndex--
 e('flashNext').addEventListener('click',()=>{if(st.flashIndex<st.cards.length-1){st.flashIndex++;st.flashRevealed=false;renderFlash()}});
 e('flashShuffle').addEventListener('click',()=>{for(let i=st.cards.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[st.cards[i],st.cards[j]]=[st.cards[j],st.cards[i]]}st.flashIndex=0;st.flashRevealed=false;renderFlash();notify('Đã trộn thứ tự thẻ.')});
 renderAll();
-</script></body></html>
+</script><script type="module" src="learning-tracker.js"></script>
+</body></html>

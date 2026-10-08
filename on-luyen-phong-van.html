@@ -116,4 +116,5 @@ el('recordBtn').addEventListener('click',async()=>{if(!navigator.mediaDevices?.g
 el('stopRecordBtn').addEventListener('click',stopRecording);
 window.addEventListener('pagehide',()=>{stopRecording();window.speechSynthesis?.cancel?.()});
 renderList();renderQuestion();
-</script></body></html>
+</script><script type="module" src="learning-tracker.js"></script>
+</body></html>

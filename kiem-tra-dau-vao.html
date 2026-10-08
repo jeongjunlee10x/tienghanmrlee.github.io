@@ -2390,6 +2390,17 @@ function submitQuiz(expired = false) {
   const points = QUESTIONS.reduce((sum,q,index) => sum + Number(state.answers[index] === q.answer),0);
   const percent = Math.round(points / QUESTIONS.length * 100);
   const meta = LEVEL_META[state.selectedLevel];
+  window.dispatchEvent(new CustomEvent('mrlee:practice-finished', {
+    detail: {
+      examId: 'placement-' + state.selectedLevel,
+      examTitle: 'Kiá»ƒm tra Ä‘áº§u vÃ o ' + meta.name,
+      level: state.selectedLevel,
+      score: points,
+      total: QUESTIONS.length,
+      durationSeconds: Math.max(0, Math.min(DURATION_SECONDS,
+        Math.round((Date.now() - (state.deadline - DURATION_SECONDS * 1000)) / 1000)))
+    }
+  }));
   let level, description;
   if (points < 20) {level = `Cần củng cố ${meta.name}`;description = "Nên học lại kiến thức nền tảng của trình độ đã chọn, đặc biệt là các chủ đề trả lời sai.";}
   else if (points < 35) {level = `Đang củng cố ${meta.name}`;description = "Đã có kiến thức một phần. Nên luyện từ vựng, ngữ pháp và đọc hiểu ở các nhóm câu còn sai.";}
@@ -2476,5 +2487,6 @@ window.addEventListener("beforeunload",event=>{
   if(state.running){event.preventDefault();event.returnValue="";}
 });
 </script>
+<script type="module" src="learning-tracker.js"></script>
 </body>
 </html>

@@ -45,6 +45,57 @@ service cloud.firestore {
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName', 'updatedAt']);
       allow delete: if false;
 
+      // Nhật ký học tập: chỉ tài khoản đã xác minh được tạo/xem lịch sử của chính mình.
+      // Dữ liệu do trình duyệt gửi chỉ là hoạt động tham khảo, có thể bị giả mạo.
+      match /learningEvents/{eventId} {
+        allow get: if owner(uid);
+        allow list: if owner(uid) && request.query.limit <= 100;
+        allow create: if owner(uid)
+          && request.resource.data.keys().hasOnly(['kind','page','title','detail','createdAt'])
+          && request.resource.data.keys().hasAll(['kind','page','title','detail','createdAt'])
+          && request.resource.data.kind in ['visit','lesson','topic','practice']
+          && request.resource.data.page is string
+          && request.resource.data.page.size() <= 60
+          && request.resource.data.page.matches('^[a-z0-9-]+[.]html$')
+          && request.resource.data.title is string
+          && request.resource.data.title.size() >= 1
+          && request.resource.data.title.size() <= 110
+          && request.resource.data.detail is string
+          && request.resource.data.detail.size() <= 110
+          && request.resource.data.createdAt is timestamp
+          && request.resource.data.createdAt == request.time;
+        allow update, delete: if false;
+      }
+
+      // KẾT QUẢ LUYỆN TẬP, không phải điểm thi chính thức (examResults).
+      // Điểm từ JavaScript không thể được xác thực bằng Security Rules.
+      match /practiceAttempts/{attemptId} {
+        allow get: if owner(uid);
+        allow list: if owner(uid) && request.query.limit <= 100;
+        allow create: if owner(uid)
+          && request.resource.data.keys().hasOnly(['examId','examTitle','level','score','total','durationSeconds','source','createdAt'])
+          && request.resource.data.keys().hasAll(['examId','examTitle','level','score','total','durationSeconds','source','createdAt'])
+          && request.resource.data.examId is string
+          && request.resource.data.examId.matches('^[a-z0-9-]{1,60}$')
+          && request.resource.data.examTitle is string
+          && request.resource.data.examTitle.size() >= 1
+          && request.resource.data.examTitle.size() <= 110
+          && request.resource.data.level in ['sc1','sc2','tc1','general']
+          && request.resource.data.score is int
+          && request.resource.data.total is int
+          && request.resource.data.total >= 1
+          && request.resource.data.total <= 100
+          && request.resource.data.score >= 0
+          && request.resource.data.score <= request.resource.data.total
+          && request.resource.data.durationSeconds is int
+          && request.resource.data.durationSeconds >= 0
+          && request.resource.data.durationSeconds <= 7200
+          && request.resource.data.source == 'client_practice'
+          && request.resource.data.createdAt is timestamp
+          && request.resource.data.createdAt == request.time;
+        allow update, delete: if false;
+      }
+
       // Sổ tay cá nhân, không học viên nào đọc được ghi chú của người khác.
       match /notes/{noteId} {
         allow get, list: if owner(uid);

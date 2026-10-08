@@ -84,6 +84,13 @@
           details.push(`Câu ${index + 1}: ${isCorrect ? 'Đúng' : 'Sai hoặc chưa trả lời'} — ${descriptions[question]}`);
         });
         document.getElementById('score').textContent = String(score);
+        window.dispatchEvent(new CustomEvent('mrlee:practice-finished', {
+          detail: {
+            examId: 'online-demo', examTitle: 'Kiá»ƒm tra Online (bÃ i máº«u)',
+            level: 'general', score: score, total: 2,
+            durationSeconds: Math.max(0, 15 * 60 - remaining)
+          }
+        }));
         document.getElementById('feedback').textContent = (expired ? 'Đã hết giờ. ' : '') +
           (score === 2 ? 'Bạn đã trả lời đúng cả 2 câu!' : 'Bạn hãy xem lại đáp án và luyện tập thêm nhé.');
         const review = document.getElementById('answer-review');
@@ -128,5 +135,6 @@
       startTimer();
     })();
   </script>
+<script type="module" src="learning-tracker.js"></script>
 </body>
 </html>
