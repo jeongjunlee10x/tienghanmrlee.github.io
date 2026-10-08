@@ -2,260 +2,327 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Tiếng Hàn Mr Lee - Học tiếng Hàn, luyện giao tiếp, ôn phỏng vấn, luyện đề TOPIK và kiểm tra trình độ trực tuyến.">
-  <title>Tiếng Hàn Mr Lee | Học &amp; Luyện thi tiếng Hàn</title>
-  <link rel="stylesheet" href="cssstyle.css">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Tiếng Hàn Mr Lee: bài học Sơ cấp, giao tiếp theo chủ đề, ôn luyện phỏng vấn, kiểm tra trình độ và luyện thi TOPIK.">
+  <meta name="theme-color" content="#102b4d">
+  <title>Tiếng Hàn Mr Lee | Học tiếng Hàn dễ hiểu, dễ nhớ</title>
+  <link rel="icon" href="images/logo.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Be Vietnam Pro: tiếng Việt có dấu; Noto Sans KR: chữ Hàn chuẩn -->
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-
-    /* Trang bìa Tiếng Hàn Mr Lee – tách biệt với CSS chung */
-    .mrlee-cover { width:100%; background:#f5f8fd; padding:14px 16px 22px; }
-    .mrlee-cover-frame { position:relative; max-width:1536px; margin:0 auto; overflow:hidden; border-radius:20px; box-shadow:0 18px 48px rgba(20,43,76,.14); background:#eaf2fb; }
-    .mrlee-cover-image { display:block; width:100%; height:auto; }
-    .mrlee-cover-hotspots { position:absolute; display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:.6%; left:1.7%; width:96.7%; top:60%; height:29.3%; }
-    .mrlee-cover-hotspots a { display:block; border:2px solid transparent; border-radius:18px; outline-offset:-4px; transition:background .16s ease,border-color .16s ease; }
-    .mrlee-cover-hotspots a:hover { background:rgba(255,255,255,.17); border-color:rgba(20,43,76,.7); }
-    .mrlee-cover-hotspots a:focus-visible { outline:4px solid #142b4c; background:rgba(255,255,255,.23); }
-    .mrlee-cover-sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
-    .mrlee-cover-cta { display:flex; justify-content:center; flex-wrap:wrap; gap:12px; margin:18px auto 0; }
-    .mrlee-cover-cta a { display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none; font-weight:800; border-radius:11px; padding:12px 19px; background:#142b4c; color:#fff; box-shadow:0 6px 16px rgba(20,43,76,.14); }
-    .mrlee-cover-cta a:nth-child(2) { background:#f0782e; color:#fff; }
-    .mrlee-cover-cta a:hover,.mrlee-cover-cta a:focus-visible { filter:brightness(1.12); transform:translateY(-1px); }
-    .mrlee-cover-mobile-links { display:none; }
-    @media(max-width:720px) {
-      .mrlee-cover { padding:10px 10px 18px; }
-      .mrlee-cover-frame { border-radius:14px; }
-      .mrlee-cover-image { width:100%; height:auto; }
-      .mrlee-cover-hotspots { display:none; }
-      .mrlee-cover-cta { display:none; }
-      .mrlee-cover-mobile-links { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:13px auto 0; max-width:680px; }
-      .mrlee-cover-mobile-links a { text-align:center; display:flex; align-items:center; justify-content:center; min-height:55px; padding:11px 8px; background:white; border:1px solid #dce5f2; border-radius:12px; color:#142b4c; text-decoration:none; font-size:13px; line-height:1.35; font-weight:800; box-shadow:0 3px 12px rgba(20,43,76,.06); }
-      .mrlee-cover-mobile-links a:hover,.mrlee-cover-mobile-links a:focus-visible { border-color:#ef8c36; background:#fff8f2; }
+    :root{
+      --navy:#102b4d;--navy-2:#1a4169;--orange:#ee773f;--orange-2:#fff0e7;
+      --ink:#18314d;--muted:#68788e;--line:#e4eaf2;--surface:#fff;
+      --bg:#f6f8fc;--shadow:0 11px 32px rgba(16,43,77,.065);
     }
-    @media(prefers-reduced-motion:reduce) { .mrlee-cover-hotspots a,.mrlee-cover-cta a { transition:none; } }
-    .mrlee-practice-section{margin:10px 0 44px}
-    .mrlee-practice-heading{text-align:center;margin:0 auto 22px;max-width:680px}
-    .mrlee-practice-heading .eyebrow{font-size:12px;font-weight:800;letter-spacing:.13em;color:#b66b20}
-    .mrlee-practice-heading h2{color:#142b4c;font-size:clamp(24px,3vw,32px);margin:8px 0}
-    .mrlee-practice-heading p{color:#667085;margin:0;line-height:1.7}
-    .mrlee-practice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
-    .mrlee-practice-card{position:relative;overflow:hidden;text-decoration:none;color:#fff;min-height:245px;padding:30px;border-radius:22px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:19px;box-shadow:0 14px 35px rgba(20,43,76,.16);transition:transform .2s,box-shadow .2s}
-    .mrlee-practice-card:hover,.mrlee-practice-card:focus-visible{transform:translateY(-4px);box-shadow:0 19px 42px rgba(20,43,76,.24)}
-    .mrlee-practice-card:focus-visible{outline:3px solid #ef8c36;outline-offset:3px}
-    .mrlee-practice-card:after{content:'';position:absolute;width:225px;height:225px;border-radius:50%;right:-80px;top:-105px;border:45px solid rgba(255,255,255,.08);pointer-events:none}
-    .mrlee-practice-card--interview{background:linear-gradient(125deg,#112b4f,#28568b)}
-    .mrlee-practice-card--speaking{background:linear-gradient(125deg,#ac541d,#f29c48)}
-    .mrlee-practice-card .kicker{display:block;font-size:12px;font-weight:800;letter-spacing:.1em;opacity:.85}
-    .mrlee-practice-card h3{color:#fff;font-size:clamp(21px,2.3vw,26px);margin:8px 0 9px}
-    .mrlee-practice-card p{color:rgba(255,255,255,.91);margin:0;max-width:380px;font-size:14px;line-height:1.65}
-    .mrlee-practice-card .cta{display:inline-flex;gap:10px;align-items:center;background:#fff;color:#142b4c;border-radius:10px;padding:11px 17px;font-size:14px;font-weight:800}
-    .mrlee-practice-card .badge-icon{font-size:33px;display:block;margin-bottom:13px}
-    @media(max-width:680px){.mrlee-practice-grid{grid-template-columns:1fr;gap:14px}.mrlee-practice-card{min-height:215px;padding:24px}}
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.72 "Be Vietnam Pro","Noto Sans KR","Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+    :lang(ko){font-family:"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;letter-spacing:0;word-break:keep-all}
+    button,a{font:inherit}
+    a{color:inherit}
+    button{cursor:pointer}
+    button:focus-visible,a:focus-visible{outline:3px solid #ee773f;outline-offset:4px}
+    img{max-width:100%;display:block}
+    .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .skip{position:absolute;top:-80px;left:18px;z-index:1001;border-radius:10px;padding:10px 18px;background:var(--navy);color:#fff;text-decoration:none}
+    .skip:focus{top:15px}
+    .page-wrap{width:min(1180px,calc(100% - 42px));margin-inline:auto}
+    .icon{width:22px;height:22px;flex:none;display:inline-block;vertical-align:middle;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+    .icon-sm{width:17px;height:17px}
+    /* Header: tách khỏi CSS của các trang cũ để không xung đột */
+    .site-header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.97);border-bottom:1px solid #e9edf3;backdrop-filter:blur(18px)}
+    .header-layout{height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:max-content}
+    .brand img{width:64px;height:56px;object-fit:contain}
+    .brand-text{display:flex;flex-direction:column;line-height:1.25;font-weight:800;font-size:16px;letter-spacing:-.5px;color:var(--navy)}
+    .brand-text small{margin-top:5px;color:#de7040;font-size:10px;letter-spacing:.05em;font-weight:700}
+    .site-nav{display:flex;align-items:center;gap:4px}
+    .site-nav a{padding:10px 11px;border-radius:9px;text-decoration:none;font-weight:700;font-size:12px;color:#30465f;line-height:1.45;white-space:nowrap;transition:background .18s,color .18s}
+    .site-nav a:hover,.site-nav a[aria-current="page"]{color:var(--navy);background:#eef3fa}
+    .site-nav .nav-account{background:var(--navy);color:#fff;padding:11px 14px;display:inline-flex;align-items:center;gap:8px;margin-left:7px;max-width:220px;overflow:hidden;text-overflow:ellipsis}
+    .site-nav .nav-account:hover{background:#234c79;color:#fff}
+    .nav-account .icon{width:16px;height:16px}
+    .menu-toggle{display:none;align-items:center;justify-content:center;width:45px;height:45px;background:#f3f6fa;color:var(--navy);border:1px solid #e4eaf2;border-radius:12px}
+    /* Hero cover: cắt phần các nút vẽ sẵn trong ảnh, thay bằng các nút thật */
+    .hero{padding-top:28px}
+    .hero-banner{position:relative;overflow:hidden;border-radius:24px;background:#dcecf8;box-shadow:0 14px 42px rgba(16,43,77,.12)}
+    .hero-banner picture,.hero-banner img{display:block;width:100%}
+    .hero-banner img{width:100%;height:auto;object-fit:contain}
+    .hero-overview{position:relative;display:flex;align-items:center;justify-content:space-between;gap:24px;margin:-17px 24px 0;padding:22px 26px 22px 29px;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:11px;letter-spacing:.105em;color:#c36532;text-transform:uppercase}
+    .eyebrow .icon{width:16px;height:16px}
+    .hero-overview h1{font-size:clamp(21px,2.3vw,29px);line-height:1.42;letter-spacing:-.75px;color:var(--navy);margin:6px 0}
+    .hero-overview p{font-size:13px;color:var(--muted);margin:0}
+    .hero-actions{display:flex;align-items:center;gap:10px;flex:none;flex-wrap:wrap}
+    .action-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:47px;padding:10px 16px;font-size:13px;font-weight:800;line-height:1.35;text-decoration:none;border:1px solid transparent;border-radius:11px;transition:transform .18s,background .18s}
+    .action-btn:hover{transform:translateY(-2px)}
+    .action-btn.primary{background:var(--navy);color:#fff}
+    .action-btn.primary:hover{background:#204975}
+    .action-btn.secondary{background:#fff2e9;border-color:#ffdac6;color:#9a4d25}
+    .action-btn.secondary:hover{background:#ffe7d7}
+    /* Nội dung + thẻ chức năng */
+    .learning{padding:66px 0 68px}
+    .section-head{text-align:center;max-width:740px;margin:0 auto 30px}
+    .section-head h2{font-size:clamp(25px,3.2vw,34px);letter-spacing:-.9px;line-height:1.4;color:var(--navy);margin:9px 0 11px;font-weight:800}
+    .section-head p{font-size:14px;line-height:1.9;margin:0;color:var(--muted)}
+    .section-pill{padding:6px 13px;border-radius:99px;background:#e7effb;color:#365f8b;letter-spacing:.07em;text-transform:uppercase;font-size:11px;font-weight:800}
+    .feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    .feature-card{--accent:#295c90;--tint:#edf5ff;position:relative;display:flex;flex-direction:column;gap:14px;min-height:236px;padding:25px 25px 21px;background:var(--surface);border:1px solid var(--line);border-radius:20px;text-decoration:none;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,border-color .2s;overflow:hidden}
+    .feature-card::after{content:"";position:absolute;right:-38px;top:-42px;width:120px;height:120px;border-radius:50%;background:var(--tint);opacity:.65;pointer-events:none}
+    .feature-card:hover,.feature-card:focus-visible{transform:translateY(-5px);box-shadow:0 18px 34px rgba(16,43,77,.12);border-color:#cad8e6}
+    .feature-card .icon-box{z-index:1;display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:15px;background:var(--tint);color:var(--accent)}
+    .feature-card .icon-box .icon{width:28px;height:28px;stroke-width:1.85}
+    .feature-card-content{z-index:1;flex:1}
+    .feature-card h3{font-size:17px;font-weight:800;line-height:1.5;letter-spacing:-.3px;color:var(--navy);margin:0 0 6px}
+    .feature-card p{font-size:12.5px;line-height:1.8;margin:0;color:#68788b}
+    .card-bottom{z-index:1;display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:13px;border-top:1px solid #eff2f5;color:var(--accent);font-size:12.5px;font-weight:800}
+    .arrow-chip{width:29px;height:29px;display:grid;place-items:center;border-radius:50%;background:var(--tint)}
+    .arrow-chip .icon{width:17px;height:17px}
+    .feature-card[data-theme="orange"]{--accent:#d56d34;--tint:#fff1e7}
+    .feature-card[data-theme="green"]{--accent:#187e68;--tint:#e8f8f1}
+    .feature-card[data-theme="violet"]{--accent:#7759b7;--tint:#f2edff}
+    .feature-card[data-theme="blue"]{--accent:#2864a3;--tint:#e9f2ff}
+    .feature-card[data-theme="rose"]{--accent:#bc4f72;--tint:#fff0f5}
+    .feature-card[data-theme="teal"]{--accent:#147b86;--tint:#e7f7f8}
+    .feature-card[data-theme="gold"]{--accent:#ab7a14;--tint:#fff7e3}
+    .feature-card[data-theme="slate"]{--accent:#475c7f;--tint:#edf2f8}
+    .notice{margin-top:27px;padding:16px 21px;display:flex;align-items:flex-start;gap:12px;background:#edf3fb;border:1px solid #dce7f3;border-radius:15px;color:#415e7e;font-size:12.5px;line-height:1.75}
+    .notice .icon{color:#426e99;width:19px;height:19px;margin-top:2px}
+    .notice p{margin:0}
+    .notice strong{color:var(--navy)}
+    /* Kết trang */
+    .bottom-cta{margin-bottom:66px;background:linear-gradient(115deg,#112b4d,#205887);border-radius:23px;color:#fff;padding:28px 34px;display:flex;align-items:center;justify-content:space-between;gap:25px;overflow:hidden;position:relative}
+    .bottom-cta::after{content:"";width:230px;height:230px;border:45px solid rgba(255,255,255,.055);border-radius:50%;position:absolute;right:90px;top:-125px;pointer-events:none}
+    .bottom-cta div{position:relative;z-index:1}
+    .bottom-cta h2{font-size:21px;line-height:1.5;margin:0 0 5px}
+    .bottom-cta p{font-size:13px;line-height:1.75;color:#d7e4f1;margin:0}
+    .bottom-cta .action-btn{background:#fff;color:var(--navy);position:relative;z-index:1;white-space:nowrap}
+    .site-footer{background:#0f2949;color:#d4e0ee;padding:33px 0 24px}
+    .footer-top{display:flex;align-items:flex-start;justify-content:space-between;gap:30px}
+    .footer-brand{font-size:19px;line-height:1.5;font-weight:800;color:#fff}
+    .footer-brand small{display:block;font-size:12px;font-weight:500;color:#b4c5d7;margin-top:5px}
+    .footer-links{display:flex;flex-wrap:wrap;gap:11px 18px;max-width:690px;justify-content:flex-end}
+    .footer-links a{color:#d7e3ef;font-size:12px;font-weight:600;text-decoration:none}
+    .footer-links a:hover{text-decoration:underline;color:#fff}
+    .footer-copy{text-align:center;border-top:1px solid rgba(255,255,255,.12);padding-top:20px;margin-top:27px;font-size:11px;color:#a8bdd4}
+    @media(max-width:1150px){
+      .header-layout{height:72px}
+      .menu-toggle{display:inline-flex}
+      .site-nav{display:none;position:absolute;top:calc(100% + 1px);left:0;right:0;padding:14px 21px 18px;flex-direction:column;align-items:stretch;gap:4px;background:#fff;border-bottom:1px solid #dfe7f0;box-shadow:0 15px 28px rgba(16,43,77,.12)}
+      .site-nav.is-open{display:flex}
+      .site-nav a{font-size:14px;padding:12px 13px;white-space:normal}
+      .site-nav .nav-account{margin:8px 0 0;max-width:none;justify-content:center}
+      .hero-overview{flex-direction:column;align-items:flex-start}
+      .hero-actions{width:100%}
+    }
+    @media(max-width:850px){
+      .feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .footer-top{flex-direction:column}
+      .footer-links{justify-content:flex-start}
+    }
+    @media(max-width:560px){
+      .page-wrap{width:min(100% - 28px,1180px)}
+      .brand img{width:49px;height:48px}
+      .brand-text{font-size:14px}
+      .brand-text small{font-size:9px}
+      .hero{padding-top:14px}
+      .hero-banner{border-radius:17px}
+      .hero-banner img{width:100%;height:auto}
+      .hero-overview{margin:-10px 9px 0;padding:18px 18px;border-radius:16px;gap:17px}
+      .hero-overview h1{font-size:21px}
+      .hero-overview p{font-size:12px}
+      .hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+      .action-btn{font-size:12px;min-height:48px;padding:9px 10px;gap:7px;text-align:center}
+      .action-btn .icon{width:17px;height:17px}
+      .learning{padding:46px 0 42px}
+      .section-head{margin-bottom:22px}
+      .section-head h2{font-size:25px}
+      .section-head p{font-size:13px}
+      .feature-grid{grid-template-columns:1fr;gap:12px}
+      .feature-card{min-height:0;display:grid;grid-template-columns:52px minmax(0,1fr);column-gap:14px;row-gap:9px;padding:19px 18px;border-radius:17px}
+      .feature-card .icon-box{width:51px;height:51px;grid-row:1}
+      .feature-card-content{grid-column:2}
+      .feature-card h3{font-size:16px}
+      .feature-card p{font-size:12px}
+      .card-bottom{grid-column:2;padding-top:4px;border:0;font-size:12px}
+      .bottom-cta{padding:24px 20px;margin-bottom:42px;flex-direction:column;align-items:stretch;border-radius:18px;gap:18px}
+      .bottom-cta h2{font-size:19px}
+      .bottom-cta .action-btn{align-self:stretch}
+      .site-footer{padding:28px 0 19px}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.feature-card,.action-btn,.site-nav a{transition:none}}
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="header-inner">
-      <a href="index.html" class="logo" aria-label="Tiếng Hàn Mr Lee - Trang chủ">
-        <img src="images/logo.png" alt="Tiếng Hàn Mr Lee" class="logo-img">
+  <!-- Biểu tượng SVG dùng chung: đồng nét, không lỗi font như emoji -->
+  <svg class="sr-only" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 7.2C9 5.3 6 5 2.8 5.4v13c3.8-.6 6.5.1 9.2 2 2.7-1.9 5.4-2.6 9.2-2v-13C18 5 15 5.3 12 7.2Z"/><path d="M12 7.2v13.2"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.2a8.2 8.2 0 0 1-8.2 8.2 9.1 9.1 0 0 1-3.4-.7L3 21l1.4-5.6A8.2 8.2 0 1 1 21 11.2Z"/><path d="M8.2 11.7h.1m3.6 0h.1m3.6 0h.1" stroke-width="3"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3.5M8.5 21.5h7"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="17" rx="2"/><path d="M9 3h6M8 11l2 2 4-4M8 17h8"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01" stroke-width="2.7"/></symbol>
+    <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="2" y="3.5" width="20" height="14" rx="2"/><path d="M8 21h8M12 17.5V21M10 8l5 2.5-5 2.5Z"/></symbol>
+    <symbol id="i-library" viewBox="0 0 24 24"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="9" y="3" width="5" height="17" rx="1"/><path d="m15.5 4.5 3-1 3.5 15.7-3.2 1Z"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 21c.4-4.1 3.1-6 7.5-6s7.1 1.9 7.5 6"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M12 5h7v7M19 5l-9 9M19 14v4.5A1.5 1.5 0 0 1 17.5 20h-12A1.5 1.5 0 0 1 4 18.5v-12A1.5 1.5 0 0 1 5.5 5H10"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2Z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 10.5v6M12 7.5h.01" stroke-width="2.5"/></symbol>
+  </svg>
+  <a class="skip" href="#chuc-nang">Bỏ qua menu, đến chức năng học tập</a>
+
+  <header class="site-header">
+    <div class="page-wrap header-layout">
+      <a class="brand" href="index.html" aria-label="Tiếng Hàn Mr Lee - Trang chủ">
+        <img src="images/logo.png" alt="" width="64" height="56" onerror="this.remove()">
+        <span class="brand-text">TIẾNG HÀN MR LEE<small>HỌC DỄ HIỂU · LUYỆN DỄ NHỚ</small></span>
       </a>
-      <button class="menu-toggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="main-nav">☰</button>
-      <nav class="nav" id="main-nav" aria-label="Điều hướng chính">
-        <a href="index.html" class="active" aria-current="page">Trang chủ</a>
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="mainNav">
+        <svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg>
+      </button>
+      <nav class="site-nav" id="mainNav" aria-label="Điều hướng chính">
+        <a href="index.html" aria-current="page">Trang chủ</a>
         <a href="bai-hoc.html">Bài học</a>
-        <a href="bo-sach.html">Bộ sách</a>
+        <a href="giao-tiep-theo-chu-de.html">Giao tiếp</a>
+        <a href="on-luyen-phong-van.html">Phỏng vấn</a>
         <a href="de-thi-topik.html">Đề TOPIK</a>
-        <a href="https://www.topik.go.kr/TWSTDY/TWSTDY0080.do" target="_blank" rel="noopener noreferrer">Thi TOPIK Online</a>
+        <a href="https://www.topik.go.kr/TWSTDY/TWSTDY0080.do" target="_blank" rel="noopener noreferrer">Thi TOPIK <svg class="icon icon-sm" aria-hidden="true"><use href="#i-external"></use></svg></a>
         <a href="kiem-tra-dau-vao.html">Kiểm tra đầu vào</a>
+        <a href="dang-nhap.html" id="mrlee-auth-nav" class="nav-account"><svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg>Đăng ký / Đăng nhập</a>
       </nav>
     </div>
   </header>
 
-  <!-- TRANG BÌA: mỗi thẻ hình ảnh là một liên kết thật trên máy tính -->
-  <section class="mrlee-cover" aria-label="Trang bìa và truy cập nhanh Tiếng Hàn Mr Lee">
-    <div class="mrlee-cover-frame">
-      <img class="mrlee-cover-image" src="images/trang-bia-mr-lee.webp"
-           width="1536" height="1024" fetchpriority="high"
-           alt="Tiếng Hàn Mr Lee - học tiếng Hàn với khung cảnh Hàn Quốc, học tập, phỏng vấn, giao tiếp và TOPIK">
-      <nav class="mrlee-cover-hotspots" aria-label="Chọn chức năng trên ảnh bìa">
-        <a href="bai-hoc.html" title="Bài học"><span class="mrlee-cover-sr">Bài học</span></a>
-        <a href="kiem-tra-dau-vao.html" title="Kiểm tra đầu vào"><span class="mrlee-cover-sr">Kiểm tra đầu vào</span></a>
-        <a href="on-luyen-phong-van.html" title="Ôn luyện phỏng vấn"><span class="mrlee-cover-sr">Ôn luyện phỏng vấn</span></a>
-        <a href="giao-tiep-theo-chu-de.html" title="Các câu giao tiếp theo chủ đề"><span class="mrlee-cover-sr">Các câu giao tiếp theo chủ đề</span></a>
-        <a href="https://www.topik.go.kr/TWSTDY/TWSTDY0080.do" target="_blank" rel="noopener noreferrer" title="Thi TOPIK Online - mở tab mới"><span class="mrlee-cover-sr">Thi TOPIK Online, mở website chính thức trong tab mới</span></a>
-        <a href="bo-sach.html" title="Tài liệu học tiếng Hàn"><span class="mrlee-cover-sr">Tài liệu học tiếng Hàn</span></a>
-      </nav>
-    </div>
-    <!-- Nút thao tác rõ ràng cho máy tính -->
-    <div class="mrlee-cover-cta">
-      <a href="bai-hoc.html">📚 Bắt đầu học <span aria-hidden="true">→</span></a>
-      <a href="kiem-tra-dau-vao.html">🎯 Kiểm tra trình độ <span aria-hidden="true">→</span></a>
-    </div>
-    <!-- Trên điện thoại: các nút riêng đủ lớn để bấm, thay cho điểm nhấn trên hình -->
-    <nav class="mrlee-cover-mobile-links" aria-label="Chọn chức năng học tập">
-      <a href="bai-hoc.html">📚 Bài học</a>
-      <a href="kiem-tra-dau-vao.html">🎯 Kiểm tra đầu vào</a>
-      <a href="on-luyen-phong-van.html">🎙️ Ôn luyện phỏng vấn</a>
-      <a href="giao-tiep-theo-chu-de.html">💬 Giao tiếp theo chủ đề</a>
-      <a href="https://www.topik.go.kr/TWSTDY/TWSTDY0080.do" target="_blank" rel="noopener noreferrer">💻 Thi TOPIK Online ↗</a>
-      <a href="bo-sach.html">📖 Tài liệu học</a>
-    </nav>
-  </section>
-
-
-  <main class="container">
-    <section class="section intro">
-      <div class="section-heading">
-        <span class="section-label">HỌC TIẾNG HÀN</span>
-        <h2>Chào mừng các em học sinh!</h2>
-        <p>Hãy lựa chọn chương trình phù hợp với trình độ và bắt đầu hành trình học tiếng Hàn cùng Mr Lee.</p>
+  <main>
+    <section class="hero page-wrap" aria-label="Trang bìa Tiếng Hàn Mr Lee">
+      <div class="hero-banner">
+        <picture>
+          <img src="images/trang-bia-mr-lee-hero.webp" width="1536" height="592" fetchpriority="high" alt="Học tiếng Hàn cùng Mr Lee: hình ảnh học sinh và phong cảnh Hàn Quốc, với cung điện truyền thống và tháp N Seoul">
+        </picture>
+      </div>
+      <div class="hero-overview">
+        <div>
+          <span class="eyebrow"><svg class="icon" aria-hidden="true"><use href="#i-spark"></use></svg>CHÀO MỪNG ĐẾN VỚI TIẾNG HÀN MR LEE</span>
+          <h1>Chọn nội dung phù hợp, bắt đầu học ngay hôm nay</h1>
+          <p>Học từ vựng, ngữ pháp, giao tiếp, phỏng vấn và luyện thi tiếng Hàn theo lộ trình rõ ràng.</p>
+        </div>
+        <div class="hero-actions">
+          <a class="action-btn primary" href="bai-hoc.html"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-book"></use></svg>Bắt đầu học</a>
+          <a class="action-btn secondary" href="kiem-tra-dau-vao.html"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-target"></use></svg>Kiểm tra trình độ</a>
+        </div>
       </div>
     </section>
 
-
-    <!-- HAI TÍNH NĂNG LUYỆN TẬP MỚI -->
-    <section class="mrlee-practice-section" aria-labelledby="mrlee-practice-title">
-      <div class="mrlee-practice-heading">
-        <span class="eyebrow">LUYỆN NÓI TIẾNG HÀN</span>
-        <h2 id="mrlee-practice-title">Tự tin giao tiếp &amp; phỏng vấn</h2>
-        <p>Luyện theo tình huống, nghe tiếng Hàn và tự đánh dấu tiến độ học của mình.</p>
-      </div>
-      <div class="mrlee-practice-grid">
-        <a class="mrlee-practice-card mrlee-practice-card--interview" href="on-luyen-phong-van.html">
-          <div>
-            <span class="badge-icon" aria-hidden="true">🎙️</span>
-            <span class="kicker">LUYỆN TRẢ LỜI</span>
-            <h3>Ôn luyện phỏng vấn</h3>
-            <p>Câu hỏi thường gặp, gợi ý trả lời, nghe tiếng Hàn và tự ghi âm luyện nói.</p>
-          </div>
-          <span class="cta">Bắt đầu ôn phỏng vấn <span aria-hidden="true">→</span></span>
-        </a>
-        <a class="mrlee-practice-card mrlee-practice-card--speaking" href="giao-tiep-theo-chu-de.html">
-          <div>
-            <span class="badge-icon" aria-hidden="true">💬</span>
-            <span class="kicker">MẪU CÂU THỰC TẾ</span>
-            <h3>Giao tiếp theo chủ đề</h3>
-            <p>Mẫu câu sinh hoạt, quán ăn, mua sắm, công việc… có phát âm và thẻ ôn tập.</p>
-          </div>
-          <span class="cta">Khám phá mẫu câu <span aria-hidden="true">→</span></span>
-        </a>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-heading">
-        <span class="section-label">HỆ THỐNG HỌC TẬP</span>
-        <h2>Bạn muốn học gì hôm nay?</h2>
-        <p>Học theo bài, sử dụng tài liệu, luyện đề TOPIK hoặc kiểm tra trình độ tiếng Hàn của bạn.</p>
-      </div>
-      <div class="card-grid main-function-grid">
-        <a href="bai-hoc.html" class="course-card">
-          <div class="card-icon">📚</div>
-          <div class="card-content">
-            <span class="card-level">BÀI HỌC</span>
-            <h3>Học tiếng Hàn</h3>
-            <p>Học theo chương trình Sơ cấp 1 và Sơ cấp 2 với từ vựng, ngữ pháp, chú ý và bài tập luyện tập.</p>
-            <span class="card-link">Xem bài học →</span>
-          </div>
-        </a>
-        <a href="bo-sach.html" class="course-card">
-          <div class="card-icon">📖</div>
-          <div class="card-content">
-            <span class="card-level">TÀI LIỆU</span>
-            <h3>Bộ sách Tiếng Hàn Tổng Hợp</h3>
-            <p>Tổng hợp tài liệu và các bộ sách học tiếng Hàn được sắp xếp theo từng trình độ.</p>
-            <span class="card-link">Xem bộ sách →</span>
-          </div>
-        </a>
-        <a href="de-thi-topik.html" class="course-card">
-          <div class="card-icon">📑</div>
-          <div class="card-content">
-            <span class="card-level">TOPIK</span>
-            <h3>Bộ đề thi TOPIK</h3>
-            <p>Tổng hợp các đề thi TOPIK công khai để luyện nghe, đọc và làm quen với cấu trúc đề thi.</p>
-            <span class="card-link">Xem đề thi →</span>
-          </div>
-        </a>
-        <a href="https://www.topik.go.kr/TWSTDY/TWSTDY0080.do" class="course-card test-card" target="_blank" rel="noopener noreferrer" aria-label="Thi TOPIK Online - mở website TOPIK chính thức trong tab mới">
-          <div class="card-icon">💻</div>
-          <div class="card-content">
-            <span class="card-level">THI TRỰC TUYẾN</span>
-            <h3>Thi TOPIK Online</h3>
-            <p>Truy cập website TOPIK chính thức, vào mục 학습하기 để chọn các đề luyện tập và làm bài trực tuyến.</p>
-            <span class="card-link">Mở trang TOPIK chính thức ↗</span>
-          </div>
-        </a>
-        <a href="kiem-tra-dau-vao.html" class="course-card placement-card">
-          <div class="card-icon">🎯</div>
-          <div class="card-content">
-            <span class="card-level">XẾP TRÌNH ĐỘ</span>
-            <h3>Kiểm tra năng lực đầu vào</h3>
-            <p>Làm bài kiểm tra để đánh giá năng lực hiện tại và xác định chương trình học phù hợp.</p>
-            <span class="card-link">Kiểm tra ngay →</span>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <section class="section features">
-      <div class="section-heading">
-        <span class="section-label">HỌC HIỆU QUẢ HƠN</span>
-        <h2>Những gì các em có thể làm</h2>
+    <section class="learning page-wrap" id="chuc-nang" aria-labelledby="learning-title">
+      <div class="section-head">
+        <span class="section-pill">9 CHỨC NĂNG HỌC TẬP</span>
+        <h2 id="learning-title">Bạn muốn học gì hôm nay?</h2>
+        <p>Các mục học được sắp xếp rõ ràng, dễ tìm. Chỉ cần chọn một mục để bắt đầu.</p>
       </div>
       <div class="feature-grid">
-        <div class="feature">
-          <div class="feature-icon">📚</div>
-          <h3>Học theo cấp độ</h3>
-          <p>Nội dung được sắp xếp từ cơ bản đến nâng cao.</p>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">💬</div>
-          <h3>Luyện giao tiếp</h3>
-          <p>Học những mẫu câu thường gặp trong cuộc sống hàng ngày.</p>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">📝</div>
-          <h3>Kiểm tra trực tuyến</h3>
-          <p>Làm bài kiểm tra và biết kết quả ngay sau khi hoàn thành.</p>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">🎯</div>
-          <h3>Theo dõi tiến bộ</h3>
-          <p>Từng bước cải thiện vốn từ vựng và khả năng sử dụng tiếng Hàn.</p>
-        </div>
+        <a class="feature-card" data-theme="blue" href="bai-hoc.html">
+          <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-book"></use></svg></span>
+          <div class="feature-card-content"><h3>Bài học tiếng Hàn</h3><p>Học từ vựng, ngữ pháp và bài tập theo từng bài Sơ cấp 1, Sơ cấp 2.</p></div>
+          <span class="card-bottom">Xem bài học <span class="arrow-chip"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span></span>
+        </a>
+        <a class="feature-card" data-theme="violet" href="giao-tiep-theo-chu-de.html">
+          <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg></span>
+          <div class="feature-card-content"><h3>Giao tiếp theo chủ đề</h3><p>Mẫu câu thực tế về quán ăn, mua sắm, sinh hoạt, công việc và nhiều tình huống.</p></div>
+          <span class="card-bottom">Luyện giao tiếp <span class="arrow-chip"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span></span>
+        </a>
+        <a class="feature-card" data-theme="green" href="on-luyen-phong-van.html">
+          <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-mic"></use></svg></span>
+          <div class="feature-card-content"><h3>Ôn luyện phỏng vấn</h3><p>Luyện câu hỏi và đáp án mẫu, nghe phát âm và thực hành trả lời.</p></div>
+          <span class="card-bottom">Ôn luyện ngay <span class="arrow-chip"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span></span>
+        </a>
+        <a class="feature-card" data-theme="orange" href="kiem-tra-dau-vao.html">
+          <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-target"></use></svg></span>
+          <div class="feature-card-content"><h3>Kiểm tra đầu vào</h3><p>Chọn trình độ, làm bài trắc nghiệm và nhận kết quả sau khi nộp bài.</p></div>
+          <span class="card-bottom">Kiểm tra trình độ <span class="arrow-chip"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span></span>
+        </a>
+        <a class="feature-card" data-theme="teal" href="kiem-tra-online.html">
+          <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg></span>
+          <div class="feature-card-content"><h3>Kiểm tra Online</h3><p>Kiểm tra kiến thức tiếng Hàn qua bài tập trắc nghiệm và xem đáp án.</p></div>
+          <span class="card-bottom">Làm bài kiểm tra <span class="arrow-chip"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span></span>
+        </a>
+        <a class="feature-card" data-theme="rose" href="de-thi-topik.html">
+          <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-list"></use></svg></span>
+          <div class="feature-card-content"><h3>Bộ đề thi TOPIK</h3><p>Tài liệu và đề luyện TOPIK để ôn đọc hiểu, nghe và làm quen cấu trúc thi.</p></div>
+          <span class="card-bottom">Xem bộ đề <span class="arrow-chip"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span></span>
+        </a>
+        <a class="feature-card" data-theme="gold" href="https://www.topik.go.kr/TWSTDY/TWSTDY0080.do" target="_blank" rel="noopener noreferrer">
+          <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-monitor"></use></svg></span>
+          <div class="feature-card-content"><h3>Thi TOPIK Online</h3><p>Mở website TOPIK chính thức và chọn đề trong mục <span lang="ko">학습하기</span>.</p></div>
+          <span class="card-bottom">Mở trang TOPIK <span class="arrow-chip"><svg class="icon" aria-hidden="true"><use href="#i-external"></use></svg></span></span>
+        </a>
+        <a class="feature-card" data-theme="slate" href="bo-sach.html">
+          <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-library"></use></svg></span>
+          <div class="feature-card-content"><h3>Bộ sách &amp; tài liệu</h3><p>Tham khảo tài liệu học tiếng Hàn được sắp xếp theo trình độ.</p></div>
+          <span class="card-bottom">Xem tài liệu <span class="arrow-chip"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span></span>
+        </a>
+        <a class="feature-card" data-theme="blue" href="dang-nhap.html">
+          <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg></span>
+          <div class="feature-card-content"><h3>Tài khoản học viên</h3><p>Đăng ký, đăng nhập và quản lý tài khoản bằng số điện thoại khi đã kích hoạt SMS.</p></div>
+          <span class="card-bottom">Vào tài khoản <span class="arrow-chip"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span></span>
+        </a>
       </div>
+      <aside class="notice" aria-label="Lưu ý về TOPIK và tài khoản">
+        <svg class="icon" aria-hidden="true"><use href="#i-info"></use></svg>
+        <p><strong>Lưu ý:</strong> Mục Thi TOPIK Online mở trang chính thức trong tab mới. Tài khoản SMS chỉ gửi mã thật sau khi hệ thống Firebase được cấu hình và kích hoạt.</p>
+      </aside>
+    </section>
+
+    <section class="page-wrap bottom-cta" aria-labelledby="cta-title">
+      <div><h2 id="cta-title">Bắt đầu hành trình chinh phục tiếng Hàn</h2><p><span lang="ko">오늘도 한국어를 함께 공부해요!</span> · Cùng học tiếng Hàn mỗi ngày.</p></div>
+      <a class="action-btn" href="giao-tiep-theo-chu-de.html">Khám phá câu giao tiếp <svg class="icon icon-sm" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="footer-inner">
-      <div>
-        <h3>🇰🇷 Tiếng Hàn Mr Lee</h3>
-        <p>Hệ thống học tập và luyện thi tiếng Hàn dành cho học sinh.</p>
+  <footer class="site-footer">
+    <div class="page-wrap">
+      <div class="footer-top">
+        <div class="footer-brand">TIẾNG HÀN MR LEE<small>Học tập · Giao tiếp · Luyện thi tiếng Hàn</small></div>
+        <nav class="footer-links" aria-label="Liên kết ở cuối trang">
+          <a href="index.html">Trang chủ</a>
+          <a href="so-cap-1.html">Sơ cấp 1</a>
+          <a href="so-cap-2.html">Sơ cấp 2</a>
+          <a href="on-luyen-phong-van.html">Phỏng vấn</a>
+          <a href="giao-tiep-theo-chu-de.html">Giao tiếp</a>
+          <a href="kiem-tra-dau-vao.html">Kiểm tra đầu vào</a>
+          <a href="dang-nhap.html">Tài khoản</a>
+        </nav>
       </div>
-      <div class="footer-links">
-        <a href="index.html">Trang chủ</a>
-        <a href="so-cap-1.html">Sơ cấp 1</a>
-        <a href="so-cap-2.html">Sơ cấp 2</a>
-        <a href="kiem-tra-online.html">Kiểm tra Online</a>
-        <a href="on-luyen-phong-van.html">Ôn luyện phỏng vấn</a>
-        <a href="giao-tiep-theo-chu-de.html">Giao tiếp theo chủ đề</a>
-      </div>
+      <div class="footer-copy">© 2026 Tiếng Hàn Mr Lee. All rights reserved.</div>
     </div>
-    <div class="copyright">© 2026 Tiếng Hàn Mr Lee. All rights reserved.</div>
   </footer>
 
+  <!-- Giữ khả năng hiện tên học viên sau khi cấu hình Firebase; menu vẫn chạy nếu Firebase chưa bật. -->
+  <script type="module" src="auth-status.js"></script>
   <script>
-    const menuToggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('.nav');
-    if (menuToggle && nav) {
-      menuToggle.addEventListener('click', () => {
-        const isOpen = nav.classList.toggle('show');
-        menuToggle.setAttribute('aria-expanded', String(isOpen));
-        menuToggle.setAttribute('aria-label', isOpen ? 'Đóng menu' : 'Mở menu');
+    (() => {
+      const toggle = document.getElementById('menuToggle');
+      const nav = document.getElementById('mainNav');
+      if (!toggle || !nav) return;
+      function closeMenu() {
+        nav.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Mở menu');
+      }
+      toggle.addEventListener('click', () => {
+        const opened = nav.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', String(opened));
+        toggle.setAttribute('aria-label', opened ? 'Đóng menu' : 'Mở menu');
       });
-    }
+      nav.addEventListener('click', event => { if (event.target.closest('a')) closeMenu(); });
+      document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
+      document.addEventListener('click', event => { if (!event.target.closest('.site-header')) closeMenu(); });
+      window.matchMedia('(min-width: 1151px)').addEventListener('change', event => { if (event.matches) closeMenu(); });
+    })();
   </script>
 </body>
 </html>
