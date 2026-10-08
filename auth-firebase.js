@@ -7,6 +7,27 @@ import {
 } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
 import { firebaseConfig, isFirebaseConfigured } from './firebase-config.js';
 
+// Chỉ cho phép quay về các trang HTML trong chính website, tránh chuyển hướng độc hại.
+function verifiedReturnURL() {
+  const raw = new URLSearchParams(location.search).get('next');
+  if (!raw || /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(raw)) return null;
+  try {
+    const root = new URL('./', location.href);
+    const url = new URL(raw, root);
+    if (url.origin !== location.origin || !url.pathname.startsWith(root.pathname)) return null;
+    const subpath = url.pathname.slice(root.pathname.length);
+    if (!subpath || subpath.includes('/') || !/^[a-z0-9_-]+\.html$/i.test(subpath)) return null;
+    if (['dang-nhap.html','index.html'].includes(subpath.toLowerCase())) return null;
+    return url.href;
+  } catch { return null; }
+}
+const returnURL = verifiedReturnURL();
+function openRequestedPage() {
+  if (!returnURL) return false;
+  location.replace(returnURL);
+  return true;
+}
+
 const $ = id => document.getElementById(id);
 let auth = null;
 let selectedMode = 'login';
@@ -56,6 +77,7 @@ function setMode(mode) {
   message('message');
 }
 function renderAccount(user) {
+  if (openRequestedPage()) return;
   showView('account-view');
   $('account-name').textContent = user.displayName || 'Chưa cập nhật';
   $('account-email').textContent = user.email || '—';

@@ -28,6 +28,7 @@
     <div class="layout">
       <section class="intro" aria-labelledby="intro-title"><div class="eyebrow">TÀI KHOẢN HỌC VIÊN</div><h1 id="intro-title">Học tiếng Hàn cùng Mr Lee</h1><p>Đăng ký và đăng nhập bằng email, không cần trả phí gửi tin nhắn SMS. Xác minh email để bảo vệ tài khoản học viên.</p><ul class="perks"><li><span class="pill-icon">✉</span><div><strong>Xác minh email</strong><small>Nhận liên kết xác nhận trong hộp thư</small></div></li><li><span class="pill-icon">✓</span><div><strong>Tài khoản cá nhân</strong><small>Hiển thị tên và email đã xác minh</small></div></li><li><span class="pill-icon">⌑</span><div><strong>Đặt lại mật khẩu</strong><small>Khôi phục qua email nếu quên mật khẩu</small></div></li><li><span class="pill-icon" lang="ko">한</span><div><strong>Cùng học mỗi ngày</strong><small>Truy cập các nội dung trên website</small></div></li></ul></section>
       <section class="panel" aria-label="Đăng ký và đăng nhập">
+        <p id="return-notice" class="status hidden" role="status">🔒 Bạn cần đăng nhập và xác minh email để mở nội dung học tập. Sau khi hoàn tất, hệ thống sẽ đưa bạn trở lại trang đã chọn.</p>
         <p id="setup-alert" class="status error hidden" role="alert">Hệ thống chưa được cấu hình Firebase đúng cách. Vui lòng liên hệ quản trị viên.</p>
         <div id="form-view">
           <h2 id="form-title">Đăng nhập học viên</h2><p id="form-subtitle" class="muted">Dùng email và mật khẩu đã đăng ký.</p>
@@ -51,6 +52,11 @@
     <p id="privacy" class="privacy"><strong>Thông tin riêng tư:</strong> Google Firebase xử lý email và thông tin xác thực để đăng ký, đăng nhập, gửi email xác minh và hỗ trợ đặt lại mật khẩu. Trang này lưu họ tên hiển thị trong hồ sơ Firebase Authentication. Mật khẩu được gửi trực tiếp đến dịch vụ xác thực qua kết nối HTTPS; website không lưu mật khẩu trong mã nguồn hoặc bộ nhớ riêng. <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer">Chính sách riêng tư Firebase ↗</a></p>
   </main>
   <footer>© 2026 Tiếng Hàn Mr Lee · Tài khoản học viên</footer>
+  <script>
+    if (new URLSearchParams(location.search).get('next')) {
+      document.getElementById('return-notice').classList.remove('hidden');
+    }
+  </script>
   <script type="module" src="auth-firebase.js"></script>
 </body>
 </html>
