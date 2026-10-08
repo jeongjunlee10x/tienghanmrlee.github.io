@@ -1,25 +1,2474 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kiểm tra đầu vào | Tiếng Hàn Mr Lee</title><style>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kiểm tra trình độ tiếng Hàn: chọn Sơ cấp 1, Sơ cấp 2 hoặc Trung cấp 1; mỗi cấp độ có 50 câu trắc nghiệm và chấm điểm tự động.">
+  <title>Kiểm tra đầu vào theo trình độ | Tiếng Hàn Mr Lee</title>
+  <!-- Toàn bộ giao diện nằm trong file HTML, không phụ thuộc cssstyle.css hoặc jsmain.js. -->
+  <style>
+:root { --navy:#162f54; --navy2:#214b80; --orange:#f19742; --bg:#f3f6fb; --ink:#182538; --muted:#63718a; --line:#dce4ef; --white:#fff; --green:#138362; --red:#b93449; }
+* {box-sizing:border-box} html {scroll-behavior:smooth} body {margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Arial,sans-serif} button,input{font:inherit}
+a{color:inherit} button {cursor:pointer} :focus-visible{outline:3px solid #e69a46;outline-offset:2px}
+.site-header{background:#fff;border-bottom:1px solid var(--line)} .header-inner{max-width:1180px;margin:auto;padding:13px 22px;display:flex;align-items:center;gap:20px;justify-content:space-between;min-height:78px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--navy);font-weight:900;letter-spacing:.2px}.logo img{height:52px;max-width:110px;object-fit:contain}
+.site-nav{display:flex;align-items:center;flex-wrap:wrap;gap:3px}.site-nav a{text-decoration:none;font-size:14px;font-weight:650;padding:10px 11px;border-radius:9px;white-space:nowrap}.site-nav a:hover,.site-nav a.active{background:#eef3fa;color:var(--navy2)}.menu-toggle{display:none;background:transparent;border:1px solid var(--line);border-radius:9px;padding:6px 12px;font-size:23px;color:var(--navy)}
+.shell{max-width:1020px;padding:28px 20px 70px;margin:auto}.panel{background:var(--white);border:1px solid var(--line);border-radius:17px;padding:27px;box-shadow:0 6px 25px #1b335009}.eyebrow{font-size:12px;letter-spacing:1.5px;font-weight:850;color:#a45e17;text-transform:uppercase}.intro h1{font-size:clamp(26px,4vw,36px);line-height:1.25;margin:12px 0;color:var(--navy)}.intro>p{max-width:760px}.muted{color:var(--muted)}.highlights{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}.pill{background:#f0f4fa;border-radius:28px;padding:7px 13px;color:var(--navy);font-size:13px;font-weight:700}.field{display:block;font-weight:750;margin:22px 0 8px}.name-input{display:block;max-width:470px;width:100%;padding:13px 14px;border:1px solid #b9c7d9;border-radius:10px;font-size:16px;background:#fff}.helper{font-size:13px;color:var(--muted);margin-top:12px}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;border:0;border-radius:10px;padding:12px 20px;font-size:15px;line-height:1.4;font-weight:800;background:var(--navy);color:#fff;text-decoration:none;transition:background .18s,transform .15s}.btn:hover{background:var(--navy2)}.btn.secondary{background:#e9eff7;color:var(--navy)}.btn.secondary:hover{background:#dce6f3}.btn.ghost{background:white;border:1px solid var(--line);color:var(--navy)}.btn:disabled{opacity:.45;cursor:not-allowed}.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:20px 0}
+.exam-bar{position:sticky;top:0;z-index:10;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;padding:16px 20px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 30px #1c335122;margin-bottom:18px}.status-meta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.time{font-size:22px;color:#af3446;font-weight:900;font-variant-numeric:tabular-nums}.time.urgent{color:#b91c1c;animation:blink 1s infinite alternate}@keyframes blink{to{opacity:.60}}.status-label{font-size:13px;color:var(--muted);font-weight:750}.status-label strong{font-size:17px;color:var(--navy)}
+.progress-track{width:100%;height:7px;background:#eaf0f7;border-radius:30px;overflow:hidden;order:3}.progress-fill{height:100%;width:0;background:var(--orange);transition:width .2s}.question-nav{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:7px;margin:14px 0 20px}.question-nav button{background:white;border:1px solid #cbd7e6;border-radius:8px;color:var(--navy);padding:9px 0;font-size:13px;font-weight:800}.question-nav button.answered{background:#d9f3e9;border-color:#6ac3a2;color:#106d54}.question-nav button.current{outline:2px solid var(--orange);outline-offset:0}
+.question-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:25px;margin:16px 0;scroll-margin-top:126px;box-shadow:0 3px 15px #1b335007}.question-top{display:flex;justify-content:space-between;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:10px}.qnum{font-size:12px;font-weight:850;color:var(--navy2);letter-spacing:.7px}.lesson-badge{display:inline-block;background:#fff1e5;color:#96510d;border-radius:30px;padding:5px 10px;font-size:12px;font-weight:750}.question-card h3{margin:5px 0 16px;font-size:18px;color:var(--ink);font-weight:760;line-height:1.6}.passage{margin:14px 0 18px;white-space:pre-line;border-left:4px solid var(--orange);background:#f6f8fc;border-radius:0 9px 9px 0;padding:13px 16px;font-size:16px;color:#24354d}.option{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border:1px solid #dce4ed;border-radius:10px;margin-top:9px;cursor:pointer;transition:background .15s,border-color .15s}.option:hover{background:#f6f9fe}.option input{margin:5px 0 0;flex:none;width:16px;height:16px;accent-color:var(--navy2)}.option:has(input:checked){background:#edf4ff;border-color:#6a93c5}.option-letter{font-weight:850;color:#567091;margin-right:4px}.submit-bottom{margin-top:24px}
+.hidden{display:none!important}.results h2{margin-top:8px;color:var(--navy)}.score-big{font-size:42px;font-weight:900;color:var(--navy);line-height:1.1;margin:15px 0 6px}.score-desc{font-size:16px;color:var(--muted)}.result-reco{font-size:20px;color:var(--navy2);font-weight:800;margin-top:18px}.lesson-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:9px;margin:20px 0}.lesson-row{border:1px solid var(--line);border-radius:10px;padding:11px 13px;background:#fbfcff;display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:13px}.lesson-row strong{white-space:nowrap}.lesson-row.weak{background:#fff2ef;border-color:#f1c9c0}.review-note{background:#f0f5fc;border-radius:10px;padding:12px 15px;margin-top:10px}.correct{border-left:5px solid #14815c}.incorrect{border-left:5px solid #c03a4b}.answer-line{margin:5px 0}.correct-text{color:#147b58}.incorrect-text{color:#b72d40}.review-card{padding:18px 22px}.footer{text-align:center;color:#758198;font-size:13px;padding:10px 20px 32px}.privacy{font-size:13px;margin-top:18px}.nojs{padding:14px;background:#fff0e7;color:#8f3f0a}
+@media(max-width:1000px){.header-inner{flex-wrap:wrap}.menu-toggle{display:block;margin-left:auto}.site-nav{display:none;width:100%;flex-direction:column;align-items:stretch}.site-nav.open{display:flex}.site-nav a{padding:12px 10px}}
+@media(max-width:640px){.shell{padding:14px 12px 42px}.panel{padding:20px}.logo img{height:42px}.logo span{font-size:15px}.question-card{padding:18px;scroll-margin-top:145px}.exam-bar{padding:12px;top:0;gap:9px}.exam-bar>.btn{padding:10px 14px}.time{font-size:19px}.question-nav{grid-template-columns:repeat(5,minmax(0,1fr))}.score-big{font-size:34px}.question-card h3{font-size:17px}}
+@media print{.site-header,.footer,.actions,.exam-bar,.question-nav,.btn{display:none!important}.shell{padding:0;max-width:none}.panel,.question-card{border:1px solid #ccc;box-shadow:none;break-inside:avoid}.hidden{display:none!important}body{background:#fff}}
 
-:root{--blue:#142b4c;--orange:#ef8c36;--bg:#f5f7fb}*{box-sizing:border-box}body{margin:0;font-family:Arial,"Noto Sans",sans-serif;background:var(--bg);color:#1d2939;line-height:1.55}.quiz-header{background:#fff;border-bottom:1px solid #e5eaf1}.quiz-header .wrap{max-width:1080px;margin:auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}.quiz-header img{height:52px;max-width:230px;object-fit:contain}.quiz-header nav{display:flex;gap:18px;flex-wrap:wrap}.quiz-header a{color:var(--blue);text-decoration:none;font-weight:600}.quiz-header a:hover{color:var(--orange)}.container{max-width:900px;margin:34px auto;padding:0 18px}.intro,.question,.results,.toolbar{background:white;border:1px solid #e4e8f0;border-radius:14px;padding:24px;margin-bottom:18px;box-shadow:0 3px 16px #142b4c09}h1,h2{color:var(--blue)}h1{margin:0 0 10px;font-size:30px}h2{font-size:21px}.muted{color:#667085}.btn{background:var(--blue);color:white;border:0;border-radius:9px;padding:12px 19px;font-size:15px;font-weight:bold;cursor:pointer}.btn:hover{background:#234a7b}.btn.secondary{background:#e9eef6;color:var(--blue)}input[type=text]{width:100%;padding:12px;border:1px solid #bfc9d8;border-radius:8px;font-size:16px;max-width:450px}.toolbar{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 20px}.timer{font-size:20px;font-weight:bold;color:#b42318}.progress{font-weight:bold;color:var(--blue)}.question h3{font-size:17px;line-height:1.6;margin:8px 0 16px}.qhead{font-size:13px;color:#667085;font-weight:bold}.option{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid #e2e7ee;border-radius:9px;margin:8px 0;cursor:pointer}.option:hover{background:#f5f8fc}.option input{margin-top:5px;accent-color:var(--blue)}.option:has(input:checked){border-color:#426da1;background:#eef4fb}.result-score{font-size:36px;font-weight:bold;color:var(--blue)}.correct{border-left:5px solid #13825c}.incorrect{border-left:5px solid #c74343}.answer-note{padding:12px;border-radius:8px;background:#f4f7fa;margin-top:12px}.hidden{display:none!important}.foot{text-align:center;color:#667085;padding:20px 10px 40px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}.tag{display:inline-block;background:#fff2e7;color:#a4510c;border-radius:30px;padding:4px 10px;font-size:12px;font-weight:bold}ul{padding-left:22px}@media(max-width:600px){.container{margin:20px auto}.intro,.question,.results{padding:17px}h1{font-size:25px}.quiz-header nav{gap:10px;font-size:13px}.toolbar{top:0}}
+/* Phiếu đăng ký học viên */
+.registration-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:760px;margin:22px 0 14px}
+.registration-grid .field{margin:0 0 8px}
+.registration-grid .full{grid-column:1/-1}
+.form-input{display:block;width:100%;max-width:100%;padding:13px 14px;border:1px solid #b9c7d9;border-radius:10px;font:inherit;background:#fff;color:var(--ink);min-height:50px}
+.form-input:focus{border-color:#214b80;outline:2px solid #c7def6}
+.form-required{color:#ba3440}
+.bank-preview{border:1px solid #e8dcc8;background:#fff8ed;border-radius:11px;padding:13px 16px;margin:13px 0 18px;color:#795014;font-size:14px}
+.form-error{font-size:14px;min-height:22px;margin:3px 0 14px}
+.identity-summary{background:#f1f5fb;border:1px solid #dfE7F2;border-radius:11px;padding:12px 15px;margin-top:12px}
+@media(max-width:640px){.registration-grid{grid-template-columns:1fr;gap:13px}.registration-grid .full{grid-column:auto}}
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="Tiếng Hàn Mr Lee — về trang chủ">
+        <img src="images/logo.png" alt="" onerror="this.style.display='none'">
+        <span>TIẾNG HÀN MR LEE</span>
+      </a>
+      <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Mở hoặc đóng menu">☰</button>
+      <nav class="site-nav" id="siteNav" aria-label="Điều hướng chính">
+        <a href="index.html">Trang chủ</a>
+        <a href="bai-hoc.html">Bài học</a>
+        <a href="bo-sach.html">Bộ sách</a>
+        <a href="de-thi-topik.html">Đề TOPIK</a>
+        <a href="https://www.topik.go.kr/TWSTDY/TWSTDY0080.do" target="_blank" rel="noopener noreferrer">Thi TOPIK Online ↗</a>
+        <a href="kiem-tra-dau-vao.html" class="active" aria-current="page">Kiểm tra đầu vào</a>
+      </nav>
+    </div>
+  </header>
 
-</style></head><body><header class="quiz-header"><div class="wrap"><a href="index.html"><img src="images/logo.png" alt="Tiếng Hàn Mr Lee" onerror="this.style.display='none';this.parentNode.textContent='TIẾNG HÀN MR LEE'"></a><nav><a href="index.html">Trang chủ</a><a href="bai-hoc.html">Bài học</a><a href="bo-sach.html">Bộ sách</a><a href="de-thi-topik.html">Đề TOPIK</a><a href="https://www.topik.go.kr/TWSTDY/TWSTDY0080.do" target="_blank" rel="noopener noreferrer">Thi TOPIK Online</a><a href="kiem-tra-dau-vao.html" aria-current="page">Kiểm tra đầu vào</a></nav></div></header><main class="container"><section id="intro" class="intro"><span class="tag">ĐÁNH GIÁ ĐẦU VÀO</span><h1>Kiểm tra trình độ tiếng Hàn</h1><p class="muted">50 câu trắc nghiệm từ cơ bản đến nâng cao · 30 phút · Tự chấm điểm và gợi ý lộ trình học.</p><p>Nhập họ tên để bắt đầu:</p><label for="studentName" class="muted">Họ và tên</label><div style="margin:8px 0 18px"><input id="studentName" type="text" maxlength="80" placeholder="Ví dụ: Nguyễn Văn A" autocomplete="name"></div><button class="btn" id="startBtn" type="button">Bắt đầu làm bài</button><p class="muted" style="font-size:13px">Kết quả chỉ mang tính tham khảo, không thay thế kỳ thi TOPIK chính thức. Bài kiểm tra không gửi dữ liệu đến máy chủ.</p></section><section id="exam" class="hidden"><div class="toolbar"><span class="progress" id="progress">Đã trả lời: 0/50</span><span class="timer" id="timer" role="timer" aria-live="off">30:00</span><button type="button" class="btn" id="submitTop">Nộp bài</button></div><div id="questions"></div><div class="actions"><button type="button" class="btn" id="submitBottom">Nộp bài & xem kết quả</button></div></section><section id="results" class="results hidden" aria-live="polite"><h2>Kết quả kiểm tra đầu vào</h2><p id="studentResult"></p><div class="result-score" id="score"></div><h2 id="recommend"></h2><p id="description"></p><p class="muted" id="breakdown"></p><div class="actions"><button type="button" class="btn" id="reviewBtn">Xem đáp án và giải thích</button><button type="button" class="btn secondary" id="restartBtn">Làm lại</button><a class="btn secondary" href="bai-hoc.html" style="text-decoration:none">Xem bài học</a></div><div id="review" class="hidden"></div></section></main><footer class="foot">© Tiếng Hàn Mr Lee · Kiểm tra đầu vào tham khảo</footer><script>
+  <main class="shell">
+    <section class="panel intro" id="intro" aria-labelledby="introTitle">
+      <span class="eyebrow">KIỂM TRA NĂNG LỰC ĐẦU VÀO · TIẾNG HÀN MR LEE</span>
+      <h1 id="introTitle">Đăng ký kiểm tra trình độ tiếng Hàn</h1>
+      <p class="muted">Nhập thông tin học viên và chọn trình độ. Hệ thống sẽ mở đúng <strong>bộ đề 50 câu</strong> tương ứng. Tất cả đều là trắc nghiệm, có chấm điểm tự động và lời giải.</p>
+      <div class="highlights" aria-label="Thông tin kiểm tra">
+        <span class="pill">📝 50 câu / trình độ</span>
+        <span class="pill">⏱ 30 phút</span>
+        <span class="pill">✅ Chấm điểm tự động</span>
+        <span class="pill">📚 3 bộ đề riêng</span>
+      </div>
+      <form id="registrationForm" novalidate>
+        <div class="registration-grid">
+          <div class="full">
+            <label class="field" for="studentName">Họ và tên <span class="form-required" aria-hidden="true">*</span></label>
+            <input class="form-input" id="studentName" name="studentName" type="text" maxlength="80" placeholder="Ví dụ: Nguyễn Văn A" autocomplete="name" required>
+          </div>
+          <div>
+            <label class="field" for="studentLevel">Trình độ <span class="form-required" aria-hidden="true">*</span></label>
+            <select class="form-input" id="studentLevel" name="studentLevel" required>
+              <option value="">— Chọn trình độ kiểm tra —</option>
+              <option value="sc1">Sơ cấp 1</option>
+              <option value="sc2">Sơ cấp 2</option>
+              <option value="tc1">Trung cấp 1</option>
+            </select>
+          </div>
+          <div>
+            <label class="field" for="studentDOB">Ngày tháng năm sinh <span class="form-required" aria-hidden="true">*</span></label>
+            <input class="form-input" id="studentDOB" name="studentDOB" type="date" min="1900-01-01" required>
+          </div>
+        </div>
+        <div class="bank-preview" id="bankPreview" aria-live="polite">Chọn trình độ để xem thông tin bộ đề.</div>
+        <p id="nameError" class="incorrect-text form-error" role="alert" aria-live="polite"></p>
+        <button class="btn" type="submit" id="startBtn">Bắt đầu làm bài →</button>
+      </form>
+      <p class="privacy muted">Thông tin cá nhân và câu trả lời chỉ được xử lý trong trình duyệt để hiển thị kết quả; trang này không tự lưu lên máy chủ hoặc gửi cho giáo viên. Kết quả là đánh giá tham khảo, không phải chứng chỉ TOPIK.</p>
+    </section>
 
-const QUESTIONS=[{"q": "“안녕하세요” có nghĩa là gì?", "opts": ["Xin chào", "Tạm biệt", "Cảm ơn", "Xin lỗi"], "answer": 0, "explain": "안녕하세요: xin chào.", "level": "Sơ cấp 1"}, {"q": "“감사합니다” có nghĩa là gì?", "opts": ["Xin lỗi", "Cảm ơn", "Không sao", "Hẹn gặp lại"], "answer": 1, "explain": "감사합니다: cảm ơn.", "level": "Sơ cấp 1"}, {"q": "“학교” là gì?", "opts": ["Bệnh viện", "Nhà ga", "Trường học", "Cửa hàng"], "answer": 2, "explain": "학교: trường học.", "level": "Sơ cấp 1"}, {"q": "“물” là gì?", "opts": ["Cơm", "Sữa", "Trà", "Nước"], "answer": 3, "explain": "물: nước.", "level": "Sơ cấp 1"}, {"q": "“먹다” nghĩa là gì?", "opts": ["Ăn", "Ngủ", "Đi", "Đọc"], "answer": 0, "explain": "먹다: ăn.", "level": "Sơ cấp 1"}, {"q": "“크다” trái nghĩa với từ nào?", "opts": ["많다", "작다", "좋다", "빠르다"], "answer": 1, "explain": "크다 (to) trái nghĩa với 작다 (nhỏ).", "level": "Sơ cấp 1"}, {"q": "“저는 학생___.” Chọn cách kết thúc câu đúng.", "opts": ["을", "에서", "입니다", "하고"], "answer": 2, "explain": "Danh từ 학생 + 입니다: 저는 학생입니다.", "level": "Sơ cấp 1"}, {"q": "“저는 한국어___ 공부해요.”", "opts": ["에", "와", "에서", "를"], "answer": 3, "explain": "한국어를 공부해요: học tiếng Hàn; 한국어 là tân ngữ.", "level": "Sơ cấp 1"}, {"q": "“어디” nghĩa là gì?", "opts": ["Ở đâu", "Khi nào", "Ai", "Tại sao"], "answer": 0, "explain": "어디: ở đâu.", "level": "Sơ cấp 1"}, {"q": "“오늘” là gì?", "opts": ["Hôm qua", "Hôm nay", "Ngày mai", "Tuần sau"], "answer": 1, "explain": "오늘: hôm nay.", "level": "Sơ cấp 1"}, {"q": "“책을 ___.” Chọn động từ phù hợp.", "opts": ["마셔요", "자요", "읽어요", "만나요"], "answer": 2, "explain": "책을 읽어요: đọc sách.", "level": "Sơ cấp 1"}, {"q": "“사과 두 ___ 주세요.” Chọn đơn vị đếm thông dụng.", "opts": ["명", "권", "잔", "개"], "answer": 3, "explain": "사과 두 개: hai quả táo.", "level": "Sơ cấp 1"}, {"q": "“친구” là gì?", "opts": ["Bạn bè", "Gia đình", "Giáo viên", "Anh trai"], "answer": 0, "explain": "친구: bạn bè.", "level": "Sơ cấp 1"}, {"q": "“저는 집___ 있어요.”", "opts": ["을", "에", "가", "와"], "answer": 1, "explain": "있다 diễn tả sự tồn tại tại nơi chốn với 에.", "level": "Sơ cấp 1"}, {"q": "“어제” nghĩa là gì?", "opts": ["Ngày mai", "Hôm nay", "Hôm qua", "Bây giờ"], "answer": 2, "explain": "어제: hôm qua.", "level": "Sơ cấp 1"}, {"q": "“저는 아침마다 커피를 ___.”", "opts": ["먹어요", "마셔요", "읽어요", "입어요"], "answer": 1, "explain": "커피를 마셔요: uống cà phê.", "level": "Sơ cấp 2"}, {"q": "“지금 비가 ___.”", "opts": ["와요", "가요", "봐요", "사요"], "answer": 0, "explain": "비가 오다: trời mưa.", "level": "Sơ cấp 2"}, {"q": "“어제 영화를 ___.”", "opts": ["봐요", "볼 거예요", "봤어요", "보세요"], "answer": 2, "explain": "어제 là quá khứ, dùng 봤어요.", "level": "Sơ cấp 2"}, {"q": "“내일 친구를 ___.” (Chọn dạng diễn tả dự định tương lai rõ ràng.)", "opts": ["만났어요", "만나고 싶어요", "만날 거예요", "만나고 있어요"], "answer": 2, "explain": "내일 là ngày mai, 만날 거예요 chỉ tương lai.", "level": "Sơ cấp 2"}, {"q": "“버스___ 학교에 가요.”", "opts": ["를", "에서", "에게", "로"], "answer": 3, "explain": "버스로: bằng xe buýt (phương tiện).", "level": "Sơ cấp 2"}, {"q": "“여기에서 사진을 찍어도 돼요?” có nghĩa là gì?", "opts": ["Có được chụp ảnh ở đây không?", "Tôi đã chụp ảnh ở đây.", "Tôi muốn mua ảnh.", "Ảnh này ở đâu?"], "answer": 0, "explain": "-아/어도 되다: được phép làm gì.", "level": "Sơ cấp 2"}, {"q": "“배가 아파서 병원에 ___.”", "opts": ["먹었어요", "갔어요", "잤어요", "샀어요"], "answer": 1, "explain": "Đau bụng nên đã đến bệnh viện: 병원에 갔어요.", "level": "Sơ cấp 2"}, {"q": "“이 옷은 저 옷___ 비싸요.” (đắt hơn)", "opts": ["부터", "까지", "보다", "밖에"], "answer": 2, "explain": "Danh từ + 보다 dùng để so sánh hơn.", "level": "Sơ cấp 2"}, {"q": "“주말에 뭐 했어요?” Câu trả lời phù hợp là:", "opts": ["내일 공부할 거예요.", "지금 공부해요.", "매일 공부해요.", "집에서 쉬었어요."], "answer": 3, "explain": "Hỏi đã làm gì cuối tuần; 쉬었어요 là quá khứ.", "level": "Sơ cấp 2"}, {"q": "“한국어를 공부한 지 1년___.”", "opts": ["됐어요", "하세요", "가세요", "보세요"], "answer": 0, "explain": "-ㄴ/은 지 ... 되다: đã được bao lâu kể từ khi.", "level": "Sơ cấp 2"}, {"q": "“시간이 없___ 택시를 탔어요.”", "opts": ["지만", "어서", "거나", "면서"], "answer": 1, "explain": "없어서: vì không có thời gian.", "level": "Sơ cấp 2"}, {"q": "“음식을 먹기 전에 손을 ___.”", "opts": ["씻었어요?", "씻을까요?", "씻으세요", "씻지 마세요"], "answer": 2, "explain": "-기 전에: trước khi; 씻으세요 là hãy rửa.", "level": "Sơ cấp 2"}, {"q": "“조용히 해 주세요.” có nghĩa là gì?", "opts": ["Hãy nói to.", "Hãy đi nhanh.", "Hãy mở cửa.", "Xin hãy giữ yên lặng."], "answer": 3, "explain": "조용히: yên lặng; -아/어 주세요: xin hãy.", "level": "Sơ cấp 2"}, {"q": "“저는 수영할 ___ 알아요.”", "opts": ["줄", "수밖에", "때문에", "동안"], "answer": 0, "explain": "-(으)ㄹ 줄 알다: biết cách làm gì.", "level": "Sơ cấp 2"}, {"q": "“이 신발을 신어 ___ 돼요?”", "opts": ["가도", "봐도", "먹어도", "자도"], "answer": 1, "explain": "신어 보다: thử đi giày; 신어 봐도 돼요?", "level": "Sơ cấp 2"}, {"q": "“날씨가 춥기는 하지만 ___.”", "opts": ["눈이 왔어요", "견딜 만해요", "추울 거예요?", "춥지 않아요?"], "answer": 1, "explain": "-기는 하지만 nhượng bộ: tuy lạnh nhưng vẫn chịu được.", "level": "Trung cấp cơ bản"}, {"q": "“늦지 않도록 일찍 ___.”", "opts": ["출발하세요", "출발했지만", "출발한 지", "출발하는데도"], "answer": 0, "explain": "-도록: để/nhằm; hãy xuất phát sớm để không muộn.", "level": "Trung cấp cơ bản"}, {"q": "“그 소식을 듣자마자 친구에게 ___.”", "opts": ["전화할 거예요?", "전화하고 있어요", "전화했어요", "전화하는 편이에요"], "answer": 2, "explain": "-자마자: ngay khi; 전화했어요 diễn tả hành động đã xảy ra.", "level": "Trung cấp cơ bản"}, {"q": "“열심히 공부한 덕분에 시험에 ___.”", "opts": ["떨어졌어요", "늦었어요", "결석했어요", "합격했어요"], "answer": 3, "explain": "-ㄴ/은 덕분에: nhờ vào; 합격하다: thi đỗ.", "level": "Trung cấp cơ bản"}, {"q": "“회의가 끝나는 대로 연락___.”", "opts": ["드리겠습니다", "드렸습니다", "드렸더니", "드린 적이"], "answer": 0, "explain": "-는 대로: ngay khi; 연락드리겠습니다: tôi sẽ liên hệ.", "level": "Trung cấp cơ bản"}, {"q": "“그 사람은 한국에서 산 적이 ___.”", "opts": ["있을까", "있어요", "있도록", "있으면서"], "answer": 1, "explain": "-(으)ㄴ 적이 있다: đã từng làm gì.", "level": "Trung cấp cơ bản"}, {"q": "“비가 올지도 모르니까 우산을 ___.”", "opts": ["버리세요", "잊으세요", "챙기세요", "놓으세요"], "answer": 2, "explain": "-ㄹ지도 모르다: có thể; 챙기다: chuẩn bị/mang theo.", "level": "Trung cấp cơ bản"}, {"q": "“바쁜 와중에도 시간을 ___.”", "opts": ["없앴어요", "늦췄어요", "놓쳤어요", "냈어요"], "answer": 3, "explain": "시간을 내다: dành thời gian.", "level": "Trung cấp cơ bản"}, {"q": "“약속을 지키는 것이 중요하다고 ___.”", "opts": ["생각해요", "입어요", "마셔요", "걸어요"], "answer": 0, "explain": "-다고 생각하다: nghĩ rằng; 지키다: giữ lời.", "level": "Trung cấp cơ bản"}, {"q": "“이 문제는 생각보다 해결하기 ___.”", "opts": ["어렵지만요", "쉬워요", "늦어요", "높아요"], "answer": 1, "explain": "해결하기 쉬워요: dễ giải quyết.", "level": "Trung cấp cơ bản"}, {"q": "“그는 피곤한 기색을 ___ 않았다.”", "opts": ["보내지", "내색하지", "바라지", "도착하지"], "answer": 1, "explain": "내색하다: biểu lộ ra ngoài; 내색하지 않다: không để lộ.", "level": "Trung cấp nâng cao"}, {"q": "“경제가 회복될 기미가 ___.”", "opts": ["보인다", "먹는다", "입는다", "읽는다"], "answer": 0, "explain": "기미가 보이다: xuất hiện dấu hiệu.", "level": "Trung cấp nâng cao"}, {"q": "“예산이 부족한 탓에 계획을 ___.”", "opts": ["실행했다", "완성했다", "수정했다", "축하했다"], "answer": 2, "explain": "-ㄴ/은 탓에: do nguyên nhân tiêu cực; 수정하다: điều chỉnh.", "level": "Trung cấp nâng cao"}, {"q": "“그의 설명은 논리적이기는커녕 ___.”", "opts": ["명확했다", "타당했다", "설득력 있었다", "모순투성이였다"], "answer": 3, "explain": "-기는커녕: chẳng những không... mà còn; 모순투성이: đầy mâu thuẫn.", "level": "Trung cấp nâng cao"}, {"q": "“자료를 검토한 결과 오류가 ___.”", "opts": ["발견되었다", "참석했다", "출발했다", "방문했다"], "answer": 0, "explain": "오류가 발견되다: lỗi được phát hiện.", "level": "Trung cấp nâng cao"}, {"q": "“아무리 바쁘더라도 건강을 ___.”", "opts": ["무시해야 한다", "챙겨야 한다", "잊어야 한다", "포기해야 한다"], "answer": 1, "explain": "-더라도: dù cho; 건강을 챙기다: chăm sóc sức khỏe.", "level": "Trung cấp nâng cao"}, {"q": "“이 정책은 장기적인 관점에서 ___ 필요가 있다.”", "opts": ["판단하기보다", "판단하는 대신", "평가할", "평가했을"], "answer": 2, "explain": "-ㄹ 필요가 있다: cần phải; 평가할 필요가 있다.", "level": "Trung cấp nâng cao"}, {"q": "“갈등을 원만하게 해결하기 위해 서로 ___.”", "opts": ["경쟁해야 한다", "외면해야 한다", "비난해야 한다", "양보해야 한다"], "answer": 3, "explain": "양보하다: nhường nhịn, thỏa hiệp.", "level": "Trung cấp nâng cao"}, {"q": "“성과가 기대에 미치지 못했다.” Ý nghĩa phù hợp là:", "opts": ["Kết quả không đạt mức kỳ vọng.", "Kết quả vượt xa kỳ vọng.", "Kết quả chưa được công bố.", "Kết quả không thể đo lường."], "answer": 0, "explain": "기대에 미치지 못하다: không đạt kỳ vọng.", "level": "Trung cấp nâng cao"}, {"q": "“문제가 복잡할수록 신중하게 접근해야 한다.” Ý nghĩa phù hợp là:", "opts": ["Vấn đề đơn giản nên xử lý nhanh.", "Vấn đề càng phức tạp càng cần tiếp cận thận trọng.", "Mọi vấn đề đều không thể giải quyết.", "Chỉ nên giải quyết vấn đề đơn giản."], "answer": 1, "explain": "-(으)ㄹ수록: càng... càng...; 신중하게: thận trọng.", "level": "Trung cấp nâng cao"}];
+    <section id="exam" class="hidden" aria-label="Bài kiểm tra 50 câu">
+      <div class="exam-bar">
+        <div class="status-meta">
+          <div><div class="status-label">Đã trả lời</div><div class="status-label"><strong id="answeredCount">0/50</strong></div></div>
+          <div><div class="status-label">Thời gian còn lại</div><div class="time" id="timer" role="timer" aria-live="off">30:00</div></div>
+        </div>
+        <button class="btn" id="submitTop" type="button">Nộp bài</button>
+        <div class="progress-track" role="progressbar" aria-label="Số câu đã trả lời" aria-valuemin="0" aria-valuemax="50" aria-valuenow="0" id="progressFillParent"><div id="progressFill" class="progress-fill"></div></div>
+      </div>
+      <div class="panel">
+        <p class="muted"><strong>Chọn số câu để chuyển nhanh.</strong> Ô màu xanh là câu đã trả lời.</p>
+        <div class="question-nav" id="questionNav" aria-label="Danh sách câu hỏi"></div>
+      </div>
+      <div id="questions"></div>
+      <div class="actions submit-bottom"><button class="btn" type="button" id="submitBottom">Nộp bài và xem kết quả →</button></div>
+    </section>
 
-const LIMIT=30*60;let answers=Array(QUESTIONS.length).fill(null),seconds=LIMIT,interval=null,finished=false,student='';
+    <section id="results" class="panel results hidden" aria-labelledby="resultsTitle" aria-live="polite">
+      <span class="eyebrow" id="resultEyebrow">KẾT QUẢ KIỂM TRA ĐẦU VÀO</span>
+      <h2 id="resultsTitle">Kết quả bài kiểm tra</h2>
+      <div id="studentResult" class="identity-summary"></div>
+      <div class="score-big" id="score">0 / 50</div>
+      <p id="percent" class="score-desc"></p>
+      <p class="result-reco" id="recommend"></p>
+      <p id="description"></p>
+      <h3 id="groupResultsHeading">Kết quả theo từng bài học</h3>
+      <p class="muted">Ô màu cam nhạt cho biết nhóm câu còn trả lời sai; bạn có thể ôn lại những nội dung tương ứng.</p>
+      <div id="lessonResults" class="lesson-results"></div>
+      <div class="actions">
+        <button type="button" class="btn" id="reviewToggle">Xem đáp án và giải thích</button>
+        <button type="button" class="btn secondary" id="retryBtn">Làm lại bài</button>
+        <a class="btn ghost" href="bai-hoc.html">Xem bài học</a>
+        <button type="button" class="btn ghost" onclick="window.print()">In kết quả</button>
+      </div>
+      <div id="review" class="hidden"></div>
+    </section>
+    <noscript><div class="nojs">Bài kiểm tra cần bật JavaScript trong trình duyệt.</div></noscript>
+  </main>
+  <footer class="footer">© 2026 Tiếng Hàn Mr Lee · Kiểm tra đầu vào Sơ cấp 1 / Sơ cấp 2 / Trung cấp 1</footer>
+  <script>
+"use strict";
+const QUESTION_BANKS = {
+  sc1: [
+  {
+    "lesson": 1,
+    "lessonTitle": "소개 · Giới thiệu",
+    "kind": "Ngữ pháp",
+    "question": "Chọn trợ từ phù hợp: 저___ 베트남 사람입니다.",
+    "options": [
+      "이",
+      "은",
+      "는",
+      "가"
+    ],
+    "answer": 2,
+    "explanation": "저 không có 받침 nên dùng 는: 저는 베트남 사람입니다."
+  },
+  {
+    "lesson": 1,
+    "lessonTitle": "소개 · Giới thiệu",
+    "kind": "Chọn câu đúng",
+    "question": "Câu nào có nghĩa “Tôi là học sinh”?",
+    "options": [
+      "저는 학생입니까?",
+      "저는 학생입니다.",
+      "저는 학생이 아닙니다.",
+      "저는 학생이 없습니다."
+    ],
+    "answer": 1,
+    "explanation": "N + 입니다 dùng để khẳng định danh tính: 저는 학생입니다."
+  },
+  {
+    "lesson": 1,
+    "lessonTitle": "소개 · Giới thiệu",
+    "kind": "Từ vựng",
+    "question": "“한국” là nước nào?",
+    "options": [
+      "Nhật Bản",
+      "Trung Quốc",
+      "Thái Lan",
+      "Hàn Quốc"
+    ],
+    "answer": 3,
+    "explanation": "한국 nghĩa là Hàn Quốc."
+  },
+  {
+    "lesson": 1,
+    "lessonTitle": "소개 · Giới thiệu",
+    "kind": "Hội thoại",
+    "question": "Người được hỏi đến từ quốc gia nào?",
+    "options": [
+      "Hàn Quốc",
+      "Việt Nam",
+      "Nhật Bản",
+      "Mỹ"
+    ],
+    "answer": 1,
+    "explanation": "베트남 사람 nghĩa là người Việt Nam.",
+    "context": "A: 어느 나라 사람입니까?\nB: 저는 베트남 사람입니다."
+  },
+  {
+    "lesson": 2,
+    "lessonTitle": "학교 · Trường học",
+    "kind": "Từ vựng",
+    "question": "Bạn muốn mượn sách. Địa điểm nào phù hợp nhất?",
+    "options": [
+      "도서관",
+      "은행",
+      "병원",
+      "우체국"
+    ],
+    "answer": 0,
+    "explanation": "도서관 là thư viện; 은행 là ngân hàng, 병원 là bệnh viện, 우체국 là bưu điện."
+  },
+  {
+    "lesson": 2,
+    "lessonTitle": "학교 · Trường học",
+    "kind": "Ngữ pháp",
+    "question": "Chọn trợ từ phù hợp: 책___ 있습니다.",
+    "options": [
+      "은",
+      "가",
+      "이",
+      "를"
+    ],
+    "answer": 2,
+    "explanation": "책 có 받침 nên dùng 이: 책이 있습니다 (có sách)."
+  },
+  {
+    "lesson": 2,
+    "lessonTitle": "학교 · Trường học",
+    "kind": "Đọc hiểu",
+    "question": "Trong trường có gì theo đoạn sau?",
+    "options": [
+      "Bệnh viện",
+      "Thư viện",
+      "Ngân hàng",
+      "Bưu điện"
+    ],
+    "answer": 1,
+    "explanation": "학교에 도서관이 있습니다 nghĩa là ở trường có thư viện.",
+    "context": "우리 학교에 도서관이 있습니다. 도서관에 책이 많습니다."
+  },
+  {
+    "lesson": 3,
+    "lessonTitle": "일상생활 · Sinh hoạt hằng ngày",
+    "kind": "Từ vựng",
+    "question": "Động từ “읽다” có nghĩa là gì?",
+    "options": [
+      "Nghe",
+      "Ăn",
+      "Đọc",
+      "Ngủ"
+    ],
+    "answer": 2,
+    "explanation": "읽다 nghĩa là đọc."
+  },
+  {
+    "lesson": 3,
+    "lessonTitle": "일상생활 · Sinh hoạt hằng ngày",
+    "kind": "Ngữ pháp",
+    "question": "Điền trợ từ chỉ nơi diễn ra hành động: 학교___ 한국어를 공부합니다.",
+    "options": [
+      "에",
+      "에서",
+      "을",
+      "와"
+    ],
+    "answer": 1,
+    "explanation": "에서 đánh dấu địa điểm thực hiện hành động: 학교에서 공부합니다."
+  },
+  {
+    "lesson": 3,
+    "lessonTitle": "일상생활 · Sinh hoạt hằng ngày",
+    "kind": "Ngữ pháp",
+    "question": "Chọn trợ từ tân ngữ: 사과___ 먹습니다.",
+    "options": [
+      "를",
+      "이",
+      "가",
+      "에"
+    ],
+    "answer": 0,
+    "explanation": "사과 không có 받침 nên dùng 를: 사과를 먹습니다."
+  },
+  {
+    "lesson": 3,
+    "lessonTitle": "일상생활 · Sinh hoạt hằng ngày",
+    "kind": "Hội thoại",
+    "question": "Hoàn thành lời đáp thích hợp.",
+    "options": [
+      "읽습니다",
+      "잡니다",
+      "마십니다",
+      "듣습니다"
+    ],
+    "answer": 3,
+    "explanation": "음악을 듣습니다 nghĩa là nghe nhạc.",
+    "context": "A: 무엇을 합니까?\nB: 음악을 ____."
+  },
+  {
+    "lesson": 4,
+    "lessonTitle": "날짜와 요일 · Ngày và thứ",
+    "kind": "Từ vựng",
+    "question": "“화요일” là thứ mấy?",
+    "options": [
+      "Thứ Hai",
+      "Thứ Ba",
+      "Thứ Tư",
+      "Thứ Năm"
+    ],
+    "answer": 1,
+    "explanation": "화요일 nghĩa là thứ Ba."
+  },
+  {
+    "lesson": 4,
+    "lessonTitle": "날짜와 요일 · Ngày và thứ",
+    "kind": "Đọc hiểu",
+    "question": "Nếu hôm nay là thứ Sáu, ngày mai là thứ mấy?",
+    "options": [
+      "목요일",
+      "월요일",
+      "토요일",
+      "수요일"
+    ],
+    "answer": 2,
+    "explanation": "Thứ Sáu là 금요일, ngày sau là thứ Bảy: 토요일.",
+    "context": "오늘은 금요일입니다. 내일은 무슨 요일입니까?"
+  },
+  {
+    "lesson": 4,
+    "lessonTitle": "날짜와 요일 · Ngày và thứ",
+    "kind": "Ngữ pháp",
+    "question": "Điền trợ từ thời điểm: 시험은 월요일___ 있습니다.",
+    "options": [
+      "를",
+      "와",
+      "에서",
+      "에"
+    ],
+    "answer": 3,
+    "explanation": "N + 에 đánh dấu thời điểm: 월요일에 (vào thứ Hai)."
+  },
+  {
+    "lesson": 5,
+    "lessonTitle": "하루 일과 · Công việc trong ngày",
+    "kind": "Số đếm – thời gian",
+    "question": "Cách viết đúng của “7 giờ 30 phút” là gì?",
+    "options": [
+      "칠 시 삼십 분",
+      "일곱 시 삼십 분",
+      "일곱 시 서른 분",
+      "칠 시 서른 분"
+    ],
+    "answer": 1,
+    "explanation": "Giờ dùng số thuần Hàn 일곱, phút dùng số Hán Hàn 삼십."
+  },
+  {
+    "lesson": 5,
+    "lessonTitle": "하루 일과 · Công việc trong ngày",
+    "kind": "Ngữ pháp",
+    "question": "Chọn đuôi câu phù hợp: 그 사람은 의사___.",
+    "options": [
+      "예요",
+      "이에요",
+      "을",
+      "에서"
+    ],
+    "answer": 0,
+    "explanation": "의사 không có 받침 nên dùng 예요: 의사예요."
+  },
+  {
+    "lesson": 5,
+    "lessonTitle": "하루 일과 · Công việc trong ngày",
+    "kind": "Ngữ pháp",
+    "question": "Điền trợ từ đích đến: 저는 매일 학교___ 가요.",
+    "options": [
+      "에서",
+      "를",
+      "에",
+      "와"
+    ],
+    "answer": 2,
+    "explanation": "Đi đến địa điểm dùng N + 에 가요: 학교에 가요."
+  },
+  {
+    "lesson": 5,
+    "lessonTitle": "하루 일과 · Công việc trong ngày",
+    "kind": "Tình huống",
+    "question": "Bạn muốn nói “Hôm nay tôi không đi học.” Chọn câu đúng.",
+    "options": [
+      "저는 오늘 학교에 갔어요.",
+      "저는 오늘 학교에 가세요.",
+      "저는 오늘 학교에 갈 거예요.",
+      "저는 오늘 학교에 안 가요."
+    ],
+    "answer": 3,
+    "explanation": "안 + động từ tạo câu phủ định: 안 가요 (không đi)."
+  },
+  {
+    "lesson": 6,
+    "lessonTitle": "주말 · Cuối tuần",
+    "kind": "Hội thoại",
+    "question": "Chọn lời đáp đúng cho câu hỏi “Cuối tuần đã làm gì?”.",
+    "options": [
+      "영화를 봤어요.",
+      "영화를 볼 거예요.",
+      "영화를 보세요.",
+      "영화를 봅시다."
+    ],
+    "answer": 0,
+    "explanation": "했어요 hỏi về quá khứ nên đáp bằng 봤어요 (đã xem).",
+    "context": "A: 주말에 뭐 했어요?\nB: ____."
+  },
+  {
+    "lesson": 6,
+    "lessonTitle": "주말 · Cuối tuần",
+    "kind": "Ngữ pháp",
+    "question": "Chọn câu rủ bạn cùng đi đúng dạng -(으)ㅂ시다.",
+    "options": [
+      "같이 갑니까?",
+      "같이 가세요.",
+      "같이 갑시다.",
+      "같이 갔어요."
+    ],
+    "answer": 2,
+    "explanation": "가다 + -ㅂ시다 → 갑시다: Chúng ta cùng đi nhé."
+  },
+  {
+    "lesson": 6,
+    "lessonTitle": "주말 · Cuối tuần",
+    "kind": "Ngữ pháp",
+    "question": "Điền từ có nghĩa “cùng với”: 친구___ 영화를 봤어요.",
+    "options": [
+      "에서",
+      "하고",
+      "부터",
+      "까지"
+    ],
+    "answer": 1,
+    "explanation": "N + 하고 diễn tả “với”: 친구하고 영화를 봤어요."
+  },
+  {
+    "lesson": 7,
+    "lessonTitle": "물건 사기 (1) · Mua hàng",
+    "kind": "Hội thoại",
+    "question": "Ở cửa hàng, “이거 얼마예요?” có nghĩa là gì?",
+    "options": [
+      "Bạn muốn mua gì?",
+      "Món này có ngon không?",
+      "Hôm nay là thứ mấy?",
+      "Cái này giá bao nhiêu?"
+    ],
+    "answer": 3,
+    "explanation": "얼마예요? hỏi giá tiền của món đồ."
+  },
+  {
+    "lesson": 7,
+    "lessonTitle": "물건 사기 (1) · Mua hàng",
+    "kind": "Ngữ pháp",
+    "question": "Điền đúng: 이 신발을 사고 ____. (Tôi muốn mua đôi giày này.)",
+    "options": [
+      "싶어요",
+      "있어요",
+      "말아요",
+      "주세요"
+    ],
+    "answer": 0,
+    "explanation": "V + 고 싶어요: muốn làm việc gì. 사고 싶어요 = muốn mua."
+  },
+  {
+    "lesson": 7,
+    "lessonTitle": "물건 사기 (1) · Mua hàng",
+    "kind": "Chia động từ",
+    "question": "Đâu là dạng -아/어요 đúng của “쓰다”?",
+    "options": [
+      "쓰아요",
+      "쓰요",
+      "써요",
+      "쓰였어요"
+    ],
+    "answer": 2,
+    "explanation": "쓰다 thuộc dạng lược bỏ ㅡ: 쓰다 → 써요."
+  },
+  {
+    "lesson": 8,
+    "lessonTitle": "음식 · Thức ăn",
+    "kind": "Từ vựng",
+    "question": "Món “비빔밥” là món nào?",
+    "options": [
+      "Mì lạnh",
+      "Cơm trộn",
+      "Canh tương",
+      "Bánh gạo"
+    ],
+    "answer": 1,
+    "explanation": "비빔밥 là món cơm trộn Hàn Quốc."
+  },
+  {
+    "lesson": 8,
+    "lessonTitle": "음식 · Thức ăn",
+    "kind": "Tình huống",
+    "question": "Bạn muốn lịch sự mời khách “Hãy ăn món này”. Chọn câu phù hợp nhất.",
+    "options": [
+      "이 음식을 먹지 않아요.",
+      "이 음식을 먹었어요.",
+      "이 음식을 먹을 거예요.",
+      "이 음식을 드세요."
+    ],
+    "answer": 3,
+    "explanation": "드세요 là cách nói kính trọng, lịch sự để mời dùng món ăn."
+  },
+  {
+    "lesson": 8,
+    "lessonTitle": "음식 · Thức ăn",
+    "kind": "Đọc hiểu",
+    "question": "Người nói có ăn đồ cay không?",
+    "options": [
+      "Không ăn",
+      "Rất thích ăn",
+      "Chỉ ăn vào cuối tuần",
+      "Đang muốn mua"
+    ],
+    "answer": 0,
+    "explanation": "먹지 않아요 biểu thị phủ định: không ăn.",
+    "context": "저는 매운 음식을 먹지 않아요."
+  },
+  {
+    "lesson": 8,
+    "lessonTitle": "음식 · Thức ăn",
+    "kind": "Hội thoại",
+    "question": "Chọn câu trả lời phù hợp khi gọi món ăn.",
+    "options": [
+      "어제 학교에 갔어요.",
+      "지금 책을 읽어요.",
+      "비빔밥을 먹겠습니다.",
+      "날씨가 추워요."
+    ],
+    "answer": 2,
+    "explanation": "먹겠습니다 biểu thị ý định của người nói; câu trả lời gọi món phù hợp.",
+    "context": "A: 무엇을 드시겠어요?\nB: ____."
+  },
+  {
+    "lesson": 9,
+    "lessonTitle": "집 · Nhà cửa",
+    "kind": "Đọc hiểu",
+    "question": "Giày nằm ở vị trí nào?",
+    "options": [
+      "Trên giường",
+      "Dưới giường",
+      "Bên cạnh giường",
+      "Ngoài phòng"
+    ],
+    "answer": 1,
+    "explanation": "아래 nghĩa là bên dưới. 침대 아래에 = dưới giường.",
+    "context": "신발이 침대 아래에 있어요."
+  },
+  {
+    "lesson": 9,
+    "lessonTitle": "집 · Nhà cửa",
+    "kind": "Ngữ pháp",
+    "question": "Chọn trợ từ chỉ hướng: 왼쪽___ 가세요.",
+    "options": [
+      "로",
+      "에",
+      "으로",
+      "를"
+    ],
+    "answer": 2,
+    "explanation": "왼쪽 có 받침 ㄱ nên dùng -으로: 왼쪽으로 가세요."
+  },
+  {
+    "lesson": 9,
+    "lessonTitle": "집 · Nhà cửa",
+    "kind": "Ngữ pháp",
+    "question": "Chọn từ chỉ nghĩa “cũng”: 저___ 학생이에요.",
+    "options": [
+      "도",
+      "를",
+      "에서",
+      "에게"
+    ],
+    "answer": 0,
+    "explanation": "저도 학생이에요 nghĩa là tôi cũng là học sinh."
+  },
+  {
+    "lesson": 10,
+    "lessonTitle": "가족 · Gia đình",
+    "kind": "Từ vựng",
+    "question": "Một bạn nam gọi chị gái ruột của mình là gì?",
+    "options": [
+      "언니",
+      "남동생",
+      "오빠",
+      "누나"
+    ],
+    "answer": 3,
+    "explanation": "누나 là cách nam giới gọi chị gái; 언니 là cách nữ giới gọi chị gái."
+  },
+  {
+    "lesson": 10,
+    "lessonTitle": "가족 · Gia đình",
+    "kind": "Ngữ pháp kính ngữ",
+    "question": "Chọn trợ từ chủ ngữ kính ngữ: 할아버지___ 집에 계세요.",
+    "options": [
+      "를",
+      "께서",
+      "에서",
+      "에게"
+    ],
+    "answer": 1,
+    "explanation": "께서 là trợ từ chủ ngữ kính ngữ: 할아버지께서 계세요."
+  },
+  {
+    "lesson": 10,
+    "lessonTitle": "가족 · Gia đình",
+    "kind": "Tình huống",
+    "question": "Muốn mời bà ngồi một cách lịch sự, bạn nói gì?",
+    "options": [
+      "할머니, 앉았어요.",
+      "할머니, 앉지 않아요.",
+      "할머니, 앉으세요.",
+      "할머니, 앉을 거예요."
+    ],
+    "answer": 2,
+    "explanation": "앉다 có 받침 nên dùng -으세요: 앉으세요 (mời ngồi)."
+  },
+  {
+    "lesson": 11,
+    "lessonTitle": "날씨 · Thời tiết",
+    "kind": "Chia tính từ",
+    "question": "Điền đúng theo ngữ cảnh: 겨울에는 날씨가 ____.",
+    "options": [
+      "추워요",
+      "춥어요",
+      "추아요",
+      "춥아요"
+    ],
+    "answer": 0,
+    "explanation": "춥다 là tính từ bất quy tắc ㅂ: 춥다 → 추워요."
+  },
+  {
+    "lesson": 11,
+    "lessonTitle": "날씨 · Thời tiết",
+    "kind": "Ngữ pháp tương lai",
+    "question": "Dự báo “Ngày mai trời sẽ mưa”. Chọn câu đúng.",
+    "options": [
+      "어제 비가 왔어요.",
+      "지금 비가 와요.",
+      "내일 비가 오지 않았어요.",
+      "내일 비가 올 거예요."
+    ],
+    "answer": 3,
+    "explanation": "-(으)ㄹ 거예요 diễn tả tương lai: 비가 올 거예요."
+  },
+  {
+    "lesson": 11,
+    "lessonTitle": "날씨 · Thời tiết",
+    "kind": "Ngữ pháp thời gian",
+    "question": "Điền từ chỉ thời điểm bắt đầu: 9시___ 6시까지 일해요.",
+    "options": [
+      "에서",
+      "부터",
+      "에게",
+      "하고"
+    ],
+    "answer": 1,
+    "explanation": "부터 ~ 까지 nghĩa là từ thời gian bắt đầu đến thời gian kết thúc."
+  },
+  {
+    "lesson": 12,
+    "lessonTitle": "전화 (1) · Điện thoại",
+    "kind": "Giao tiếp điện thoại",
+    "question": "Khi bắt máy điện thoại, bạn nói gì?",
+    "options": [
+      "안녕히 가세요.",
+      "어서 오세요.",
+      "여보세요?",
+      "잘 먹겠습니다."
+    ],
+    "answer": 2,
+    "explanation": "여보세요? là lời mở đầu thường dùng khi nghe điện thoại."
+  },
+  {
+    "lesson": 12,
+    "lessonTitle": "전화 (1) · Điện thoại",
+    "kind": "Ngữ pháp",
+    "question": "Điền trợ từ chỉ người nhận hành động: 친구___ 전화를 했어요.",
+    "options": [
+      "에게",
+      "에서",
+      "으로",
+      "부터"
+    ],
+    "answer": 0,
+    "explanation": "친구에게 전화를 했어요: đã gọi điện cho bạn."
+  },
+  {
+    "lesson": 12,
+    "lessonTitle": "전화 (1) · Điện thoại",
+    "kind": "Ngữ pháp nối câu",
+    "question": "Điền cấu trúc tương phản: 한국어는 어렵___ 재미있어요.",
+    "options": [
+      "어서",
+      "려고",
+      "을까요",
+      "지만"
+    ],
+    "answer": 3,
+    "explanation": "-지만 có nghĩa “nhưng”: 한국어는 어렵지만 재미있어요."
+  },
+  {
+    "lesson": 13,
+    "lessonTitle": "생일 · Sinh nhật",
+    "kind": "Từ vựng",
+    "question": "“선물” có nghĩa là gì?",
+    "options": [
+      "Thiệp",
+      "Quà tặng",
+      "Bánh sinh nhật",
+      "Bó hoa"
+    ],
+    "answer": 1,
+    "explanation": "선물 nghĩa là quà tặng."
+  },
+  {
+    "lesson": 13,
+    "lessonTitle": "생일 · Sinh nhật",
+    "kind": "Ngữ pháp nguyên nhân",
+    "question": "Điền đúng: 비가 와___ 집에 있어요. (Vì trời mưa nên ở nhà.)",
+    "options": [
+      "고",
+      "지만",
+      "서",
+      "ㄹ까요"
+    ],
+    "answer": 2,
+    "explanation": "비가 와서: vì trời mưa nên…; -아/어서 diễn tả nguyên nhân."
+  },
+  {
+    "lesson": 13,
+    "lessonTitle": "생일 · Sinh nhật",
+    "kind": "Hội thoại – đề nghị",
+    "question": "Chọn cách rủ bạn “Chúng ta cùng uống cà phê nhé?”.",
+    "options": [
+      "같이 커피를 마실까요?",
+      "같이 커피를 마셨어요.",
+      "같이 커피를 마시지 않아요.",
+      "같이 커피를 마실 수 없어요."
+    ],
+    "answer": 0,
+    "explanation": "-(으)ㄹ까요? được dùng để đề nghị, rủ người khác cùng làm."
+  },
+  {
+    "lesson": 14,
+    "lessonTitle": "취미 · Sở thích",
+    "kind": "Từ vựng",
+    "question": "“취미” có nghĩa là gì?",
+    "options": [
+      "Sinh nhật",
+      "Nghề nghiệp",
+      "Giao thông",
+      "Sở thích"
+    ],
+    "answer": 3,
+    "explanation": "취미 nghĩa là sở thích."
+  },
+  {
+    "lesson": 14,
+    "lessonTitle": "취미 · Sở thích",
+    "kind": "Ngữ pháp khả năng",
+    "question": "Điền đúng: 한국어를 읽___ 수 있어요.",
+    "options": [
+      "는",
+      "을",
+      "기",
+      "고"
+    ],
+    "answer": 1,
+    "explanation": "읽다 có 받침 nên dùng -을 수 있다: 읽을 수 있어요 (có thể đọc)."
+  },
+  {
+    "lesson": 14,
+    "lessonTitle": "취미 · Sở thích",
+    "kind": "Chia động từ",
+    "question": "Dạng -아/어요 đúng của “듣다” (nghe) là gì?",
+    "options": [
+      "듣어요",
+      "듣아요",
+      "들어요",
+      "드어요"
+    ],
+    "answer": 2,
+    "explanation": "듣다 thuộc dạng bất quy tắc ㄷ: 듣다 → 들어요."
+  },
+  {
+    "lesson": 15,
+    "lessonTitle": "교통 (1) · Giao thông",
+    "kind": "Từ vựng",
+    "question": "“지하철” là phương tiện gì?",
+    "options": [
+      "Tàu điện ngầm",
+      "Xe buýt",
+      "Máy bay",
+      "Taxi"
+    ],
+    "answer": 0,
+    "explanation": "지하철 nghĩa là tàu điện ngầm."
+  },
+  {
+    "lesson": 15,
+    "lessonTitle": "교통 (1) · Giao thông",
+    "kind": "Ngữ pháp chỉ điểm đi – đến",
+    "question": "Điền địa điểm xuất phát: 집___ 학교까지 버스로 가요.",
+    "options": [
+      "으로",
+      "에",
+      "에서",
+      "를"
+    ],
+    "answer": 2,
+    "explanation": "N에서 N까지 biểu thị “từ N đến N”: 집에서 학교까지."
+  },
+  {
+    "lesson": 15,
+    "lessonTitle": "교통 (1) · Giao thông",
+    "kind": "Ngữ pháp mục đích",
+    "question": "Điền đúng: 책을 사___ 서점에 가요. (Tôi đến hiệu sách để mua sách.)",
+    "options": [
+      "으로",
+      "러",
+      "에서",
+      "고"
+    ],
+    "answer": 1,
+    "explanation": "사다 không có 받침 nên dùng -러 가다: 책을 사러 가요."
+  },
+  {
+    "lesson": 15,
+    "lessonTitle": "교통 (1) · Giao thông",
+    "kind": "Ngữ pháp phương tiện",
+    "question": "Điền đúng: 버스___ 학교에 가요. (Đi học bằng xe buýt.)",
+    "options": [
+      "에",
+      "에서",
+      "을",
+      "로"
+    ],
+    "answer": 3,
+    "explanation": "버스 không có 받침 nên dùng -로: 버스로 가요."
+  }
+],
+  sc2: [
+  {
+    "lesson": 1,
+    "lessonTitle": "만남 · Gặp gỡ",
+    "kind": "Từ vựng",
+    "question": "“후배” là ai?",
+    "options": [
+      "Cấp trên",
+      "Đàn em / người vào sau",
+      "Khách hàng",
+      "Người lớn tuổi hơn"
+    ],
+    "answer": 1,
+    "explanation": "후배 là người vào sau hoặc đàn em; 선배 là tiền bối."
+  },
+  {
+    "lesson": 1,
+    "lessonTitle": "만남 · Gặp gỡ",
+    "kind": "Hội thoại",
+    "question": "Khi gặp người quen lâu ngày không gặp, cách hỏi phù hợp nhất là gì?",
+    "options": [
+      "오랜만이에요. 잘 지냈어요?",
+      "얼마예요?",
+      "어디에서 갈아타요?",
+      "몇 시에 문을 닫아요?"
+    ],
+    "answer": 0,
+    "explanation": "오랜만이에요. 잘 지냈어요? nghĩa là Lâu rồi không gặp. Bạn vẫn khỏe chứ?"
+  },
+  {
+    "lesson": 1,
+    "lessonTitle": "만남 · Gặp gỡ",
+    "kind": "Ngữ pháp",
+    "question": "Hoàn thành: 제 친구는 저___ 성격이 비슷해요.",
+    "options": [
+      "에서",
+      "보다",
+      "와",
+      "를"
+    ],
+    "answer": 2,
+    "explanation": "저와 성격이 비슷해요: tính cách giống với tôi."
+  },
+  {
+    "lesson": 1,
+    "lessonTitle": "만남 · Gặp gỡ",
+    "kind": "Đọc hiểu",
+    "question": "Minh đến đâu theo đoạn sau?",
+    "options": [
+      "Đến trường",
+      "Đến cửa hàng",
+      "Đến ngân hàng",
+      "Đến nhà bạn"
+    ],
+    "answer": 3,
+    "explanation": "친구 집에 갔어요: đã đến nhà bạn.",
+    "context": "민수 씨는 어제 친구 집에 갔어요. 친구를 만나서 같이 저녁을 먹었어요."
+  },
+  {
+    "lesson": 2,
+    "lessonTitle": "약속 · Hẹn gặp",
+    "kind": "Ngữ pháp",
+    "question": "Điền đúng: 토요일에 같이 영화를 보___ 했어요.",
+    "options": [
+      "기로",
+      "고",
+      "기 때문에",
+      "거나"
+    ],
+    "answer": 0,
+    "explanation": "-기로 하다 diễn tả quyết định hoặc thống nhất sẽ làm việc gì: 영화를 보기로 했어요."
+  },
+  {
+    "lesson": 2,
+    "lessonTitle": "약속 · Hẹn gặp",
+    "kind": "Từ vựng",
+    "question": "“약속을 취소하다” nghĩa là gì?",
+    "options": [
+      "Giữ lời hứa",
+      "Hẹn sớm hơn",
+      "Hủy cuộc hẹn",
+      "Đến đúng giờ"
+    ],
+    "answer": 2,
+    "explanation": "약속을 취소하다 là hủy cuộc hẹn."
+  },
+  {
+    "lesson": 2,
+    "lessonTitle": "약속 · Hẹn gặp",
+    "kind": "Hội thoại",
+    "question": "A: 언제 만날까요? B: _____. (Đáp án nói về thời gian hẹn)",
+    "options": [
+      "카페에서 만나요.",
+      "오후 세 시에 만나요.",
+      "친구하고 만나요.",
+      "지하철로 가요."
+    ],
+    "answer": 1,
+    "explanation": "언제 hỏi khi nào; 오후 세 시에 là lúc 3 giờ chiều."
+  },
+  {
+    "lesson": 2,
+    "lessonTitle": "약속 · Hẹn gặp",
+    "kind": "Ngữ pháp",
+    "question": "Chọn câu nói “Tôi không thể đi hôm nay”.",
+    "options": [
+      "오늘 가고 싶어요.",
+      "오늘 갈 거예요.",
+      "오늘 가 봤어요.",
+      "오늘 못 가요."
+    ],
+    "answer": 3,
+    "explanation": "못 + động từ diễn tả không thể thực hiện hành động."
+  },
+  {
+    "lesson": 3,
+    "lessonTitle": "물건 사기 (2) · Mua sắm",
+    "kind": "Từ vựng",
+    "question": "Ở cửa hàng, “교환하다” có nghĩa là gì?",
+    "options": [
+      "Đổi hàng",
+      "Thanh toán",
+      "Đóng gói",
+      "Giao hàng"
+    ],
+    "answer": 0,
+    "explanation": "교환하다 là đổi hàng; 환불하다 là hoàn tiền."
+  },
+  {
+    "lesson": 3,
+    "lessonTitle": "물건 사기 (2) · Mua sắm",
+    "kind": "Ngữ pháp",
+    "question": "Muốn thử mặc áo, chọn cách nói đúng.",
+    "options": [
+      "이 옷을 입을 줄 알아요.",
+      "이 옷을 입지 마세요.",
+      "이 옷을 입어 봐도 돼요?",
+      "이 옷을 입어야 했어요."
+    ],
+    "answer": 2,
+    "explanation": "입어 보다: thử mặc; 입어 봐도 돼요?: Tôi thử mặc có được không?"
+  },
+  {
+    "lesson": 3,
+    "lessonTitle": "물건 사기 (2) · Mua sắm",
+    "kind": "Tình huống",
+    "question": "Nhân viên hỏi “다른 색깔도 보여 드릴까요?” có nghĩa gì?",
+    "options": [
+      "Quý khách muốn trả lại hàng không?",
+      "Tôi có thể cho xem màu khác không?",
+      "Quý khách thanh toán thế nào?",
+      "Quý khách muốn size lớn không?"
+    ],
+    "answer": 1,
+    "explanation": "다른 색깔 là màu khác; 보여 드릴까요? là tôi cho xem nhé?"
+  },
+  {
+    "lesson": 3,
+    "lessonTitle": "물건 사기 (2) · Mua sắm",
+    "kind": "Đọc hiểu",
+    "question": "Giá chiếc áo sau giảm là bao nhiêu?",
+    "options": [
+      "10.000 won",
+      "15.000 won",
+      "25.000 won",
+      "20.000 won"
+    ],
+    "answer": 3,
+    "explanation": "30.000원 - 10.000원 = 20.000원.",
+    "context": "이 셔츠는 30,000원입니다. 지금 10,000원 할인합니다."
+  },
+  {
+    "lesson": 4,
+    "lessonTitle": "병원 · Bệnh viện",
+    "kind": "Từ vựng",
+    "question": "“기침이 나다” có nghĩa là gì?",
+    "options": [
+      "Bị ho",
+      "Bị đau đầu",
+      "Bị sốt",
+      "Bị đau bụng"
+    ],
+    "answer": 0,
+    "explanation": "기침이 나다: bị ho."
+  },
+  {
+    "lesson": 4,
+    "lessonTitle": "병원 · Bệnh viện",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 몸이 아프면 병원에 가___ 해요.",
+    "options": [
+      "고",
+      "지만",
+      "야",
+      "자"
+    ],
+    "answer": 2,
+    "explanation": "-아/어야 하다 diễn tả phải làm: 가야 해요."
+  },
+  {
+    "lesson": 4,
+    "lessonTitle": "병원 · Bệnh viện",
+    "kind": "Hội thoại",
+    "question": "Bác sĩ: “하루에 세 번 드세요.” Nghĩa là gì?",
+    "options": [
+      "Uống 3 viên một lần",
+      "Uống/ngậm thuốc 3 lần mỗi ngày",
+      "Đến khám sau ba ngày",
+      "Không uống trước khi ngủ"
+    ],
+    "answer": 1,
+    "explanation": "하루에 세 번 là mỗi ngày ba lần. 드세요 là cách kính ngữ chỉ dùng/ăn/uống."
+  },
+  {
+    "lesson": 4,
+    "lessonTitle": "병원 · Bệnh viện",
+    "kind": "Tình huống",
+    "question": "Người bị sốt nên nói câu nào với bác sĩ?",
+    "options": [
+      "배가 고파요.",
+      "시간이 없어요.",
+      "돈이 없어요.",
+      "열이 나요."
+    ],
+    "answer": 3,
+    "explanation": "열이 나요 có nghĩa tôi bị sốt."
+  },
+  {
+    "lesson": 5,
+    "lessonTitle": "편지 · Thư tín",
+    "kind": "Từ vựng",
+    "question": "“받는 사람” trong thư là ai?",
+    "options": [
+      "Người nhận",
+      "Người gửi",
+      "Nhân viên bưu điện",
+      "Người viết tiêu đề"
+    ],
+    "answer": 0,
+    "explanation": "받는 사람: người nhận; 보내는 사람: người gửi."
+  },
+  {
+    "lesson": 5,
+    "lessonTitle": "편지 · Thư tín",
+    "kind": "Ngữ pháp",
+    "question": "Chọn đúng: 편지를 쓴 후에 우체국에 _____.",
+    "options": [
+      "자는 중이에요",
+      "맛있어요",
+      "갔어요",
+      "입었어요"
+    ],
+    "answer": 2,
+    "explanation": "편지를 쓴 후에: sau khi viết thư; 갔어요: đã đi (đến bưu điện)."
+  },
+  {
+    "lesson": 5,
+    "lessonTitle": "편지 · Thư tín",
+    "kind": "Hội thoại",
+    "question": "“이 소포를 보내고 싶어요.” là yêu cầu gì?",
+    "options": [
+      "Muốn mua vé",
+      "Muốn gửi bưu kiện",
+      "Muốn đổi quần áo",
+      "Muốn mượn sách"
+    ],
+    "answer": 1,
+    "explanation": "소포 là bưu kiện; 보내다 là gửi."
+  },
+  {
+    "lesson": 5,
+    "lessonTitle": "편지 · Thư tín",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 이메일을 보내___ 전화를 했어요. (Đã gửi email rồi gọi điện.)",
+    "options": [
+      "어서",
+      "으면",
+      "지만",
+      "고"
+    ],
+    "answer": 3,
+    "explanation": "-고 nối hai hành động theo trình tự: 보내고 전화를 했어요."
+  },
+  {
+    "lesson": 6,
+    "lessonTitle": "교통 (2) · Giao thông",
+    "kind": "Từ vựng",
+    "question": "“환승하다” nghĩa là gì?",
+    "options": [
+      "Chuyển tuyến / đổi xe",
+      "Dừng xe",
+      "Đậu xe",
+      "Lái xe"
+    ],
+    "answer": 0,
+    "explanation": "환승하다 là chuyển sang tuyến hoặc phương tiện khác."
+  },
+  {
+    "lesson": 6,
+    "lessonTitle": "교통 (2) · Giao thông",
+    "kind": "Hội thoại",
+    "question": "A: 시청역에 어떻게 가요? B: _____.",
+    "options": [
+      "어제 비가 왔어요.",
+      "운동이 좋아요.",
+      "2호선으로 갈아타세요.",
+      "옷을 샀어요."
+    ],
+    "answer": 2,
+    "explanation": "갈아타세요 là hãy chuyển tuyến; 2호선 là tuyến số 2."
+  },
+  {
+    "lesson": 6,
+    "lessonTitle": "교통 (2) · Giao thông",
+    "kind": "Ngữ pháp",
+    "question": "“학교까지 가는 데 20분 걸려요.” có nghĩa gì?",
+    "options": [
+      "Trường học mở 20 phút nữa",
+      "Đi đến trường mất 20 phút",
+      "Tôi học ở trường 20 phút",
+      "Tôi đợi ở trường 20 phút"
+    ],
+    "answer": 1,
+    "explanation": "-는 데 ... 걸리다: mất bao nhiêu thời gian để làm việc gì."
+  },
+  {
+    "lesson": 7,
+    "lessonTitle": "전화 (2) · Điện thoại",
+    "kind": "Từ vựng",
+    "question": "“부재중 전화” nghĩa là gì?",
+    "options": [
+      "Số điện thoại cố định",
+      "Gọi điện quốc tế",
+      "Tin nhắn thoại",
+      "Cuộc gọi nhỡ"
+    ],
+    "answer": 3,
+    "explanation": "부재중 전화 là cuộc gọi nhỡ."
+  },
+  {
+    "lesson": 7,
+    "lessonTitle": "전화 (2) · Điện thoại",
+    "kind": "Giao tiếp",
+    "question": "Không nghe rõ trên điện thoại, nên nói gì?",
+    "options": [
+      "다시 말씀해 주세요.",
+      "맛있게 드세요.",
+      "잘 먹었습니다.",
+      "어서 오세요."
+    ],
+    "answer": 0,
+    "explanation": "다시 말씀해 주세요: Xin hãy nói lại."
+  },
+  {
+    "lesson": 7,
+    "lessonTitle": "전화 (2) · Điện thoại",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 나중에 다시 전화___게요.",
+    "options": [
+      "했",
+      "할",
+      "드릴",
+      "가"
+    ],
+    "answer": 2,
+    "explanation": "전화드릴게요: tôi sẽ gọi lại; 드리다 là cách nói khiêm nhường."
+  },
+  {
+    "lesson": 8,
+    "lessonTitle": "영화 · Phim ảnh",
+    "kind": "Từ vựng",
+    "question": "“공포 영화” là thể loại nào?",
+    "options": [
+      "Phim hài",
+      "Phim kinh dị",
+      "Phim hoạt hình",
+      "Phim tài liệu"
+    ],
+    "answer": 1,
+    "explanation": "공포 영화 là phim kinh dị."
+  },
+  {
+    "lesson": 8,
+    "lessonTitle": "영화 · Phim ảnh",
+    "kind": "Đọc hiểu",
+    "question": "Vì sao người nói không đi xem phim?",
+    "options": [
+      "Vì không thích diễn viên",
+      "Vì vé đắt",
+      "Vì trời mưa",
+      "Vì có việc bận"
+    ],
+    "answer": 3,
+    "explanation": "약속이 있어서: vì có cuộc hẹn/việc đã hẹn.",
+    "context": "오늘 친구가 영화를 보자고 했지만 저는 약속이 있어서 못 갔어요."
+  },
+  {
+    "lesson": 8,
+    "lessonTitle": "영화 · Phim ảnh",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 영화가 시작하___ 전에 팝콘을 샀어요.",
+    "options": [
+      "기",
+      "고",
+      "도",
+      "면"
+    ],
+    "answer": 0,
+    "explanation": "Động từ + -기 전에: trước khi làm gì."
+  },
+  {
+    "lesson": 9,
+    "lessonTitle": "휴일 · Ngày nghỉ",
+    "kind": "Từ vựng",
+    "question": "“연휴” có nghĩa là gì?",
+    "options": [
+      "Ngày thường",
+      "Ngày đi học",
+      "Kỳ nghỉ nhiều ngày liên tiếp",
+      "Ngày làm thêm"
+    ],
+    "answer": 2,
+    "explanation": "연휴 là kỳ nghỉ kéo dài nhiều ngày liên tiếp."
+  },
+  {
+    "lesson": 9,
+    "lessonTitle": "휴일 · Ngày nghỉ",
+    "kind": "Hội thoại",
+    "question": "A: 휴일에 뭐 하고 싶어요? B: _____.",
+    "options": [
+      "어제 잤어요.",
+      "바다에 가고 싶어요.",
+      "벌써 갔어요.",
+      "아침을 먹었어요."
+    ],
+    "answer": 1,
+    "explanation": "-고 싶다 diễn tả mong muốn: 바다에 가고 싶어요."
+  },
+  {
+    "lesson": 9,
+    "lessonTitle": "휴일 · Ngày nghỉ",
+    "kind": "Đọc hiểu",
+    "question": "Người nói làm gì vào ngày nghỉ?",
+    "options": [
+      "Làm việc ở công ty",
+      "Đi học thêm",
+      "Đi du lịch biển",
+      "Ở nhà đọc sách"
+    ],
+    "answer": 3,
+    "explanation": "집에서 책을 읽었어요: đã đọc sách ở nhà.",
+    "context": "휴일에는 집에서 쉬었어요. 책을 읽고 음악도 들었어요."
+  },
+  {
+    "lesson": 10,
+    "lessonTitle": "외모 · Ngoại hình",
+    "kind": "Từ vựng",
+    "question": "“곱슬머리” nghĩa là gì?",
+    "options": [
+      "Tóc xoăn",
+      "Tóc thẳng",
+      "Tóc ngắn",
+      "Tóc nhuộm"
+    ],
+    "answer": 0,
+    "explanation": "곱슬머리 là tóc xoăn."
+  },
+  {
+    "lesson": 10,
+    "lessonTitle": "외모 · Ngoại hình",
+    "kind": "Ngữ pháp",
+    "question": "“피곤해 보여요” có nghĩa gì?",
+    "options": [
+      "Tôi đã ngủ đủ",
+      "Tôi luôn khỏe",
+      "Trông có vẻ mệt",
+      "Đang bị đói"
+    ],
+    "answer": 2,
+    "explanation": "-아/어 보이다 mô tả bề ngoài: 피곤해 보여요 = trông có vẻ mệt."
+  },
+  {
+    "lesson": 10,
+    "lessonTitle": "외모 · Ngoại hình",
+    "kind": "Đọc hiểu",
+    "question": "Ngoại hình của người được miêu tả là gì?",
+    "options": [
+      "Thấp và tóc dài",
+      "Cao và tóc ngắn",
+      "Cao và tóc dài",
+      "Thấp và tóc ngắn"
+    ],
+    "answer": 1,
+    "explanation": "키가 크다 là cao; 머리가 짧다 là tóc ngắn.",
+    "context": "제 친구는 키가 크고 머리가 짧아요."
+  },
+  {
+    "lesson": 11,
+    "lessonTitle": "여행 · Du lịch",
+    "kind": "Từ vựng",
+    "question": "“숙소를 예약하다” nghĩa là gì?",
+    "options": [
+      "Hủy chuyến bay",
+      "Làm hộ chiếu",
+      "Tham quan di tích",
+      "Đặt chỗ ở"
+    ],
+    "answer": 3,
+    "explanation": "숙소 là chỗ ở; 예약하다 là đặt trước."
+  },
+  {
+    "lesson": 11,
+    "lessonTitle": "여행 · Du lịch",
+    "kind": "Ngữ pháp",
+    "question": "Chọn dạng diễn tả dự định: 다음 달에 제주도에 _____.",
+    "options": [
+      "가려고 해요",
+      "갔지만",
+      "가자마자",
+      "간 적이 있어요"
+    ],
+    "answer": 0,
+    "explanation": "-(으)려고 하다 dùng để nói dự định làm gì."
+  },
+  {
+    "lesson": 11,
+    "lessonTitle": "여행 · Du lịch",
+    "kind": "Đọc hiểu",
+    "question": "Chuyến đi kéo dài bao lâu?",
+    "options": [
+      "Một ngày",
+      "Hai ngày",
+      "Ba ngày hai đêm",
+      "Một tuần"
+    ],
+    "answer": 2,
+    "explanation": "2박 3일 nghĩa là 2 đêm 3 ngày.",
+    "context": "이번 여행은 2박 3일이에요. 금요일에 출발해서 일요일에 돌아와요."
+  },
+  {
+    "lesson": 12,
+    "lessonTitle": "공공장소 · Nơi công cộng",
+    "kind": "Ngữ pháp",
+    "question": "Biển “여기에서 담배를 피우면 안 됩니다” có nghĩa gì?",
+    "options": [
+      "Được phép hút thuốc",
+      "Không được hút thuốc ở đây",
+      "Hãy mua thuốc lá",
+      "Hãy ra ngoài gọi điện"
+    ],
+    "answer": 1,
+    "explanation": "-(으)면 안 되다 diễn tả điều cấm."
+  },
+  {
+    "lesson": 12,
+    "lessonTitle": "공공장소 · Nơi công cộng",
+    "kind": "Tình huống",
+    "question": "Trong thư viện cần giữ trật tự. Nên nói câu nào?",
+    "options": [
+      "빨리 뛰세요.",
+      "큰 소리로 노래하세요.",
+      "사진을 찍으세요.",
+      "조용히 해 주세요."
+    ],
+    "answer": 3,
+    "explanation": "조용히 해 주세요: Xin hãy giữ yên lặng."
+  },
+  {
+    "lesson": 12,
+    "lessonTitle": "공공장소 · Nơi công cộng",
+    "kind": "Hội thoại",
+    "question": "Chọn câu xin phép ngồi ở một chỗ.",
+    "options": [
+      "여기 앉아도 돼요?",
+      "여기 앉으려고 해요.",
+      "여기 앉았어요.",
+      "여기 앉지 않았어요."
+    ],
+    "answer": 0,
+    "explanation": "-아/어도 되다 được dùng để xin phép hoặc nói được phép."
+  },
+  {
+    "lesson": 13,
+    "lessonTitle": "도시 · Đô thị",
+    "kind": "Từ vựng",
+    "question": "“교통 체증” là gì?",
+    "options": [
+      "Xe buýt",
+      "Tai nạn giao thông",
+      "Tắc đường",
+      "Bãi đỗ xe"
+    ],
+    "answer": 2,
+    "explanation": "교통 체증 nghĩa là tắc đường."
+  },
+  {
+    "lesson": 13,
+    "lessonTitle": "도시 · Đô thị",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 서울은 제가 사는 도시___ 커요. (Lớn hơn thành phố tôi sống.)",
+    "options": [
+      "까지",
+      "보다",
+      "에서",
+      "에게"
+    ],
+    "answer": 1,
+    "explanation": "N + 보다 dùng để so sánh hơn."
+  },
+  {
+    "lesson": 13,
+    "lessonTitle": "도시 · Đô thị",
+    "kind": "Đọc hiểu",
+    "question": "Thành phố này có đặc điểm nào?",
+    "options": [
+      "Ít người và yên tĩnh",
+      "Không có xe buýt",
+      "Nhiều công viên và ít đường",
+      "Người đông, xe nhiều"
+    ],
+    "answer": 3,
+    "explanation": "사람이 많고 차도 많아요: nhiều người và nhiều xe.",
+    "context": "이 도시는 사람이 많고 차도 많아요. 그래서 출퇴근 시간에 길이 막혀요."
+  },
+  {
+    "lesson": 14,
+    "lessonTitle": "계획 · Kế hoạch",
+    "kind": "Ngữ pháp",
+    "question": "“다음 주부터 운동할 예정이에요.” nghĩa là gì?",
+    "options": [
+      "Tôi dự định tập thể dục từ tuần sau",
+      "Tôi vừa tập thể dục hôm qua",
+      "Tôi đã bỏ tập thể dục",
+      "Tuần sau tôi không tập thể dục"
+    ],
+    "answer": 0,
+    "explanation": "-(으)ㄹ 예정이다 diễn tả kế hoạch/dự định."
+  },
+  {
+    "lesson": 14,
+    "lessonTitle": "계획 · Kế hoạch",
+    "kind": "Hội thoại",
+    "question": "A: 방학 때 무엇을 할 거예요? B: _____.",
+    "options": [
+      "어제 집에 있었어요.",
+      "지금 책을 읽어요.",
+      "한국어를 공부할 거예요.",
+      "너무 비쌌어요."
+    ],
+    "answer": 2,
+    "explanation": "-(으)ㄹ 거예요 dùng để nêu dự định trong tương lai."
+  },
+  {
+    "lesson": 14,
+    "lessonTitle": "계획 · Kế hoạch",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 시험에 합격하___ 열심히 공부해요. (Để thi đỗ.)",
+    "options": [
+      "게 됐는데",
+      "려고",
+      "ㄴ 적이",
+      "자마자"
+    ],
+    "answer": 1,
+    "explanation": "-(으)려고 + động từ diễn tả mục đích: 합격하려고."
+  },
+  {
+    "lesson": 15,
+    "lessonTitle": "한국 생활 · Cuộc sống ở Hàn Quốc",
+    "kind": "Từ vựng",
+    "question": "“생활비” là gì?",
+    "options": [
+      "Học bổng",
+      "Tiền vé máy bay",
+      "Học phí",
+      "Chi phí sinh hoạt"
+    ],
+    "answer": 3,
+    "explanation": "생활비 nghĩa là chi phí sinh hoạt."
+  },
+  {
+    "lesson": 15,
+    "lessonTitle": "한국 생활 · Cuộc sống ở Hàn Quốc",
+    "kind": "Ngữ pháp",
+    "question": "Chọn đúng: 한국에 온 지 6개월이 _____.",
+    "options": [
+      "됐어요",
+      "갔어요",
+      "모았어요",
+      "보냈어요"
+    ],
+    "answer": 0,
+    "explanation": "-(으)ㄴ 지 ... 되다: đã được bao lâu kể từ khi một việc xảy ra."
+  },
+  {
+    "lesson": 15,
+    "lessonTitle": "한국 생활 · Cuộc sống ở Hàn Quốc",
+    "kind": "Đọc hiểu",
+    "question": "Người nói học tiếng Hàn vì sao?",
+    "options": [
+      "Vì muốn du lịch Nhật Bản",
+      "Vì đang xem phim",
+      "Vì muốn thích nghi với cuộc sống ở Hàn Quốc",
+      "Vì muốn thi lấy bằng lái"
+    ],
+    "answer": 2,
+    "explanation": "한국 생활에 익숙해지다: quen với cuộc sống Hàn Quốc.",
+    "context": "저는 한국에서 생활하고 있어요. 한국 생활에 익숙해지려고 한국어를 열심히 공부해요."
+  }
+],
+  tc1: [
+  {
+    "lesson": 1,
+    "lessonTitle": "경험과 일상 · Kinh nghiệm, sinh hoạt",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 한국어를 공부한 지 2년이 _____.",
+    "options": [
+      "됐어요",
+      "지났더니만",
+      "하겠어요",
+      "먹었어요"
+    ],
+    "answer": 0,
+    "explanation": "-ㄴ/은 지 ... 되다 dùng để nói khoảng thời gian kể từ khi bắt đầu."
+  },
+  {
+    "lesson": 1,
+    "lessonTitle": "경험과 일상 · Kinh nghiệm, sinh hoạt",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 한국 음식은 매운___ 맛있어요. (Tuy cay nhưng ngon.)",
+    "options": [
+      "기 전에",
+      "바람에",
+      "데도",
+      "대신"
+    ],
+    "answer": 2,
+    "explanation": "-ㄴ/은데도 biểu thị sự tương phản/nhượng bộ: 매운데도 맛있어요."
+  },
+  {
+    "lesson": 1,
+    "lessonTitle": "경험과 일상 · Kinh nghiệm, sinh hoạt",
+    "kind": "Từ vựng",
+    "question": "“경험을 쌓다” nghĩa là gì?",
+    "options": [
+      "Quên kinh nghiệm",
+      "Tích lũy kinh nghiệm",
+      "Tránh trải nghiệm",
+      "Đánh giá kinh nghiệm"
+    ],
+    "answer": 1,
+    "explanation": "경험을 쌓다: tích lũy kinh nghiệm."
+  },
+  {
+    "lesson": 1,
+    "lessonTitle": "경험과 일상 · Kinh nghiệm, sinh hoạt",
+    "kind": "Hội thoại",
+    "question": "A: 한국에서 살아 본 적 있어요? B: _____.",
+    "options": [
+      "내일 살 거예요.",
+      "지금 잘 살아요.",
+      "살면 좋겠어요.",
+      "네, 1년 동안 살아 봤어요."
+    ],
+    "answer": 3,
+    "explanation": "-아/어 본 적이 있다: đã từng trải nghiệm."
+  },
+  {
+    "lesson": 1,
+    "lessonTitle": "경험과 일상 · Kinh nghiệm, sinh hoạt",
+    "kind": "Đọc hiểu",
+    "question": "Vì sao người nói thường đi bộ đến công ty?",
+    "options": [
+      "Vì gần nhà và tốt cho sức khỏe",
+      "Vì xe buýt miễn phí",
+      "Vì không biết lái xe",
+      "Vì phải đón bạn"
+    ],
+    "answer": 0,
+    "explanation": "걸어서 갈 수 있다: có thể đi bộ; 건강에도 좋다: cũng tốt cho sức khỏe.",
+    "context": "우리 회사는 집에서 가까워요. 걸어서 15분이면 갈 수 있기 때문에 주로 걸어 다녀요. 건강에도 좋아요."
+  },
+  {
+    "lesson": 2,
+    "lessonTitle": "직장과 회의 · Công việc",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 회의가 끝나는 대로 결과를 _____ .",
+    "options": [
+      "알려 드렸더니",
+      "알리기는커녕",
+      "알려 드리겠습니다",
+      "알리는 대신"
+    ],
+    "answer": 2,
+    "explanation": "-는 대로 = ngay sau khi; 알려 드리겠습니다 là sẽ thông báo (khiêm nhường)."
+  },
+  {
+    "lesson": 2,
+    "lessonTitle": "직장과 회의 · Công việc",
+    "kind": "Từ vựng",
+    "question": "“회의를 연기하다” nghĩa là gì?",
+    "options": [
+      "Tổ chức họp",
+      "Hoãn cuộc họp",
+      "Kết thúc cuộc họp",
+      "Ghi biên bản"
+    ],
+    "answer": 1,
+    "explanation": "연기하다: hoãn/lùi lịch một sự kiện."
+  },
+  {
+    "lesson": 2,
+    "lessonTitle": "직장과 회의 · Công việc",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 자료를 미리 준비해 _____ 회의가 순조로웠어요.",
+    "options": [
+      "둔 덕분에",
+      "놓치는 바람에",
+      "버린 대신",
+      "오는 대로"
+    ],
+    "answer": 0,
+    "explanation": "-아/어 두다: làm sẵn để dùng; 덕분에: nhờ vậy."
+  },
+  {
+    "lesson": 2,
+    "lessonTitle": "직장과 회의 · Công việc",
+    "kind": "Hội thoại",
+    "question": "A: 보고서를 언제까지 제출해야 합니까? B: _____.",
+    "options": [
+      "조금 피곤해요.",
+      "회의실로 오세요.",
+      "별문제 없어요.",
+      "금요일 오후까지 제출하시면 됩니다."
+    ],
+    "answer": 3,
+    "explanation": "언제까지 hỏi hạn cuối; 금요일 오후까지 là đến chiều thứ Sáu."
+  },
+  {
+    "lesson": 2,
+    "lessonTitle": "직장과 회의 · Công việc",
+    "kind": "Đọc hiểu",
+    "question": "Thông báo yêu cầu nhân viên làm gì?",
+    "options": [
+      "Nghỉ làm thứ Sáu",
+      "Chuyển sang làm tại nhà",
+      "Nộp báo cáo trước thứ Năm",
+      "Hủy cuộc họp"
+    ],
+    "answer": 2,
+    "explanation": "목요일까지 제출하다: nộp trước/hạn đến thứ Năm.",
+    "context": "[공지] 다음 주 회의를 위해 각 팀은 이번 주 목요일까지 보고서를 제출해 주시기 바랍니다."
+  },
+  {
+    "lesson": 3,
+    "lessonTitle": "여행과 계획 · Du lịch, kế hoạch",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 비행기 표를 미리 예매해 _____ 안심이 돼요.",
+    "options": [
+      "놓으려고도",
+      "두어서",
+      "보다는",
+      "말고"
+    ],
+    "answer": 1,
+    "explanation": "예매해 두다: đặt vé sẵn; -어서 biểu thị nguyên nhân."
+  },
+  {
+    "lesson": 3,
+    "lessonTitle": "여행과 계획 · Du lịch, kế hoạch",
+    "kind": "Từ vựng",
+    "question": "“일정을 조정하다” có nghĩa gì?",
+    "options": [
+      "Điều chỉnh lịch trình",
+      "Hủy hộ chiếu",
+      "Tăng giá vé",
+      "Mua quà lưu niệm"
+    ],
+    "answer": 0,
+    "explanation": "일정: lịch trình; 조정하다: điều chỉnh."
+  },
+  {
+    "lesson": 3,
+    "lessonTitle": "여행과 계획 · Du lịch, kế hoạch",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 여행을 가___ 날씨를 확인하세요.",
+    "options": [
+      "고 나서도",
+      "더니",
+      "자마자",
+      "기 전에"
+    ],
+    "answer": 3,
+    "explanation": "-기 전에: trước khi làm việc gì."
+  },
+  {
+    "lesson": 3,
+    "lessonTitle": "여행과 계획 · Du lịch, kế hoạch",
+    "kind": "Hội thoại",
+    "question": "A: 표를 취소하면 수수료가 있나요? B: _____.",
+    "options": [
+      "예약이 끝났어요.",
+      "여권을 준비하세요.",
+      "네, 취소 수수료가 5천 원입니다.",
+      "호텔이 멀어요."
+    ],
+    "answer": 2,
+    "explanation": "취소 수수료 là phí hủy; 5천 원 là 5.000 won."
+  },
+  {
+    "lesson": 3,
+    "lessonTitle": "여행과 계획 · Du lịch, kế hoạch",
+    "kind": "Đọc hiểu",
+    "question": "Vì sao chuyến du lịch bị thay đổi lịch?",
+    "options": [
+      "Vì bạn bị ốm",
+      "Vì thời tiết xấu",
+      "Vì hết vé tàu",
+      "Vì khách sạn đóng cửa"
+    ],
+    "answer": 1,
+    "explanation": "폭우 때문에 là do mưa lớn.",
+    "context": "원래 토요일에 출발할 예정이었지만 폭우 때문에 일요일로 일정을 바꾸었습니다."
+  },
+  {
+    "lesson": 4,
+    "lessonTitle": "인간관계 · Quan hệ xã hội",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 친구가 어려움을 겪고 있을 때 도와주는 _____ 중요해요.",
+    "options": [
+      "바람에",
+      "덕분에",
+      "대신에",
+      "것이"
+    ],
+    "answer": 3,
+    "explanation": "V-는 것이 + tính từ: việc giúp đỡ bạn bè là quan trọng."
+  },
+  {
+    "lesson": 4,
+    "lessonTitle": "인간관계 · Quan hệ xã hội",
+    "kind": "Từ vựng",
+    "question": "“오해를 풀다” nghĩa là gì?",
+    "options": [
+      "Giải tỏa hiểu lầm",
+      "Gây hiểu lầm",
+      "Che giấu ý định",
+      "Nói lời từ biệt"
+    ],
+    "answer": 0,
+    "explanation": "오해를 풀다: giải quyết hiểu lầm."
+  },
+  {
+    "lesson": 4,
+    "lessonTitle": "인간관계 · Quan hệ xã hội",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 서로 의견이 다르___ 상대방의 말을 들어야 해요.",
+    "options": [
+      "기 때문에만",
+      "자마자",
+      "더라도",
+      "도록"
+    ],
+    "answer": 2,
+    "explanation": "-더라도: dù cho; 다르더라도 là dù khác nhau."
+  },
+  {
+    "lesson": 4,
+    "lessonTitle": "인간관계 · Quan hệ xã hội",
+    "kind": "Hội thoại",
+    "question": "A: 제가 늦어서 죄송해요. B: _____.",
+    "options": [
+      "정말 잘했어요.",
+      "괜찮아요. 다음에는 미리 연락해 주세요.",
+      "맛있게 드세요.",
+      "배가 고파요."
+    ],
+    "answer": 1,
+    "explanation": "Lời đáp thông cảm và nhắc báo trước hợp tình huống xin lỗi vì đến muộn."
+  },
+  {
+    "lesson": 4,
+    "lessonTitle": "인간관계 · Quan hệ xã hội",
+    "kind": "Đọc hiểu",
+    "question": "Điều gì khiến hai người làm hòa?",
+    "options": [
+      "Họ không gặp nhau nữa",
+      "Họ đổi công việc",
+      "Họ chuyển nhà",
+      "Họ trò chuyện và hiểu nhau"
+    ],
+    "answer": 3,
+    "explanation": "대화하다 và 서로 이해하다: nói chuyện và hiểu nhau.",
+    "context": "친구와 작은 일로 다퉜지만 오랫동안 이야기한 후에 서로의 입장을 이해하고 화해했어요."
+  },
+  {
+    "lesson": 5,
+    "lessonTitle": "건강과 생활 습관 · Sức khỏe",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 건강을 유지하려면 규칙적으로 운동___ 해요.",
+    "options": [
+      "해야",
+      "하면서",
+      "했던",
+      "하자마자"
+    ],
+    "answer": 0,
+    "explanation": "-아/어야 하다: cần/phải làm, ở đây 운동해야 해요."
+  },
+  {
+    "lesson": 5,
+    "lessonTitle": "건강과 생활 습관 · Sức khỏe",
+    "kind": "Từ vựng",
+    "question": "“면역력을 높이다” nghĩa là gì?",
+    "options": [
+      "Giảm thời gian ngủ",
+      "Bỏ bữa sáng",
+      "Tăng sức đề kháng",
+      "Hạn chế vận động"
+    ],
+    "answer": 2,
+    "explanation": "면역력: khả năng miễn dịch; 높이다: nâng cao."
+  },
+  {
+    "lesson": 5,
+    "lessonTitle": "건강과 생활 습관 · Sức khỏe",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 잠을 충분히 자지 _____ 집중하기 어려워요.",
+    "options": [
+      "더라도",
+      "않으면",
+      "고 나서",
+      "게 되어"
+    ],
+    "answer": 1,
+    "explanation": "-지 않으면: nếu không; ngủ không đủ thì khó tập trung."
+  },
+  {
+    "lesson": 5,
+    "lessonTitle": "건강과 생활 습관 · Sức khỏe",
+    "kind": "Đọc hiểu",
+    "question": "Theo đoạn văn, người nói thay đổi thói quen nào?",
+    "options": [
+      "Bắt đầu bỏ bữa",
+      "Chỉ ngủ vào ban ngày",
+      "Thức đến khuya hơn",
+      "Ngủ sớm và giảm cà phê"
+    ],
+    "answer": 3,
+    "explanation": "일찍 자다 và 커피를 줄이다: ngủ sớm và giảm cà phê.",
+    "context": "요즘 피곤해서 생활 습관을 바꾸었어요. 밤에는 일찍 자고 커피도 줄였더니 몸이 훨씬 좋아졌어요."
+  },
+  {
+    "lesson": 5,
+    "lessonTitle": "건강과 생활 습관 · Sức khỏe",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 운동을 시작한 _____ 체력이 좋아졌어요.",
+    "options": [
+      "이후로",
+      "바람에만",
+      "기 전에만",
+      "뿐더러만"
+    ],
+    "answer": 0,
+    "explanation": "-ㄴ/은 이후로: kể từ sau khi; 시작한 이후로 là từ khi bắt đầu."
+  },
+  {
+    "lesson": 6,
+    "lessonTitle": "소비와 경제 · Mua sắm, kinh tế",
+    "kind": "Từ vựng",
+    "question": "“물가가 오르다” có nghĩa gì?",
+    "options": [
+      "Hàng hóa hết hạn",
+      "Tiền được hoàn lại",
+      "Giá cả tăng",
+      "Thu nhập giảm"
+    ],
+    "answer": 2,
+    "explanation": "물가: mặt bằng giá cả; 오르다: tăng."
+  },
+  {
+    "lesson": 6,
+    "lessonTitle": "소비와 경제 · Mua sắm, kinh tế",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 이 제품은 가격이 비싼 _____ 품질이 좋아요.",
+    "options": [
+      "바람에",
+      "반면에",
+      "덕분에",
+      "대로"
+    ],
+    "answer": 1,
+    "explanation": "-ㄴ/은 반면에: trái lại/mặt khác; đối chiếu giá và chất lượng."
+  },
+  {
+    "lesson": 6,
+    "lessonTitle": "소비와 경제 · Mua sắm, kinh tế",
+    "kind": "Đọc hiểu",
+    "question": "Giảm giá 20% cho món hàng giá 50.000 won thì còn bao nhiêu?",
+    "options": [
+      "30.000 won",
+      "35.000 won",
+      "45.000 won",
+      "40.000 won"
+    ],
+    "answer": 3,
+    "explanation": "20% của 50.000 là 10.000, nên còn 40.000 won.",
+    "context": "상품 가격: 50,000원 / 할인: 20%"
+  },
+  {
+    "lesson": 6,
+    "lessonTitle": "소비와 경제 · Mua sắm, kinh tế",
+    "kind": "Hội thoại",
+    "question": "A: 영수증을 받을 수 있을까요? B: _____.",
+    "options": [
+      "네, 여기 있습니다.",
+      "상품이 너무 커요.",
+      "버스로 가세요.",
+      "회의가 끝났어요."
+    ],
+    "answer": 0,
+    "explanation": "영수증 là hóa đơn; 여기 있습니다 là đây ạ."
+  },
+  {
+    "lesson": 6,
+    "lessonTitle": "소비와 경제 · Mua sắm, kinh tế",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 필요하지 않은 물건은 사지 _____ 해요.",
+    "options": [
+      "아직",
+      "자마자",
+      "않도록",
+      "은 대신"
+    ],
+    "answer": 2,
+    "explanation": "-지 않도록 하다: cố gắng để không làm; 사지 않도록 해요."
+  },
+  {
+    "lesson": 7,
+    "lessonTitle": "교육과 진로 · Giáo dục",
+    "kind": "Từ vựng",
+    "question": "“전공을 선택하다” có nghĩa gì?",
+    "options": [
+      "Nghỉ học dài hạn",
+      "Chọn ngành/chuyên ngành",
+      "Hoãn nhập học",
+      "Thi lại môn học"
+    ],
+    "answer": 1,
+    "explanation": "전공: chuyên ngành; 선택하다: lựa chọn."
+  },
+  {
+    "lesson": 7,
+    "lessonTitle": "교육과 진로 · Giáo dục",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 시험에 합격하기 _____ 매일 복습해요.",
+    "options": [
+      "바람에",
+      "더니",
+      "대신에",
+      "위해서"
+    ],
+    "answer": 3,
+    "explanation": "-기 위해서: để làm gì, nêu mục đích."
+  },
+  {
+    "lesson": 7,
+    "lessonTitle": "교육과 진로 · Giáo dục",
+    "kind": "Đọc hiểu",
+    "question": "Vì sao sinh viên tham gia câu lạc bộ?",
+    "options": [
+      "Muốn kết bạn và luyện tiếng Hàn",
+      "Muốn giảm học phí",
+      "Muốn đổi lớp học",
+      "Muốn xin nghỉ học"
+    ],
+    "answer": 0,
+    "explanation": "친구를 사귀고 한국어 실력을 늘리고 싶다: muốn kết bạn và cải thiện tiếng Hàn.",
+    "context": "저는 친구를 사귀고 한국어 실력을 늘리고 싶어서 한국어 동아리에 가입했어요."
+  },
+  {
+    "lesson": 7,
+    "lessonTitle": "교육과 진로 · Giáo dục",
+    "kind": "Hội thoại",
+    "question": "A: 졸업 후에 어떤 일을 하고 싶어요? B: _____.",
+    "options": [
+      "작년에 졸업했어요.",
+      "서점에 있어요.",
+      "통역사가 되고 싶어요.",
+      "오늘 시험을 봤어요."
+    ],
+    "answer": 2,
+    "explanation": "어떤 일을 하고 싶어요? hỏi công việc muốn làm; 통역사 là phiên dịch viên."
+  },
+  {
+    "lesson": 7,
+    "lessonTitle": "교육과 진로 · Giáo dục",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 여러 번 연습하다 보니 발표가 _____.",
+    "options": [
+      "늦기는커녕",
+      "자연스러워졌어요",
+      "작아 보이더라고요",
+      "끝난 대신"
+    ],
+    "answer": 1,
+    "explanation": "-다 보니: qua một quá trình lặp lại; 발표가 자연스러워졌어요 là thuyết trình tự nhiên hơn."
+  },
+  {
+    "lesson": 8,
+    "lessonTitle": "환경과 사회 · Môi trường",
+    "kind": "Từ vựng",
+    "question": "“쓰레기를 분리수거하다” nghĩa là gì?",
+    "options": [
+      "Đốt rác",
+      "Chôn rác",
+      "Mua túi rác",
+      "Phân loại rác để thu gom"
+    ],
+    "answer": 3,
+    "explanation": "분리수거하다 là phân loại để thu gom/tái chế rác."
+  },
+  {
+    "lesson": 8,
+    "lessonTitle": "환경과 사회 · Môi trường",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 환경을 보호하기 위해 일회용품 사용을 _____ 합니다.",
+    "options": [
+      "줄여야",
+      "늘려야만",
+      "잊어야",
+      "사야"
+    ],
+    "answer": 0,
+    "explanation": "줄이다: giảm bớt; dùng ít đồ một lần để bảo vệ môi trường."
+  },
+  {
+    "lesson": 8,
+    "lessonTitle": "환경과 사회 · Môi trường",
+    "kind": "Đọc hiểu",
+    "question": "Thông báo yêu cầu cư dân làm gì?",
+    "options": [
+      "Đổ rác bất cứ lúc nào",
+      "Để rác trước cửa hàng",
+      "Phân loại rác trước khi bỏ",
+      "Không sử dụng thùng rác"
+    ],
+    "answer": 2,
+    "explanation": "분리해서 버려 주세요: xin hãy phân loại trước khi bỏ.",
+    "context": "[아파트 안내] 쓰레기는 종류별로 분리해서 버려 주세요. 음식물 쓰레기는 지정된 통에 넣어 주세요."
+  },
+  {
+    "lesson": 8,
+    "lessonTitle": "환경과 사회 · Môi trường",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 대중교통을 이용하면 교통 체증을 줄이는 _____ 도움이 돼요.",
+    "options": [
+      "도록",
+      "데",
+      "대신",
+      "탓에"
+    ],
+    "answer": 1,
+    "explanation": "-는 데 도움이 되다: giúp ích cho việc gì."
+  },
+  {
+    "lesson": 8,
+    "lessonTitle": "환경과 사회 · Môi trường",
+    "kind": "Từ vựng",
+    "question": "“대기 오염” là gì?",
+    "options": [
+      "Ô nhiễm nguồn nước",
+      "Tiếng ồn",
+      "Biến đổi khí hậu",
+      "Ô nhiễm không khí"
+    ],
+    "answer": 3,
+    "explanation": "대기 오염: ô nhiễm không khí."
+  },
+  {
+    "lesson": 9,
+    "lessonTitle": "문화와 미디어 · Văn hóa",
+    "kind": "Từ vựng",
+    "question": "“줄거리” trong một bộ phim nghĩa là gì?",
+    "options": [
+      "Cốt truyện",
+      "Giá vé",
+      "Thời lượng",
+      "Đạo diễn"
+    ],
+    "answer": 0,
+    "explanation": "줄거리 là tóm tắt nội dung/cốt truyện."
+  },
+  {
+    "lesson": 9,
+    "lessonTitle": "문화와 미디어 · Văn hóa",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 이 영화는 재미있을 _____ 아니라 교훈적이기도 해요.",
+    "options": [
+      "지",
+      "데",
+      "뿐만",
+      "보다"
+    ],
+    "answer": 2,
+    "explanation": "-(으)ㄹ 뿐만 아니라: không những... mà còn...; 재미있을 뿐만 아니라."
+  },
+  {
+    "lesson": 9,
+    "lessonTitle": "문화와 미디어 · Văn hóa",
+    "kind": "Đọc hiểu",
+    "question": "Điều gì khiến triển lãm được nhiều người quan tâm?",
+    "options": [
+      "Đóng cửa sớm",
+      "Cho trải nghiệm nghệ thuật trực tiếp",
+      "Chỉ mở cho người lớn",
+      "Không có tác phẩm mới"
+    ],
+    "answer": 1,
+    "explanation": "직접 체험하다: trải nghiệm trực tiếp.",
+    "context": "이번 전시회는 관람객이 작품을 직접 체험할 수 있어서 큰 관심을 받고 있습니다."
+  },
+  {
+    "lesson": 9,
+    "lessonTitle": "문화와 미디어 · Văn hóa",
+    "kind": "Hội thoại",
+    "question": "A: 공연은 어땠어요? B: _____.",
+    "options": [
+      "도서관에 있어요.",
+      "지하철이 빨라요.",
+      "내일 출근해요.",
+      "배우들의 연기가 정말 인상적이었어요."
+    ],
+    "answer": 3,
+    "explanation": "공연에 대한 감상: nhận xét diễn xuất của diễn viên rất ấn tượng."
+  },
+  {
+    "lesson": 9,
+    "lessonTitle": "문화와 미디어 · Văn hóa",
+    "kind": "Ngữ pháp",
+    "question": "Điền: 책을 읽느라 지하철에서 내릴 역을 _____ .",
+    "options": [
+      "놓쳤어요",
+      "들었어요",
+      "배웠어요",
+      "입었어요"
+    ],
+    "answer": 0,
+    "explanation": "-느라: mải làm việc gì nên dẫn tới hệ quả; 역을 놓치다 là lỡ ga."
+  },
+  {
+    "lesson": 10,
+    "lessonTitle": "읽기 이해 · Đọc hiểu tổng hợp",
+    "kind": "Đọc hiểu",
+    "question": "Buổi họp đổi sang lúc nào?",
+    "options": [
+      "Thứ Sáu 9 giờ",
+      "Thứ Sáu 11 giờ",
+      "Thứ Sáu 10 giờ",
+      "Thứ Năm 10 giờ"
+    ],
+    "answer": 2,
+    "explanation": "오전 10시: 10 giờ sáng; 금요일 là thứ Sáu.",
+    "context": "[공지] 금요일 오전 9시에 예정된 회의가 오전 10시로 변경되었습니다."
+  },
+  {
+    "lesson": 10,
+    "lessonTitle": "읽기 이해 · Đọc hiểu tổng hợp",
+    "kind": "Đọc hiểu",
+    "question": "Mục đích chính của thông báo là gì?",
+    "options": [
+      "Thông báo tuyển dụng",
+      "Thông báo thay đổi giờ mở cửa",
+      "Thông báo ngừng bán hàng",
+      "Thông báo giảm giá"
+    ],
+    "answer": 1,
+    "explanation": "운영 시간 변경: thay đổi giờ hoạt động.",
+    "context": "[안내] 이번 주 토요일부터 도서관 운영 시간이 오전 9시에서 오전 10시로 변경됩니다."
+  },
+  {
+    "lesson": 10,
+    "lessonTitle": "읽기 이해 · Đọc hiểu tổng hợp",
+    "kind": "Đọc hiểu",
+    "question": "Người viết đoạn văn có thái độ như thế nào đối với việc học ngoại ngữ?",
+    "options": [
+      "Thấy việc học vô ích",
+      "Muốn dừng học ngay",
+      "Chỉ muốn học thuộc từ",
+      "Cho rằng cần kiên trì luyện tập"
+    ],
+    "answer": 3,
+    "explanation": "꾸준히 연습하다: luyện tập đều đặn; 조금씩 늘다: tiến bộ từng chút.",
+    "context": "외국어는 처음에는 어렵지만 매일 조금씩 연습하면 실력이 늘어납니다. 중요한 것은 포기하지 않는 것입니다."
+  },
+  {
+    "lesson": 10,
+    "lessonTitle": "읽기 이해 · Đọc hiểu tổng hợp",
+    "kind": "Đọc hiểu",
+    "question": "Nhân vật đã chọn phương tiện nào để đến công ty?",
+    "options": [
+      "Tàu điện ngầm",
+      "Xe hơi",
+      "Xe đạp",
+      "Taxi"
+    ],
+    "answer": 0,
+    "explanation": "차가 많이 막히다: tắc xe; 그래서 지하철을 타다: vì vậy đi tàu điện ngầm.",
+    "context": "오늘은 출근 시간에 차가 많이 막힐 것 같아서 지하철을 탔습니다."
+  },
+  {
+    "lesson": 10,
+    "lessonTitle": "읽기 이해 · Đọc hiểu tổng hợp",
+    "kind": "Đọc hiểu",
+    "question": "Kết quả của chiến dịch quyên góp được nêu trong đoạn là gì?",
+    "options": [
+      "Không ai tham gia",
+      "Phải hủy sự kiện",
+      "Quyên được nhiều sách để tặng trẻ em",
+      "Chỉ thu được tiền mặt"
+    ],
+    "answer": 2,
+    "explanation": "많은 책이 모여 ... 전달했다: thu được nhiều sách rồi chuyển đến trẻ em.",
+    "context": "동네 주민들이 책 나눔 행사에 참여했습니다. 많은 책이 모여 필요한 어린이들에게 전달되었습니다."
+  }
+]
+};
+const LEVEL_META = {
+  sc1: {name:"Sơ cấp 1", desc:"15 bài: Giới thiệu, Trường học, Sinh hoạt, Ngày – thứ, Cuối tuần, Mua hàng, Thức ăn, Nhà cửa, Gia đình, Thời tiết, Điện thoại, Sinh nhật, Sở thích, Giao thông.", groupName:"Bài"},
+  sc2: {name:"Sơ cấp 2", desc:"15 bài: Gặp gỡ, Hẹn gặp, Mua sắm, Bệnh viện, Thư tín, Giao thông, Điện thoại, Phim, Ngày nghỉ, Ngoại hình, Du lịch, Nơi công cộng, Đô thị, Kế hoạch, Cuộc sống tại Hàn Quốc.", groupName:"Bài"},
+  tc1: {name:"Trung cấp 1", desc:"10 nhóm chủ đề: Kinh nghiệm, Công việc, Du lịch, Quan hệ xã hội, Sức khỏe, Kinh tế, Giáo dục, Môi trường, Văn hóa và Đọc hiểu.", groupName:"Chủ đề"}
+};
+let QUESTIONS = QUESTION_BANKS.sc1;
+const DURATION_SECONDS = 30 * 60;
+const CHOICE_LABELS = ["A", "B", "C", "D"];
+const $ = id => document.getElementById(id);
+const escapeHtml = value => String(value).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+const state = { answers: Array(QUESTIONS.length).fill(null), deadline: 0, timerId: null, running: false, student: "", birthDate: "", selectedLevel: "sc1" };
 
-const $=id=>document.getElementById(id);function safe(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function updateProgress() {
+  const count = state.answers.filter(value => value !== null).length;
+  $("answeredCount").textContent = `${count}/${QUESTIONS.length}`;
+  $("progressFill").style.width = `${count / QUESTIONS.length * 100}%`;
+  $("progressFillParent").setAttribute("aria-valuenow", count);
+  document.querySelectorAll(".question-nav button").forEach((button, index) => {
+    button.classList.toggle("answered", state.answers[index] !== null);
+    button.setAttribute("aria-label", `Đến câu ${index + 1}, ${state.answers[index] === null ? "chưa trả lời" : "đã trả lời"}`);
+  });
+}
 
-function render(){ $('questions').innerHTML=QUESTIONS.map((q,i)=>`<article class="question"><div class="qhead">CÂU ${i+1}/50 · ${safe(q.level)}</div><h3>${safe(q.q)}</h3>${q.opts.map((o,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}" ${answers[i]===j?'checked':''}><span>${String.fromCharCode(65+j)}. ${safe(o)}</span></label>`).join('')}</article>`).join('');$('questions').addEventListener('change',e=>{if(e.target.matches('input[type=radio]')){const i=Number(e.target.name.slice(1));answers[i]=Number(e.target.value);$('progress').textContent=`Đã trả lời: ${answers.filter(v=>v!==null).length}/50`;}});}
+function renderQuestions() {
+  $("questions").innerHTML = QUESTIONS.map((q,index) => `
+    <article class="question-card" id="question-${index + 1}" aria-labelledby="q-title-${index + 1}">
+      <div class="question-top">
+        <span class="qnum">CÂU ${index + 1} / ${QUESTIONS.length} · ${escapeHtml(q.kind)}</span>
+        <span class="lesson-badge">${LEVEL_META[state.selectedLevel].groupName} ${q.lesson} · ${escapeHtml(q.lessonTitle)}</span>
+      </div>
+      ${q.context ? `<div class="passage">${escapeHtml(q.context)}</div>` : ""}
+      <h3 id="q-title-${index + 1}">${escapeHtml(q.question)}</h3>
+      <div role="radiogroup" aria-labelledby="q-title-${index + 1}">
+        ${q.options.map((option,choice) => `
+          <label class="option">
+            <input type="radio" name="question-${index}" value="${choice}" ${state.answers[index] === choice ? "checked" : ""}>
+            <span><span class="option-letter">${CHOICE_LABELS[choice]}.</span> ${escapeHtml(option)}</span>
+          </label>
+        `).join("")}
+      </div>
+    </article>
+  `).join("");
 
-function tick(){seconds--;const m=Math.floor(Math.max(0,seconds)/60),s=Math.max(0,seconds)%60;$('timer').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;if(seconds<=0)submit(true);}
+  $("questionNav").innerHTML = QUESTIONS.map((q,index) => `
+    <button type="button" data-jump="${index}" aria-label="Đến câu ${index+1}, chưa trả lời">${index+1}</button>
+  `).join("");
+  updateProgress();
+}
 
-function start(){const n=$('studentName').value.trim();if(!n){alert('Vui lòng nhập họ và tên.');$('studentName').focus();return;}student=n;answers=Array(QUESTIONS.length).fill(null);seconds=LIMIT;finished=false;render();$('intro').classList.add('hidden');$('results').classList.add('hidden');$('exam').classList.remove('hidden');$('timer').textContent='30:00';$('progress').textContent='Đã trả lời: 0/50';clearInterval(interval);interval=setInterval(tick,1000);window.scrollTo(0,0);}
+function updateTimer() {
+  if (!state.running) return;
+  const seconds = Math.max(0, Math.ceil((state.deadline - Date.now()) / 1000));
+  $("timer").textContent = `${String(Math.floor(seconds / 60)).padStart(2,"0")}:${String(seconds % 60).padStart(2,"0")}`;
+  $("timer").classList.toggle("urgent", seconds <= 60);
+  if (seconds === 0) submitQuiz(true);
+}
 
-function submit(expired=false){if(finished)return;const missing=answers.filter(x=>x===null).length;if(!expired&&missing&&!confirm(`Bạn còn ${missing} câu chưa trả lời. Vẫn nộp bài?`))return;finished=true;clearInterval(interval);const total=QUESTIONS.reduce((s,q,i)=>s+(answers[i]===q.answer?1:0),0);const groups=[{from:0,to:15,label:'Sơ cấp 1'},{from:15,to:30,label:'Sơ cấp 2'},{from:30,to:40,label:'Trung cấp cơ bản'},{from:40,to:50,label:'Trung cấp nâng cao'}];const groupScores=groups.map(g=>QUESTIONS.slice(g.from,g.to).reduce((s,q,k)=>s+(answers[g.from+k]===q.answer?1:0),0));let level,desc;if(total<15){level='Sơ cấp 1';desc='Nên bắt đầu từ bảng chữ cái, từ vựng và ngữ pháp nền tảng.';}else if(total<30){level='Sơ cấp 2';desc='Nên củng cố ngữ pháp sơ cấp, hội thoại và đọc hiểu cơ bản.';}else if(total<40){level='Trung cấp 1';desc='Có thể bắt đầu nội dung trung cấp, đồng thời ôn các phần còn sai.';}else{level='Trung cấp 2 (tham khảo)';desc='Có nền tảng tốt trong bài kiểm tra này. Nên làm thêm bài đọc, nghe và viết để xác nhận trình độ.';}
+function dateValid(value){
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const [y,m,d] = value.split("-").map(Number);
+  const date = new Date(y,m-1,d);
+  const now = new Date();
+  const today = new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  return y >= 1900 && date.getFullYear() === y && date.getMonth() === m-1 && date.getDate() === d && date <= today;
+}
+function displayDate(value){
+  const [y,m,d]=value.split("-");
+  return `${d}/${m}/${y}`;
+}
+function updateBankPreview(){
+  const key = $("studentLevel").value;
+  $("bankPreview").textContent = LEVEL_META[key]
+    ? `Đề ${LEVEL_META[key].name}: 50 câu trắc nghiệm, 30 phút. ${LEVEL_META[key].desc}`
+    : "Chọn trình độ để xem thông tin bộ đề.";
+}
+function startQuiz() {
+  const student = $("studentName").value.trim();
+  const levelKey = $("studentLevel").value;
+  const birthDate = $("studentDOB").value;
+  let error = "", fieldId = "";
+  if (!student) {error = "Vui lòng nhập họ và tên.";fieldId = "studentName";}
+  else if (!LEVEL_META[levelKey]) {error = "Vui lòng chọn trình độ kiểm tra.";fieldId = "studentLevel";}
+  else if (!dateValid(birthDate)) {error = "Vui lòng chọn ngày sinh hợp lệ, không lớn hơn ngày hôm nay.";fieldId = "studentDOB";}
+  if (error) {$("nameError").textContent = error;$(fieldId).focus();return;}
+  $("nameError").textContent = "";
+  clearInterval(state.timerId);
+  state.student = student;
+  state.birthDate = birthDate;
+  state.selectedLevel = levelKey;
+  QUESTIONS = QUESTION_BANKS[levelKey];
+  state.answers = Array(QUESTIONS.length).fill(null);
+  state.deadline = Date.now() + DURATION_SECONDS * 1000;
+  state.running = true;
+  $("results").classList.add("hidden");
+  $("intro").classList.add("hidden");
+  $("exam").classList.remove("hidden");
+  renderQuestions();
+  updateTimer();
+  state.timerId = setInterval(updateTimer, 1000);
+  window.scrollTo({top:0,behavior:"instant"});
+}
 
-$('exam').classList.add('hidden');$('results').classList.remove('hidden');$('studentResult').textContent=`Học viên: ${student}${expired?' · Hết thời gian':''}`;$('score').textContent=`${total}/50 câu đúng · ${Math.round(total/50*100)}%`;$('recommend').textContent=`Trình độ gợi ý (tham khảo): ${level}`;$('description').textContent=desc;$('breakdown').textContent=groups.map((g,i)=>`${g.label}: ${groupScores[i]}/${g.to-g.from}`).join('  ·  ');$('review').classList.add('hidden');$('reviewBtn').textContent='Xem đáp án và giải thích';$('review').innerHTML=QUESTIONS.map((q,i)=>{const ok=answers[i]===q.answer;return `<article class="question ${ok?'correct':'incorrect'}"><div class="qhead">CÂU ${i+1} · ${ok?'ĐÚNG':answers[i]===null?'CHƯA TRẢ LỜI':'SAI'}</div><h3>${safe(q.q)}</h3><p>Bạn chọn: <strong>${answers[i]===null?'Chưa trả lời':safe(q.opts[answers[i]])}</strong></p><p>Đáp án đúng: <strong>${safe(q.opts[q.answer])}</strong></p><div class="answer-note">${safe(q.explain)}</div></article>`;}).join('');window.scrollTo(0,0);}
+function submitQuiz(expired = false) {
+  if (!state.running) return;
+  const unanswered = state.answers.filter(answer => answer === null).length;
+  if (!expired && unanswered && !window.confirm(`Bạn còn ${unanswered} câu chưa trả lời. Bạn vẫn muốn nộp bài?`)) return;
+  state.running = false;
+  clearInterval(state.timerId);
+  state.timerId = null;
+  const points = QUESTIONS.reduce((sum,q,index) => sum + Number(state.answers[index] === q.answer),0);
+  const percent = Math.round(points / QUESTIONS.length * 100);
+  const meta = LEVEL_META[state.selectedLevel];
+  let level, description;
+  if (points < 20) {level = `Cần củng cố ${meta.name}`;description = "Nên học lại kiến thức nền tảng của trình độ đã chọn, đặc biệt là các chủ đề trả lời sai.";}
+  else if (points < 35) {level = `Đang củng cố ${meta.name}`;description = "Đã có kiến thức một phần. Nên luyện từ vựng, ngữ pháp và đọc hiểu ở các nhóm câu còn sai.";}
+  else if (points < 45) {level = `Nắm khá tốt ${meta.name}`;description = "Có nền tảng khá; nên ôn các chủ đề còn yếu trước khi học lên trình độ tiếp theo.";}
+  else {level = `Nắm vững phần lớn kiến thức ${meta.name}`;description = "Có thể tham khảo chương trình tiếp theo; nên kiểm tra thêm kỹ năng nghe, nói và viết trước khi xếp lớp chính thức.";}
 
-$('startBtn').addEventListener('click',start);$('submitTop').addEventListener('click',()=>submit());$('submitBottom').addEventListener('click',()=>submit());$('reviewBtn').addEventListener('click',()=>{$('review').classList.toggle('hidden');$('reviewBtn').textContent=$('review').classList.contains('hidden')?'Xem đáp án và giải thích':'Ẩn đáp án';});$('restartBtn').addEventListener('click',()=>{clearInterval(interval);$('results').classList.add('hidden');$('intro').classList.remove('hidden');window.scrollTo(0,0);});window.addEventListener('beforeunload',e=>{if(!finished&&!$('exam').classList.contains('hidden')){e.preventDefault();e.returnValue='';}});
+  $("exam").classList.add("hidden");
+  $("results").classList.remove("hidden");
+  $("resultEyebrow").textContent = `KẾT QUẢ KIỂM TRA · ${meta.name.toUpperCase()}`;
+  $("studentResult").textContent = `Họ và tên: ${state.student}  |  Ngày sinh: ${displayDate(state.birthDate)}  |  Trình độ đã chọn: ${meta.name}${expired ? "  |  Hết 30 phút, hệ thống tự nộp bài" : ""}`;
+  $("groupResultsHeading").textContent = state.selectedLevel === "tc1" ? "Kết quả theo từng chủ đề" : "Kết quả theo từng bài học";
+  $("score").textContent = `${points} / ${QUESTIONS.length}`;
+  $("percent").textContent = `Tỷ lệ đúng: ${percent}%`;
+  $("recommend").textContent = `Gợi ý học tập: ${level}`;
+  $("description").textContent = description;
 
-</script></body></html>
+  const rows = [];
+  for (const lesson of [...new Set(QUESTIONS.map(q => q.lesson))].sort((a,b) => a-b)) {
+    const indices = QUESTIONS.map((q,i) => q.lesson === lesson ? i : -1).filter(i => i >= 0);
+    const correct = indices.filter(i => state.answers[i] === QUESTIONS[i].answer).length;
+    rows.push(`<div class="lesson-row ${correct < indices.length ? "weak" : ""}"><span>${meta.groupName} ${lesson} · ${escapeHtml(QUESTIONS[indices[0]].lessonTitle)}</span><strong>${correct}/${indices.length}</strong></div>`);
+  }
+  $("lessonResults").innerHTML = rows.join("");
+  $("review").innerHTML = QUESTIONS.map((q,i) => {
+    const chosen = state.answers[i];
+    const ok = chosen === q.answer;
+    const status = chosen === null ? "Chưa trả lời" : ok ? "Đúng" : "Sai";
+    return `<article class="question-card review-card ${ok ? "correct" : "incorrect"}">
+      <div class="question-top"><span class="qnum">CÂU ${i + 1} · ${escapeHtml(q.kind)} · ${status}</span><span class="lesson-badge">${LEVEL_META[state.selectedLevel].groupName} ${q.lesson}</span></div>
+      ${q.context ? `<div class="passage">${escapeHtml(q.context)}</div>` : ""}
+      <h3>${escapeHtml(q.question)}</h3>
+      <p class="answer-line">Bạn chọn: <strong class="${ok ? "correct-text" : "incorrect-text"}">${chosen === null ? "Chưa trả lời" : `${CHOICE_LABELS[chosen]}. ${escapeHtml(q.options[chosen])}`}</strong></p>
+      <p class="answer-line">Đáp án đúng: <strong class="correct-text">${CHOICE_LABELS[q.answer]}. ${escapeHtml(q.options[q.answer])}</strong></p>
+      <div class="review-note">${escapeHtml(q.explanation)}</div>
+    </article>`;
+  }).join("");
+  $("review").classList.add("hidden");
+  $("reviewToggle").textContent = "Xem đáp án và giải thích";
+  window.scrollTo({top:0,behavior:"instant"});
+}
+
+$("questionNav").addEventListener("click",event => {
+  const button = event.target.closest("button[data-jump]");
+  if (!button) return;
+  document.getElementById(`question-${Number(button.dataset.jump)+1}`).scrollIntoView({behavior:"smooth",block:"start"});
+  document.querySelectorAll(".question-nav button.current").forEach(item=>item.classList.remove("current"));
+  button.classList.add("current");
+});
+$("questions").addEventListener("change",event => {
+  const input = event.target;
+  if (!state.running || !input.matches('input[type="radio"]')) return;
+  const match = /^question-(\d+)$/.exec(input.name);
+  if (!match) return;
+  const index = Number(match[1]);
+  if (!Number.isInteger(index) || index < 0 || index >= QUESTIONS.length) return;
+  state.answers[index] = Number(input.value);
+  updateProgress();
+});
+$("registrationForm").addEventListener("submit",event => {event.preventDefault();startQuiz();});
+$("studentLevel").addEventListener("change",updateBankPreview);
+const now = new Date();
+$("studentDOB").max = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`;
+updateBankPreview();
+$("submitTop").addEventListener("click",()=>submitQuiz(false));
+$("submitBottom").addEventListener("click",()=>submitQuiz(false));
+$("reviewToggle").addEventListener("click",()=>{
+  const hidden = $("review").classList.toggle("hidden");
+  $("reviewToggle").textContent = hidden ? "Xem đáp án và giải thích" : "Ẩn đáp án và giải thích";
+  if (!hidden) $("review").scrollIntoView({behavior:"smooth",block:"start"});
+});
+$("retryBtn").addEventListener("click",()=>{
+  clearInterval(state.timerId);
+  state.running = false;
+  $("results").classList.add("hidden");
+  $("intro").classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"instant"});
+  $("studentName").focus();
+});
+$("menuToggle").addEventListener("click",()=>{
+  const opened = $("siteNav").classList.toggle("open");
+  $("menuToggle").setAttribute("aria-expanded",String(opened));
+});
+window.addEventListener("beforeunload",event=>{
+  if(state.running){event.preventDefault();event.returnValue="";}
+});
+</script>
+</body>
+</html>
