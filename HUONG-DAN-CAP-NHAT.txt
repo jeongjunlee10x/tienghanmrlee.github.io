@@ -1,14 +1,13 @@
-TIẾNG HÀN MR LEE - THÔNG TIN LIÊN HỆ
+TIẾNG HÀN MR LEE - TÍCH HỢP NỀN SEOUL / NAMSAN
 
-Bổ sung:
-- Điện thoại 1: 0376 991 180
-- Điện thoại 2: 0866 761 403
-- Email: tienghanmrlee@gmail.com
+1) Sao chép index.html vào thư mục website, thay file index.html cũ.
+2) Sao chép images/nen-seoul-namsan.webp vào thư mục images đang có.
+3) Giữ nguyên các file Firebase, bài học, logo, ảnh bìa khác.
+4) Trong Terminal VS Code chạy:
+   git add index.html images/nen-seoul-namsan.webp
+   git commit -m "Update Seoul Namsan background"
+   git push origin main
+5) Truy cập trang chủ và nhấn Ctrl+F5.
 
-Nếu website đã có giao diện mới, chỉ cần thay index.html.
-Nếu chưa, chép cả thư mục images và font-chuan-mrlee.css từ ZIP.
-
-Cập nhật GitHub:
- git add index.html
- git commit -m "Add homepage contact information"
- git push origin main
+LƯU Ý: Nếu bạn đã sửa index.html thêm lần nữa sau khi gửi đoạn mã,
+hãy sao lưu bản hiện có trước khi thay thế để tránh mất thay đổi mới.

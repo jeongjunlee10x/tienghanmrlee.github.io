@@ -1,0 +1,35 @@
+TIẾNG HÀN MR LEE — BỘ 3 NGÔN NGỮ (VI / KO / EN)
+
+1. Chép index.html, mrlee-i18n.js và thư mục images từ bộ này vào:
+   C:\Users\Surface\Documents\tienghanmrlee.github.io
+   Chọn thay index.html hiện tại. Giữ nguyên firebase-config.js,
+   auth-firebase.js, auth-guard.js và các trang kiểm tra, lịch sử.
+
+2. Mở index.html bằng Live Server để thử 3 nút:
+   Tiếng Việt | 한국어 | English
+   Nút đang chọn lưu trong trình duyệt và được dùng lại khi mở trang sau.
+
+3. NẾU MUỐN hiển thị thanh chọn ngôn ngữ và dịch menu chung trên tất cả
+   các trang con, chép CAI-3-NGON-NGU.ps1 vào thư mục dự án rồi chạy:
+   powershell -ExecutionPolicy Bypass -File .\CAI-3-NGON-NGU.ps1
+   Chương trình lưu bản sao trước khi chỉnh sửa. Đừng chạy các script
+   cài đặt cũ sau bước này mà không kiểm tra lại nội dung đã thay đổi.
+
+4. Chạy trong Terminal:
+   git add index.html mrlee-i18n.js images/nen-seoul-namsan.webp
+   git commit -m "Fix Vietnamese encoding and add VI KO EN homepage"
+   git push origin main
+
+   Nếu đã chạy bước 3, dùng git add . (kiểm tra git status trước khi commit).
+
+5. Tải lại bằng Ctrl+F5.
+
+PHẠM VI: Trang CHỦ đã có bản dịch hoàn chỉnh cho ba ngôn ngữ.
+Ở trang con, bộ cài chỉ thêm công tắc và dịch MENU chung; KHÔNG tự dịch
+nội dung giảng dạy, đề thi, biểu mẫu hay dữ liệu học viên.
+
+BẢO MẬT: Giữ nguyên các file Firebase và Firestore Rules. Mọi chế độ
+ngôn ngữ vẫn dùng chung tài khoản, dữ liệu và link học tập.
+
+MÃ HÓA: Lưu file UTF-8. Nếu lỡ dán chữ Việt sai dấu, lỗi là mojibake;
+đổi font KHÔNG tự sửa chuỗi đã hỏng — phải dùng chữ Unicode chuẩn.
