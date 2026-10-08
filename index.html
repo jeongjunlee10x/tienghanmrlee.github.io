@@ -3,11 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Tiếng Hàn Mr Lee - Hệ thống học tiếng Hàn, luyện tập và kiểm tra trực tuyến.">
+  <meta name="description" content="Tiếng Hàn Mr Lee - Học tiếng Hàn, luyện giao tiếp, ôn phỏng vấn, luyện đề TOPIK và kiểm tra trình độ trực tuyến.">
   <title>Tiếng Hàn Mr Lee | Học &amp; Luyện thi tiếng Hàn</title>
   <link rel="stylesheet" href="cssstyle.css">
 
   <style>
+
+    /* Trang bìa Tiếng Hàn Mr Lee – tách biệt với CSS chung */
+    .mrlee-cover { width:100%; background:#f5f8fd; padding:14px 16px 22px; }
+    .mrlee-cover-frame { position:relative; max-width:1536px; margin:0 auto; overflow:hidden; border-radius:20px; box-shadow:0 18px 48px rgba(20,43,76,.14); background:#eaf2fb; }
+    .mrlee-cover-image { display:block; width:100%; height:auto; }
+    .mrlee-cover-hotspots { position:absolute; display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:.6%; left:1.7%; width:96.7%; top:60%; height:29.3%; }
+    .mrlee-cover-hotspots a { display:block; border:2px solid transparent; border-radius:18px; outline-offset:-4px; transition:background .16s ease,border-color .16s ease; }
+    .mrlee-cover-hotspots a:hover { background:rgba(255,255,255,.17); border-color:rgba(20,43,76,.7); }
+    .mrlee-cover-hotspots a:focus-visible { outline:4px solid #142b4c; background:rgba(255,255,255,.23); }
+    .mrlee-cover-sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+    .mrlee-cover-cta { display:flex; justify-content:center; flex-wrap:wrap; gap:12px; margin:18px auto 0; }
+    .mrlee-cover-cta a { display:inline-flex; align-items:center; justify-content:center; gap:8px; text-decoration:none; font-weight:800; border-radius:11px; padding:12px 19px; background:#142b4c; color:#fff; box-shadow:0 6px 16px rgba(20,43,76,.14); }
+    .mrlee-cover-cta a:nth-child(2) { background:#f0782e; color:#fff; }
+    .mrlee-cover-cta a:hover,.mrlee-cover-cta a:focus-visible { filter:brightness(1.12); transform:translateY(-1px); }
+    .mrlee-cover-mobile-links { display:none; }
+    @media(max-width:720px) {
+      .mrlee-cover { padding:10px 10px 18px; }
+      .mrlee-cover-frame { border-radius:14px; }
+      .mrlee-cover-image { width:100%; height:auto; }
+      .mrlee-cover-hotspots { display:none; }
+      .mrlee-cover-cta { display:none; }
+      .mrlee-cover-mobile-links { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:13px auto 0; max-width:680px; }
+      .mrlee-cover-mobile-links a { text-align:center; display:flex; align-items:center; justify-content:center; min-height:55px; padding:11px 8px; background:white; border:1px solid #dce5f2; border-radius:12px; color:#142b4c; text-decoration:none; font-size:13px; line-height:1.35; font-weight:800; box-shadow:0 3px 12px rgba(20,43,76,.06); }
+      .mrlee-cover-mobile-links a:hover,.mrlee-cover-mobile-links a:focus-visible { border-color:#ef8c36; background:#fff8f2; }
+    }
+    @media(prefers-reduced-motion:reduce) { .mrlee-cover-hotspots a,.mrlee-cover-cta a { transition:none; } }
     .mrlee-practice-section{margin:10px 0 44px}
     .mrlee-practice-heading{text-align:center;margin:0 auto 22px;max-width:680px}
     .mrlee-practice-heading .eyebrow{font-size:12px;font-weight:800;letter-spacing:.13em;color:#b66b20}
@@ -46,17 +72,37 @@
     </div>
   </header>
 
-  <section class="hero">
-    <div class="hero-content">
-      <span class="hero-label">🇰🇷 TIẾNG HÀN MR LEE</span>
-      <h1>Học tiếng Hàn<br><span>mỗi ngày một chút</span></h1>
-      <p>Học từ vựng, ngữ pháp, giao tiếp và luyện tập tiếng Hàn theo từng cấp độ.</p>
-      <div class="hero-buttons">
-        <a href="bai-hoc.html" class="btn btn-primary">📚 Bắt đầu học</a>
-        <a href="kiem-tra-dau-vao.html" class="btn btn-secondary">🎯 Kiểm tra trình độ</a>
-      </div>
+  <!-- TRANG BÌA: mỗi thẻ hình ảnh là một liên kết thật trên máy tính -->
+  <section class="mrlee-cover" aria-label="Trang bìa và truy cập nhanh Tiếng Hàn Mr Lee">
+    <div class="mrlee-cover-frame">
+      <img class="mrlee-cover-image" src="images/trang-bia-mr-lee.webp"
+           width="1536" height="1024" fetchpriority="high"
+           alt="Tiếng Hàn Mr Lee - học tiếng Hàn với khung cảnh Hàn Quốc, học tập, phỏng vấn, giao tiếp và TOPIK">
+      <nav class="mrlee-cover-hotspots" aria-label="Chọn chức năng trên ảnh bìa">
+        <a href="bai-hoc.html" title="Bài học"><span class="mrlee-cover-sr">Bài học</span></a>
+        <a href="kiem-tra-dau-vao.html" title="Kiểm tra đầu vào"><span class="mrlee-cover-sr">Kiểm tra đầu vào</span></a>
+        <a href="on-luyen-phong-van.html" title="Ôn luyện phỏng vấn"><span class="mrlee-cover-sr">Ôn luyện phỏng vấn</span></a>
+        <a href="giao-tiep-theo-chu-de.html" title="Các câu giao tiếp theo chủ đề"><span class="mrlee-cover-sr">Các câu giao tiếp theo chủ đề</span></a>
+        <a href="https://www.topik.go.kr/TWSTDY/TWSTDY0080.do" target="_blank" rel="noopener noreferrer" title="Thi TOPIK Online - mở tab mới"><span class="mrlee-cover-sr">Thi TOPIK Online, mở website chính thức trong tab mới</span></a>
+        <a href="bo-sach.html" title="Tài liệu học tiếng Hàn"><span class="mrlee-cover-sr">Tài liệu học tiếng Hàn</span></a>
+      </nav>
     </div>
+    <!-- Nút thao tác rõ ràng cho máy tính -->
+    <div class="mrlee-cover-cta">
+      <a href="bai-hoc.html">📚 Bắt đầu học <span aria-hidden="true">→</span></a>
+      <a href="kiem-tra-dau-vao.html">🎯 Kiểm tra trình độ <span aria-hidden="true">→</span></a>
+    </div>
+    <!-- Trên điện thoại: các nút riêng đủ lớn để bấm, thay cho điểm nhấn trên hình -->
+    <nav class="mrlee-cover-mobile-links" aria-label="Chọn chức năng học tập">
+      <a href="bai-hoc.html">📚 Bài học</a>
+      <a href="kiem-tra-dau-vao.html">🎯 Kiểm tra đầu vào</a>
+      <a href="on-luyen-phong-van.html">🎙️ Ôn luyện phỏng vấn</a>
+      <a href="giao-tiep-theo-chu-de.html">💬 Giao tiếp theo chủ đề</a>
+      <a href="https://www.topik.go.kr/TWSTDY/TWSTDY0080.do" target="_blank" rel="noopener noreferrer">💻 Thi TOPIK Online ↗</a>
+      <a href="bo-sach.html">📖 Tài liệu học</a>
+    </nav>
   </section>
+
 
   <main class="container">
     <section class="section intro">
