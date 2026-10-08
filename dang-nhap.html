@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Đăng ký và đăng nhập tài khoản Tiếng Hàn Mr Lee bằng xác minh số điện thoại qua SMS.">
+  <meta name="theme-color" content="#142b4c">
+  <title>Đăng ký / Đăng nhập | Tiếng Hàn Mr Lee</title>
+  <style>
+    :root { --navy:#142b4c;--navy2:#254c7e;--orange:#ef8c36;--text:#18263b;--muted:#64748b;--line:#dbe3ee;--bg:#f3f6fb;--green:#087d58; }
+    * { box-sizing:border-box; }
+    body { margin:0;font:16px/1.58 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--text); }
+    a { color:inherit; }
+    button,input { font:inherit; }
+    button { cursor:pointer; }
+    button:disabled { cursor:not-allowed;opacity:.57; }
+    :focus-visible { outline:3px solid var(--orange);outline-offset:3px; }
+    .topbar { background:#fff;border-bottom:1px solid var(--line); }
+    .topbar-inner { max-width:1160px;margin:auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px; }
+    .brand { color:var(--navy);text-decoration:none;display:flex;align-items:center;gap:10px;font-weight:850;font-size:18px; }
+    .brand img { width:58px;height:52px;object-fit:contain; }
+    .back { text-decoration:none;color:var(--navy2);font-size:14px;font-weight:750; }
+    .back:hover { text-decoration:underline; }
+    main { padding:42px 18px 55px; }
+    .shell { max-width:1050px;margin:0 auto;display:grid;grid-template-columns:1fr 1.04fr;gap:30px;align-items:start; }
+    .pitch { background:linear-gradient(144deg,#132b4b 3%,#244f83 73%,#2d6495 100%);padding:40px 35px;border-radius:24px;color:white;min-height:525px;overflow:hidden;position:relative;box-shadow:0 18px 40px #142b4c21; }
+    .pitch:after { content:"한";position:absolute;bottom:-80px;right:-4px;font-size:280px;font-weight:950;color:#ffffff0b;pointer-events:none; }
+    .eyebrow { letter-spacing:.12em;font-size:12px;font-weight:850;text-transform:uppercase;color:#ffcb8f; }
+    .pitch h1 { font-size:clamp(28px,3.2vw,42px);line-height:1.22;margin:18px 0;max-width:440px; }
+    .pitch p { opacity:.91;margin:0 0 27px;max-width:420px; }
+    .perks { display:grid;gap:17px;margin-top:20px;position:relative;z-index:1; }
+    .perk { display:flex;gap:12px;align-items:flex-start; }
+    .perk-icon { flex:none;width:38px;height:38px;background:#ffffff1b;border:1px solid #ffffff26;display:grid;place-items:center;border-radius:12px; }
+    .perk strong { display:block;font-size:15px; }
+    .perk small { opacity:.83;font-size:13px; }
+    .panel { background:#fff;border:1px solid #e0e6ef;border-radius:24px;box-shadow:0 15px 50px #152b4920;padding:30px; }
+    .panel h2 { color:var(--navy);font-size:25px;line-height:1.2;margin:0 0 6px; }
+    .subtext { color:var(--muted);font-size:14px;margin:0 0 22px; }
+    .modes { display:grid;grid-template-columns:1fr 1fr;background:#eef3fa;padding:5px;border-radius:13px;gap:5px;margin-bottom:23px; }
+    .mode { border:0;background:transparent;border-radius:10px;color:#56667d;font-weight:800;padding:11px 10px; }
+    .mode[aria-selected="true"] { color:var(--navy);background:white;box-shadow:0 3px 10px #142b4c13; }
+    .field { margin-bottom:17px; }
+    .field label { display:block;font-size:14px;font-weight:800;margin-bottom:8px; }
+    .field input { width:100%;border:1.5px solid #cad6e5;border-radius:11px;background:#fff;color:var(--text);min-height:48px;padding:12px 14px; }
+    .field input:focus { border-color:var(--navy2);outline:3px solid #a7c6ed70; }
+    .hint { font-size:12px;color:var(--muted);margin-top:6px; }
+    .check-row { display:flex;align-items:flex-start;gap:10px;margin:14px 0 18px;font-size:13px;color:#4d6076; }
+    .check-row input { accent-color:var(--navy);margin-top:5px;flex:none; }
+    .primary { border:0;border-radius:11px;background:var(--navy);color:white;font-weight:850;width:100%;padding:13px 20px;min-height:49px; }
+    .primary:hover:not(:disabled) { background:var(--navy2); }
+    .secondary { border:1px solid #cad6e5;background:#fff;color:var(--navy);border-radius:10px;font-weight:750;padding:10px 15px; }
+    .secondary:hover:not(:disabled) { background:#f4f8fd; }
+    .actions { display:flex;gap:10px;flex-wrap:wrap;margin-top:17px; }
+    #recaptcha-container { min-height:0;margin-bottom:16px;max-width:100%;overflow:auto; }
+    .notice { padding:12px 14px;border-radius:11px;background:#f1f6fc;color:#2d5074;font-size:13px;margin:14px 0; }
+    .status { margin:0 0 18px;padding:12px 14px;border-radius:10px;background:#eef5ff;color:#16446d;font-size:14px; }
+    .status:empty { display:none; }
+    .status.error { color:#a32230;background:#fff0f1; }
+    .status.success { color:#086443;background:#e9f8f0; }
+    .hidden { display:none!important; }
+    .phone-chip { display:inline-flex;background:#edf3fa;border-radius:25px;padding:7px 14px;color:var(--navy);font-size:14px;font-weight:800;margin:4px 0 18px; }
+    .large-icon { background:#e7f8ee;color:var(--green);width:52px;height:52px;display:grid;place-items:center;border-radius:50%;font-size:25px;margin-bottom:18px; }
+    .account-list { margin:20px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden; }
+    .account-list div { padding:13px 14px;display:flex;justify-content:space-between;align-items:center;gap:15px;border-bottom:1px solid var(--line);font-size:14px; }
+    .account-list div:last-child { border-bottom:0; }
+    .account-list span { color:var(--muted); }
+    .account-list strong { max-width:67%;overflow-wrap:anywhere;text-align:right; }
+    .privacy { max-width:1050px;margin:28px auto 0;color:#65758a;font-size:12px; }
+    .privacy strong { color:#40526d; }
+    footer { border-top:1px solid var(--line);text-align:center;color:#64748b;padding:22px 16px;font-size:13px;background:white; }
+    @media (max-width:780px) { main { padding-top:23px; } .shell { grid-template-columns:1fr;gap:17px;max-width:580px; } .pitch { min-height:0;padding:27px 25px; } .pitch h1 { font-size:27px;margin:10px 0; } .pitch p { margin-bottom:18px; } .perks { grid-template-columns:1fr 1fr;gap:12px; } .perk-icon { width:32px;height:32px; } .perk small { display:none; } .pitch:after { font-size:180px;bottom:-50px; } .panel { padding:23px 20px; } }
+    @media (max-width:420px) { .brand { font-size:15px; } .brand img { width:43px; } .topbar-inner { padding:12px 16px; } .back { font-size:12px; } .perks { grid-template-columns:1fr; } }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto!important; } }
+  </style>
+</head>
+<body>
+  <header class="topbar"><div class="topbar-inner">
+    <a class="brand" href="index.html"><img src="images/logo.png" alt="" onerror="this.hidden=true">TIẾNG HÀN MR LEE</a>
+    <a class="back" href="index.html">← Trở về trang chủ</a>
+  </div></header>
+  <main>
+    <div class="shell">
+      <section class="pitch" aria-label="Lợi ích tài khoản">
+        <div class="eyebrow">TÀI KHOẢN HỌC VIÊN</div>
+        <h1>Học tiếng Hàn cùng Mr Lee</h1>
+        <p>Đăng ký hoặc đăng nhập bằng số điện thoại. Mã xác minh được gửi trực tiếp qua SMS bởi Firebase Authentication.</p>
+        <div class="perks">
+          <div class="perk"><span class="perk-icon">📱</span><div><strong>Xác nhận số điện thoại</strong><small>Nhập mã OTP gửi qua SMS</small></div></div>
+          <div class="perk"><span class="perk-icon">🪪</span><div><strong>Tài khoản cá nhân</strong><small>Lưu tên hiển thị trong Firebase Authentication</small></div></div>
+          <div class="perk"><span class="perk-icon">🔒</span><div><strong>Đăng nhập có xác thực</strong><small>Không tạo mã OTP giả trên trình duyệt</small></div></div>
+          <div class="perk"><span class="perk-icon">🇰🇷</span><div><strong>Cùng học mỗi ngày</strong><small>Truy cập các nội dung Tiếng Hàn Mr Lee</small></div></div>
+        </div>
+      </section>
+      <section class="panel" aria-label="Đăng ký và đăng nhập">
+        <div id="setup-alert" class="status error hidden" role="alert">Hệ thống SMS chưa được cấu hình. Quản trị viên cần nhập thông tin dự án Firebase trước khi sử dụng.</div>
+        <div id="form-view">
+          <h2 id="form-title">Đăng nhập</h2>
+          <p class="subtext">Không cần mật khẩu. Xác minh bằng số điện thoại của bạn.</p>
+          <div class="modes" role="tablist" aria-label="Chọn chế độ">
+            <button class="mode" id="mode-login" role="tab" aria-selected="true" aria-controls="registration-fields" type="button">Đăng nhập</button>
+            <button class="mode" id="mode-register" role="tab" aria-selected="false" aria-controls="registration-fields" type="button">Đăng ký</button>
+          </div>
+          <p id="message" class="status" role="status" aria-live="polite"></p>
+          <form id="send-form" autocomplete="on">
+            <div id="registration-fields" class="field hidden">
+              <label for="full-name">Họ và tên</label>
+              <input id="full-name" name="name" type="text" autocomplete="name" maxlength="80" placeholder="Nguyễn Văn A">
+            </div>
+            <div class="field"><label for="phone">Số điện thoại Việt Nam (+84)</label>
+              <input id="phone" name="tel" type="tel" inputmode="tel" autocomplete="tel" required maxlength="20" placeholder="0912 345 678">
+              <div class="hint">Chấp nhận 09xxxxxxxx hoặc +849xxxxxxxx (cũng hỗ trợ đầu số 03, 05, 07, 08).</div>
+            </div>
+            <label class="check-row" for="consent"><input id="consent" type="checkbox" required><span>Tôi đồng ý nhận SMS xác minh và hiểu rằng số điện thoại được xử lý bởi Google Firebase nhằm xác thực tài khoản. <a href="#quyen-rieng-tu">Tìm hiểu thêm</a>.</span></label>
+          </form>
+          <div id="recaptcha-container" aria-label="Xác minh reCAPTCHA"></div>
+          <button id="send-button" form="send-form" class="primary" type="submit">Gửi mã xác nhận SMS</button>
+          <div class="notice">Mã SMS có thể chịu cước tin nhắn theo nhà mạng; việc gửi SMS phụ thuộc cấu hình Firebase. Không chia sẻ mã xác minh với người khác.</div>
+          <section id="code-view" class="hidden" aria-labelledby="code-title">
+            <h2 id="code-title">Nhập mã xác minh</h2>
+            <p class="subtext">Mã xác nhận đã được yêu cầu gửi tới:</p>
+            <span id="target-phone" class="phone-chip"></span>
+            <form id="verify-form">
+              <div class="field"><label for="otp">Mã OTP 6 chữ số</label>
+                <input id="otp" type="text" autocomplete="one-time-code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="••••••" required>
+              </div>
+              <button id="verify-button" type="submit" class="primary">Xác nhận &amp; đăng nhập</button>
+            </form>
+            <div class="actions"><button id="resend-button" type="button" class="secondary" disabled>Gửi lại mã sau 60s</button><button id="change-phone" type="button" class="secondary">Đổi số điện thoại</button></div>
+          </section>
+        </div>
+        <div id="account-view" class="hidden" aria-live="polite">
+          <div class="large-icon">✓</div>
+          <h2>Đăng nhập thành công!</h2>
+          <p class="subtext">Bạn đang sử dụng tài khoản học viên Tiếng Hàn Mr Lee.</p>
+          <div class="account-list">
+            <div><span>Họ và tên</span><strong id="account-name">Chưa cập nhật</strong></div>
+            <div><span>Số điện thoại</span><strong id="account-phone"></strong></div>
+            <div><span>Trạng thái</span><strong>Đã xác minh qua SMS</strong></div>
+          </div>
+          <form id="profile-form"><div class="field"><label for="display-name">Tên hiển thị</label><input id="display-name" type="text" maxlength="80" placeholder="Họ và tên của bạn" required></div><button id="save-name" type="submit" class="primary">Lưu tên hiển thị</button></form>
+          <p id="profile-message" class="status" role="status" aria-live="polite"></p>
+          <div class="actions"><a href="index.html" class="secondary" style="text-decoration:none">Về trang chủ</a><button type="button" id="logout-button" class="secondary">Đăng xuất</button></div>
+        </div>
+      </section>
+    </div>
+    <div id="quyen-rieng-tu" class="privacy"><strong>Thông tin &amp; quyền riêng tư:</strong> Khi xác thực bằng số điện thoại, Google Firebase nhận và xử lý số điện thoại phục vụ xác thực và phòng chống lạm dụng. Trang này lưu tên hiển thị trong hồ sơ Firebase Authentication; không yêu cầu ngày sinh hoặc lưu mã OTP vào mã nguồn website. Đăng nhập bằng SMS có rủi ro nếu số điện thoại bị mất quyền kiểm soát hoặc chuyển cho người khác. <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer">Chính sách quyền riêng tư Firebase ↗</a></div>
+  </main>
+  <footer>© 2026 Tiếng Hàn Mr Lee · Kết nối học viên an toàn</footer>
+  <script type="module" src="auth-firebase.js"></script>
+</body>
+</html>
