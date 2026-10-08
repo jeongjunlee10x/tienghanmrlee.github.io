@@ -3,38 +3,124 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kiểm Tra Online - Tiếng Hàn Mr Lee</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Kiểm tra Online - Tiếng Hàn Mr Lee</title>
+  <link rel="stylesheet" href="cssstyle.css">
+  <style>
+    body { background:#f5f7fb; color:#243247; font-family:Arial,sans-serif; margin:0; }
+    .quiz-container { max-width:780px; margin:36px auto; padding:24px; background:white; border-radius:14px; box-shadow:0 4px 20px #152b4915; }
+    .quiz-container h1 { color:#142b4c; margin-top:0; }
+    .quiz-nav { margin-bottom:20px; } .quiz-nav a { color:#142b4c; }
+    #timer-box { padding:12px 16px; background:#edf3fa; border-radius:9px; font-weight:bold; margin:18px 0; }
+    #time { color:#b42318; }
+    .quiz-question { border:1px solid #e3e8ef; padding:18px; margin:18px 0; border-radius:10px; }
+    .quiz-question p { margin-top:0; } .quiz-question label { display:block; padding:8px 5px; cursor:pointer; }
+    .quiz-btn { border:0; border-radius:8px; background:#142b4c; color:white; padding:12px 22px; font-weight:bold; cursor:pointer; }
+    .quiz-btn:disabled { opacity:.5; cursor:not-allowed; }
+    .quiz-hidden { display:none; } #result-box { padding:18px; background:#f0f8f4; border-radius:10px; margin-top:20px; }
+    .answer-detail { margin:8px 0; } .quiz-note { color:#667085; font-size:14px; }
+    @media(max-width:600px){ .quiz-container{margin:12px; padding:18px;} }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Bài Kiểm Tra Sơ Cấp</h2>
+  <main class="quiz-container">
+    <div class="quiz-nav"><a href="index.html">← Về trang chủ</a></div>
+    <h1>Bài kiểm tra Sơ cấp</h1>
+    <p class="quiz-note">Bài kiểm tra mẫu gồm 2 câu, thời gian 15 phút. Nộp bài để xem điểm và đáp án.</p>
     <div id="timer-box">Thời gian còn lại: <span id="time">15:00</span></div>
-
     <form id="quiz-form">
-      <div class="question">
+      <div class="quiz-question">
         <p><strong>Câu 1:</strong> "안녕하세요" có nghĩa là gì?</p>
-        <label><input type="radio" name="q1" value="A"> A. Xin cảm ơn</label><br>
-        <label><input type="radio" name="q1" value="B"> B. Xin chào</label><br>
+        <label><input type="radio" name="q1" value="A"> A. Xin cảm ơn</label>
+        <label><input type="radio" name="q1" value="B"> B. Xin chào</label>
         <label><input type="radio" name="q1" value="C"> C. Tạm biệt</label>
       </div>
-
-      <div class="question">
+      <div class="quiz-question">
         <p><strong>Câu 2:</strong> Từ nào sau đây có nghĩa là "Sách"?</p>
-        <label><input type="radio" name="q2" value="A"> A. 책</label><br>
-        <label><input type="radio" name="q2" value="B"> B. 물</label><br>
+        <label><input type="radio" name="q2" value="A"> A. 책</label>
+        <label><input type="radio" name="q2" value="B"> B. 물</label>
         <label><input type="radio" name="q2" value="C"> C. 가방</label>
       </div>
-
-      <button type="button" id="submit-btn" onclick="submitQuiz()">Nộp bài</button>
+      <button type="submit" id="submit-btn" class="quiz-btn">Nộp bài</button>
     </form>
-
-    <div id="result-box" class="hidden">
-      <h3>Kết quả: <span id="score"></span> / 2 điểm</h3>
+    <section id="result-box" class="quiz-hidden" aria-live="polite">
+      <h2>Kết quả: <span id="score"></span> / 2 điểm</h2>
       <p id="feedback"></p>
-    </div>
-  </div>
+      <div id="answer-review"></div>
+      <button type="button" class="quiz-btn" id="retry-btn">Làm lại</button>
+    </section>
+  </main>
+  <script>
+    (() => {
+      'use strict';
+      const form = document.getElementById('quiz-form');
+      const time = document.getElementById('time');
+      const submitButton = document.getElementById('submit-btn');
+      const result = document.getElementById('result-box');
+      const correct = { q1: 'B', q2: 'A' };
+      const descriptions = { q1: '안녕하세요 = Xin chào.', q2: '책 = Sách.' };
+      let remaining = 15 * 60;
+      let finished = false;
+      let timer;
 
-  <script src="js/main.js"></script>
+      function formatTime(seconds) {
+        return `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
+      }
+      function submitQuiz(expired = false) {
+        if (finished) return;
+        finished = true;
+        clearInterval(timer);
+        let score = 0;
+        const details = [];
+        Object.entries(correct).forEach(([question, answer], index) => {
+          const chosen = form.elements[question].value;
+          const isCorrect = chosen === answer;
+          if (isCorrect) score++;
+          details.push(`Câu ${index + 1}: ${isCorrect ? 'Đúng' : 'Sai hoặc chưa trả lời'} — ${descriptions[question]}`);
+        });
+        document.getElementById('score').textContent = String(score);
+        document.getElementById('feedback').textContent = (expired ? 'Đã hết giờ. ' : '') +
+          (score === 2 ? 'Bạn đã trả lời đúng cả 2 câu!' : 'Bạn hãy xem lại đáp án và luyện tập thêm nhé.');
+        const review = document.getElementById('answer-review');
+        review.replaceChildren();
+        details.forEach(detail => {
+          const p = document.createElement('p');
+          p.className = 'answer-detail';
+          p.textContent = detail;
+          review.appendChild(p);
+        });
+        submitButton.disabled = true;
+        form.querySelectorAll('input').forEach(input => { input.disabled = true; });
+        result.classList.remove('quiz-hidden');
+        result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      function startTimer() {
+        time.textContent = formatTime(remaining);
+        timer = setInterval(() => {
+          if (finished) return;
+          remaining = Math.max(0, remaining - 1);
+          time.textContent = formatTime(remaining);
+          if (remaining === 0) submitQuiz(true);
+        }, 1000);
+      }
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+        const answered = Object.keys(correct).filter(q => form.elements[q].value).length;
+        if (answered < 2 && !window.confirm('Bạn chưa trả lời hết câu hỏi. Vẫn nộp bài?')) return;
+        submitQuiz();
+      });
+      document.getElementById('retry-btn').addEventListener('click', () => {
+        clearInterval(timer);
+        form.reset();
+        finished = false;
+        remaining = 15 * 60;
+        submitButton.disabled = false;
+        form.querySelectorAll('input').forEach(input => { input.disabled = false; });
+        result.classList.add('quiz-hidden');
+        startTimer();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+      startTimer();
+    })();
+  </script>
 </body>
 </html>
