@@ -3,464 +3,213 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <meta name="description"
-        content="Tiếng Hàn Mr Lee - Hệ thống học tiếng Hàn, luyện tập và kiểm tra trực tuyến.">
-
-  <title>Tiếng Hàn Mr Lee | Học & Luyện thi tiếng Hàn</title>
-
-  <!-- CSS chính -->
+  <meta name="description" content="Tiếng Hàn Mr Lee - Hệ thống học tiếng Hàn, luyện tập và kiểm tra trực tuyến.">
+  <title>Tiếng Hàn Mr Lee | Học &amp; Luyện thi tiếng Hàn</title>
   <link rel="stylesheet" href="cssstyle.css">
+
+  <style>
+    .mrlee-practice-section{margin:10px 0 44px}
+    .mrlee-practice-heading{text-align:center;margin:0 auto 22px;max-width:680px}
+    .mrlee-practice-heading .eyebrow{font-size:12px;font-weight:800;letter-spacing:.13em;color:#b66b20}
+    .mrlee-practice-heading h2{color:#142b4c;font-size:clamp(24px,3vw,32px);margin:8px 0}
+    .mrlee-practice-heading p{color:#667085;margin:0;line-height:1.7}
+    .mrlee-practice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+    .mrlee-practice-card{position:relative;overflow:hidden;text-decoration:none;color:#fff;min-height:245px;padding:30px;border-radius:22px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:19px;box-shadow:0 14px 35px rgba(20,43,76,.16);transition:transform .2s,box-shadow .2s}
+    .mrlee-practice-card:hover,.mrlee-practice-card:focus-visible{transform:translateY(-4px);box-shadow:0 19px 42px rgba(20,43,76,.24)}
+    .mrlee-practice-card:focus-visible{outline:3px solid #ef8c36;outline-offset:3px}
+    .mrlee-practice-card:after{content:'';position:absolute;width:225px;height:225px;border-radius:50%;right:-80px;top:-105px;border:45px solid rgba(255,255,255,.08);pointer-events:none}
+    .mrlee-practice-card--interview{background:linear-gradient(125deg,#112b4f,#28568b)}
+    .mrlee-practice-card--speaking{background:linear-gradient(125deg,#ac541d,#f29c48)}
+    .mrlee-practice-card .kicker{display:block;font-size:12px;font-weight:800;letter-spacing:.1em;opacity:.85}
+    .mrlee-practice-card h3{color:#fff;font-size:clamp(21px,2.3vw,26px);margin:8px 0 9px}
+    .mrlee-practice-card p{color:rgba(255,255,255,.91);margin:0;max-width:380px;font-size:14px;line-height:1.65}
+    .mrlee-practice-card .cta{display:inline-flex;gap:10px;align-items:center;background:#fff;color:#142b4c;border-radius:10px;padding:11px 17px;font-size:14px;font-weight:800}
+    .mrlee-practice-card .badge-icon{font-size:33px;display:block;margin-bottom:13px}
+    @media(max-width:680px){.mrlee-practice-grid{grid-template-columns:1fr;gap:14px}.mrlee-practice-card{min-height:215px;padding:24px}}
+  </style>
 </head>
-
 <body>
-
-  <!-- ================= HEADER ================= -->
   <header class="header">
-
     <div class="header-inner">
-
- <a href="index.html" class="logo">
-    <img src="images/logo.png" alt="Tiếng Hàn Mr Lee" class="logo-img">
-</a>
-
-      <!-- Nút menu trên điện thoại -->
-      <button class="menu-toggle" aria-label="Mở menu">
-        ☰
-      </button>
-
-      <!-- MENU -->
-      <nav class="nav">
-
-  <a href="index.html" class="active">
-    Trang chủ
-  </a>
-
-  <a href="bai-hoc.html">
-    Bài học
-  </a>
-
-  <a href="bo-sach.html">
-    Bộ sách
-  </a>
-
-  <a href="de-thi-topik.html">
-    Đề TOPIK
-  </a>
-
-<a href="https://www.topik.go.kr/TWSTDY/TWSTDY0080.do"
-   target="_blank"
-   rel="noopener noreferrer">
-  Thi TOPIK Online
-</a>
-
-  <a href="kiem-tra-dau-vao.html">
-    Kiểm tra đầu vào
-  </a>
-
-</nav>
-
+      <a href="index.html" class="logo" aria-label="Tiếng Hàn Mr Lee - Trang chủ">
+        <img src="images/logo.png" alt="Tiếng Hàn Mr Lee" class="logo-img">
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="main-nav">☰</button>
+      <nav class="nav" id="main-nav" aria-label="Điều hướng chính">
+        <a href="index.html" class="active" aria-current="page">Trang chủ</a>
+        <a href="bai-hoc.html">Bài học</a>
+        <a href="bo-sach.html">Bộ sách</a>
+        <a href="de-thi-topik.html">Đề TOPIK</a>
+        <a href="https://www.topik.go.kr/TWSTDY/TWSTDY0080.do" target="_blank" rel="noopener noreferrer">Thi TOPIK Online</a>
+        <a href="kiem-tra-dau-vao.html">Kiểm tra đầu vào</a>
+      </nav>
     </div>
-
   </header>
 
-
-  <!-- ================= HERO ================= -->
   <section class="hero">
-
     <div class="hero-content">
-
-      <span class="hero-label">
-        🇰🇷 TIẾNG HÀN MR LEE
-      </span>
-
-      <h1>
-        Học tiếng Hàn<br>
-        <span>mỗi ngày một chút</span>
-      </h1>
-
-      <p>
-        Học từ vựng, ngữ pháp, giao tiếp và luyện tập
-        tiếng Hàn theo từng cấp độ.
-      </p>
-
+      <span class="hero-label">🇰🇷 TIẾNG HÀN MR LEE</span>
+      <h1>Học tiếng Hàn<br><span>mỗi ngày một chút</span></h1>
+      <p>Học từ vựng, ngữ pháp, giao tiếp và luyện tập tiếng Hàn theo từng cấp độ.</p>
       <div class="hero-buttons">
-
-  <a href="bai-hoc.html" class="btn btn-primary">
-    📚 Bắt đầu học
-  </a>
-
-  <a href="kiem-tra-dau-vao.html" class="btn btn-secondary">
-    🎯 Kiểm tra trình độ
-  </a>
-
-</div>
-
+        <a href="bai-hoc.html" class="btn btn-primary">📚 Bắt đầu học</a>
+        <a href="kiem-tra-dau-vao.html" class="btn btn-secondary">🎯 Kiểm tra trình độ</a>
+      </div>
     </div>
-
   </section>
 
-
-  <!-- ================= MAIN ================= -->
   <main class="container">
-
-    <!-- GIỚI THIỆU -->
     <section class="section intro">
-
       <div class="section-heading">
         <span class="section-label">HỌC TIẾNG HÀN</span>
-
-        <h2>
-          Chào mừng các em học sinh!
-        </h2>
-
-        <p>
-          Hãy lựa chọn chương trình phù hợp với trình độ
-          và bắt đầu hành trình học tiếng Hàn cùng Mr Lee.
-        </p>
+        <h2>Chào mừng các em học sinh!</h2>
+        <p>Hãy lựa chọn chương trình phù hợp với trình độ và bắt đầu hành trình học tiếng Hàn cùng Mr Lee.</p>
       </div>
-
     </section>
 
-<!-- ================= CHỨC NĂNG CHÍNH ================= -->
-<section class="section">
 
-  <div class="section-heading">
-
-    <span class="section-label">
-      HỆ THỐNG HỌC TẬP
-    </span>
-
-    <h2>
-      Bạn muốn học gì hôm nay?
-    </h2>
-
-    <p>
-      Học theo bài, sử dụng tài liệu, luyện đề TOPIK
-      hoặc kiểm tra trình độ tiếng Hàn của bạn.
-    </p>
-
-  </div>
-
-
-  <div class="card-grid main-function-grid">
-
-    <!-- BÀI HỌC -->
-    <a href="bai-hoc.html" class="course-card">
-
-      <div class="card-icon">
-        📚
+    <!-- HAI TÍNH NĂNG LUYỆN TẬP MỚI -->
+    <section class="mrlee-practice-section" aria-labelledby="mrlee-practice-title">
+      <div class="mrlee-practice-heading">
+        <span class="eyebrow">LUYỆN NÓI TIẾNG HÀN</span>
+        <h2 id="mrlee-practice-title">Tự tin giao tiếp &amp; phỏng vấn</h2>
+        <p>Luyện theo tình huống, nghe tiếng Hàn và tự đánh dấu tiến độ học của mình.</p>
       </div>
-
-      <div class="card-content">
-
-        <span class="card-level">
-          BÀI HỌC
-        </span>
-
-        <h3>
-          Học tiếng Hàn
-        </h3>
-
-        <p>
-          Học theo chương trình Sơ cấp 1 và Sơ cấp 2
-          với từ vựng, ngữ pháp, chú ý và bài tập luyện tập.
-        </p>
-
-        <span class="card-link">
-          Xem bài học →
-        </span>
-
+      <div class="mrlee-practice-grid">
+        <a class="mrlee-practice-card mrlee-practice-card--interview" href="on-luyen-phong-van.html">
+          <div>
+            <span class="badge-icon" aria-hidden="true">🎙️</span>
+            <span class="kicker">LUYỆN TRẢ LỜI</span>
+            <h3>Ôn luyện phỏng vấn</h3>
+            <p>Câu hỏi thường gặp, gợi ý trả lời, nghe tiếng Hàn và tự ghi âm luyện nói.</p>
+          </div>
+          <span class="cta">Bắt đầu ôn phỏng vấn <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="mrlee-practice-card mrlee-practice-card--speaking" href="giao-tiep-theo-chu-de.html">
+          <div>
+            <span class="badge-icon" aria-hidden="true">💬</span>
+            <span class="kicker">MẪU CÂU THỰC TẾ</span>
+            <h3>Giao tiếp theo chủ đề</h3>
+            <p>Mẫu câu sinh hoạt, quán ăn, mua sắm, công việc… có phát âm và thẻ ôn tập.</p>
+          </div>
+          <span class="cta">Khám phá mẫu câu <span aria-hidden="true">→</span></span>
+        </a>
       </div>
+    </section>
 
-    </a>
-
-
-    <!-- BỘ SÁCH -->
-    <a href="bo-sach.html" class="course-card">
-
-      <div class="card-icon">
-        📖
-      </div>
-
-      <div class="card-content">
-
-        <span class="card-level">
-          TÀI LIỆU
-        </span>
-
-        <h3>
-          Bộ sách Tiếng Hàn Tổng Hợp
-        </h3>
-
-        <p>
-          Tổng hợp tài liệu và các bộ sách học tiếng Hàn
-          được sắp xếp theo từng trình độ.
-        </p>
-
-        <span class="card-link">
-          Xem bộ sách →
-        </span>
-
-      </div>
-
-    </a>
-
-
-    <!-- ĐỀ THI TOPIK -->
-    <a href="de-thi-topik.html" class="course-card">
-
-      <div class="card-icon">
-        📑
-      </div>
-
-      <div class="card-content">
-
-        <span class="card-level">
-          TOPIK
-        </span>
-
-        <h3>
-          Bộ đề thi TOPIK
-        </h3>
-
-        <p>
-          Tổng hợp các đề thi TOPIK công khai
-          để luyện nghe, đọc và làm quen với cấu trúc đề thi.
-        </p>
-
-        <span class="card-link">
-          Xem đề thi →
-        </span>
-
-      </div>
-
-    </a>
-
-
-    <!-- THI TOPIK ONLINE -->
-    <a href="https://www.topik.go.kr/TWSTDY/TWSTDY0080.do"
-   class="course-card test-card"
-   target="_blank"
-   rel="noopener noreferrer">
-
-      <div class="card-icon">
-        💻
-      </div>
-
-      <div class="card-content">
-
-        <span class="card-level">
-          THI TRỰC TUYẾN
-        </span>
-
-        <h3>
-          Thi TOPIK Online
-        </h3>
-
-        <p>
-          Làm bài thi TOPIK trực tuyến với đồng hồ,
-          nộp bài và nhận kết quả sau khi hoàn thành.
-        </p>
-
-        <span class="card-link">
-          Bắt đầu thi →
-        </span>
-
-      </div>
-
-    </a>
-
-
-    <!-- KIỂM TRA ĐẦU VÀO -->
-    <a href="kiem-tra-dau-vao.html"
-       class="course-card placement-card">
-
-      <div class="card-icon">
-        🎯
-      </div>
-
-      <div class="card-content">
-
-        <span class="card-level">
-          XẾP TRÌNH ĐỘ
-        </span>
-
-        <h3>
-          Kiểm tra năng lực đầu vào
-        </h3>
-
-        <p>
-          Làm bài kiểm tra để đánh giá năng lực hiện tại
-          và xác định chương trình học phù hợp.
-        </p>
-
-        <span class="card-link">
-          Kiểm tra ngay →
-        </span>
-
-      </div>
-
-    </a>
-
-  </div>
-
-</section>
-    
-    <!-- ================= TÍNH NĂNG ================= -->
-    <section class="section features">
-
+    <section class="section">
       <div class="section-heading">
-
-        <span class="section-label">
-          HỌC HIỆU QUẢ HƠN
-        </span>
-
-        <h2>
-          Những gì các em có thể làm
-        </h2>
-
+        <span class="section-label">HỆ THỐNG HỌC TẬP</span>
+        <h2>Bạn muốn học gì hôm nay?</h2>
+        <p>Học theo bài, sử dụng tài liệu, luyện đề TOPIK hoặc kiểm tra trình độ tiếng Hàn của bạn.</p>
       </div>
-
-
-      <div class="feature-grid">
-
-        <div class="feature">
-
-          <div class="feature-icon">
-            📚
+      <div class="card-grid main-function-grid">
+        <a href="bai-hoc.html" class="course-card">
+          <div class="card-icon">📚</div>
+          <div class="card-content">
+            <span class="card-level">BÀI HỌC</span>
+            <h3>Học tiếng Hàn</h3>
+            <p>Học theo chương trình Sơ cấp 1 và Sơ cấp 2 với từ vựng, ngữ pháp, chú ý và bài tập luyện tập.</p>
+            <span class="card-link">Xem bài học →</span>
           </div>
-
-          <h3>
-            Học theo cấp độ
-          </h3>
-
-          <p>
-            Nội dung được sắp xếp từ cơ bản
-            đến nâng cao.
-          </p>
-
-        </div>
-
-
-        <div class="feature">
-
-          <div class="feature-icon">
-            💬
+        </a>
+        <a href="bo-sach.html" class="course-card">
+          <div class="card-icon">📖</div>
+          <div class="card-content">
+            <span class="card-level">TÀI LIỆU</span>
+            <h3>Bộ sách Tiếng Hàn Tổng Hợp</h3>
+            <p>Tổng hợp tài liệu và các bộ sách học tiếng Hàn được sắp xếp theo từng trình độ.</p>
+            <span class="card-link">Xem bộ sách →</span>
           </div>
-
-          <h3>
-            Luyện giao tiếp
-          </h3>
-
-          <p>
-            Học những mẫu câu thường gặp
-            trong cuộc sống hàng ngày.
-          </p>
-
-        </div>
-
-
-        <div class="feature">
-
-          <div class="feature-icon">
-            📝
+        </a>
+        <a href="de-thi-topik.html" class="course-card">
+          <div class="card-icon">📑</div>
+          <div class="card-content">
+            <span class="card-level">TOPIK</span>
+            <h3>Bộ đề thi TOPIK</h3>
+            <p>Tổng hợp các đề thi TOPIK công khai để luyện nghe, đọc và làm quen với cấu trúc đề thi.</p>
+            <span class="card-link">Xem đề thi →</span>
           </div>
-
-          <h3>
-            Kiểm tra trực tuyến
-          </h3>
-
-          <p>
-            Làm bài kiểm tra và biết kết quả
-            ngay sau khi hoàn thành.
-          </p>
-
-        </div>
-
-
-        <div class="feature">
-
-          <div class="feature-icon">
-            🎯
+        </a>
+        <a href="https://www.topik.go.kr/TWSTDY/TWSTDY0080.do" class="course-card test-card" target="_blank" rel="noopener noreferrer" aria-label="Thi TOPIK Online - mở website TOPIK chính thức trong tab mới">
+          <div class="card-icon">💻</div>
+          <div class="card-content">
+            <span class="card-level">THI TRỰC TUYẾN</span>
+            <h3>Thi TOPIK Online</h3>
+            <p>Truy cập website TOPIK chính thức, vào mục 학습하기 để chọn các đề luyện tập và làm bài trực tuyến.</p>
+            <span class="card-link">Mở trang TOPIK chính thức ↗</span>
           </div>
-
-          <h3>
-            Theo dõi tiến bộ
-          </h3>
-
-          <p>
-            Từng bước cải thiện vốn từ vựng
-            và khả năng sử dụng tiếng Hàn.
-          </p>
-
-        </div>
-
+        </a>
+        <a href="kiem-tra-dau-vao.html" class="course-card placement-card">
+          <div class="card-icon">🎯</div>
+          <div class="card-content">
+            <span class="card-level">XẾP TRÌNH ĐỘ</span>
+            <h3>Kiểm tra năng lực đầu vào</h3>
+            <p>Làm bài kiểm tra để đánh giá năng lực hiện tại và xác định chương trình học phù hợp.</p>
+            <span class="card-link">Kiểm tra ngay →</span>
+          </div>
+        </a>
       </div>
-
     </section>
 
+    <section class="section features">
+      <div class="section-heading">
+        <span class="section-label">HỌC HIỆU QUẢ HƠN</span>
+        <h2>Những gì các em có thể làm</h2>
+      </div>
+      <div class="feature-grid">
+        <div class="feature">
+          <div class="feature-icon">📚</div>
+          <h3>Học theo cấp độ</h3>
+          <p>Nội dung được sắp xếp từ cơ bản đến nâng cao.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">💬</div>
+          <h3>Luyện giao tiếp</h3>
+          <p>Học những mẫu câu thường gặp trong cuộc sống hàng ngày.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📝</div>
+          <h3>Kiểm tra trực tuyến</h3>
+          <p>Làm bài kiểm tra và biết kết quả ngay sau khi hoàn thành.</p>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🎯</div>
+          <h3>Theo dõi tiến bộ</h3>
+          <p>Từng bước cải thiện vốn từ vựng và khả năng sử dụng tiếng Hàn.</p>
+        </div>
+      </div>
+    </section>
   </main>
 
-
-  <!-- ================= FOOTER ================= -->
   <footer class="footer">
-
     <div class="footer-inner">
-
       <div>
         <h3>🇰🇷 Tiếng Hàn Mr Lee</h3>
-
-        <p>
-          Hệ thống học tập và luyện thi tiếng Hàn
-          dành cho học sinh.
-        </p>
+        <p>Hệ thống học tập và luyện thi tiếng Hàn dành cho học sinh.</p>
       </div>
-
       <div class="footer-links">
-
-        <a href="index.html">
-          Trang chủ
-        </a>
-
-        <a href="so-cap-1.html">
-          Sơ cấp 1
-        </a>
-
-        <a href="so-cap-2.html">
-          Sơ cấp 2
-        </a>
-
-        <a href="kiem-tra-online.html">
-          Kiểm tra Online
-        </a>
-
+        <a href="index.html">Trang chủ</a>
+        <a href="so-cap-1.html">Sơ cấp 1</a>
+        <a href="so-cap-2.html">Sơ cấp 2</a>
+        <a href="kiem-tra-online.html">Kiểm tra Online</a>
+        <a href="on-luyen-phong-van.html">Ôn luyện phỏng vấn</a>
+        <a href="giao-tiep-theo-chu-de.html">Giao tiếp theo chủ đề</a>
       </div>
-
     </div>
-
-    <div class="copyright">
-
-      © 2026 Tiếng Hàn Mr Lee.
-      All rights reserved.
-
-    </div>
-
+    <div class="copyright">© 2026 Tiếng Hàn Mr Lee. All rights reserved.</div>
   </footer>
 
-
-  <!-- ================= JAVASCRIPT ================= -->
   <script>
-
-    // Menu mobile
-    const menuToggle = document.querySelector(".menu-toggle");
-    const nav = document.querySelector(".nav");
-
-    menuToggle.addEventListener("click", function () {
-      nav.classList.toggle("show");
-    });
-
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav');
+    if (menuToggle && nav) {
+      menuToggle.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('show');
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        menuToggle.setAttribute('aria-label', isOpen ? 'Đóng menu' : 'Mở menu');
+      });
+    }
   </script>
-
 </body>
 </html>
