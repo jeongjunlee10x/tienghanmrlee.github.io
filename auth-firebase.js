@@ -1,240 +1,183 @@
-/**
- * TIẾNG HÀN MR LEE — Đăng ký/đăng nhập SMS (Firebase Authentication Web).
- * Tài khoản được Firebase Authentication tạo tự động ở lần xác thực số điện thoại đầu tiên.
- * Vì vậy lựa chọn Đăng nhập với số mới cũng tạo tài khoản; không thể phân biệt 100%
- * đăng ký / đăng nhập trước khi kiểm tra OTP nếu không dùng backend bổ sung.
- */
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
+/** Tiếng Hàn Mr Lee — Email/Password Authentication cho GitHub Pages (không cần SMS). */
+import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
 import {
-  getAuth, onAuthStateChanged, signInWithPhoneNumber,
-  RecaptchaVerifier, updateProfile, signOut, getAdditionalUserInfo
+  getAuth, onAuthStateChanged, createUserWithEmailAndPassword,
+  signInWithEmailAndPassword, sendEmailVerification,
+  sendPasswordResetEmail, reload, updateProfile, signOut
 } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
 import { firebaseConfig, isFirebaseConfigured } from './firebase-config.js';
 
-const $ = (id) => document.getElementById(id);
-const formView = $('form-view');
-const accountView = $('account-view');
-const status = $('message');
+const $ = id => document.getElementById(id);
 let auth = null;
-let captcha = null;
-let captchaWidgetId = null;
-let confirmation = null;
-let phoneInFlight = '';
 let selectedMode = 'login';
-let signupName = '';
-let resendCounter = 0;
-let resendInterval = null;
-let sending = false;
+let processing = false;
+let lastVerificationSend = 0;
 
-function showMessage(message, type = '') {
-  status.textContent = message;
-  status.className = `status ${type}`.trim();
-}
-function setBusy(button, busy, busyText) {
-  if (!button) return;
-  if (busy) button.dataset.originalText = button.textContent;
-  button.disabled = busy;
-  button.textContent = busy ? busyText : (button.dataset.originalText || button.textContent);
-}
-function normalizeVietnamPhone(raw) {
-  const input = String(raw).trim().replace(/[\s().-]/g, '');
-  let digits = input;
-  if (digits.startsWith('+')) digits = digits.slice(1);
-  if (/^0[35789]\d{8}$/.test(digits)) return '+84' + digits.substring(1);
-  if (/^84[35789]\d{8}$/.test(digits)) return '+' + digits;
-  return null;
-}
-function errorText(error) {
-  const code = error?.code || '';
-  const common = {
-    'auth/invalid-phone-number': 'Số điện thoại chưa đúng định dạng. Hãy nhập số di động Việt Nam 10 chữ số.',
-    'auth/missing-phone-number': 'Bạn cần nhập số điện thoại.',
-    'auth/invalid-verification-code': 'Mã OTP không chính xác. Vui lòng kiểm tra và thử lại.',
-    'auth/code-expired': 'Mã OTP đã hết hiệu lực. Bạn hãy gửi lại mã.',
-    'auth/too-many-requests': 'Có quá nhiều yêu cầu. Hãy thử lại sau.',
-    'auth/quota-exceeded': 'Đã vượt giới hạn SMS của dự án Firebase.',
-    'auth/operation-not-allowed': 'Chưa bật Phone Authentication hoặc cấu hình SMS của Firebase chưa sẵn sàng.',
-    'auth/unauthorized-domain': 'Tên miền chưa được cho phép trong Firebase Authentication.',
-    'auth/billing-not-enabled': 'Dự án Firebase chưa bật thanh toán để gửi SMS.',
-    'auth/captcha-check-failed': 'Xác minh reCAPTCHA không thành công. Vui lòng thử lại.',
-    'auth/invalid-app-credential': 'Xác thực ứng dụng hoặc reCAPTCHA không hợp lệ. Kiểm tra tên miền và thiết lập Firebase.',
-    'auth/network-request-failed': 'Không kết nối được Firebase. Hãy kiểm tra mạng Internet.',
-    'auth/invalid-api-key': 'Firebase API key không đúng. Vui lòng kiểm tra firebase-config.js.'
+const allViews = ['form-view', 'verify-view', 'account-view'];
+function showView(id) { allViews.forEach(view => $(view).classList.toggle('hidden', view !== id)); }
+function message(target, text = '', type = '') { const node = $(target); node.textContent = text; node.className = `status ${type}`.trim(); }
+function busy(id, yes, label) { const button = $(id); if (yes && !button.dataset.label) button.dataset.label = button.textContent; button.disabled = yes; button.textContent = yes ? label : (button.dataset.label || button.textContent); if (!yes) delete button.dataset.label; }
+function errText(err) {
+  const messages = {
+    'auth/email-already-in-use': 'Email đã được đăng ký. Hãy chuyển sang Đăng nhập hoặc dùng Quên mật khẩu.',
+    'auth/invalid-email': 'Địa chỉ email không hợp lệ.',
+    'auth/weak-password': 'Mật khẩu quá yếu. Hãy đặt mật khẩu có ít nhất 8 ký tự, kết hợp chữ và số.',
+    'auth/invalid-credential': 'Email hoặc mật khẩu không đúng.',
+    'auth/wrong-password': 'Email hoặc mật khẩu không đúng.',
+    'auth/user-not-found': 'Email hoặc mật khẩu không đúng.',
+    'auth/user-disabled': 'Tài khoản đã bị vô hiệu hóa. Vui lòng liên hệ quản trị viên.',
+    'auth/too-many-requests': 'Yêu cầu quá nhiều lần. Hãy thử lại sau.',
+    'auth/operation-not-allowed': 'Cần bật Email/Password trong Firebase → Authentication → Sign-in method.',
+    'auth/unauthorized-domain': 'Cần thêm jeongjunlee10x.github.io vào danh sách Authorized domains.',
+    'auth/network-request-failed': 'Không kết nối được đến Firebase. Hãy kiểm tra mạng.',
+    'auth/invalid-api-key': 'Mã cấu hình Firebase chưa chính xác.',
+    'auth/requires-recent-login': 'Phiên đăng nhập cần được làm mới. Vui lòng đăng xuất và đăng nhập lại.'
   };
-  return common[code] || `Không thể thực hiện yêu cầu. ${code ? `Mã lỗi: ${code}` : 'Kiểm tra cấu hình Firebase hoặc kết nối mạng.'}`;
+  return messages[err?.code] || `Không thực hiện được yêu cầu${err?.code ? ` (${err.code})` : ''}.`;
 }
-function chooseMode(mode) {
+function setMode(mode) {
   selectedMode = mode;
-  $('mode-login').setAttribute('aria-selected', String(mode === 'login'));
-  $('mode-register').setAttribute('aria-selected', String(mode === 'register'));
-  $('registration-fields').classList.toggle('hidden', mode !== 'register');
-  $('full-name').required = mode === 'register';
-  $('form-title').textContent = mode === 'register' ? 'Tạo tài khoản học viên' : 'Đăng nhập';
-  showMessage('');
-}
-function resetCaptcha() {
-  try { if (captchaWidgetId != null && typeof window.grecaptcha?.reset === 'function') window.grecaptcha.reset(captchaWidgetId); }
-  catch (_) { /* Firebase có thể chủ động đặt lại captcha */ }
-}
-async function getCaptcha() {
-  if (!captcha) {
-    captcha = new RecaptchaVerifier(auth, 'recaptcha-container', { size: 'normal' });
-    captchaWidgetId = await captcha.render();
-  }
-  return captcha;
-}
-function startResendCooldown() {
-  clearInterval(resendInterval);
-  resendCounter = 60;
-  const update = () => {
-    $('resend-button').disabled = resendCounter > 0;
-    $('resend-button').textContent = resendCounter > 0 ? `Gửi lại mã sau ${resendCounter}s` : 'Gửi lại mã SMS';
-  };
-  update();
-  resendInterval = setInterval(() => {
-    resendCounter = Math.max(0, resendCounter - 1);
-    update();
-    if (!resendCounter) clearInterval(resendInterval);
-  }, 1000);
-}
-function showCode(phone) {
-  $('send-form').classList.add('hidden');
-  $('code-view').classList.remove('hidden');
-  $('target-phone').textContent = phone;
-  $('otp').value = '';
-  $('otp').focus();
-}
-function showPhoneForm() {
-  confirmation = null;
-  $('code-view').classList.add('hidden');
-  $('send-form').classList.remove('hidden');
-  $('otp').value = '';
-  showMessage('');
-  resetCaptcha();
+  const signup = mode === 'register';
+  $('mode-login').setAttribute('aria-selected', String(!signup));
+  $('mode-register').setAttribute('aria-selected', String(signup));
+  $('name-field').classList.toggle('hidden', !signup);
+  $('confirm-field').classList.toggle('hidden', !signup);
+  $('consent-field').classList.toggle('hidden', !signup);
+  $('password-hint').classList.toggle('hidden', !signup);
+  $('forgot-button').classList.toggle('hidden', signup);
+  $('full-name').required = signup;
+  $('confirm-password').required = signup;
+  $('consent').required = signup;
+  $('password').minLength = signup ? 8 : 6;
+  $('password').autocomplete = signup ? 'new-password' : 'current-password';
+  $('form-title').textContent = signup ? 'Đăng ký học viên' : 'Đăng nhập học viên';
+  $('form-subtitle').textContent = signup ? 'Tạo tài khoản và xác minh email miễn phí.' : 'Dùng email và mật khẩu đã đăng ký.';
+  $('submit-button').textContent = signup ? 'Tạo tài khoản' : 'Đăng nhập';
+  message('message');
 }
 function renderAccount(user) {
-  formView.classList.add('hidden');
-  accountView.classList.remove('hidden');
+  showView('account-view');
   $('account-name').textContent = user.displayName || 'Chưa cập nhật';
-  $('account-phone').textContent = user.phoneNumber || '—';
+  $('account-email').textContent = user.email || '—';
   $('display-name').value = user.displayName || '';
 }
-function renderSignedOut() {
-  accountView.classList.add('hidden');
-  formView.classList.remove('hidden');
+function renderVerification(user) {
+  showView('verify-view');
+  $('verify-email').textContent = user.email || '';
 }
-async function sendCode(phone, isResend = false) {
-  if (sending) return;
-  sending = true;
-  const button = isResend ? $('resend-button') : $('send-button');
-  setBusy(button, true, 'Đang yêu cầu SMS...');
-  try {
-    const captchaVerifier = await getCaptcha();
-    const response = await signInWithPhoneNumber(auth, phone, captchaVerifier);
-    confirmation = response;
-    phoneInFlight = phone;
-    showCode(phone);
-    startResendCooldown();
-    showMessage('Đã yêu cầu gửi mã SMS. Hãy kiểm tra tin nhắn và nhập mã xác minh.', 'success');
-  } catch (error) {
-    showMessage(errorText(error), 'error');
-    resetCaptcha();
-  } finally {
-    sending = false;
-    setBusy(button, false);
-    if (resendCounter > 0) $('resend-button').disabled = true;
-  }
+function renderCurrentUser(user) {
+  if (!user) { showView('form-view'); return; }
+  if (!user.emailVerified) renderVerification(user);
+  else renderAccount(user);
 }
 
-$('mode-login').addEventListener('click', () => chooseMode('login'));
-$('mode-register').addEventListener('click', () => chooseMode('register'));
-$('send-form').addEventListener('submit', async event => {
-  event.preventDefault();
-  if (!auth) return showMessage('Chưa thiết lập Firebase. Quản trị viên cần kết nối dự án trước.', 'error');
-  const phone = normalizeVietnamPhone($('phone').value);
-  if (!phone) return showMessage('Số điện thoại không hợp lệ. Ví dụ: 0912345678 hoặc +84912345678.', 'error');
-  if (!$('consent').checked) return showMessage('Bạn cần đồng ý với thông báo xử lý số điện thoại.', 'error');
-  signupName = selectedMode === 'register' ? $('full-name').value.trim() : '';
-  if (selectedMode === 'register' && signupName.length < 2) return showMessage('Vui lòng nhập họ và tên (ít nhất 2 ký tự).', 'error');
-  await sendCode(phone);
-});
-$('verify-form').addEventListener('submit', async event => {
-  event.preventDefault();
-  if (!confirmation) return showMessage('Bạn cần yêu cầu gửi mã SMS trước.', 'error');
-  const code = $('otp').value.trim();
-  if (!/^\d{6}$/.test(code)) return showMessage('Mã OTP cần đủ 6 chữ số.', 'error');
-  setBusy($('verify-button'), true, 'Đang xác minh...');
+$('mode-login').addEventListener('click', () => setMode('login'));
+$('mode-register').addEventListener('click', () => setMode('register'));
+$('auth-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  if (processing || !auth) return;
+  const email = $('email').value.trim().toLowerCase();
+  const password = $('password').value;
+  if (!email) return message('message', 'Vui lòng nhập email.', 'error');
+  if (selectedMode === 'register') {
+    if ($('full-name').value.trim().length < 2) return message('message', 'Hãy nhập họ và tên.', 'error');
+    if (password.length < 8) return message('message', 'Mật khẩu đăng ký cần ít nhất 8 ký tự.', 'error');
+    if (password !== $('confirm-password').value) return message('message', 'Hai lần nhập mật khẩu không giống nhau.', 'error');
+    if (!$('consent').checked) return message('message', 'Vui lòng xác nhận đồng ý với điều khoản xác thực.', 'error');
+  }
+  processing = true;
+  busy('submit-button', true, 'Đang xử lý...');
   try {
-    const result = await confirmation.confirm(code);
-    const isNewUser = getAdditionalUserInfo(result)?.isNewUser === true;
-    // Chỉ thêm tên đăng ký khi tài khoản mới, tránh ghi đè tên người dùng đã tồn tại.
-    if (isNewUser && signupName) {
-      await updateProfile(result.user, { displayName: signupName });
-    }
-    confirmation = null;
-    clearInterval(resendInterval);
-    renderAccount(result.user);
-    if (isNewUser && !result.user.displayName) {
-      $('profile-message').textContent = 'Tài khoản mới đã được tạo. Bạn có thể điền tên hiển thị bên dưới.';
-      $('profile-message').className = 'status';
+    if (selectedMode === 'register') {
+      const credential = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(credential.user, { displayName: $('full-name').value.trim() });
+      await sendEmailVerification(credential.user);
+      lastVerificationSend = Date.now();
+      renderVerification(credential.user);
+      message('verify-message', 'Đã gửi email xác minh. Hãy mở hộp thư của bạn (kiểm tra cả Spam).', 'success');
+      $('password').value = '';
+      $('confirm-password').value = '';
+    } else {
+      const credential = await signInWithEmailAndPassword(auth, email, password);
+      await reload(credential.user);
+      renderCurrentUser(auth.currentUser);
+      $('password').value = '';
+      if (!auth.currentUser.emailVerified) message('verify-message', 'Tài khoản chưa được xác minh. Hãy kiểm tra email hoặc gửi lại liên kết.', 'error');
     }
   } catch (error) {
-    showMessage(errorText(error), 'error');
+    const target = auth?.currentUser && !auth.currentUser.emailVerified ? 'verify-message' : 'message';
+    if (auth?.currentUser && !auth.currentUser.emailVerified) renderVerification(auth.currentUser);
+    message(target, errText(error), 'error');
   } finally {
-    setBusy($('verify-button'), false);
+    busy('submit-button', false);
+    processing = false;
   }
 });
-$('resend-button').addEventListener('click', async () => {
-  if (!phoneInFlight || resendCounter > 0) return;
-  await sendCode(phoneInFlight, true);
-});
-$('change-phone').addEventListener('click', showPhoneForm);
-$('profile-form').addEventListener('submit', async event => {
-  event.preventDefault();
-  if (!auth?.currentUser) return;
-  const name = $('display-name').value.trim();
-  if (name.length < 2) return;
-  setBusy($('save-name'), true, 'Đang lưu...');
-  try {
-    await updateProfile(auth.currentUser, { displayName: name });
-    renderAccount(auth.currentUser);
-    $('profile-message').textContent = 'Đã lưu tên hiển thị.';
-    $('profile-message').className = 'status success';
-  } catch (error) {
-    $('profile-message').textContent = errorText(error);
-    $('profile-message').className = 'status error';
-  } finally {
-    setBusy($('save-name'), false);
-  }
-});
-$('logout-button').addEventListener('click', async () => {
+$('forgot-button').addEventListener('click', async () => {
   if (!auth) return;
-  setBusy($('logout-button'), true, 'Đang đăng xuất...');
+  const email = $('email').value.trim();
+  if (!email || !$('email').checkValidity()) { message('message', 'Nhập email của bạn vào ô Email rồi nhấn Quên mật khẩu.', 'error'); $('email').focus(); return; }
+  busy('forgot-button', true, 'Đang gửi...');
   try {
-    await signOut(auth);
-    renderSignedOut();
-    showPhoneForm();
-  } catch (error) {
-    $('profile-message').textContent = errorText(error);
-  } finally {
-    setBusy($('logout-button'), false);
-  }
+    await sendPasswordResetEmail(auth, email);
+    message('message', 'Nếu email có tài khoản hợp lệ, Firebase sẽ gửi hướng dẫn đặt lại mật khẩu. Hãy kiểm tra hộp thư và Spam.', 'success');
+  } catch (error) { message('message', errText(error), 'error'); }
+  finally { busy('forgot-button', false); }
+});
+$('check-email-button').addEventListener('click', async () => {
+  if (!auth?.currentUser) return showView('form-view');
+  busy('check-email-button', true, 'Đang kiểm tra...');
+  try {
+    await reload(auth.currentUser);
+    if (auth.currentUser.emailVerified) {
+      message('verify-message');
+      renderAccount(auth.currentUser);
+    } else {
+      message('verify-message', 'Email chưa được xác minh. Hãy mở liên kết trong thư rồi thử lại.', 'error');
+    }
+  } catch (error) { message('verify-message', errText(error), 'error'); }
+  finally { busy('check-email-button', false); }
+});
+$('resend-email-button').addEventListener('click', async () => {
+  if (!auth?.currentUser) return;
+  if (Date.now() - lastVerificationSend < 60000) return message('verify-message', 'Hãy đợi ít nhất 60 giây trước khi gửi lại.', 'error');
+  busy('resend-email-button', true, 'Đang gửi...');
+  try {
+    await sendEmailVerification(auth.currentUser);
+    lastVerificationSend = Date.now();
+    message('verify-message', 'Đã yêu cầu gửi lại liên kết. Hãy kiểm tra hộp thư và Spam.', 'success');
+  } catch (error) { message('verify-message', errText(error), 'error'); }
+  finally { busy('resend-email-button', false); }
+});
+async function logOut() {
+  if (!auth) return;
+  try { await signOut(auth); showView('form-view'); setMode('login'); message('message', 'Bạn đã đăng xuất thành công.', 'success'); }
+  catch (error) { message('message', errText(error), 'error'); }
+}
+$('verify-logout-button').addEventListener('click', logOut);
+$('logout-button').addEventListener('click', logOut);
+$('profile-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!auth?.currentUser?.emailVerified) return;
+  const name = $('display-name').value.trim();
+  if (name.length < 2) return message('profile-message', 'Hãy nhập họ tên từ 2 ký tự.', 'error');
+  busy('save-name', true, 'Đang lưu...');
+  try { await updateProfile(auth.currentUser, { displayName: name }); renderAccount(auth.currentUser); message('profile-message', 'Đã cập nhật họ và tên.', 'success'); }
+  catch (error) { message('profile-message', errText(error), 'error'); }
+  finally { busy('save-name', false); }
 });
 
 if (!isFirebaseConfigured) {
   $('setup-alert').classList.remove('hidden');
-  $('send-button').disabled = true;
-  showMessage('Để gửi SMS thật, chủ website cần cấu hình Firebase trong file firebase-config.js.', 'error');
+  $('submit-button').disabled = true;
+  message('message', 'Quản trị viên cần cấu hình firebase-config.js.', 'error');
 } else {
   try {
-    auth = getAuth(initializeApp(firebaseConfig));
-    auth.languageCode = 'vi';
-    onAuthStateChanged(auth, user => user ? renderAccount(user) : renderSignedOut(), error => {
-      showMessage(errorText(error), 'error');
-    });
+    const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    onAuthStateChanged(auth, user => renderCurrentUser(user), err => message('message', errText(err), 'error'));
   } catch (error) {
     $('setup-alert').classList.remove('hidden');
-    $('send-button').disabled = true;
-    showMessage(errorText(error), 'error');
+    message('message', errText(error), 'error');
   }
 }
