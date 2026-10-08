@@ -2,7 +2,8 @@
  * TOPIK PBT archival catalogue.
  * The source pages link to publicly released papers/audio/answer sheets.
  * This site does not reproduce third-party PDFs or audio files.
- * Verified answer keys included for 35th TOPIK I and II ONLY.
+ * Verified answer keys included for 35th, 96th and 102nd TOPIK I and II.
+ * Unverified exams remain non-scoring by design.
  */
 export const TOPIK_EXAMS = [
   {number:35, source:'https://www.topikguide.com/download-35th-topik-test-papers/', paperI:'https://content.topikguide.com/file/TOPIK1Papers/35th-TOPIK-I-Papers.pdf', paperII:'https://content.topikguide.com/file/TOPIK2Papers/35th-TOPIK-II-Papers.pdf'},
@@ -56,6 +57,26 @@ export const VERIFIED_KEYS = {
       [1,4,3,4,4,1,2,4,4,2,2,4,4,2,3,3,1,2,2,3,2,3,2,1,4],
       twos(25),twos(25)
     )
+  },
+  'I-96': {
+    source:"https://www.topikguide.com/TOPIK-Papers/96th-TOPIK-I-Answers.pdf",
+    listening: rows([3,4,4,3,3,1,2,3,2,4,3,1,2,1,1], [2,4,1,3,4,1,2,2,4,3,4,1,2,3,4], [4,4,3,3,4,3,3,3,3,4,3,3,4,3,4], [4,3,3,3,3,3,3,3,3,3,4,3,4,3,4]),
+    reading: rows([3,4,2,3,3,4,3,4,4,2,2,3,2,1,2,2,1,3,4,4], [1,3,1,3,3,1,2,1,1,1,2,4,4,2,4,1,2,4,1,3], [2,2,2,2,2,2,3,3,2,3,3,3,3,2,3,3,3,2,2,2], [3,2,2,3,2,3,3,2,2,3,2,2,2,3,2,3,3,3,3,3])
+  },
+  'II-96': {
+    source:"https://www.topikguide.com/TOPIK-Papers/96th-TOPIK-II-Answers.pdf",
+    listening: rows([1,2,2,3,1,2,4,3,4,2,4,2,3,2,4,4,3,1,4,1,4,2,4,2,1], [1,2,3,1,2,4,3,3,1,1,4,3,2,4,3,3,2,1,4,4,3,3,3,4,1], twos(25), twos(25)),
+    reading: rows([4,1,1,4,2,4,1,1,3,2,4,4,2,3,1,1,3,1,4,2,2,3,2,1,3], [3,4,4,2,4,3,3,1,2,3,4,3,1,1,3,2,3,1,2,4,2,2,3,4,4], twos(25), twos(25))
+  },
+  'I-102': {
+    source:"https://www.topikguide.com/download-102nd-topik-test-papers/",
+    listening: rows([1,3,2,3,4,2,3,3,2,4,2,1,4,2,2], [1,3,4,3,4,4,1,4,1,1,3,3,4,2,1], [4,4,3,3,4,3,3,3,3,4,3,3,4,3,4], [4,3,3,3,3,3,3,3,3,3,4,3,4,3,4]),
+    reading: rows([4,1,4,1,4,4,3,1,4,2,3,2,4,1,3,2,4,3,4,1], [1,3,4,2,3,2,2,3,3,1,1,2,4,1,2,3,3,2,2,1], [2,2,2,2,2,2,3,3,2,3,3,3,3,2,3,3,3,2,2,2], [3,2,2,3,2,3,3,2,2,3,2,2,2,3,2,3,3,3,3,3])
+  },
+  'II-102': {
+    source:"https://www.topikguide.com/download-102nd-topik-test-papers/",
+    listening: rows([2,1,3,2,4,3,1,1,4,2,4,1,4,1,3,2,4,4,1,4,3,1,2,3,2], [2,3,4,2,3,3,4,1,1,2,3,1,4,4,2,2,3,1,2,3,3,2,1,4,4], twos(25), twos(25)),
+    reading: rows([1,1,4,4,1,3,2,1,2,4,2,1,1,2,1,2,3,1,1,4,3,3,1,4,2], [2,3,4,3,2,4,1,3,4,3,3,4,4,3,2,4,2,3,2,1,3,2,4,4,3], twos(25), twos(25))
   }
 };
 

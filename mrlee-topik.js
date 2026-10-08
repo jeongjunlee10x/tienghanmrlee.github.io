@@ -43,12 +43,12 @@ function boot(level,exam){
   $('examContent').hidden=false;
   $('examTitle').textContent=`TOPIK ${level} · Đề ${exam.number}`;
   $('crumbCurrent').textContent=`TOPIK ${level} · ${exam.number}`;
-  $('examDesc').textContent=`${config.subtitle} · ${config.durationMinutes} phút · ${key?'Tự chấm phần trắc nghiệm theo bảng điểm gốc':'Chưa có bảng đáp án xác minh cho kỳ này'}`;
+  $('examDesc').textContent=`${config.subtitle} · ${config.durationMinutes} phút · ${key?'Tự chấm phần trắc nghiệm theo bảng điểm gốc':'Chưa tích hợp và đối chiếu đáp án cho kỳ này'}`;
   $('paperLink').href=level==='I'?(exam.paperI||exam.source):(exam.paperII||exam.source);
   $('sourceLink').href=exam.source;
   $('keyNotice').textContent=key
-    ? 'Đã có đáp án đối chiếu cho Nghe và Đọc của kỳ 35. TOPIK II: 4 câu Viết cần giáo viên đánh giá, không nằm trong điểm tự chấm.'
-    : 'Bộ đề này đang ở chế độ phiếu trả lời: chưa có đáp án và thang điểm đã kiểm chứng, vì vậy sẽ KHÔNG đưa ra điểm tự động. Mở trang nguồn để lấy PDF, audio và bảng đáp án.';
+    ? `Đã có đáp án và điểm từng câu cho kỳ ${exam.number}. TOPIK II: 4 câu Viết chưa thể chấm tự động, không nằm trong điểm trắc nghiệm.`
+    : 'Đề này có liên kết đến tài liệu gốc nhưng đáp án chưa được tích hợp và kiểm chứng trong website. Hệ thống không tự chấm khi thiếu dữ liệu đáng tin cậy.';
   $('submitBtn').textContent=key?'Nộp bài & chấm trắc nghiệm':'Nộp phiếu luyện (không chấm điểm)';
   $('submitHint').textContent=key?'Điểm luyện tập được tính theo đáp án và điểm từng câu (không phải chứng chỉ TOPIK).':'Chỉ ghi nhận số câu đã làm, không giả lập kết quả TOPIK.';
 
@@ -161,7 +161,7 @@ function boot(level,exam){
       const total=config.sections.filter(s=>s.key!=='writing').reduce((n,s)=>n+s.count,0);
       const selected=config.sections.filter(s=>s.key!=='writing').reduce((n,s)=>n+answered(s),0);
       node.append(el('div','result-big',`${selected}/${total} câu đã trả lời`));
-      appendP(node,'Chưa nạp bảng đáp án được xác minh của kỳ này. Không hiển thị điểm và không ghi nhận điểm thi giả.');
+      appendP(node,'Đáp án kỳ này chưa được tích hợp và đối chiếu. Hệ thống không hiển thị điểm tự động.');
       node.append(makeLink('Kiểm tra tài liệu/đáp án gốc',exam.source,'button ghost'));
     }
   }
