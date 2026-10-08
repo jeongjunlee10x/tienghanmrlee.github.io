@@ -1,0 +1,28 @@
+/* Tiếng Hàn Mr Lee - chỉ tác động đến các nút/ngăn luyện nói mới */
+.mrlee-word-actions{display:inline-flex;align-items:center;gap:4px;margin-left:8px;white-space:nowrap;vertical-align:middle}
+.mrlee-voice-btn{font:inherit!important;font-size:15px!important;line-height:1!important;border:1px solid #dbe4ee;background:#fff;color:#153a64;border-radius:8px;padding:5px 6px!important;min-width:32px;min-height:32px;cursor:pointer;transition:background .15s,transform .15s}
+.mrlee-voice-btn:hover,.mrlee-voice-btn:focus-visible{background:#e9f3ff;transform:translateY(-1px)}
+.mrlee-hint-btn,.mrlee-interview-mic{font:600 13px/1.5 "Be Vietnam Pro","Segoe UI",Arial,sans-serif;border:1px solid #bdd6ee;background:#edf6ff;border-radius:9px;color:#18456d;padding:8px 11px;cursor:pointer;margin-top:12px}
+.mrlee-hint-btn:hover,.mrlee-interview-mic:hover{background:#dfedfc}
+.mrlee-hint-text,.mrlee-practice-note{margin:9px 0 0;padding:12px 14px;border:1px solid #dfebf8;border-radius:10px;background:#f4f9ff;color:#274464;font-size:13px;line-height:1.7}
+.mrlee-talk-action{color:#15567a!important}
+.mrlee-voice-backdrop[hidden],.mrlee-hint-text[hidden]{display:none!important}
+.mrlee-voice-backdrop{position:fixed;inset:0;z-index:999999;display:grid;place-items:center;padding:18px;background:rgba(12,30,49,.64);overflow-y:auto}
+.mrlee-voice-dialog{width:min(100%,620px);max-height:calc(100dvh - 36px);overflow:auto;background:#fff;border-radius:19px;padding:25px;box-shadow:0 24px 60px #0a22364d;color:#18304a;font-family:"Be Vietnam Pro","Noto Sans KR","Segoe UI",Arial,sans-serif;line-height:1.65;box-sizing:border-box}
+.mrlee-voice-dialog *{box-sizing:border-box}
+.mrlee-voice-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.mrlee-voice-heading h2{font-size:22px;font-weight:800;line-height:1.35;margin:4px 0 15px;color:#103153}
+.mrlee-voice-kicker{font-size:10px;letter-spacing:.11em;color:#bb652c;font-weight:800}
+.mrlee-voice-close{flex:none;border:0;background:#edf2f6;width:36px;height:36px;border-radius:50%;font-size:25px;line-height:1;cursor:pointer;color:#193854}
+.mrlee-voice-reference{font-family:"Noto Sans KR","Malgun Gothic",sans-serif;font-size:clamp(23px,4vw,34px);line-height:1.55;font-weight:700;margin:2px 0 7px;color:#133863;overflow-wrap:anywhere;word-break:keep-all}
+.mrlee-voice-sub{margin:0 0 16px;color:#607187;font-size:13px}
+.mrlee-voice-controls{display:flex;flex-wrap:wrap;gap:9px}
+.mrlee-voice-primary,.mrlee-voice-record{border:0;border-radius:9px;padding:11px 13px;min-height:45px;font-size:13px;font-weight:700;cursor:pointer}
+.mrlee-voice-primary{color:#12385c;background:#e9f3fe}.mrlee-voice-record{color:#fff;background:#164d79}.mrlee-voice-record:disabled{background:#95a4b0;cursor:not-allowed}
+.mrlee-voice-result{background:#f4f7fb;padding:14px;border:1px solid #e2eaf3;border-radius:11px;margin-top:18px;font-size:13px}
+.mrlee-voice-result p{font-family:"Noto Sans KR","Malgun Gothic",sans-serif;font-size:18px;margin:7px 0 0;color:#183c60}
+.mrlee-voice-status{margin:12px 0 0;background:#e9f5ff;border-radius:9px;padding:11px;color:#195481;font-size:13px}
+.mrlee-voice-status[data-level="good"]{background:#e9f8ee;color:#136143}.mrlee-voice-status[data-level="mid"]{background:#fff6e6;color:#915a09}.mrlee-voice-status[data-level="low"]{background:#fff0f0;color:#8b2635}
+.mrlee-voice-privacy{font-size:11px;color:#65748a;margin:14px 0 0;line-height:1.75}
+.mrlee-voice-dialog button:focus-visible{outline:3px solid #eaa35f;outline-offset:2px}
+@media(max-width:600px){.mrlee-voice-dialog{padding:19px}.mrlee-voice-controls>*{flex:1 1 140px}.mrlee-voice-reference{font-size:25px}.mrlee-word-actions{margin-left:4px;gap:3px}.mrlee-voice-btn{min-width:30px;min-height:30px;padding:4px!important}}
