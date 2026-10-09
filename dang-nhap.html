@@ -22,6 +22,7 @@
     @media(max-width:800px){main{margin-top:22px}.layout{grid-template-columns:1fr;max-width:600px;margin:auto;gap:18px}.intro{min-height:0;padding:27px}.intro:before{font-size:170px}.intro h1{font-size:27px;margin:12px 0}.perks{grid-template-columns:1fr 1fr;gap:12px}.perks small{display:none}.panel{padding:24px}}@media(max-width:460px){.nav{padding:10px 15px}.brand{font-size:13px}.brand img{width:42px;height:42px}.back{font-size:11px}.perks{grid-template-columns:1fr}.panel{padding:21px 17px}.account-list div{display:block}.account-list strong{display:block;text-align:left;max-width:100%}}
   </style>
 <script defer src="mrlee-i18n.js?v=20261008"></script>
+  <link rel="stylesheet" href="mrlee-avatar.css">
 </head>
 <body>
   <header><nav class="nav"><a class="brand" href="index.html"><img src="images/logo.png" alt="" onerror="this.style.display='none'">TIẾNG HÀN MR LEE</a><a class="back" href="index.html">← Trang chủ</a></nav></header>
@@ -47,7 +48,24 @@
           <div class="notice">Website không thu phí đăng nhập. Không chia sẻ mật khẩu với bất kỳ ai. Nếu đăng ký mới, hãy kiểm tra cả thư mục Spam/Thư rác để xác minh email.</div>
         </div>
         <div id="verify-view" class="hidden" aria-live="polite"><h2>Kiểm tra email của bạn</h2><p class="muted">Chúng tôi đã yêu cầu Firebase gửi liên kết xác minh đến:</p><span id="verify-email" class="email-badge"></span><p>Hãy mở email, nhấn liên kết xác minh rồi quay lại đây chọn <strong>Tôi đã xác minh</strong>.</p><p id="verify-message" class="status" role="status" aria-live="polite"></p><button id="check-email-button" type="button" class="primary">Tôi đã xác minh</button><div class="actions"><button id="resend-email-button" type="button" class="secondary">Gửi lại email xác minh</button><button id="verify-logout-button" type="button" class="secondary">Dùng tài khoản khác</button></div></div>
-        <div id="account-view" class="hidden" aria-live="polite"><h2>Xin chào, học viên!</h2><p class="muted">Bạn đã đăng nhập và xác minh email thành công.</p><div class="account-list"><div><span>Họ và tên</span><strong id="account-name"></strong></div><div><span>Email</span><strong id="account-email"></strong></div><div><span>Trạng thái</span><strong>✓ Email đã xác minh</strong></div></div><form id="profile-form"><div class="field"><label for="display-name">Cập nhật họ và tên</label><input id="display-name" maxlength="80" autocomplete="name" type="text" required></div><button id="save-name" type="submit" class="primary">Lưu họ tên</button></form><p id="profile-message" class="status" role="status" aria-live="polite"></p><div class="actions"><a class="secondary" href="index.html">Trở về trang chủ</a><button id="logout-button" type="button" class="secondary">Đăng xuất</button></div></div>
+        <div id="account-view" class="hidden" aria-live="polite"><h2>Xin chào, học viên!</h2><p class="muted">Bạn đã đăng nhập và xác minh email thành công.</p>
+<!-- MRLEE_AVATAR_ACCOUNT_BEGIN -->
+<section class="mrlee-avatar-box" id="mrlee-avatar-box" aria-label="Ảnh đại diện học viên" hidden>
+  <div class="mrlee-avatar-row">
+    <div class="mrlee-avatar-frame"><img data-mrlee-avatar-img alt="Ảnh đại diện của bạn" hidden><span data-mrlee-avatar-placeholder class="mrlee-avatar-placeholder" aria-hidden="true">👤</span></div>
+    <div class="mrlee-avatar-side">
+      <h3>Ảnh đại diện của bạn</h3>
+      <p>Chọn JPG, PNG hoặc WebP (tối đa 8 MB). Ảnh được tự động cắt vuông và thu nhỏ trước khi lưu.</p>
+      <div class="mrlee-avatar-buttons">
+        <label class="mrlee-avatar-upload">📷 Chọn ảnh <input id="mrlee-avatar-file" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Tải ảnh đại diện từ thiết bị"></label>
+        <button type="button" class="mrlee-avatar-button" id="mrlee-avatar-save" disabled>Lưu ảnh đại diện</button>
+        <button type="button" class="mrlee-avatar-button" id="mrlee-avatar-remove" disabled>Xóa ảnh</button>
+      </div>
+      <p class="mrlee-avatar-message" id="mrlee-avatar-message" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+<!-- MRLEE_AVATAR_ACCOUNT_END --><div class="account-list"><div><span>Họ và tên</span><strong id="account-name"></strong></div><div><span>Email</span><strong id="account-email"></strong></div><div><span>Trạng thái</span><strong>✓ Email đã xác minh</strong></div></div><form id="profile-form"><div class="field"><label for="display-name">Cập nhật họ và tên</label><input id="display-name" maxlength="80" autocomplete="name" type="text" required></div><button id="save-name" type="submit" class="primary">Lưu họ tên</button></form><p id="profile-message" class="status" role="status" aria-live="polite"></p><div class="actions"><a class="secondary" href="index.html">Trở về trang chủ</a><button id="logout-button" type="button" class="secondary">Đăng xuất</button></div></div>
       </section>
     </div>
     <p id="privacy" class="privacy"><strong>Thông tin riêng tư:</strong> Google Firebase xử lý email và thông tin xác thực để đăng ký, đăng nhập, gửi email xác minh và hỗ trợ đặt lại mật khẩu. Trang này lưu họ tên hiển thị trong hồ sơ Firebase Authentication. Mật khẩu được gửi trực tiếp đến dịch vụ xác thực qua kết nối HTTPS; website không lưu mật khẩu trong mã nguồn hoặc bộ nhớ riêng. <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer">Chính sách riêng tư Firebase ↗</a></p>
@@ -59,5 +77,6 @@
     }
   </script>
   <script type="module" src="auth-firebase.js"></script>
+<script type="module" src="mrlee-avatar.js"></script>
 </body>
 </html>
