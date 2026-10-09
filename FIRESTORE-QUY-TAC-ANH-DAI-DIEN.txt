@@ -1,0 +1,26 @@
+// DÁN KHỐI NÀY VÀO BÊN TRONG match /users/{uid} { ... }
+// Không dán ở ngoài service cloud.firestore.
+// ===== MRLEE AVATAR RULES BEGIN =====
+match /avatars/{avatarId} {
+  // Học viên phải đăng nhập, xác minh email, và là chủ UID.
+  allow get: if request.auth != null
+    && request.auth.token.email_verified == true
+    && request.auth.uid == uid
+    && avatarId == 'profile';
+  allow list: if false;
+  allow create, update: if request.auth != null
+    && request.auth.token.email_verified == true
+    && request.auth.uid == uid
+    && avatarId == 'profile'
+    && request.resource.data.keys().hasOnly(['imageData', 'updatedAt'])
+    && request.resource.data.keys().hasAll(['imageData', 'updatedAt'])
+    && request.resource.data.imageData is string
+    && request.resource.data.imageData.size() <= 145000
+    && request.resource.data.imageData.matches('^data:image/jpeg;base64,[A-Za-z0-9+/=]+$')
+    && request.resource.data.updatedAt == request.time;
+  allow delete: if request.auth != null
+    && request.auth.token.email_verified == true
+    && request.auth.uid == uid
+    && avatarId == 'profile';
+}
+// ===== MRLEE AVATAR RULES END =====

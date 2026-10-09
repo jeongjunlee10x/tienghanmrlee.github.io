@@ -1,0 +1,86 @@
+// DÁN KHỐI NÀY VÀO BÊN TRONG: match /users/{uid} { ... }
+// KHÔNG dán ở đầu file; KHÔNG xóa Rules hiện có.
+// Chỉ số điểm luyện tập do trình duyệt tạo; không đủ chống gian lận.
+
+match /studyPoints/{pointsId} {
+  allow get: if owner(uid) && pointsId == 'wallet';
+  allow list: if false;
+  allow create: if owner(uid) && pointsId == 'wallet'
+    && request.resource.data.keys().hasOnly(['balance','earned','lost','attempts','lastAttemptId','lastDelta','createdAt','updatedAt'])
+    && request.resource.data.keys().hasAll(['balance','earned','lost','attempts','lastAttemptId','lastDelta','createdAt','updatedAt'])
+    && request.resource.data.balance is int
+    && request.resource.data.balance >= 0
+    && request.resource.data.balance <= 200
+    && request.resource.data.earned is int
+    && request.resource.data.lost is int
+    && request.resource.data.attempts == 1
+    && request.resource.data.lastAttemptId is string
+    && request.resource.data.lastAttemptId.size() <= 100
+    && request.resource.data.lastDelta is int
+    && request.resource.data.lastDelta >= -3
+    && request.resource.data.lastDelta <= 15
+    && request.resource.data.balance == 100 + request.resource.data.lastDelta
+    && request.resource.data.earned == (request.resource.data.lastDelta > 0 ? request.resource.data.lastDelta : 0)
+    && request.resource.data.lost == (request.resource.data.lastDelta < 0 ? -request.resource.data.lastDelta : 0)
+    && request.resource.data.createdAt == request.time
+    && request.resource.data.updatedAt == request.time
+    && getAfter(/databases/$(database)/documents/users/$(uid)/speakingAttempts/$(request.resource.data.lastAttemptId)).data.delta == request.resource.data.lastDelta;
+  allow update: if owner(uid) && pointsId == 'wallet'
+    && request.resource.data.keys().hasOnly(['balance','earned','lost','attempts','lastAttemptId','lastDelta','createdAt','updatedAt'])
+    && request.resource.data.keys().hasAll(['balance','earned','lost','attempts','lastAttemptId','lastDelta','createdAt','updatedAt'])
+    && request.resource.data.createdAt == resource.data.createdAt
+    && request.resource.data.updatedAt == request.time
+    && request.resource.data.balance is int
+    && request.resource.data.balance >= 0
+    && request.resource.data.balance <= 200
+    && request.resource.data.earned is int
+    && request.resource.data.lost is int
+    && request.resource.data.attempts == resource.data.attempts + 1
+    && request.resource.data.lastAttemptId is string
+    && request.resource.data.lastAttemptId.size() <= 100
+    && request.resource.data.lastAttemptId != resource.data.lastAttemptId
+    && request.resource.data.lastDelta is int
+    && request.resource.data.lastDelta >= -3
+    && request.resource.data.lastDelta <= 15
+    && request.resource.data.balance == resource.data.balance + request.resource.data.lastDelta
+    && request.resource.data.earned == resource.data.earned + (request.resource.data.lastDelta > 0 ? request.resource.data.lastDelta : 0)
+    && request.resource.data.lost == resource.data.lost + (request.resource.data.lastDelta < 0 ? -request.resource.data.lastDelta : 0)
+    && getAfter(/databases/$(database)/documents/users/$(uid)/speakingAttempts/$(request.resource.data.lastAttemptId)).data.delta == request.resource.data.lastDelta;
+  allow delete: if false;
+}
+
+match /speakingAttempts/{attemptId} {
+  allow get: if owner(uid);
+  allow list: if owner(uid) && request.query.limit <= 20;
+  allow create: if owner(uid)
+    && request.resource.data.keys().hasOnly(['taskId','taskTitle','mode','day','score','delta','total','matched','transcriptJson','createdAt'])
+    && request.resource.data.keys().hasAll(['taskId','taskTitle','mode','day','score','delta','total','matched','transcriptJson','createdAt'])
+    && request.resource.data.taskId is string
+    && request.resource.data.taskId.matches('^(sc1|sc2)-[0-9]{2}$|^topic-[a-z0-9-]{2,45}$|^recovery-[12]$')
+    && request.resource.data.day is string
+    && request.resource.data.day.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+    && attemptId == request.resource.data.taskId + '-' + request.resource.data.day
+    && request.resource.data.taskTitle is string
+    && request.resource.data.taskTitle.size() >= 1
+    && request.resource.data.taskTitle.size() <= 110
+    && request.resource.data.mode in ['normal','recovery']
+    && (request.resource.data.taskId.matches('^recovery-[12]$') == (request.resource.data.mode == 'recovery'))
+    && request.resource.data.score is int
+    && request.resource.data.score >= 0
+    && request.resource.data.score <= 100
+    && request.resource.data.delta is int
+    && request.resource.data.delta >= -3
+    && request.resource.data.delta <= 15
+    && request.resource.data.total is int
+    && request.resource.data.total >= 3
+    && request.resource.data.total <= 5
+    && request.resource.data.matched is int
+    && request.resource.data.matched >= 2
+    && request.resource.data.matched <= request.resource.data.total
+    && request.resource.data.transcriptJson is string
+    && request.resource.data.transcriptJson.size() <= 16000
+    && request.resource.data.createdAt == request.time
+    && getAfter(/databases/$(database)/documents/users/$(uid)/studyPoints/wallet).data.lastAttemptId == attemptId
+    && getAfter(/databases/$(database)/documents/users/$(uid)/studyPoints/wallet).data.lastDelta == request.resource.data.delta;
+  allow update, delete: if false;
+}

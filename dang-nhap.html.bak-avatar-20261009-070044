@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#142b4c">
+  <meta name="description" content="Đăng ký và đăng nhập tài khoản Tiếng Hàn Mr Lee bằng email và mật khẩu miễn phí với Firebase Authentication.">
+  <title>Tài khoản học viên | Tiếng Hàn Mr Lee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--navy:#142b4c;--navy-light:#274d7b;--orange:#ee8740;--muted:#64748b;--line:#e0e8f0;--bg:#f4f7fb;--green:#078459;--text:#1d2b41}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.7 "Be Vietnam Pro","Noto Sans KR",Arial,sans-serif} :lang(ko){font-family:"Noto Sans KR",sans-serif}
+    button,input{font:inherit}button{cursor:pointer}button:disabled{opacity:.6;cursor:not-allowed}a{color:var(--navy-light)}:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+    header{background:#fff;border-bottom:1px solid var(--line)}.nav{max-width:1120px;margin:auto;padding:15px 24px;display:flex;justify-content:space-between;align-items:center;gap:14px}.brand{display:flex;align-items:center;gap:12px;color:var(--navy);font-weight:800;font-size:17px;text-decoration:none}.brand img{width:52px;height:52px;object-fit:contain}.back{font-weight:700;text-decoration:none}.back:hover{text-decoration:underline}
+    main{max-width:1110px;margin:45px auto 65px;padding:0 20px}.layout{display:grid;grid-template-columns:1fr 1.06fr;gap:30px;align-items:start}
+    .intro{background:linear-gradient(145deg,#122b4b,#275389);color:white;border-radius:24px;padding:39px;min-height:495px;position:relative;overflow:hidden;box-shadow:0 20px 40px #142b4c15}.intro:before{content:"한";position:absolute;bottom:-55px;right:0;font-size:250px;line-height:1;color:#ffffff12;font-family:"Noto Sans KR",sans-serif;pointer-events:none}.intro>*{position:relative;z-index:1}.eyebrow{font-weight:800;font-size:12px;letter-spacing:.15em;color:#ffcb9d}.intro h1{font-size:clamp(27px,3vw,40px);line-height:1.25;margin:18px 0}.intro p{font-size:15px;color:#e4ecf8;max-width:400px}.perks{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:18px}.perks li{display:flex;gap:12px;align-items:start}.pill-icon{width:40px;height:40px;border:1px solid #ffffff35;border-radius:12px;background:#ffffff1c;display:grid;place-items:center;font-size:20px;flex:none}.perks strong{display:block;font-size:14px}.perks small{display:block;font-size:12px;color:#cbdcf0}
+    .panel{background:white;border:1px solid var(--line);box-shadow:0 17px 45px #19315012;border-radius:24px;padding:32px}.panel h2{font-size:24px;line-height:1.35;margin:0 0 7px;color:var(--navy)}.muted{color:var(--muted);margin:0 0 22px;font-size:13px}.tabs{display:grid;grid-template-columns:1fr 1fr;padding:5px;gap:5px;background:#ecf2f9;border-radius:12px;margin:23px 0}.tab{border:0;background:transparent;padding:12px;border-radius:9px;font-weight:800;color:#60708b}.tab[aria-selected=true]{background:white;color:var(--navy);box-shadow:0 3px 12px #142b4c13}
+    .field{margin:0 0 16px}.field label{display:block;margin-bottom:6px;font-weight:700;font-size:13px}.field input{width:100%;min-height:47px;border:1.5px solid #cbd6e4;border-radius:10px;padding:11px 13px;outline:0;background:#fff}.field input:focus{outline:3px solid #a7c3ed70;border-color:var(--navy-light)}.hint{font-size:11px;color:var(--muted);margin-top:5px}.check-row{display:flex;align-items:start;gap:8px;margin:17px 0;font-size:12px;color:#556a80}.check-row input{flex:none;margin-top:5px;accent-color:var(--navy)}
+    .primary{border:0;background:var(--navy);color:white;padding:13px 20px;border-radius:11px;font-weight:800;min-height:47px;width:100%}.primary:hover:not(:disabled){background:var(--navy-light)}.secondary{border:1px solid #cad6e5;background:#fff;color:var(--navy);padding:10px 15px;border-radius:10px;font-weight:700;text-decoration:none}.secondary:hover:not(:disabled){background:#eff4fa}.link-btn{border:0;background:transparent;color:var(--navy-light);text-decoration:underline;font-weight:700;padding:5px 0}.actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:18px}.status{border-radius:11px;background:#edf4ff;color:#204b77;padding:12px 14px;margin:0 0 15px;font-size:13px}.status:empty{display:none}.status.error{background:#fff0f0;color:#a02232}.status.success{background:#e9f8ee;color:#087047}.hidden{display:none!important}.notice{background:#f0f5fb;color:#50627b;border-radius:10px;padding:12px 14px;font-size:12px;margin-top:17px}.email-badge{display:inline-block;background:#edf3fa;color:var(--navy);border-radius:30px;padding:8px 13px;font-size:13px;font-weight:800;overflow-wrap:anywhere;margin-bottom:17px}.account-list{border:1px solid var(--line);border-radius:11px;overflow:hidden;margin:19px 0}.account-list div{padding:12px 14px;display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line)}.account-list div:last-child{border:0}.account-list span{color:var(--muted)}.account-list strong{max-width:70%;overflow-wrap:anywhere;text-align:right}.privacy{margin:26px 0 0;color:#63738a;font-size:12px;line-height:1.8}footer{text-align:center;padding:21px;color:#63738a;border-top:1px solid var(--line);background:#fff;font-size:12px}
+    @media(max-width:800px){main{margin-top:22px}.layout{grid-template-columns:1fr;max-width:600px;margin:auto;gap:18px}.intro{min-height:0;padding:27px}.intro:before{font-size:170px}.intro h1{font-size:27px;margin:12px 0}.perks{grid-template-columns:1fr 1fr;gap:12px}.perks small{display:none}.panel{padding:24px}}@media(max-width:460px){.nav{padding:10px 15px}.brand{font-size:13px}.brand img{width:42px;height:42px}.back{font-size:11px}.perks{grid-template-columns:1fr}.panel{padding:21px 17px}.account-list div{display:block}.account-list strong{display:block;text-align:left;max-width:100%}}
+  </style>
+<script defer src="mrlee-i18n.js?v=20261008"></script>
+</head>
+<body>
+  <header><nav class="nav"><a class="brand" href="index.html"><img src="images/logo.png" alt="" onerror="this.style.display='none'">TIẾNG HÀN MR LEE</a><a class="back" href="index.html">← Trang chủ</a></nav></header>
+  <main>
+    <div class="layout">
+      <section class="intro" aria-labelledby="intro-title"><div class="eyebrow">TÀI KHOẢN HỌC VIÊN</div><h1 id="intro-title">Học tiếng Hàn cùng Mr Lee</h1><p>Đăng ký và đăng nhập bằng email, không cần trả phí gửi tin nhắn SMS. Xác minh email để bảo vệ tài khoản học viên.</p><ul class="perks"><li><span class="pill-icon">✉</span><div><strong>Xác minh email</strong><small>Nhận liên kết xác nhận trong hộp thư</small></div></li><li><span class="pill-icon">✓</span><div><strong>Tài khoản cá nhân</strong><small>Hiển thị tên và email đã xác minh</small></div></li><li><span class="pill-icon">⌑</span><div><strong>Đặt lại mật khẩu</strong><small>Khôi phục qua email nếu quên mật khẩu</small></div></li><li><span class="pill-icon" lang="ko">한</span><div><strong>Cùng học mỗi ngày</strong><small>Truy cập các nội dung trên website</small></div></li></ul></section>
+      <section class="panel" aria-label="Đăng ký và đăng nhập">
+        <p id="return-notice" class="status hidden" role="status">🔒 Bạn cần đăng nhập và xác minh email để mở nội dung học tập. Sau khi hoàn tất, hệ thống sẽ đưa bạn trở lại trang đã chọn.</p>
+        <p id="setup-alert" class="status error hidden" role="alert">Hệ thống chưa được cấu hình Firebase đúng cách. Vui lòng liên hệ quản trị viên.</p>
+        <div id="form-view">
+          <h2 id="form-title">Đăng nhập học viên</h2><p id="form-subtitle" class="muted">Dùng email và mật khẩu đã đăng ký.</p>
+          <div class="tabs" role="tablist" aria-label="Chọn hình thức tài khoản"><button id="mode-login" type="button" role="tab" class="tab" aria-selected="true">Đăng nhập</button><button id="mode-register" type="button" role="tab" class="tab" aria-selected="false">Đăng ký</button></div>
+          <p id="message" class="status" role="status" aria-live="polite"></p>
+          <form id="auth-form">
+            <div id="name-field" class="field hidden"><label for="full-name">Họ và tên</label><input id="full-name" name="name" type="text" autocomplete="name" maxlength="80" placeholder="Nguyễn Văn A"></div>
+            <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="ten@gmail.com"></div>
+            <div class="field"><label for="password">Mật khẩu</label><input id="password" name="password" type="password" autocomplete="current-password" required minlength="6" placeholder="Nhập mật khẩu"><div id="password-hint" class="hint hidden">Mật khẩu cần từ 10 ký tự, có chữ hoa, chữ thường và số. Không dùng chung mật khẩu với tài khoản khác.</div></div>
+            <div id="confirm-field" class="field hidden"><label for="confirm-password">Nhập lại mật khẩu</label><input id="confirm-password" name="new-password-confirm" type="password" autocomplete="new-password" placeholder="Nhập lại mật khẩu"></div>
+            <label id="consent-field" class="check-row hidden"><input id="consent" type="checkbox"><span>Tôi đồng ý sử dụng email để xác thực tài khoản qua Firebase Authentication. <a href="#privacy">Thông tin quyền riêng tư</a>.</span></label>
+            <button id="submit-button" type="submit" class="primary">Đăng nhập</button>
+          </form>
+          <div class="actions"><button id="forgot-button" type="button" class="link-btn">Quên mật khẩu?</button></div>
+          <div class="notice">Website không thu phí đăng nhập. Không chia sẻ mật khẩu với bất kỳ ai. Nếu đăng ký mới, hãy kiểm tra cả thư mục Spam/Thư rác để xác minh email.</div>
+        </div>
+        <div id="verify-view" class="hidden" aria-live="polite"><h2>Kiểm tra email của bạn</h2><p class="muted">Chúng tôi đã yêu cầu Firebase gửi liên kết xác minh đến:</p><span id="verify-email" class="email-badge"></span><p>Hãy mở email, nhấn liên kết xác minh rồi quay lại đây chọn <strong>Tôi đã xác minh</strong>.</p><p id="verify-message" class="status" role="status" aria-live="polite"></p><button id="check-email-button" type="button" class="primary">Tôi đã xác minh</button><div class="actions"><button id="resend-email-button" type="button" class="secondary">Gửi lại email xác minh</button><button id="verify-logout-button" type="button" class="secondary">Dùng tài khoản khác</button></div></div>
+        <div id="account-view" class="hidden" aria-live="polite"><h2>Xin chào, học viên!</h2><p class="muted">Bạn đã đăng nhập và xác minh email thành công.</p><div class="account-list"><div><span>Họ và tên</span><strong id="account-name"></strong></div><div><span>Email</span><strong id="account-email"></strong></div><div><span>Trạng thái</span><strong>✓ Email đã xác minh</strong></div></div><form id="profile-form"><div class="field"><label for="display-name">Cập nhật họ và tên</label><input id="display-name" maxlength="80" autocomplete="name" type="text" required></div><button id="save-name" type="submit" class="primary">Lưu họ tên</button></form><p id="profile-message" class="status" role="status" aria-live="polite"></p><div class="actions"><a class="secondary" href="index.html">Trở về trang chủ</a><button id="logout-button" type="button" class="secondary">Đăng xuất</button></div></div>
+      </section>
+    </div>
+    <p id="privacy" class="privacy"><strong>Thông tin riêng tư:</strong> Google Firebase xử lý email và thông tin xác thực để đăng ký, đăng nhập, gửi email xác minh và hỗ trợ đặt lại mật khẩu. Trang này lưu họ tên hiển thị trong hồ sơ Firebase Authentication. Mật khẩu được gửi trực tiếp đến dịch vụ xác thực qua kết nối HTTPS; website không lưu mật khẩu trong mã nguồn hoặc bộ nhớ riêng. <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer">Chính sách riêng tư Firebase ↗</a></p>
+  </main>
+  <footer>© 2026 Tiếng Hàn Mr Lee · Tài khoản học viên</footer>
+  <script>
+    if (new URLSearchParams(location.search).get('next')) {
+      document.getElementById('return-notice').classList.remove('hidden');
+    }
+  </script>
+  <script type="module" src="auth-firebase.js"></script>
+</body>
+</html>

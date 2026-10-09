@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="cssstyle.css">
 <script defer src="mrlee-i18n.js?v=20261008"></script>
   <link rel="stylesheet" href="mrlee-core.css">
+<link rel="stylesheet" href="mrlee-engagement.css?v=20261010" />
 </head>
 
 <body>
@@ -97,6 +98,35 @@
 
   <!-- ================= NỘI DUNG ================= -->
   <main class="container">
+<!-- MRLEE-SIX-LEVEL-HUB v20261010 -->
+<style id="mrlee-six-level-style">
+.mrlee-six-hub{margin:24px auto 34px;max-width:1180px;padding:25px;border:1px solid #d8e4f4;border-radius:22px;background:linear-gradient(125deg,#f4f9ff,#fff);box-shadow:0 10px 24px #1237590c;font-family:'Be Vietnam Pro',system-ui,sans-serif;color:#153453}
+.mrlee-six-hub h2{margin:8px 0 9px;font-size:clamp(21px,3.5vw,29px);line-height:1.4;color:#14345b}.mrlee-six-hub p{font-size:13px;line-height:1.8;color:#5f748d;margin:0 0 16px}
+.mrlee-six-kicker{font-size:11px;font-weight:800;letter-spacing:.08em;color:#2c6e96}
+.mrlee-six-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.mrlee-six-level{min-width:0;display:grid;gap:5px;padding:17px 15px;border-radius:16px;border:1px solid #dbe6f2;background:#fff;text-decoration:none;color:#174064;transition:transform .2s,box-shadow .2s}
+.mrlee-six-level:hover{transform:translateY(-3px);box-shadow:0 9px 22px #16456b18}.mrlee-six-level strong{font-size:19px}.mrlee-six-level>span:not(.mrlee-six-num){font-size:12px;color:#637b96}.mrlee-six-level small{font-size:11px;font-weight:800;color:#2f7099}
+.mrlee-six-num{width:33px;height:33px;display:grid;place-items:center;background:#eaf3ff;color:#194a77;border-radius:10px;font-weight:800}
+.mrlee-six-footer{display:flex;gap:11px;flex-wrap:wrap;align-items:center;margin-top:18px}.mrlee-six-footer a{background:#17395f;border-radius:11px;color:#fff;text-decoration:none;padding:11px 15px;font-weight:750;font-size:12px}.mrlee-six-footer p{margin:0;font-size:11px}
+@media(max-width:760px){.mrlee-six-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.mrlee-six-hub{padding:19px}}
+@media(max-width:460px){.mrlee-six-grid{grid-template-columns:1fr}}
+</style>
+<section class="mrlee-six-hub" aria-labelledby="mrleeSixTitle">
+ <span class="mrlee-six-kicker">CHƯƠNG TRÌNH MỚI · 한국어 1–6급</span>
+ <h2 id="mrleeSixTitle">Lộ trình học tiếng Hàn từ Cấp 1 đến Cấp 6</h2>
+ <p>Chọn trình độ để học bài, luyện nói và theo dõi điểm động lực. Cấp 1–2 giữ nguyên bài học cũ; cấp 3–6 mở rộng ngữ pháp, tình huống và phản xạ.</p>
+ <div class="mrlee-six-grid">
+<a href="lo-trinh-1-6.html?level=1" class="mrlee-six-level"><span class="mrlee-six-num">1</span><strong>Cấp 1</strong><span>Sơ cấp · Giao tiếp nền tảng</span><small>15 bài học · Nghe và luyện nói →</small></a>
+<a href="lo-trinh-1-6.html?level=2" class="mrlee-six-level"><span class="mrlee-six-num">2</span><strong>Cấp 2</strong><span>Sơ cấp · Xử lý tình huống</span><small>15 bài học · Nghe và luyện nói →</small></a>
+<a href="lo-trinh-1-6.html?level=3" class="mrlee-six-level"><span class="mrlee-six-num">3</span><strong>Cấp 3</strong><span>Trung cấp · Du học & làm thêm</span><small>15 bài học · Nghe và luyện nói →</small></a>
+<a href="lo-trinh-1-6.html?level=4" class="mrlee-six-level"><span class="mrlee-six-num">4</span><strong>Cấp 4</strong><span>Trung cấp · Công việc & học thuật</span><small>15 bài học · Nghe và luyện nói →</small></a>
+<a href="lo-trinh-1-6.html?level=5" class="mrlee-six-level"><span class="mrlee-six-num">5</span><strong>Cấp 5</strong><span>Cao cấp · Phân tích, thảo luận</span><small>15 bài học · Nghe và luyện nói →</small></a>
+<a href="lo-trinh-1-6.html?level=6" class="mrlee-six-level"><span class="mrlee-six-num">6</span><strong>Cấp 6</strong><span>Cao cấp · Phản biện, thương lượng</span><small>15 bài học · Nghe và luyện nói →</small></a>
+ </div>
+ <div class="mrlee-six-footer"><a href="luyen-noi-tinh-diem.html">🎤 Luyện nói theo cấp và tính điểm</a><p>Điểm luyện tập không thay thế điểm thi TOPIK chính thức.</p></div>
+</section>
+<!-- END-MRLEE-SIX-LEVEL-HUB -->
+
 
     <section class="section">
 
@@ -301,6 +331,7 @@
 
 <script type="module" src="learning-tracker.js"></script>
   <script defer src="mrlee-core.js"></script>
-<script type="module" src="mrlee-daily-boot.js?v=20261010"></script>
+
+<script type="module" src="mrlee-engagement.js?v=20261010"></script>
 </body>
 </html>

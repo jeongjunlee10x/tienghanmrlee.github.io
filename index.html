@@ -212,6 +212,7 @@
 @media(max-width:600px){.mrlee-banner9-arrow{width:30px;height:30px;font-size:16px}.mrlee-banner9-prev{left:4px}.mrlee-banner9-next{right:4px}.mrlee-banner9-controls{bottom:5px;gap:4px;padding:4px 7px}.mrlee-banner9-dots{gap:4px}.mrlee-banner9-dots button{width:6px;height:6px;min-width:6px}.mrlee-banner9-dots button[aria-current="true"]{width:15px}}
 @media(prefers-reduced-motion:reduce){.hero-banner .mrlee-banner9-slide{transition:none}}
 </style>
+<link rel="stylesheet" href="mrlee-engagement.css?v=20261010" />
 </head>
 <body>
   <!-- Biểu tượng SVG dùng chung: đồng nét, không lỗi font như emoji -->
@@ -262,7 +263,8 @@
     </div>
   </header>
   <main>
-    <section class="hero page-wrap" aria-label="Trang bìa Tiếng Hàn Mr Lee">
+    <section id="mrleeStudentPanel" class="mrlee-student-panel" aria-label="Bảng tên, điểm và chuỗi ngày học" hidden></section>
+<section class="hero page-wrap" aria-label="Trang bìa Tiếng Hàn Mr Lee">
       <div class="hero-banner">
 <!-- MRLEE-BANNER9-START -->
 <div id="mrleeBanner9" class="mrlee-banner9" role="region" aria-roledescription="carousel" aria-label="9 muc hoc tap; moi 2 giay doi anh" aria-live="off">
@@ -313,7 +315,7 @@
       <div class="feature-grid">
         <a class="feature-card" data-theme="blue" href="bai-hoc.html">
           <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-book"></use></svg></span>
-          <div class="feature-card-content"><h3>Bài học tiếng Hàn</h3><p>Học từ vựng, ngữ pháp và bài tập theo từng bài Sơ cấp 1, Sơ cấp 2.</p></div>
+          <div class="feature-card-content"><h3>Bài học tiếng Hàn</h3><p>Học theo lộ trình cấp 1–6, có bài luyện nói và tích điểm theo tiến độ.</p></div>
           <span class="card-bottom">Xem bài học <span class="arrow-chip"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span></span>
         </a>
         <a class="feature-card" data-theme="violet" href="giao-tiep-theo-chu-de.html">
@@ -500,6 +502,7 @@
   start();
 })();
 </script>
-<script type="module" src="mrlee-daily-boot.js?v=20261010"></script>
+
+<script type="module" src="mrlee-engagement.js?v=20261010"></script>
 </body>
 </html>

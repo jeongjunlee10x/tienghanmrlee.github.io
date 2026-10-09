@@ -1,0 +1,58 @@
+name: Tao ung dung Windows va Android
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    name: Windows (${{ matrix.arch }})
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        arch: [win-x64, win-arm64]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Build EXE
+        shell: pwsh
+        run: ./windows/BUILD-WINDOWS.ps1 -Architecture ${{ matrix.arch }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TiengHanMrLee-Windows-${{ matrix.arch }}
+          path: output/${{ matrix.arch }}/
+          if-no-files-found: error
+
+  android:
+    name: Android APK thu nghiem
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+      - name: Install Android SDK
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - name: Build and lint APK
+        working-directory: android
+        run: gradle --no-daemon assembleDebug lintDebug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TiengHanMrLee-Android-APK-thu-nghiem
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+      - name: Upload lint report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Android-lint-report
+          path: android/app/build/reports/lint-results-debug.html

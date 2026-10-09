@@ -1,0 +1,34 @@
+/* MR LEE · Engagement 2026.10, isolated selectors for existing website */
+.mrlee-student-panel[hidden]{display:none!important}
+.mrlee-student-panel{width:min(1180px,calc(100% - 36px));margin:22px auto 4px;padding:18px 21px;display:flex;flex-wrap:wrap;align-items:center;gap:15px;background:linear-gradient(110deg,rgba(255,255,255,.98),rgba(245,250,255,.97));border:1px solid #d7e4f4;border-radius:19px;box-shadow:0 9px 24px rgba(11,39,76,.08);font-family:'Be Vietnam Pro',system-ui,sans-serif;color:#112c4e}
+.mrlee-student-meta{display:flex;align-items:center;gap:11px;min-width:175px;flex:1}
+.mrlee-avatar-initial{display:grid;place-items:center;background:#17395f;color:#fff;width:49px;height:49px;border-radius:16px;font-weight:800;font-size:21px;flex:none}
+.mrlee-student-identity{display:flex;flex-direction:column;gap:4px;min-width:0}
+.mrlee-identity-overline{font-size:10px;letter-spacing:.04em;font-weight:750;color:#7185a0}
+.mrlee-student-name{font-size:16px;overflow-wrap:anywhere;line-height:1.5}
+.mrlee-student-stats{display:grid;grid-template-columns:repeat(4,minmax(88px,1fr));gap:9px;flex:2;min-width:min(100%,420px)}
+.mrlee-stat{background:#fff;border:1px solid #e1eaf6;border-radius:13px;padding:10px;min-width:0}
+.mrlee-stat-icon{font-size:17px}.mrlee-stat-label{font-size:10px;color:#667c96;margin:4px 0}.mrlee-stat-value{font-size:14px;color:#153a65;line-height:1.4;overflow-wrap:anywhere}
+.mrlee-student-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.mrlee-action-primary,.mrlee-action-share{appearance:none;display:inline-flex;align-items:center;justify-content:center;min-height:42px;border-radius:11px;padding:10px 13px;font:700 12px/1.4 'Be Vietnam Pro',system-ui,sans-serif;text-decoration:none;cursor:pointer;white-space:normal;text-align:center}
+.mrlee-action-primary{background:#17395f;color:#fff!important;border:1px solid #17395f}.mrlee-action-primary:hover{background:#255487}
+.mrlee-action-share{background:#fff;color:#17395f;border:1px solid #cad8e9}.mrlee-action-share:hover{background:#edf5fd}
+.mrlee-student-disclaimer{width:100%;margin:0;font-size:10px;color:#7e8fa5;line-height:1.6}.mrlee-error-message{font-size:13px;color:#9e3030}
+.mrlee-modal-open{overflow:hidden}.mrlee-modal-mask{position:fixed;inset:0;z-index:2147483000;background:rgba(13,31,55,.64);display:flex;align-items:center;justify-content:center;padding:14px;overflow:auto;animation:mrlee-mask-in .18s ease-out}
+.mrlee-modal{font-family:'Be Vietnam Pro',system-ui,sans-serif;background:#fff;color:#102b4d;position:relative;width:min(600px,100%);max-height:calc(100dvh - 28px);overflow:auto;border-radius:22px;padding:23px 25px 25px;box-shadow:0 23px 90px rgba(0,0,0,.24);border:1px solid #dce6f1;box-sizing:border-box}
+.mrlee-modal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px}.mrlee-modal-spark{font-size:25px;color:#e88c40}
+.mrlee-modal-close{border:0;border-radius:50%;background:#edf2f8;color:#25415e;font-size:25px;width:35px;height:35px;cursor:pointer;line-height:1}
+.mrlee-modal-eyebrow{font-size:11px;color:#2c6894;font-weight:800;letter-spacing:.04em;margin-bottom:7px}
+.mrlee-modal h2{font-size:clamp(19px,3.5vw,25px);line-height:1.45;margin:0 0 8px;color:#102b4d}.mrlee-modal-lead{font-size:12px;line-height:1.8;color:#667a92;margin:0 0 18px}
+.mrlee-modal-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.mrlee-modal-stat{background:#eef5fd;border:1px solid #dceafb;border-radius:13px;padding:13px 7px;text-align:center;display:grid;gap:5px}
+.mrlee-modal-stat strong{font-size:17px;color:#15436e;line-height:1.4}.mrlee-modal-stat span{font-size:10px;color:#657f9b}
+.mrlee-modal-award{color:#167053;background:#e9f8f0;border-radius:12px;font-size:12px;line-height:1.7;font-weight:750;margin:13px 0;padding:10px 12px}
+.mrlee-modal-version{border:1px solid #eadfcf;background:#fffaf4;border-radius:14px;padding:15px}
+.mrlee-release-badge{background:#fff0df;color:#a76322;border-radius:50px;padding:4px 10px;display:inline-block;font-size:10px;font-weight:900}
+.mrlee-modal-version h3{font-size:15px;color:#253b56;margin:10px 0 7px}
+.mrlee-release-list{margin:0;padding-left:18px;color:#50637b;font-size:12px;line-height:1.9}
+.mrlee-modal-actions{display:flex;gap:9px;justify-content:flex-end;flex-wrap:wrap;margin-top:18px}
+@keyframes mrlee-mask-in{from{opacity:0}to{opacity:1}}
+@media(max-width:820px){.mrlee-student-panel{gap:12px}.mrlee-student-meta,.mrlee-student-stats{flex-basis:100%}.mrlee-student-actions{flex:1;justify-content:flex-start}}
+@media(max-width:520px){.mrlee-student-panel{width:calc(100% - 26px);padding:15px}.mrlee-student-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.mrlee-student-actions>*{flex:1}.mrlee-modal{padding:19px 17px 20px}.mrlee-modal-stat strong{font-size:14px}.mrlee-modal-stat span{font-size:9px}.mrlee-modal-stats{gap:5px}}
+@media(prefers-reduced-motion:reduce){.mrlee-modal-mask{animation:none}}

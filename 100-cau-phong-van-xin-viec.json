@@ -1,0 +1,1002 @@
+[
+  {
+    "id": "job26r01",
+    "group": "Xin việc · Quán ăn",
+    "level": "Cơ bản",
+    "ko": "식당 아르바이트에 지원한 이유가 무엇인가요?",
+    "vi": "Vì sao bạn ứng tuyển làm thêm ở quán ăn?",
+    "answer": "손님을 응대하는 일을 배우고 싶어서 지원했습니다. 맡은 일을 성실하게 하겠습니다.",
+    "meaning": "Tôi ứng tuyển vì muốn học công việc phục vụ khách. Tôi sẽ làm tốt nhiệm vụ được giao.",
+    "tip": "Nêu lý do thực tế, tránh hứa quá khả năng."
+  },
+  {
+    "id": "job26r02",
+    "group": "Xin việc · Quán ăn",
+    "level": "Cơ bản",
+    "ko": "식당에서 일해 본 경험이 있나요?",
+    "vi": "Bạn từng làm việc ở quán ăn chưa?",
+    "answer": "아직 식당 경험은 없지만 배우는 속도가 빠릅니다. 하나씩 정확하게 익히겠습니다.",
+    "meaning": "Tôi chưa có kinh nghiệm ở quán ăn nhưng tiếp thu nhanh. Tôi sẽ học chính xác từng việc.",
+    "tip": "Chưa có kinh nghiệm thì trả lời trung thực."
+  },
+  {
+    "id": "job26r03",
+    "group": "Xin việc · Quán ăn",
+    "level": "Cơ bản",
+    "ko": "홀 서빙과 주방 보조 중 어떤 일을 할 수 있나요?",
+    "vi": "Bạn có thể phục vụ bàn hay phụ bếp?",
+    "answer": "두 업무 모두 배울 수 있습니다. 먼저 필요한 업무부터 알려 주시면 열심히 하겠습니다.",
+    "meaning": "Tôi có thể học cả hai việc. Xin hãy hướng dẫn việc cần làm trước, tôi sẽ cố gắng.",
+    "tip": "Có thể nêu sở trường phục vụ hoặc phụ bếp."
+  },
+  {
+    "id": "job26r04",
+    "group": "Xin việc · Quán ăn",
+    "level": "Cơ bản",
+    "ko": "손님에게 처음 어떤 인사를 하겠어요?",
+    "vi": "Bạn sẽ chào khách như thế nào khi họ bước vào?",
+    "answer": "어서 오세요. 몇 분이세요? 편하신 자리를 안내해 드리겠습니다.",
+    "meaning": "Xin chào quý khách. Mấy người ạ? Tôi sẽ hướng dẫn chỗ ngồi phù hợp.",
+    "tip": "Luyện câu 어서 오세요 và 몇 분이세요."
+  },
+  {
+    "id": "job26r05",
+    "group": "Xin việc · Quán ăn",
+    "level": "Cơ bản",
+    "ko": "주문을 받을 때 가장 중요한 것은 무엇인가요?",
+    "vi": "Điều quan trọng nhất khi nhận món là gì?",
+    "answer": "메뉴와 수량을 정확히 확인하고 주문 내용을 다시 말씀드리겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra chính xác món và số lượng, sau đó nhắc lại đơn.",
+    "tip": "Nhấn mạnh xác nhận món, số lượng, ghi chú."
+  },
+  {
+    "id": "job26r06",
+    "group": "Xin việc · Quán ăn",
+    "level": "Cơ bản",
+    "ko": "주문을 잘못 받았다면 어떻게 하겠어요?",
+    "vi": "Nếu nhận sai món bạn sẽ xử lý thế nào?",
+    "answer": "먼저 죄송하다고 말씀드리고 주문을 다시 확인한 뒤 바로 관리자에게 알리겠습니다.",
+    "meaning": "Tôi sẽ xin lỗi trước, kiểm tra lại đơn rồi báo ngay quản lý.",
+    "tip": "Không tự ý hứa giảm giá hoặc hoàn tiền."
+  },
+  {
+    "id": "job26r07",
+    "group": "Xin việc · Quán ăn",
+    "level": "Cơ bản",
+    "ko": "손님이 음식이 늦다고 화를 내면 어떻게 하겠어요?",
+    "vi": "Khách tức giận vì món lên chậm thì sao?",
+    "answer": "기다리게 해서 죄송하다고 말씀드리고 주방에 확인한 후 안내하겠습니다.",
+    "meaning": "Tôi sẽ xin lỗi vì để khách chờ, kiểm tra với bếp và báo lại.",
+    "tip": "Tránh hứa thời gian khi chưa hỏi bếp."
+  },
+  {
+    "id": "job26r08",
+    "group": "Xin việc · Quán ăn",
+    "level": "Cơ bản",
+    "ko": "손님이 알레르기가 있다고 하면 어떻게 하겠어요?",
+    "vi": "Nếu khách nói bị dị ứng thực phẩm thì sao?",
+    "answer": "어떤 재료에 알레르기가 있는지 확인하고 주방에 반드시 전달하겠습니다.",
+    "meaning": "Tôi sẽ hỏi khách dị ứng nguyên liệu nào và nhất định báo cho bếp.",
+    "tip": "Không tự khẳng định món an toàn khi chưa kiểm tra."
+  },
+  {
+    "id": "job26r09",
+    "group": "Xin việc · Quán ăn",
+    "level": "Cơ bản",
+    "ko": "뜨거운 음식을 서빙할 때 무엇을 조심해야 하나요?",
+    "vi": "Khi bưng đồ ăn nóng cần chú ý gì?",
+    "answer": "뜨겁다고 미리 안내하고 안전하게 옮기겠습니다. 무리해서 여러 접시를 들지 않겠습니다.",
+    "meaning": "Tôi sẽ báo trước món nóng và mang an toàn, không cố bưng quá nhiều đĩa.",
+    "tip": "Ưu tiên an toàn của khách và nhân viên."
+  },
+  {
+    "id": "job26r10",
+    "group": "Xin việc · Quán ăn",
+    "level": "Cơ bản",
+    "ko": "음식이 바닥에 떨어지면 어떻게 하겠어요?",
+    "vi": "Nếu thức ăn rơi xuống sàn bạn sẽ làm gì?",
+    "answer": "바로 주변을 정리하고 미끄러지지 않도록 조치한 뒤 새 음식이 필요한지 확인하겠습니다.",
+    "meaning": "Tôi sẽ dọn ngay, ngăn trơn trượt rồi kiểm tra việc chuẩn bị món mới.",
+    "tip": "Tuân thủ quy trình vệ sinh tại quán."
+  },
+  {
+    "id": "job26r11",
+    "group": "Xin việc · Quán ăn",
+    "level": "Cơ bản",
+    "ko": "테이블을 치울 때 어떤 순서로 하겠어요?",
+    "vi": "Bạn sẽ dọn bàn theo thứ tự nào?",
+    "answer": "손님이 나가신 뒤 그릇을 안전하게 치우고 테이블을 닦은 다음 다음 손님을 준비하겠습니다.",
+    "meaning": "Sau khi khách rời đi, tôi thu bát đĩa an toàn, lau bàn và chuẩn bị đón khách tiếp.",
+    "tip": "Không thu đồ khi khách chưa dùng xong."
+  },
+  {
+    "id": "job26r12",
+    "group": "Xin việc · Quán ăn",
+    "level": "Cơ bản",
+    "ko": "설거지할 때 주의할 점을 알고 있나요?",
+    "vi": "Bạn biết điều gì cần chú ý khi rửa bát?",
+    "answer": "그릇을 종류별로 정리하고 세척 기준을 지키겠습니다. 깨진 그릇은 바로 보고하겠습니다.",
+    "meaning": "Tôi sẽ phân loại bát đĩa và tuân thủ tiêu chuẩn rửa. Đồ vỡ sẽ báo ngay.",
+    "tip": "Nói rõ cách xử lý đồ sắc nhọn."
+  },
+  {
+    "id": "job26r13",
+    "group": "Xin việc · Quán ăn",
+    "level": "Cơ bản",
+    "ko": "주방에서 위생을 어떻게 지키겠어요?",
+    "vi": "Bạn giữ vệ sinh trong bếp thế nào?",
+    "answer": "손을 자주 씻고 정해진 위생 수칙을 지키겠습니다. 음식 재료를 함부로 만지지 않겠습니다.",
+    "meaning": "Tôi sẽ rửa tay thường xuyên, tuân thủ quy định vệ sinh và không tùy tiện chạm nguyên liệu.",
+    "tip": "Găng tay không thay thế việc rửa tay."
+  },
+  {
+    "id": "job26r14",
+    "group": "Xin việc · Quán ăn",
+    "level": "Cơ bản",
+    "ko": "바쁜 점심시간에도 일할 수 있나요?",
+    "vi": "Bạn có làm được giờ trưa đông khách không?",
+    "answer": "수업 시간과 겹치지 않으면 가능합니다. 바쁠 때도 침착하게 일하겠습니다.",
+    "meaning": "Nếu không trùng giờ học thì được. Dù đông khách tôi vẫn làm bình tĩnh.",
+    "tip": "Chỉ nhận ca nếu lịch học cho phép."
+  },
+  {
+    "id": "job26r15",
+    "group": "Xin việc · Quán ăn",
+    "level": "Cơ bản",
+    "ko": "저녁 마감 업무도 괜찮나요?",
+    "vi": "Bạn có làm việc đóng cửa buổi tối được không?",
+    "answer": "가능한 요일과 시간을 미리 말씀드리고 마감 절차를 정확히 배우겠습니다.",
+    "meaning": "Tôi sẽ báo trước ngày giờ có thể làm và học đúng quy trình đóng cửa.",
+    "tip": "Lưu ý thời gian đi lại an toàn."
+  },
+  {
+    "id": "job26r16",
+    "group": "Xin việc · Quán ăn",
+    "level": "Trung cấp",
+    "ko": "동료와 업무가 겹치면 어떻게 하겠어요?",
+    "vi": "Nếu bạn và đồng nghiệp làm trùng việc thì sao?",
+    "answer": "서로 맡은 일을 확인하고 필요한 부분은 상의해서 나누겠습니다.",
+    "meaning": "Tôi sẽ xác nhận phần việc từng người và trao đổi để phân chia khi cần.",
+    "tip": "Thể hiện hợp tác thay vì đổ lỗi."
+  },
+  {
+    "id": "job26r17",
+    "group": "Xin việc · Quán ăn",
+    "level": "Trung cấp",
+    "ko": "손님이 한국어로 너무 빨리 말하면 어떻게 하겠어요?",
+    "vi": "Khách nói tiếng Hàn quá nhanh thì sao?",
+    "answer": "죄송하지만 천천히 다시 말씀해 주시겠어요? 하고 정중하게 여쭙겠습니다.",
+    "meaning": "Tôi sẽ lịch sự xin khách nói lại chậm hơn.",
+    "tip": "Luyện câu xin nhắc lại tự nhiên."
+  },
+  {
+    "id": "job26r18",
+    "group": "Xin việc · Quán ăn",
+    "level": "Trung cấp",
+    "ko": "손님이 메뉴 추천을 부탁하면 어떻게 하겠어요?",
+    "vi": "Nếu khách nhờ gợi ý món ăn thì sao?",
+    "answer": "먼저 취향을 여쭤보고 인기 메뉴와 재료를 확인해서 안내하겠습니다.",
+    "meaning": "Tôi sẽ hỏi khẩu vị rồi giới thiệu món phổ biến sau khi kiểm tra nguyên liệu.",
+    "tip": "Không gợi ý món không biết thành phần."
+  },
+  {
+    "id": "job26r19",
+    "group": "Xin việc · Quán ăn",
+    "level": "Trung cấp",
+    "ko": "반찬이 부족하다고 하면 어떻게 하겠어요?",
+    "vi": "Nếu khách nói thiếu món phụ thì sao?",
+    "answer": "어떤 반찬이 필요한지 확인하고 가게 규정에 따라 준비하겠습니다.",
+    "meaning": "Tôi sẽ xác nhận món phụ cần thêm và chuẩn bị theo quy định quán.",
+    "tip": "Một số quán có quy định riêng về thêm 반찬."
+  },
+  {
+    "id": "job26r20",
+    "group": "Xin việc · Quán ăn",
+    "level": "Trung cấp",
+    "ko": "포장 주문을 받을 수 있나요?",
+    "vi": "Bạn có thể nhận đơn mang về không?",
+    "answer": "네, 메뉴와 수량, 포장 여부를 확인한 뒤 주문서를 정확히 전달하겠습니다.",
+    "meaning": "Vâng, tôi sẽ xác nhận món, số lượng, việc đóng gói rồi chuyển đơn chính xác.",
+    "tip": "Phân biệt 포장 và 매장 식사."
+  },
+  {
+    "id": "job26r21",
+    "group": "Xin việc · Quán ăn",
+    "level": "Trung cấp",
+    "ko": "계산대에서 금액이 맞지 않으면 어떻게 하나요?",
+    "vi": "Nếu số tiền ở quầy thanh toán không khớp thì sao?",
+    "answer": "임의로 처리하지 않고 영수증과 주문 내역을 확인한 뒤 관리자에게 보고하겠습니다.",
+    "meaning": "Tôi sẽ không tự xử lý mà đối chiếu hóa đơn, đơn hàng và báo quản lý.",
+    "tip": "Không tự ý bù tiền hoặc sửa giao dịch."
+  },
+  {
+    "id": "job26r22",
+    "group": "Xin việc · Quán ăn",
+    "level": "Trung cấp",
+    "ko": "손님이 반말을 하거나 무례하면 어떻게 하겠어요?",
+    "vi": "Nếu khách nói trống không hoặc bất lịch sự thì sao?",
+    "answer": "감정적으로 대응하지 않고 정중히 응대하겠습니다. 어려우면 관리자에게 도움을 요청하겠습니다.",
+    "meaning": "Tôi sẽ không phản ứng theo cảm xúc, vẫn lịch sự và nhờ quản lý giúp nếu cần.",
+    "tip": "An toàn bản thân là ưu tiên."
+  },
+  {
+    "id": "job26r23",
+    "group": "Xin việc · Quán ăn",
+    "level": "Trung cấp",
+    "ko": "식재료를 옮기는 일을 할 수 있나요?",
+    "vi": "Bạn có thể vận chuyển nguyên liệu không?",
+    "answer": "안전하게 들 수 있는 범위에서 하겠습니다. 무거우면 도움을 요청하겠습니다.",
+    "meaning": "Tôi sẽ làm trong giới hạn có thể bê an toàn và xin hỗ trợ nếu đồ nặng.",
+    "tip": "Không cố mang quá sức."
+  },
+  {
+    "id": "job26r24",
+    "group": "Xin việc · Quán ăn",
+    "level": "Trung cấp",
+    "ko": "칼이나 뜨거운 기구를 사용할 수 있나요?",
+    "vi": "Bạn có sử dụng dao hoặc thiết bị nóng được không?",
+    "answer": "안전 교육을 받은 뒤 지시에 따라 사용하겠습니다. 익숙하지 않은 기구는 먼저 여쭤보겠습니다.",
+    "meaning": "Tôi sẽ chỉ sử dụng sau khi được hướng dẫn an toàn; thiết bị lạ sẽ hỏi trước.",
+    "tip": "Không tự nhận thành thạo thiết bị chưa từng dùng."
+  },
+  {
+    "id": "job26r25",
+    "group": "Xin việc · Quán ăn",
+    "level": "Trung cấp",
+    "ko": "청소 업무도 맡을 수 있나요?",
+    "vi": "Bạn có đảm nhận việc vệ sinh không?",
+    "answer": "네, 홀과 주방의 청소 구역을 확인하고 정해진 방법대로 하겠습니다.",
+    "meaning": "Có, tôi sẽ xác nhận khu vực vệ sinh và làm đúng phương pháp được hướng dẫn.",
+    "tip": "Phân biệt dụng cụ lau bàn và lau sàn."
+  },
+  {
+    "id": "job26r26",
+    "group": "Xin việc · Quán ăn",
+    "level": "Trung cấp",
+    "ko": "고객이 음식에 문제가 있다고 하면 어떻게 하겠어요?",
+    "vi": "Nếu khách phản ánh món có vấn đề thì sao?",
+    "answer": "먼저 불편을 드려 죄송하다고 말씀드리고 음식을 확인한 뒤 책임자에게 바로 알리겠습니다.",
+    "meaning": "Tôi sẽ xin lỗi khách, kiểm tra món và báo ngay người phụ trách.",
+    "tip": "Không tranh cãi về chất lượng món."
+  },
+  {
+    "id": "job26r27",
+    "group": "Xin việc · Quán ăn",
+    "level": "Trung cấp",
+    "ko": "출근 시간에 늦을 것 같으면 어떻게 하겠어요?",
+    "vi": "Nếu có nguy cơ đến ca muộn thì sao?",
+    "answer": "가능한 한 빨리 연락드리고 이유와 예상 도착 시간을 정확히 말씀드리겠습니다.",
+    "meaning": "Tôi sẽ liên hệ sớm nhất, nói rõ lý do và giờ dự kiến đến.",
+    "tip": "Nên chủ động gọi trước ca làm."
+  },
+  {
+    "id": "job26r28",
+    "group": "Xin việc · Quán ăn",
+    "level": "Trung cấp",
+    "ko": "새로운 메뉴가 나왔을 때 어떻게 배우겠어요?",
+    "vi": "Khi có món mới bạn học như thế nào?",
+    "answer": "메뉴 이름과 재료, 가격을 메모하고 직접 확인하면서 외우겠습니다.",
+    "meaning": "Tôi sẽ ghi tên món, nguyên liệu và giá, rồi kiểm tra để ghi nhớ.",
+    "tip": "Có thể tạo sổ tay menu riêng."
+  },
+  {
+    "id": "job26r29",
+    "group": "Xin việc · Quán ăn",
+    "level": "Trung cấp",
+    "ko": "일하면서 실수하면 어떻게 하겠어요?",
+    "vi": "Nếu mắc lỗi trong lúc làm việc thì sao?",
+    "answer": "실수를 숨기지 않고 바로 보고하겠습니다. 같은 실수를 반복하지 않도록 기록하겠습니다.",
+    "meaning": "Tôi sẽ không giấu lỗi, báo ngay và ghi lại để không lặp lại.",
+    "tip": "Ưu tiên trách nhiệm và cải thiện."
+  },
+  {
+    "id": "job26r30",
+    "group": "Xin việc · Quán ăn",
+    "level": "Trung cấp",
+    "ko": "우리 식당에서 오래 일할 수 있나요?",
+    "vi": "Bạn có thể làm lâu dài ở quán không?",
+    "answer": "학업 일정과 근로 가능 조건을 확인한 뒤 가능한 기간을 솔직하게 말씀드리겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra lịch học và điều kiện được phép làm rồi nói trung thực thời gian có thể làm.",
+    "tip": "Không hứa thời hạn trái lịch hoặc quy định."
+  },
+  {
+    "id": "job26c01",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Cơ bản",
+    "ko": "카페 아르바이트에 지원한 이유는 무엇인가요?",
+    "vi": "Vì sao bạn xin làm thêm ở quán cà phê?",
+    "answer": "커피와 고객 응대에 관심이 있어서 지원했습니다. 업무를 차근차근 배우겠습니다.",
+    "meaning": "Tôi quan tâm tới cà phê và phục vụ khách nên ứng tuyển. Tôi sẽ học công việc từng bước.",
+    "tip": "Nêu động cơ chân thực."
+  },
+  {
+    "id": "job26c02",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Cơ bản",
+    "ko": "커피를 만들어 본 적이 있나요?",
+    "vi": "Bạn đã từng pha cà phê chưa?",
+    "answer": "전문적인 경험은 없지만 레시피를 정확하게 배우고 연습하겠습니다.",
+    "meaning": "Tôi chưa có kinh nghiệm chuyên nghiệp nhưng sẽ học và luyện đúng công thức.",
+    "tip": "Không nhận là barista nếu chưa có kinh nghiệm."
+  },
+  {
+    "id": "job26c03",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Cơ bản",
+    "ko": "아메리카노와 라떼의 차이를 설명할 수 있나요?",
+    "vi": "Bạn giải thích được sự khác nhau giữa Americano và latte không?",
+    "answer": "아메리카노는 에스프레소에 물을 넣고 라떼는 우유를 넣습니다.",
+    "meaning": "Americano thêm nước vào espresso, còn latte thêm sữa.",
+    "tip": "Nắm thuật ngữ nguyên liệu cơ bản."
+  },
+  {
+    "id": "job26c04",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Cơ bản",
+    "ko": "손님에게 매장 이용 여부를 어떻게 묻나요?",
+    "vi": "Bạn hỏi khách dùng tại quán hay mang đi như thế nào?",
+    "answer": "매장에서 드시나요, 가져가시나요? 라고 여쭤보겠습니다.",
+    "meaning": "Tôi sẽ hỏi: Quý khách dùng tại quán hay mang đi ạ?",
+    "tip": "Luyện câu 매장에서 드시나요, 가져가시나요?"
+  },
+  {
+    "id": "job26c05",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Cơ bản",
+    "ko": "음료 크기를 어떻게 확인하겠어요?",
+    "vi": "Bạn hỏi cỡ đồ uống ra sao?",
+    "answer": "음료 사이즈는 어떤 것으로 하시겠어요? 라고 여쭤보겠습니다.",
+    "meaning": "Tôi sẽ hỏi khách muốn cỡ đồ uống nào.",
+    "tip": "Tên size phụ thuộc từng chuỗi/quán."
+  },
+  {
+    "id": "job26c06",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Cơ bản",
+    "ko": "아이스와 핫 주문을 어떻게 확인하나요?",
+    "vi": "Bạn xác nhận đồ uống nóng hay đá thế nào?",
+    "answer": "아이스로 드릴까요, 따뜻하게 드릴까요? 라고 확인하겠습니다.",
+    "meaning": "Tôi sẽ hỏi: Dùng đá hay nóng ạ?",
+    "tip": "Phân biệt 아이스 và 따뜻한 음료."
+  },
+  {
+    "id": "job26c07",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Cơ bản",
+    "ko": "손님이 우유를 바꾸고 싶어 하면 어떻게 하겠어요?",
+    "vi": "Nếu khách muốn đổi loại sữa thì sao?",
+    "answer": "가능한 우유 종류와 추가 금액을 확인한 후 안내하겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra các loại sữa thay thế và phụ phí trước khi báo.",
+    "tip": "Không tự cam kết khi quán không có loại sữa đó."
+  },
+  {
+    "id": "job26c08",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Cơ bản",
+    "ko": "샷 추가 주문을 받으면 무엇을 확인하나요?",
+    "vi": "Khi khách gọi thêm shot espresso cần kiểm tra gì?",
+    "answer": "샷 개수와 추가 요금을 확인하고 주문 내용에 반영하겠습니다.",
+    "meaning": "Tôi sẽ xác nhận số shot, phụ phí rồi ghi vào đơn.",
+    "tip": "Nhắc lại số shot để tránh nhầm."
+  },
+  {
+    "id": "job26c09",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Cơ bản",
+    "ko": "시럽을 빼 달라고 하면 어떻게 하겠어요?",
+    "vi": "Nếu khách yêu cầu bỏ siro thì sao?",
+    "answer": "시럽 제외 요청을 주문서에 정확하게 표시하겠습니다.",
+    "meaning": "Tôi sẽ ghi rõ yêu cầu không thêm siro vào đơn.",
+    "tip": "Ghi chú order đặc biệt rõ ràng."
+  },
+  {
+    "id": "job26c10",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Cơ bản",
+    "ko": "주문이 몰릴 때 어떻게 일하겠어요?",
+    "vi": "Khi nhiều đơn dồn lại bạn sẽ xử lý thế nào?",
+    "answer": "주문 순서를 확인하고 팀원과 역할을 나누어 침착하게 처리하겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra thứ tự đơn, chia việc cùng đồng nghiệp và xử lý bình tĩnh.",
+    "tip": "Không tự thay đổi thứ tự ưu tiên nếu chưa trao đổi."
+  },
+  {
+    "id": "job26c11",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Cơ bản",
+    "ko": "음료를 잘못 만들었다면 어떻게 하겠어요?",
+    "vi": "Nếu pha sai đồ uống bạn làm gì?",
+    "answer": "잘못된 내용을 바로 알리고 매장 지침에 따라 다시 만들겠습니다.",
+    "meaning": "Tôi sẽ báo ngay lỗi và pha lại theo quy định quán.",
+    "tip": "Không đưa đồ uống sai cho khách."
+  },
+  {
+    "id": "job26c12",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Cơ bản",
+    "ko": "음료를 쏟았을 때 어떻게 하겠어요?",
+    "vi": "Nếu làm đổ đồ uống bạn sẽ làm gì?",
+    "answer": "손님이 다치지 않았는지 확인하고 미끄럽지 않게 즉시 정리하겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra khách có bị sao không và dọn ngay để tránh trượt ngã.",
+    "tip": "Cảnh báo sàn trơn trước khi lau."
+  },
+  {
+    "id": "job26c13",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Cơ bản",
+    "ko": "뜨거운 컵을 전달할 때 어떤 말을 하겠어요?",
+    "vi": "Khi đưa ly nóng bạn sẽ nói gì?",
+    "answer": "뜨거우니 조심하세요. 라고 말씀드리며 안전하게 전달하겠습니다.",
+    "meaning": "Tôi sẽ nói: Đồ uống nóng, quý khách cẩn thận ạ, rồi đưa ly an toàn.",
+    "tip": "Luyện câu 조심하세요."
+  },
+  {
+    "id": "job26c14",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Cơ bản",
+    "ko": "커피 머신 청소를 할 수 있나요?",
+    "vi": "Bạn có thể vệ sinh máy cà phê không?",
+    "answer": "먼저 기계 사용법과 청소 절차를 배우고 정해진 순서대로 하겠습니다.",
+    "meaning": "Tôi sẽ học cách dùng máy, quy trình vệ sinh rồi làm đúng thứ tự.",
+    "tip": "Không tháo máy khi chưa được huấn luyện."
+  },
+  {
+    "id": "job26c15",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Cơ bản",
+    "ko": "우유 거품이 잘 나오지 않으면 어떻게 하겠어요?",
+    "vi": "Nếu đánh bọt sữa không đạt thì sao?",
+    "answer": "방법과 온도를 확인하고 잘 모르겠으면 선배 직원에게 도움을 요청하겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra phương pháp và nhiệt độ; nếu chưa rõ sẽ nhờ nhân viên có kinh nghiệm.",
+    "tip": "Không phục vụ đồ uống chưa đạt tiêu chuẩn."
+  },
+  {
+    "id": "job26c16",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Trung cấp",
+    "ko": "원두를 보관할 때 주의할 점이 있나요?",
+    "vi": "Khi bảo quản hạt cà phê cần lưu ý gì?",
+    "answer": "매장 기준에 맞게 밀봉하고 보관 날짜를 확인하겠습니다.",
+    "meaning": "Tôi sẽ đóng kín theo tiêu chuẩn quán và kiểm tra ngày bảo quản.",
+    "tip": "Theo hướng dẫn cụ thể của cửa hàng."
+  },
+  {
+    "id": "job26c17",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Trung cấp",
+    "ko": "손님이 메뉴를 추천해 달라고 하면 어떻게 하겠어요?",
+    "vi": "Nếu khách muốn bạn gợi ý đồ uống thì sao?",
+    "answer": "단맛과 카페인 선호도를 먼저 여쭤보고 메뉴를 추천하겠습니다.",
+    "meaning": "Tôi sẽ hỏi độ ngọt và sở thích caffeine trước khi gợi ý.",
+    "tip": "Hỏi khẩu vị trước khi tư vấn."
+  },
+  {
+    "id": "job26c18",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Trung cấp",
+    "ko": "카페인이 없는 음료를 찾으면 어떻게 하겠어요?",
+    "vi": "Nếu khách tìm đồ uống không caffeine thì sao?",
+    "answer": "카페인 유무를 확인하고 가능한 메뉴를 안내하겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra sản phẩm có caffeine hay không rồi giới thiệu món phù hợp.",
+    "tip": "Decaf có thể vẫn chứa một lượng caffeine."
+  },
+  {
+    "id": "job26c19",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Trung cấp",
+    "ko": "손님이 알레르기를 말하면 어떻게 하겠어요?",
+    "vi": "Nếu khách thông báo dị ứng thì sao?",
+    "answer": "재료와 알레르기 정보를 확인하고 확실하지 않으면 관리자에게 확인하겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra nguyên liệu và thông tin dị ứng; nếu chưa chắc sẽ hỏi quản lý.",
+    "tip": "Không bảo đảm không dị ứng nếu có nguy cơ nhiễm chéo."
+  },
+  {
+    "id": "job26c20",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Trung cấp",
+    "ko": "계산할 때 할인 쿠폰이 적용되지 않으면 어떻게 하겠어요?",
+    "vi": "Nếu mã giảm giá không áp dụng được thì sao?",
+    "answer": "쿠폰 사용 조건과 기간을 확인하고 필요한 경우 관리자에게 문의하겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra điều kiện, thời hạn phiếu giảm giá và hỏi quản lý khi cần.",
+    "tip": "Không tự ý thay giá."
+  },
+  {
+    "id": "job26c21",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Trung cấp",
+    "ko": "키오스크 사용을 어려워하는 손님이 있으면 어떻게 하겠어요?",
+    "vi": "Nếu khách gặp khó khi dùng kiosk thì sao?",
+    "answer": "원하시면 주문 과정을 천천히 안내해 드리겠습니다.",
+    "meaning": "Nếu khách muốn, tôi sẽ hướng dẫn từng bước đặt món.",
+    "tip": "Hỏi trước khi thao tác hộ khách."
+  },
+  {
+    "id": "job26c22",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Trung cấp",
+    "ko": "배달 주문과 매장 주문이 동시에 들어오면 어떻게 하나요?",
+    "vi": "Nếu đơn giao hàng và đơn tại quán đến cùng lúc thì sao?",
+    "answer": "매장 우선순위를 확인하고 주문표를 구분해서 처리하겠습니다.",
+    "meaning": "Tôi sẽ xác nhận thứ tự ưu tiên của quán, phân biệt từng phiếu rồi xử lý.",
+    "tip": "Tránh nhầm số đơn và tên khách."
+  },
+  {
+    "id": "job26c23",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Trung cấp",
+    "ko": "포장할 때 무엇을 확인해야 하나요?",
+    "vi": "Khi đóng gói đồ uống mang đi phải kiểm tra gì?",
+    "answer": "컵 뚜껑이 잘 닫혔는지 확인하고 음료 종류와 수량을 다시 확인하겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra nắp ly, loại đồ uống và số lượng.",
+    "tip": "Kiểm tra đồ nóng và đồ lạnh riêng."
+  },
+  {
+    "id": "job26c24",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Trung cấp",
+    "ko": "진동벨을 쓰는 손님에게 어떻게 설명하겠어요?",
+    "vi": "Bạn hướng dẫn khách dùng chuông rung như thế nào?",
+    "answer": "진동벨이 울리면 픽업대에서 음료를 받아 가시면 됩니다. 라고 안내하겠습니다.",
+    "meaning": "Tôi sẽ hướng dẫn khi chuông rung thì lấy đồ ở quầy nhận.",
+    "tip": "Dùng câu ngắn, dễ hiểu."
+  },
+  {
+    "id": "job26c25",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Trung cấp",
+    "ko": "카페 오픈 준비에는 무엇이 필요할까요?",
+    "vi": "Bạn cần làm gì để chuẩn bị mở quán?",
+    "answer": "매장을 정리하고 재료와 소모품을 확인한 뒤 기계 상태를 점검하겠습니다.",
+    "meaning": "Tôi sẽ dọn quán, kiểm tra nguyên liệu, vật dụng và tình trạng máy.",
+    "tip": "Tùy nơi làm việc có checklist riêng."
+  },
+  {
+    "id": "job26c26",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Trung cấp",
+    "ko": "마감할 때 현금이 맞지 않으면 어떻게 하겠어요?",
+    "vi": "Nếu kết ca số tiền mặt bị lệch thì sao?",
+    "answer": "혼자 수정하지 않고 거래 내역을 확인한 뒤 담당자에게 즉시 보고하겠습니다.",
+    "meaning": "Tôi sẽ không tự sửa mà kiểm tra giao dịch và báo ngay người phụ trách.",
+    "tip": "Không tự ý thay số liệu."
+  },
+  {
+    "id": "job26c27",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Trung cấp",
+    "ko": "바닥이 젖어 있으면 어떻게 하겠어요?",
+    "vi": "Nếu sàn quán cà phê bị ướt thì sao?",
+    "answer": "손님에게 조심하시라고 안내하고 즉시 닦아 안전하게 만들겠습니다.",
+    "meaning": "Tôi sẽ cảnh báo khách, lau ngay để bảo đảm an toàn.",
+    "tip": "Cần biển cảnh báo nếu có."
+  },
+  {
+    "id": "job26c28",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Trung cấp",
+    "ko": "바쁜 시간에 동료가 도움을 요청하면 어떻게 하겠어요?",
+    "vi": "Nếu đồng nghiệp nhờ giúp lúc đông khách thì sao?",
+    "answer": "제 업무 상황을 확인하고 가능한 일부터 신속하게 도와드리겠습니다.",
+    "meaning": "Tôi sẽ xem việc mình đang làm và hỗ trợ nhanh phần có thể.",
+    "tip": "Thể hiện tinh thần nhóm."
+  },
+  {
+    "id": "job26c29",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Trung cấp",
+    "ko": "손님이 음료 맛이 이상하다고 하면 어떻게 하겠어요?",
+    "vi": "Nếu khách nói đồ uống có vị lạ thì sao?",
+    "answer": "불편을 드려 죄송하다고 말씀드리고 제조 내용을 확인해 책임자에게 알리겠습니다.",
+    "meaning": "Tôi sẽ xin lỗi, kiểm tra quy trình pha và báo người phụ trách.",
+    "tip": "Không tranh cãi với khách."
+  },
+  {
+    "id": "job26c30",
+    "group": "Xin việc · Quán cà phê",
+    "level": "Trung cấp",
+    "ko": "우리 카페에서 꼭 지키고 싶은 원칙은 무엇인가요?",
+    "vi": "Nguyên tắc bạn muốn tuân thủ nhất khi làm ở quán là gì?",
+    "answer": "청결과 정확한 주문 확인을 가장 중요하게 생각합니다. 항상 친절하게 응대하겠습니다.",
+    "meaning": "Tôi coi trọng vệ sinh và xác nhận đơn chính xác, luôn phục vụ lịch sự.",
+    "tip": "Nêu 1–2 nguyên tắc gắn với công việc."
+  },
+  {
+    "id": "job26s01",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Cơ bản",
+    "ko": "편의점 아르바이트에 지원한 이유가 무엇인가요?",
+    "vi": "Vì sao bạn xin làm tại cửa hàng tiện lợi?",
+    "answer": "다양한 고객을 응대하고 매장 운영을 배우고 싶어서 지원했습니다.",
+    "meaning": "Tôi muốn phục vụ nhiều nhóm khách và học vận hành cửa hàng nên ứng tuyển.",
+    "tip": "Thể hiện mong muốn học nhiều công việc."
+  },
+  {
+    "id": "job26s02",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Cơ bản",
+    "ko": "계산대에서 일해 본 경험이 있나요?",
+    "vi": "Bạn có từng làm thu ngân chưa?",
+    "answer": "아직 경험은 없지만 포스기 사용법을 배우고 정확하게 계산하겠습니다.",
+    "meaning": "Tôi chưa có kinh nghiệm nhưng sẽ học máy POS và tính tiền chính xác.",
+    "tip": "포스기 là máy POS."
+  },
+  {
+    "id": "job26s03",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Cơ bản",
+    "ko": "바코드가 잘 찍히지 않으면 어떻게 하겠어요?",
+    "vi": "Nếu mã vạch không quét được thì sao?",
+    "answer": "상품 코드와 포스기 안내를 확인하고 어려우면 관리자에게 문의하겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra mã sản phẩm và hướng dẫn POS, nếu khó sẽ hỏi quản lý.",
+    "tip": "Không tự nhập giá tùy ý."
+  },
+  {
+    "id": "job26s04",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Cơ bản",
+    "ko": "손님이 현금과 카드로 나눠 결제하고 싶다고 하면요?",
+    "vi": "Nếu khách muốn chia thanh toán tiền mặt và thẻ thì sao?",
+    "answer": "매장 결제 시스템에서 가능한지 확인하고 절차에 따라 도와드리겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra hệ thống có cho thanh toán chia hay không và hỗ trợ theo quy trình.",
+    "tip": "Không hứa chức năng POS chưa biết."
+  },
+  {
+    "id": "job26s05",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Cơ bản",
+    "ko": "영수증을 요청하면 어떻게 응대하겠어요?",
+    "vi": "Nếu khách yêu cầu hóa đơn bạn làm gì?",
+    "answer": "네, 영수증 드리겠습니다. 라고 말씀드리고 발급해 드리겠습니다.",
+    "meaning": "Tôi sẽ nói: Vâng, tôi gửi hóa đơn ạ, rồi in cho khách.",
+    "tip": "Luyện câu 영수증 드리겠습니다."
+  },
+  {
+    "id": "job26s06",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Cơ bản",
+    "ko": "봉투가 필요한지 어떻게 묻나요?",
+    "vi": "Bạn hỏi khách có cần túi không như thế nào?",
+    "answer": "봉투 필요하세요? 라고 여쭤보고 유료 여부도 안내하겠습니다.",
+    "meaning": "Tôi sẽ hỏi khách có cần túi không và thông báo phí nếu có.",
+    "tip": "Túi có thể tính phí theo cửa hàng."
+  },
+  {
+    "id": "job26s07",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Cơ bản",
+    "ko": "교통카드 충전 요청을 받으면 어떻게 하겠어요?",
+    "vi": "Nếu khách muốn nạp thẻ giao thông thì sao?",
+    "answer": "충전 금액을 확인하고 가능한 카드인지 확인한 후 진행하겠습니다.",
+    "meaning": "Tôi sẽ xác nhận số tiền nạp và loại thẻ có hỗ trợ rồi thực hiện.",
+    "tip": "Không phải mọi thẻ đều nạp ở mọi máy."
+  },
+  {
+    "id": "job26s08",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Cơ bản",
+    "ko": "택배를 보내려는 손님이 오면 어떻게 하겠어요?",
+    "vi": "Nếu khách muốn gửi bưu kiện thì sao?",
+    "answer": "매장 택배 접수 방법을 확인하고 기기 사용을 안내하겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra quy trình tiếp nhận bưu kiện và hướng dẫn thiết bị.",
+    "tip": "Đối chiếu cân nặng và nhãn theo quy định."
+  },
+  {
+    "id": "job26s09",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Cơ bản",
+    "ko": "상품 가격표와 계산 금액이 다르면 어떻게 하나요?",
+    "vi": "Nếu giá niêm yết khác giá tính tiền thì sao?",
+    "answer": "가격표와 포스기 정보를 확인한 뒤 관리자에게 보고하겠습니다.",
+    "meaning": "Tôi sẽ đối chiếu bảng giá và hệ thống POS rồi báo quản lý.",
+    "tip": "Không tự ý thay đổi giá khi chưa xác minh."
+  },
+  {
+    "id": "job26s10",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Cơ bản",
+    "ko": "행사 상품이 무엇인지 손님이 물으면 어떻게 하겠어요?",
+    "vi": "Nếu khách hỏi hàng khuyến mãi thì sao?",
+    "answer": "행사 기간과 적용 상품을 확인해서 정확하게 안내하겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra thời gian khuyến mãi và sản phẩm áp dụng để tư vấn chính xác.",
+    "tip": "Hiểu ký hiệu 1+1, 2+1."
+  },
+  {
+    "id": "job26s11",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Cơ bản",
+    "ko": "1+1 상품을 손님에게 어떻게 설명하나요?",
+    "vi": "Bạn giải thích hàng khuyến mãi 1+1 thế nào?",
+    "answer": "행사 대상 상품을 하나 사시면 같은 행사 상품 하나를 더 받는 방식입니다. 조건을 확인해 드리겠습니다.",
+    "meaning": "Đó là chương trình mua một được thêm một sản phẩm thuộc chương trình; tôi sẽ kiểm tra điều kiện.",
+    "tip": "Quy định ghép sản phẩm tùy chương trình."
+  },
+  {
+    "id": "job26s12",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Cơ bản",
+    "ko": "유통기한이 지난 상품을 발견하면 어떻게 하겠어요?",
+    "vi": "Nếu phát hiện sản phẩm hết hạn thì sao?",
+    "answer": "즉시 판매대에서 분리하고 담당자에게 보고하겠습니다.",
+    "meaning": "Tôi sẽ tách ngay khỏi kệ bán và báo người phụ trách.",
+    "tip": "Không bán sản phẩm hết hạn."
+  },
+  {
+    "id": "job26s13",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Cơ bản",
+    "ko": "냉장 식품을 정리할 때 무엇을 조심하나요?",
+    "vi": "Khi sắp xếp đồ đông lạnh/đồ mát cần chú ý gì?",
+    "answer": "보관 온도와 유통기한을 확인하고 먼저 들어온 상품부터 정리하겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra nhiệt độ, hạn sử dụng và sắp hàng theo nguyên tắc nhập trước.",
+    "tip": "Tuân thủ tiêu chuẩn bảo quản thực phẩm."
+  },
+  {
+    "id": "job26s14",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Cơ bản",
+    "ko": "술이나 담배를 구매하는 손님에게 무엇을 확인해야 하나요?",
+    "vi": "Bán rượu hoặc thuốc lá cần kiểm tra gì?",
+    "answer": "관련 법규와 매장 지침에 따라 필요한 경우 신분증을 확인하겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra giấy tờ khi cần theo quy định pháp luật và hướng dẫn cửa hàng.",
+    "tip": "Không bán khi chưa đáp ứng yêu cầu xác minh tuổi."
+  },
+  {
+    "id": "job26s15",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Cơ bản",
+    "ko": "신분증 확인을 거부하는 손님에게 어떻게 말하겠어요?",
+    "vi": "Bạn nói gì khi khách từ chối cho kiểm tra giấy tờ?",
+    "answer": "죄송하지만 신분 확인이 필요한 상품이라 확인 없이는 판매하기 어렵습니다.",
+    "meaning": "Rất xin lỗi, vì đây là mặt hàng cần xác minh danh tính nên khó có thể bán nếu không kiểm tra.",
+    "tip": "Luôn bình tĩnh, nhờ quản lý nếu tranh cãi."
+  },
+  {
+    "id": "job26s16",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Trung cấp",
+    "ko": "손님이 물건을 환불해 달라고 하면 어떻게 하겠어요?",
+    "vi": "Nếu khách muốn trả hàng lấy tiền thì sao?",
+    "answer": "영수증과 상품 상태, 환불 규정을 확인하고 절차에 따라 처리하겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra hóa đơn, tình trạng hàng và quy định hoàn trả rồi xử lý theo quy trình.",
+    "tip": "Không hứa hoàn tiền trước khi kiểm tra điều kiện."
+  },
+  {
+    "id": "job26s17",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Trung cấp",
+    "ko": "카드 결제가 승인되지 않으면 어떻게 하겠어요?",
+    "vi": "Nếu thẻ thanh toán bị từ chối thì sao?",
+    "answer": "결제 상태를 확인하고 손님께 다른 결제 수단이 있는지 정중히 여쭤보겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra trạng thái giao dịch và lịch sự hỏi khách có phương thức khác không.",
+    "tip": "Không đọc to thông tin thẻ của khách."
+  },
+  {
+    "id": "job26s18",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Trung cấp",
+    "ko": "현금 거스름돈을 잘못 드리면 어떻게 하겠어요?",
+    "vi": "Nếu trả nhầm tiền thừa cho khách thì sao?",
+    "answer": "바로 사실을 알리고 거래 내역을 확인한 다음 관리자에게 보고하겠습니다.",
+    "meaning": "Tôi sẽ báo ngay, kiểm tra giao dịch và báo quản lý.",
+    "tip": "Không tự ý lấy tiền từ két để bù."
+  },
+  {
+    "id": "job26s19",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Trung cấp",
+    "ko": "혼자 근무할 때 문제가 생기면 어떻게 하겠어요?",
+    "vi": "Nếu gặp sự cố khi trực ca một mình thì sao?",
+    "answer": "안전이 우선이므로 무리하게 해결하지 않고 비상 연락망으로 도움을 요청하겠습니다.",
+    "meaning": "Tôi đặt an toàn lên trước, không cố tự xử lý và liên hệ số hỗ trợ khẩn.",
+    "tip": "Biết số quản lý và quy trình khẩn cấp."
+  },
+  {
+    "id": "job26s20",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Trung cấp",
+    "ko": "야간 근무가 가능한가요?",
+    "vi": "Bạn có thể làm ca đêm không?",
+    "answer": "학업 일정과 체류 자격, 근로 가능 시간을 확인한 뒤 가능한 시간만 말씀드리겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra lịch học, tình trạng lưu trú và thời gian được phép làm rồi mới nhận ca phù hợp.",
+    "tip": "Đặc biệt kiểm tra điều kiện làm thêm của visa."
+  },
+  {
+    "id": "job26s21",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Trung cấp",
+    "ko": "편의점 재고 조사를 해 본 적 있나요?",
+    "vi": "Bạn đã từng kiểm kê hàng trong cửa hàng chưa?",
+    "answer": "경험은 많지 않지만 상품 수량과 전산 기록을 꼼꼼하게 확인하겠습니다.",
+    "meaning": "Tôi chưa có nhiều kinh nghiệm nhưng sẽ đối chiếu kỹ số lượng và dữ liệu hệ thống.",
+    "tip": "Nói trung thực về kinh nghiệm kiểm kho."
+  },
+  {
+    "id": "job26s22",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Trung cấp",
+    "ko": "물건을 진열할 때 어떤 점을 확인하겠어요?",
+    "vi": "Khi xếp hàng lên kệ bạn sẽ kiểm tra gì?",
+    "answer": "상품 이름, 가격표, 유통기한을 확인하고 보기 좋게 정리하겠습니다.",
+    "meaning": "Tôi sẽ xem tên hàng, giá, hạn sử dụng và sắp xếp gọn gàng.",
+    "tip": "Tránh đặt nhầm nhãn giá."
+  },
+  {
+    "id": "job26s23",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Trung cấp",
+    "ko": "손님이 찾는 상품이 없으면 어떻게 하겠어요?",
+    "vi": "Nếu khách cần sản phẩm không có thì sao?",
+    "answer": "재고를 먼저 확인하고 없으면 품절이라고 정중하게 안내하겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra tồn kho rồi lịch sự báo hết hàng nếu thật sự không có.",
+    "tip": "Kiểm tra kho trước khi nói hết."
+  },
+  {
+    "id": "job26s24",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Trung cấp",
+    "ko": "전자레인지 사용을 요청하면 어떻게 하겠어요?",
+    "vi": "Nếu khách nhờ dùng lò vi sóng thì sao?",
+    "answer": "가열 가능한 상품인지 확인하고 매장 안전 수칙에 따라 도와드리겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra sản phẩm có thể hâm nóng hay không và hỗ trợ đúng quy định.",
+    "tip": "Không hâm vật dụng không an toàn cho lò."
+  },
+  {
+    "id": "job26s25",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Trung cấp",
+    "ko": "손님이 매장에서 소란을 피우면 어떻게 하겠어요?",
+    "vi": "Nếu khách gây náo loạn tại cửa hàng thì sao?",
+    "answer": "안전을 우선으로 하고 직접 충돌하지 않겠습니다. 필요하면 관리자나 긴급 도움을 요청하겠습니다.",
+    "meaning": "Tôi ưu tiên an toàn, không đối đầu trực tiếp và nhờ quản lý hoặc hỗ trợ khẩn cấp khi cần.",
+    "tip": "Không liều lĩnh can thiệp một mình."
+  },
+  {
+    "id": "job26s26",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Trung cấp",
+    "ko": "포스기가 갑자기 멈추면 어떻게 하겠어요?",
+    "vi": "Nếu máy thu ngân đột ngột dừng hoạt động thì sao?",
+    "answer": "손님께 잠시 양해를 구하고 매장 지침에 따라 확인한 뒤 관리자에게 연락하겠습니다.",
+    "meaning": "Tôi sẽ xin khách thông cảm, kiểm tra theo quy trình rồi liên hệ quản lý.",
+    "tip": "Không tự cài lại phần mềm POS khi chưa được phép."
+  },
+  {
+    "id": "job26s27",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Trung cấp",
+    "ko": "냉장고 온도가 이상하면 어떻게 하겠어요?",
+    "vi": "Nếu nhiệt độ tủ lạnh bất thường thì sao?",
+    "answer": "즉시 관리자에게 알리고 식품 안전 지침에 따라 상품 상태를 확인하겠습니다.",
+    "meaning": "Tôi sẽ báo ngay quản lý và kiểm tra hàng theo quy tắc an toàn thực phẩm.",
+    "tip": "Không tùy tiện tiếp tục bán thực phẩm có nguy cơ hỏng."
+  },
+  {
+    "id": "job26s28",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Trung cấp",
+    "ko": "교대할 때 어떤 내용을 전달해야 하나요?",
+    "vi": "Khi bàn giao ca cần truyền đạt những gì?",
+    "answer": "현금 상태, 미처리 업무, 재고 문제와 특이 사항을 정확히 전달하겠습니다.",
+    "meaning": "Tôi sẽ bàn giao tình trạng tiền, việc chưa xong, vấn đề tồn kho và tình huống đặc biệt.",
+    "tip": "Ghi chép thay vì chỉ nói miệng."
+  },
+  {
+    "id": "job26s29",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Trung cấp",
+    "ko": "손님이 상품을 파손하면 어떻게 하겠어요?",
+    "vi": "Nếu khách làm hỏng hàng hóa thì sao?",
+    "answer": "상황을 차분히 확인하고 매장 규정에 따라 관리자에게 보고하겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra tình huống bình tĩnh và báo quản lý theo quy định.",
+    "tip": "Không tự ý yêu cầu bồi thường."
+  },
+  {
+    "id": "job26s30",
+    "group": "Xin việc · Cửa hàng tiện lợi",
+    "level": "Trung cấp",
+    "ko": "편의점에서 가장 중요하다고 생각하는 것은 무엇인가요?",
+    "vi": "Bạn nghĩ điều quan trọng nhất khi làm cửa hàng tiện lợi là gì?",
+    "answer": "정확한 계산과 친절한 응대, 그리고 안전한 매장 관리가 중요하다고 생각합니다.",
+    "meaning": "Tôi nghĩ tính tiền chính xác, thái độ lịch sự và quản lý cửa hàng an toàn là quan trọng.",
+    "tip": "Nêu trách nhiệm đi đôi với sự cẩn thận."
+  },
+  {
+    "id": "job26g01",
+    "group": "Xin việc · Tổng hợp",
+    "level": "Cơ bản",
+    "ko": "간단하게 자기소개를 해 주시겠어요?",
+    "vi": "Bạn có thể giới thiệu ngắn gọn bản thân không?",
+    "answer": "안녕하세요. 저는 베트남에서 온 유학생입니다. 약속 시간을 잘 지키고 새로운 일을 성실하게 배우겠습니다.",
+    "meaning": "Xin chào, tôi là du học sinh đến từ Việt Nam. Tôi đúng giờ và sẽ nghiêm túc học việc mới.",
+    "tip": "Thay thông tin theo bản thân, không học thuộc sai sự thật."
+  },
+  {
+    "id": "job26g02",
+    "group": "Xin việc · Tổng hợp",
+    "level": "Cơ bản",
+    "ko": "우리 가게에 지원한 이유는 무엇인가요?",
+    "vi": "Tại sao bạn ứng tuyển vào cửa hàng của chúng tôi?",
+    "answer": "집과 이동하기 편하고 업무를 배우기 좋은 곳이라고 생각해서 지원했습니다.",
+    "meaning": "Tôi ứng tuyển vì đi lại thuận tiện và thấy đây là nơi phù hợp để học công việc.",
+    "tip": "Chỉ nêu lý do phù hợp thực tế."
+  },
+  {
+    "id": "job26g03",
+    "group": "Xin việc · Tổng hợp",
+    "level": "Cơ bản",
+    "ko": "일주일에 며칠 근무할 수 있나요?",
+    "vi": "Bạn có thể đi làm mấy ngày mỗi tuần?",
+    "answer": "수업 시간표를 확인한 뒤 가능한 요일을 정확하게 말씀드리겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra thời khóa biểu rồi thông báo chính xác ngày có thể làm.",
+    "tip": "Nhớ mang lịch học khi phỏng vấn."
+  },
+  {
+    "id": "job26g04",
+    "group": "Xin việc · Tổng hợp",
+    "level": "Cơ bản",
+    "ko": "언제부터 근무할 수 있나요?",
+    "vi": "Bạn có thể bắt đầu làm việc từ khi nào?",
+    "answer": "필요한 근로 허가와 일정을 확인한 뒤 가능한 시작일을 말씀드리겠습니다.",
+    "meaning": "Tôi sẽ xác nhận giấy phép làm thêm cần thiết và lịch trình rồi báo ngày bắt đầu.",
+    "tip": "Không bắt đầu trước khi đáp ứng điều kiện làm việc."
+  },
+  {
+    "id": "job26g05",
+    "group": "Xin việc · Tổng hợp",
+    "level": "Cơ bản",
+    "ko": "한국어로 손님을 응대할 수 있나요?",
+    "vi": "Bạn có thể phục vụ khách bằng tiếng Hàn không?",
+    "answer": "기본적인 인사와 주문 확인은 가능합니다. 모르는 표현은 확인하면서 배우겠습니다.",
+    "meaning": "Tôi có thể chào hỏi và xác nhận đơn cơ bản; mẫu câu chưa biết tôi sẽ hỏi và học thêm.",
+    "tip": "Tự đánh giá năng lực tiếng Hàn trung thực."
+  },
+  {
+    "id": "job26g06",
+    "group": "Xin việc · Tổng hợp",
+    "level": "Cơ bản",
+    "ko": "실수했을 때 어떻게 대처하겠어요?",
+    "vi": "Nếu mắc lỗi bạn xử lý thế nào?",
+    "answer": "실수를 숨기지 않고 바로 말씀드리겠습니다. 원인을 확인하고 같은 일이 생기지 않도록 하겠습니다.",
+    "meaning": "Tôi sẽ không giấu lỗi mà báo ngay; tìm nguyên nhân và tránh tái diễn.",
+    "tip": "Nhấn mạnh báo cáo và phòng ngừa."
+  },
+  {
+    "id": "job26g07",
+    "group": "Xin việc · Tổng hợp",
+    "level": "Cơ bản",
+    "ko": "상사가 지시한 내용을 이해하지 못하면 어떻게 하나요?",
+    "vi": "Nếu không hiểu chỉ dẫn của quản lý thì làm gì?",
+    "answer": "죄송하지만 다시 설명해 주시겠어요? 라고 말씀드리고 메모하겠습니다.",
+    "meaning": "Tôi sẽ xin quản lý giải thích lại và ghi chép.",
+    "tip": "Thà hỏi lại hơn làm sai việc."
+  },
+  {
+    "id": "job26g08",
+    "group": "Xin việc · Tổng hợp",
+    "level": "Cơ bản",
+    "ko": "손님이 화가 나 있을 때 어떻게 하겠어요?",
+    "vi": "Nếu khách đang tức giận thì sao?",
+    "answer": "먼저 차분히 듣고 불편을 드린 점을 사과하겠습니다. 해결이 어려우면 관리자에게 알리겠습니다.",
+    "meaning": "Tôi sẽ bình tĩnh lắng nghe, xin lỗi về sự bất tiện và báo quản lý nếu khó xử lý.",
+    "tip": "Không tranh cãi hay tự ý hứa bồi thường."
+  },
+  {
+    "id": "job26g09",
+    "group": "Xin việc · Tổng hợp",
+    "level": "Cơ bản",
+    "ko": "일할 수 있는 비자와 허가 조건을 확인했나요?",
+    "vi": "Bạn đã kiểm tra visa và điều kiện giấy phép làm thêm chưa?",
+    "answer": "제 체류 자격에 필요한 근로 조건을 확인하고 허가가 필요한 경우에는 허가 후 근무하겠습니다.",
+    "meaning": "Tôi sẽ kiểm tra điều kiện làm việc theo tư cách lưu trú và chỉ làm sau khi có giấy phép nếu bắt buộc.",
+    "tip": "Không khẳng định đã có giấy phép khi thực tế chưa có."
+  },
+  {
+    "id": "job26g10",
+    "group": "Xin việc · Tổng hợp",
+    "level": "Cơ bản",
+    "ko": "면접을 마치기 전에 질문이 있나요?",
+    "vi": "Trước khi kết thúc phỏng vấn bạn có câu hỏi nào không?",
+    "answer": "네, 근무 시간과 교육 기간, 급여 지급일을 여쭤봐도 될까요?",
+    "meaning": "Vâng, tôi có thể hỏi về ca làm, thời gian đào tạo và ngày trả lương không ạ?",
+    "tip": "Nên hỏi rõ lịch ca, mức lương và hợp đồng."
+  }
+]

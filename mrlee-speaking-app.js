@@ -1,9 +1,10 @@
 import { SPEAKING_BANK } from './mrlee-speaking-bank.js';
 import { ADVANCED_SPEAKING_BANK } from './mrlee-speaking-advanced.js';
+import { DEEP_SPEAKING_BANK } from './mrlee-speaking-deep.js';
 import { SETTINGS, speechSupported, waitForUser, loadWallet, similarity, commitSpeaking, recentAttempts, calculateDelta, claimDailyLogin, speechStreakBonus } from './mrlee-points-core.js';
 
 const $ = id=>document.getElementById(id);
-const catalogue=[...SPEAKING_BANK,...ADVANCED_SPEAKING_BANK];
+const catalogue=[...SPEAKING_BANK,...ADVANCED_SPEAKING_BANK,...DEEP_SPEAKING_BANK];
 const recoveryTasks=[
   {id:'recovery-1',kind:'recovery',level:'recovery',title:'Phục hồi điểm · Bài A',subtitle:'Đọc 3 câu cơ bản để lấy lại 15 điểm',returnUrl:'luyen-noi-tinh-diem.html',items:[
     {ko:'안녕하세요. 만나서 반갑습니다.',vi:'Xin chào. Rất vui được gặp bạn.'},

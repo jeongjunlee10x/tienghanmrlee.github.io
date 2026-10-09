@@ -1,0 +1,10 @@
+output/
+**/bin/
+**/obj/
+**/build/
+.gradle/
+**/.gradle/
+.idea/
+local.properties
+*.jks
+*.keystore

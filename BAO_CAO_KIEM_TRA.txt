@@ -1,0 +1,14 @@
+BAO CAO KIEM TRA - MR LEE ADMIN DOC LAP
+======================================
+- Javascript syntax (Node.js): PASS.
+- Trinh duyet Chromium 1440 px (Supabase mock): PASS.
+- Trinh duyet Chromium 390 px (Supabase mock): PASS.
+- Hien thi 2 hoc vien va 1 ket qua mau: PASS.
+- Dem hoc vien dang hoc, diem trung binh, phan bo trinh do: PASS.
+- Chuyen tab hoc vien, xem ket qua va them hoc vien: PASS.
+- Khong tran ngang o 1440 va 390 px: PASS.
+- Khong co JavaScript page error trong bai thu du lieu mo phong: PASS.
+- Giao dien va mock khong yeu cau ket noi Firebase: PASS.
+- SQL tao bang va RLS: da ra soat cau truc, CHUA chay tren project Supabase that.
+- Dang nhap Supabase, RLS thuc te va ghi du lieu that: CHUA KIEM THU do khong co tai khoan/ket noi du an cua nguoi dung.
+- Anh chup giao dien chua du lieu mau mo phong, KHONG la du lieu hoc vien that.

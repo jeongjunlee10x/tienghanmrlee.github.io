@@ -42,6 +42,10 @@ select,input[type=search],textarea{border:1px solid #cad6e6;background:white;col
   <link rel="stylesheet" href="mrlee-voice.css">
   <link rel="stylesheet" href="mrlee-core.css">
 <link rel="stylesheet" href="mrlee-points.css?v=1">
+<script src="mrlee-deep-topics.js?v=20261010"></script>
+<script defer src="mrlee-deep-ui.js?v=20261010"></script>
+<style id="mrleeDeepStyles">.controls{grid-template-columns:minmax(0,1fr) minmax(130px,160px) 160px auto}.mrlee-situation{font-size:11px;color:#7c5b37;background:#fff5e7;border-radius:7px;padding:5px 8px;margin:8px 0 0}.mrlee-deep-practice{display:inline-flex;text-decoration:none;align-items:center;justify-content:center}@media(max-width:760px){.controls{grid-template-columns:1fr 1fr}.controls input{grid-column:1/-1}}</style>
+<link rel="stylesheet" href="mrlee-engagement.css?v=20261010" />
 </head><body><header class="site-header"><div class="site-header-inner">
 <a class="brand" href="index.html"><img src="images/logo.png" alt="" onerror="this.style.display='none'"/><span>🇰🇷 Tiếng Hàn Mr Lee</span></a>
 <button type="button" class="nav-toggle" id="navToggle" aria-controls="siteNav" aria-expanded="false" aria-label="Mở menu">☰</button>
@@ -51,7 +55,7 @@ select,input[type=search],textarea{border:1px solid #cad6e6;background:white;col
 <div class="summary-stats"><span class="pill" id="topicStat"></span><span class="pill" id="phraseStat"></span><span class="pill" id="favoriteStat">⭐ 0 câu yêu thích</span><span class="pill" id="learnedStat">✓ 0 câu đã học</span></div>
 <div class="phrase-layout"><aside class="panel" aria-label="Chọn chủ đề giao tiếp"><h2 class="panel-title">Danh sách chủ đề</h2><div id="topicMenu" class="topic-menu"></div></aside>
 <section class="panel" aria-labelledby="mainTitle"><div class="heading-line"><div><h2 id="mainTitle">Tất cả mẫu câu</h2><p class="muted" style="font-size:13px;margin:5px 0 0" id="topicDesc">Chọn chủ đề hoặc tìm mẫu câu theo từ khóa.</p></div><div class="study-tools"><button type="button" class="btn light" id="favoriteOnly" aria-pressed="false">☆ Câu đã lưu</button><button type="button" class="btn light" id="flashMode" aria-pressed="false">🃏 Thẻ ôn tập</button></div></div>
-<div class="controls"><input type="search" id="searchPhrases" aria-label="Tìm mẫu câu" placeholder="🔎 Tìm bằng tiếng Việt hoặc tiếng Hàn..." autocomplete="off"><select id="rateSelect" aria-label="Tốc độ phát âm"><option value="0.78">🔊 Chậm · 0.78×</option><option value="0.92" selected>🔊 Bình thường</option><option value="1.05">🔊 Nhanh · 1.05×</option></select><button type="button" class="btn outline" id="randomPhrase">🔀 Câu ngẫu nhiên</button></div>
+<div class="controls"><input type="search" id="searchPhrases" aria-label="Tìm mẫu câu" placeholder="🔎 Tìm bằng tiếng Việt hoặc tiếng Hàn..." autocomplete="off"><select id="mrleeLevelFilter" aria-label="Lọc mẫu câu theo cấp độ"><option value="all">📚 Tất cả trình độ</option><option value="2">Cấp 1–2</option><option value="3">Cấp 3</option><option value="4">Cấp 4</option><option value="5">Cấp 5</option><option value="6">Cấp 6</option></select><select id="rateSelect" aria-label="Tốc độ phát âm"><option value="0.78">🔊 Chậm · 0.78×</option><option value="0.92" selected>🔊 Bình thường</option><option value="1.05">🔊 Nhanh · 1.05×</option></select><button type="button" class="btn outline" id="randomPhrase">🔀 Câu ngẫu nhiên</button></div>
 <div id="browseMode"><p class="counter muted" id="filterCount" aria-live="polite"></p><div class="phrase-grid" id="phraseGrid"></div><div class="row" style="justify-content:center;margin-top:20px"><button type="button" class="btn light" id="moreBtn" hidden>Hiển thị thêm mẫu câu ↓</button></div></div>
 <div id="flashCards" hidden><div class="flash-wrap"><p class="flash-counter" id="flashCounter"></p><div class="flash-prompt" id="flashPrompt"><span class="flash-label">HÃY NHỚ CÂU TIẾNG HÀN TƯƠNG ỨNG</span><div class="vn" id="flashVi"></div><div id="flashAnswer" hidden><div class="ko" lang="ko" id="flashKo"></div><button type="button" class="btn light" id="flashSpeak">🔊 Nghe phát âm</button></div><button type="button" class="btn orange" id="revealFlash">👁️ Hiện đáp án</button></div><div class="flash-controls"><button type="button" class="btn light" id="flashPrev">← Câu trước</button><button type="button" class="btn" id="flashNext">Câu tiếp theo →</button><button type="button" class="btn outline" id="flashShuffle">🔀 Trộn thẻ</button></div><p class="muted" style="text-align:center;font-size:13px">Thử nói thành tiếng trước khi mở đáp án.</p></div></div>
 <p class="notice" style="margin:20px 0 0">Nút 🔊 sử dụng chức năng đọc của trình duyệt, chất giọng có thể khác nhau tùy thiết bị. Câu yêu thích và tiến độ học được lưu trên chính trình duyệt này.</p>
@@ -86,13 +90,15 @@ const TOPICS=[{"id":"greetings","title":"Chào hỏi","icon":"👋","desc":"Gặ
   }
 })();
 /* MRLEE_PARTTIME_TOPICS_V3_END */
-const ALL=TOPICS.flatMap(t=>t.items.map(x=>({...x,topic:t.id,topicTitle:t.title})));
+/* MRLEE-DEEP-TOPICS-V20261010 */
+TOPICS.push(...(window.MRLEE_DEEP_TOPICS || []));
+const ALL=TOPICS.flatMap(t=>t.items.map(x=>({...x,topic:t.id,topicTitle:t.title,level:(x.level||t.level||2)})));
 const KEY='mrlee.phrases.v2';const saved=safeStore.get(KEY,{favorites:[],learned:[]});
 const st={topic:'all',favorites:new Set(Array.isArray(saved.favorites)?saved.favorites:[]),learned:new Set(Array.isArray(saved.learned)?saved.learned:[]),favoritesOnly:false,flash:false,cards:[],flashIndex:0,flashRevealed:false,limit:24};
 const e=id=>document.getElementById(id);
 const clean=str=>String(str).toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d');
 function persist(){safeStore.set(KEY,{favorites:[...st.favorites],learned:[...st.learned]})}
-function visibleCards(){const search=clean(e('searchPhrases').value.trim());return ALL.filter(x=>(st.topic==='all'||x.topic===st.topic)&&(!st.favoritesOnly||st.favorites.has(x.id))&&(!search||clean(x.ko+' '+x.vi+' '+x.topicTitle).includes(search)))}
+function visibleCards(){const search=clean(e('searchPhrases').value.trim());return ALL.filter(x=>(st.topic==='all'||x.topic===st.topic)&&(e('mrleeLevelFilter').value==='all'||(e('mrleeLevelFilter').value==='2'?Number(x.level)<=2:String(x.level)===e('mrleeLevelFilter').value))&&(!st.favoritesOnly||st.favorites.has(x.id))&&(!search||clean(x.ko+' '+x.vi+' '+x.topicTitle).includes(search)))}
 function menu(){e('topicMenu').replaceChildren();const sections=[{id:'all',icon:'🌏',title:'Tất cả chủ đề',items:ALL},...TOPICS];for(const t of sections){const b=document.createElement('button');b.type='button';b.className='topic-btn'+(st.topic===t.id?' active':'');b.innerHTML=`<span>${t.icon} ${escapeHTML(t.title)}</span><span class="count">${t.items.length}</span>`;b.addEventListener('click',()=>{st.topic=t.id;st.limit=24;renderAll()});e('topicMenu').append(b)}}
 function renderAll(){const chosen=TOPICS.find(t=>t.id===st.topic);e('mainTitle').textContent=chosen?`${chosen.icon} ${chosen.title}`:'Tất cả mẫu câu';e('topicDesc').textContent=chosen?chosen.desc:'Chọn chủ đề hoặc tìm mẫu câu theo từ khóa.';e('topicStat').textContent=`📚 ${TOPICS.length} chủ đề`;e('phraseStat').textContent=`💬 ${ALL.length} câu giao tiếp`;e('favoriteStat').textContent=`⭐ ${st.favorites.size} câu yêu thích`;e('learnedStat').textContent=`✓ ${st.learned.size} câu đã học`;e('favoriteOnly').classList.toggle('active',st.favoritesOnly);e('favoriteOnly').setAttribute('aria-pressed',String(st.favoritesOnly));e('favoriteOnly').textContent=st.favoritesOnly?'⭐ Đang xem câu đã lưu':'☆ Câu đã lưu';e('flashMode').setAttribute('aria-pressed',String(st.flash));e('flashMode').classList.toggle('active',st.flash);e('flashMode').textContent=st.flash?'📖 Xem danh sách':'🃏 Thẻ ôn tập';e('browseMode').hidden=st.flash;e('flashCards').hidden=!st.flash;menu();if(st.flash){setupCards()}else{renderCards()}}
 function renderCards(){const visible=visibleCards();e('filterCount').textContent=`Đang hiển thị ${Math.min(visible.length,st.limit)} / ${visible.length} mẫu câu phù hợp`;e('moreBtn').hidden=visible.length<=st.limit;e('moreBtn').textContent=`Hiển thị thêm (${visible.length-Math.min(visible.length,st.limit)} câu còn lại) ↓`;const grid=e('phraseGrid');grid.replaceChildren();if(!visible.length){const x=document.createElement('div');x.className='empty';x.textContent='Chưa có mẫu câu phù hợp. Bạn có thể đổi chủ đề, bỏ lọc yêu thích hoặc thay từ khóa.';grid.append(x);return}
@@ -110,10 +116,12 @@ e('flashSpeak').addEventListener('click',()=>{if(st.cards.length)speakKorean(st.
 e('flashPrev').addEventListener('click',()=>{if(st.flashIndex>0){st.flashIndex--;st.flashRevealed=false;renderFlash()}});
 e('flashNext').addEventListener('click',()=>{if(st.flashIndex<st.cards.length-1){st.flashIndex++;st.flashRevealed=false;renderFlash()}});
 e('flashShuffle').addEventListener('click',()=>{for(let i=st.cards.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[st.cards[i],st.cards[j]]=[st.cards[j],st.cards[i]]}st.flashIndex=0;st.flashRevealed=false;renderFlash();notify('Đã trộn thứ tự thẻ.')});
+e('mrleeLevelFilter').addEventListener('change',()=>{st.topic='all';st.limit=24;renderAll()});
 renderAll();
 </script><script type="module" src="learning-tracker.js"></script>
   <script src="mrlee-voice.js" defer></script>
   <script defer src="mrlee-core.js"></script>
 <!-- MRLEE_POINTS_GATE_V1 --><script type="module" src="mrlee-points-gate.js?v=1"></script>
-<script type="module" src="mrlee-daily-boot.js?v=20261010"></script>
+
+<script type="module" src="mrlee-engagement.js?v=20261010"></script>
 </body></html>

@@ -1,0 +1,81 @@
+MR LEE - TRANG QUAN TRI RIENG, KHONG DUNG FIREBASE
+================================================
+
+1. MUC DICH
+- admin.html: trang quan tri doc lap, tu chua HTML + CSS + JavaScript.
+- supabase-setup.sql: khoi tao CSDL quan tri RIENG va RLS bao mat.
+- Trang Firebase hoc vien HIEN TAI khong bi thay doi.
+- Giao dien admin KHONG cho phep xem danh sach Firebase, tai khoan Auth Firebase
+  hay diem Firestore neu chua co dong bo hoac nhap du lieu sang Supabase.
+
+2. TAO KHO DU LIEU QUAN TRI MIEN PHI
+- Mo https://supabase.com/ va dang ky tai khoan.
+- Tao New Project trong Supabase; chon goi Free neu duoc cung cap.
+- SQL Editor > New Query > dan TOAN BO file supabase-setup.sql > Run.
+- Authentication > Users > Add user: tao EMAIL va MAT KHAU quan tri.
+  Neu tai khoan moi phai xac minh email, hoan tat viec xac minh.
+- Sao chep User UID cua tai khoan quan tri trong Authentication > Users.
+- SQL Editor > New Query > chay SQL nay, thay UID that:
+
+  insert into public.mrlee_admins (user_id)
+  values ('UID-THAT-CUA-ADMIN')
+  on conflict (user_id) do nothing;
+
+- Co the tat dang ky tai khoan tu do trong Authentication settings, vi
+  trang quan tri chi dung tai khoan ban da cap.
+
+3. CHAY TRANG ADMIN
+- Chep admin.html vao thu muc website:
+  C:\Users\Surface\Documents\tienghanmrlee.github.io
+- Thu bang VS Code Live Server hoac Github Pages (HTTPS).
+- Mo admin.html, dien Project URL va Publishable key (hoac anon key cu).
+  Lay 2 gia tri nay tai Supabase Project > Connect hoac Settings > API Keys.
+- CHI dung public/publishable/anon key. KHONG bao gio dat service_role,
+  sb_secret hay mat khau Supabase vao HTML, JavaScript, GitHub.
+- Dang nhap bang EMAIL + MAT KHAU cua Admin trong Supabase Auth.
+
+4. DAY LEN GITHUB PAGES
+  git add admin.html
+  git commit -m "Add separate Mr Lee admin dashboard"
+  git push origin main
+
+URL du kien sau khi GitHub Pages cap nhat:
+https://jeongjunlee10x.github.io/tienghanmrlee.github.io/admin.html
+
+5. CAC CHUC NANG
+- Tong quan: tong hoc vien, dang hoc, so luot ghi diem, diem trung binh,
+  co cau trinh do va ket qua moi.
+- Hoc vien: them, sua, xoa, tim kiem, loc trang thai, nhap/xuat CSV.
+- Ket qua: them, sua, xoa diem theo hoc vien, bai thi, ngay thi.
+- Cai dat: thong tin kho du lieu, bo mau CSV, tai lai du lieu.
+- Phan quyen: Supabase Auth + SQL RLS, chi nguoi duoc cap trong
+  mrlee_admins moi doc/ghi bang hoc vien va diem.
+
+6. RAT QUAN TRONG: CO SO DU LIEU DOC LAP
+Trang Admin nay KHONG su dung Firebase. Vi du lieu hoc vien/hoc tap truoc
+nay nam trong Firestore, kho admin moi SE TRONG cho toi khi:
+  A. Ban tu them hoc vien, nhap diem vao admin; hoac
+  B. Ban xuat du lieu duoc phep su dung thanh CSV roi nhap qua admin; hoac
+  C. Lap trinh backend dong bo du lieu giua Firebase va Supabase.
+C KHONG duoc bao gom trong bo nay. Tuyet doi khong nhung Firebase admin
+credential hoac Supabase secret key vao HTML cong khai.
+
+7. BAO MAT & CHI PHI
+- Public/publishable key duoc thiet ke de dung tren trinh duyet; bao mat
+  den tu Authentication va Row Level Security.
+- SQL khong cho nguoi dung tu phong Admin.
+- Trang Admin HTML co the bi truy cap URL boi bat ky ai, nhung bang
+  du lieu bi bao ve boi RLS; chi tai khoan duoc cap quyen xem duoc.
+- Nhap CSV chi nen dung voi du lieu ban co quyen xu ly; can bao quan
+  file xuat co thong tin ca nhan.
+- Supabase Free co gioi han; neu vuot gioi han, can quan ly muc su dung.
+- Ban code gioi han moi lan tai 1000 hoc vien, 2000 dong diem;
+  neu quan ly quy mo lon, nen bo sung phan trang.
+
+8. KIEM TRA SAU CAI
+- Thu dang nhap bang Admin da cap quyen: xem danh sach, them 1 hoc vien,
+  them diem, sua, nhap/xuat CSV.
+- Thu dang nhap bang email Supabase KHONG cap quyen Admin: phai bi tu choi.
+- Khong can thay doi Firestore Rules, index.html, logo.png, logo2.png.
+
+CHUA KIEM THU LOGIN THAT VOI DU AN SUPABASE CUA BAN.

@@ -4,6 +4,7 @@
  */
 import { waitForUser, loadWallet, SETTINGS } from './mrlee-points-core.js';
 import { SPEAKING_BANK } from './mrlee-speaking-bank.js';
+import { DEEP_SPEAKING_BANK } from './mrlee-speaking-deep.js';
 const page=location.pathname.split('/').pop();
 if(['so-cap-1.html','so-cap-2.html','giao-tiep-theo-chu-de.html'].includes(page)) {
   const root=document.querySelector('main')||document.body;
@@ -28,7 +29,7 @@ if(['so-cap-1.html','so-cap-2.html','giao-tiep-theo-chu-de.html'].includes(page)
     const pick=document.createElement('a');pick.className='mp-lesson-speech';pick.id='mpSelectedSpeaking';pick.href='luyen-noi-tinh-diem.html?tab=topic';pick.textContent='🎤 Luyện nói chủ đề này · Tính điểm';
     const location=title?.parentElement || root;
     location.append(pick);
-    const topicTasks=SPEAKING_BANK.filter(t=>t.kind==='topic');
+    const topicTasks=[...SPEAKING_BANK,...DEEP_SPEAKING_BANK].filter(t=>t.kind==='topic');
     const update=()=>{
       const menu=document.getElementById('topicMenu');
       if(!menu)return;

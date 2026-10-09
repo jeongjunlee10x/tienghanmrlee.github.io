@@ -1,0 +1,9 @@
+HUONG DAN NHAP FIRESTORE RULES - TIENG HAN MR LEE
+
+1. Rules dien tai cua ban co the khac Rules tham khao trong goi. TRUOC TIEN sao luu quy tac dang Publish tren Firebase Console.
+2. File firestore-rules-1-6-streak.rules la ban tham khao GHEP DUA TREN RULES cua bo diem cu. Neu ban da tuy chinh Rules, khong ghi de toan bo.
+3. Trong match /users/{uid}: thay duy nhat khoi match /studyPoints/{pointsId}; them match /dailyCheckins/{dayId}; them cac function wallet... trong cung scope users/{uid}; giu nguyên match /speakingAttempts và thay regex sc1/sc2 thanh sc[1-6].
+4. Neu ban muon cach an toan nhat: sao chep Rules hien tai vao notepad, doi chieu voi file mẫu roi ghep vao.
+5. Firestore Rules la quyen truy cap. Diem phat am do trinh duyet tinh khong duoc xem la ket qua thi chinh thuc.
+6. Thu ket noi tai khoan da xac minh sau khi Publish; neu permission-denied, kiem tra mismatch schema trong Firebase Simulator.
+7. Cac lien ket TOPIK, hinh anh va rules admin Supabase khong can thay doi.

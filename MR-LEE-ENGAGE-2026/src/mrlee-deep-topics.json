@@ -1,0 +1,1550 @@
+[
+  {
+    "id": "advanced3-restaurant",
+    "title": "Cấp 3 · Giải quyết sự cố quán ăn",
+    "level": 3,
+    "icon": "🍜",
+    "desc": "Đối thoại khi phục vụ, xác minh đơn, giải thích sai sót và báo quản lý.",
+    "items": [
+      {
+        "id": "advanced3-restaurant-01",
+        "ko": "주문하신 메뉴를 다시 한번 확인해 드리겠습니다.",
+        "vi": "Tôi sẽ kiểm tra lại món quý khách đã gọi.",
+        "scenario": "Tiếp nhận yêu cầu"
+      },
+      {
+        "id": "advanced3-restaurant-02",
+        "ko": "매운 정도를 조절해 드릴 수 있습니다.",
+        "vi": "Chúng tôi có thể điều chỉnh độ cay cho quý khách.",
+        "scenario": "Tiếp nhận yêu cầu"
+      },
+      {
+        "id": "advanced3-restaurant-03",
+        "ko": "음식에 알레르기가 있으시면 미리 말씀해 주세요.",
+        "vi": "Nếu dị ứng thực phẩm, xin vui lòng báo trước.",
+        "scenario": "Tiếp nhận yêu cầu"
+      },
+      {
+        "id": "advanced3-restaurant-04",
+        "ko": "포장 주문은 준비되는 대로 안내해 드리겠습니다.",
+        "vi": "Chúng tôi sẽ thông báo ngay khi đơn mang đi sẵn sàng.",
+        "scenario": "Tiếp nhận yêu cầu"
+      },
+      {
+        "id": "advanced3-restaurant-05",
+        "ko": "추가 주문이 있으시면 편하게 말씀해 주세요.",
+        "vi": "Nếu muốn gọi thêm, quý khách cứ báo ạ.",
+        "scenario": "Tiếp nhận yêu cầu"
+      },
+      {
+        "id": "advanced3-restaurant-06",
+        "ko": "주문 내용과 다른 음식이 나왔군요.",
+        "vi": "Món mang ra khác với món đã đặt rồi ạ.",
+        "scenario": "Xử lý sai món"
+      },
+      {
+        "id": "advanced3-restaurant-07",
+        "ko": "불편을 드려 죄송합니다. 바로 확인하겠습니다.",
+        "vi": "Rất xin lỗi vì sự bất tiện, tôi sẽ kiểm tra ngay.",
+        "scenario": "Xử lý sai món"
+      },
+      {
+        "id": "advanced3-restaurant-08",
+        "ko": "주방에 다시 요청하겠습니다.",
+        "vi": "Tôi sẽ yêu cầu nhà bếp làm lại.",
+        "scenario": "Xử lý sai món"
+      },
+      {
+        "id": "advanced3-restaurant-09",
+        "ko": "교환해 드리는 데 약 십 분 정도 걸립니다.",
+        "vi": "Việc đổi món mất khoảng mười phút.",
+        "scenario": "Xử lý sai món"
+      },
+      {
+        "id": "advanced3-restaurant-10",
+        "ko": "기다리시는 동안 물을 더 가져다드릴까요?",
+        "vi": "Trong lúc chờ, tôi lấy thêm nước cho quý khách nhé?",
+        "scenario": "Xử lý sai món"
+      },
+      {
+        "id": "advanced3-restaurant-11",
+        "ko": "손님께서 음식이 너무 짜다고 말씀하셨어요.",
+        "vi": "Khách nói rằng món ăn quá mặn ạ.",
+        "scenario": "Trao đổi quản lý"
+      },
+      {
+        "id": "advanced3-restaurant-12",
+        "ko": "이런 상황에서는 어떻게 처리해야 하나요?",
+        "vi": "Trường hợp này tôi cần xử lý thế nào ạ?",
+        "scenario": "Trao đổi quản lý"
+      },
+      {
+        "id": "advanced3-restaurant-13",
+        "ko": "계산 금액이 주문 내역과 다르게 나왔습니다.",
+        "vi": "Số tiền thanh toán khác với đơn đặt món.",
+        "scenario": "Trao đổi quản lý"
+      },
+      {
+        "id": "advanced3-restaurant-14",
+        "ko": "제가 먼저 사과드리고 확인해 보겠습니다.",
+        "vi": "Tôi sẽ xin lỗi trước rồi kiểm tra lại.",
+        "scenario": "Trao đổi quản lý"
+      },
+      {
+        "id": "advanced3-restaurant-15",
+        "ko": "같은 실수가 반복되지 않도록 메모하겠습니다.",
+        "vi": "Tôi sẽ ghi chú để không lặp lại sai sót.",
+        "scenario": "Trao đổi quản lý"
+      },
+      {
+        "id": "advanced3-restaurant-16",
+        "ko": "기다려 주셔서 감사합니다.",
+        "vi": "Cảm ơn quý khách đã chờ.",
+        "scenario": "Kết thúc phục vụ"
+      },
+      {
+        "id": "advanced3-restaurant-17",
+        "ko": "문제가 해결되었는지 확인해도 될까요?",
+        "vi": "Tôi có thể xác nhận sự cố đã được giải quyết chưa ạ?",
+        "scenario": "Kết thúc phục vụ"
+      },
+      {
+        "id": "advanced3-restaurant-18",
+        "ko": "영수증에 표시된 금액을 확인해 주세요.",
+        "vi": "Xin quý khách kiểm tra số tiền trên hóa đơn.",
+        "scenario": "Kết thúc phục vụ"
+      },
+      {
+        "id": "advanced3-restaurant-19",
+        "ko": "다음 방문 때는 더 만족하실 수 있도록 노력하겠습니다.",
+        "vi": "Chúng tôi sẽ cố gắng phục vụ tốt hơn lần sau.",
+        "scenario": "Kết thúc phục vụ"
+      },
+      {
+        "id": "advanced3-restaurant-20",
+        "ko": "소중한 의견을 전해 주셔서 감사합니다.",
+        "vi": "Cảm ơn quý khách đã góp ý.",
+        "scenario": "Kết thúc phục vụ"
+      }
+    ]
+  },
+  {
+    "id": "advanced3-shift",
+    "title": "Cấp 3 · Ca làm và giao việc",
+    "level": 3,
+    "icon": "🕒",
+    "desc": "Điều chỉnh lịch, báo nghỉ, giải thích tiến độ, bàn giao công việc.",
+    "items": [
+      {
+        "id": "advanced3-shift-01",
+        "ko": "수업 시간과 겹치지 않도록 근무표를 조정할 수 있을까요?",
+        "vi": "Có thể điều chỉnh ca để không trùng giờ học của tôi không ạ?",
+        "scenario": "Thỏa thuận lịch"
+      },
+      {
+        "id": "advanced3-shift-02",
+        "ko": "다음 주 금요일에는 학교 행사가 있습니다.",
+        "vi": "Thứ Sáu tuần sau trường tôi có sự kiện.",
+        "scenario": "Thỏa thuận lịch"
+      },
+      {
+        "id": "advanced3-shift-03",
+        "ko": "대신 토요일 오전에 근무할 수 있습니다.",
+        "vi": "Thay vào đó tôi có thể làm sáng thứ Bảy.",
+        "scenario": "Thỏa thuận lịch"
+      },
+      {
+        "id": "advanced3-shift-04",
+        "ko": "가능한 근무 시간을 미리 보내 드리겠습니다.",
+        "vi": "Tôi sẽ gửi trước những khung giờ có thể làm.",
+        "scenario": "Thỏa thuận lịch"
+      },
+      {
+        "id": "advanced3-shift-05",
+        "ko": "변경된 일정은 언제 확인할 수 있을까요?",
+        "vi": "Khi nào tôi có thể xem lịch đã điều chỉnh?",
+        "scenario": "Thỏa thuận lịch"
+      },
+      {
+        "id": "advanced3-shift-06",
+        "ko": "냉장고 재고를 확인하고 기록했습니다.",
+        "vi": "Tôi đã kiểm tra và ghi số lượng hàng trong tủ lạnh.",
+        "scenario": "Bàn giao ca"
+      },
+      {
+        "id": "advanced3-shift-07",
+        "ko": "아직 처리하지 못한 주문이 두 건 있습니다.",
+        "vi": "Vẫn còn hai đơn chưa xử lý.",
+        "scenario": "Bàn giao ca"
+      },
+      {
+        "id": "advanced3-shift-08",
+        "ko": "다음 근무자에게 주의 사항을 전달하겠습니다.",
+        "vi": "Tôi sẽ bàn giao các lưu ý cho người làm ca tiếp theo.",
+        "scenario": "Bàn giao ca"
+      },
+      {
+        "id": "advanced3-shift-09",
+        "ko": "마감 전에 확인해야 할 사항이 있을까요?",
+        "vi": "Có việc gì cần kiểm tra trước khi đóng ca không ạ?",
+        "scenario": "Bàn giao ca"
+      },
+      {
+        "id": "advanced3-shift-10",
+        "ko": "오늘 발생한 문제를 인수인계장에 남겼습니다.",
+        "vi": "Tôi đã ghi sự cố hôm nay vào sổ bàn giao.",
+        "scenario": "Bàn giao ca"
+      },
+      {
+        "id": "advanced3-shift-11",
+        "ko": "기계가 갑자기 작동하지 않습니다.",
+        "vi": "Máy đột nhiên không hoạt động ạ.",
+        "scenario": "Báo sự cố"
+      },
+      {
+        "id": "advanced3-shift-12",
+        "ko": "안전을 위해 전원을 먼저 껐습니다.",
+        "vi": "Tôi đã tắt nguồn trước để bảo đảm an toàn.",
+        "scenario": "Báo sự cố"
+      },
+      {
+        "id": "advanced3-shift-13",
+        "ko": "제가 직접 처리해도 되는 문제인가요?",
+        "vi": "Tôi có được tự xử lý vấn đề này không ạ?",
+        "scenario": "Báo sự cố"
+      },
+      {
+        "id": "advanced3-shift-14",
+        "ko": "손님께 상황을 안내하고 잠시 기다려 달라고 했습니다.",
+        "vi": "Tôi đã giải thích và nhờ khách chờ một chút.",
+        "scenario": "Báo sự cố"
+      },
+      {
+        "id": "advanced3-shift-15",
+        "ko": "복구가 끝나면 바로 보고드리겠습니다.",
+        "vi": "Khi khắc phục xong tôi sẽ báo ngay.",
+        "scenario": "Báo sự cố"
+      },
+      {
+        "id": "advanced3-shift-16",
+        "ko": "아직 익숙하지 않지만 점점 속도가 빨라지고 있습니다.",
+        "vi": "Tôi chưa quen hoàn toàn nhưng đang làm nhanh dần.",
+        "scenario": "Trao đổi phát triển"
+      },
+      {
+        "id": "advanced3-shift-17",
+        "ko": "어떤 부분을 더 연습하면 좋을까요?",
+        "vi": "Tôi nên luyện thêm phần nào ạ?",
+        "scenario": "Trao đổi phát triển"
+      },
+      {
+        "id": "advanced3-shift-18",
+        "ko": "실수한 부분은 다시 확인하겠습니다.",
+        "vi": "Tôi sẽ kiểm tra lại những chỗ mình đã làm sai.",
+        "scenario": "Trao đổi phát triển"
+      },
+      {
+        "id": "advanced3-shift-19",
+        "ko": "우선순위를 정해 주시면 그 순서대로 하겠습니다.",
+        "vi": "Nếu anh/chị xếp mức ưu tiên, tôi sẽ làm theo thứ tự đó.",
+        "scenario": "Trao đổi phát triển"
+      },
+      {
+        "id": "advanced3-shift-20",
+        "ko": "피드백을 주셔서 감사합니다.",
+        "vi": "Cảm ơn anh/chị đã phản hồi.",
+        "scenario": "Trao đổi phát triển"
+      }
+    ]
+  },
+  {
+    "id": "advanced3-rental",
+    "title": "Cấp 3 · Thuê nhà và sửa chữa",
+    "level": 3,
+    "icon": "🏠",
+    "desc": "Xử lý hỏng hóc, hợp đồng, đặt lịch thợ và trao đổi với chủ nhà.",
+    "items": [
+      {
+        "id": "advanced3-rental-01",
+        "ko": "어제부터 온수가 제대로 나오지 않습니다.",
+        "vi": "Từ hôm qua nước nóng không chảy bình thường.",
+        "scenario": "Báo hỏng hóc"
+      },
+      {
+        "id": "advanced3-rental-02",
+        "ko": "난방을 켜도 방이 따뜻해지지 않아요.",
+        "vi": "Dù bật sưởi nhưng phòng không ấm lên.",
+        "scenario": "Báo hỏng hóc"
+      },
+      {
+        "id": "advanced3-rental-03",
+        "ko": "천장에서 물이 조금씩 새고 있습니다.",
+        "vi": "Nước đang rò rỉ từng chút từ trần nhà.",
+        "scenario": "Báo hỏng hóc"
+      },
+      {
+        "id": "advanced3-rental-04",
+        "ko": "사진을 찍어서 보내 드릴까요?",
+        "vi": "Tôi gửi ảnh chụp để anh/chị xem nhé?",
+        "scenario": "Báo hỏng hóc"
+      },
+      {
+        "id": "advanced3-rental-05",
+        "ko": "언제 점검을 받을 수 있을지 알려 주세요.",
+        "vi": "Xin cho biết khi nào có thể kiểm tra.",
+        "scenario": "Báo hỏng hóc"
+      },
+      {
+        "id": "advanced3-rental-06",
+        "ko": "내일 오후에는 집에 있을 예정입니다.",
+        "vi": "Chiều mai tôi dự định ở nhà.",
+        "scenario": "Hẹn sửa chữa"
+      },
+      {
+        "id": "advanced3-rental-07",
+        "ko": "방문 전에 미리 연락해 주시면 좋겠습니다.",
+        "vi": "Mong anh/chị liên hệ trước khi đến.",
+        "scenario": "Hẹn sửa chữa"
+      },
+      {
+        "id": "advanced3-rental-08",
+        "ko": "수리하는 데 얼마나 걸릴까요?",
+        "vi": "Việc sửa chữa sẽ mất bao lâu?",
+        "scenario": "Hẹn sửa chữa"
+      },
+      {
+        "id": "advanced3-rental-09",
+        "ko": "수리 비용을 누가 부담하는지 확인하고 싶습니다.",
+        "vi": "Tôi muốn xác nhận ai chịu chi phí sửa chữa.",
+        "scenario": "Hẹn sửa chữa"
+      },
+      {
+        "id": "advanced3-rental-10",
+        "ko": "점검이 끝나면 결과를 설명해 주세요.",
+        "vi": "Khi kiểm tra xong xin giải thích kết quả.",
+        "scenario": "Hẹn sửa chữa"
+      },
+      {
+        "id": "advanced3-rental-11",
+        "ko": "계약서에 적힌 관리비 항목을 설명해 주시겠어요?",
+        "vi": "Anh/chị giải thích các khoản phí quản lý trong hợp đồng được không?",
+        "scenario": "Điều khoản hợp đồng"
+      },
+      {
+        "id": "advanced3-rental-12",
+        "ko": "보증금 반환 조건을 다시 확인하고 싶습니다.",
+        "vi": "Tôi muốn kiểm tra lại điều kiện hoàn trả tiền cọc.",
+        "scenario": "Điều khoản hợp đồng"
+      },
+      {
+        "id": "advanced3-rental-13",
+        "ko": "계약 기간을 연장하려면 언제 말씀드려야 하나요?",
+        "vi": "Nếu muốn gia hạn thì phải báo trước khi nào?",
+        "scenario": "Điều khoản hợp đồng"
+      },
+      {
+        "id": "advanced3-rental-14",
+        "ko": "퇴실할 때 어떤 절차를 거쳐야 하나요?",
+        "vi": "Khi trả phòng cần làm những thủ tục gì?",
+        "scenario": "Điều khoản hợp đồng"
+      },
+      {
+        "id": "advanced3-rental-15",
+        "ko": "추가 비용이 발생하는 경우를 알고 싶습니다.",
+        "vi": "Tôi muốn biết khi nào phát sinh phụ phí.",
+        "scenario": "Điều khoản hợp đồng"
+      },
+      {
+        "id": "advanced3-rental-16",
+        "ko": "서로 불편하지 않도록 해결 방법을 찾고 싶습니다.",
+        "vi": "Tôi muốn tìm cách giải quyết để đôi bên không bất tiện.",
+        "scenario": "Thương lượng lịch sự"
+      },
+      {
+        "id": "advanced3-rental-17",
+        "ko": "가능하시다면 수리 날짜를 앞당겨 주실 수 있을까요?",
+        "vi": "Nếu được xin dời ngày sửa sớm hơn?",
+        "scenario": "Thương lượng lịch sự"
+      },
+      {
+        "id": "advanced3-rental-18",
+        "ko": "답변을 문자로 남겨 주시면 감사하겠습니다.",
+        "vi": "Mong anh/chị xác nhận bằng tin nhắn.",
+        "scenario": "Thương lượng lịch sự"
+      },
+      {
+        "id": "advanced3-rental-19",
+        "ko": "제가 이해한 내용이 맞는지 확인하겠습니다.",
+        "vi": "Tôi xin xác nhận lại xem mình hiểu đúng chưa.",
+        "scenario": "Thương lượng lịch sự"
+      },
+      {
+        "id": "advanced3-rental-20",
+        "ko": "협조해 주셔서 감사합니다.",
+        "vi": "Cảm ơn anh/chị đã hợp tác.",
+        "scenario": "Thương lượng lịch sự"
+      }
+    ]
+  },
+  {
+    "id": "advanced4-university",
+    "title": "Cấp 4 · Thảo luận và báo cáo nhóm",
+    "level": 4,
+    "icon": "🎓",
+    "desc": "Đề xuất ý tưởng, quản lý tiến độ, phân công trách nhiệm và phản hồi học thuật.",
+    "items": [
+      {
+        "id": "advanced4-university-01",
+        "ko": "오늘 회의의 목표부터 정하면 좋겠습니다.",
+        "vi": "Chúng ta nên xác định mục tiêu cuộc họp trước.",
+        "scenario": "Mở cuộc họp"
+      },
+      {
+        "id": "advanced4-university-02",
+        "ko": "발표 주제를 세 가지로 좁혀 보면 어떨까요?",
+        "vi": "Hay là thu hẹp chủ đề thuyết trình xuống còn ba?",
+        "scenario": "Mở cuộc họp"
+      },
+      {
+        "id": "advanced4-university-03",
+        "ko": "자료 조사에 필요한 범위를 먼저 정하겠습니다.",
+        "vi": "Tôi sẽ xác định phạm vi cần khảo sát tài liệu trước.",
+        "scenario": "Mở cuộc họp"
+      },
+      {
+        "id": "advanced4-university-04",
+        "ko": "각자 의견을 듣고 공통점을 정리하겠습니다.",
+        "vi": "Tôi sẽ nghe ý kiến mọi người rồi tổng hợp điểm chung.",
+        "scenario": "Mở cuộc họp"
+      },
+      {
+        "id": "advanced4-university-05",
+        "ko": "시간이 제한되어 있으니 우선순위를 정합시다.",
+        "vi": "Thời gian có hạn nên hãy xác định ưu tiên.",
+        "scenario": "Mở cuộc họp"
+      },
+      {
+        "id": "advanced4-university-06",
+        "ko": "저는 발표 자료의 첫 부분을 맡겠습니다.",
+        "vi": "Tôi sẽ phụ trách phần đầu slide thuyết trình.",
+        "scenario": "Phân công nhiệm vụ"
+      },
+      {
+        "id": "advanced4-university-07",
+        "ko": "설문 조사 결과를 정리해 주실 수 있나요?",
+        "vi": "Bạn có thể tổng hợp kết quả khảo sát không?",
+        "scenario": "Phân công nhiệm vụ"
+      },
+      {
+        "id": "advanced4-university-08",
+        "ko": "역할을 공평하게 나누는 것이 중요합니다.",
+        "vi": "Chia việc công bằng là điều quan trọng.",
+        "scenario": "Phân công nhiệm vụ"
+      },
+      {
+        "id": "advanced4-university-09",
+        "ko": "자료를 공유 폴더에 올려 주세요.",
+        "vi": "Xin tải tài liệu lên thư mục chung.",
+        "scenario": "Phân công nhiệm vụ"
+      },
+      {
+        "id": "advanced4-university-10",
+        "ko": "초안은 수요일까지 완성하면 좋겠습니다.",
+        "vi": "Tốt nhất nên hoàn thành bản nháp trước thứ Tư.",
+        "scenario": "Phân công nhiệm vụ"
+      },
+      {
+        "id": "advanced4-university-11",
+        "ko": "주장은 흥미롭지만 근거가 조금 부족해 보입니다.",
+        "vi": "Luận điểm thú vị nhưng bằng chứng có vẻ chưa đủ.",
+        "scenario": "Phản hồi có căn cứ"
+      },
+      {
+        "id": "advanced4-university-12",
+        "ko": "해당 자료의 출처를 확인할 필요가 있습니다.",
+        "vi": "Cần kiểm tra nguồn của tài liệu đó.",
+        "scenario": "Phản hồi có căn cứ"
+      },
+      {
+        "id": "advanced4-university-13",
+        "ko": "반대 사례도 함께 검토하면 설득력이 높아질 것입니다.",
+        "vi": "Xem thêm trường hợp đối lập sẽ tăng sức thuyết phục.",
+        "scenario": "Phản hồi có căn cứ"
+      },
+      {
+        "id": "advanced4-university-14",
+        "ko": "이 부분은 그래프로 보여 주는 편이 낫겠습니다.",
+        "vi": "Đoạn này nên trình bày bằng biểu đồ.",
+        "scenario": "Phản hồi có căn cứ"
+      },
+      {
+        "id": "advanced4-university-15",
+        "ko": "제안하신 방법의 장단점을 비교해 보겠습니다.",
+        "vi": "Tôi sẽ so sánh ưu và nhược điểm của cách bạn đề xuất.",
+        "scenario": "Phản hồi có căn cứ"
+      },
+      {
+        "id": "advanced4-university-16",
+        "ko": "결론에 앞서 한계를 명확히 밝혀야 합니다.",
+        "vi": "Trước khi kết luận cần nêu rõ hạn chế.",
+        "scenario": "Kết luận và phản biện"
+      },
+      {
+        "id": "advanced4-university-17",
+        "ko": "질문을 받으면 먼저 핵심을 요약해서 답하겠습니다.",
+        "vi": "Khi nhận câu hỏi tôi sẽ tóm tắt ý chính trước.",
+        "scenario": "Kết luận và phản biện"
+      },
+      {
+        "id": "advanced4-university-18",
+        "ko": "추가 조사가 필요한 부분은 후속 과제로 남기겠습니다.",
+        "vi": "Phần cần nghiên cứu thêm sẽ dành cho bước tiếp theo.",
+        "scenario": "Kết luận và phản biện"
+      },
+      {
+        "id": "advanced4-university-19",
+        "ko": "서로 다른 의견을 존중하면서 결정합시다.",
+        "vi": "Hãy quyết định trong khi tôn trọng ý kiến khác biệt.",
+        "scenario": "Kết luận và phản biện"
+      },
+      {
+        "id": "advanced4-university-20",
+        "ko": "최종 발표 자료를 함께 검토해 주시겠어요?",
+        "vi": "Bạn có thể cùng xem lại slide cuối không?",
+        "scenario": "Kết luận và phản biện"
+      }
+    ]
+  },
+  {
+    "id": "advanced4-customer",
+    "title": "Cấp 4 · Xử lý khiếu nại khách hàng",
+    "level": 4,
+    "icon": "🤝",
+    "desc": "Xác minh khiếu nại, đề xuất giải pháp và ghi nhận phản hồi.",
+    "items": [
+      {
+        "id": "advanced4-customer-01",
+        "ko": "불편을 겪으신 상황을 조금 더 자세히 말씀해 주시겠어요?",
+        "vi": "Xin quý khách mô tả tình huống bất tiện cụ thể hơn được không?",
+        "scenario": "Lắng nghe"
+      },
+      {
+        "id": "advanced4-customer-02",
+        "ko": "말씀하신 내용을 제가 정확히 이해했는지 확인하겠습니다.",
+        "vi": "Tôi xin xác nhận xem mình đã hiểu đúng lời khách chưa.",
+        "scenario": "Lắng nghe"
+      },
+      {
+        "id": "advanced4-customer-03",
+        "ko": "우선 불편을 드린 점 진심으로 사과드립니다.",
+        "vi": "Trước hết chân thành xin lỗi vì đã gây bất tiện.",
+        "scenario": "Lắng nghe"
+      },
+      {
+        "id": "advanced4-customer-04",
+        "ko": "주문 날짜와 영수증 번호를 확인해도 될까요?",
+        "vi": "Tôi có thể kiểm tra ngày đặt hàng và số hóa đơn không?",
+        "scenario": "Lắng nghe"
+      },
+      {
+        "id": "advanced4-customer-05",
+        "ko": "고객님의 의견을 끝까지 듣겠습니다.",
+        "vi": "Tôi sẽ lắng nghe ý kiến của quý khách đến hết.",
+        "scenario": "Lắng nghe"
+      },
+      {
+        "id": "advanced4-customer-06",
+        "ko": "현재 기록을 확인하고 있으니 잠시만 기다려 주세요.",
+        "vi": "Chúng tôi đang kiểm tra hồ sơ, xin chờ một chút.",
+        "scenario": "Kiểm tra nguyên nhân"
+      },
+      {
+        "id": "advanced4-customer-07",
+        "ko": "담당 부서에 사실관계를 문의하겠습니다.",
+        "vi": "Tôi sẽ hỏi bộ phận phụ trách để xác minh sự việc.",
+        "scenario": "Kiểm tra nguyên nhân"
+      },
+      {
+        "id": "advanced4-customer-08",
+        "ko": "시스템 오류인지 입력 실수인지 확인하고 있습니다.",
+        "vi": "Chúng tôi đang kiểm tra lỗi hệ thống hay lỗi nhập liệu.",
+        "scenario": "Kiểm tra nguyên nhân"
+      },
+      {
+        "id": "advanced4-customer-09",
+        "ko": "정확한 원인이 파악되면 바로 설명드리겠습니다.",
+        "vi": "Khi xác định được nguyên nhân, tôi sẽ giải thích ngay.",
+        "scenario": "Kiểm tra nguyên nhân"
+      },
+      {
+        "id": "advanced4-customer-10",
+        "ko": "확인되지 않은 내용은 단정해서 말씀드리지 않겠습니다.",
+        "vi": "Tôi sẽ không khẳng định điều chưa được kiểm chứng.",
+        "scenario": "Kiểm tra nguyên nhân"
+      },
+      {
+        "id": "advanced4-customer-11",
+        "ko": "가능한 해결 방법을 두 가지 안내해 드리겠습니다.",
+        "vi": "Tôi xin đề xuất hai phương án giải quyết.",
+        "scenario": "Đề xuất phương án"
+      },
+      {
+        "id": "advanced4-customer-12",
+        "ko": "교환과 환불 중 어떤 방법을 원하시나요?",
+        "vi": "Quý khách muốn đổi hàng hay hoàn tiền?",
+        "scenario": "Đề xuất phương án"
+      },
+      {
+        "id": "advanced4-customer-13",
+        "ko": "규정에 따라 처리 가능한 범위를 확인하겠습니다.",
+        "vi": "Tôi sẽ kiểm tra phạm vi xử lý theo quy định.",
+        "scenario": "Đề xuất phương án"
+      },
+      {
+        "id": "advanced4-customer-14",
+        "ko": "처리 예상 시간을 미리 알려 드리겠습니다.",
+        "vi": "Tôi sẽ báo trước thời gian xử lý dự kiến.",
+        "scenario": "Đề xuất phương án"
+      },
+      {
+        "id": "advanced4-customer-15",
+        "ko": "원하시는 방법을 최대한 반영하도록 노력하겠습니다.",
+        "vi": "Chúng tôi sẽ cố gắng cân nhắc phương án quý khách mong muốn.",
+        "scenario": "Đề xuất phương án"
+      },
+      {
+        "id": "advanced4-customer-16",
+        "ko": "처리 결과를 문자로 안내해 드려도 될까요?",
+        "vi": "Tôi có thể báo kết quả qua tin nhắn không?",
+        "scenario": "Theo dõi kết quả"
+      },
+      {
+        "id": "advanced4-customer-17",
+        "ko": "같은 문제가 반복되지 않도록 절차를 점검하겠습니다.",
+        "vi": "Chúng tôi sẽ rà soát quy trình để không tái diễn.",
+        "scenario": "Theo dõi kết quả"
+      },
+      {
+        "id": "advanced4-customer-18",
+        "ko": "추가로 확인하실 사항이 있으신가요?",
+        "vi": "Quý khách còn muốn xác nhận điều gì không?",
+        "scenario": "Theo dõi kết quả"
+      },
+      {
+        "id": "advanced4-customer-19",
+        "ko": "불편을 말씀해 주셔서 오히려 감사드립니다.",
+        "vi": "Cảm ơn quý khách đã cho biết vấn đề.",
+        "scenario": "Theo dõi kết quả"
+      },
+      {
+        "id": "advanced4-customer-20",
+        "ko": "끝까지 책임 있게 확인하겠습니다.",
+        "vi": "Chúng tôi sẽ theo dõi đến khi giải quyết xong.",
+        "scenario": "Theo dõi kết quả"
+      }
+    ]
+  },
+  {
+    "id": "advanced4-hospital",
+    "title": "Cấp 4 · Giải thích tình trạng sức khỏe",
+    "level": 4,
+    "icon": "🏥",
+    "desc": "Trình bày triệu chứng, xin giải thích điều trị, xét nghiệm và bảo hiểm.",
+    "items": [
+      {
+        "id": "advanced4-hospital-01",
+        "ko": "증상이 시작된 지 약 사흘 정도 되었습니다.",
+        "vi": "Triệu chứng bắt đầu được khoảng ba ngày.",
+        "scenario": "Mô tả triệu chứng"
+      },
+      {
+        "id": "advanced4-hospital-02",
+        "ko": "처음에는 가벼웠는데 점점 심해졌습니다.",
+        "vi": "Ban đầu nhẹ nhưng ngày càng nặng.",
+        "scenario": "Mô tả triệu chứng"
+      },
+      {
+        "id": "advanced4-hospital-03",
+        "ko": "특정 음식을 먹으면 통증이 더 심해지는 것 같습니다.",
+        "vi": "Có vẻ đau hơn sau khi ăn một số thực phẩm.",
+        "scenario": "Mô tả triệu chứng"
+      },
+      {
+        "id": "advanced4-hospital-04",
+        "ko": "복용 중인 약을 함께 확인해 주시겠어요?",
+        "vi": "Bác sĩ có thể xem cả thuốc tôi đang dùng không?",
+        "scenario": "Mô tả triệu chứng"
+      },
+      {
+        "id": "advanced4-hospital-05",
+        "ko": "기존 병력이 진료에 영향을 줄 수 있는지 궁금합니다.",
+        "vi": "Tôi muốn biết tiền sử bệnh có ảnh hưởng đến việc khám không.",
+        "scenario": "Mô tả triệu chứng"
+      },
+      {
+        "id": "advanced4-hospital-06",
+        "ko": "이 검사는 어떤 목적에서 진행하나요?",
+        "vi": "Xét nghiệm này được thực hiện nhằm mục đích gì ạ?",
+        "scenario": "Hỏi về xét nghiệm"
+      },
+      {
+        "id": "advanced4-hospital-07",
+        "ko": "검사 전에 금식해야 하나요?",
+        "vi": "Tôi có cần nhịn ăn trước xét nghiệm không?",
+        "scenario": "Hỏi về xét nghiệm"
+      },
+      {
+        "id": "advanced4-hospital-08",
+        "ko": "검사 결과는 언제 나오는지 알고 싶습니다.",
+        "vi": "Tôi muốn biết bao giờ có kết quả xét nghiệm.",
+        "scenario": "Hỏi về xét nghiệm"
+      },
+      {
+        "id": "advanced4-hospital-09",
+        "ko": "이상이 발견되면 추가 검사가 필요할까요?",
+        "vi": "Nếu phát hiện bất thường thì có cần kiểm tra thêm không?",
+        "scenario": "Hỏi về xét nghiệm"
+      },
+      {
+        "id": "advanced4-hospital-10",
+        "ko": "검사 과정에서 주의할 점을 설명해 주시겠어요?",
+        "vi": "Xin giải thích những điều cần lưu ý khi xét nghiệm.",
+        "scenario": "Hỏi về xét nghiệm"
+      },
+      {
+        "id": "advanced4-hospital-11",
+        "ko": "약을 복용할 때 피해야 할 음식이 있나요?",
+        "vi": "Có loại thực phẩm nào nên tránh khi dùng thuốc không?",
+        "scenario": "Điều trị"
+      },
+      {
+        "id": "advanced4-hospital-12",
+        "ko": "증상이 나아지지 않으면 언제 다시 방문해야 하나요?",
+        "vi": "Nếu không cải thiện thì khi nào tôi nên tái khám?",
+        "scenario": "Điều trị"
+      },
+      {
+        "id": "advanced4-hospital-13",
+        "ko": "이 치료의 장점과 가능한 부작용을 알고 싶습니다.",
+        "vi": "Tôi muốn biết lợi ích và tác dụng phụ có thể có của điều trị.",
+        "scenario": "Điều trị"
+      },
+      {
+        "id": "advanced4-hospital-14",
+        "ko": "일상생활에서 조심해야 할 활동이 있을까요?",
+        "vi": "Trong sinh hoạt có hoạt động nào cần tránh không?",
+        "scenario": "Điều trị"
+      },
+      {
+        "id": "advanced4-hospital-15",
+        "ko": "설명이 어려워서 쉬운 표현으로 다시 부탁드립니다.",
+        "vi": "Giải thích hơi khó, xin bác sĩ nói lại dễ hiểu hơn.",
+        "scenario": "Điều trị"
+      },
+      {
+        "id": "advanced4-hospital-16",
+        "ko": "건강보험 적용 여부를 확인해 주세요.",
+        "vi": "Xin kiểm tra xét có áp dụng bảo hiểm y tế không.",
+        "scenario": "Bảo hiểm & chứng từ"
+      },
+      {
+        "id": "advanced4-hospital-17",
+        "ko": "본인 부담 금액이 어느 정도인지 궁금합니다.",
+        "vi": "Tôi muốn biết khoảng chi phí tự trả.",
+        "scenario": "Bảo hiểm & chứng từ"
+      },
+      {
+        "id": "advanced4-hospital-18",
+        "ko": "진단서를 발급받으려면 어떻게 해야 하나요?",
+        "vi": "Tôi cần làm gì để được cấp giấy chẩn đoán?",
+        "scenario": "Bảo hiểm & chứng từ"
+      },
+      {
+        "id": "advanced4-hospital-19",
+        "ko": "학교에 제출할 확인서가 필요합니다.",
+        "vi": "Tôi cần giấy xác nhận nộp cho trường.",
+        "scenario": "Bảo hiểm & chứng từ"
+      },
+      {
+        "id": "advanced4-hospital-20",
+        "ko": "영수증과 진료 내역을 함께 받을 수 있을까요?",
+        "vi": "Tôi có thể nhận hóa đơn và chi tiết khám cùng lúc không?",
+        "scenario": "Bảo hiểm & chứng từ"
+      }
+    ]
+  },
+  {
+    "id": "advanced5-policy",
+    "title": "Cấp 5 · Thảo luận chính sách xã hội",
+    "level": 5,
+    "icon": "🏛️",
+    "desc": "Phân tích hiệu quả, mặt trái, giải pháp và lập luận dựa trên dữ liệu.",
+    "items": [
+      {
+        "id": "advanced5-policy-01",
+        "ko": "이 정책의 목적과 실제 효과를 구분해서 살펴봐야 합니다.",
+        "vi": "Cần phân biệt mục tiêu và tác động thực tế của chính sách.",
+        "scenario": "Đặt vấn đề"
+      },
+      {
+        "id": "advanced5-policy-02",
+        "ko": "단기적인 성과만으로 성공 여부를 판단하기는 어렵습니다.",
+        "vi": "Khó đánh giá thành công chỉ dựa trên kết quả ngắn hạn.",
+        "scenario": "Đặt vấn đề"
+      },
+      {
+        "id": "advanced5-policy-03",
+        "ko": "정책 대상에 따라 체감 효과가 다를 수 있습니다.",
+        "vi": "Tác động cảm nhận có thể khác nhau tùy nhóm đối tượng.",
+        "scenario": "Đặt vấn đề"
+      },
+      {
+        "id": "advanced5-policy-04",
+        "ko": "문제를 해결하려면 구조적인 원인도 고려해야 합니다.",
+        "vi": "Để giải quyết cần cân nhắc cả nguyên nhân mang tính cấu trúc.",
+        "scenario": "Đặt vấn đề"
+      },
+      {
+        "id": "advanced5-policy-05",
+        "ko": "현장의 목소리가 충분히 반영되었는지 궁금합니다.",
+        "vi": "Tôi muốn biết ý kiến người trong cuộc đã được phản ánh đủ chưa.",
+        "scenario": "Đặt vấn đề"
+      },
+      {
+        "id": "advanced5-policy-06",
+        "ko": "공공의 이익과 개인의 자유 사이에서 균형이 필요합니다.",
+        "vi": "Cần cân bằng lợi ích công và tự do cá nhân.",
+        "scenario": "Nêu lập luận"
+      },
+      {
+        "id": "advanced5-policy-07",
+        "ko": "통계가 개선되었다고 해서 모든 계층이 혜택을 받는 것은 아닙니다.",
+        "vi": "Chỉ số cải thiện không có nghĩa mọi nhóm đều hưởng lợi.",
+        "scenario": "Nêu lập luận"
+      },
+      {
+        "id": "advanced5-policy-08",
+        "ko": "비용 대비 효과를 객관적으로 검토해야 합니다.",
+        "vi": "Cần đánh giá khách quan hiệu quả so với chi phí.",
+        "scenario": "Nêu lập luận"
+      },
+      {
+        "id": "advanced5-policy-09",
+        "ko": "해외 사례를 그대로 적용하기에는 제도적 차이가 큽니다.",
+        "vi": "Khó áp dụng nguyên mẫu nước ngoài vì khác biệt thể chế lớn.",
+        "scenario": "Nêu lập luận"
+      },
+      {
+        "id": "advanced5-policy-10",
+        "ko": "장기적인 지속 가능성을 함께 따져 봐야 합니다.",
+        "vi": "Cần tính cả khả năng bền vững lâu dài.",
+        "scenario": "Nêu lập luận"
+      },
+      {
+        "id": "advanced5-policy-11",
+        "ko": "그 주장에는 동의하지만 몇 가지 전제가 필요합니다.",
+        "vi": "Tôi đồng ý với luận điểm đó nhưng cần một số tiền đề.",
+        "scenario": "Phản biện thận trọng"
+      },
+      {
+        "id": "advanced5-policy-12",
+        "ko": "반대 의견에도 고려할 만한 근거가 있습니다.",
+        "vi": "Ý kiến trái chiều cũng có căn cứ đáng xem xét.",
+        "scenario": "Phản biện thận trọng"
+      },
+      {
+        "id": "advanced5-policy-13",
+        "ko": "자료의 표본이 전체 인구를 대표하는지 확인해야 합니다.",
+        "vi": "Cần xem mẫu khảo sát có đại diện cho dân số không.",
+        "scenario": "Phản biện thận trọng"
+      },
+      {
+        "id": "advanced5-policy-14",
+        "ko": "상관관계를 인과관계로 해석해서는 안 됩니다.",
+        "vi": "Không nên coi tương quan là quan hệ nhân quả.",
+        "scenario": "Phản biện thận trọng"
+      },
+      {
+        "id": "advanced5-policy-15",
+        "ko": "의도하지 않은 부작용이 발생할 가능성도 있습니다.",
+        "vi": "Cũng có khả năng phát sinh tác dụng ngoài ý muốn.",
+        "scenario": "Phản biện thận trọng"
+      },
+      {
+        "id": "advanced5-policy-16",
+        "ko": "시범 사업을 통해 문제점을 먼저 파악하는 방안을 제안합니다.",
+        "vi": "Tôi đề xuất thí điểm để xác định vấn đề trước.",
+        "scenario": "Đề xuất cải tiến"
+      },
+      {
+        "id": "advanced5-policy-17",
+        "ko": "성과 지표를 투명하게 공개해야 신뢰를 얻을 수 있습니다.",
+        "vi": "Cần công khai chỉ số kết quả để tạo tin cậy.",
+        "scenario": "Đề xuất cải tiến"
+      },
+      {
+        "id": "advanced5-policy-18",
+        "ko": "영향을 받는 집단과 지속적으로 소통해야 합니다.",
+        "vi": "Cần đối thoại liên tục với các nhóm chịu ảnh hưởng.",
+        "scenario": "Đề xuất cải tiến"
+      },
+      {
+        "id": "advanced5-policy-19",
+        "ko": "평가 결과에 따라 정책을 유연하게 조정할 필요가 있습니다.",
+        "vi": "Cần điều chỉnh chính sách linh hoạt theo kết quả đánh giá.",
+        "scenario": "Đề xuất cải tiến"
+      },
+      {
+        "id": "advanced5-policy-20",
+        "ko": "결국 중요한 것은 실행 가능성과 형평성입니다.",
+        "vi": "Điều cốt yếu là tính khả thi và công bằng.",
+        "scenario": "Đề xuất cải tiến"
+      }
+    ]
+  },
+  {
+    "id": "advanced5-project",
+    "title": "Cấp 5 · Quản lý dự án và phối hợp",
+    "level": 5,
+    "icon": "📊",
+    "desc": "Xác định ưu tiên, rủi ro, thương lượng phạm vi và báo cáo tiến độ.",
+    "items": [
+      {
+        "id": "advanced5-project-01",
+        "ko": "이번 프로젝트의 우선 목표를 분명히 할 필요가 있습니다.",
+        "vi": "Cần làm rõ mục tiêu ưu tiên của dự án lần này.",
+        "scenario": "Xác định mục tiêu"
+      },
+      {
+        "id": "advanced5-project-02",
+        "ko": "성과를 측정할 수 있는 기준부터 정합시다.",
+        "vi": "Hãy xác định tiêu chí đo lường kết quả trước.",
+        "scenario": "Xác định mục tiêu"
+      },
+      {
+        "id": "advanced5-project-03",
+        "ko": "업무 범위가 계속 확대되는 점이 우려됩니다.",
+        "vi": "Tôi lo ngại phạm vi công việc đang mở rộng liên tục.",
+        "scenario": "Xác định mục tiêu"
+      },
+      {
+        "id": "advanced5-project-04",
+        "ko": "핵심 일정과 필수 산출물을 다시 정리하겠습니다.",
+        "vi": "Tôi sẽ tổng hợp lại mốc chính và sản phẩm bắt buộc.",
+        "scenario": "Xác định mục tiêu"
+      },
+      {
+        "id": "advanced5-project-05",
+        "ko": "관련 부서의 기대치를 먼저 확인하고 싶습니다.",
+        "vi": "Tôi muốn xác nhận kỳ vọng của các phòng ban liên quan.",
+        "scenario": "Xác định mục tiêu"
+      },
+      {
+        "id": "advanced5-project-06",
+        "ko": "현재 일정대로라면 품질에 영향을 줄 수 있습니다.",
+        "vi": "Nếu theo lịch hiện tại thì chất lượng có thể bị ảnh hưởng.",
+        "scenario": "Quản lý rủi ro"
+      },
+      {
+        "id": "advanced5-project-07",
+        "ko": "예상되는 위험 요소를 사전에 공유하겠습니다.",
+        "vi": "Tôi sẽ chia sẻ trước các rủi ro dự kiến.",
+        "scenario": "Quản lý rủi ro"
+      },
+      {
+        "id": "advanced5-project-08",
+        "ko": "대체 방안의 비용과 효과를 비교해 봅시다.",
+        "vi": "Hãy so sánh chi phí và hiệu quả của phương án thay thế.",
+        "scenario": "Quản lý rủi ro"
+      },
+      {
+        "id": "advanced5-project-09",
+        "ko": "의사 결정이 늦어지면 전체 일정이 밀릴 수 있습니다.",
+        "vi": "Nếu chậm ra quyết định, cả tiến độ có thể bị lùi.",
+        "scenario": "Quản lý rủi ro"
+      },
+      {
+        "id": "advanced5-project-10",
+        "ko": "문제가 커지기 전에 지원을 요청하겠습니다.",
+        "vi": "Tôi sẽ đề nghị hỗ trợ trước khi vấn đề nghiêm trọng.",
+        "scenario": "Quản lý rủi ro"
+      },
+      {
+        "id": "advanced5-project-11",
+        "ko": "현재 자원으로는 모든 요청을 반영하기 어렵습니다.",
+        "vi": "Với nguồn lực hiện tại khó đáp ứng mọi yêu cầu.",
+        "scenario": "Thương lượng phạm vi"
+      },
+      {
+        "id": "advanced5-project-12",
+        "ko": "우선순위가 낮은 기능은 다음 단계로 미루는 것이 어떨까요?",
+        "vi": "Hay chuyển chức năng ít ưu tiên sang giai đoạn sau?",
+        "scenario": "Thương lượng phạm vi"
+      },
+      {
+        "id": "advanced5-project-13",
+        "ko": "추가 작업에는 일정 조정이 필요합니다.",
+        "vi": "Công việc bổ sung cần điều chỉnh lịch.",
+        "scenario": "Thương lượng phạm vi"
+      },
+      {
+        "id": "advanced5-project-14",
+        "ko": "합의한 변경 사항을 문서로 남기겠습니다.",
+        "vi": "Tôi sẽ lưu những thay đổi đã thống nhất thành văn bản.",
+        "scenario": "Thương lượng phạm vi"
+      },
+      {
+        "id": "advanced5-project-15",
+        "ko": "서로의 제약 조건을 이해하고 대안을 찾고 싶습니다.",
+        "vi": "Tôi muốn hiểu giới hạn của đôi bên và tìm phương án khác.",
+        "scenario": "Thương lượng phạm vi"
+      },
+      {
+        "id": "advanced5-project-16",
+        "ko": "예상보다 늦어진 원인을 분석하고 있습니다.",
+        "vi": "Chúng tôi đang phân tích nguyên nhân chậm so với dự kiến.",
+        "scenario": "Báo cáo kết quả"
+      },
+      {
+        "id": "advanced5-project-17",
+        "ko": "수치뿐 아니라 고객 경험의 변화도 함께 보고하겠습니다.",
+        "vi": "Tôi sẽ báo cả số liệu và thay đổi trải nghiệm khách hàng.",
+        "scenario": "Báo cáo kết quả"
+      },
+      {
+        "id": "advanced5-project-18",
+        "ko": "이번 결과를 다음 계획에 반영하겠습니다.",
+        "vi": "Chúng tôi sẽ đưa kết quả này vào kế hoạch tiếp theo.",
+        "scenario": "Báo cáo kết quả"
+      },
+      {
+        "id": "advanced5-project-19",
+        "ko": "성과와 한계를 균형 있게 설명하는 것이 중요합니다.",
+        "vi": "Điều quan trọng là giải thích cân bằng thành tựu và hạn chế.",
+        "scenario": "Báo cáo kết quả"
+      },
+      {
+        "id": "advanced5-project-20",
+        "ko": "공유해 주신 의견을 검토한 뒤 수정안을 제출하겠습니다.",
+        "vi": "Tôi sẽ xem góp ý rồi nộp phương án điều chỉnh.",
+        "scenario": "Báo cáo kết quả"
+      }
+    ]
+  },
+  {
+    "id": "advanced5-sustainability",
+    "title": "Cấp 5 · Tiêu dùng và môi trường",
+    "level": 5,
+    "icon": "🌱",
+    "desc": "Giải thích lựa chọn, đánh giá vòng đời, trách nhiệm doanh nghiệp.",
+    "items": [
+      {
+        "id": "advanced5-sustainability-01",
+        "ko": "친환경 제품이라는 표시만으로 지속 가능성을 판단할 수 없습니다.",
+        "vi": "Không thể chỉ dựa nhãn xanh để xác định tính bền vững.",
+        "scenario": "Tranh luận tiêu dùng"
+      },
+      {
+        "id": "advanced5-sustainability-02",
+        "ko": "소비자의 선택에도 가격과 접근성이라는 제약이 있습니다.",
+        "vi": "Lựa chọn người tiêu dùng bị hạn chế bởi giá và khả năng tiếp cận.",
+        "scenario": "Tranh luận tiêu dùng"
+      },
+      {
+        "id": "advanced5-sustainability-03",
+        "ko": "개인의 실천과 제도적 변화가 함께 이루어져야 합니다.",
+        "vi": "Hành động cá nhân phải đi đôi với thay đổi hệ thống.",
+        "scenario": "Tranh luận tiêu dùng"
+      },
+      {
+        "id": "advanced5-sustainability-04",
+        "ko": "과소비를 줄이는 것이 재활용만큼 중요할 수 있습니다.",
+        "vi": "Giảm tiêu dùng quá mức có thể quan trọng như tái chế.",
+        "scenario": "Tranh luận tiêu dùng"
+      },
+      {
+        "id": "advanced5-sustainability-05",
+        "ko": "기업의 환경 정보를 검증할 방법이 필요합니다.",
+        "vi": "Cần cách kiểm chứng thông tin môi trường doanh nghiệp.",
+        "scenario": "Tranh luận tiêu dùng"
+      },
+      {
+        "id": "advanced5-sustainability-06",
+        "ko": "제품의 생산부터 폐기까지 전체 과정을 살펴봐야 합니다.",
+        "vi": "Cần xem toàn bộ vòng đời từ sản xuất đến thải bỏ.",
+        "scenario": "Đánh giá thông tin"
+      },
+      {
+        "id": "advanced5-sustainability-07",
+        "ko": "환경적 이점이 다른 단계의 부담으로 옮겨갈 수도 있습니다.",
+        "vi": "Lợi ích môi trường có thể chuyển gánh nặng sang giai đoạn khác.",
+        "scenario": "Đánh giá thông tin"
+      },
+      {
+        "id": "advanced5-sustainability-08",
+        "ko": "탄소 배출량의 산정 기준이 무엇인지 확인해야 합니다.",
+        "vi": "Cần xác nhận chuẩn tính lượng phát thải carbon.",
+        "scenario": "Đánh giá thông tin"
+      },
+      {
+        "id": "advanced5-sustainability-09",
+        "ko": "홍보 문구와 실제 성과를 구분해야 합니다.",
+        "vi": "Cần phân biệt lời quảng cáo với thành quả thực tế.",
+        "scenario": "Đánh giá thông tin"
+      },
+      {
+        "id": "advanced5-sustainability-10",
+        "ko": "단일 지표만으로 복잡한 문제를 평가하기는 어렵습니다.",
+        "vi": "Khó đánh giá vấn đề phức tạp bằng một chỉ số.",
+        "scenario": "Đánh giá thông tin"
+      },
+      {
+        "id": "advanced5-sustainability-11",
+        "ko": "말씀하신 우려는 충분히 이해할 수 있습니다.",
+        "vi": "Tôi hoàn toàn hiểu những quan ngại anh/chị nêu.",
+        "scenario": "Phản hồi ý kiến"
+      },
+      {
+        "id": "advanced5-sustainability-12",
+        "ko": "다만 비용을 누가 부담하는지도 중요한 문제입니다.",
+        "vi": "Tuy nhiên ai chịu chi phí cũng là vấn đề quan trọng.",
+        "scenario": "Phản hồi ý kiến"
+      },
+      {
+        "id": "advanced5-sustainability-13",
+        "ko": "저소득층에 미칠 영향을 함께 고려해야 합니다.",
+        "vi": "Cần cân nhắc tác động đến nhóm thu nhập thấp.",
+        "scenario": "Phản hồi ý kiến"
+      },
+      {
+        "id": "advanced5-sustainability-14",
+        "ko": "실현 가능한 대안인지 검토할 시간이 필요합니다.",
+        "vi": "Cần thời gian xem xét phương án có khả thi không.",
+        "scenario": "Phản hồi ý kiến"
+      },
+      {
+        "id": "advanced5-sustainability-15",
+        "ko": "가능한 범위부터 단계적으로 실천하는 방법을 제안합니다.",
+        "vi": "Tôi đề xuất thực hiện từng bước từ phạm vi khả thi.",
+        "scenario": "Phản hồi ý kiến"
+      },
+      {
+        "id": "advanced5-sustainability-16",
+        "ko": "정책과 교육을 함께 추진하면 효과가 높아질 수 있습니다.",
+        "vi": "Kết hợp chính sách và giáo dục có thể tăng hiệu quả.",
+        "scenario": "Đề xuất giải pháp"
+      },
+      {
+        "id": "advanced5-sustainability-17",
+        "ko": "기업이 공개하는 정보를 비교할 기준이 필요합니다.",
+        "vi": "Cần tiêu chí so sánh dữ liệu doanh nghiệp công bố.",
+        "scenario": "Đề xuất giải pháp"
+      },
+      {
+        "id": "advanced5-sustainability-18",
+        "ko": "지역별 상황에 맞는 지원책을 마련해야 합니다.",
+        "vi": "Cần hỗ trợ phù hợp từng địa phương.",
+        "scenario": "Đề xuất giải pháp"
+      },
+      {
+        "id": "advanced5-sustainability-19",
+        "ko": "효과를 주기적으로 평가하고 조정해야 합니다.",
+        "vi": "Cần đánh giá và điều chỉnh hiệu quả định kỳ.",
+        "scenario": "Đề xuất giải pháp"
+      },
+      {
+        "id": "advanced5-sustainability-20",
+        "ko": "지속 가능성은 장기적인 관점에서 판단해야 합니다.",
+        "vi": "Tính bền vững cần được xét từ góc nhìn dài hạn.",
+        "scenario": "Đề xuất giải pháp"
+      }
+    ]
+  },
+  {
+    "id": "advanced6-negotiation",
+    "title": "Cấp 6 · Đàm phán lợi ích nhiều bên",
+    "level": 6,
+    "icon": "⚖️",
+    "desc": "Phân tích lợi ích, nhượng bộ có điều kiện và lập thỏa thuận.",
+    "items": [
+      {
+        "id": "advanced6-negotiation-01",
+        "ko": "서로의 입장보다 근본적인 이해관계를 파악하는 것이 우선입니다.",
+        "vi": "Ưu tiên hiểu lợi ích cốt lõi hơn là lập trường của các bên.",
+        "scenario": "Định khung đàm phán"
+      },
+      {
+        "id": "advanced6-negotiation-02",
+        "ko": "논의할 의제와 합의 가능한 범위를 먼저 정합시다.",
+        "vi": "Hãy xác định chương trình và phạm vi có thể đồng thuận trước.",
+        "scenario": "Định khung đàm phán"
+      },
+      {
+        "id": "advanced6-negotiation-03",
+        "ko": "어느 한쪽의 희생만으로 해결책을 마련하기는 어렵습니다.",
+        "vi": "Khó có giải pháp nếu chỉ một bên chịu thiệt.",
+        "scenario": "Định khung đàm phán"
+      },
+      {
+        "id": "advanced6-negotiation-04",
+        "ko": "장기적인 협력 가능성도 함께 고려해야 합니다.",
+        "vi": "Cần tính đến khả năng hợp tác dài hạn.",
+        "scenario": "Định khung đàm phán"
+      },
+      {
+        "id": "advanced6-negotiation-05",
+        "ko": "신뢰를 유지하면서 이견을 좁히는 방식을 찾겠습니다.",
+        "vi": "Tôi sẽ tìm cách thu hẹp bất đồng và giữ niềm tin.",
+        "scenario": "Định khung đàm phán"
+      },
+      {
+        "id": "advanced6-negotiation-06",
+        "ko": "일정에 유연성을 주신다면 비용 부담을 조정할 수 있습니다.",
+        "vi": "Nếu linh hoạt tiến độ, chúng tôi có thể điều chỉnh chia sẻ chi phí.",
+        "scenario": "Đề xuất có điều kiện"
+      },
+      {
+        "id": "advanced6-negotiation-07",
+        "ko": "해당 조건을 수용하려면 추가적인 보장이 필요합니다.",
+        "vi": "Để chấp nhận điều kiện đó cần bảo đảm bổ sung.",
+        "scenario": "Đề xuất có điều kiện"
+      },
+      {
+        "id": "advanced6-negotiation-08",
+        "ko": "상호 이익이 되는 대안을 마련해 보겠습니다.",
+        "vi": "Tôi sẽ tìm phương án cùng có lợi.",
+        "scenario": "Đề xuất có điều kiện"
+      },
+      {
+        "id": "advanced6-negotiation-09",
+        "ko": "우선 시범적으로 적용한 뒤 결과를 평가하는 방안은 어떻습니까?",
+        "vi": "Hay thử nghiệm trước rồi đánh giá kết quả?",
+        "scenario": "Đề xuất có điều kiện"
+      },
+      {
+        "id": "advanced6-negotiation-10",
+        "ko": "양측의 책임 범위를 명확히 할 것을 제안합니다.",
+        "vi": "Tôi đề xuất làm rõ phạm vi trách nhiệm của hai bên.",
+        "scenario": "Đề xuất có điều kiện"
+      },
+      {
+        "id": "advanced6-negotiation-11",
+        "ko": "현재 쟁점이 무엇인지 다시 정리할 필요가 있습니다.",
+        "vi": "Cần tổng hợp lại điểm bất đồng hiện tại.",
+        "scenario": "Xử lý bế tắc"
+      },
+      {
+        "id": "advanced6-negotiation-12",
+        "ko": "감정적인 표현보다 구체적인 근거에 집중하겠습니다.",
+        "vi": "Tôi sẽ tập trung vào căn cứ thay vì biểu đạt cảm tính.",
+        "scenario": "Xử lý bế tắc"
+      },
+      {
+        "id": "advanced6-negotiation-13",
+        "ko": "합의되지 않은 부분은 별도로 검토해도 좋겠습니다.",
+        "vi": "Phần chưa thống nhất có thể xem xét riêng.",
+        "scenario": "Xử lý bế tắc"
+      },
+      {
+        "id": "advanced6-negotiation-14",
+        "ko": "당장의 결론보다 지속 가능한 합의가 중요합니다.",
+        "vi": "Đồng thuận bền vững quan trọng hơn kết luận vội vàng.",
+        "scenario": "Xử lý bế tắc"
+      },
+      {
+        "id": "advanced6-negotiation-15",
+        "ko": "중립적인 검토 절차를 도입하는 방법도 있습니다.",
+        "vi": "Cũng có thể áp dụng thủ tục đánh giá trung lập.",
+        "scenario": "Xử lý bế tắc"
+      },
+      {
+        "id": "advanced6-negotiation-16",
+        "ko": "합의한 내용을 문서로 확인하고 싶습니다.",
+        "vi": "Tôi muốn xác nhận các nội dung thống nhất bằng văn bản.",
+        "scenario": "Chốt thỏa thuận"
+      },
+      {
+        "id": "advanced6-negotiation-17",
+        "ko": "이행 상황을 점검할 공동 기준을 정합시다.",
+        "vi": "Hãy xác lập tiêu chí chung để theo dõi thực hiện.",
+        "scenario": "Chốt thỏa thuận"
+      },
+      {
+        "id": "advanced6-negotiation-18",
+        "ko": "예상치 못한 상황에 대비한 조항이 필요합니다.",
+        "vi": "Cần điều khoản dự phòng tình huống bất ngờ.",
+        "scenario": "Chốt thỏa thuận"
+      },
+      {
+        "id": "advanced6-negotiation-19",
+        "ko": "책임과 기한을 명확히 하면 오해를 줄일 수 있습니다.",
+        "vi": "Làm rõ trách nhiệm và hạn sẽ giảm hiểu lầm.",
+        "scenario": "Chốt thỏa thuận"
+      },
+      {
+        "id": "advanced6-negotiation-20",
+        "ko": "이번 합의가 신뢰 회복의 계기가 되기를 바랍니다.",
+        "vi": "Mong thỏa thuận này là cơ hội khôi phục niềm tin.",
+        "scenario": "Chốt thỏa thuận"
+      }
+    ]
+  },
+  {
+    "id": "advanced6-ai-ethics",
+    "title": "Cấp 6 · Tranh luận đạo đức AI",
+    "level": 6,
+    "icon": "🧠",
+    "desc": "Phân tích tác động thuật toán, thiên lệch dữ liệu và trách nhiệm giải trình.",
+    "items": [
+      {
+        "id": "advanced6-ai-ethics-01",
+        "ko": "인공지능의 효율성만으로 사회적 가치를 판단할 수는 없습니다.",
+        "vi": "Không thể đánh giá giá trị xã hội của AI chỉ theo hiệu suất.",
+        "scenario": "Định nghĩa vấn đề"
+      },
+      {
+        "id": "advanced6-ai-ethics-02",
+        "ko": "기술적 가능성과 윤리적 정당성은 별개의 문제입니다.",
+        "vi": "Khả thi kỹ thuật và chính đáng đạo đức là hai vấn đề khác nhau.",
+        "scenario": "Định nghĩa vấn đề"
+      },
+      {
+        "id": "advanced6-ai-ethics-03",
+        "ko": "자동화된 결정이 개인에게 미치는 영향을 검토해야 합니다.",
+        "vi": "Cần xem tác động của quyết định tự động đến cá nhân.",
+        "scenario": "Định nghĩa vấn đề"
+      },
+      {
+        "id": "advanced6-ai-ethics-04",
+        "ko": "데이터 수집 과정의 동의가 충분했는지 확인해야 합니다.",
+        "vi": "Cần xác định quá trình thu dữ liệu có đồng thuận đầy đủ không.",
+        "scenario": "Định nghĩa vấn đề"
+      },
+      {
+        "id": "advanced6-ai-ethics-05",
+        "ko": "책임 소재가 불명확한 구조는 위험을 키울 수 있습니다.",
+        "vi": "Cấu trúc trách nhiệm không rõ có thể tăng rủi ro.",
+        "scenario": "Định nghĩa vấn đề"
+      },
+      {
+        "id": "advanced6-ai-ethics-06",
+        "ko": "학습 데이터에 편향이 있다면 결과도 왜곡될 수 있습니다.",
+        "vi": "Nếu dữ liệu huấn luyện lệch thì kết quả có thể méo mó.",
+        "scenario": "Phân tích thiên lệch"
+      },
+      {
+        "id": "advanced6-ai-ethics-07",
+        "ko": "평균적인 정확도가 소수 집단의 피해를 가릴 수도 있습니다.",
+        "vi": "Độ chính xác trung bình có thể che lấp tổn hại nhóm thiểu số.",
+        "scenario": "Phân tích thiên lệch"
+      },
+      {
+        "id": "advanced6-ai-ethics-08",
+        "ko": "공정성을 평가하는 기준 자체도 논쟁의 대상입니다.",
+        "vi": "Bản thân tiêu chí công bằng cũng gây tranh luận.",
+        "scenario": "Phân tích thiên lệch"
+      },
+      {
+        "id": "advanced6-ai-ethics-09",
+        "ko": "모델의 한계를 사용자에게 투명하게 알려야 합니다.",
+        "vi": "Cần thông báo minh bạch cho người dùng về hạn chế mô hình.",
+        "scenario": "Phân tích thiên lệch"
+      },
+      {
+        "id": "advanced6-ai-ethics-10",
+        "ko": "예상하지 못한 결과가 나타나면 재평가해야 합니다.",
+        "vi": "Nếu xuất hiện hệ quả ngoài dự kiến cần đánh giá lại.",
+        "scenario": "Phân tích thiên lệch"
+      },
+      {
+        "id": "advanced6-ai-ethics-11",
+        "ko": "규제가 혁신을 막는다는 주장에는 조건이 빠져 있습니다.",
+        "vi": "Lập luận quy định cản đổi mới đang thiếu một số điều kiện.",
+        "scenario": "Phản biện chính sách"
+      },
+      {
+        "id": "advanced6-ai-ethics-12",
+        "ko": "위험 수준에 따라 차등적인 감독을 적용할 수 있습니다.",
+        "vi": "Có thể giám sát khác nhau theo mức rủi ro.",
+        "scenario": "Phản biện chính sách"
+      },
+      {
+        "id": "advanced6-ai-ethics-13",
+        "ko": "설명 가능성과 개인정보 보호가 충돌하는 경우도 있습니다.",
+        "vi": "Đôi khi tính giải thích được và bảo mật dữ liệu xung đột.",
+        "scenario": "Phản biện chính sách"
+      },
+      {
+        "id": "advanced6-ai-ethics-14",
+        "ko": "시민의 의견이 기술 설계에 반영되어야 합니다.",
+        "vi": "Ý kiến công dân cần phản ánh vào thiết kế công nghệ.",
+        "scenario": "Phản biện chính sách"
+      },
+      {
+        "id": "advanced6-ai-ethics-15",
+        "ko": "규제의 실효성을 지속적으로 검증해야 합니다.",
+        "vi": "Cần liên tục kiểm chứng hiệu lực quy định.",
+        "scenario": "Phản biện chính sách"
+      },
+      {
+        "id": "advanced6-ai-ethics-16",
+        "ko": "이해관계자가 함께 참여하는 평가 체계를 제안합니다.",
+        "vi": "Tôi đề xuất hệ thống đánh giá có nhiều bên tham gia.",
+        "scenario": "Đề xuất quản trị"
+      },
+      {
+        "id": "advanced6-ai-ethics-17",
+        "ko": "중대한 결정에는 인간의 검토 절차가 필요합니다.",
+        "vi": "Quyết định trọng yếu cần có quy trình con người rà soát.",
+        "scenario": "Đề xuất quản trị"
+      },
+      {
+        "id": "advanced6-ai-ethics-18",
+        "ko": "피해가 발생했을 때 구제 절차를 마련해야 합니다.",
+        "vi": "Cần có quy trình khắc phục khi có thiệt hại.",
+        "scenario": "Đề xuất quản trị"
+      },
+      {
+        "id": "advanced6-ai-ethics-19",
+        "ko": "공개 가능한 범위에서 검증 결과를 공유해야 합니다.",
+        "vi": "Nên chia sẻ kết quả kiểm chứng trong phạm vi có thể công khai.",
+        "scenario": "Đề xuất quản trị"
+      },
+      {
+        "id": "advanced6-ai-ethics-20",
+        "ko": "기술을 둘러싼 논의는 사회적 합의를 전제로 해야 합니다.",
+        "vi": "Thảo luận quanh công nghệ nên dựa trên đồng thuận xã hội.",
+        "scenario": "Đề xuất quản trị"
+      }
+    ]
+  },
+  {
+    "id": "advanced6-academic",
+    "title": "Cấp 6 · Phản biện và trình bày học thuật",
+    "level": 6,
+    "icon": "📚",
+    "desc": "Bảo vệ phương pháp, phản biện dữ liệu, giới hạn nghiên cứu và đóng góp.",
+    "items": [
+      {
+        "id": "advanced6-academic-01",
+        "ko": "본 연구는 기존 접근법의 한계를 보완하고자 합니다.",
+        "vi": "Nghiên cứu này nhằm bổ khuyết hạn chế của cách tiếp cận cũ.",
+        "scenario": "Đề xuất luận điểm"
+      },
+      {
+        "id": "advanced6-academic-02",
+        "ko": "문제 설정에 따라 결론이 달라질 수 있다는 점에 주목했습니다.",
+        "vi": "Tôi chú ý rằng kết luận thay đổi tùy cách đặt vấn đề.",
+        "scenario": "Đề xuất luận điểm"
+      },
+      {
+        "id": "advanced6-academic-03",
+        "ko": "연구 질문을 더 명확히 정의할 필요가 있습니다.",
+        "vi": "Cần định nghĩa rõ hơn câu hỏi nghiên cứu.",
+        "scenario": "Đề xuất luận điểm"
+      },
+      {
+        "id": "advanced6-academic-04",
+        "ko": "이번 발표에서는 핵심 가설과 검증 과정을 중심으로 설명하겠습니다.",
+        "vi": "Bài này tập trung giải thích giả thuyết và quy trình kiểm chứng.",
+        "scenario": "Đề xuất luận điểm"
+      },
+      {
+        "id": "advanced6-academic-05",
+        "ko": "선행 연구와의 차별성을 먼저 말씀드리겠습니다.",
+        "vi": "Tôi xin trình bày điểm khác biệt với nghiên cứu trước.",
+        "scenario": "Đề xuất luận điểm"
+      },
+      {
+        "id": "advanced6-academic-06",
+        "ko": "표본 선정 과정에서 발생할 수 있는 편향을 최소화했습니다.",
+        "vi": "Chúng tôi đã giảm tối đa thiên lệch khi chọn mẫu.",
+        "scenario": "Giải thích phương pháp"
+      },
+      {
+        "id": "advanced6-academic-07",
+        "ko": "이 방법을 선택한 이유는 재현 가능성 때문입니다.",
+        "vi": "Tôi chọn phương pháp này vì tính tái lập.",
+        "scenario": "Giải thích phương pháp"
+      },
+      {
+        "id": "advanced6-academic-08",
+        "ko": "변수 간 영향을 구분하기 위해 추가 분석을 실시했습니다.",
+        "vi": "Đã phân tích thêm để phân biệt ảnh hưởng giữa các biến.",
+        "scenario": "Giải thích phương pháp"
+      },
+      {
+        "id": "advanced6-academic-09",
+        "ko": "연구 조건을 통제하는 데 일정한 한계가 있었습니다.",
+        "vi": "Việc kiểm soát điều kiện nghiên cứu có một số hạn chế.",
+        "scenario": "Giải thích phương pháp"
+      },
+      {
+        "id": "advanced6-academic-10",
+        "ko": "해석 과정에서 대안적 설명도 함께 검토했습니다.",
+        "vi": "Khi diễn giải tôi xem xét cả cách giải thích thay thế.",
+        "scenario": "Giải thích phương pháp"
+      },
+      {
+        "id": "advanced6-academic-11",
+        "ko": "지적하신 부분은 타당하며 수정 과정에 반영하겠습니다.",
+        "vi": "Nhận xét của thầy/cô xác đáng, tôi sẽ đưa vào sửa chữa.",
+        "scenario": "Trả lời phản biện"
+      },
+      {
+        "id": "advanced6-academic-12",
+        "ko": "다만 그 결과를 일반화하기에는 근거가 부족합니다.",
+        "vi": "Tuy nhiên bằng chứng chưa đủ để khái quát kết quả đó.",
+        "scenario": "Trả lời phản biện"
+      },
+      {
+        "id": "advanced6-academic-13",
+        "ko": "해당 비판이 어떤 가정에 기반하는지 확인하고 싶습니다.",
+        "vi": "Tôi muốn xác nhận phê bình đó dựa trên giả định nào.",
+        "scenario": "Trả lời phản biện"
+      },
+      {
+        "id": "advanced6-academic-14",
+        "ko": "추가 자료를 통해 가설을 다시 검증하겠습니다.",
+        "vi": "Tôi sẽ kiểm chứng lại giả thuyết bằng dữ liệu thêm.",
+        "scenario": "Trả lời phản biện"
+      },
+      {
+        "id": "advanced6-academic-15",
+        "ko": "제 주장에도 적용 범위의 한계가 있다는 점을 인정합니다.",
+        "vi": "Tôi thừa nhận luận điểm của mình cũng có phạm vi giới hạn.",
+        "scenario": "Trả lời phản biện"
+      },
+      {
+        "id": "advanced6-academic-16",
+        "ko": "이번 결과는 후속 연구를 위한 출발점이 될 수 있습니다.",
+        "vi": "Kết quả lần này có thể là điểm khởi đầu cho nghiên cứu sau.",
+        "scenario": "Kết luận nghiên cứu"
+      },
+      {
+        "id": "advanced6-academic-17",
+        "ko": "실무에 적용하기 전에 외부 검증이 필요합니다.",
+        "vi": "Trước khi áp dụng thực tế cần kiểm chứng độc lập.",
+        "scenario": "Kết luận nghiên cứu"
+      },
+      {
+        "id": "advanced6-academic-18",
+        "ko": "예외 사례를 충분히 설명하지 못한 점이 한계입니다.",
+        "vi": "Hạn chế là chưa giải thích đầy đủ trường hợp ngoại lệ.",
+        "scenario": "Kết luận nghiên cứu"
+      },
+      {
+        "id": "advanced6-academic-19",
+        "ko": "연구의 기여와 남은 과제를 구분해 말씀드리겠습니다.",
+        "vi": "Tôi sẽ phân biệt đóng góp và việc còn phải làm.",
+        "scenario": "Kết luận nghiên cứu"
+      },
+      {
+        "id": "advanced6-academic-20",
+        "ko": "토론을 통해 더 나은 해석에 도달하기를 기대합니다.",
+        "vi": "Mong qua thảo luận đạt cách diễn giải tốt hơn.",
+        "scenario": "Kết luận nghiên cứu"
+      }
+    ]
+  }
+]

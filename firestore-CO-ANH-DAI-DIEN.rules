@@ -1,0 +1,275 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+    function verified() {
+      return signedIn() && request.auth.token.email_verified == true;
+    }
+    function owner(uid) {
+      return verified() && request.auth.uid == uid;
+    }
+    function profileValid() {
+      return request.resource.data.keys().hasOnly(['displayName', 'createdAt', 'updatedAt'])
+        && request.resource.data.keys().hasAll(['displayName', 'createdAt', 'updatedAt'])
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() >= 2
+        && request.resource.data.displayName.size() <= 80
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.updatedAt is timestamp;
+    }
+    function noteValid() {
+      return request.resource.data.keys().hasOnly(['text', 'createdAt', 'updatedAt'])
+        && request.resource.data.keys().hasAll(['text', 'createdAt', 'updatedAt'])
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 2000
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.updatedAt is timestamp;
+    }
+
+    // Hồ sơ: học viên chỉ xem và sửa tên của chính mình.
+    // Không chứa role/admin/grade vì người dùng có thể sửa dữ liệu phía trình duyệt.
+    match /users/{uid} {
+// DÁN KHỐI NÀY VÀO BÊN TRONG match /users/{uid} { ... }
+// Không dán ở ngoài service cloud.firestore.
+// ===== MRLEE AVATAR RULES BEGIN =====
+match /avatars/{avatarId} {
+  // Học viên phải đăng nhập, xác minh email, và là chủ UID.
+  allow get: if request.auth != null
+    && request.auth.token.email_verified == true
+    && request.auth.uid == uid
+    && avatarId == 'profile';
+  allow list: if false;
+  allow create, update: if request.auth != null
+    && request.auth.token.email_verified == true
+    && request.auth.uid == uid
+    && avatarId == 'profile'
+    && request.resource.data.keys().hasOnly(['imageData', 'updatedAt'])
+    && request.resource.data.keys().hasAll(['imageData', 'updatedAt'])
+    && request.resource.data.imageData is string
+    && request.resource.data.imageData.size() <= 145000
+    && request.resource.data.imageData.matches('^data:image/jpeg;base64,[A-Za-z0-9+/=]+
+      allow get: if owner(uid);
+      allow list: if false;
+      allow create: if owner(uid)
+        && profileValid()
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+      allow update: if owner(uid)
+        && profileValid()
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.updatedAt == request.time
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName', 'updatedAt']);
+      allow delete: if false;
+
+      // Nhật ký học tập: chỉ tài khoản đã xác minh được tạo/xem lịch sử của chính mình.
+      // Dữ liệu do trình duyệt gửi chỉ là hoạt động tham khảo, có thể bị giả mạo.
+      match /learningEvents/{eventId} {
+        allow get: if owner(uid);
+        allow list: if owner(uid) && request.query.limit <= 100;
+        allow create: if owner(uid)
+          && request.resource.data.keys().hasOnly(['kind','page','title','detail','createdAt'])
+          && request.resource.data.keys().hasAll(['kind','page','title','detail','createdAt'])
+          && request.resource.data.kind in ['visit','lesson','topic','practice']
+          && request.resource.data.page is string
+          && request.resource.data.page.size() <= 60
+          && request.resource.data.page.matches('^[a-z0-9-]+[.]html$')
+          && request.resource.data.title is string
+          && request.resource.data.title.size() >= 1
+          && request.resource.data.title.size() <= 110
+          && request.resource.data.detail is string
+          && request.resource.data.detail.size() <= 110
+          && request.resource.data.createdAt is timestamp
+          && request.resource.data.createdAt == request.time;
+        allow update, delete: if false;
+      }
+
+      // KẾT QUẢ LUYỆN TẬP, không phải điểm thi chính thức (examResults).
+      // Điểm từ JavaScript không thể được xác thực bằng Security Rules.
+      match /practiceAttempts/{attemptId} {
+        allow get: if owner(uid);
+        allow list: if owner(uid) && request.query.limit <= 100;
+        allow create: if owner(uid)
+          && request.resource.data.keys().hasOnly(['examId','examTitle','level','score','total','durationSeconds','source','createdAt'])
+          && request.resource.data.keys().hasAll(['examId','examTitle','level','score','total','durationSeconds','source','createdAt'])
+          && request.resource.data.examId is string
+          && request.resource.data.examId.matches('^[a-z0-9-]{1,60}$')
+          && request.resource.data.examTitle is string
+          && request.resource.data.examTitle.size() >= 1
+          && request.resource.data.examTitle.size() <= 110
+          && request.resource.data.level in ['sc1','sc2','tc1','general']
+          && request.resource.data.score is int
+          && request.resource.data.total is int
+          && request.resource.data.total >= 1
+          && request.resource.data.total <= 100
+          && request.resource.data.score >= 0
+          && request.resource.data.score <= request.resource.data.total
+          && request.resource.data.durationSeconds is int
+          && request.resource.data.durationSeconds >= 0
+          && request.resource.data.durationSeconds <= 7200
+          && request.resource.data.source == 'client_practice'
+          && request.resource.data.createdAt is timestamp
+          && request.resource.data.createdAt == request.time;
+        allow update, delete: if false;
+      }
+
+      // Sổ tay cá nhân, không học viên nào đọc được ghi chú của người khác.
+      match /notes/{noteId} {
+        allow get, list: if owner(uid);
+        allow create: if owner(uid)
+          && noteValid()
+          && request.resource.data.createdAt == request.time
+          && request.resource.data.updatedAt == request.time;
+        allow update: if owner(uid)
+          && noteValid()
+          && request.resource.data.createdAt == resource.data.createdAt
+          && request.resource.data.updatedAt == request.time
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text', 'updatedAt']);
+        allow delete: if owner(uid);
+      }
+    }
+
+    // Bài học riêng: CHỈ lưu tại Firestore, không đặt bản sao HTML/PDF công khai.
+    // Quản trị viên tạo/sửa qua Firebase Console hoặc backend đáng tin cậy.
+    match /secureLessons/{lessonId} {
+      allow get, list: if verified();
+      allow create, update, delete: if false;
+    }
+
+    // Đề riêng chỉ dành cho tài khoản email đã xác minh.
+    // Chú ý: đáp án nằm trong tài liệu tải về có thể bị xem; không dùng để tổ chức thi chống gian lận.
+    match /secureExams/{examId} {
+      allow get, list: if verified();
+      allow create, update, delete: if false;
+    }
+
+    // Kết quả thi chính thức: chỉ đọc kết quả của mình.
+    // Trình duyệt không thể tự tạo/sửa điểm; cần Cloud Functions hoặc server Admin SDK.
+    match /examResults/{uid}/attempts/{attemptId} {
+      allow get, list: if owner(uid);
+      allow create, update, delete: if false;
+    }
+
+    // Không có quyền mặc định cho các collection khác.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+)
+    && request.resource.data.updatedAt == request.time;
+  allow delete: if request.auth != null
+    && request.auth.token.email_verified == true
+    && request.auth.uid == uid
+    && avatarId == 'profile';
+}
+// ===== MRLEE AVATAR RULES END =====
+      allow get: if owner(uid);
+      allow list: if false;
+      allow create: if owner(uid)
+        && profileValid()
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+      allow update: if owner(uid)
+        && profileValid()
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.updatedAt == request.time
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName', 'updatedAt']);
+      allow delete: if false;
+
+      // Nhật ký học tập: chỉ tài khoản đã xác minh được tạo/xem lịch sử của chính mình.
+      // Dữ liệu do trình duyệt gửi chỉ là hoạt động tham khảo, có thể bị giả mạo.
+      match /learningEvents/{eventId} {
+        allow get: if owner(uid);
+        allow list: if owner(uid) && request.query.limit <= 100;
+        allow create: if owner(uid)
+          && request.resource.data.keys().hasOnly(['kind','page','title','detail','createdAt'])
+          && request.resource.data.keys().hasAll(['kind','page','title','detail','createdAt'])
+          && request.resource.data.kind in ['visit','lesson','topic','practice']
+          && request.resource.data.page is string
+          && request.resource.data.page.size() <= 60
+          && request.resource.data.page.matches('^[a-z0-9-]+[.]html$')
+          && request.resource.data.title is string
+          && request.resource.data.title.size() >= 1
+          && request.resource.data.title.size() <= 110
+          && request.resource.data.detail is string
+          && request.resource.data.detail.size() <= 110
+          && request.resource.data.createdAt is timestamp
+          && request.resource.data.createdAt == request.time;
+        allow update, delete: if false;
+      }
+
+      // KẾT QUẢ LUYỆN TẬP, không phải điểm thi chính thức (examResults).
+      // Điểm từ JavaScript không thể được xác thực bằng Security Rules.
+      match /practiceAttempts/{attemptId} {
+        allow get: if owner(uid);
+        allow list: if owner(uid) && request.query.limit <= 100;
+        allow create: if owner(uid)
+          && request.resource.data.keys().hasOnly(['examId','examTitle','level','score','total','durationSeconds','source','createdAt'])
+          && request.resource.data.keys().hasAll(['examId','examTitle','level','score','total','durationSeconds','source','createdAt'])
+          && request.resource.data.examId is string
+          && request.resource.data.examId.matches('^[a-z0-9-]{1,60}$')
+          && request.resource.data.examTitle is string
+          && request.resource.data.examTitle.size() >= 1
+          && request.resource.data.examTitle.size() <= 110
+          && request.resource.data.level in ['sc1','sc2','tc1','general']
+          && request.resource.data.score is int
+          && request.resource.data.total is int
+          && request.resource.data.total >= 1
+          && request.resource.data.total <= 100
+          && request.resource.data.score >= 0
+          && request.resource.data.score <= request.resource.data.total
+          && request.resource.data.durationSeconds is int
+          && request.resource.data.durationSeconds >= 0
+          && request.resource.data.durationSeconds <= 7200
+          && request.resource.data.source == 'client_practice'
+          && request.resource.data.createdAt is timestamp
+          && request.resource.data.createdAt == request.time;
+        allow update, delete: if false;
+      }
+
+      // Sổ tay cá nhân, không học viên nào đọc được ghi chú của người khác.
+      match /notes/{noteId} {
+        allow get, list: if owner(uid);
+        allow create: if owner(uid)
+          && noteValid()
+          && request.resource.data.createdAt == request.time
+          && request.resource.data.updatedAt == request.time;
+        allow update: if owner(uid)
+          && noteValid()
+          && request.resource.data.createdAt == resource.data.createdAt
+          && request.resource.data.updatedAt == request.time
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text', 'updatedAt']);
+        allow delete: if owner(uid);
+      }
+    }
+
+    // Bài học riêng: CHỈ lưu tại Firestore, không đặt bản sao HTML/PDF công khai.
+    // Quản trị viên tạo/sửa qua Firebase Console hoặc backend đáng tin cậy.
+    match /secureLessons/{lessonId} {
+      allow get, list: if verified();
+      allow create, update, delete: if false;
+    }
+
+    // Đề riêng chỉ dành cho tài khoản email đã xác minh.
+    // Chú ý: đáp án nằm trong tài liệu tải về có thể bị xem; không dùng để tổ chức thi chống gian lận.
+    match /secureExams/{examId} {
+      allow get, list: if verified();
+      allow create, update, delete: if false;
+    }
+
+    // Kết quả thi chính thức: chỉ đọc kết quả của mình.
+    // Trình duyệt không thể tự tạo/sửa điểm; cần Cloud Functions hoặc server Admin SDK.
+    match /examResults/{uid}/attempts/{attemptId} {
+      allow get, list: if owner(uid);
+      allow create, update, delete: if false;
+    }
+
+    // Không có quyền mặc định cho các collection khác.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
