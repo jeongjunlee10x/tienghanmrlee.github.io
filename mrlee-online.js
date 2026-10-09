@@ -6,6 +6,9 @@ const TITLE = {sc1:'Sơ cấp 1',sc2:'Sơ cấp 2'};
 const DURATION_SECONDS = 15 * 60;
 let selectedLevel = 'sc1';
 try { if (localStorage.getItem('mrlee-online-level') === 'sc2') selectedLevel = 'sc2'; } catch {}
+// mrlee-review-deep-link-v1: a review row can reopen its exact level and test batch.
+const deepLink = new URLSearchParams(location.search);
+if (['sc1','sc2'].includes(deepLink.get('level'))) selectedLevel=deepLink.get('level');
 let activeBatch = -1;
 let examItems = [];
 let responses = [];
@@ -144,7 +147,17 @@ function finish(expired=false){
   window.dispatchEvent(new CustomEvent('mrlee:practice-finished',{detail:{
     examId:`online-${selectedLevel}-lan-${batch.number}`,
     examTitle:`Kiểm tra lần ${batch.number} · ${TITLE[selectedLevel]} · ${batch.range}`,
-    level:selectedLevel,score,total,durationSeconds
+    level:selectedLevel,score,total,durationSeconds,
+    // mrlee-review-v1: preserve exact question order and shuffled options from this attempt.
+    review:examItems.map((q,i)=>({
+      question:String(q.text??'').slice(0,500),
+      choices:q.choices.map(choice=>String(choice.label??'').slice(0,300)),
+      selectedIndex:Number.isInteger(responses[i])?responses[i]:-1,
+      correctIndex:q.correctIndex,
+      explanation:String(q.explain??'').slice(0,700),
+      lessonNumber:q.lessonNumber,
+      type:String(q.type??'').slice(0,60)
+    }))
   }}));
 }
 
@@ -167,3 +180,10 @@ $('review-toggle').addEventListener('click',()=>{
 });
 window.addEventListener('beforeunload',event=>{if(activeBatch>=0&&!completed){event.preventDefault();event.returnValue='';}});
 makeBatches();
+// mrlee-review-highlight-v1
+const reviewBatch=Number(deepLink.get('batch'));
+if(Number.isInteger(reviewBatch) && reviewBatch>=1 && reviewBatch<=8){
+  const target=document.querySelector(`[data-batch="${reviewBatch-1}"]`);
+  if(target){target.focus({preventScroll:true});target.scrollIntoView({behavior:'auto',block:'center'});}
+}
+

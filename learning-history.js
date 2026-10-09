@@ -1,3 +1,4 @@
+import { createReviewAction } from './mrlee-history-review.js';
 /** Trang lịch sử của CHÍNH học viên; quyền đọc do Firestore Rules kiểm tra theo UID. */
 import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
 import { getAuth, onAuthStateChanged, reload } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
@@ -57,6 +58,7 @@ function render() {
     grade.className = 'grade';
     grade.append(cell(`${item.score}/${item.total}`, 'grade-big'), cell(`${Math.round(item.score / item.total * 100)}%`, 'grade-small'));
     row.append(info, grade);
+    createReviewAction(row, item); // mrlee-review-v1
     list.append(row);
   }
   const activity = $('activityList');

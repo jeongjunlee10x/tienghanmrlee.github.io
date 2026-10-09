@@ -98,6 +98,27 @@ function saveFeedback(message, isError = false) {
 
 window.addEventListener('mrlee:practice-finished', async event => {
   const data = event.detail || {};
+  // mrlee-review-v1: optional snapshot for a saved practice attempt.
+  // Older quizzes can continue saving scores with no review details.
+  let reviewJson = '';
+  if (Array.isArray(data.review) && data.review.length >= 1 && data.review.length <= 100) {
+    const questions = data.review.map(q => ({
+      question:String(q.question??'').slice(0,500),
+      choices:Array.isArray(q.choices)?q.choices.slice(0,8).map(v=>String(v).slice(0,300)):[],
+      selectedIndex:Number(q.selectedIndex),
+      correctIndex:Number(q.correctIndex),
+      explanation:String(q.explanation??'').slice(0,700),
+      lessonNumber:Number.isInteger(q.lessonNumber)?q.lessonNumber:null,
+      type:String(q.type??'').slice(0,60)
+    }));
+    const valid = questions.every(q=>q.question && q.choices.length>=2 && q.choices.length<=8
+      && Number.isInteger(q.correctIndex) && q.correctIndex>=0 && q.correctIndex<q.choices.length
+      && Number.isInteger(q.selectedIndex) && q.selectedIndex>=-1 && q.selectedIndex<q.choices.length);
+    if (valid) {
+      const serialized=JSON.stringify({version:1,questions});
+      if (serialized.length<=120000) reviewJson=serialized;
+    }
+  }
   const score = data.score, total = data.total;
   if (!Number.isInteger(score) || !Number.isInteger(total) || total < 1 || total > 100 || score < 0 || score > total) return;
   const examId = clean(data.examId, 60).toLowerCase();
@@ -112,7 +133,8 @@ window.addEventListener('mrlee:practice-finished', async event => {
     if (!user) throw new Error('Bạn cần đăng nhập và xác minh email để lưu điểm.');
     await addDoc(collection(db, 'users', user.uid, 'practiceAttempts'), {
       examId, examTitle, level, score, total, durationSeconds,
-      source: 'client_practice', createdAt: serverTimestamp()
+      source: 'client_practice', createdAt: serverTimestamp(),
+      ...(reviewJson ? {reviewJson} : {})
     });
     saveFeedback('Đã lưu điểm luyện tập vào tài khoản.');
   } catch (error) {
