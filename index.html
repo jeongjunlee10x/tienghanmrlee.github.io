@@ -195,6 +195,40 @@
     }
   </style>
   <link rel="stylesheet" href="mrlee-core.css">
+<!-- MRLEE-BANNER9-CSS -->
+<style>
+.hero-banner:has(.mrlee-banner9) { background:#dfedf8; }
+.mrlee-banner9 { position:relative; width:100%; aspect-ratio:16 / 9; overflow:hidden; isolation:isolate; }
+.hero-banner .mrlee-banner9-slide {
+  position:absolute; inset:0; z-index:0; display:block; opacity:0; visibility:hidden;
+  transition:opacity .7s ease, visibility .7s ease; pointer-events:none;
+}
+.hero-banner .mrlee-banner9-slide.is-active { opacity:1; visibility:visible; pointer-events:auto; z-index:1; }
+.hero-banner .mrlee-banner9-slide img { width:100%; height:100%; display:block; object-fit:contain; object-position:center; }
+.mrlee-banner9-arrow { position:absolute; z-index:3; top:50%; transform:translateY(-50%);
+  display:grid; place-items:center; width:42px; height:42px; border:0; border-radius:50%;
+  background:rgba(16,43,77,.68); color:white; font-size:22px; line-height:1; cursor:pointer;
+}
+.mrlee-banner9-prev {left:12px} .mrlee-banner9-next {right:12px}
+.mrlee-banner9-arrow:hover { background:rgba(16,43,77,.9) }
+.mrlee-banner9-dots { position:absolute; left:50%; bottom:12px; transform:translateX(-50%);
+  z-index:3; display:flex; justify-content:center; align-items:center; gap:7px;
+  background:rgba(16,43,77,.36); border-radius:100px; padding:7px 10px;
+}
+.mrlee-banner9-dots button { box-sizing:border-box; border:0; border-radius:50%; width:9px; height:9px;
+  background:rgba(255,255,255,.52); padding:0; cursor:pointer;
+}
+.mrlee-banner9-dots button[aria-current="true"] { background:white; width:23px; border-radius:20px; }
+.mrlee-banner9 button:focus-visible,.mrlee-banner9-slide:focus-visible {outline:3px solid #ef773f;outline-offset:-3px}
+@media(max-width:600px) {
+ .mrlee-banner9-arrow {width:30px;height:30px;font-size:16px}
+ .mrlee-banner9-prev {left:4px} .mrlee-banner9-next {right:4px}
+ .mrlee-banner9-dots {gap:5px;bottom:5px;padding:5px 7px}
+ .mrlee-banner9-dots button {width:6px;height:6px}
+ .mrlee-banner9-dots button[aria-current="true"] {width:15px}
+}
+@media(prefers-reduced-motion:reduce) { .hero-banner .mrlee-banner9-slide { transition:none } }
+</style>
 </head>
 <body>
   <!-- Biểu tượng SVG dùng chung: đồng nét, không lỗi font như emoji -->
@@ -246,10 +280,33 @@
   <main>
     <section class="hero page-wrap" aria-label="Trang bìa Tiếng Hàn Mr Lee">
       <div class="hero-banner">
-        <picture>
-          <img src="images/logo2.png" fetchpriority="high" alt="Học tiếng Hàn cùng Mr Lee: hình ảnh học sinh và phong cảnh Hàn Quốc, với cung điện truyền thống và tháp N Seoul">
-        </picture>
-      </div>
+<!-- MRLEE-BANNER9-START -->
+<div id="mrleeBanner9" class="mrlee-banner9" role="region" aria-roledescription="carousel" aria-label="9 chuc nang hoc tap">
+<a class="mrlee-banner9-slide is-active" href="bai-hoc.html" tabindex="0" aria-hidden="false"><img src="images/1.png" alt="Bai hoc tieng Han" loading="eager" decoding="async" fetchpriority="high"></a>
+<a class="mrlee-banner9-slide" href="giao-tiep-theo-chu-de.html" tabindex="-1" aria-hidden="true"><img src="images/2.png" alt="Giao tiep theo chu de" loading="lazy" decoding="async"></a>
+<a class="mrlee-banner9-slide" href="on-luyen-phong-van.html" tabindex="-1" aria-hidden="true"><img src="images/3.png" alt="On luyen phong van" loading="lazy" decoding="async"></a>
+<a class="mrlee-banner9-slide" href="kiem-tra-dau-vao.html" tabindex="-1" aria-hidden="true"><img src="images/4.png" alt="Kiem tra dau vao" loading="lazy" decoding="async"></a>
+<a class="mrlee-banner9-slide" href="kiem-tra-online.html" tabindex="-1" aria-hidden="true"><img src="images/5.png" alt="Kiem tra online" loading="lazy" decoding="async"></a>
+<a class="mrlee-banner9-slide" href="de-thi-topik.html" tabindex="-1" aria-hidden="true"><img src="images/6.png" alt="Bo de thi TOPIK" loading="lazy" decoding="async"></a>
+<a class="mrlee-banner9-slide" href="thi-topik-online.html" tabindex="-1" aria-hidden="true"><img src="images/7.png" alt="Thi TOPIK online" loading="lazy" decoding="async"></a>
+<a class="mrlee-banner9-slide" href="bo-sach.html" tabindex="-1" aria-hidden="true"><img src="images/8.png" alt="Bo sach va tai lieu" loading="lazy" decoding="async"></a>
+<a class="mrlee-banner9-slide" href="dang-nhap.html" tabindex="-1" aria-hidden="true"><img src="images/9.png" alt="Tai khoan hoc vien" loading="lazy" decoding="async"></a>
+<button class="mrlee-banner9-arrow mrlee-banner9-prev" type="button" aria-label="Anh truoc" data-banner-prev>&#10094;</button>
+<button class="mrlee-banner9-arrow mrlee-banner9-next" type="button" aria-label="Anh tiep theo" data-banner-next>&#10095;</button>
+<div class="mrlee-banner9-dots" aria-label="Chon anh banner">
+<button type="button" data-banner-dot="0" aria-label="Xem anh 1" aria-current="true"></button>
+<button type="button" data-banner-dot="1" aria-label="Xem anh 2" aria-current="false"></button>
+<button type="button" data-banner-dot="2" aria-label="Xem anh 3" aria-current="false"></button>
+<button type="button" data-banner-dot="3" aria-label="Xem anh 4" aria-current="false"></button>
+<button type="button" data-banner-dot="4" aria-label="Xem anh 5" aria-current="false"></button>
+<button type="button" data-banner-dot="5" aria-label="Xem anh 6" aria-current="false"></button>
+<button type="button" data-banner-dot="6" aria-label="Xem anh 7" aria-current="false"></button>
+<button type="button" data-banner-dot="7" aria-label="Xem anh 8" aria-current="false"></button>
+<button type="button" data-banner-dot="8" aria-label="Xem anh 9" aria-current="false"></button>
+</div>
+</div>
+<!-- MRLEE-BANNER9-END -->
+</div>
       <div class="hero-overview">
         <div>
           <span class="eyebrow"><svg class="icon" aria-hidden="true"><use href="#i-spark"></use></svg>CHÀO MỪNG ĐẾN VỚI TIẾNG HÀN MR LEE</span>
@@ -386,5 +443,52 @@
   <!-- Bộ ngôn ngữ giao diện Việt / Hàn / Anh. Không can thiệp Firebase. -->
   <script src="mrlee-i18n.js?v=20261008"></script>
   <script defer src="mrlee-core.js"></script>
+<!-- MRLEE-BANNER9-JS -->
+<script>
+(function () {
+  'use strict';
+  const root = document.getElementById('mrleeBanner9');
+  if (!root) return;
+  const slides = Array.from(root.querySelectorAll('.mrlee-banner9-slide'));
+  const dots = Array.from(root.querySelectorAll('[data-banner-dot]'));
+  if (slides.length !== 9) return;
+  const DELAY = 5000;
+  let current = 0;
+  let timer = null;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function show(index) {
+    current = (index + slides.length) % slides.length;
+    slides.forEach((slide, n) => {
+      const active = n === current;
+      slide.classList.toggle('is-active', active);
+      slide.setAttribute('aria-hidden', String(!active));
+      slide.tabIndex = active ? 0 : -1;
+      if (dots[n]) dots[n].setAttribute('aria-current', String(active));
+    });
+  }
+  function stop() { if (timer !== null) { clearInterval(timer); timer = null; } }
+  function start() {
+    stop();
+    if (reducedMotion.matches || document.hidden || root.matches(':hover') || root.matches(':focus-within')) return;
+    timer = setInterval(() => show(current + 1), DELAY);
+  }
+  root.querySelector('[data-banner-prev]').addEventListener('click', () => { show(current - 1); start(); });
+  root.querySelector('[data-banner-next]').addEventListener('click', () => { show(current + 1); start(); });
+  dots.forEach((dot, n) => dot.addEventListener('click', () => { show(n); start(); }));
+  root.addEventListener('mouseenter', stop);
+  root.addEventListener('mouseleave', start);
+  root.addEventListener('focusin', stop);
+  root.addEventListener('focusout', () => { requestAnimationFrame(start); });
+  document.addEventListener('visibilitychange', start);
+  if (typeof reducedMotion.addEventListener === 'function') reducedMotion.addEventListener('change', start);
+  slides.slice(1).forEach(slide => {
+    const img = slide.querySelector('img');
+    if (img) img.addEventListener('error', () => console.warn('MR LEE banner image not found:', img.src));
+  });
+  show(0);
+  start();
+})();
+</script>
 </body>
 </html>
