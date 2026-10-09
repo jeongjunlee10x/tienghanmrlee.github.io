@@ -39,6 +39,7 @@ button:hover,.btn:hover{background:#edf5fc}.btn{display:inline-flex;align-items:
 @media(max-width:870px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.columns{grid-template-columns:1fr}}
 @media(max-width:570px){.main{margin:20px auto 40px}.topbar{padding:13px 15px}.brand{font-size:13px}.brand img{width:45px;height:40px}.links{gap:7px}.links a{font-size:10px}.links .primary{padding:8px}.intro{flex-direction:column}.panel{padding:18px}.stats{gap:10px}.stat{padding:16px}.stat strong{font-size:26px}.shortcuts{grid-template-columns:1fr}}
 </style>
+  <link rel="stylesheet" href="mrlee-avatar.css">
 </head>
 <body>
 <header class="topbar">
@@ -47,6 +48,12 @@ button:hover,.btn:hover{background:#edf5fc}.btn{display:inline-flex;align-items:
 </header>
 <main class="main">
 <div class="intro">
+<!-- MRLEE_AVATAR_DASHBOARD_BEGIN -->
+<div class="mrlee-avatar-dashboard" id="mrlee-avatar-dashboard" hidden>
+  <div class="mrlee-avatar-frame"><img data-mrlee-avatar-img alt="Ảnh đại diện học viên" hidden><span data-mrlee-avatar-placeholder class="mrlee-avatar-placeholder" aria-hidden="true">👤</span></div>
+  <a href="dang-nhap.html" title="Thay ảnh đại diện trong thông tin học viên">Thay ảnh đại diện</a>
+</div>
+<!-- MRLEE_AVATAR_DASHBOARD_END -->
 <div><div class="eyebrow" data-i18n="eyebrow">TRUNG TÂM HỌC VIÊN</div><h1 data-i18n="heading">Hành trình học tập của bạn</h1><p class="muted" id="studentEmail" aria-live="polite" data-i18n="authWaiting">Đang xác minh tài khoản...</p></div>
 <div class="controls"><label for="levelFilter" data-i18n="level">Trình độ</label><select id="levelFilter"><option value="all" data-i18n="all">Tất cả</option><option value="sc1" data-i18n="sc1">Sơ cấp 1</option><option value="sc2" data-i18n="sc2">Sơ cấp 2</option><option value="tc1" data-i18n="tc1">Trung cấp 1</option><option value="general" data-i18n="general">Tổng hợp</option></select><button id="refreshBtn" type="button" data-i18n="refresh">Làm mới</button></div>
 </div>
@@ -71,4 +78,6 @@ button:hover,.btn:hover{background:#edf5fc}.btn{display:inline-flex;align-items:
 <script src="mrlee-core.js" defer></script>
 <script src="mrlee-i18n.js" defer></script>
 <script type="module" src="mrlee-student.js"></script>
+<script type="module" src="mrlee-avatar.js"></script>
+<script type="module" src="mrlee-daily-boot.js?v=20261010"></script>
 </body></html>

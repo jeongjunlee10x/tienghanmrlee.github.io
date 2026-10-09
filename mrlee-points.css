@@ -51,3 +51,6 @@
 .mp-lesson-speech:hover{background:#d7ecff}
 @media(max-width:850px){.mp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.mp-stats{grid-template-columns:repeat(2,1fr)}.mp-words{grid-template-columns:1fr}}
 @media(max-width:540px){.mp-app{padding:0 12px}.mp-panel{padding:15px}.mp-grid{grid-template-columns:1fr}.mp-heading{padding:20px}.mp-word .ko{font-size:18px}}
+
+/* Mr Lee 1-6: them thong ke streak vao luoi */
+.mp-stats{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}

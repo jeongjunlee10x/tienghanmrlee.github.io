@@ -1,11 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi"><head>
-<!-- MR LEE AUTH GUARD START -->
-<style id="mrlee-auth-hide">body { visibility: hidden !important; }</style>
-<noscript><style>body { visibility: visible !important; } body > * { display: none !important; } body:before { content:"Can bat JavaScript de su dung trang hoc."; display:block!important; padding:45px; font:16px Arial,sans-serif; }</style></noscript>
-<script type="module" src="auth-guard.js"></script>
-<!-- MR LEE AUTH GUARD END -->
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Bộ câu hỏi phỏng vấn tiếng Hàn theo chủ đề có nghe, thu âm và tự ôn tập."><title>Ôn luyện phỏng vấn | Tiếng Hàn Mr Lee</title>
+<html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Bộ câu hỏi phỏng vấn tiếng Hàn theo chủ đề có nghe, thu âm và tự ôn tập."><title>Ôn luyện phỏng vấn | Tiếng Hàn Mr Lee</title>
 <style>
 :root{--navy:#142b4c;--navy2:#244a78;--orange:#f09443;--paper:#f5f7fb;--line:#e3e9f1;--muted:#64748b;--ink:#223047;--white:#fff}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:system-ui,-apple-system,'Segoe UI',Arial,'Noto Sans KR',sans-serif;margin:0;background:var(--paper);color:var(--ink);line-height:1.6}
@@ -46,10 +40,7 @@ select,input[type=search],textarea{border:1px solid #cad6e6;background:white;col
 .stats{margin:14px 0 4px}.bar{height:9px;border-radius:999px;background:#e3eaf3;overflow:hidden}.bar span{height:100%;background:linear-gradient(90deg,#ef913b,#f9bd7f);display:block;transition:width .2s}
 .counter{font-size:13px;color:var(--muted);margin:8px 0 11px}.hide-label{font-size:12px}.empty-list{color:var(--muted);font-size:13px;padding:10px}
 @media(max-width:950px){.layout{grid-template-columns:1fr}.question-list{max-height:240px}.filters{grid-template-columns:1fr 1fr}}@media(max-width:550px){.filters{grid-template-columns:1fr}.filters .wide{grid-column:auto}.play-bar select{max-width:145px}.action-footer .btn{flex:1}.site-header-inner{padding:11px 17px}}
-</style><script defer src="mrlee-i18n.js?v=20261008"></script>
-  <link rel="stylesheet" href="mrlee-voice.css">
-  <link rel="stylesheet" href="mrlee-core.css">
-</head>
+</style></head>
 <body><header class="site-header"><div class="site-header-inner">
 <a class="brand" href="index.html"><img src="images/logo.png" alt="" onerror="this.style.display='none'"/><span>🇰🇷 Tiếng Hàn Mr Lee</span></a>
 <button type="button" class="nav-toggle" id="navToggle" aria-controls="siteNav" aria-expanded="false" aria-label="Mở menu">☰</button>
@@ -142,8 +133,4 @@ el('recordBtn').addEventListener('click',async()=>{if(!navigator.mediaDevices?.g
 el('stopRecordBtn').addEventListener('click',stopRecording);
 window.addEventListener('pagehide',()=>{stopRecording();window.speechSynthesis?.cancel?.()});
 renderList();renderQuestion();
-</script><script type="module" src="learning-tracker.js"></script>
-  <script src="mrlee-voice.js" defer></script>
-  <script defer src="mrlee-core.js"></script>
-<script type="module" src="mrlee-daily-boot.js?v=20261010"></script>
-</body></html>
+</script></body></html>

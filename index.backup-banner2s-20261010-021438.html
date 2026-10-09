@@ -195,22 +195,39 @@
     }
   </style>
   <link rel="stylesheet" href="mrlee-core.css">
-<!-- MRLEE-BANNER9-CSS-V4 -->
+<!-- MRLEE-BANNER9-CSS -->
 <style>
-.hero-banner .mrlee-banner9{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;isolation:isolate;background:#e3edf8}
-.hero-banner .mrlee-banner9-slide{position:absolute;inset:0;z-index:0;display:block!important;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .35s ease,visibility .35s ease}
-.hero-banner .mrlee-banner9-slide.is-active{z-index:1;opacity:1;visibility:visible;pointer-events:auto}
-.hero-banner .mrlee-banner9-slide img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;object-position:center}
-.mrlee-banner9-arrow{position:absolute;z-index:3;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:42px;height:42px;border:0;border-radius:50%;background:rgba(16,43,77,.66);color:#fff;font-size:22px;cursor:pointer}
-.mrlee-banner9-prev{left:12px}.mrlee-banner9-next{right:12px}
-.mrlee-banner9-controls{position:absolute;z-index:3;left:50%;bottom:12px;transform:translateX(-50%);display:flex;gap:8px;align-items:center;padding:6px 9px;border-radius:99px;background:rgba(16,43,77,.48)}
-.mrlee-banner9-pause{border:0;border-radius:50%;height:25px;min-width:25px;padding:0;background:rgba(255,255,255,.22);color:#fff;font-size:11px;cursor:pointer}
-.mrlee-banner9-dots{display:flex;align-items:center;gap:7px}
-.mrlee-banner9-dots button{border:0;border-radius:50%;width:9px;height:9px;min-width:9px;background:rgba(255,255,255,.6);padding:0;cursor:pointer}
-.mrlee-banner9-dots button[aria-current="true"]{width:22px;border-radius:9px;background:#fff}
-.mrlee-banner9 button:focus-visible,.mrlee-banner9-slide:focus-visible{outline:3px solid #ee773f;outline-offset:-3px}
-@media(max-width:600px){.mrlee-banner9-arrow{width:30px;height:30px;font-size:16px}.mrlee-banner9-prev{left:4px}.mrlee-banner9-next{right:4px}.mrlee-banner9-controls{bottom:5px;gap:4px;padding:4px 7px}.mrlee-banner9-dots{gap:4px}.mrlee-banner9-dots button{width:6px;height:6px;min-width:6px}.mrlee-banner9-dots button[aria-current="true"]{width:15px}}
-@media(prefers-reduced-motion:reduce){.hero-banner .mrlee-banner9-slide{transition:none}}
+.hero-banner:has(.mrlee-banner9) { background:#dfedf8; }
+.mrlee-banner9 { position:relative; width:100%; aspect-ratio:16 / 9; overflow:hidden; isolation:isolate; }
+.hero-banner .mrlee-banner9-slide {
+  position:absolute; inset:0; z-index:0; display:block; opacity:0; visibility:hidden;
+  transition:opacity .7s ease, visibility .7s ease; pointer-events:none;
+}
+.hero-banner .mrlee-banner9-slide.is-active { opacity:1; visibility:visible; pointer-events:auto; z-index:1; }
+.hero-banner .mrlee-banner9-slide img { width:100%; height:100%; display:block; object-fit:contain; object-position:center; }
+.mrlee-banner9-arrow { position:absolute; z-index:3; top:50%; transform:translateY(-50%);
+  display:grid; place-items:center; width:42px; height:42px; border:0; border-radius:50%;
+  background:rgba(16,43,77,.68); color:white; font-size:22px; line-height:1; cursor:pointer;
+}
+.mrlee-banner9-prev {left:12px} .mrlee-banner9-next {right:12px}
+.mrlee-banner9-arrow:hover { background:rgba(16,43,77,.9) }
+.mrlee-banner9-dots { position:absolute; left:50%; bottom:12px; transform:translateX(-50%);
+  z-index:3; display:flex; justify-content:center; align-items:center; gap:7px;
+  background:rgba(16,43,77,.36); border-radius:100px; padding:7px 10px;
+}
+.mrlee-banner9-dots button { box-sizing:border-box; border:0; border-radius:50%; width:9px; height:9px;
+  background:rgba(255,255,255,.52); padding:0; cursor:pointer;
+}
+.mrlee-banner9-dots button[aria-current="true"] { background:white; width:23px; border-radius:20px; }
+.mrlee-banner9 button:focus-visible,.mrlee-banner9-slide:focus-visible {outline:3px solid #ef773f;outline-offset:-3px}
+@media(max-width:600px) {
+ .mrlee-banner9-arrow {width:30px;height:30px;font-size:16px}
+ .mrlee-banner9-prev {left:4px} .mrlee-banner9-next {right:4px}
+ .mrlee-banner9-dots {gap:5px;bottom:5px;padding:5px 7px}
+ .mrlee-banner9-dots button {width:6px;height:6px}
+ .mrlee-banner9-dots button[aria-current="true"] {width:15px}
+}
+@media(prefers-reduced-motion:reduce) { .hero-banner .mrlee-banner9-slide { transition:none } }
 </style>
 </head>
 <body>
@@ -250,7 +267,6 @@
       <nav class="site-nav" id="mainNav" aria-label="Điều hướng chính">
         <a href="index.html" aria-current="page">Trang chủ</a>
         <a href="bai-hoc.html">Bài học</a>
-<a href="lo-trinh-1-6.html">Lộ trình 1–6</a>
         <a href="giao-tiep-theo-chu-de.html">Giao tiếp</a>
         <a href="on-luyen-phong-van.html">Phỏng vấn</a>
         <a href="de-thi-topik.html">Đề TOPIK</a>
@@ -265,31 +281,30 @@
     <section class="hero page-wrap" aria-label="Trang bìa Tiếng Hàn Mr Lee">
       <div class="hero-banner">
 <!-- MRLEE-BANNER9-START -->
-<div id="mrleeBanner9" class="mrlee-banner9" role="region" aria-roledescription="carousel" aria-label="9 muc hoc tap; moi 2 giay doi anh" aria-live="off">
-<a class="mrlee-banner9-slide is-active" href="bai-hoc.html" tabindex="0" aria-hidden="false"><img src="images/1.png?v=banner2" alt="Bai hoc tieng Han" loading="eager" decoding="async" fetchpriority="high"></a>
-<a class="mrlee-banner9-slide" href="giao-tiep-theo-chu-de.html" tabindex="-1" aria-hidden="true"><img src="images/2.png?v=banner2" alt="Giao tiep theo chu de" loading="eager" decoding="async"></a>
-<a class="mrlee-banner9-slide" href="on-luyen-phong-van.html" tabindex="-1" aria-hidden="true"><img src="images/3.png?v=banner2" alt="On luyen phong van" loading="eager" decoding="async"></a>
-<a class="mrlee-banner9-slide" href="kiem-tra-dau-vao.html" tabindex="-1" aria-hidden="true"><img src="images/4.png?v=banner2" alt="Kiem tra dau vao" loading="eager" decoding="async"></a>
-<a class="mrlee-banner9-slide" href="kiem-tra-online.html" tabindex="-1" aria-hidden="true"><img src="images/5.png?v=banner2" alt="Kiem tra online" loading="eager" decoding="async"></a>
-<a class="mrlee-banner9-slide" href="de-thi-topik.html" tabindex="-1" aria-hidden="true"><img src="images/6.png?v=banner2" alt="Bo de thi TOPIK" loading="eager" decoding="async"></a>
-<a class="mrlee-banner9-slide" href="thi-topik-online.html" tabindex="-1" aria-hidden="true"><img src="images/7.png?v=banner2" alt="Thi TOPIK online" loading="eager" decoding="async"></a>
-<a class="mrlee-banner9-slide" href="bo-sach.html" tabindex="-1" aria-hidden="true"><img src="images/8.png?v=banner2" alt="Bo sach va tai lieu" loading="eager" decoding="async"></a>
-<a class="mrlee-banner9-slide" href="dang-nhap.html" tabindex="-1" aria-hidden="true"><img src="images/9.png?v=banner2" alt="Tai khoan hoc vien" loading="eager" decoding="async"></a>
-<button class="mrlee-banner9-arrow mrlee-banner9-prev" type="button" data-banner-prev aria-label="Previous banner">&#10094;</button>
-<button class="mrlee-banner9-arrow mrlee-banner9-next" type="button" data-banner-next aria-label="Next banner">&#10095;</button>
-<div class="mrlee-banner9-controls">
-<button class="mrlee-banner9-pause" type="button" data-banner-pause aria-label="Pause automatic banner" aria-pressed="false">&#10074;&#10074;</button>
-<div class="mrlee-banner9-dots" aria-label="Choose banner">
-<button type="button" data-banner-dot="0" aria-label="Banner 1" aria-current="true"></button>
-<button type="button" data-banner-dot="1" aria-label="Banner 2" aria-current="false"></button>
-<button type="button" data-banner-dot="2" aria-label="Banner 3" aria-current="false"></button>
-<button type="button" data-banner-dot="3" aria-label="Banner 4" aria-current="false"></button>
-<button type="button" data-banner-dot="4" aria-label="Banner 5" aria-current="false"></button>
-<button type="button" data-banner-dot="5" aria-label="Banner 6" aria-current="false"></button>
-<button type="button" data-banner-dot="6" aria-label="Banner 7" aria-current="false"></button>
-<button type="button" data-banner-dot="7" aria-label="Banner 8" aria-current="false"></button>
-<button type="button" data-banner-dot="8" aria-label="Banner 9" aria-current="false"></button>
-</div></div></div>
+<div id="mrleeBanner9" class="mrlee-banner9" role="region" aria-roledescription="carousel" aria-label="9 chuc nang hoc tap">
+<a class="mrlee-banner9-slide is-active" href="bai-hoc.html" tabindex="0" aria-hidden="false"><img src="images/1.png" alt="Bai hoc tieng Han" loading="eager" decoding="async" fetchpriority="high"></a>
+<a class="mrlee-banner9-slide" href="giao-tiep-theo-chu-de.html" tabindex="-1" aria-hidden="true"><img src="images/2.png" alt="Giao tiep theo chu de" loading="lazy" decoding="async"></a>
+<a class="mrlee-banner9-slide" href="on-luyen-phong-van.html" tabindex="-1" aria-hidden="true"><img src="images/3.png" alt="On luyen phong van" loading="lazy" decoding="async"></a>
+<a class="mrlee-banner9-slide" href="kiem-tra-dau-vao.html" tabindex="-1" aria-hidden="true"><img src="images/4.png" alt="Kiem tra dau vao" loading="lazy" decoding="async"></a>
+<a class="mrlee-banner9-slide" href="kiem-tra-online.html" tabindex="-1" aria-hidden="true"><img src="images/5.png" alt="Kiem tra online" loading="lazy" decoding="async"></a>
+<a class="mrlee-banner9-slide" href="de-thi-topik.html" tabindex="-1" aria-hidden="true"><img src="images/6.png" alt="Bo de thi TOPIK" loading="lazy" decoding="async"></a>
+<a class="mrlee-banner9-slide" href="thi-topik-online.html" tabindex="-1" aria-hidden="true"><img src="images/7.png" alt="Thi TOPIK online" loading="lazy" decoding="async"></a>
+<a class="mrlee-banner9-slide" href="bo-sach.html" tabindex="-1" aria-hidden="true"><img src="images/8.png" alt="Bo sach va tai lieu" loading="lazy" decoding="async"></a>
+<a class="mrlee-banner9-slide" href="dang-nhap.html" tabindex="-1" aria-hidden="true"><img src="images/9.png" alt="Tai khoan hoc vien" loading="lazy" decoding="async"></a>
+<button class="mrlee-banner9-arrow mrlee-banner9-prev" type="button" aria-label="Anh truoc" data-banner-prev>&#10094;</button>
+<button class="mrlee-banner9-arrow mrlee-banner9-next" type="button" aria-label="Anh tiep theo" data-banner-next>&#10095;</button>
+<div class="mrlee-banner9-dots" aria-label="Chon anh banner">
+<button type="button" data-banner-dot="0" aria-label="Xem anh 1" aria-current="true"></button>
+<button type="button" data-banner-dot="1" aria-label="Xem anh 2" aria-current="false"></button>
+<button type="button" data-banner-dot="2" aria-label="Xem anh 3" aria-current="false"></button>
+<button type="button" data-banner-dot="3" aria-label="Xem anh 4" aria-current="false"></button>
+<button type="button" data-banner-dot="4" aria-label="Xem anh 5" aria-current="false"></button>
+<button type="button" data-banner-dot="5" aria-label="Xem anh 6" aria-current="false"></button>
+<button type="button" data-banner-dot="6" aria-label="Xem anh 7" aria-current="false"></button>
+<button type="button" data-banner-dot="7" aria-label="Xem anh 8" aria-current="false"></button>
+<button type="button" data-banner-dot="8" aria-label="Xem anh 9" aria-current="false"></button>
+</div>
+</div>
 <!-- MRLEE-BANNER9-END -->
 </div>
       <div class="hero-overview">
@@ -366,12 +381,7 @@
       <div><h2 id="cta-title">Bắt đầu hành trình chinh phục tiếng Hàn</h2><p><span lang="ko">오늘도 한국어를 함께 공부해요!</span> · Cùng học tiếng Hàn mỗi ngày.</p></div>
       <a class="action-btn" href="giao-tiep-theo-chu-de.html">Khám phá câu giao tiếp <svg class="icon icon-sm" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
     </section>
-  <!-- MRLEE_POINTS_HOME_V1 -->
-<section aria-label="Luyện nói tích điểm" style="max-width:1160px;margin:20px auto 50px;padding:22px;background:linear-gradient(115deg,#123558,#256897);border-radius:18px;color:white;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:15px">
-<div><h2 style="margin:0 0 6px;font-size:22px;color:white">🎤 Luyện nói tiếng Hàn, tích điểm mỗi ngày</h2><p style="margin:0;font-size:13px;color:#e4efff">30 bài theo giáo trình · 19 chủ đề giao tiếp · thưởng/phạt và phục hồi điểm.</p></div><a href="luyen-noi-tinh-diem.html" style="background:white;color:#123558;font-weight:800;text-decoration:none;padding:12px 18px;border-radius:12px">Bắt đầu luyện nói →</a>
-</section>
-<!-- /MRLEE_POINTS_HOME_V1 -->
-</main>
+  </main>
   <footer class="site-footer">
     <div class="page-wrap">
       <div class="footer-top">
@@ -433,73 +443,52 @@
   <!-- Bộ ngôn ngữ giao diện Việt / Hàn / Anh. Không can thiệp Firebase. -->
   <script src="mrlee-i18n.js?v=20261008"></script>
   <script defer src="mrlee-core.js"></script>
-<!-- MRLEE-BANNER9-JS-V4 -->
+<!-- MRLEE-BANNER9-JS -->
 <script>
 (function () {
   'use strict';
-  var root = document.getElementById('mrleeBanner9');
+  const root = document.getElementById('mrleeBanner9');
   if (!root) return;
-  var slides = Array.from(root.querySelectorAll('.mrlee-banner9-slide'));
-  var dots = Array.from(root.querySelectorAll('[data-banner-dot]'));
-  var previous = root.querySelector('[data-banner-prev]');
-  var next = root.querySelector('[data-banner-next]');
-  var pauseButton = root.querySelector('[data-banner-pause]');
-  if (slides.length !== 9 || dots.length !== 9 || !previous || !next || !pauseButton) {
-    console.error('MR LEE: banner setup incomplete; expected 9 slides and controls.');
-    return;
-  }
-  var DELAY_MS = 2000;
-  var current = 0;
-  var intervalId = null;
-  var manuallyPaused = false;
+  const slides = Array.from(root.querySelectorAll('.mrlee-banner9-slide'));
+  const dots = Array.from(root.querySelectorAll('[data-banner-dot]'));
+  if (slides.length !== 9) return;
+  const DELAY = 5000;
+  let current = 0;
+  let timer = null;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   function show(index) {
     current = (index + slides.length) % slides.length;
-    slides.forEach(function (slide, i) {
-      var isCurrent = i === current;
-      slide.classList.toggle('is-active', isCurrent);
-      slide.setAttribute('aria-hidden', isCurrent ? 'false' : 'true');
-      slide.tabIndex = isCurrent ? 0 : -1;
-      dots[i].setAttribute('aria-current', isCurrent ? 'true' : 'false');
+    slides.forEach((slide, n) => {
+      const active = n === current;
+      slide.classList.toggle('is-active', active);
+      slide.setAttribute('aria-hidden', String(!active));
+      slide.tabIndex = active ? 0 : -1;
+      if (dots[n]) dots[n].setAttribute('aria-current', String(active));
     });
   }
-  function stop() {
-    if (intervalId !== null) { clearInterval(intervalId); intervalId = null; }
-  }
+  function stop() { if (timer !== null) { clearInterval(timer); timer = null; } }
   function start() {
     stop();
-    // Unlike the previous version, hover/focus never blocks automatic rotation.
-    if (manuallyPaused || document.hidden) return;
-    intervalId = setInterval(function () { show(current + 1); }, DELAY_MS);
+    if (reducedMotion.matches || document.hidden || root.matches(':hover') || root.matches(':focus-within')) return;
+    timer = setInterval(() => show(current + 1), DELAY);
   }
-  function changeBy(delta) { show(current + delta); start(); }
-  function updatePauseButton() {
-    pauseButton.textContent = manuallyPaused ? '\u25b6' : '\u275a\u275a';
-    pauseButton.setAttribute('aria-label', manuallyPaused ? 'Resume automatic banner' : 'Pause automatic banner');
-    pauseButton.setAttribute('aria-pressed', manuallyPaused ? 'true' : 'false');
-  }
-  previous.addEventListener('click', function () { changeBy(-1); });
-  next.addEventListener('click', function () { changeBy(1); });
-  dots.forEach(function (dot, i) {
-    dot.addEventListener('click', function () { show(i); start(); });
-  });
-  pauseButton.addEventListener('click', function () {
-    manuallyPaused = !manuallyPaused;
-    updatePauseButton();
-    start();
-  });
+  root.querySelector('[data-banner-prev]').addEventListener('click', () => { show(current - 1); start(); });
+  root.querySelector('[data-banner-next]').addEventListener('click', () => { show(current + 1); start(); });
+  dots.forEach((dot, n) => dot.addEventListener('click', () => { show(n); start(); }));
+  root.addEventListener('mouseenter', stop);
+  root.addEventListener('mouseleave', start);
+  root.addEventListener('focusin', stop);
+  root.addEventListener('focusout', () => { requestAnimationFrame(start); });
   document.addEventListener('visibilitychange', start);
-  slides.forEach(function (slide) {
-    var img = slide.querySelector('img');
-    if (img) img.addEventListener('error', function () {
-      console.error('MR LEE: missing banner image', img.src);
-    });
+  if (typeof reducedMotion.addEventListener === 'function') reducedMotion.addEventListener('change', start);
+  slides.slice(1).forEach(slide => {
+    const img = slide.querySelector('img');
+    if (img) img.addEventListener('error', () => console.warn('MR LEE banner image not found:', img.src));
   });
   show(0);
-  updatePauseButton();
   start();
 })();
 </script>
-<script type="module" src="mrlee-daily-boot.js?v=20261010"></script>
 </body>
 </html>

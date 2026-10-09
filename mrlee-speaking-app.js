@@ -1,8 +1,9 @@
 import { SPEAKING_BANK } from './mrlee-speaking-bank.js';
-import { SETTINGS, speechSupported, waitForUser, loadWallet, similarity, commitSpeaking, recentAttempts, calculateDelta } from './mrlee-points-core.js';
+import { ADVANCED_SPEAKING_BANK } from './mrlee-speaking-advanced.js';
+import { SETTINGS, speechSupported, waitForUser, loadWallet, similarity, commitSpeaking, recentAttempts, calculateDelta, claimDailyLogin, speechStreakBonus } from './mrlee-points-core.js';
 
 const $ = id=>document.getElementById(id);
-const catalogue=[...SPEAKING_BANK];
+const catalogue=[...SPEAKING_BANK,...ADVANCED_SPEAKING_BANK];
 const recoveryTasks=[
   {id:'recovery-1',kind:'recovery',level:'recovery',title:'Phục hồi điểm · Bài A',subtitle:'Đọc 3 câu cơ bản để lấy lại 15 điểm',returnUrl:'luyen-noi-tinh-diem.html',items:[
     {ko:'안녕하세요. 만나서 반갑습니다.',vi:'Xin chào. Rất vui được gặp bạn.'},
@@ -28,6 +29,9 @@ function pointsBar(){
   $('mpEarned').textContent=wallet.earned;
   $('mpLost').textContent=wallet.lost;
   $('mpCount').textContent=wallet.attempts;
+  if($('mpStreak'))$('mpStreak').textContent=wallet.loginStreak||0;
+  if($('mpBestStreak'))$('mpBestStreak').textContent=wallet.bestStreak||0;
+  if($('mpLoginDays'))$('mpLoginDays').textContent=wallet.loginDays||0;
 }
 function isLocked(){return Boolean(wallet && wallet.balance < SETTINGS.minimum);}
 function openTab(next){
@@ -72,7 +76,7 @@ function selectTask(id){
   if(listening){try{listening.abort();}catch{}listening=null;}
   active=task;answers=task.items.map(()=>null);startedAt=Date.now();
   $('mpPracticeTitle').textContent=task.title;
-  $('mpPracticeMeta').textContent=task.kind==='recovery'?'Hoàn thành ≥65/100 để phục hồi +15 điểm; thất bại không bị trừ. Mỗi bài phục hồi thưởng tối đa một lần/ngày.':`Nói lại ${task.items.length} câu. ≥85: +10; ≥60: +6; dưới 60: −3. Mỗi bài tính điểm một lần/ngày.`;
+  $('mpPracticeMeta').textContent=task.kind==='recovery'?'Hoàn thành ≥65/100 để phục hồi +15 điểm; thất bại không bị trừ. Mỗi bài phục hồi thưởng tối đa một lần/ngày.':`Nói lại ${task.items.length} câu. ≥85: +10; ≥60: +6; dưới 60: −3. Streak từ 7 ngày: cộng thêm 1–3 điểm khi làm tốt. Một lần tính điểm mỗi bài/ngày (UTC).`;
   $('mpReturn').href=task.returnUrl;
   $('mpFeedback').replaceChildren();
   $('mpCatalogSection').classList.add('mp-hidden');$('mpPractice').classList.remove('mp-hidden');
@@ -122,7 +126,7 @@ async function finish(){
   if(!active||!user||submitting)return;
   if(answers.some(x=>x===null)||answers.filter(x=>x?.heard).length<Math.ceil(answers.length/2)) return;
   submitting=true;$('mpFinish').disabled=true;
-  const score=currentAverage(),delta=calculateDelta(score,active.kind==='recovery'?'recovery':'normal');
+  const score=currentAverage(),delta=calculateDelta(score,active.kind==='recovery'?'recovery':'normal',wallet?.loginStreak||0);
   const summary=e('div',score>=60?'mp-success':'mp-warning',`Kết quả ${score}/100. ${delta>0?'Dự kiến thưởng +'+delta:delta<0?'Dự kiến trừ '+(-delta):'Chưa đạt mức phục hồi.'} Đang lưu…`);
   $('mpFeedback').replaceChildren(summary);
   try{
@@ -181,10 +185,13 @@ async function init(){
   attach();openTab('sc1');
   if(!speechSupported) message('Trình duyệt không hỗ trợ nhận diện giọng nói tiếng Hàn. Hãy mở bằng Chrome hoặc Edge và cấp quyền micro. Bạn vẫn có thể xem danh mục và nghe mẫu, nhưng không thể tính điểm.','error');
   try{
-    user=await waitForUser();wallet=await loadWallet(user);pointsBar();
+    user=await waitForUser();
+    let checkin=null;try{checkin=await claimDailyLogin(user);}catch(err){console.warn('Chưa thưởng đăng nhập:',err?.code||err?.message);}
+    wallet=await loadWallet(user);pointsBar();
+    const loginAnnouncement=checkin?.status==='saved'?`🎁 Điểm danh +${checkin.delta} điểm · Streak ${checkin.streak} ngày! `:'';
     message(isLocked()?`Bạn đang có ${wallet.balance} điểm, dưới mức tối thiểu ${SETTINGS.minimum}. Bài mới tạm khóa; hãy làm bài phục hồi để mở lại.`:
-      `Xin chào ${user.displayName||user.email}. Bạn có ${wallet.balance} điểm. Chọn một bài nói để bắt đầu.`,isLocked()?'warning':'success');
-    openTab(isLocked()?'recovery':(['sc1','sc2','topic','recovery'].includes(new URLSearchParams(location.search).get('tab')) ? new URLSearchParams(location.search).get('tab') : 'sc1'));await refreshRecent();
+      `${loginAnnouncement}Xin chào ${user.displayName||user.email}. Bạn có ${wallet.balance} điểm. Chọn một bài nói để bắt đầu.`,isLocked()?'warning':'success');
+    openTab(isLocked()?'recovery':(['sc1','sc2','sc3','sc4','sc5','sc6','topic','recovery'].includes(new URLSearchParams(location.search).get('tab')) ? new URLSearchParams(location.search).get('tab') : 'sc1'));await refreshRecent();
     const selected=new URLSearchParams(location.search).get('task');
     if(selected&&tasks.some(t=>t.id===selected)) {
       const found=tasks.find(t=>t.id===selected);
