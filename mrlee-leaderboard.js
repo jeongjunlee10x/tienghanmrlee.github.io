@@ -1,94 +1,144 @@
-/** MR LEE - Public opt-in leaderboard. Only alias, motivation points and streak are published. */
 import {initializeApp,getApps} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
 import {getAuth,onAuthStateChanged,reload} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
-import {getFirestore,collection,doc,getDoc,setDoc,deleteDoc,query,orderBy,limit,onSnapshot,serverTimestamp} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
+import {getFirestore,collection,doc,getDoc,setDoc,onSnapshot,serverTimestamp} from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
 import {firebaseConfig,isFirebaseConfigured} from './firebase-config.js';
-import {loadWallet,claimDailyLogin} from './mrlee-points-core.js';
-
-const create=(tag,cl,text)=>{const el=document.createElement(tag);if(cl)el.className=cl;if(text!==undefined)el.textContent=String(text);return el;};
-const pretty=(n)=>Number(n||0).toLocaleString('vi-VN');
-const aside=create('aside','mlb-sidebar');aside.id='mrlee-leaderboard';aside.setAttribute('aria-label','Bảng xếp hạng học tập');
-const toggle=create('button','mlb-toggle','🏆 Xếp hạng');toggle.type='button';toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-controls','mrlee-leaderboard');
-const head=create('div','mlb-head');
-const heading=create('div','mlb-title');heading.append(create('small','', 'THÀNH TÍCH HỌC TẬP'),create('h2','', '🏆 Bảng xếp hạng'));
-const close=create('button','mlb-close','×');close.type='button';close.setAttribute('aria-label','Thu gọn bảng xếp hạng');head.append(heading,close);
-const caption=create('p','mlb-sub','Xếp theo điểm động lực tích lũy · Không giới hạn mức điểm');
-const list=create('ol','mlb-list');list.setAttribute('aria-live','polite');
-const status=create('p','mlb-status','Đang tải bảng điểm…');status.setAttribute('aria-live','polite');
-const area=create('section','mlb-participate');area.append(create('h3','','Tham gia xếp hạng'));
-const help=create('p','mlb-help','Chỉ biệt danh, điểm và streak được hiển thị. Bạn chủ động tham gia hoặc rời bảng.');
-const form=create('form','mlb-form');
-const nickname=create('input','mlb-input');nickname.type='text';nickname.minLength=2;nickname.maxLength=30;nickname.placeholder='Biệt danh (2–30 ký tự)';nickname.setAttribute('aria-label','Biệt danh trên bảng xếp hạng');nickname.required=true;
-const join=create('button','mlb-join','Tham gia BXH');join.type='submit';form.append(nickname,join);
-const leave=create('button','mlb-leave','Ẩn tên khỏi bảng');leave.type='button';leave.hidden=true;
-const personal=create('p','mlb-personal','Đăng nhập để xem điểm và tham gia.');personal.setAttribute('aria-live','polite');
-area.append(help,form,leave,personal);aside.append(head,caption,status,list,area);document.body.append(aside,toggle);document.body.classList.add('mlb-enabled');
-const setOpen=v=>{aside.classList.toggle('mlb-open',v);toggle.setAttribute('aria-expanded',String(v));};
-toggle.addEventListener('click',()=>setOpen(!aside.classList.contains('mlb-open')));close.addEventListener('click',()=>setOpen(false));
-document.addEventListener('keydown',e=>{if(e.key==='Escape')setOpen(false)});
-let auth=null,db=null,user=null,unsubWallet=null,refreshing=false,refreshQueued=false;
-function rankRows(items){
- list.replaceChildren();status.textContent=items.length ? `Top ${items.length} học viên đã đăng ký hiển thị` : 'Chưa có học viên tham gia bảng xếp hạng.';
- items.forEach((entry,i)=>{
-   const li=create('li','mlb-item');
-   if(user&&entry.id===user.uid)li.classList.add('mlb-is-me');
-   const rank=create('span','mlb-position',i===0?'🥇':i===1?'🥈':i===2?'🥉':`#${i+1}`);
-   const profile=create('div','mlb-profile');profile.append(create('strong','',entry.alias),create('small','',`🔥 ${pretty(entry.streak)} ngày liên tiếp`));
-   const points=create('strong','mlb-points',`${pretty(entry.points)} đ`);li.append(rank,profile,points);list.append(li);
+import {rankEntries,searchable} from './mrlee-ranking-utils.mjs?v=spark-v4';
+const el=(tag,cls,text)=>{const n=document.createElement(tag);n.className=cls||'';if(text!==undefined)n.textContent=text;return n;};
+const fmt=n=>Number(n||0).toLocaleString('vi-VN');
+const full=document.getElementById('mrlee-public-ranking');
+const root=full||el('aside','mlb-sidebar');root.id=full?'mrlee-public-ranking':'mrlee-leaderboard';
+root.setAttribute('aria-label','Bảng xếp hạng toàn server');
+const head=el('div','mlb-head'),heading=el('div','mlb-title');
+heading.append(el('small','','TIẾNG HÀN MR LEE'),el(full?'h1':'h2','','🏆 Xếp hạng toàn server'));head.append(heading);
+const caption=el('p','mlb-sub','Điểm động lực từ ví học tập · Bằng điểm, cùng thứ hạng · Firebase Spark');
+const status=el('p','mlb-status','Đang kết nối bảng điểm…');status.setAttribute('role','status');
+const personal=el('p','mlb-personal','Đăng nhập để đánh dấu thứ hạng của bạn.');
+const search=el('input','mlb-input');search.type='search';search.placeholder='Tìm tên học viên…';search.setAttribute('aria-label','Tìm tên trong bảng xếp hạng toàn server');
+const list=el('ol','mlb-list');list.setAttribute('aria-label','Thứ hạng, học viên và tổng điểm');
+const nav=el('nav','mlb-pagination');nav.setAttribute('aria-label','Trang bảng xếp hạng');
+const prev=el('button','mlb-join','← Trước'),next=el('button','mlb-join','Tiếp →'),pageLabel=el('span');prev.type=next.type='button';nav.append(prev,pageLabel,next);
+const retry=el('button','mlb-join','Thử kết nối lại');retry.type='button';retry.hidden=true;
+root.append(head,caption,status,personal);if(full)root.append(search);root.append(list);if(full)root.append(nav);root.append(retry);
+if(!full){
+ const link=el('a','mlb-all','Xem tất cả học viên →');link.href='bang-xep-hang.html';root.append(link);
+ const close=el('button','mlb-close','×');close.type='button';close.setAttribute('aria-label','Thu gọn bảng xếp hạng');head.append(close);
+ const toggle=el('button','mlb-toggle','🏆 Xếp hạng');toggle.type='button';toggle.setAttribute('aria-controls',root.id);toggle.setAttribute('aria-expanded','false');
+ const open=v=>{root.classList.toggle('mlb-open',v);toggle.setAttribute('aria-expanded',String(v));};
+ toggle.onclick=()=>open(!root.classList.contains('mlb-open'));close.onclick=()=>{open(false);toggle.focus();};document.addEventListener('keydown',e=>{if(e.key==='Escape')open(false);});
+ document.body.append(root,toggle);document.body.classList.add('mlb-enabled');
+}
+let rows=[],uid=null,page=0,stop=null,db=null,connected=false,fromCache=false;
+let authVersion=0,stopWallet=null,authUser=null,syncRunning=false,pendingWallet=null,lastSyncError='';
+const size=50;
+function render(){
+ const mine=rows.find(x=>x.id===uid);
+ personal.textContent=uid?(mine?`Bạn đứng thứ #${fmt(mine.rank)} · ${fmt(mine.points)} điểm`:'Chưa có tên của bạn. Hãy đăng nhập và mở trang để đồng bộ ví điểm.'): 'Mọi người đều xem được bảng điểm. Đăng nhập để đánh dấu thứ hạng của bạn.';
+ const filtered=full?rows.filter(x=>searchable(x.alias).includes(searchable(search.value.trim()))):rows;
+ const pages=Math.max(1,Math.ceil(filtered.length/size));page=Math.min(page,pages-1);
+ list.replaceChildren();
+ const visible=full?filtered.slice(page*size,(page+1)*size):rows.slice(0,10);
+ for(const row of visible){
+  const item=el('li','mlb-item'+(row.id===uid?' mlb-is-me':''));
+  const rank=el('span','mlb-position',`#${fmt(row.rank)}`);
+  const profile=el('div','mlb-profile');profile.append(el('strong','',row.alias+(row.id===uid?' (Bạn)':'')),el('small','',row.rank<=3?['🥇 Hạng nhất','🥈 Hạng nhì','🥉 Hạng ba'][row.rank-1]:`🔥 ${fmt(row.streak)} ngày liên tiếp`));
+  item.append(rank,profile,el('strong','mlb-points',`${fmt(row.points)} điểm`));list.append(item);
+ }
+ if(connected)status.textContent=(fromCache?'Dữ liệu tạm lưu · Chờ kết nối server. ': 'Đã đồng bộ · ')+`${fmt(rows.length)} học viên`+(full&&search.value?` · ${fmt(filtered.length)} kết quả`:'')+(!rows.length?' · Chưa có dữ liệu xếp hạng.':'');
+ if(connected&&rows.length&&!filtered.length)list.append(el('li','mlb-empty','Không tìm thấy tên phù hợp.'));
+ pageLabel.textContent=`${page+1} / ${pages}`;prev.disabled=page===0;next.disabled=page>=pages-1;nav.hidden=pages===1;
+}
+search.addEventListener('input',()=>{page=0;render();});prev.onclick=()=>{page--;render();};next.onclick=()=>{page++;render();};
+function connect(){
+ if(stop)stop();retry.hidden=true;status.textContent='Đang kết nối bảng điểm…';
+ stop=onSnapshot(collection(db,'mrleePublicLeaderboard'),{includeMetadataChanges:true},snapshot=>{
+  rows=rankEntries(snapshot.docs.map(d=>({id:d.id,...d.data()})));connected=true;fromCache=snapshot.metadata.fromCache;render();
+ },error=>{
+  connected=false;rows=[];render();retry.hidden=false;
+  status.textContent=error.code==='permission-denied'?'Chưa mở quyền đọc bảng xếp hạng trên Firebase. Quản trị viên cần cài quy tắc đi kèm.':'Chưa kết nối được bảng điểm. Hãy kiểm tra mạng rồi thử lại.';
  });
 }
-async function refreshSelf(){
- if(!user||refreshing){refreshQueued=true;return;}
- refreshing=true;
- try{
-   const wallet=await loadWallet(user);
-   personal.textContent=`Điểm của bạn: ${pretty(wallet.balance)} · Streak ${pretty(wallet.loginStreak)}`;
-   const ref=doc(db,'mrleeLeaderboard',user.uid);const old=await getDoc(ref);
-   if(!old.exists()){
-     leave.hidden=true;join.textContent='Tham gia BXH';
-   }else{
-     const data=old.data();nickname.value=data.alias||nickname.value;
-     leave.hidden=false;join.textContent='Lưu biệt danh';
-     if(data.points!==wallet.balance||data.streak!==wallet.loginStreak){
-       await setDoc(ref,{alias:data.alias,points:wallet.balance,streak:wallet.loginStreak,updatedAt:serverTimestamp()});
-     }
-   }
- }catch(error){personal.textContent='Chưa tải được điểm hoặc quyền Firebase: '+(error?.code||error?.message||'Lỗi kết nối')}
- finally{refreshing=false;if(refreshQueued){refreshQueued=false;setTimeout(refreshSelf,200)}}
+// Firebase Spark: website tự đồng bộ bản ghi công khai từ VÍ THẬT của chính người đăng nhập.
+// Không tạo dữ liệu thưởng; không thay đổi ví; không dùng Cloud Functions.
+function safeAlias(value){
+  const text=typeof value==='string'?value.trim():'';
+  return text.length>=2?text.slice(0,30):'';
 }
-form.addEventListener('submit',async e=>{
- e.preventDefault();
- if(!user){personal.textContent='Vui lòng đăng nhập và xác minh email trước.';return;}
- const alias=nickname.value.trim();if(alias.length<2||alias.length>30){personal.textContent='Biệt danh phải dài từ 2–30 ký tự.';return;}
- join.disabled=true;
- try{
-  let wallet=await loadWallet(user);
-  if(wallet.firstVisit){await claimDailyLogin(user);wallet=await loadWallet(user)}
-  await setDoc(doc(db,'mrleeLeaderboard',user.uid),{alias,points:wallet.balance,streak:wallet.loginStreak,updatedAt:serverTimestamp()});
-  personal.textContent=`Đã lưu biệt danh, ${pretty(wallet.balance)} điểm. Bạn có thể rời bảng bất cứ lúc nào.`;
-  join.textContent='Lưu biệt danh';leave.hidden=false;
- }catch(error){personal.textContent='Không lưu được bảng xếp hạng: '+(error?.code||error?.message||'Lỗi')}
- finally{join.disabled=false}
-});
-leave.addEventListener('click',async()=>{
- if(!user)return;
- leave.disabled=true;
- try{await deleteDoc(doc(db,'mrleeLeaderboard',user.uid));personal.textContent='Đã ẩn biệt danh và điểm khỏi bảng công khai.';leave.hidden=true;join.textContent='Tham gia BXH';}
- catch(error){personal.textContent='Chưa ẩn được: '+(error?.code||error?.message||'Lỗi')}
- finally{leave.disabled=false}
-});
+async function synchronizeSelf(user,wallet,version){
+  if(!authUser||authUser.uid!==user.uid||version!==authVersion)return;
+  const points=wallet.balance,streak=wallet.loginStreak;
+  if(!Number.isSafeInteger(points)||points<0||!Number.isSafeInteger(streak)||streak<0)return;
+  const rankingRef=doc(db,'mrleePublicLeaderboard',user.uid);
+  // Không công bố email. Tên lấy từ hồ sơ, hoặc tên tài khoản, hoặc biệt danh mặc định.
+  let alias=safeAlias(user.displayName);
+  try{
+    const profile=await getDoc(doc(db,'users',user.uid));
+    alias=safeAlias(profile.data()?.displayName)||alias;
+  }catch(err){ /* Hồ sơ có thể chưa tồn tại; vẫn đồng bộ ví với biệt danh mặc định. */ }
+  if(!authUser||authUser.uid!==user.uid||version!==authVersion)return;
+  const previous=await getDoc(rankingRef);
+  alias=alias||safeAlias(previous.data()?.alias)||('Học viên '+user.uid.slice(0,6).toUpperCase());
+  // Tránh ghi liên tục, tiết kiệm hạn mức Spark.
+  if(previous.exists()&&previous.data().points===points&&previous.data().streak===streak&&previous.data().alias===alias)return;
+  if(!authUser||authUser.uid!==user.uid||version!==authVersion)return;
+  await setDoc(rankingRef,{alias,points,streak,updatedAt:serverTimestamp()});
+}
+function queueWalletSync(user,wallet,version){
+  if(!wallet)return;
+  pendingWallet={user,wallet,version};
+  if(syncRunning)return;
+  syncRunning=true;
+  (async()=>{
+    try{
+      while(pendingWallet){
+        const job=pendingWallet;pendingWallet=null;
+        if(job.version!==authVersion)continue;
+        try{await synchronizeSelf(job.user,job.wallet,job.version);lastSyncError='';}
+        catch(e){
+          lastSyncError=e?.code||e?.message||'unknown';
+          console.warn('[MRLEE Spark] Đồng bộ bảng xếp hạng:',e);
+        }
+        render();
+      }
+    }finally{syncRunning=false;}
+  })();
+}
+function stopCurrentWallet(){
+  if(stopWallet){stopWallet();stopWallet=null;}
+  pendingWallet=null;
+}
+async function handleLogin(user){
+  const version=++authVersion;
+  stopCurrentWallet();
+  authUser=null;uid=user?.uid||null;lastSyncError='';render();
+  if(!user)return;
+  try{
+    await reload(user);
+    await user.getIdToken(true);
+    if(!user.emailVerified)throw new Error('Cần xác minh email để đồng bộ điểm.');
+  }catch(err){
+    if(version===authVersion)personal.textContent=err?.message||'Chưa xác minh email';
+    return;
+  }
+  if(version!==authVersion)return;
+  authUser=user;
+  stopWallet=onSnapshot(
+    doc(db,'users',user.uid,'studyPoints','wallet'),
+    {includeMetadataChanges:true},
+    snapshot=>{
+      if(version!==authVersion)return;
+      if(!snapshot.exists()){
+        personal.textContent='Chưa có ví điểm. Hãy đăng nhập/điểm danh để khởi tạo ví trước.';
+        return;
+      }
+      // Chỉ công bố điểm đã xác nhận từ server, không dùng dữ liệu đang ghi cục bộ.
+      if(snapshot.metadata.fromCache||snapshot.metadata.hasPendingWrites)return;
+      queueWalletSync(user,snapshot.data(),version);
+    },
+    error=>{if(version===authVersion)personal.textContent='Không đọc được ví điểm: '+(error?.code||'Lỗi kết nối');}
+  );
+}
+retry.onclick=connect;
 if(isFirebaseConfigured){
- const app=getApps().find(a=>a.name==='[DEFAULT]')||initializeApp(firebaseConfig);auth=getAuth(app);db=getFirestore(app);
- const q=query(collection(db,'mrleeLeaderboard'),orderBy('points','desc'),limit(10));
- onSnapshot(q,s=>rankRows(s.docs.map(d=>({id:d.id,alias:String(d.data().alias||'Học viên').slice(0,30),points:d.data().points,streak:d.data().streak}))),e=>{
-   status.textContent='Không tải được BXH. Hãy Publish Firestore Rules mới: '+(e?.code||'permission-denied');list.replaceChildren();
- });
- onAuthStateChanged(auth,async next=>{
-  user=null;if(unsubWallet){unsubWallet();unsubWallet=null}
-  if(!next){form.hidden=true;leave.hidden=true;personal.textContent='Đăng nhập và xác minh email để tham gia.';return;}
-  try{await reload(next);await next.getIdToken(true);if(!next.emailVerified)throw new Error('Bạn cần xác minh email.');}
-  catch(error){form.hidden=true;personal.textContent=error?.message||'Chưa xác minh email';return}
-  user=next;form.hidden=false;nickname.value='Học viên '+next.uid.slice(0,4).toUpperCase();
-  unsubWallet=onSnapshot(doc(db,'users',next.uid,'studyPoints','wallet'),()=>{refreshSelf()},error=>{personal.textContent='Không đọc được ví điểm: '+(error?.code||'Lỗi')});
- });
-}else{status.textContent='Firebase chưa được cấu hình.';form.hidden=true}
+ const app=getApps().find(a=>a.name==='[DEFAULT]')||initializeApp(firebaseConfig);db=getFirestore(app);
+ onAuthStateChanged(getAuth(app),handleLogin);connect();
+}else{status.textContent='Chưa cấu hình kết nối Firebase.';}
