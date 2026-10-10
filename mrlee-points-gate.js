@@ -44,7 +44,7 @@ if(['so-cap-1.html','so-cap-2.html','giao-tiep-theo-chu-de.html'].includes(page)
   }
   waitForUser().then(async user=>{
     const wallet=await loadWallet(user);
-    const badge=document.createElement('span');badge.className='mp-gate-badge';badge.textContent=`⭐ ${wallet.balance}/${SETTINGS.maximum} điểm`;
+    const badge=document.createElement('span');badge.className='mp-gate-badge';badge.textContent=`⭐ ${wallet.balance.toLocaleString("vi-VN")} điểm`;
     info.replaceChildren(badge,document.createTextNode(wallet.balance<SETTINGS.minimum ? `  🔒 Dưới ${SETTINGS.minimum} điểm – bài mới tạm khóa. Phục hồi để tiếp tục.`:'  ✅ Có thể học và nhận điểm khi luyện nói.'));
     if(wallet.balance<SETTINGS.minimum){
       document.body.classList.add('mp-study-locked');

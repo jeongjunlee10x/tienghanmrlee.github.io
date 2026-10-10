@@ -1,0 +1,24 @@
+﻿MR LEE - SỬA LỖI CÀI BẢNG XẾP HẠNG V2
+
+Lỗi cũ: "Unknown or already-updated points core". File điểm của bạn đã có claimLessonPoint, không có trần 200. Bộ cài V1 dừng do kiểm tra phiên bản quá cứng.
+
+V2 nhận diện core đã nâng cấp, GIỮ NGUYÊN mrlee-points-core.js, tiếp tục cài Top 10, bảng bên phải và nút +1 cho bài học. Nếu các file khác đã được sửa, bộ cài tránh chèn trùng.
+
+BƯỚC 1: Giải nén hoặc chép CAI-BANG-XEP-HANG-MRLEE-V2-KHAC-PHUC.ps1 vào thư mục chứa index.html (thư mục gốc website).
+
+BƯỚC 2: Terminal VS Code:
+powershell -ExecutionPolicy Bypass -File ".\CAI-BANG-XEP-HANG-MRLEE-V2-KHAC-PHUC.ps1"
+
+BƯỚC 3: Phải thấy "SUCCESS V2". Nếu không, KHÔNG git push, hãy chụp đầy đủ dòng lỗi. Bộ cài kiểm tra các phiên bản tệp TRƯỚC KHI ghi thay đổi; không tự ý ghi đè nếu khác bản dự kiến.
+
+BƯỚC 4: Trước khi thay Firestore Rules, SAO LƯU Rules hiện tại trong Firebase Console; mở tệp .rules bên cạnh, so sánh các phần đã tùy chỉnh rồi Publish. Quyền điều chỉnh KHÔNG được bộ cài tự triển khai. Đừng thay Rules nếu bạn chưa kiểm tra nội dung.
+
+BƯỚC 5: Kiểm tra với học viên: +1 cho bài chưa nhận thưởng, học lại không cộng lặp, điểm có thể trên 200, bảng Top 10 hiển thị khi học viên tự tham gia. Sau đó:
+git add index.html so-cap-1.html so-cap-2.html lo-trinh-1-6.html mrlee-leaderboard.js mrlee-leaderboard.css mrlee-lesson-reward.js mrlee-lesson-reward.css mrlee-points-core.js mrlee-speaking-app.js mrlee-points-gate.js mrlee-roadmap.js
+git add mrlee-engagement.js
+git commit -m "Fix leaderboard setup for updated points core"
+git push origin main
+
+Lưu ý: Nếu git add báo thiếu mrlee-engagement.js, bỏ dòng add đó. Không cần đưa file .rules lên GitHub. Bộ cài tự sao lưu các tệp sửa vào thư mục .mrlee-backup-leaderboard-... cạnh (ngoài) thư mục website.
+
+An toàn: bảng công khai dựa trên opt-in, biệt danh, điểm động lực học tập do trình duyệt gửi (không phải điểm thi chính thức). Chưa chạy PowerShell thực trên máy Windows của bạn.

@@ -1,0 +1,142 @@
+/* Tiếng Hàn Mr Lee • Visual refresh 2026.10 • additive, no Firebase changes. */
+:root{
+  --lee-ink:#102742;--lee-navy:#123456;--lee-blue:#265f98;--lee-coral:#f08a61;
+  --lee-cream:#fbf8f3;--lee-sky:#eef5fc;--lee-line:#d9e5ef;
+  --lee-ease:cubic-bezier(.2,.7,.2,1);
+}
+html.mrlee-design{scroll-behavior:smooth}
+html.mrlee-design body{font-family:"Be Vietnam Pro","Noto Sans KR",system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--lee-ink);-webkit-font-smoothing:antialiased}
+html.mrlee-design :is(a,button,input,select,textarea):focus-visible{outline:3px solid #f5a14d!important;outline-offset:3px}
+html.mrlee-design :is(.site-header,.topbar,.header,.top-bar,header.topbar,header.header){border-bottom:1px solid rgba(198,214,231,.68);box-shadow:0 7px 24px rgba(20,50,78,.055)}
+html.mrlee-design .site-header{background:rgba(255,255,255,.94)!important;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+html.mrlee-design .site-header .header-layout{min-height:78px}
+html.mrlee-design .site-nav a:not(.nav-account){border-radius:12px;transition:background-color .22s ease,color .22s ease,transform .22s ease}
+html.mrlee-design .site-nav a:not(.nav-account):hover{background:#eef5fd;transform:translateY(-1px)}
+html.mrlee-design :is(.site-nav .nav-account,.action-btn.primary,.btn.primary){background:linear-gradient(115deg,#123557,#275a89);color:#fff;box-shadow:0 8px 20px rgba(18,53,87,.15)}
+html.mrlee-design .brand img{object-fit:contain;filter:drop-shadow(0 4px 6px rgba(26,56,87,.08))}
+html.mrlee-design .brand-text{letter-spacing:-.5px}
+
+/* HOMEPAGE — refreshing overlays only, slideshow JS untouched. */
+html.mrlee-design[data-mrlee-page="home"] body{background-color:#f4f8fb}
+html.mrlee-design[data-mrlee-page="home"] .hero{padding-top:clamp(18px,3vw,34px)}
+html.mrlee-design[data-mrlee-page="home"] .hero-banner{border:1px solid rgba(255,255,255,.65);border-radius:26px!important;box-shadow:0 28px 65px rgba(11,45,76,.16);isolation:isolate}
+html.mrlee-design[data-mrlee-page="home"] .hero-banner img{border-radius:inherit}
+html.mrlee-design[data-mrlee-page="home"] .hero-overview{border:1px solid rgba(216,229,241,.9);border-radius:22px;box-shadow:0 14px 45px rgba(18,54,88,.11);background:rgba(255,255,255,.97);position:relative;z-index:3}
+html.mrlee-design[data-mrlee-page="home"] .hero-overview h1{font-size:clamp(24px,2.5vw,33px);font-weight:850;letter-spacing:-.8px}
+html.mrlee-design[data-mrlee-page="home"] .hero-overview .eyebrow{color:#b65f32}
+html.mrlee-design[data-mrlee-page="home"] .action-btn{border-radius:13px;min-height:48px}
+html.mrlee-design[data-mrlee-page="home"] .action-btn.secondary{background:#fff5ed;color:#954723;border:1px solid #f7d9c8}
+html.mrlee-design[data-mrlee-page="home"] .learning{padding-top:52px}
+html.mrlee-design[data-mrlee-page="home"] .section-head h2{font-size:clamp(28px,3.5vw,40px);letter-spacing:-1.2px}
+html.mrlee-design[data-mrlee-page="home"] .section-pill{background:#edf4fc;color:#306291;letter-spacing:.1em;padding:7px 15px}
+html.mrlee-design[data-mrlee-page="home"] .feature-grid{gap:19px}
+html.mrlee-design[data-mrlee-page="home"] .feature-card{min-height:247px;border-radius:22px;border:1px solid #dfe8f2;background:linear-gradient(145deg,#fff 60%,var(--tint,#eef6ff) 180%);box-shadow:0 12px 34px rgba(16,43,77,.055);padding:24px 24px 22px;transition:transform .32s var(--lee-ease),box-shadow .3s ease,border-color .3s ease}
+html.mrlee-design[data-mrlee-page="home"] .feature-card:before{content:attr(data-mrlee-number);position:absolute;right:20px;top:14px;color:var(--accent,#2b658d);opacity:.25;font-size:35px;font-weight:900;letter-spacing:-2px;pointer-events:none;z-index:1}
+html.mrlee-design[data-mrlee-page="home"] .feature-card:after{right:-54px;top:-60px;width:152px;height:152px;opacity:.48}
+html.mrlee-design[data-mrlee-page="home"] .feature-card .icon-box{width:62px;height:62px;border-radius:19px;border:1px solid rgba(255,255,255,.64);box-shadow:inset 0 2px 1px rgba(255,255,255,.7)}
+html.mrlee-design[data-mrlee-page="home"] .feature-card h3{font-size:17px;letter-spacing:-.5px}
+html.mrlee-design[data-mrlee-page="home"] .feature-card p{font-size:12.5px}
+html.mrlee-design[data-mrlee-page="home"] .feature-card .card-bottom{border-top-color:#e7eef5}
+html.mrlee-design[data-mrlee-page="home"] .feature-card:hover{transform:translateY(-8px);border-color:#c8dbe9;box-shadow:0 24px 42px rgba(16,43,77,.13)}
+html.mrlee-design[data-mrlee-page="home"] .feature-card:hover .arrow-chip{transform:translateX(3px)}
+html.mrlee-design[data-mrlee-page="home"] .arrow-chip{transition:transform .22s ease}
+html.mrlee-design[data-mrlee-page="home"] .bottom-cta{border-radius:25px;background:linear-gradient(110deg,#102f50 0%,#194e77 68%,#2b6b98 100%);box-shadow:0 16px 30px rgba(12,45,77,.12)}
+html.mrlee-design[data-mrlee-page="home"] .bottom-cta:before{content:"한국어";position:absolute;right:12%;top:-25px;font-family:"Noto Sans KR",sans-serif;font-weight:900;font-size:114px;color:rgba(255,255,255,.055);pointer-events:none}
+html.mrlee-design[data-mrlee-page="home"] .notice{border-radius:17px}
+
+/* NEW: QUICK LEARNING TRACK placed below hero without modifying existing feature links. */
+.mrlee-quick-path{width:min(1180px,calc(100% - 42px));margin:32px auto 4px}
+.mrlee-quick-path .mrlee-kicker{display:block;font-weight:800;font-size:11px;letter-spacing:.12em;color:#9b693d;margin:0 0 11px}
+.mrlee-quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.mrlee-quick-card{position:relative;display:flex;align-items:center;gap:13px;min-width:0;padding:17px 18px;text-decoration:none!important;color:#163954!important;background:rgba(255,255,255,.93);border:1px solid #dce7ef;border-radius:17px;box-shadow:0 8px 24px rgba(21,48,75,.055);transition:transform .2s ease,box-shadow .2s ease}
+.mrlee-quick-card:hover{transform:translateY(-3px);box-shadow:0 13px 29px rgba(21,48,75,.11)}
+.mrlee-quick-icon{display:grid;place-items:center;flex:none;width:43px;height:43px;border-radius:14px;background:#e8f2fc;font-size:23px}
+.mrlee-quick-card:nth-child(2) .mrlee-quick-icon{background:#fff0e6}
+.mrlee-quick-card:nth-child(3) .mrlee-quick-icon{background:#e6f5ee}
+.mrlee-quick-label{min-width:0;display:grid;gap:2px}
+.mrlee-quick-label b{font-size:13px;font-weight:850}
+.mrlee-quick-label small{font-size:10px;line-height:1.5;color:#74859a}
+.mrlee-quick-arr{margin-left:auto;opacity:.65;font-size:17px}
+
+/* EXISTING STUDENT WELCOME / POINTS — upgraded visual treatment. */
+html.mrlee-design .mrlee-student-panel{border-radius:22px;background:linear-gradient(125deg,rgba(255,255,255,.98),rgba(235,246,255,.98));border-color:#cfdfee;box-shadow:0 15px 35px rgba(17,57,93,.105)}
+html.mrlee-design .mrlee-avatar-initial{border-radius:17px;background:linear-gradient(135deg,#173e68,#417bae);box-shadow:0 6px 14px rgba(15,57,95,.18)}
+html.mrlee-design .mrlee-stat{border-radius:15px;border-color:#d8e5f0}
+html.mrlee-design .mrlee-modal{border-radius:26px}
+html.mrlee-design .mrlee-modal-award{border-radius:14px}
+
+/* OTHER LEARNING PAGES — gentle consistency, preserve functionality. */
+html.mrlee-design[data-mrlee-page="learning"] :is(.topbar,.header){background:rgba(255,255,255,.97)}
+html.mrlee-design[data-mrlee-page="learning"] :is(.topbar a,.header nav a){text-underline-offset:3px}
+html.mrlee-design[data-mrlee-page="learning"] :is(.level-card,.lesson-card,.topic-card,.panel,.card,.stat,.reward,.feature-card){box-shadow:0 8px 26px rgba(24,58,88,.06);border-radius:17px}
+html.mrlee-design[data-mrlee-page="learning"] :is(.btn,.primary,.action-btn,.start-button){border-radius:12px}
+html.mrlee-design[data-mrlee-page="learning"] main :is(h1,h2){letter-spacing:-.6px}
+
+/* PROFILE / LOGIN — body & form elements are untouched by JS logic. */
+html.mrlee-design[data-mrlee-page="account"] body{background:radial-gradient(circle at 84% 12%,#e8f3ff 0,transparent 38%),linear-gradient(165deg,#f8fafc,#eef5fc)}
+html.mrlee-design[data-mrlee-page="account"] :is(.layout,.panel,#account-view){position:relative}
+html.mrlee-design[data-mrlee-page="account"] .panel{background:rgba(255,255,255,.98);border:1px solid #dfe9f3;border-radius:28px;box-shadow:0 25px 70px rgba(19,48,82,.08);padding:clamp(20px,3vw,36px)}
+html.mrlee-design[data-mrlee-page="account"] .intro{border-radius:28px;background:linear-gradient(140deg,#173c63 0%,#225a84 72%,#326e8e 100%);box-shadow:0 24px 55px rgba(16,50,84,.13)}
+html.mrlee-design[data-mrlee-page="account"] .intro:after{content:"한";position:absolute;bottom:15px;right:25px;font-size:100px;color:rgba(255,255,255,.07);font-weight:900;font-family:"Noto Sans KR",sans-serif;pointer-events:none}
+html.mrlee-design[data-mrlee-page="account"] .panel h2{letter-spacing:-.5px}
+html.mrlee-design[data-mrlee-page="account"] .tabs{border-radius:15px}
+html.mrlee-design[data-mrlee-page="account"] .tab{border-radius:11px}
+html.mrlee-design[data-mrlee-page="account"] .field input{border-radius:13px;min-height:52px;transition:border-color .2s,box-shadow .2s}
+html.mrlee-design[data-mrlee-page="account"] .field input:focus{box-shadow:0 0 0 4px #d7eafe}
+html.mrlee-design[data-mrlee-page="account"] :is(.primary,.secondary){border-radius:13px;min-height:46px}
+html.mrlee-design[data-mrlee-page="account"] .account-list{border-radius:16px;border-color:#dce6f0;background:#f9fbff}
+html.mrlee-design[data-mrlee-page="account"] .account-list div{padding:15px 17px}
+html.mrlee-design[data-mrlee-page="account"] .account-list strong{color:#17385b}
+.mrlee-account-shortcuts{margin:20px 0 24px;padding:16px;background:linear-gradient(140deg,#eef5fd,#fff);border:1px solid #dbe7f2;border-radius:18px}
+.mrlee-account-shortcuts h3{font:800 14px/1.5 "Be Vietnam Pro",sans-serif;margin:0 0 12px;color:#16395f}
+.mrlee-account-shortcuts .mrlee-account-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.mrlee-account-shortcuts a{display:grid;gap:4px;justify-items:center;text-align:center;padding:12px 7px;border:1px solid #d6e5f2;border-radius:13px;background:white;color:#17385b;text-decoration:none;font-size:11px;line-height:1.5;font-weight:800;transition:background .2s}
+.mrlee-account-shortcuts a:hover{background:#eaf3fc}
+.mrlee-account-shortcuts a span{font-size:22px}
+
+/* CONTACT — compact floating buttons, accessible on mobile. */
+.mrlee-contact-dock{position:fixed;right:17px;bottom:21px;z-index:1990;display:flex;flex-direction:column;align-items:flex-end;gap:9px;font-family:"Be Vietnam Pro",system-ui,sans-serif;filter:drop-shadow(0 7px 17px rgba(15,38,67,.16))}
+.mrlee-dock-links{display:flex;flex-direction:column;align-items:flex-end;gap:9px}
+.mrlee-dock-link{display:flex;align-items:center;gap:10px;padding:10px 13px 10px 10px;border-radius:100px;background:#fff;color:#193a5e!important;text-decoration:none!important;border:1px solid #dbe6f0;min-height:52px;font-size:12px;font-weight:800;box-shadow:0 7px 18px rgba(15,38,67,.11);transition:transform .22s ease}
+.mrlee-dock-link:hover{transform:translateX(-3px)}
+.mrlee-dock-icon{width:33px;height:33px;display:grid;place-items:center;color:white;border-radius:50%;background:#226bb9;font-size:15px;font-weight:900;flex:none}
+.mrlee-dock-link[data-kind="zalo"] .mrlee-dock-icon{background:#0867ee}
+.mrlee-dock-link[data-kind="messenger"] .mrlee-dock-icon{background:linear-gradient(135deg,#129bf7,#a13fff)}
+.mrlee-dock-link[data-kind="call"] .mrlee-dock-icon{background:#16856a}
+.mrlee-dock-toggle{display:none;appearance:none;border:0;border-radius:100px;background:linear-gradient(120deg,#173d64,#2d6796);color:white;min-width:56px;height:56px;align-items:center;justify-content:center;gap:8px;padding:9px 14px;box-shadow:0 10px 24px rgba(21,62,102,.3);font-weight:800;cursor:pointer}
+.mrlee-dock-toggle svg{width:21px;height:21px}
+.mrlee-contact-band{width:min(1180px,calc(100% - 42px));margin:46px auto;padding:25px 27px;background:#fff;border:1px solid #dce6f0;border-radius:23px;box-shadow:0 14px 35px rgba(18,49,79,.065);font-family:"Be Vietnam Pro",system-ui,sans-serif;color:#183b60}
+.mrlee-contact-band .mrlee-band-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.mrlee-contact-band .mrlee-band-eyebrow{font-size:11px;color:#ad7046;font-weight:850;letter-spacing:.11em}
+.mrlee-contact-band h2{margin:5px 0 0;font-size:23px;color:#18395d}
+.mrlee-band-items{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.mrlee-band-items a,.mrlee-band-items .mrlee-band-fax{min-width:0;padding:14px;border-radius:13px;background:#f4f8fc;border:1px solid #e0eaf3;color:#1d4369;text-decoration:none!important;font-size:13px;line-height:1.5;font-weight:750}
+.mrlee-band-items a:hover{background:#e8f3fe}
+.mrlee-band-items b{display:block;margin-bottom:4px;font-size:10px;color:#667f98;font-weight:800}
+.mrlee-band-items .mrlee-band-fax{cursor:default}
+html.mrlee-design .footer-contact .contact-grid .contact-link{border-radius:15px}
+html.mrlee-design .footer-contact .contact-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+html.mrlee-design .footer-contact .contact-grid .mrlee-contact-extra .contact-icon{font-size:18px;font-weight:900}
+html.mrlee-design .footer-contact .contact-grid .mrlee-contact-extra.mrlee-zalo .contact-icon{background:#076ce8}
+html.mrlee-design .footer-contact .contact-grid .mrlee-contact-extra.mrlee-messenger .contact-icon{background:linear-gradient(135deg,#1ca4ff,#a445f5)}
+@media(max-width:900px){.mrlee-band-items{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:850px){html.mrlee-design .footer-contact .contact-grid{grid-template-columns:1fr}}
+@media(max-width:700px){.mrlee-quick-grid{grid-template-columns:1fr}.mrlee-quick-path{margin-top:24px}.mrlee-contact-dock{right:14px;bottom:14px;filter:none}.mrlee-dock-toggle{display:inline-flex}.mrlee-dock-links{display:none}.mrlee-contact-dock.is-open .mrlee-dock-links{display:flex}.mrlee-dock-link{min-height:49px}.mrlee-contact-band{width:calc(100% - 28px);padding:20px 16px}.mrlee-band-items{grid-template-columns:1fr 1fr}.mrlee-account-shortcuts .mrlee-account-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:520px){html.mrlee-design[data-mrlee-page="home"] .hero-overview h1{font-size:21px}.mrlee-quick-path{width:calc(100% - 28px)}.mrlee-quick-card{padding:12px 15px}.mrlee-band-items{grid-template-columns:1fr}.mrlee-contact-band h2{font-size:20px}.mrlee-account-shortcuts .mrlee-account-grid{grid-template-columns:1fr 1fr}.mrlee-contact-dock{bottom:max(12px,env(safe-area-inset-bottom))}}
+@media(prefers-reduced-motion:reduce){html.mrlee-design .feature-card,html.mrlee-design .arrow-chip,.mrlee-quick-card,.mrlee-dock-link{transition:none!important;animation:none!important}html.mrlee-design{scroll-behavior:auto}}
+
+/* Avatar uploader remains functional; improve surrounding profile presentation only. */
+html.mrlee-design[data-mrlee-page="account"] .mrlee-avatar-box{border-color:#d7e4f1;background:linear-gradient(125deg,#f3f8fe,#fff);border-radius:21px;padding:22px}
+html.mrlee-design[data-mrlee-page="account"] .mrlee-avatar-frame{box-shadow:0 12px 32px rgba(16,49,82,.15);border-width:5px}
+html.mrlee-design[data-mrlee-page="account"] .mrlee-avatar-upload,html.mrlee-design[data-mrlee-page="account"] .mrlee-avatar-button{border-radius:12px}
+
+/* Shared polish across course pages: interactive controls, study panels, responsive tables. */
+html.mrlee-design[data-mrlee-page="learning"] body{background-color:#f5f8fc}
+html.mrlee-design[data-mrlee-page="learning"] :is(.shell,.container,.page-wrap,.wrap){scroll-margin-top:86px}
+html.mrlee-design[data-mrlee-page="learning"] :is(.lesson-card,.level-card,.topic-card,.quiz-card,.question-card,.study-card,.course-card){border:1px solid #e0eaf2;border-radius:19px;transition:box-shadow .22s ease,transform .22s ease}
+html.mrlee-design[data-mrlee-page="learning"] :is(.lesson-card,.level-card,.topic-card,.course-card):hover{box-shadow:0 16px 35px rgba(22,56,88,.1)}
+html.mrlee-design[data-mrlee-page="learning"] :is(button,.btn,.button,.action-btn):not(:disabled){transition:filter .17s ease,box-shadow .17s ease}
+html.mrlee-design[data-mrlee-page="learning"] :is(button,.btn,.button,.action-btn):not(:disabled):hover{filter:brightness(1.035)}
+html.mrlee-design[data-mrlee-page="learning"] :is(input[type="text"],input[type="search"],input[type="email"],input[type="password"],select,textarea){border-radius:12px}
+html.mrlee-design[data-mrlee-page="learning"] :is(input[type="text"],input[type="search"],input[type="email"],input[type="password"],select,textarea):focus{outline:2px solid #b7d3ed;outline-offset:1px}
+html.mrlee-design[data-mrlee-page="learning"] :is(.pill,.badge,.tag,.chip){border-radius:999px}

@@ -18,7 +18,7 @@ const $=(id)=>document.getElementById(id);
 const dayUTC=()=>new Date().toISOString().slice(0,10);
 const safeStore={get(key){try{return localStorage.getItem(key)}catch{return null}},set(key,val){try{localStorage.setItem(key,val)}catch{}}};
 function node(tag,cls,text){const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=String(text);return x;}
-const badgeForPoints=(p)=>p>=160?['Bứt phá','🏆']:p>=120?['Tăng tốc','🚀']:p>=60?['Bền bỉ','🌱']:['Khởi động','📘'];
+const badgeForPoints=(p)=>p>=2000?['Huyền thoại','👑']:p>=1000?['Bậc thầy','🏆']:p>=500?['Tinh anh','💎']:p>=200?['Xuất sắc','🌟']:p>=100?['Tăng tốc','🚀']:['Khởi động','🌱'];
 const fmt=(n)=>Number.isFinite(n)?String(n):'—';
 const shareURL='https://jeongjunlee10x.github.io/tienghanmrlee.github.io/';
 let lastUser='';
@@ -33,7 +33,7 @@ function renderHome(user, name, wallet){
  meta.append(portrait,identity);
  const stats=node('div','mrlee-student-stats');
  const [rank,rankIcon]=badgeForPoints(wallet.balance);
- const rows=[['⭐','Điểm động lực',fmt(wallet.balance)+' / '+SETTINGS.maximum],['🔥','Streak',fmt(wallet.loginStreak)+' ngày'],['📅','Ngày đã điểm danh',fmt(wallet.loginDays)], [rankIcon,'Hạng học tập',rank]];
+ const rows=[['⭐','Điểm động lực',fmt(wallet.balance)],['🔥','Streak',fmt(wallet.loginStreak)+' ngày'],['📅','Ngày đã điểm danh',fmt(wallet.loginDays)], [rankIcon,'Hạng học tập',rank]];
  for(const [icon,label,value] of rows){const card=node('div','mrlee-stat');card.append(node('span','mrlee-stat-icon',icon),node('div','mrlee-stat-label',label),node('strong','mrlee-stat-value',value));stats.append(card);}
  const actions=node('div','mrlee-student-actions');
  const open=node('a','mrlee-action-primary','🎓 Tiếp tục lộ trình');open.href='bai-hoc.html';
@@ -67,7 +67,7 @@ function modal(user,name,wallet,reward){
  const title=node('h2','',`Chào mừng trở lại, ${name}!`);title.id='mrleeModalTitle';
  const desc=node('p','mrlee-modal-lead','Đây là thống kê điểm danh được ghi nhận kể từ khi tính năng được kích hoạt.');desc.id='mrleeModalDesc';
  const stats=node('div','mrlee-modal-stats');
- for(const [label,val] of [['Đã điểm danh',`${wallet.loginDays} ngày`],['Chuỗi hiện tại',`${wallet.loginStreak} ngày`],['Điểm đang có',`${wallet.balance} / ${SETTINGS.maximum}`]]){
+ for(const [label,val] of [['Đã điểm danh',`${wallet.loginDays} ngày`],['Chuỗi hiện tại',`${wallet.loginStreak} ngày`],['Điểm đang có',`${wallet.balance} điểm`]]){
    const cell=node('div','mrlee-modal-stat');cell.append(node('strong','',val),node('span','',label));stats.append(cell);
  }
  const awardMsg=reward?.status==='saved' ? `🎁 Điểm danh hôm nay: +${reward.delta} điểm${reward.bonus?` (có ${reward.bonus} điểm mốc streak)`:''}.`:

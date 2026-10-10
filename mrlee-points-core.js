@@ -7,7 +7,7 @@ import { getAuth, onAuthStateChanged, reload } from 'https://www.gstatic.com/fir
 import { getFirestore, doc, collection, getDoc, getDocs, runTransaction, query, orderBy, limit, serverTimestamp, addDoc, Timestamp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
 import { firebaseConfig, isFirebaseConfigured } from './firebase-config.js';
 
-export const SETTINGS=Object.freeze({initial:100,minimum:20,maximum:200,lowPenalty:-3,good:6,excellent:10,recovery:15,loginBase:2});
+export const SETTINGS=Object.freeze({initial:100,minimum:20,lowPenalty:-3,good:6,excellent:10,recovery:15,loginBase:2});
 const app=getApps().find(x=>x.name==='[DEFAULT]') || (isFirebaseConfigured ? initializeApp(firebaseConfig) : null);
 const auth=app ? getAuth(app) : null;
 const db=app ? getFirestore(app) : null;
@@ -25,12 +25,13 @@ export function waitForUser(){
 }
 const walletRef=user=>doc(db,'users',user.uid,'studyPoints','wallet');
 const attemptRef=(user,id)=>doc(db,'users',user.uid,'speakingAttempts',id);
+const lessonRewardRef=(user,id)=>doc(db,'users',user.uid,'lessonRewards',id);
 const attendanceRef=(user,id)=>doc(db,'users',user.uid,'dailyCheckins',id);
 const utcDay=(d=new Date())=>d.toISOString().slice(0,10);
 const dayTimestamp=day=>Timestamp.fromDate(new Date(day+'T00:00:00.000Z'));
 export const localDay=()=>utcDay(); // UTC controls awards consistently across time zones.
 const tsDate=v=>v&&typeof v.toDate==='function'?v.toDate():null;
-const emptyWallet=()=>({balance:SETTINGS.initial,earned:0,lost:0,attempts:0,lastAttemptId:'',lastDelta:0,lastEventType:'speaking',loginStreak:0,bestStreak:0,loginDays:0,lastLoginId:'',lastLoginAt:Timestamp.fromDate(new Date('2000-01-01T00:00:00Z'))});
+const emptyWallet=()=>({balance:SETTINGS.initial,earned:0,lost:0,attempts:0,lastAttemptId:'',lastLessonId:'',lastDelta:0,lastEventType:'speaking',loginStreak:0,bestStreak:0,loginDays:0,lastLoginId:'',lastLoginAt:Timestamp.fromDate(new Date('2000-01-01T00:00:00Z'))});
 function hydrated(data={}){return {...emptyWallet(),...data}}
 export async function loadWallet(user){
   const snap=await getDoc(walletRef(user));return {...hydrated(snap.exists()?snap.data():{}),firstVisit:!snap.exists()};
@@ -42,7 +43,7 @@ export function computeLoginReward(today,lastDay,streak,balance){
   const expectedPrevious=new Date(today+'T00:00:00.000Z');expectedPrevious.setUTCDate(expectedPrevious.getUTCDate()-1);
   const currentStreak=lastDay===utcDay(expectedPrevious)?streak+1:1;
   const bonus=streakBonus(currentStreak);
-  const delta=Math.max(0,Math.min(SETTINGS.maximum-balance,SETTINGS.loginBase+bonus));
+  const delta=SETTINGS.loginBase+bonus;
   return {status:'saved',streak:currentStreak,delta,bonus};
 }
 /** Transactionally claim at most once per UTC day. Server rules require request.time.date(). */
@@ -80,8 +81,7 @@ export function similarity(reference,spoken){
 }
 export function calculateDelta(score,mode='normal',streak=0){
   if(mode==='recovery')return score>=65?SETTINGS.recovery:0;
-  if(score<60)return SETTINGS.lowPenalty;
-  return (score>=85?SETTINGS.excellent:SETTINGS.good)+speechStreakBonus(streak);
+  return score>=60?1:0; // Mỗi bài tối đa +1 một lần, qua lessonRewards.
 }
 export async function commitSpeaking(user,task,score,transcripts,seconds,mode='normal'){
   if(!Number.isInteger(score)||score<0||score>100)throw new Error('Điểm bài nói không hợp lệ.');
@@ -95,9 +95,10 @@ export async function commitSpeaking(user,task,score,transcripts,seconds,mode='n
     if(oldAttempt.exists())return {status:'already',delta:0,balance:state.balance};
     if(mode!=='recovery'&&state.balance<SETTINGS.minimum)return {status:'locked',delta:0,balance:state.balance};
     const currentStreak=utcDay(tsDate(state.lastLoginAt)||new Date('2000-01-01'))===day?state.loginStreak:0;
-    const delta=calculateDelta(score,mode,currentStreak);
+    const delta=mode==='recovery'?calculateDelta(score,mode,currentStreak):0; // Bài nói thường ghi điểm riêng; +1 được cấp một lần qua lessonRewards.
     if(mode==='recovery'&&delta===0)return {status:'not-passed',delta:0,balance:state.balance};
-    const newBalance=Math.max(0,Math.min(SETTINGS.maximum,state.balance+delta));
+    if(mode==='recovery'&&state.balance>=SETTINGS.minimum)return {status:'locked',delta:0,balance:state.balance};
+    const newBalance=Math.max(0,state.balance+delta);
     const actualDelta=newBalance-state.balance;
     const next={...state,balance:newBalance,earned:state.earned+Math.max(actualDelta,0),lost:state.lost+Math.max(-actualDelta,0),attempts:state.attempts+1,lastAttemptId:id,lastDelta:actualDelta,lastEventType:'speaking',createdAt:oldWallet.exists()?state.createdAt:serverTimestamp(),updatedAt:serverTimestamp()};
     if(oldWallet.exists())tx.update(wallet,next);else tx.set(wallet,next);
@@ -105,6 +106,12 @@ export async function commitSpeaking(user,task,score,transcripts,seconds,mode='n
     return {status:'saved',delta:actualDelta,balance:newBalance,docId:id,streakBonus:currentStreak?speechStreakBonus(currentStreak):0};
   });
   if(result.status!=='saved')return result;
+  if(mode==='normal'&&score>=60){
+    try{
+      const bonus=await claimLessonPoint(user,task.id);
+      result.delta=bonus.delta||0; result.balance=bonus.balance; result.lessonRewardStatus=bonus.status;
+    }catch(error){ result.lessonRewardStatus='error'; result.lessonRewardError=error?.code||error?.message||'unknown'; }
+  }
   const level=String(task.level||'').startsWith('sc')?task.level:'general';
   try{
     await addDoc(collection(db,'users',user.uid,'practiceAttempts'),{
@@ -116,4 +123,26 @@ export async function commitSpeaking(user,task,score,transcripts,seconds,mode='n
 export async function recentAttempts(user){
   const ref=collection(db,'users',user.uid,'speakingAttempts');const snap=await getDocs(query(ref,orderBy('createdAt','desc'),limit(12)));
   return snap.docs.map(d=>({id:d.id,...d.data()}));
+}
+
+/** Cộng +1 một lần duy nhất cho mỗi bài/câu chuyện, không giới hạn 200 điểm. */
+export async function claimLessonPoint(user,lessonId){
+  if(!db||!user)throw new Error('Vui lòng đăng nhập để nhận điểm.');
+  if(!/^(sc[1-6]-(0[1-9]|1[0-5])|topic-[a-z0-9-]{2,45})$/.test(lessonId))throw new Error('Mã bài học không hợp lệ.');
+  const claim=lessonRewardRef(user,lessonId),wallet=walletRef(user);
+  return runTransaction(db,async tx=>{
+    const [oldClaim,oldWallet]=await Promise.all([tx.get(claim),tx.get(wallet)]);
+    const state=hydrated(oldWallet.exists()?oldWallet.data():{});
+    if(oldClaim.exists())return {status:'already',delta:0,balance:state.balance};
+    if(state.balance<SETTINGS.minimum)return {status:'locked',delta:0,balance:state.balance};
+    const next={...state,balance:state.balance+1,earned:state.earned+1,
+      lastLessonId:lessonId,lastEventType:'lesson',lastDelta:1,
+      createdAt:oldWallet.exists()?state.createdAt:serverTimestamp(),updatedAt:serverTimestamp()};
+    if(oldWallet.exists())tx.update(wallet,next);else tx.set(wallet,next);
+    tx.set(claim,{lessonId,points:1,claimedAt:serverTimestamp()});
+    return {status:'saved',delta:1,balance:next.balance};
+  });
+}
+export async function lessonAlreadyRewarded(user,id){
+  return (await getDoc(lessonRewardRef(user,id))).exists();
 }

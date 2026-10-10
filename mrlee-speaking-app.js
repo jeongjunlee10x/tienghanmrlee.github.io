@@ -128,17 +128,17 @@ async function finish(){
   if(answers.some(x=>x===null)||answers.filter(x=>x?.heard).length<Math.ceil(answers.length/2)) return;
   submitting=true;$('mpFinish').disabled=true;
   const score=currentAverage(),delta=calculateDelta(score,active.kind==='recovery'?'recovery':'normal',wallet?.loginStreak||0);
-  const summary=e('div',score>=60?'mp-success':'mp-warning',`Kết quả ${score}/100. ${delta>0?'Dự kiến thưởng +'+delta:delta<0?'Dự kiến trừ '+(-delta):'Chưa đạt mức phục hồi.'} Đang lưu…`);
+  const summary=e('div',score>=60?'mp-success':'mp-warning',`Kết quả ${score}/100. ${active.kind==='recovery'?(delta>0?'Dự kiến phục hồi +'+delta:'Chưa đạt mức phục hồi.'):(score>=60?'Có thể nhận +1 điểm nếu chưa nhận thưởng cho bài này.':'Chưa đạt 60/100, không trừ điểm.')} Đang lưu…`);
   $('mpFeedback').replaceChildren(summary);
   try{
     const response=await commitSpeaking(user,active,score,answers,Math.floor((Date.now()-startedAt)/1000),active.kind==='recovery'?'recovery':'normal');
     if(response.status==='saved'){
-      summary.textContent=`Đã lưu: ${score}/100 · ${response.delta>=0?'+':''}${response.delta} điểm · Số dư ${response.balance}/200.`;
+      summary.textContent=`Đã lưu: ${score}/100 · ${response.delta>=0?'+':''}${response.delta} điểm · Số dư ${response.balance.toLocaleString("vi-VN")} điểm.`;
       wallet=await loadWallet(user);pointsBar();await refreshRecent();
-      if(!response.historySaved){summary.textContent+=' Lưu sổ điểm thành công, nhưng lịch sử/Supabase chưa cập nhật (cần kiểm tra quyền practiceAttempts).';}
+      if(response.lessonRewardStatus==='already')summary.textContent+=' Bài này đã nhận +1 điểm trước đó.'; if(response.lessonRewardStatus==='error')summary.textContent+=' Lưu bài nói thành công nhưng chưa cộng được +1 điểm (kiểm tra Firestore Rules).'; if(!response.historySaved){summary.textContent+=' Lưu sổ điểm thành công, nhưng lịch sử/Supabase chưa cập nhật (cần kiểm tra quyền practiceAttempts).';}
       message(isLocked()?'Điểm dưới mức tối thiểu. Hãy vào bài phục hồi để mở khóa.':`Bạn còn ${wallet.balance} điểm. Có thể chọn bài học mới.`,isLocked()?'warning':'success');
     }else if(response.status==='already'){
-      summary.textContent=`Bạn đã được tính điểm cho bài này hôm nay. Lượt làm lại chỉ để ôn tập, không tính thưởng/phạt. Số dư ${response.balance}.`;
+      summary.textContent=`Bạn đã nộp bài này hôm nay. Lượt làm lại chỉ để ôn tập; thưởng +1 chỉ một lần cho mỗi bài. Số dư ${response.balance}.`;
     }else if(response.status==='locked'){
       summary.textContent='Điểm đang dưới ngưỡng mở khóa. Vui lòng luyện bài phục hồi.';
     }else if(response.status==='not-passed'){

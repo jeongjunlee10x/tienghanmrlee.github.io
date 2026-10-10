@@ -1,0 +1,432 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+    function verified() {
+      return signedIn() && request.auth.token.email_verified == true;
+    }
+    function owner(uid) {
+      return verified() && request.auth.uid == uid;
+    }
+    function profileValid() {
+      return request.resource.data.keys().hasOnly(['displayName', 'createdAt', 'updatedAt'])
+        && request.resource.data.keys().hasAll(['displayName', 'createdAt', 'updatedAt'])
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() >= 2
+        && request.resource.data.displayName.size() <= 80
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.updatedAt is timestamp;
+    }
+    function noteValid() {
+      return request.resource.data.keys().hasOnly(['text', 'createdAt', 'updatedAt'])
+        && request.resource.data.keys().hasAll(['text', 'createdAt', 'updatedAt'])
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 2000
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.updatedAt is timestamp;
+    }
+    function avatarValid() {
+      return request.resource.data.keys().hasOnly(['imageData', 'updatedAt'])
+        && request.resource.data.keys().hasAll(['imageData', 'updatedAt'])
+        && request.resource.data.imageData is string
+        && request.resource.data.imageData.size() <= 145000
+        && request.resource.data.imageData.matches('^data:image/jpeg;base64,[A-Za-z0-9+/=]+$')
+        && request.resource.data.updatedAt == request.time;
+    }
+
+    // Ho so: hoc vien chi xem va sua ten cua chinh minh.
+    // Khong cho client tu ghi role/admin/grade.
+    match /users/{uid} {
+      allow get: if owner(uid);
+      allow list: if false;
+      allow create: if owner(uid)
+        && profileValid()
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.updatedAt == request.time;
+      allow update: if owner(uid)
+        && profileValid()
+        && request.resource.data.createdAt == resource.data.createdAt
+        && request.resource.data.updatedAt == request.time
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['displayName', 'updatedAt']);
+      allow delete: if false;
+
+      // Nhật ký học tập: chỉ tài khoản đã xác minh được tạo/xem lịch sử của chính mình.
+      // Dữ liệu do trình duyệt gửi chỉ là hoạt động tham khảo, có thể bị giả mạo.
+      match /learningEvents/{eventId} {
+        allow get: if owner(uid);
+        allow list: if owner(uid) && request.query.limit <= 100;
+        allow create: if owner(uid)
+          && request.resource.data.keys().hasOnly(['kind','page','title','detail','createdAt'])
+          && request.resource.data.keys().hasAll(['kind','page','title','detail','createdAt'])
+          && request.resource.data.kind in ['visit','lesson','topic','practice']
+          && request.resource.data.page is string
+          && request.resource.data.page.size() <= 60
+          && request.resource.data.page.matches('^[a-z0-9-]+[.]html$')
+          && request.resource.data.title is string
+          && request.resource.data.title.size() >= 1
+          && request.resource.data.title.size() <= 110
+          && request.resource.data.detail is string
+          && request.resource.data.detail.size() <= 110
+          && request.resource.data.createdAt is timestamp
+          && request.resource.data.createdAt == request.time;
+        allow update, delete: if false;
+      }
+
+      // KẾT QUẢ LUYỆN TẬP, không phải điểm thi chính thức (examResults).
+      // Điểm từ JavaScript không thể được xác thực bằng Security Rules.
+      match /practiceAttempts/{attemptId} {
+        allow get: if owner(uid);
+        allow list: if owner(uid) && request.query.limit <= 100;
+        allow create: if owner(uid)
+          && request.resource.data.keys().hasOnly(['examId','examTitle','level','score','total','durationSeconds','source','createdAt','reviewJson'])
+          && request.resource.data.keys().hasAll(['examId','examTitle','level','score','total','durationSeconds','source','createdAt'])
+          && request.resource.data.examId is string
+          && request.resource.data.examId.matches('^[a-z0-9-]{1,60}$')
+          && request.resource.data.examTitle is string
+          && request.resource.data.examTitle.size() >= 1
+          && request.resource.data.examTitle.size() <= 110
+          && request.resource.data.level in ['sc1','sc2','sc3','sc4','sc5','sc6','tc1','general']
+          && request.resource.data.score is int
+          && request.resource.data.total is int
+          && request.resource.data.total >= 1
+          && request.resource.data.total <= 100
+          && request.resource.data.score >= 0
+          && request.resource.data.score <= request.resource.data.total
+          && request.resource.data.durationSeconds is int
+          && request.resource.data.durationSeconds >= 0
+          && request.resource.data.durationSeconds <= 7200
+          && request.resource.data.get('reviewJson', '') is string
+          && request.resource.data.get('reviewJson', '').size() <= 120000
+          && request.resource.data.source == 'client_practice'
+          && request.resource.data.createdAt is timestamp
+          && request.resource.data.createdAt == request.time;
+        allow update, delete: if false;
+      }
+
+      // Chỉ số điểm luyện tập do trình duyệt tạo; không đủ chống gian lận.
+
+      // === MR LEE 1-6 - VI DIEM VA STREAK ===
+      // Diem do client tu tinh; khong duoc xem la diem thi chinh thuc.
+      function walletKeys() {
+        return ['balance','earned','lost','attempts','lastAttemptId','lastDelta',
+          'lastEventType','lastLessonId','loginStreak','bestStreak','loginDays','lastLoginId','lastLoginAt',
+          'createdAt','updatedAt'];
+      }
+      function walletShape() {
+        return request.resource.data.keys().hasOnly(walletKeys())
+          && request.resource.data.keys().hasAll(walletKeys())
+          && request.resource.data.balance is int
+          && request.resource.data.balance >= 0
+          && request.resource.data.earned is int
+          && request.resource.data.earned >= 0
+          && request.resource.data.lost is int
+          && request.resource.data.lost >= 0
+          && request.resource.data.attempts is int
+          && request.resource.data.attempts >= 0
+          && request.resource.data.loginStreak is int
+          && request.resource.data.loginStreak >= 0
+          && request.resource.data.bestStreak is int
+          && request.resource.data.bestStreak >= request.resource.data.loginStreak
+          && request.resource.data.loginDays is int
+          && request.resource.data.loginDays >= 0
+          && request.resource.data.lastLoginAt is timestamp
+          && request.resource.data.lastLoginId is string
+          && request.resource.data.lastAttemptId is string
+          && request.resource.data.lastAttemptId.size() <= 100
+          && request.resource.data.lastLessonId is string
+          && request.resource.data.lastLessonId.size() <= 70
+          && request.resource.data.lastDelta is int
+          && request.resource.data.lastDelta >= -3
+          && request.resource.data.lastDelta <= 15
+          && request.resource.data.lastEventType in ['speaking','login','lesson']
+          && request.resource.data.createdAt is timestamp
+          && request.resource.data.updatedAt == request.time;
+      }
+      function stageBonus(streak) {
+        return streak == 3 ? 1 : (streak == 7 ? 3 : (streak == 14 ? 5 : (streak == 30 ? 8 : 0)));
+      }
+      function rewardActual(balance,streak) {
+        return 2 + stageBonus(streak);
+      }
+      function oldLoginAt() {
+        return resource.data.get('lastLoginAt', timestamp.date(2000,1,1));
+      }
+      function nextLoginStreak() {
+        return oldLoginAt().date() == (request.time.date() - duration.value(1,'d'))
+          ? resource.data.get('loginStreak',0) + 1 : 1;
+      }
+      function loginFieldsSameAsBefore() {
+        return request.resource.data.loginStreak == resource.data.get('loginStreak',0)
+          && request.resource.data.bestStreak == resource.data.get('bestStreak',0)
+          && request.resource.data.loginDays == resource.data.get('loginDays',0)
+          && request.resource.data.lastLoginId == resource.data.get('lastLoginId','')
+          && request.resource.data.lastLoginAt == oldLoginAt();
+      }
+      function lessonRewardCreated() {
+        return !exists(/databases/$(database)/documents/users/$(uid)/lessonRewards/$(request.resource.data.lastLessonId))
+          && getAfter(/databases/$(database)/documents/users/$(uid)/lessonRewards/$(request.resource.data.lastLessonId)).data.lessonId == request.resource.data.lastLessonId
+          && getAfter(/databases/$(database)/documents/users/$(uid)/lessonRewards/$(request.resource.data.lastLessonId)).data.points == 1;
+      }
+      function validNewLesson() {
+        return request.resource.data.lastEventType == 'lesson'
+          && request.resource.data.lastDelta == 1
+          && request.resource.data.lastLessonId.matches('^sc[1-6]-(0[1-9]|1[0-5])$|^topic-[a-z0-9-]{2,45}$')
+          && request.resource.data.attempts == 0
+          && request.resource.data.lastAttemptId == ''
+          && request.resource.data.loginStreak == 0
+          && request.resource.data.bestStreak == 0
+          && request.resource.data.loginDays == 0
+          && request.resource.data.lastLoginId == ''
+          && request.resource.data.lastLoginAt == timestamp.date(2000,1,1)
+          && request.resource.data.balance == 101
+          && request.resource.data.earned == 1
+          && request.resource.data.lost == 0
+          && lessonRewardCreated();
+      }
+      function validLessonUpdate() {
+        return request.resource.data.lastEventType == 'lesson'
+          && request.resource.data.lastDelta == 1
+          && request.resource.data.lastLessonId.matches('^sc[1-6]-(0[1-9]|1[0-5])$|^topic-[a-z0-9-]{2,45}$')
+          && request.resource.data.lastLessonId != resource.data.get('lastLessonId','')
+          && request.resource.data.attempts == resource.data.attempts
+          && request.resource.data.lastAttemptId == resource.data.lastAttemptId
+          && loginFieldsSameAsBefore()
+          && request.resource.data.balance == resource.data.balance + 1
+          && request.resource.data.earned == resource.data.earned + 1
+          && request.resource.data.lost == resource.data.lost
+          && resource.data.balance >= 20
+          && lessonRewardCreated();
+      }
+      function validNewSpeaking() {
+        return request.resource.data.lastEventType == 'speaking'
+          && request.resource.data.attempts == 1
+          && request.resource.data.lastLessonId == ''
+          && request.resource.data.loginStreak == 0
+          && request.resource.data.bestStreak == 0
+          && request.resource.data.loginDays == 0
+          && request.resource.data.lastLoginId == ''
+          && request.resource.data.lastLoginAt == timestamp.date(2000,1,1)
+          && request.resource.data.balance == 100 + request.resource.data.lastDelta
+          && request.resource.data.earned == (request.resource.data.lastDelta > 0 ? request.resource.data.lastDelta : 0)
+          && request.resource.data.lost == (request.resource.data.lastDelta < 0 ? -request.resource.data.lastDelta : 0)
+          && request.resource.data.lastDelta == 0
+          && getAfter(/databases/$(database)/documents/users/$(uid)/speakingAttempts/$(request.resource.data.lastAttemptId)).data.mode == 'normal'
+          && getAfter(/databases/$(database)/documents/users/$(uid)/speakingAttempts/$(request.resource.data.lastAttemptId)).data.delta == 0;
+      }
+      function validNewLogin() {
+        return request.resource.data.lastEventType == 'login'
+          && request.resource.data.attempts == 0
+          && request.resource.data.lastAttemptId == ''
+          && request.resource.data.loginStreak == 1
+          && request.resource.data.lastLessonId == ''
+          && request.resource.data.bestStreak == 1
+          && request.resource.data.loginDays == 1
+          && request.resource.data.lastLoginAt == request.time
+          && request.resource.data.lastLoginId is string
+          && request.resource.data.balance == 100 + request.resource.data.lastDelta
+          && request.resource.data.lastDelta == 2
+          && request.resource.data.earned == 2
+          && request.resource.data.lost == 0
+          && getAfter(/databases/$(database)/documents/users/$(uid)/dailyCheckins/$(request.resource.data.lastLoginId)).data.delta == 2;
+      }
+      function newAttempt() {
+        return getAfter(/databases/$(database)/documents/users/$(uid)/speakingAttempts/$(request.resource.data.lastAttemptId)).data;
+      }
+      function speakingDeltaValid() {
+        return (newAttempt().mode == 'normal' && request.resource.data.lastDelta == 0)
+          || (newAttempt().mode == 'recovery' && newAttempt().score >= 65
+               && request.resource.data.lastDelta == 15 && resource.data.balance < 20);
+      }
+      function validSpeakingUpdate() {
+        return request.resource.data.lastEventType == 'speaking'
+          && request.resource.data.attempts == resource.data.attempts + 1
+          && request.resource.data.lastLessonId == resource.data.get('lastLessonId','')
+          && speakingDeltaValid()
+          && request.resource.data.lastAttemptId != resource.data.lastAttemptId
+          && loginFieldsSameAsBefore()
+          && request.resource.data.balance == resource.data.balance + request.resource.data.lastDelta
+          && request.resource.data.earned == resource.data.earned + (request.resource.data.lastDelta > 0 ? request.resource.data.lastDelta : 0)
+          && request.resource.data.lost == resource.data.lost + (request.resource.data.lastDelta < 0 ? -request.resource.data.lastDelta : 0)
+          && getAfter(/databases/$(database)/documents/users/$(uid)/speakingAttempts/$(request.resource.data.lastAttemptId)).data.delta == request.resource.data.lastDelta;
+      }
+      function validLoginUpdate() {
+        return request.resource.data.lastEventType == 'login'
+          && oldLoginAt().date() != request.time.date()
+          && request.resource.data.attempts == resource.data.attempts
+          && request.resource.data.lastLessonId == resource.data.get('lastLessonId','')
+          && request.resource.data.lastAttemptId == resource.data.lastAttemptId
+          && request.resource.data.loginDays == resource.data.get('loginDays',0) + 1
+          && request.resource.data.loginStreak == nextLoginStreak()
+          && request.resource.data.bestStreak == (resource.data.get('bestStreak',0) > nextLoginStreak() ? resource.data.get('bestStreak',0) : nextLoginStreak())
+          && request.resource.data.lastLoginId != resource.data.get('lastLoginId','')
+          && request.resource.data.lastLoginAt == request.time
+          && request.resource.data.lastDelta == rewardActual(resource.data.balance,nextLoginStreak())
+          && request.resource.data.balance == resource.data.balance + request.resource.data.lastDelta
+          && request.resource.data.earned == resource.data.earned + request.resource.data.lastDelta
+          && request.resource.data.lost == resource.data.lost
+          && getAfter(/databases/$(database)/documents/users/$(uid)/dailyCheckins/$(request.resource.data.lastLoginId)).data.delta == request.resource.data.lastDelta;
+      }
+      match /studyPoints/{pointsId} {
+        allow get: if owner(uid) && pointsId == 'wallet';
+        allow list: if false;
+        allow create: if owner(uid) && pointsId == 'wallet' && walletShape()
+          && request.resource.data.createdAt == request.time
+          && (validNewSpeaking() || validNewLogin() || validNewLesson());
+        allow update: if owner(uid) && pointsId == 'wallet' && walletShape()
+          && request.resource.data.createdAt == resource.data.createdAt
+          && (validSpeakingUpdate() || validLoginUpdate() || validLessonUpdate());
+        allow delete: if false;
+      }
+      // +1 POINT PER LESSON ONLY ONCE IN ACCOUNT LIFETIME.
+      match /lessonRewards/{lessonId} {
+        allow get: if owner(uid);
+        allow list: if owner(uid) && request.query.limit <= 100;
+        allow create: if owner(uid)
+          && lessonId.matches('^sc[1-6]-(0[1-9]|1[0-5])$|^topic-[a-z0-9-]{2,45}$')
+          && request.resource.data.keys().hasOnly(['lessonId','points','claimedAt'])
+          && request.resource.data.keys().hasAll(['lessonId','points','claimedAt'])
+          && request.resource.data.lessonId == lessonId
+          && request.resource.data.points == 1
+          && request.resource.data.claimedAt == request.time
+          && getAfter(/databases/$(database)/documents/users/$(uid)/studyPoints/wallet).data.lastEventType == 'lesson'
+          && getAfter(/databases/$(database)/documents/users/$(uid)/studyPoints/wallet).data.lastLessonId == lessonId
+          && getAfter(/databases/$(database)/documents/users/$(uid)/studyPoints/wallet).data.lastDelta == 1;
+        allow update, delete: if false;
+      }
+      // Event document is created in the same transaction as wallet update.
+      match /dailyCheckins/{dayId} {
+        allow get: if owner(uid);
+        allow list: if owner(uid) && request.query.limit <= 31;
+        allow create: if owner(uid)
+          && dayId.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+          && request.resource.data.keys().hasOnly(['day','dayAt','streak','bonus','delta','claimedAt'])
+          && request.resource.data.keys().hasAll(['day','dayAt','streak','bonus','delta','claimedAt'])
+          && request.resource.data.day == dayId
+          && request.resource.data.dayAt == request.time.date()
+          && request.resource.data.claimedAt == request.time
+          && request.resource.data.streak is int
+          && request.resource.data.streak >= 1
+          && request.resource.data.bonus == stageBonus(request.resource.data.streak)
+          && request.resource.data.delta is int
+          && request.resource.data.delta >= 0
+          && request.resource.data.delta <= 10
+          && getAfter(/databases/$(database)/documents/users/$(uid)/studyPoints/wallet).data.lastLoginId == dayId
+          && getAfter(/databases/$(database)/documents/users/$(uid)/studyPoints/wallet).data.lastLoginAt == request.time
+          && getAfter(/databases/$(database)/documents/users/$(uid)/studyPoints/wallet).data.lastEventType == 'login'
+          && getAfter(/databases/$(database)/documents/users/$(uid)/studyPoints/wallet).data.loginStreak == request.resource.data.streak
+          && getAfter(/databases/$(database)/documents/users/$(uid)/studyPoints/wallet).data.lastDelta == request.resource.data.delta;
+        allow update, delete: if false;
+      }
+
+      match /speakingAttempts/{attemptId} {
+        allow get: if owner(uid);
+        allow list: if owner(uid) && request.query.limit <= 20;
+        allow create: if owner(uid)
+          && request.resource.data.keys().hasOnly(['taskId','taskTitle','mode','day','score','delta','total','matched','transcriptJson','createdAt'])
+          && request.resource.data.keys().hasAll(['taskId','taskTitle','mode','day','score','delta','total','matched','transcriptJson','createdAt'])
+          && request.resource.data.taskId is string
+          && request.resource.data.taskId.matches('^sc[1-6]-[0-9]{2}$|^topic-[a-z0-9-]{2,45}$|^recovery-[12]$')
+          && request.resource.data.day is string
+          && request.resource.data.day.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+          && attemptId == request.resource.data.taskId + '-' + request.resource.data.day
+          && request.resource.data.taskTitle is string
+          && request.resource.data.taskTitle.size() >= 1
+          && request.resource.data.taskTitle.size() <= 110
+          && request.resource.data.mode in ['normal','recovery']
+          && (request.resource.data.taskId.matches('^recovery-[12]$') == (request.resource.data.mode == 'recovery'))
+          && request.resource.data.score is int
+          && request.resource.data.score >= 0
+          && request.resource.data.score <= 100
+          && request.resource.data.delta is int
+          && request.resource.data.delta >= 0
+          && request.resource.data.delta <= 15
+          && request.resource.data.total is int
+          && request.resource.data.total >= 3
+          && request.resource.data.total <= 5
+          && request.resource.data.matched is int
+          && request.resource.data.matched >= 2
+          && request.resource.data.matched <= request.resource.data.total
+          && request.resource.data.transcriptJson is string
+          && request.resource.data.transcriptJson.size() <= 16000
+          && (request.resource.data.mode == 'normal' ? request.resource.data.delta == 0 : (request.resource.data.delta == 15 && request.resource.data.score >= 65))
+          && request.resource.data.createdAt == request.time
+          && getAfter(/databases/$(database)/documents/users/$(uid)/studyPoints/wallet).data.lastAttemptId == attemptId
+          && getAfter(/databases/$(database)/documents/users/$(uid)/studyPoints/wallet).data.lastDelta == request.resource.data.delta;
+        allow update, delete: if false;
+      }
+
+      // So tay ca nhan.
+      match /notes/{noteId} {
+        allow get, list: if owner(uid);
+        allow create: if owner(uid)
+          && noteValid()
+          && request.resource.data.createdAt == request.time
+          && request.resource.data.updatedAt == request.time;
+        allow update: if owner(uid)
+          && noteValid()
+          && request.resource.data.createdAt == resource.data.createdAt
+          && request.resource.data.updatedAt == request.time
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['text', 'updatedAt']);
+        allow delete: if owner(uid);
+      }
+
+      // Anh dai dien: users/{uid}/avatars/profile
+      // File JPEG da nen duoi dang data URL, toi da 145000 ky tu.
+      match /avatars/{avatarId} {
+        allow get: if owner(uid) && avatarId == 'profile';
+        allow list: if false;
+        allow create, update: if owner(uid)
+          && avatarId == 'profile'
+          && avatarValid();
+        allow delete: if owner(uid) && avatarId == 'profile';
+      }
+    }
+
+    // PUBLIC LEADERBOARD, OPT-IN ONLY: do not store email, UID is doc ID only.
+    match /mrleeLeaderboard/{uid} {
+      allow get: if true;
+      allow list: if request.query.limit != null && request.query.limit <= 20;
+      allow create, update: if owner(uid)
+        && request.resource.data.keys().hasOnly(['alias','points','streak','updatedAt'])
+        && request.resource.data.keys().hasAll(['alias','points','streak','updatedAt'])
+        && request.resource.data.alias is string
+        && request.resource.data.alias.size() >= 2
+        && request.resource.data.alias.size() <= 30
+        && request.resource.data.points is int
+        && request.resource.data.points >= 0
+        && request.resource.data.streak is int
+        && request.resource.data.streak >= 0
+        && request.resource.data.updatedAt == request.time
+        && exists(/databases/$(database)/documents/users/$(uid)/studyPoints/wallet)
+        && request.resource.data.points == get(/databases/$(database)/documents/users/$(uid)/studyPoints/wallet).data.balance
+        && request.resource.data.streak == get(/databases/$(database)/documents/users/$(uid)/studyPoints/wallet).data.loginStreak;
+      allow delete: if owner(uid);
+    }
+
+    // Bai hoc rieng, chi doc khi email da xac minh.
+    match /secureLessons/{lessonId} {
+      allow get, list: if verified();
+      allow create, update, delete: if false;
+    }
+
+    // De thi rieng, chi doc khi email da xac minh.
+    match /secureExams/{examId} {
+      allow get, list: if verified();
+      allow create, update, delete: if false;
+    }
+
+    // Ket qua thi chinh thuc, client khong duoc ghi diem.
+    match /examResults/{uid}/attempts/{attemptId} {
+      allow get, list: if owner(uid);
+      allow create, update, delete: if false;
+    }
+
+    // Mac dinh tu choi duong dan chua duoc khai bao.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

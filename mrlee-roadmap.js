@@ -39,7 +39,7 @@ function showUnit(unit){
  box.classList.remove('hidden');requestAnimationFrame(()=>box.scrollIntoView({behavior:'smooth',block:'start'}));
 }
 function drawStats(wallet,student){
- $('rmPoints').textContent=`${wallet.balance}/${SETTINGS.maximum}`;$('rmStreak').textContent=wallet.loginStreak||0;
+ $('rmPoints').textContent=`${wallet.balance.toLocaleString("vi-VN")} điểm`;$('rmStreak').textContent=wallet.loginStreak||0;
  $('rmBest').textContent=`Chuỗi dài nhất: ${wallet.bestStreak||0}`;$('rmLoginDays').textContent=wallet.loginDays||0;
  $('rmSpeakingCount').textContent=wallet.attempts||0;$('rmStudent').textContent=student?.displayName||student?.email||'Học viên';
 }

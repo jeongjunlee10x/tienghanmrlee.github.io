@@ -169,13 +169,13 @@
     }
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.feature-card,.action-btn,.site-nav a{transition:none}}
 
-    /* ===== NỀN CHÌM SEOUL - THÁP NAMSAN (MẪU 2, RÕ HƠN) =====
-       Giảm lớp phủ trắng từ 87-88% xuống 54-60%.
-       Nền phong cảnh nổi rõ hơn; thẻ chức năng vẫn sáng và dễ đọc. */
+    /* ===== NỀN CHÌM SEOUL - THÁP NAMSAN (MẪU 2) =====
+       Ảnh dùng riêng trên trang chủ, không thay ảnh bìa nổi.
+       Lớp màu trắng 87% giúp nút và chữ luôn dễ đọc. */
     body {
       background-color: #f6f9fe;
       background-image:
-        linear-gradient(180deg, rgba(247,250,254,.54), rgba(247,250,254,.60)),
+        linear-gradient(180deg, rgba(247,250,254,.87), rgba(247,250,254,.88)),
         url("images/nen-seoul-namsan.webp");
       background-repeat: no-repeat;
       background-position: center center, center center;
@@ -194,11 +194,7 @@
       }
     }
   </style>
-  <link rel="stylesheet" href="mrlee-core.css">
-<link rel="stylesheet" href="mrlee-engagement.css?v=20261010" />
 <link rel="stylesheet" href="mrlee-redesign.css?v=20261010-v1">
-<link rel="stylesheet" href="mrlee-slide.css?v=20261010-slide2" data-mrlee-slide="css">
-<link rel="stylesheet" href="mrlee-leaderboard.css?v=20261010" />
 </head>
 <body>
   <!-- Biểu tượng SVG dùng chung: đồng nét, không lỗi font như emoji -->
@@ -224,11 +220,7 @@
   <header class="site-header">
     <div class="page-wrap header-layout">
       <a class="brand" href="index.html" aria-label="Tiếng Hàn Mr Lee - Trang chủ">
-        <img src="images/logo.png"
-     alt="Tiếng Hàn Mr Lee"
-     width="64"
-     height="56"
-     style="object-fit: contain;">
+        <img src="images/logo.png" alt="" width="64" height="56" onerror="this.remove()">
         <span class="brand-text">TIẾNG HÀN MR LEE<small>HỌC DỄ HIỂU · LUYỆN DỄ NHỚ</small></span>
       </a>
       <button class="menu-toggle" id="menuToggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="mainNav">
@@ -237,7 +229,6 @@
       <nav class="site-nav" id="mainNav" aria-label="Điều hướng chính">
         <a href="index.html" aria-current="page">Trang chủ</a>
         <a href="bai-hoc.html">Bài học</a>
-<a href="lo-trinh-1-6.html">Lộ trình 1–6</a>
         <a href="giao-tiep-theo-chu-de.html">Giao tiếp</a>
         <a href="on-luyen-phong-van.html">Phỏng vấn</a>
         <a href="de-thi-topik.html">Đề TOPIK</a>
@@ -249,37 +240,12 @@
     </div>
   </header>
   <main>
-    <section id="mrleeStudentPanel" class="mrlee-student-panel" aria-label="Bảng tên, điểm và chuỗi ngày học" hidden></section>
-<section class="hero page-wrap" aria-label="Trang bìa Tiếng Hàn Mr Lee">
+    <section class="hero page-wrap" aria-label="Trang bìa Tiếng Hàn Mr Lee">
       <div class="hero-banner">
-<!-- MRLEE-BANNER9-START -->
-<div id="mrleeBanner9" class="mrlee-banner9" role="region" aria-roledescription="carousel" aria-label="9 muc hoc tap; moi 2 giay doi anh" aria-live="off">
-<a class="mrlee-banner9-slide is-active" href="bai-hoc.html" tabindex="0" aria-hidden="false"><img src="images/1.png?v=banner2" alt="Bai hoc tieng Han" loading="eager" decoding="async" fetchpriority="high"></a>
-<a class="mrlee-banner9-slide" href="giao-tiep-theo-chu-de.html" tabindex="-1" aria-hidden="true"><img src="images/2.png?v=banner2" alt="Giao tiep theo chu de" loading="eager" decoding="async"></a>
-<a class="mrlee-banner9-slide" href="on-luyen-phong-van.html" tabindex="-1" aria-hidden="true"><img src="images/3.png?v=banner2" alt="On luyen phong van" loading="eager" decoding="async"></a>
-<a class="mrlee-banner9-slide" href="kiem-tra-dau-vao.html" tabindex="-1" aria-hidden="true"><img src="images/4.png?v=banner2" alt="Kiem tra dau vao" loading="eager" decoding="async"></a>
-<a class="mrlee-banner9-slide" href="kiem-tra-online.html" tabindex="-1" aria-hidden="true"><img src="images/5.png?v=banner2" alt="Kiem tra online" loading="eager" decoding="async"></a>
-<a class="mrlee-banner9-slide" href="de-thi-topik.html" tabindex="-1" aria-hidden="true"><img src="images/6.png?v=banner2" alt="Bo de thi TOPIK" loading="eager" decoding="async"></a>
-<a class="mrlee-banner9-slide" href="thi-topik-online.html" tabindex="-1" aria-hidden="true"><img src="images/7.png?v=banner2" alt="Thi TOPIK online" loading="eager" decoding="async"></a>
-<a class="mrlee-banner9-slide" href="bo-sach.html" tabindex="-1" aria-hidden="true"><img src="images/8.png?v=banner2" alt="Bo sach va tai lieu" loading="eager" decoding="async"></a>
-<a class="mrlee-banner9-slide" href="dang-nhap.html" tabindex="-1" aria-hidden="true"><img src="images/9.png?v=banner2" alt="Tai khoan hoc vien" loading="eager" decoding="async"></a>
-<button class="mrlee-banner9-arrow mrlee-banner9-prev" type="button" data-banner-prev aria-label="Previous banner">&#10094;</button>
-<button class="mrlee-banner9-arrow mrlee-banner9-next" type="button" data-banner-next aria-label="Next banner">&#10095;</button>
-<div class="mrlee-banner9-controls">
-<button class="mrlee-banner9-pause" type="button" data-banner-pause aria-label="Pause automatic banner" aria-pressed="false">&#10074;&#10074;</button>
-<div class="mrlee-banner9-dots" aria-label="Choose banner">
-<button type="button" data-banner-dot="0" aria-label="Banner 1" aria-current="true"></button>
-<button type="button" data-banner-dot="1" aria-label="Banner 2" aria-current="false"></button>
-<button type="button" data-banner-dot="2" aria-label="Banner 3" aria-current="false"></button>
-<button type="button" data-banner-dot="3" aria-label="Banner 4" aria-current="false"></button>
-<button type="button" data-banner-dot="4" aria-label="Banner 5" aria-current="false"></button>
-<button type="button" data-banner-dot="5" aria-label="Banner 6" aria-current="false"></button>
-<button type="button" data-banner-dot="6" aria-label="Banner 7" aria-current="false"></button>
-<button type="button" data-banner-dot="7" aria-label="Banner 8" aria-current="false"></button>
-<button type="button" data-banner-dot="8" aria-label="Banner 9" aria-current="false"></button>
-</div></div></div>
-<!-- MRLEE-BANNER9-END -->
-</div>
+        <picture>
+          <img src="images/trang-bia-mr-lee-hero.webp" width="1536" height="592" fetchpriority="high" alt="Học tiếng Hàn cùng Mr Lee: hình ảnh học sinh và phong cảnh Hàn Quốc, với cung điện truyền thống và tháp N Seoul">
+        </picture>
+      </div>
       <div class="hero-overview">
         <div>
           <span class="eyebrow"><svg class="icon" aria-hidden="true"><use href="#i-spark"></use></svg>CHÀO MỪNG ĐẾN VỚI TIẾNG HÀN MR LEE</span>
@@ -301,7 +267,7 @@
       <div class="feature-grid">
         <a class="feature-card" data-theme="blue" href="bai-hoc.html">
           <span class="icon-box"><svg class="icon" aria-hidden="true"><use href="#i-book"></use></svg></span>
-          <div class="feature-card-content"><h3>Bài học tiếng Hàn</h3><p>Học theo lộ trình cấp 1–6, có bài luyện nói và tích điểm theo tiến độ.</p></div>
+          <div class="feature-card-content"><h3>Bài học tiếng Hàn</h3><p>Học từ vựng, ngữ pháp và bài tập theo từng bài Sơ cấp 1, Sơ cấp 2.</p></div>
           <span class="card-bottom">Xem bài học <span class="arrow-chip"><svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span></span>
         </a>
         <a class="feature-card" data-theme="violet" href="giao-tiep-theo-chu-de.html">
@@ -354,12 +320,7 @@
       <div><h2 id="cta-title">Bắt đầu hành trình chinh phục tiếng Hàn</h2><p><span lang="ko">오늘도 한국어를 함께 공부해요!</span> · Cùng học tiếng Hàn mỗi ngày.</p></div>
       <a class="action-btn" href="giao-tiep-theo-chu-de.html">Khám phá câu giao tiếp <svg class="icon icon-sm" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
     </section>
-  <!-- MRLEE_POINTS_HOME_V1 -->
-<section aria-label="Luyện nói tích điểm" style="max-width:1160px;margin:20px auto 50px;padding:22px;background:linear-gradient(115deg,#123558,#256897);border-radius:18px;color:white;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:15px">
-<div><h2 style="margin:0 0 6px;font-size:22px;color:white">🎤 Luyện nói tiếng Hàn, tích điểm mỗi ngày</h2><p style="margin:0;font-size:13px;color:#e4efff">30 bài theo giáo trình · 19 chủ đề giao tiếp · thưởng/phạt và phục hồi điểm.</p></div><a href="luyen-noi-tinh-diem.html" style="background:white;color:#123558;font-weight:800;text-decoration:none;padding:12px 18px;border-radius:12px">Bắt đầu luyện nói →</a>
-</section>
-<!-- /MRLEE_POINTS_HOME_V1 -->
-</main>
+  </main>
   <footer class="site-footer">
     <div class="page-wrap">
       <div class="footer-top">
@@ -396,7 +357,7 @@
     </div>
   </footer>
   <!-- Giữ khả năng hiện tên học viên sau khi cấu hình Firebase; menu vẫn chạy nếu Firebase chưa bật. -->
-  <script type="module" src="auth-status.js"></script>
+  
   <script>
     (() => {
       const toggle = document.getElementById('menuToggle');
@@ -420,11 +381,6 @@
   </script>
   <!-- Bộ ngôn ngữ giao diện Việt / Hàn / Anh. Không can thiệp Firebase. -->
   <script src="mrlee-i18n.js?v=20261008"></script>
-  <script defer src="mrlee-core.js"></script>
-
-<script type="module" src="mrlee-engagement.js?v=20261010"></script>
 <script defer src="mrlee-redesign.js?v=20261010-v1"></script>
-<script defer src="mrlee-slide.js?v=20261010-slide2" data-mrlee-slide="js"></script>
-<script type="module" src="mrlee-leaderboard.js?v=20261010"></script>
 </body>
 </html>
