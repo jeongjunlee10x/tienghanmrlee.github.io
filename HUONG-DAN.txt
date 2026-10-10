@@ -1,15 +1,51 @@
-MR LEE - PHỎNG VẤN XIN VIỆC 100 CÂU MỚI
-=======================================
-1. Chép CAI-100-CAU-PHONG-VAN-XIN-VIEC.ps1 vào cùng thư mục với on-luyen-phong-van.html
-2. Terminal VS Code:
-   powershell -ExecutionPolicy Bypass -File .\CAI-100-CAU-PHONG-VAN-XIN-VIEC.ps1
-3. Kiểm tra bằng Live Server: có 4 nút chủ đề mới. Không chép file MẪU thay file đang dùng nếu trang của bạn đã nâng cấp trước đó.
-4. Git:
-   git add on-luyen-phong-van.html
-   git commit -m "Add 100 Korean part-time job interviews"
-   git push origin main
+TIENG HAN MR LEE — NANG CAP GIAO DIEN TOAN DIEN 2026.10
+=================================================
 
-100 câu mới được THÊM VÀO bộ câu hỏi đang có: tổng số sẽ bằng số cũ + 100.
-Script tự sao lưu và không thêm trùng khi chạy lại.
-Các phần: quán ăn 30, quán cà phê 30, cửa hàng tiện lợi 30, tổng hợp 10.
-Câu trả lời mẫu để tự học, chưa có AI tự chấm phát âm.
+1. CAC THAY DOI
+- Trang chu: giao dien banner, 9 the chuc nang, nut dieu huong, 3 duong tat vao Bang chu cai / Lo trinh 1-6 / Luyen noi.
+- Hoc tap: phoi mau, the bai hoc, nut chon, khung bai tap va form dong bo hon tren desktop / mobile.
+- Ho so hoc vien: khung dang nhap, khung anh dai dien (neu da co), thong tin va 3 nut thao tac nhanh.
+- Lien he: dien thoai + Zalo + KakaoTalk (0376991180); Fax: 0866761403; nut Messenger.
+- Nut lien he noi o moi trang: Zalo / Messenger / Goi dien. Tren mobile mo bang 1 nut Lien he.
+- Ho tro giao dien trang chu 3 ngon ngu, cac nut lien he moi chuyen theo ngon ngu.
+
+2. CAI DAT — KHUYEN NGHI
+Tải file CAI-GIAO-DIEN-TOAN-DIEN-MRLEE-V1.ps1, đặt vào:
+C:\Users\Surface\Documents\tienghanmrlee.github.io
+
+Trong VS Code Terminal, chạy:
+powershell -ExecutionPolicy Bypass -File ".\CAI-GIAO-DIEN-TOAN-DIEN-MRLEE-V1.ps1"
+
+Nếu để bộ cài ở Downloads, có thể chạy bằng đường dẫn đầy đủ với tham số -WebsitePath:
+powershell -ExecutionPolicy Bypass -File "C:\Users\Surface\Downloads\CAI-GIAO-DIEN-TOAN-DIEN-MRLEE-V1.ps1" -WebsitePath "C:\Users\Surface\Documents\tienghanmrlee.github.io"
+
+Script tự nhận dạng thư mục chứa index.html, giải nén 2 file CSS/JS ra thư mục website và thêm thẻ vào các file HTML chính.
+Nếu chạy lại không chèn trùng. Sao lưu ở thư mục song song: MRLEE-SAO-LUU-GIAO-DIEN (ngoài Git).
+KHÔNG sửa admin.html, Firebase/Firestore Rules, ví điểm, dữ liệu học viên hay mã slideshow 9 ảnh.
+
+3. KIEM TRA
+- Mở index.html bằng Live Server. Kiểm tra banner 9 ảnh vẫn đổi 2 giây/ảnh.
+- Kiểm tra 9 nút chức năng và ba lối tắt dưới banner.
+- Mở dang-nhap.html (tài khoản học viên) để xem hồ sơ/ảnh đại diện.
+- Nhấn Zalo và Messenger và xác nhận được dẫn đến đúng tài khoản của bạn.
+- Kiểm tra mobile: nút 'Liên hệ' ở góc dưới, nhấn mở 3 tùy chọn.
+
+4. DUA LEN GITHUB
+Trong thư mục website:
+git add -u
+git add mrlee-redesign.css mrlee-redesign.js
+git commit -m "Refresh Mr Lee website UI and contact channels"
+git push origin main
+
+Sau đó mở https://jeongjunlee10x.github.io/tienghanmrlee.github.io/ và Ctrl+F5.
+
+5. DUONG DAN MESSENGER
+URL Meta Business ban gui la trang quan tri hộp thu, khong phai link cong khai cho hoc vien.
+Bo cai su dung https://m.me/821366751066220 suy ra tu asset_id, chua xac minh duoc fanpage cong khai.
+Hay bam test mot lan. Neu sai, trong mrlee-redesign.js, sua messenger:'https://m.me/821366751066220' bang link m.me CHINH XAC cua Fanpage.
+
+6. LUU Y
+- CSS/JS cung cap phan giao dien, khong thao tac du lieu hay quyen hoc vien.
+- Khong dua cac khoa admin Firebase/Supabase vao website.
+- Preview trong 'preview/' chi la anh huong minh hoa tu giao dien mau, khong phai du lieu hoc vien that.
+- Chua test installer bang PowerShell tren Windows thuc te; neu loi, gui thong bao loi va dong code.
