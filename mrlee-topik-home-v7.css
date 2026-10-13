@@ -1,0 +1,6 @@
+/* V7 home integration — only the new fifth card and its nav link. */
+.feature-card[data-theme="topik-roadmap"]{--accent:#255f95;--tint:#eaf3ff;border-color:#cfdeee}
+.feature-card[data-theme="topik-roadmap"] .icon-box{font-size:27px}
+.site-nav .nav-topik-roadmap{background:#eaf2fc;color:#174c7d!important}
+.site-nav .nav-topik-roadmap:hover{background:#d6e7f9}
+@media(min-width:851px){.feature-grid:has(.feature-card[data-theme="topik-roadmap"]){grid-template-columns:repeat(3,minmax(0,1fr))}}
