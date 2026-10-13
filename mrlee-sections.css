@@ -35,3 +35,12 @@ a{color:inherit}button,input{font:inherit}button{cursor:pointer}button:focus-vis
 .mrlee-footer a{color:#fff;text-decoration:none}.mrlee-footer a:hover{text-decoration:underline}.footer-menu{display:flex;justify-content:center;flex-wrap:wrap;gap:12px 21px;margin-bottom:12px}
 @media(max-width:850px){.top-links{gap:0}.top-links a{font-size:11px;padding:8px}.site-logo{font-size:13px}.site-logo .logo-symbol{width:36px;height:36px}.destination-grid{grid-template-columns:1fr}}
 @media(max-width:680px){.site-top-inner{align-items:flex-start;flex-direction:column;gap:3px;padding:11px 0}.top-links{justify-content:flex-start;width:100%;overflow-x:auto;white-space:nowrap;flex-wrap:nowrap;padding-bottom:4px}.top-links a{flex:none}.section-hero{padding:26px 23px;min-height:255px}.section-hero h1{font-size:28px}.section-hero p{font-size:12px}.hero-symbol{font-size:64px;position:absolute;right:20px;bottom:20px;opacity:.28}.destination{min-height:0;padding:19px;gap:11px}.destination .dest-icon{width:49px;height:49px;font-size:24px}}
+
+/* MRLEE V3 - unified brand header across new section pages */
+.site-top .site-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;text-decoration:none;white-space:normal;min-width:0}
+.site-top .site-logo-image{display:block;flex:none;width:64px;height:56px;object-fit:contain}
+.site-top .site-logo-text{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0;line-height:1.2}
+.site-top .site-logo-text strong{font-family:'Be Vietnam Pro',sans-serif;font-size:16px;letter-spacing:-.3px;white-space:nowrap;color:#102b4d;font-weight:800}
+.site-top .site-logo-text small{font-family:'Be Vietnam Pro',sans-serif;font-size:10px;letter-spacing:.01em;white-space:nowrap;color:#de7040;font-weight:800}
+@media(max-width:850px){.site-top .site-logo-image{width:53px;height:46px}.site-top .site-logo-text strong{font-size:14px}.site-top .site-logo-text small{font-size:9px}}
+@media(max-width:400px){.site-top .site-logo-image{width:47px;height:42px}.site-top .site-logo-text strong{font-size:13px}.site-top .site-logo-text small{font-size:8px}}

@@ -223,8 +223,105 @@
     observer.observe(target, { childList: true, characterData: true, subtree: true });
   }
 
+  // MRLEE V3: 4 menu cards. The old 9-card i18n code below MUST NOT rewrite these cards.
+  // Selectors are scoped to the four modern cards, so legacy pages remain supported.
+  const GROUP_HOME = {
+    vi: {
+      menu:['Trang chủ','Học tiếng Hàn','Luyện giao tiếp','Kiểm tra & TOPIK','Văn hóa Hàn Quốc'],
+      hero:'Bốn chuyên mục rõ ràng: học tiếng Hàn, luyện giao tiếp, kiểm tra TOPIK và khám phá văn hóa Hàn Quốc.',
+      explore:'Khám phá văn hóa', sectionBadge:'4 CHUYÊN MỤC CHÍNH',
+      sectionTitle:'Bạn muốn khám phá điều gì hôm nay?',
+      sectionDesc:'Các chức năng cùng chủ đề đã được gộp lại, dễ tìm hơn và vẫn giữ nguyên các bài học cũ.',
+      cards:[
+        ['Học tiếng Hàn','6 cấp độ từ Sơ cấp đến Cao cấp, 90 bài học với 10 câu luyện nói và 10 bài tập mỗi bài.','Mở chuyên mục',['Bài học 1–6','Lộ trình','Sách & tài liệu']],
+        ['Luyện giao tiếp','19 chủ đề, mỗi chủ đề 30 câu giao tiếp; có máy đọc và ghi âm trả lời.','Luyện giao tiếp',['19 chủ đề × 30 câu','Hội thoại ghi âm','Phỏng vấn']],
+        ['Kiểm tra & TOPIK','Tổng hợp kiểm tra đầu vào, kiểm tra Online, bộ đề và thi TOPIK trực tuyến.','Luyện thi ngay',['Đầu vào','Kiểm tra Online','Đề TOPIK','Thi TOPIK']],
+        ['Văn hóa Hàn Quốc','Khám phá 12 chủ đề về văn hóa, từ vựng, hội thoại và câu hỏi trắc nghiệm.','Khám phá văn hóa',['Ẩm thực','Ngày lễ','Đời sống','Du lịch','+8 chủ đề']]
+      ],
+      footer:['Trang chủ','Học tiếng Hàn','Luyện giao tiếp','Kiểm tra & TOPIK','Văn hóa Hàn Quốc','Lịch sử học tập','Tài khoản']
+    },
+    ko: {
+      menu:['홈','한국어 배우기','회화 연습','레벨 테스트 & TOPIK','한국 문화'],
+      hero:'한국어 강의, 회화 연습, TOPIK 시험 및 한국 문화를 네 가지 메뉴에서 만나보세요.',
+      explore:'한국 문화 탐방', sectionBadge:'4가지 주요 학습 분야',
+      sectionTitle:'오늘은 무엇을 공부할까요?',
+      sectionDesc:'비슷한 학습 기능을 한곳에 모았습니다. 기존 학습 자료도 그대로 이용할 수 있습니다.',
+      cards:[
+        ['한국어 배우기','초급부터 고급까지 6개 수준, 총 90과. 각 과마다 말하기 문장 10개와 연습 문제 10개.','학습 시작',['1~6단계','학습 계획','교재와 자료']],
+        ['회화 연습','19개 주제, 주제당 30개 표현. 음성 듣기 및 녹음 연습.','회화 연습',['19개 주제 × 30문장','녹음 회화','면접']],
+        ['레벨 테스트 & TOPIK','레벨 테스트부터 온라인 시험, TOPIK 기출문제와 모의시험까지.','시험 준비',['레벨 테스트','온라인 테스트','TOPIK 자료','TOPIK 시험']],
+        ['한국 문화','전통과 일상, 여행 등 12개 주제와 어휘 및 퀴즈를 탐색하세요.','문화 탐방',['음식','명절','생활','여행','외 8개']]
+      ],
+      footer:['홈','한국어 배우기','회화 연습','레벨 테스트 & TOPIK','한국 문화','학습 기록','내 계정']
+    },
+    en: {
+      menu:['Home','Learn Korean','Conversation Practice','Tests & TOPIK','Korean Culture'],
+      hero:'Explore four clear paths: Korean lessons, conversation, TOPIK preparation and Korean culture.',
+      explore:'Explore Korean culture', sectionBadge:'4 MAIN LEARNING AREAS',
+      sectionTitle:'What would you like to explore today?',
+      sectionDesc:'Related learning features are grouped together, with all your existing lessons still accessible.',
+      cards:[
+        ['Learn Korean','Six levels from beginner to advanced, 90 lessons with 10 speaking prompts and 10 exercises each.','Browse lessons',['Levels 1–6','Study roadmap','Books & resources']],
+        ['Conversation Practice','19 topics with 30 phrases each, plus text-to-speech and voice recording.','Start speaking',['19 topics × 30 phrases','Record dialogues','Interviews']],
+        ['Tests & TOPIK','Placement tests, online quizzes, TOPIK practice papers and online examinations in one place.','Prepare for TOPIK',['Placement','Online quizzes','TOPIK papers','TOPIK exam']],
+        ['Korean Culture','Explore 12 cultural topics with vocabulary, dialogues and interactive quizzes.','Explore culture',['Food','Festivals','Daily life','Travel','+8 topics']]
+      ],
+      footer:['Home','Learn Korean','Conversation Practice','Tests & TOPIK','Korean Culture','Learning history','Account']
+    }
+  };
+  function translateV3Homepage() {
+    const t = labels(), v = GROUP_HOME[locale];
+    document.title = t.title;
+    writeText('.skip', t.skip);
+    writeText('.brand-text small', t.tagline);
+    setAria('.brand','aria-label','Tiếng Hàn Mr Lee — '+v.menu[0]);
+    setAria('.site-nav','aria-label',t.navAria);
+    const nav=q => document.querySelector(q);
+    const home=nav('.site-nav > a[href="index.html"]'); if(home) writeText(home,v.menu[0]);
+    $$('.site-nav > .nav-group > summary').forEach((summary,i)=>{if(v.menu[i+1])writeText(summary,v.menu[i+1])});
+    const culture=nav('.site-nav > a[href="van-hoa-han-quoc.html"]'); if(culture) writeText(culture,v.menu[4]);
+    const menu=nav('#menuToggle');
+    if(menu)menu.setAttribute('aria-label',menu.getAttribute('aria-expanded')==='true'?t.menuClose:t.menuOpen);
+    writeDirect('.eyebrow',t.heroBadge);
+    writeText('.hero-overview h1',t.heroTitle);
+    writeText('.hero-overview p',v.hero);
+    const heroButtons=$$('.hero-actions .action-btn');
+    if(heroButtons[0])writeDirect(heroButtons[0],t.startLearning);
+    if(heroButtons[1])writeDirect(heroButtons[1],v.explore);
+    writeText('.section-pill',v.sectionBadge);
+    writeText('.section-head h2',v.sectionTitle);
+    writeText('.section-head p',v.sectionDesc);
+    const cards=$$('.feature-grid > .feature-card');
+    cards.forEach((card,i)=>{
+      const data=v.cards[i]; if(!data)return;
+      const title=card.querySelector('h3');
+      if(title){
+        title.textContent=data[0];
+        if(i===3){const suffix=document.createElement('span');suffix.lang='ko';suffix.textContent=' 한국 문화';title.appendChild(suffix)}
+      }
+      writeText(card.querySelector('p'),data[1]);
+      writeDirect(card.querySelector('.card-bottom'),data[2]);
+      card.querySelectorAll('.group-tags span').forEach((tag,index)=>{if(data[3][index])writeText(tag,data[3][index])});
+    });
+    writeText('.bottom-cta h2',t.ctaTitle);
+    writeTailText('.bottom-cta p',t.ctaAfter);
+    writeDirect('.bottom-cta .action-btn',v.explore);
+    writeDirect('.footer-brand',t.footerBrand);
+    writeText('.footer-brand small',t.footerTag);
+    $$('.footer-links a').forEach((a,i)=>{if(v.footer[i])writeText(a,v.footer[i])});
+    setAria('.footer-links','aria-label',t.footerAria);
+    writeText('#footer-contact-heading',t.contactTitle);
+    writeText('.footer-contact > p',t.contactDesc);
+    translateAuth();
+  }
+
   function translateHomepage() {
     const t = labels();
+    const v3Cards = $$('.feature-grid > .feature-card');
+    if (v3Cards.length === 4 && v3Cards[0].getAttribute('href') === 'hoc-tieng-han.html') {
+      translateV3Homepage();
+      return;
+    }
     document.title = t.title;
     setAria('meta[name="description"]', 'content', t.description);
     writeText('.skip', t.skip);
