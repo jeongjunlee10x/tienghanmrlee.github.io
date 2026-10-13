@@ -1,0 +1,12 @@
+/* MR LEE: cấu trúc ngữ pháp Sơ cấp 1 và 2, độc lập với CSS trang chủ. */
+.mrlee-sc-grammar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:16px 0}
+.mrlee-sc-grammar-card{border:1px solid #dbe5ef;border-radius:16px;background:#fff;box-shadow:0 7px 20px rgba(15,40,70,.06);padding:17px 18px;color:#1d3554;min-width:0}
+.mrlee-sc-grammar-head{display:flex;flex-wrap:wrap;gap:5px 12px;align-items:flex-start;padding-bottom:11px;margin-bottom:12px;border-bottom:1px solid #e9eef5}
+.mrlee-sc-grammar-head strong{font-size:16px;line-height:1.7;color:#0d385f;overflow-wrap:anywhere}
+.mrlee-sc-grammar-head span{font-size:13px;font-weight:700;color:#aa5b23;line-height:1.7}
+.mrlee-sc-grammar-card p{margin:0 0 9px;font-size:13px;line-height:1.95;overflow-wrap:anywhere}
+.mrlee-sc-grammar-card .mrlee-sc-usage:before{content:'Cách dùng: ';font-weight:800;color:#31557a}
+.mrlee-sc-grammar-card .mrlee-sc-example{padding:10px 13px;margin:10px 0 0;background:#f0f6fc;border-radius:10px;white-space:pre-line}
+.mrlee-sc-grammar-card .mrlee-sc-example:before{content:'Ví dụ: ';font-weight:800;color:#31557a}
+.vocab-table td.mrlee-sc-corrected{background:#fff8ec!important}
+@media(max-width:560px){.mrlee-sc-grammar-grid{grid-template-columns:minmax(0,1fr)}.mrlee-sc-grammar-card{padding:13px 14px}}
