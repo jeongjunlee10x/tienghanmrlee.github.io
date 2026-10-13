@@ -1,4 +1,7 @@
-import { TOPIK_EXAMS, TOPIK_LEVELS, VERIFIED_KEYS, hasKey } from './topik-bank.js';
+import { TOPIK_EXAMS, TOPIK_LEVELS, hasKey } from './topik-bank.js';
+import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
+import { getAuth, reload } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
+import { firebaseConfig, isFirebaseConfigured } from './firebase-config.js';
 
 const $ = id => document.getElementById(id);
 const page = document.body.dataset.topikPage;
@@ -7,6 +10,40 @@ const circled = ['','①','②','③','④'];
 function el(tag, cls='', text='') { const a=document.createElement(tag);if(cls)a.className=cls;if(text!==null)a.textContent=String(text);return a; }
 function makeLink(text,href,cls='button ghost'){let a=el('a',cls,text);a.href=href;a.target='_blank';a.rel='noopener noreferrer';return a;}
 function examination(level,num){return TOPIK_EXAMS.find(x=>x.number===num) && TOPIK_LEVELS[level];}
+
+
+async function firebaseToken() {
+  if(!isFirebaseConfigured) throw new Error('Firebase chưa được cấu hình.');
+  const app=getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+  const auth=getAuth(app);
+  await auth.authStateReady();
+  const user=auth.currentUser;
+  if(!user) throw new Error('Bạn cần đăng nhập trước khi chấm bài.');
+  await reload(user);
+  if(!auth.currentUser?.emailVerified) throw new Error('Vui lòng xác minh email trước khi chấm bài.');
+  return auth.currentUser.getIdToken(true);
+}
+async function gradeTopik(level,exam,answers) {
+  const bearer=await firebaseToken();
+  const response=await fetch('./api/mrlee-topik',{
+    method:'POST', headers:{'content-type':'application/json',authorization:`Bearer ${bearer}`},
+    body:JSON.stringify({level,exam,answers}),cache:'no-store',credentials:'same-origin'
+  });
+  if(!(response.headers.get('content-type')||'').includes('application/json')) {
+    throw new Error('Cloudflare TOPIK API chưa sẵn sàng.');
+  }
+  const data=await response.json();
+  if(!response.ok) throw new Error({
+    'firebase-sign-in-required-or-unverified':'Phiên đăng nhập hoặc email xác minh chưa hợp lệ.',
+    'unverified-topik-exam':'Đề thi này chưa có đáp án đã đối chiếu.',
+    'invalid-answers':'Định dạng phiếu trả lời không hợp lệ.',
+    'topik-daily-limit':'Mỗi đề chỉ được chấm một lần/ngày. Hãy xem kết quả đã nộp hoặc thử vào ngày mai.',
+    'quiz-storage-unavailable':'Hệ thống đang bảo trì bộ đếm lượt thi. Vui lòng thử lại sau.'
+  }[data.error] || `Lỗi máy chủ TOPIK: ${String(data.error||response.status).slice(0,100)}`);
+  if(!data.graded || typeof data.points !== 'number' || typeof data.correct !== 'number' ||
+      !data.sections || typeof data.sections !== 'object') throw new Error('Kết quả máy chủ không hợp lệ.');
+  return data;
+}
 
 if(page==='catalog'){
   let selected='I';
@@ -38,7 +75,7 @@ if(page==='quiz'){
 }
 
 function boot(level,exam){
-  const config=TOPIK_LEVELS[level];const key=VERIFIED_KEYS[`${level}-${exam.number}`]||null;
+  const config=TOPIK_LEVELS[level];const key=hasKey(level,exam.number);
   const STORAGE=`mrlee.topik.practice.${level}.${exam.number}`;
   $('examContent').hidden=false;
   $('examTitle').textContent=`TOPIK ${level} · Đề ${exam.number}`;
@@ -130,27 +167,32 @@ function boot(level,exam){
     const node=$('results');node.hidden=false;node.replaceChildren();node.append(el('h2','',auto?'Đã hết giờ – tự động nộp bài':'Kết quả nộp bài'));
     const stats=el('div','result-stats');
     if(key){
-      let points=0,correct=0;
+      const grade=state.grade;
+      if(!grade || !grade.graded || !grade.sections){
+        appendP(node,'Đây là phiếu luyện cũ trước khi chuyển sang chấm điểm máy chủ. Hãy chọn “Làm lại từ đầu” để nhận kết quả mới.');
+        return;
+      }
+      const points=grade.points, correct=grade.correct;
       for(const section of config.sections.filter(x=>x.key!=='writing')){
-        const a=key[section.key]||[], group=state.answers[section.key]||{};
-        let sectionPoints=0,sectionRight=0;
-        for(let i=0;i<section.count;i++){
-          const num=section.firstNumber+i;
-          if(Number(group[num])===a[i][0]){sectionRight++;sectionPoints+=a[i][1];}
-        }
-        correct+=sectionRight;points+=sectionPoints;
-        const box=el('div');box.append(el('strong','',`${sectionPoints}/100 điểm`),el('span','tiny',`${section.label}: đúng ${sectionRight}/${section.count} câu`));stats.append(box);
+        const result=grade.sections[section.key];
+        if(!result) continue;
+        const box=el('div');
+        box.append(el('strong','',`${result.points}/100 điểm`),
+          el('span','tiny',`${section.label}: đúng ${result.correct}/${section.count} câu`));
+        stats.append(box);
       }
       node.append(el('div','result-big',level==='I'?`${points}/200 điểm`:`${points}/200 điểm trắc nghiệm`));
       if(level==='I'){
-        const rank=points>=140?'Ước tính TOPIK 2급':points>=80?'Ước tính TOPIK 1급':'Chưa đạt ngưỡng TOPIK I';appendP(node,rank);
-      } else {appendP(node,'Chưa có điểm phần Viết (100 điểm). Không thể kết luận cấp TOPIK 3–6 chỉ từ hai phần trắc nghiệm.');}
+        const rank=points>=140?'Ước tính TOPIK 2급':points>=80?'Ước tính TOPIK 1급':'Chưa đạt ngưỡng TOPIK I';
+        appendP(node,rank);
+      } else {
+        appendP(node,'Chưa có điểm phần Viết (100 điểm). Không thể kết luận cấp TOPIK 3–6 chỉ từ hai phần trắc nghiệm.');
+      }
       node.append(stats);
-      appendP(node,'Điểm này là kết quả LUYỆN TẬP trên trình duyệt, không phải điểm thi chứng chỉ TOPIK.');
+      appendP(node,'Điểm này là kết quả LUYỆN TẬP, không phải điểm thi chứng chỉ TOPIK hoặc điểm xếp hạng được máy chủ xác nhận.');
       if(!state.eventEmitted){
-        state.eventEmitted=true; save();
+        state.eventEmitted=true;save();
         const elapsed=Math.max(0,Math.floor(((state.finishedAt||Date.now())-state.startedAt)/1000));
-        // Existing Firestore practice rules accept durations <=7200 seconds and total <=100.
         window.dispatchEvent(new CustomEvent('mrlee:practice-finished',{detail:{
           examId:`topik-${exam.number}-${level.toLowerCase()}`,examTitle:`TOPIK ${level} · Đề ${exam.number} (số câu đúng)`,
           level:'general',score:correct,total:level==='I'?70:100,
@@ -165,16 +207,32 @@ function boot(level,exam){
       node.append(makeLink('Kiểm tra tài liệu/đáp án gốc',exam.source,'button ghost'));
     }
   }
-  function finish(auto){
-    if(state.finished)return;
+  let submitting=false;
+  async function finish(auto){
+    if(state.finished||submitting)return;
     if(!auto&&!state.startedAt){alert('Hãy nhấn “Bắt đầu tính giờ” trước khi nộp bài.');return;}
     const done=config.sections.reduce((n,s)=>n+answered(s),0);
     const max=config.sections.reduce((n,s)=>n+s.count,0);
     if(!auto&&!confirm(`Bạn đã làm ${done}/${max} câu. Bạn chắc chắn muốn nộp bài?`))return;
-    state.finished=true;state.finishedAt=Date.now();save();
+    submitting=true;
     $('submitBtn').disabled=true;
-    if(interval)clearInterval(interval);renderTimer();renderSection();showResults(auto);
-    $('results').scrollIntoView({behavior:'smooth',block:'start'});
+    const label=$('submitBtn').textContent;
+    $('submitBtn').textContent=key?'Đang chấm điểm...':'Đang nộp bài...';
+    try {
+      const grade=key?await gradeTopik(level,exam.number,state.answers):null;
+      if(grade)state.grade=grade;
+      state.finished=true;state.finishedAt=Date.now();save();
+      if(interval)clearInterval(interval);
+      renderTimer();renderSection();showResults(auto);
+      $('results').scrollIntoView({behavior:'smooth',block:'start'});
+    } catch(err){
+      alert(`Không thể chấm bài: ${err.message}. Phiếu trả lời vẫn được lưu; hãy thử nộp lại.`);
+      $('submitBtn').disabled=false;
+      if(auto&&interval)clearInterval(interval);
+    } finally {
+      submitting=false;
+      $('submitBtn').textContent=label;
+    }
   }
   renderSection();renderTimer();
   if(state.finished){$('submitBtn').disabled=true;showResults(false);}

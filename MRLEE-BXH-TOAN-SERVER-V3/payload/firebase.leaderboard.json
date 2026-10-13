@@ -1,0 +1,1 @@
+{"functions":[{"source":"leaderboard-functions","codebase":"mrlee-rankings","runtime":"nodejs22","ignore":["node_modules",".git","*.log",".env*","*service*account*.json"]}]}

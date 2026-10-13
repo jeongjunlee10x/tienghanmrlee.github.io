@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kiểm tra tiếng Hàn theo từng hai bài học Sơ cấp 1 và Sơ cấp 2 — Tiếng Hàn Mr Lee.">
+  <meta name="theme-color" content="#102b4d">
+  <title>Kiểm tra Online theo từng 2 bài | Tiếng Hàn Mr Lee</title>
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="mrlee-online.css">
+  <!-- Giữ lớp kiểm tra đăng nhập Firebase đang sử dụng trên toàn bộ trang học. -->
+  <style id="mrlee-auth-hide">html{visibility:hidden!important}</style>
+  <script type="module" src="auth-guard.js"></script>
+  <!-- Ghi kết quả vào /users/{uid}/practiceAttempts (điểm LUYỆN TẬP). -->
+  <script type="module" src="learning-tracker.js"></script>
+  <script type="module" src="mrlee-online.js"></script>
+  <link rel="stylesheet" href="mrlee-core.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Bỏ qua menu</a>
+  <header class="header">
+    <div class="header-inner">
+      <a class="brand" href="index.html"><img src="images/logo.png" alt="" onerror="this.style.display='none'"><span><strong>TIẾNG HÀN MR LEE</strong><small>KIỂM TRA ONLINE · 온라인 테스트</small></span></a>
+      <nav aria-label="Menu học tập"><a href="index.html">Trang chủ</a><a href="bai-hoc.html">Bài học</a><a class="is-current" href="kiem-tra-online.html" aria-current="page">Kiểm tra Online</a><a href="lich-su-hoc-tap.html">Lịch sử học tập</a><a href="dang-nhap.html">Tài khoản</a></nav>
+    </div>
+  </header>
+  <main id="main" class="shell">
+    <section id="select-view" aria-labelledby="page-title">
+      <div class="page-intro">
+        <span class="eyebrow">ÔN TẬP THEO TIẾN ĐỘ · 단계별 복습</span>
+        <h1 id="page-title">Kiểm tra Online theo từng 2 bài học</h1>
+        <p>Học xong hai bài, làm một bài kiểm tra ngắn. Mỗi đợt gồm <strong>10 câu trắc nghiệm · 15 phút · tự động chấm</strong>, có xem lời giải và lưu điểm theo tài khoản.</p>
+      </div>
+      <div class="choose-level" aria-label="Chọn trình độ">
+        <button type="button" class="level-tab is-active" data-level="sc1" aria-pressed="true">Sơ cấp 1 <span lang="ko">초급 1</span></button>
+        <button type="button" class="level-tab" data-level="sc2" aria-pressed="false">Sơ cấp 2 <span lang="ko">초급 2</span></button>
+      </div>
+      <div class="section-row"><div><h2 id="level-title">Các lần kiểm tra – Sơ cấp 1</h2><p>Chọn đợt tương ứng với những bài đã học.</p></div><span class="count-label" id="batch-count">8 đợt kiểm tra</span></div>
+      <div id="test-list" class="test-grid"></div>
+      <div class="explain-note"><span aria-hidden="true">ⓘ</span><p>Giáo trình có 15 bài mỗi cấp nên <strong>Lần 8 ôn riêng Bài 15</strong>. Kết quả lưu lên Firebase (khi đăng nhập, đã xác minh email và Firestore Rules cho phép) là <strong>điểm luyện tập tham khảo</strong>, không phải điểm thi chính thức.</p></div>
+    </section>
+    <section id="exam-view" class="hidden" aria-label="Làm bài kiểm tra">
+      <div class="exam-heading"><button id="back-to-tests" class="text-btn" type="button">← Danh sách đợt kiểm tra</button><h1 id="exam-title">Đợt kiểm tra</h1><p id="exam-subtitle"></p></div>
+      <div class="exam-toolbar"><div class="toolbar-stat"><span class="stat-label">Đã trả lời</span><strong id="answered-count">0/10</strong></div><div class="toolbar-stat"><span class="stat-label">Thời gian còn lại</span><strong class="timer" id="timer" role="timer">15:00</strong></div><button type="button" id="submit-top" class="primary-btn">Nộp bài</button></div>
+      <div class="bar" aria-hidden="true"><span id="completion-bar"></span></div>
+      <div id="questions" class="questions"></div>
+      <div class="bottom-actions"><button type="button" id="submit-bottom" class="primary-btn">Nộp bài và xem kết quả</button></div>
+    </section>
+    <section id="result-box" class="result-area hidden" aria-live="polite" aria-labelledby="result-title">
+      <span class="eyebrow">KẾT QUẢ ÔN TẬP · 학습 결과</span><h1 id="result-title">Bạn đã hoàn thành bài kiểm tra!</h1>
+      <p id="result-description"></p>
+      <div class="result-summary"><div><span class="stat-label">Điểm</span><strong id="result-score">0/10</strong></div><div><span class="stat-label">Tỷ lệ đúng</span><strong id="result-percent">0%</strong></div><div><span class="stat-label">Thời gian</span><strong id="result-duration">0 phút</strong></div></div>
+      <div id="lesson-breakdown" class="lesson-breakdown"></div>
+      <div class="result-actions"><button type="button" id="review-toggle" class="secondary-btn" aria-expanded="false">Xem đáp án và giải thích</button><button type="button" id="retry-btn" class="primary-btn">Làm lại đề này</button><button type="button" id="next-btn" class="secondary-btn">Kiểm tra lần tiếp theo →</button><a href="lich-su-hoc-tap.html" class="secondary-btn">Lịch sử điểm</a><button type="button" id="return-btn" class="text-btn">Danh sách đề</button></div>
+      <div id="answer-review" class="hidden"></div>
+    </section>
+  </main>
+  <footer class="footer">© 2026 Tiếng Hàn Mr Lee · <a href="index.html">Trang chủ</a> · <a href="mailto:tienghanmrlee@gmail.com">Liên hệ</a></footer>
+  <script defer src="mrlee-core.js"></script>
+  <script defer src="mrlee-i18n.js"></script>
+</body>
+</html>

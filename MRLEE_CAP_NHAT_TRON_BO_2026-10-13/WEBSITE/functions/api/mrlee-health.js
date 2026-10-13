@@ -1,0 +1,1 @@
+export function onRequestGet() { return new Response(JSON.stringify({app:"MRLEE",service:"quiz-api",status:"ready",answerProtection:"pending"}),{headers:{"content-type":"application/json; charset=utf-8","cache-control":"no-store"}}); }

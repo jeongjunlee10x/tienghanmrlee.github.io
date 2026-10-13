@@ -1,0 +1,33 @@
+name: MR LEE - Firebase to Supabase Sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Once every three hours, at 17 minutes past the hour (UTC).
+    - cron: '17 */3 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mrlee-firebase-supabase-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install backend dependencies
+        run: pip install -r scripts/requirements-mrlee-sync.txt
+      - name: Sync account, learning activity and practice results
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.MRLEE_FIREBASE_SERVICE_ACCOUNT_JSON }}
+          SUPABASE_SECRET_KEY: ${{ secrets.MRLEE_SUPABASE_SECRET_KEY }}
+          SUPABASE_URL: https://pkxqsboyotlyoizzxizb.supabase.co
+        run: python scripts/mrlee_sync.py

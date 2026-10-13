@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Phòng luyện TOPIK PBT: đồng hồ, phiếu trả lời trắc nghiệm, chấm điểm theo đáp án và lưu lịch sử luyện tập."><title>Phòng luyện đề TOPIK | Tiếng Hàn Mr Lee</title>
+<link rel="icon" href="images/logo.png"><link rel="stylesheet" href="mrlee-topik.css"><style id="mrlee-auth-hide">body{visibility:hidden}</style></head>
+<body data-topik-page="quiz"><header class="header"><div class="wrap head-row"><a class="brand" href="index.html"><img src="images/logo.png" alt=""><span>TIẾNG HÀN MR LEE</span></a><nav class="nav" aria-label="Điều hướng"><a href="de-thi-topik.html">Danh sách đề</a><a href="lich-su-hoc-tap.html" class="hide-mobile">Lịch sử</a><a href="dang-nhap.html" class="login">Tài khoản</a></nav></div></header>
+<main class="wrap"><div class="breadcrumbs"><a href="index.html">Trang chủ</a> / <a href="de-thi-topik.html">Bộ đề TOPIK</a> / <span id="crumbCurrent">Phòng thi</span></div><span class="eyebrow">ONLINE PRACTICE · 모의고사</span><h1 class="page-title" id="examTitle">Đang tải đề thi...</h1><p class="lede" id="examDesc"></p>
+<div id="examContent" hidden>
+  <div class="timer-bar"><div>⏱ Thời gian còn lại <strong class="clock" id="clock" aria-live="off">--:--</strong></div><div class="tiny" id="clockStatus">Chưa bắt đầu</div><div><button class="button light" id="resetBtn" type="button">Làm lại</button></div></div>
+  <section class="quiz-layout"><div class="quiz-main">
+     <div class="panel"><h2>Tài liệu đề thi và nghe</h2><p>Hãy mở file PDF và nghe audio từ trang nguồn trong tab riêng. Sau đó chọn đáp án trên phiếu trực tuyến bên dưới.</p><div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:12px"><a class="button" id="paperLink" target="_blank" rel="noopener noreferrer">📄 Mở đề thi</a><a class="button ghost" id="sourceLink" target="_blank" rel="noopener noreferrer">🔊 Nguồn audio & đáp án</a></div></div>
+     <div class="note warning" id="keyNotice"></div>
+     <div class="section-tabs" id="sectionTabs" role="tablist" aria-label="Phần thi"></div>
+     <div class="panel"><h2 id="sectionTitle"></h2><p id="sectionDesc"></p><div id="questions" class="question-grid"></div><div id="essays"></div></div>
+     <div class="panel" style="display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap"><p class="tiny" id="submitHint">Chấm điểm theo dữ liệu đã xác minh.</p><button class="button" id="submitBtn" type="button">Nộp bài</button></div>
+     <section class="panel result" id="results" hidden aria-live="polite"></section>
+  </div><aside class="sidebar"><div class="panel"><h2>Tiến độ làm bài</h2><div id="sectionStats"></div><p class="tiny">Dữ liệu đang làm được lưu trong trình duyệt này. Điểm chính thức cần cơ chế chấm bảo mật riêng.</p></div></aside></section>
+</div><div id="pageError" class="note danger" hidden>Không tìm thấy kỳ thi hoặc trình độ được yêu cầu. <a href="de-thi-topik.html">Quay lại danh sách.</a></div></main>
+<footer class="footer">© 2026 Tiếng Hàn Mr Lee · Tài liệu đề thi được dẫn từ nguồn bên ngoài</footer>
+<script type="module" src="auth-guard.js"></script><script type="module" src="learning-tracker.js"></script><script type="module" src="mrlee-topik.js"></script></body></html>

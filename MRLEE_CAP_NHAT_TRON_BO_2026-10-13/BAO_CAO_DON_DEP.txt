@@ -1,0 +1,14 @@
+﻿Báo cáo từ ZIP gốc: 10616 file, 260.49 MB giải nén.
+Bundled Node tools: 11 file, 86.99 MB
+Git history (not shipped; preserved in local project): 2384 file, 68.02 MB
+Installed dependencies (reinstallable): 7806 file, 70.03 MB
+Live source kept: 105 file, 2.54 MB
+Old backups / snapshots / standalone archives: 231 file, 7.98 MB
+Old installer scripts / documents: 52 file, 0.99 MB
+Other non-site artifacts: 15 file, 1.99 MB
+Unused image assets: 12 file, 21.94 MB
+
+Website tinh gọn: 106 file, 2.55 MB
+Liên kết nội bộ HTML lỗi: 0
+JS kiểm tra cú pháp: 0 lỗi
+Chủ đề văn hóa: 12

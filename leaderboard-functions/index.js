@@ -1,0 +1,10 @@
+const {initializeApp}=require('firebase-admin/app');
+const {getFirestore,FieldValue}=require('firebase-admin/firestore');
+const {onDocumentWritten}=require('firebase-functions/v2/firestore');
+const {syncUser}=require('./sync.cjs');
+initializeApp();
+const db=getFirestore();
+const options={region:'asia-southeast1',retry:true,maxInstances:10};
+const sync=event=>syncUser(db,event.params.uid,()=>FieldValue.serverTimestamp());
+exports.mrleeWalletRanking=onDocumentWritten({...options,document:'users/{uid}/studyPoints/wallet'},sync);
+exports.mrleeProfileRanking=onDocumentWritten({...options,document:'users/{uid}'},sync);

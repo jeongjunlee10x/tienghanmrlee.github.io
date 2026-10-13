@@ -1,0 +1,32 @@
+﻿HƯỚNG DẪN CẬP NHẬT TRỰC TIẾP — TIẾNG HÀN MR LEE (13/10/2026)
+
+TRỌNG TÂM BẢN NÂNG CẤP
+- 4 nhóm trên trang chủ: Học tiếng Hàn; Giao tiếp & Phỏng vấn; Kiểm tra & TOPIK; Văn hóa Hàn Quốc.
+- Giữ lại các đường dẫn, dữ liệu và chức năng học tập cũ.
+- 12 bài học văn hóa, mỗi bài có kiến thức, 6 từ vựng, hội thoại, trắc nghiệm, nguồn tham khảo.
+- Tiến độ văn hóa dùng localStorage trên trình duyệt; KHÔNG phải điểm toàn server.
+- Chỉnh .gitignore để không vô tình đẩy node_modules, backups, file nhạy cảm lên GitHub.
+- Chuyển bản sao lưu cũ, node.exe, node_modules, bộ cài lặp lại và ảnh banner không dùng ra NGOÀI dự án.
+
+CÁCH CÀI CHO WINDOWS SURFACE
+1. Sao lưu file ZIP toàn bộ website gốc đã gửi (đây là bản có thể khôi phục khi cần).
+2. Giải nén gói MRLEE_CAP_NHAT_TRON_BO_2026-10-13.zip, MỞ thư mục MRLEE_CAP_NHAT_TRON_BO_2026-10-13.
+3. Nhấp đúp 01-CAP-NHAT-VA-DON-RAC.cmd. Nếu Windows hỏi bảo mật, chỉ cho phép khi bạn xác nhận đây là script vừa tải.
+4. Script sao lưu file ghi đè, chuyển rác sang thư mục MRLEE-SAO-LUU-CAP-NHAT-yyyyMMdd-HHmmss nằm CẠNH thư mục website.
+   Đường dẫn site mặc định C:\Users\Surface\Documents\tienghanmrlee.github.io.
+5. Nhấp đúp 03-KIEM-TRA-SAU-CAP-NHAT.cmd để mở trang chủ và trang văn hóa trên máy.
+6. Nhấp đúp 02-DAY-LEN-GITHUB.cmd, xem git status; chỉ nhập DAY khi đồng ý commit & push origin/main.
+7. Trên GitHub: Settings > Pages, xác nhận Deploy from a branch, main, /(root), Save (nếu chưa cấu hình).
+8. Mở https://jeongjunlee10x.github.io/tienghanmrlee.github.io/ và tải lại mạnh Ctrl+F5.
+
+LƯU Ý
+- Script KHÔNG đụng vào .git (lịch sử Git), KHÔNG xóa vĩnh viễn dữ liệu đã loại bỏ, KHÔNG deploy Firebase Rules/Functions, KHÔNG xóa dữ liệu Firebase/Supabase.
+- Nếu GitHub push bị từ chối, không dùng force push. Kiểm tra git remote, đăng nhập, và đồng bộ lịch sử bằng Git.
+- Nếu thiếu Git, có thể cài Git for Windows; Node và Google Cloud CLI KHÔNG cần để push HTML lên GitHub Pages.
+- Nếu deploy Firebase Functions sau này: npm ci --prefix leaderboard-functions trước; sau đó triển khai theo quy trình Firebase riêng.
+- Các bản gốc/lịch sử và thư mục Apps riêng được giữ bên ngoài website như một bản sao lưu, không nằm trong gói publish.
+- Dự án gốc do người dùng gửi có nhiều file và bản backup; chỉ chuyển những mục liệt kê trong RAC_CAN_CHUYEN_RA_NGOAI.txt.
+
+KHÔI PHỤC KHI CẦN
+- File bị ghi đè ở thư mục SAO LƯU/GHI_DE, file dọn dẹp ở SAO LƯU/RAC_DA_CHUYEN.
+- Trước khi khôi phục hãy đóng VS Code và sao lưu lần nữa. Lịch sử Git vẫn còn nguyên.
