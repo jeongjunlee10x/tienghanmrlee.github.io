@@ -1,0 +1,5 @@
+/* MR Lee V6: chỉ áp dụng cho trang học theo bài */
+.mr-v6-kind{font-family:inherit;font-size:10px;font-weight:600;vertical-align:middle;display:inline-block;margin-left:7px;padding:2px 7px;background:#e9f2fa;color:#245074;border-radius:30px}
+.mr-v6-filter{font:inherit;font-size:12px;min-height:38px;max-width:190px;padding:6px 9px;border:1px solid #d5e0ec;border-radius:8px;background:#fff;color:#15375b}
+.mr-v6-review{font-size:12px;color:#5c728e;font-weight:600}
+@media(max-width:560px){.mr-v6-filter{max-width:none;width:100%}}

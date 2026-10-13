@@ -4,8 +4,8 @@
  */
 import { LEVELS, ROADMAP_UNITS } from './mrlee-roadmap-bank.js';
 import { LEVEL_TIPS } from './mrlee-vocab-bank.js';
-import { SC_LESSONS } from './mrlee-sc-lesson-data.js?v=mrlee6-v5';
-import { ADVANCED_LESSONS } from './mrlee-advanced-lesson-data.js?v=mrlee6-v5';
+import { SC_LESSONS } from './mrlee-sc-lesson-data.js?v=mrlee6-v6';
+import { ADVANCED_LESSONS } from './mrlee-advanced-lesson-data.js?v=mrlee6-v6';
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const normalize=s=>String(s??'').normalize('NFKC').trim().replace(/[\s,.?!。！？，]+/g,'').toLowerCase();
@@ -100,49 +100,48 @@ function lessonVocabulary(d){
   });
 }
 // Chỉ lấy ngân hàng bài hiện tại và bài trước. Dùng nguồn cụ thể để kiểm toán.
-function buildQuestions(d){
-  const vocab=lessonVocabulary(d),questions=[];
-  const candidates=vocab.slice(0,10);
+function buildQuestions(d, run=0){
+  const vocab=lessonVocabulary(d), questions=[];
+  if(!vocab.length)return questions;
+  const rotation=(run*11) % vocab.length;
+  const picked=[];
+  for(let i=0;i<vocab.length;i++)picked.push(vocab[((run*6+i)*13)%vocab.length]);
+  // Bài kiểm tra 10 câu: 4 trắc nghiệm từ vựng, 2 gõ tiếng Hàn,
+  // 2 hiểu câu mẫu, 2 ngữ pháp. Mỗi lần luyện xoay bộ từ qua 68 mục.
   for(let i=0;i<6;i++){
-    const item=candidates[(i*3)%candidates.length],askKo=i%3===1,typing=i===3||i===7;
-    const correct=askKo||typing?item[0]:item[1];
-    if(typing){questions.push({type:'write',label:'Nhập từ tiếng Hàn thuộc bài hiện tại',prompt:item[1],correct,help:`${item[0]} — ${item[1]}`,sourceOrdinal:d.ordinal});continue;}
-    const variants=(askKo?vocab.map(x=>x[0]):vocab.map(x=>x[1])).filter((v,j,a)=>a.indexOf(v)===j&&v!==correct);
+    const item=picked[i],writing=i===2||i===5;
+    const correct=writing?item[0]:item[1];
+    if(writing){questions.push({type:'write',label:'Viết từ/cụm từ tiếng Hàn',prompt:item[1],correct,help:`${item[0]} — ${item[1]}`,sourceOrdinal:d.ordinal});continue;}
+    const variants=vocab.map(x=>x[1]).filter((v,j,a)=>a.indexOf(v)===j&&v!==correct);
     const distract=[];
-    for(let j=0;j<variants.length&&distract.length<3;j++){
-       const x=variants[(i*11+j*7)%variants.length];if(!distract.includes(x))distract.push(x);
+    for(let n=0;n<variants.length&&distract.length<3;n++){
+      const v=variants[(rotation+i*13+n*19)%variants.length];
+      if(!distract.includes(v))distract.push(v);
     }
-    const opts=[correct,...distract],shift=i%opts.length;
-    questions.push({type:'choice',label:askKo?'Chọn từ tiếng Hàn đúng':'Chọn nghĩa tiếng Việt đúng',prompt:askKo?item[1]:item[0],correct,options:[...opts.slice(shift),...opts.slice(0,shift)],help:`${item[0]} — ${item[1]}`,sourceOrdinal:d.ordinal});
+    const opts=[correct,...distract],shift=(i+run)%opts.length;
+    questions.push({type:'choice',label:'Chọn nghĩa tiếng Việt chính xác',prompt:item[0],correct,options:[...opts.slice(shift),...opts.slice(0,shift)],help:`${item[0]} — ${item[1]}`,sourceOrdinal:d.ordinal});
   }
-  // Hai câu nhận diện nghĩa theo câu mẫu của CHÍNH bài, không dùng ví dụ của bài sau.
-  const sampleBank=(d.cap>=3?(d.samples||[]):d.grammar.flatMap(grammarExamples));
-  const distinctSamples=sampleBank.filter((x,i,a)=>x?.ko&&x?.vi&&a.findIndex(t=>t.ko===x.ko)===i);
+  const bank=(d.cap>=3?(d.samples||[]):d.grammar.flatMap(grammarExamples));
+  const sentences=bank.filter((x,i,a)=>x?.ko&&x?.vi&&a.findIndex(t=>t.ko===x.ko)===i);
   for(let i=0;i<2;i++){
-    const s=distinctSamples[i%distinctSamples.length];
-    if(!s)break;
-    const correct=s.vi;
-    const choices=distinctSamples.filter(x=>x.vi!==correct).map(x=>x.vi);
-    // Nếu chỉ có 2 mẫu, bổ sung nghĩa từ vựng hiện tại (vẫn không vượt bài).
-    for(const x of vocab){if(choices.length>=3)break;if(x[1]!==correct&&!choices.includes(x[1]))choices.push(x[1]);}
-    const opts=[correct,...choices.slice(0,3)],shift=(i+1)%opts.length;
-    questions.push({type:'choice',label:'Chọn nghĩa câu mẫu của bài hiện tại',prompt:s.ko,correct,options:[...opts.slice(shift),...opts.slice(0,shift)],help:`${s.ko} — ${s.vi}`,sourceOrdinal:d.ordinal});
+    const sample=sentences[(run+i)%sentences.length];if(!sample)break;
+    const correct=sample.vi;
+    const alternatives=sentences.filter(x=>x.vi!==correct).map(x=>x.vi);
+    for(const [_,vi] of vocab){if(alternatives.length>=3)break;if(vi!==correct&&!alternatives.includes(vi))alternatives.push(vi);}
+    const opts=[correct,...alternatives.slice(0,3)],shift=(run+i+1)%opts.length;
+    questions.push({type:'choice',label:'Hiểu nghĩa câu mẫu trong bài',prompt:sample.ko,correct,options:[...opts.slice(shift),...opts.slice(0,shift)],help:`${sample.ko} — ${sample.vi}`,sourceOrdinal:d.ordinal});
   }
-  const already=data.filter(x=>x.ordinal<=d.ordinal).flatMap(x=>x.grammar.map(g=>({...g,sourceOrdinal:x.ordinal})));
-  const formulaSeen=new Set(),available=already.filter(g=>{if(formulaSeen.has(g.formula))return false;formulaSeen.add(g.formula);return true;});
+  const gram=(d.grammar||[]).filter(g=>g.stage!=='Ôn bài trước');
+  const pastGrammar=data.filter(x=>x.ordinal<=d.ordinal).flatMap(x=>x.grammar.map(g=>g.formula));
   for(let i=0;i<2;i++){
-    const g=d.grammar[i%d.grammar.length];
-    if(!g){break;}
-    const correct=g.formula,alternate=available.filter(x=>x.formula!==correct).map(x=>x.formula);
-    const unique=[...new Set(alternate)].slice(-20);const distract=[];
-    for(let j=unique.length-1;j>=0&&distract.length<3;j--){const v=unique[j];if(!distract.includes(v))distract.push(v);}
-    const opts=[correct,...distract],shift=(i+2)%opts.length;
-    questions.push({type:'choice',label:'Chọn cấu trúc ngữ pháp đã học',prompt:g.meaning,correct,options:[...opts.slice(shift),...opts.slice(0,shift)],help:`${g.formula}: ${g.usage}`,sourceOrdinal:d.ordinal});
+    const g=gram[(run+i)%gram.length];if(!g)break;
+    const correct=g.formula,variants=[...new Set(pastGrammar.filter(f=>f!==correct))];
+    const distract=variants.slice(-3),opts=[correct,...distract],shift=(run+i+2)%opts.length;
+    questions.push({type:'choice',label:'Nhận diện ngữ pháp đang học',prompt:g.meaning,correct,options:[...opts.slice(shift),...opts.slice(0,shift)],help:`${g.formula}: ${g.usage}`,sourceOrdinal:d.ordinal});
   }
-  // Bổ sung nếu bài gốc chỉ có một cấu trúc.
-  for(let n=6;questions.length<10;n++){
-    const item=vocab[n%vocab.length];
-    questions.push({type:'write',label:'Ôn từ vựng của bài',prompt:item[1],correct:item[0],help:`${item[0]} — ${item[1]}`,sourceOrdinal:d.ordinal});
+  for(let n=0;questions.length<10;n++){
+    const item=vocab[(rotation+n+19)%vocab.length];
+    questions.push({type:'write',label:'Ôn từ vựng theo bài',prompt:item[1],correct:item[0],help:`${item[0]} — ${item[1]}`,sourceOrdinal:d.ordinal});
   }
   return questions.slice(0,10);
 }
@@ -155,16 +154,25 @@ function listLessons(){
   }).join('');
 }
 function renderGrammar(d){
-  $('lessonGrammar').innerHTML=`<div class="mr-sc-summary">${d.grammar.length} điểm ngữ pháp của bài ${d.bai} · Ôn trước không vượt bài</div><div class="mr-sc-grammar-list">${d.grammar.map(g=>`<article class="mr-sc-grammar-card"><div class="mr-sc-grammar-head"><strong>${esc(g.formula)}</strong><span>${esc(g.meaning)}</span></div><p><b>Cách dùng:</b> ${esc(g.usage)}</p><p class="mr-sc-example"><b>Câu mẫu theo chủ đề:</b> ${esc(g.example)}</p></article>`).join('')}</div>`;
+  const core=d.grammar.filter(x=>x.stage!=='Ôn bài trước').length;
+  $('lessonGrammar').innerHTML=`<div class="mr-sc-summary">${core} điểm ngữ pháp bài ${d.bai} + 1 cấu trúc ôn từ bài trước. Các ví dụ minh họa cần được ôn với từ trong bài.</div><div class="mr-sc-grammar-list">${d.grammar.map(g=>`<article class="mr-sc-grammar-card"><div class="mr-sc-grammar-head"><strong>${esc(g.formula)}</strong><span>${esc(g.stage||'Trọng tâm')}</span></div><p><b>Ý nghĩa:</b> ${esc(g.meaning)}</p><p><b>Cách dùng:</b> ${esc(g.usage)}</p><p class="mr-sc-example"><b>Ví dụ:</b> ${esc(g.example)}</p>${g.reviewFrom?`<p class="mr-v6-review">Ôn từ ${esc(g.reviewFrom)}</p>`:''}</article>`).join('')}</div>`;
 }
 function renderVocab(d){
-  const target=$('lessonVocab'),vocab=lessonVocabulary(d);
+  const target=$('lessonVocab'),vocab=lessonVocabulary(d),isAdvanced=d.cap>=3;
+  const coreCount=isAdvanced?Math.min(d.coreCount||0,vocab.length):vocab.length;
   $('lessonVocabHeading').textContent=`📚 Từ vựng Bài ${d.bai} · ${d.title}`;
-  $('lessonVocabHint').textContent=`${vocab.length} mục từ trong bài. Có tìm kiếm, nghe và ẩn nghĩa tiếng Việt.`;
-  target.innerHTML=`<div class="mr-sc-vocab-tools"><input class="mr-sc-search" type="search" placeholder="Tìm từ Hàn/Việt" aria-label="Tìm từ trong bài"><button type="button" class="mr-sc-mini-btn" data-toggle-meaning>Ẩn nghĩa tiếng Việt</button><span class="mr-sc-summary" data-vocab-count></span></div><div class="mr-sc-vocab-grid" data-vocab-list></div>`;
-  const search=target.querySelector('.mr-sc-search'),body=target.querySelector('[data-vocab-list]'),counter=target.querySelector('[data-vocab-count]');
-  const render=()=>{const q=search.value.trim().toLowerCase();const rows=vocab.filter(([ko,vi])=>`${ko} ${vi}`.toLowerCase().includes(q));counter.textContent=`${rows.length}/${vocab.length} mục`;body.innerHTML=rows.map(([ko,vi])=>`<div class="mr-sc-vocab-card"><div><div class="mr-sc-vocab-word" lang="ko">${esc(ko)}</div><div class="mr-sc-vocab-meaning">${esc(vi)}</div></div><button type="button" data-ko="${esc(ko)}" aria-label="Nghe tiếng Hàn">🔊</button></div>`).join('')||'<p>Không có kết quả.</p>';};
-  search.addEventListener('input',render);
+  $('lessonVocabHint').textContent=isAdvanced
+    ?`${vocab.length} mục: ${coreCount} trọng tâm chủ đề, ${vocab.length-coreCount} mở rộng theo cấp. Từ mở rộng có thể lặp lại có chủ đích để ôn tập.`
+    :`${vocab.length} mục từ của bài. Có tìm kiếm, nghe và ẩn nghĩa tiếng Việt.`;
+  target.innerHTML=`<div class="mr-sc-vocab-tools"><input class="mr-sc-search" type="search" placeholder="Tìm từ Hàn/Việt" aria-label="Tìm từ trong bài"><button type="button" class="mr-sc-mini-btn" data-toggle-meaning>Ẩn nghĩa tiếng Việt</button><select class="mr-v6-filter" aria-label="Lọc nhóm từ"><option value="all">Tất cả từ vựng</option><option value="core">Từ trọng tâm</option><option value="extra">Từ mở rộng</option></select><span class="mr-sc-summary" data-vocab-count></span></div><div class="mr-sc-vocab-grid" data-vocab-list></div>`;
+  const search=target.querySelector('.mr-sc-search'),filter=target.querySelector('.mr-v6-filter'),body=target.querySelector('[data-vocab-list]'),counter=target.querySelector('[data-vocab-count]');
+  const render=()=>{
+    const q=search.value.trim().toLowerCase(),section=filter.value;
+    const rows=vocab.map(([ko,vi],idx)=>({ko,vi,idx})).filter(x=>`${x.ko} ${x.vi}`.toLowerCase().includes(q)).filter(x=>section==='all'||(section==='core'?x.idx<coreCount:x.idx>=coreCount));
+    counter.textContent=`${rows.length}/${vocab.length} mục`;
+    body.innerHTML=rows.map(({ko,vi,idx})=>`<div class="mr-sc-vocab-card"><div><div class="mr-sc-vocab-word" lang="ko">${esc(ko)} <small class="mr-v6-kind">${idx<coreCount?'Trọng tâm':'Mở rộng'}</small></div><div class="mr-sc-vocab-meaning">${esc(vi)}</div></div><button type="button" data-ko="${esc(ko)}" aria-label="Nghe tiếng Hàn">🔊</button></div>`).join('')||'<p>Không có kết quả.</p>';
+  };
+  search.addEventListener('input',render);filter.addEventListener('change',render);
   target.querySelector('[data-toggle-meaning]').addEventListener('click',e=>{const on=target.classList.toggle('mr-sc-meaning-hidden');e.currentTarget.textContent=on?'Hiện nghĩa tiếng Việt':'Ẩn nghĩa tiếng Việt';});
   body.addEventListener('click',e=>{const btn=e.target.closest('[data-ko]');if(btn)speak(btn.dataset.ko);});render();
 }
@@ -192,19 +200,21 @@ function renderSpeaking(d,samples){
   $('lessonSpeakingLink').href=`luyen-noi-tinh-diem.html?task=${encodeURIComponent(findRoadmap(d.cap,d.bai).id)}`;
 }
 function renderQuiz(d,questions){
-  const key=`mrlee.v5.quiz.${d.cap}.${d.bai}`;
+  const key=`mrlee.v6.quiz.${d.cap}.${d.bai}`;
   const container=$('lessonQuestion'),answers=$('lessonAnswers'),feedback=$('lessonFeedback'),next=$('lessonNext');
   const heading=document.createElement('p');heading.className='mr-new-quizhead';container.before(heading);
-  let qi=0,correct=0,answered=false;
-  $('lessonPracticeHint').textContent='6 câu từ vựng, 2 câu nhận diện câu mẫu và 2 câu ngữ pháp (hoặc ôn từ nếu thiếu cấu trúc). Tất cả đáp án và phương án nhiễu chỉ lấy từ chính bài hoặc các bài trước.';
+  let qi=0,correct=0,answered=false,run=0;
+  try{run=Number(localStorage.getItem(`mrlee.v6.run.${d.cap}.${d.bai}`)||0);}catch{}
+  let activeQuestions=questions;
+  $('lessonPracticeHint').textContent='4 trắc nghiệm từ vựng + 2 viết từ tiếng Hàn + 2 hiểu câu mẫu + 2 ngữ pháp. Mỗi lượt luyện sẽ lấy bộ từ khác; không dùng nội dung bài sau.';
   const draw=()=>{
     if(qi===10){
       container.textContent='Đã hoàn thành!';answers.innerHTML='';heading.textContent='Hoàn thành 10/10 câu';feedback.className='mr-new-feedback';feedback.textContent=`Bạn đúng ${correct}/10 câu (${correct*10}%).`;
-      next.disabled=false;next.textContent='Làm lại';next.onclick=()=>{qi=0;correct=0;draw();};
+      next.disabled=false;next.textContent='Làm lại';next.onclick=()=>{qi=0;correct=0;run++;try{localStorage.setItem(`mrlee.v6.run.${d.cap}.${d.bai}`,String(run));}catch{}activeQuestions=buildQuestions(d,run);draw();};
       try{localStorage.setItem(key,String(Math.max(correct,Number(localStorage.getItem(key)||0))));}catch{}
       return;
     }
-    answered=false;const q=questions[qi];heading.textContent=`Bài ${d.bai} · Câu ${qi+1}/10 · ${q.label} · Đúng ${correct}`;container.textContent=q.prompt;
+    answered=false;const q=activeQuestions[qi];heading.textContent=`Bài ${d.bai} · Câu ${qi+1}/10 · ${q.label} · Đúng ${correct}`;container.textContent=q.prompt;
     answers.replaceChildren();feedback.textContent='';feedback.className='';next.disabled=true;next.textContent='Câu tiếp theo →';next.onclick=()=>{qi++;draw();};
     const grade=value=>{if(answered||!String(value).trim())return;answered=true;const ok=normalize(value)===normalize(q.correct);if(ok)correct++;answers.querySelectorAll('button,input').forEach(el=>el.disabled=true);feedback.textContent=(ok?'✓ Đúng. ':'✗ Chưa chính xác. ')+`Đáp án: ${q.correct}. ${q.help}`;feedback.className=`mr-new-feedback${ok?'':' error'}`;next.disabled=false;};
     if(q.type==='choice')q.options.forEach((x,i)=>{const b=document.createElement('button');b.type='button';b.className='mr-new-btn';b.textContent=`${String.fromCharCode(65+i)}. ${x}`;b.onclick=()=>grade(x);answers.append(b);});
@@ -214,7 +224,7 @@ function renderQuiz(d,questions){
 function showLesson(){
   const d=findData(cap,bai),u=findRoadmap(cap,bai);
   if(!d||!u){$('lessonIntro').textContent='Bài học không tồn tại. Vui lòng chọn bài hợp lệ.';return;}
-  const samples=lessonSentences(d),questions=buildQuestions(d);
+  const samples=lessonSentences(d),questions=buildQuestions(d,0);
   if(samples.length!==10||questions.length!==10){$('lessonIntro').textContent='Dữ liệu bài học chưa đủ 10 câu. Không hiển thị câu vượt bài để bù số lượng.';return;}
   // Kiểm tra chủ động trước khi hiển thị nội dung cho học viên.
   if(samples.some(x=>x.sourceOrdinal>d.ordinal)||questions.some(x=>x.sourceOrdinal>d.ordinal)){throw Error('Phát hiện nội dung vượt bài.');}
@@ -223,8 +233,8 @@ function showLesson(){
   $('lessonIntro').textContent=u.goal;
   $('lessonContent').classList.remove('mr-new-hidden');$('lessonCards').classList.add('mr-new-hidden');
   $('lessonTip').textContent=LEVEL_TIPS[cap];renderGrammar(d);renderVocab(d);renderSpeaking(d,samples);renderQuiz(d,questions);
-  $('lessonContentNote').textContent=cap<=2?'Từ vựng và ngữ pháp dựa trên văn bản giáo trình Mr Lee cung cấp; các mục đang tiếp tục được hiệu đính.':'Nội dung Trung–Cao cấp biên soạn riêng theo chủ đề lộ trình MR LEE; tham khảo khung 6 cấp Sejong/Seoul, không sao chép sách. Cần giáo viên rà soát câu mẫu trước khi công bố chính thức.';
-  $('lessonEarned').textContent='Điểm bài tập được lưu trên trình duyệt; chưa cộng điểm vào bảng xếp hạng toàn server.';
+  $('lessonContentNote').textContent=cap<=2?'Từ vựng và ngữ pháp dựa trên văn bản giáo trình Mr Lee cung cấp; các mục đang tiếp tục được hiệu đính.':'Nội dung Trung–Cao cấp: từ trọng tâm theo chủ đề và từ mở rộng theo cấp; biên soạn độc lập theo khung 6 cấp. Ví dụ, sắc thái từ và bài tập cần giáo viên thẩm định trước khi sử dụng chính thức.';
+  $('lessonEarned').textContent='Điểm bài tập lưu trên trình duyệt; chưa cộng điểm toàn server. Nội dung bổ sung cần giáo viên rà soát trước khi dùng để đánh giá chính thức.';
   $('lessonReturn').href=`hoc-theo-bai.html?cap=${cap}`;
   $('lessonOldLink').href=u.lessonUrl||'lo-trinh-1-6.html';
   const next=bai<15?{cap,bai:bai+1}:cap<6?{cap:cap+1,bai:1}:null;
