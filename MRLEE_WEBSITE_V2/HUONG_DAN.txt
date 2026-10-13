@@ -1,0 +1,29 @@
+MR LEE — BẢN NÂNG CẤP CẤU TRÚC V2 — 13/10/2026
+
+TÁC ĐỘNG (17 FILE):
+- Học tiếng Hàn: 6 menu cấp độ, 90 bài (15 bài mỗi cấp), 10 câu luyện nói và 10 bài tập đa dạng mỗi bài.
+- 4 câu trọng tâm trích từ lộ trình cũ; 6 câu ôn cùng cấp lấy từ bài khác (không nhận là câu mới của cùng bài).
+- 6 từ vựng bổ trợ cùng cấp + lưu ý; SC1–2 vẫn có liên kết giáo trình gốc.
+- 19 chủ đề giao tiếp, đủ 30 câu/chủ đề.
+- Hội thoại máy đọc theo kịch bản, ghi âm và nghe lại qua micro; nhận diện tiếng Hàn nếu trình duyệt hỗ trợ.
+- Luyện nói nâng cao 3–6 đã được chuyển sang nhóm Học tiếng Hàn (giữ ứng dụng điểm gốc).
+- Văn hóa: 12 chủ đề, mỗi bài có 5 câu trắc nghiệm, đúng >= 4/5 được đánh dấu hoàn thành (lưu trong máy).
+- Kiểm tra & TOPIK vẫn quy hoạch trong 1 nhóm.
+
+CÀI ĐẶT:
+1. Giải nén ZIP sang thư mục mới. Không chạy script trực tiếp bên trong cửa sổ ZIP.
+2. Chạy 01-CAP-NHAT.cmd. Chỉ 17 file trong FILES/ được cập nhật vào
+   C:\Users\Surface\Documents\tienghanmrlee.github.io
+   Script sao lưu bản cũ bên ngoài repository: Documents\MRLEE_BACKUP_V2_yyyyMMdd_HHmmss.
+3. Kiểm tra bằng 03-KIEM-TRA.cmd, đặc biệt các trang Học tiếng Hàn, Giao tiếp và Văn hóa.
+4. Chạy 02-DAY-GITHUB.cmd, gõ DAY để xác nhận push main sau khi kiểm tra Git remote.
+5. Vào https://jeongjunlee10x.github.io/tienghanmrlee.github.io/index.html và nhấn Ctrl+Shift+R.
+
+BẢO TOÀN DỮ LIỆU:
+- Không xóa file. Không can thiệp cấu hình Firebase, Firestore, Supabase, tài khoản hay điểm server.
+- 10 bài tập và hoàn thành văn hóa lưu trên trình duyệt, KHÔNG cộng điểm server.
+- Luyện nói tích điểm cũ vẫn dùng trang riêng, không bị xóa.
+- Ghi âm cần HTTPS hoặc localhost, cho phép microphone, và ghi âm chỉ tồn tại trong bộ nhớ phiên trang.
+
+KIỂM TRA TĨNH: không lỗi cú pháp JS, không thiếu asset nội bộ trong HTML; dữ liệu 90x10, 19x30 và 12x5 đúng số lượng.
+HẠN CHẾ: Trình duyệt Chromium trong môi trường dựng bị chặn mở nội dung, chưa thử trực tiếp micro/Firebase trên website live.

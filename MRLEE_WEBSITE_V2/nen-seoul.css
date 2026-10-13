@@ -1,0 +1,42 @@
+/* ================================================
+   TIẾNG HÀN MR LEE - NỀN SEOUL / NAMSAN MỜ
+   Dành riêng cho TRANG CHỦ, không tác động các trang con.
+   Tải sau <style> trong index.html.
+   ================================================ */
+
+body {
+  background-color: #f7faff;
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(248, 251, 255, 0.80),
+      rgba(248, 251, 255, 0.73)
+    ),
+    url("images/nen-seoul-namsan.webp");
+  background-repeat: no-repeat, no-repeat;
+  background-position: center center, center center;
+  background-size: cover, cover;
+  background-attachment: fixed, fixed;
+}
+
+/* Không che ảnh chìm bằng lớp gradient cũ; ảnh bìa nổi vẫn giữ nguyên */
+.hero {
+  background-color: transparent;
+  background-image: none;
+}
+
+/* Các khung nội dung nổi vẫn đủ độ tương phản */
+.hero-overview,
+.feature-card,
+.course-card,
+.feature {
+  background-color: rgba(255, 255, 255, 0.97);
+}
+
+/* Vùng footer tiếp tục giữ nền riêng để chữ dễ đọc */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll, scroll;
+    background-position: center center, 63% center;
+  }
+}

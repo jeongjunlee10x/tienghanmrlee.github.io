@@ -1,0 +1,26 @@
+/* Ảnh đại diện học viên — chỉ tác động các thành phần mrlee-avatar */
+.mrlee-avatar-box{margin:0 0 19px;padding:20px;border:1px solid #e0e8f0;border-radius:17px;background:linear-gradient(140deg,#f5f9ff,#fff)}
+.mrlee-avatar-row{display:flex;align-items:center;gap:19px;flex-wrap:wrap}
+.mrlee-avatar-frame{width:108px;height:108px;border-radius:50%;border:4px solid #fff;background:linear-gradient(140deg,#e5edf8,#cfdeed);box-shadow:0 5px 16px rgba(15,42,80,.13);overflow:hidden;display:flex;align-items:center;justify-content:center;flex:none}
+.mrlee-avatar-frame img{width:100%;height:100%;object-fit:cover}
+.mrlee-avatar-frame img[hidden],.mrlee-avatar-frame span[hidden]{display:none!important}
+.mrlee-avatar-placeholder{font-size:52px;line-height:1}
+.mrlee-avatar-side{flex:1;min-width:180px}
+.mrlee-avatar-side h3{font-size:16px;color:#142b4c;margin:0 0 7px;font-weight:800}
+.mrlee-avatar-side p{font-size:12px;color:#65758a;margin:0 0 12px;line-height:1.6}
+.mrlee-avatar-buttons{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.mrlee-avatar-upload{position:relative;display:inline-flex;align-items:center;gap:7px;justify-content:center;padding:10px 13px;border-radius:10px;background:#142b4c;color:#fff;cursor:pointer;font-size:12px;font-weight:800}
+.mrlee-avatar-upload:hover{background:#284e7b}
+.mrlee-avatar-upload:focus-within{outline:3px solid #ee8740;outline-offset:3px}
+.mrlee-avatar-upload input{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
+.mrlee-avatar-button{padding:10px 13px;border-radius:10px;font-size:12px;font-weight:800;line-height:1.5;border:1px solid #cad7e5;background:#fff;color:#173c62;cursor:pointer}
+.mrlee-avatar-button:hover:not(:disabled){background:#edf4fc}
+.mrlee-avatar-button:disabled,.mrlee-avatar-upload:has(input:disabled){opacity:.5;cursor:not-allowed}
+.mrlee-avatar-message{margin:11px 0 0;font-size:12px;line-height:1.5;color:#0b7552}
+.mrlee-avatar-message:empty{display:none}
+.mrlee-avatar-message.is-error{color:#b22537}
+.mrlee-avatar-dashboard{display:flex;align-items:center;gap:11px;flex:none}
+.mrlee-avatar-dashboard .mrlee-avatar-frame{width:66px;height:66px;border-width:3px}
+.mrlee-avatar-dashboard .mrlee-avatar-placeholder{font-size:31px}
+.mrlee-avatar-dashboard a{font-size:12px;font-weight:800;color:#245781;text-decoration:underline}
+@media(max-width:520px){.mrlee-avatar-box{padding:16px 12px}.mrlee-avatar-row{gap:13px}.mrlee-avatar-frame{width:85px;height:85px}.mrlee-avatar-placeholder{font-size:40px}.mrlee-avatar-buttons{gap:6px}.mrlee-avatar-upload,.mrlee-avatar-button{padding:9px 11px}}

@@ -1,0 +1,13 @@
+/* FONT TIẾNG VIỆT + TIẾNG HÀN DÙNG CHUNG CHO TOÀN WEBSITE.
+ * Đặt link tới file này SAU cssstyle.css trong <head> của các trang phụ.
+ * Không cần tải tệp font lên GitHub; trình duyệt lấy font từ Google Fonts.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700&display=swap');
+html,body,button,input,select,textarea {
+  font-family: 'Be Vietnam Pro', 'Noto Sans KR', 'Segoe UI', Arial, sans-serif;
+}
+:lang(ko),[lang="ko"] {
+  font-family: 'Noto Sans KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+  letter-spacing: 0;
+  word-break: keep-all;
+}
