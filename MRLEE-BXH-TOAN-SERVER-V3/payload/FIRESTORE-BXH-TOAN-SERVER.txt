@@ -1,8 +1,0 @@
-// Thêm khối này BÊN TRONG match /databases/{database}/documents { ... }
-// trong Rules ĐANG CHẠY trên Firebase Console rồi Publish.
-// GIỮ NGUYÊN tất cả các quy tắc hiện tại. Đây KHÔNG phải file Rules đầy đủ.
-// Điểm chỉ do Admin SDK / Cloud Functions cập nhật, trình duyệt chỉ đọc.
-match /mrleePublicLeaderboard/{uid} {
-  allow get, list: if true;
-  allow create, update, delete: if false;
-}

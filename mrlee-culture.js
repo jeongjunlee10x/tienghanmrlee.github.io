@@ -51,6 +51,12 @@
       document.getElementById('culture-empty').hidden = visible.length !== 0;
       progressDisplay();
     }
+    // Nhấn / ngoài ô nhập để tập trung tìm kiếm (không ảnh hưởng các ô nhập khác).
+    document.addEventListener('keydown', event => {
+      if (event.key !== '/' || event.ctrlKey || event.metaKey || event.altKey || event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
+      event.preventDefault();
+      search.focus();
+    });
     search.addEventListener('input',render);
     filters.forEach(btn => btn.addEventListener('click',() => {currentFilter=btn.dataset.filter;filters.forEach(b=>b.setAttribute('aria-pressed',String(b===btn)));render();}));
     render();
