@@ -1,4 +1,4 @@
-/* MR LEE — seamless 9-slide horizontal carousel, 2000ms per new slide. */
+/* MR LEE banner V4: 9 original images, 2-second autoplay even with reduced motion. */
 (function () {
   'use strict';
   function init() {
@@ -93,6 +93,7 @@
     var pos = 1; // first real slide; index 0 is a clone of slide 9
     var busy = false;
     var timer = null;
+    var finishFallback = null;
     var paused = false;
     var finger = null;
     var suppressClickUntil = 0;
@@ -124,10 +125,14 @@
     }
     function schedule() {
       stopTimer();
-      if (paused || document.hidden || reducedMotion) return;
+      if (paused || document.hidden) return;
       timer = window.setTimeout(function () { advance(1); }, STEP_EVERY_MS);
     }
     function finish() {
+      if (finishFallback !== null) {
+        window.clearTimeout(finishFallback);
+        finishFallback = null;
+      }
       if (pos === 10) {
         pos = 1;
         positionTrack(false); // invisible teleport from clone 1 to the real 1
@@ -144,7 +149,13 @@
       pos += delta;
       positionTrack(true);
       updateUi();
-      if (reducedMotion) finish();
+      if (reducedMotion) {
+        finish();
+      } else {
+        // Some browsers/CSS combinations suppress transitionend; prevent a frozen slideshow.
+        if (finishFallback !== null) window.clearTimeout(finishFallback);
+        finishFallback = window.setTimeout(finish, SLIDE_MS + 180);
+      }
       schedule();
     }
     track.addEventListener('transitionend', function (event) {
@@ -207,6 +218,7 @@
     schedule();
     // For a quick setup check in browser DevTools.
     root.dataset.mrleeSlideInterval = String(STEP_EVERY_MS);
+    root.dataset.mrleeSlideBuild = 'v4-autoplay';
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init, { once: true });
