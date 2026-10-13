@@ -1,0 +1,17 @@
+KHOI PHUC 9 ANH BIA GOC - TIENG HAN MR LEE
+
+Nguyen nhan: phien ban menu 4 nhom da thay carousel 9 anh goc. Bo ZIP V2 truoc do da loai anh/slider.
+9 anh goc da duoc lay chinh xac tu ZIP website ban gui: images/1.png den images/9.png.
+
+1. Giai nen ZIP nay ra mot thu muc rieng (KHONG giai nen de len website).
+2. Chay 01-KHOI_PHUC_9_ANH_BIA.cmd. Script tu sao luu tat ca file bi sua ra thu muc khac nam trong Documents, KHONG o repository.
+3. Chay 03-KIEM_TRA.cmd.
+4. Chay 02-DAY_GITHUB.cmd, go DAY de dong y. Chi 12 file duoc stage: index.html, 2 file slider va 9 anh. Khong force push.
+5. Mo: https://jeongjunlee10x.github.io/tienghanmrlee.github.io/index.html?v=restore9-20261013
+   Nhan Ctrl+Shift+R. Xem 9 anh chay sau moi 2 giay.
+
+Trang chu chi thay phan banner. Menu 4 nhom, logo, tai khoan, TOPIK, va du lieu hoc vien duoc giu nguyen.
+
+Khoi phuc neu can: file index.html va cac file khac truoc khi thay doi duoc luu trong thu muc MRLEE-SAO-LUU-KHOI-PHUC-9-ANH ngay ben canh thu muc website.
+
+Luu y: Script khong the tu dong day GitHub neu may chua ket noi Git hoac co file khac dang staged. Trong truong hop do, mo VS Code Terminal va kiem tra git status.

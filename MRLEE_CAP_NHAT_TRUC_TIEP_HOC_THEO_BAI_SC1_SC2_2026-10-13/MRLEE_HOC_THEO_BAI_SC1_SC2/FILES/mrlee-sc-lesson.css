@@ -1,0 +1,20 @@
+/* Sơ cấp 1–2: từ vựng & ngữ pháp đúng bài trong hoc-theo-bai.html */
+.mr-sc-summary{font-size:13px;color:#486784;font-weight:650;margin:0 0 12px}
+.mr-sc-grammar-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(265px,1fr));gap:12px;margin:12px 0 22px}
+.mr-sc-grammar-card{padding:17px 18px;border:1px solid #dbe7f2;border-radius:15px;background:#fff;box-shadow:0 7px 20px rgba(13,43,76,.045);min-width:0}
+.mr-sc-grammar-card .mr-sc-grammar-head{display:flex;flex-wrap:wrap;gap:7px 11px;align-items:baseline;padding-bottom:9px;margin-bottom:8px;border-bottom:1px solid #e8eef5}
+.mr-sc-grammar-card .mr-sc-grammar-head strong{font-size:17px;color:#123858;overflow-wrap:anywhere}
+.mr-sc-grammar-card .mr-sc-grammar-head span{color:#ae5f24;font-weight:750;font-size:13px}
+.mr-sc-grammar-card p{line-height:1.8;margin:8px 0;font-size:13px;overflow-wrap:anywhere}
+.mr-sc-grammar-card .mr-sc-example{background:#f1f6fc;border-radius:9px;padding:10px 12px;color:#233e5d;margin-top:11px}
+.mr-sc-vocab-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0 16px}
+.mr-sc-search{flex:1 1 235px;padding:12px 13px;border-radius:11px;border:1px solid #bdcede;min-width:180px;font:inherit;background:white;color:#173650}
+.mr-sc-mini-btn{background:#ecf5fc;border:1px solid #cfe0ec;border-radius:10px;padding:10px 13px;color:#16436c;font:inherit;cursor:pointer;font-size:12px;font-weight:750}
+.mr-sc-vocab-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px}
+.mr-sc-vocab-card{display:flex;align-items:center;gap:10px;justify-content:space-between;border:1px solid #e4ecf3;border-radius:11px;padding:11px 12px;min-width:0;background:#fcfdff}
+.mr-sc-vocab-word{font-family:'Noto Sans KR',sans-serif;font-size:16px;color:#153a5c;font-weight:750;overflow-wrap:anywhere}
+.mr-sc-vocab-meaning{font-size:12.5px;color:#566b80;overflow-wrap:anywhere}
+.mr-sc-meaning-hidden .mr-sc-vocab-meaning{filter:blur(6px);user-select:none}
+.mr-sc-vocab-card button{flex-shrink:0;border:1px solid #d9e7f2;border-radius:10px;padding:8px;background:#f1f7fc;color:#205987;cursor:pointer}
+.mr-sc-empty{background:#fff4e8;color:#8f5422;border-radius:10px;padding:14px}
+@media(max-width:700px){.mr-sc-vocab-grid{grid-template-columns:1fr}.mr-sc-grammar-list{grid-template-columns:1fr}.mr-sc-vocab-tools{align-items:stretch}}

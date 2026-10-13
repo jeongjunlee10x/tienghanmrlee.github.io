@@ -1,0 +1,70 @@
+/* MR LEE CULTURE · Hub + Lesson */
+:root{--culture:#b94e40;--culture-light:#ffefe9}
+.culture-hero{--hero-start:#743c55;--hero-end:#d26b57;min-height:320px}
+.culture-hero .hero-text{max-width:610px}
+.culture-hero h1{font-size:clamp(31px,4.4vw,47px)}
+.culture-hero h1 .hangul{font-size:.55em;color:#ffe7d7;display:block;margin-top:11px;font-weight:600}
+.culture-hero .hero-graphic{position:absolute;right:15px;bottom:-20px;width:34%;max-width:380px;pointer-events:none;opacity:.95}
+.culture-hero .hero-graphic svg{width:100%;height:auto;display:block;filter:drop-shadow(0 15px 25px rgba(20,14,36,.2))}
+.culture-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:21px;align-items:center}
+.culture-actions a{background:#fff;color:#753b52;text-decoration:none;padding:11px 18px;border-radius:10px;font-size:12px;font-weight:800}
+.culture-actions span{font-size:12px;color:#ffe8e1;font-weight:600}
+.culture-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:20px}
+.metric{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px 22px;box-shadow:0 6px 20px rgba(18,46,83,.035)}
+.metric strong{display:block;font-size:23px;line-height:1.3;color:#183d60}.metric span{display:block;font-size:11.5px;margin-top:2px;color:#7b8ca0}
+.culture-section{padding:45px 0 72px}.culture-section .section-intro{margin-bottom:22px}
+.culture-toolbar{display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:space-between;margin-bottom:23px}
+.search-holder{display:flex;align-items:center;gap:8px;border:1px solid #dae4ee;border-radius:12px;background:white;padding:10px 13px;flex:1 1 250px;max-width:350px}
+.search-holder span{font-size:17px}.search-holder input{outline:0;border:0;background:transparent;color:#27425e;width:100%;font-size:12px}
+.search-holder input:focus{outline:0}.search-holder:focus-within{outline:3px solid #e6a27a}
+.filter-buttons{display:flex;flex-wrap:wrap;gap:7px}
+.filter-buttons button{background:#fff;color:#597089;font-size:11.5px;font-weight:700;border:1px solid #dce5ef;border-radius:25px;padding:9px 13px}
+.filter-buttons button[aria-pressed=true]{background:#173657;color:#fff;border-color:#173657}
+.topic-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.topic-card{position:relative;display:flex;flex-direction:column;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:19px;overflow:hidden;box-shadow:0 7px 23px rgba(18,46,83,.045);transition:transform .2s,box-shadow .2s}
+.topic-card:hover,.topic-card:focus-visible{transform:translateY(-4px);box-shadow:0 15px 30px rgba(18,46,83,.11)}
+.topic-art{height:144px;background:linear-gradient(127deg,var(--tone-a),var(--tone-b));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.topic-art::after{content:'';position:absolute;right:-40px;top:-60px;width:190px;height:190px;border-radius:50%;border:35px solid rgba(255,255,255,.12)}
+.topic-art::before{content:attr(data-ko);position:absolute;bottom:6px;right:14px;font:700 28px 'Noto Sans KR',sans-serif;color:rgba(255,255,255,.16);white-space:nowrap}
+.topic-art .topic-emoji{position:relative;z-index:1;font-size:60px;filter:drop-shadow(0 8px 10px rgba(0,0,0,.10))}
+.topic-body{padding:19px 20px 17px;display:flex;flex-direction:column;gap:7px;flex:1}
+.topic-eyebrow{font-size:10px;letter-spacing:.075em;text-transform:uppercase;color:#b1634b;font-weight:800}
+.topic-body h3{margin:0;font-size:16px;line-height:1.45;color:#193856}.topic-body h3 span{font-size:12px;font-weight:500;color:#77899e;display:block;margin-top:2px}
+.topic-body p{margin:0;font-size:11.5px;color:#637991;line-height:1.75;flex:1}
+.topic-end{border-top:1px solid #edf1f5;margin-top:7px;padding-top:12px;display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:800;color:#315e84}
+.topic-done{color:#19765d}.topic-nothing{display:none;text-align:center;padding:40px 15px;color:#677f95;border-radius:17px;border:1px dashed #cad8e6;background:#fff}
+.culture-note{margin-top:27px;padding:18px 21px;border:1px solid #dfebf7;background:#eef5fd;border-radius:13px;color:#546f8b;font-size:12px}
+/* lesson page */
+.lesson-layout{display:grid;grid-template-columns:minmax(0,1fr) 268px;gap:26px;margin:0 0 70px;align-items:start}
+.lesson-main{min-width:0}.lesson-side{position:sticky;top:104px}
+.lesson-head{margin-bottom:22px;border-radius:23px;overflow:hidden;background:linear-gradient(115deg,var(--tone-a,#9a455c),var(--tone-b,#e38163));color:#fff;padding:30px 33px;position:relative}
+.lesson-head::after{content:attr(data-ko);position:absolute;right:-6px;bottom:-20px;color:rgba(255,255,255,.10);font:800 clamp(50px,8vw,105px) 'Noto Sans KR';white-space:nowrap}
+.lesson-head .lesson-tag{display:inline-block;position:relative;z-index:1;font-size:11px;letter-spacing:.065em;font-weight:800;background:rgba(255,255,255,.17);border-radius:100px;padding:6px 11px}
+.lesson-head h1{position:relative;z-index:1;margin:13px 0 8px;font-size:31px;line-height:1.4;color:#fff}.lesson-head .lesson-korean{font-size:18px;color:#ffebe2;font-weight:500}
+.lesson-head p{position:relative;z-index:1;font-size:13px;max-width:680px;color:#fff3ee;line-height:1.85;margin:10px 0 0}
+.lesson-block{background:#fff;border-radius:18px;padding:27px 29px;border:1px solid var(--line);margin-bottom:17px;box-shadow:0 6px 18px rgba(18,46,83,.03)}
+.lesson-block h2{font-size:20px;color:#1a3857;letter-spacing:-.2px;line-height:1.5;margin:0 0 15px}
+.lesson-block p{font-size:13.5px;line-height:2;color:#455f79;margin:0 0 13px}.lesson-block p:last-child{margin-bottom:0}
+.facts-list{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:8px}.facts-list li{background:#f5f8fc;border-radius:10px;padding:10px 13px;color:#4d6984;font-size:12px}.facts-list li::before{content:'✦';color:#cd7557;margin-right:10px}
+.words-table{width:100%;border-collapse:collapse;text-align:left}.words-table th{background:#f2f6fa;color:#5c7187;font-size:11px;text-align:left;padding:12px}.words-table th:first-child{border-radius:9px 0 0 9px}.words-table th:last-child{border-radius:0 9px 9px 0}
+.words-table td{font-size:12.5px;padding:12px;border-bottom:1px solid #edf1f6;color:#4d657b}.words-table td:first-child{font-size:15px;font-weight:700;color:#193d60}.speaker{border:0;background:#eef5fb;padding:6px 10px;border-radius:8px;color:#2f668b;font-size:11px;font-weight:800}.speaker:hover{background:#dcecf9}
+.conversation-line{border-left:3px solid #c5d9ea;background:#f6f9fd;padding:12px 15px;margin-bottom:9px;border-radius:0 10px 10px 0}.conversation-line strong{font-size:14px;color:#1b496a;display:block}.conversation-line span{display:block;font-size:12px;color:#688197;margin-top:3px}
+.quiz-question{font-weight:800;color:#1a3c5b;font-size:15px;margin:0 0 14px!important}
+.quiz-options{display:grid;gap:10px}.quiz-option{background:#f9fbfe;border:1px solid #dce6f0;border-radius:11px;padding:12px 15px;font-size:13px;text-align:left;color:#31516e;transition:background .13s;display:flex;gap:12px;align-items:center}
+.quiz-option:hover:not(:disabled){background:#eaf4fe}.quiz-option:disabled{opacity:.9;cursor:default}.quiz-option.correct{border-color:#5db193;background:#e9f9f1}.quiz-option.incorrect{border-color:#e6a79b;background:#fff0ed}
+.quiz-option .letter{display:inline-grid;place-items:center;border-radius:7px;background:white;border:1px solid #dce8ef;width:30px;height:30px;font-size:11px;font-weight:800;flex:none}
+.quiz-feedback{display:none;margin-top:14px;border-radius:11px;padding:13px;font-size:12px;line-height:1.75;background:#e9f9f1;color:#17634e}.quiz-feedback.show{display:block}.quiz-feedback.wrong{background:#fff0ed;color:#a45445}
+.lesson-side .side-panel{padding:20px;background:#fff;border:1px solid var(--line);border-radius:17px;margin-bottom:15px;box-shadow:0 7px 22px rgba(18,46,83,.04)}
+.lesson-side .side-panel h3{margin:0 0 14px;font-size:15px}.side-panel p{font-size:12px;color:#697d90;line-height:1.8;margin:0 0 9px}
+.progress-track{height:9px;border-radius:100px;background:#e5edf5;overflow:hidden;margin:12px 0 8px}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#327cad,#27a383);border-radius:100px;transition:width .25s}
+.lesson-side .back-link{display:block;color:#275d85;font-size:12px;font-weight:700;text-decoration:none;padding:7px 0}.lesson-side .back-link:hover{text-decoration:underline}
+.lesson-sources{display:flex;gap:8px;flex-wrap:wrap}.lesson-sources a{background:#f2f6fb;border:1px solid #dfebf3;text-decoration:none;padding:8px 11px;border-radius:9px;font-size:11px;font-weight:700;color:#396283}.lesson-sources a:hover{background:#e7f3fc}
+.lesson-complete{display:flex;flex-direction:column;gap:9px;margin-top:15px;border:1px solid #e1eadf;background:#f6faf5;padding:13px;border-radius:11px}.lesson-complete button{border:0;background:#197b62;color:white;border-radius:9px;padding:11px;font-size:12px;font-weight:800}.lesson-complete button:disabled{opacity:.6;cursor:not-allowed}.lesson-complete small{font-size:11px;color:#507261;line-height:1.55}
+.lesson-bottom-nav{display:flex;flex-wrap:wrap;gap:10px;margin-top:15px}.lesson-bottom-nav a{font-size:12px;text-decoration:none;font-weight:800;background:#edf3fa;color:#25567e;padding:10px 15px;border-radius:10px}
+@media(max-width:1000px){.topic-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.lesson-layout{grid-template-columns:minmax(0,1fr) 222px;gap:15px}.culture-hero .hero-graphic{width:39%;opacity:.45}}
+@media(max-width:740px){.lesson-layout{grid-template-columns:1fr}.lesson-side{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.lesson-side .side-panel{margin-bottom:0}.culture-metrics{gap:8px}.metric{padding:14px}.culture-hero .hero-graphic{opacity:.2}.culture-toolbar{align-items:stretch}.search-holder{max-width:none}}
+@media(max-width:540px){.topic-grid{grid-template-columns:1fr;gap:14px}.topic-art{height:120px}.culture-hero{min-height:330px}.culture-hero h1{font-size:30px}.culture-metrics{grid-template-columns:1fr 1fr}.culture-metrics .metric:last-child{grid-column:1/-1}.metric strong{font-size:20px}.culture-section{padding:34px 0 55px}.filter-buttons{gap:6px}.filter-buttons button{font-size:11px;padding:8px 10px}.lesson-head{padding:24px 20px}.lesson-head h1{font-size:25px}.lesson-block{padding:21px 18px}.lesson-side{grid-template-columns:1fr}.lesson-side .side-panel{margin-bottom:0}}
+@media(prefers-reduced-motion:reduce){.topic-card,.progress-fill{transition:none}}
+.topic-nothing:not([hidden]){display:block}
+/* Tôn trọng trạng thái hidden ở nút chuyển câu hỏi văn hóa. */
+.quiz-option[hidden]{display:none!important}

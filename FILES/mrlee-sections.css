@@ -1,0 +1,46 @@
+/* Trang nhóm và Văn hóa Hàn Quốc - Tiếng Hàn Mr Lee */
+:root{--ink:#19314d;--navy:#122e53;--blue:#1f598c;--soft:#f4f7fc;--line:#e4ebf3;--muted:#697d92;--brand:#ec7745}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#f6f8fc;color:var(--ink);font:400 15px/1.76 'Be Vietnam Pro','Noto Sans KR',Arial,sans-serif}
+[lang=ko],.ko{font-family:'Noto Sans KR',Arial,sans-serif;word-break:keep-all}
+a{color:inherit}button,input{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #f2a46d;outline-offset:3px}
+.wrap{width:min(1160px,calc(100% - 36px));margin:auto}
+.site-top{background:rgba(255,255,255,.98);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40;backdrop-filter:blur(14px)}
+.site-top-inner{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.site-logo{font-size:17px;font-weight:800;text-decoration:none;color:var(--navy);display:flex;align-items:center;gap:10px;white-space:nowrap}
+.site-logo .logo-symbol{width:42px;height:42px;border-radius:13px;background:#e9f1fc;display:grid;place-items:center;font-size:23px}
+.top-links{display:flex;flex-wrap:wrap;gap:5px;justify-content:flex-end;align-items:center}
+.top-links a{font-weight:700;font-size:12px;text-decoration:none;padding:9px 12px;border-radius:9px;color:#41576f}
+.top-links a:hover,.top-links a.active{background:#edf3fa;color:#14395e}
+.top-links .account-link{background:#142f54;color:#fff}
+.top-links .account-link:hover{background:#285b86;color:#fff}
+.breadcrumbs{display:flex;align-items:center;gap:9px;margin:28px 0 18px;font-size:12px;color:#6b7e91;flex-wrap:wrap}
+.breadcrumbs a{text-decoration:none}.breadcrumbs a:hover{text-decoration:underline}
+.section-hero{position:relative;isolation:isolate;border-radius:26px;padding:clamp(28px,5vw,56px);background:linear-gradient(120deg,var(--hero-start,#153a63),var(--hero-end,#2778a7));overflow:hidden;color:white;min-height:250px;display:flex;align-items:center;justify-content:space-between;gap:22px}
+.section-hero::before{content:'';position:absolute;z-index:-1;top:-190px;right:-115px;width:520px;height:520px;border:65px solid rgba(255,255,255,.065);border-radius:50%}
+.section-hero::after{content:'';position:absolute;z-index:-1;bottom:-100px;right:130px;width:260px;height:260px;background:rgba(255,255,255,.035);border-radius:50%}
+.hero-text{max-width:690px}.hero-kicker{font-size:11px;letter-spacing:.12em;font-weight:800;color:#e8f0ff}
+.section-hero h1{font-size:clamp(26px,4vw,42px);line-height:1.33;margin:13px 0 12px;color:#fff;letter-spacing:-.6px}
+.section-hero p{font-size:14px;line-height:1.9;color:#ebf3ff;margin:0;max-width:620px}
+.hero-symbol{font-size:clamp(65px,9vw,118px);filter:drop-shadow(0 12px 20px rgba(0,0,0,.10));flex:0 0 auto}
+.content-section{padding:36px 0 62px}.section-title{font-size:25px;line-height:1.5;letter-spacing:-.45px;margin:0 0 10px;color:#193553}.section-intro{color:#687c91;font-size:13px;margin:0 0 25px;line-height:1.8}
+.destination-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+.destination{position:relative;display:flex;gap:15px;align-items:flex-start;min-height:180px;text-decoration:none;background:#fff;border:1px solid var(--line);padding:24px;border-radius:18px;box-shadow:0 9px 25px rgba(18,46,83,.045);transition:transform .17s,box-shadow .17s,border-color .17s}
+.destination:hover{transform:translateY(-3px);box-shadow:0 15px 30px rgba(18,46,83,.095);border-color:#c8d9ea}
+.destination .dest-icon{flex:0 0 auto;width:58px;height:58px;border-radius:16px;background:var(--tile,#edf4fe);display:grid;place-items:center;font-size:28px}
+.destination h2{font-size:17px;line-height:1.45;margin:2px 0 7px;color:#193553}.destination p{font-size:12.5px;line-height:1.8;margin:0;color:#687b90}.destination .dest-cta{display:block;font-weight:800;font-size:12px;color:#29628e;margin-top:15px}
+.info-panel{margin-top:23px;background:#ecf3fb;border:1px solid #d8e6f4;border-radius:15px;padding:17px 20px;font-size:12.5px;line-height:1.85;color:#506d8c}
+.mrlee-footer{background:#102c4c;color:#cfdbed;text-align:center;padding:30px 18px;font-size:12px}
+.mrlee-footer a{color:#fff;text-decoration:none}.mrlee-footer a:hover{text-decoration:underline}.footer-menu{display:flex;justify-content:center;flex-wrap:wrap;gap:12px 21px;margin-bottom:12px}
+@media(max-width:850px){.top-links{gap:0}.top-links a{font-size:11px;padding:8px}.site-logo{font-size:13px}.site-logo .logo-symbol{width:36px;height:36px}.destination-grid{grid-template-columns:1fr}}
+@media(max-width:680px){.site-top-inner{align-items:flex-start;flex-direction:column;gap:3px;padding:11px 0}.top-links{justify-content:flex-start;width:100%;overflow-x:auto;white-space:nowrap;flex-wrap:nowrap;padding-bottom:4px}.top-links a{flex:none}.section-hero{padding:26px 23px;min-height:255px}.section-hero h1{font-size:28px}.section-hero p{font-size:12px}.hero-symbol{font-size:64px;position:absolute;right:20px;bottom:20px;opacity:.28}.destination{min-height:0;padding:19px;gap:11px}.destination .dest-icon{width:49px;height:49px;font-size:24px}}
+
+/* MRLEE V3 - unified brand header across new section pages */
+.site-top .site-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;text-decoration:none;white-space:normal;min-width:0}
+.site-top .site-logo-image{display:block;flex:none;width:64px;height:56px;object-fit:contain}
+.site-top .site-logo-text{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0;line-height:1.2}
+.site-top .site-logo-text strong{font-family:'Be Vietnam Pro',sans-serif;font-size:16px;letter-spacing:-.3px;white-space:nowrap;color:#102b4d;font-weight:800}
+.site-top .site-logo-text small{font-family:'Be Vietnam Pro',sans-serif;font-size:10px;letter-spacing:.01em;white-space:nowrap;color:#de7040;font-weight:800}
+@media(max-width:850px){.site-top .site-logo-image{width:53px;height:46px}.site-top .site-logo-text strong{font-size:14px}.site-top .site-logo-text small{font-size:9px}}
+@media(max-width:400px){.site-top .site-logo-image{width:47px;height:42px}.site-top .site-logo-text strong{font-size:13px}.site-top .site-logo-text small{font-size:8px}}

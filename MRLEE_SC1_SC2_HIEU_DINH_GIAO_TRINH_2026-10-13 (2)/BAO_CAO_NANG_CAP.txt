@@ -1,0 +1,58 @@
+MR LEE - NÂNG CẤP NỘI DUNG SƠ CẤP 1 / SƠ CẤP 2 - 2026-10-13
+NGUỒN: Văn bản giáo trình do người dùng gửi trong hội thoại (7250 dòng).
+Số bài cập nhật: 30 (Sơ cấp 1: 15, Sơ cấp 2: 15)
+Số cấu trúc ngữ pháp được trình bày lại: 95
+Số mục từ vựng hiện có trong website: 2113 (bao gồm từ trùng theo bài)
+Số mục từ được sửa có ghi nhật ký: 13 / 13 đề xuất
+Số mục đề xuất không tìm thấy: 0
+LƯU Ý: Đây là bản hiệu đính có chọn lọc dựa trên văn bản; CHƯA thể khẳng định toàn bộ 2000+ mục từ đã được người biên tập kiểm duyệt thủ công.
+Các bài tập cũ vẫn được giữ nguyên và chưa được viết lại đáp án dựa trên các chỗ sửa thuật ngữ.
+Bản vá cài an toàn: chỉ chèn thẻ liên kết vào hai trang SC đang có + thêm 3 tệp JS/CSS, không chép đè cả trang. Không can thiệp index.html, banner 9 ảnh, JS slide, logo, Firebase, bảng xếp hạng.
+Một số bảng phụ lục bất quy tắc trong tài liệu nguồn còn lẫn ngoại lệ và dạng quy tắc; chưa đưa các bảng đó vào phần ngữ pháp chính.
+
+DANH SÁCH BÀI HỌC:
+SC1 Bài 01 소개: 60 mục từ, 4 cấu trúc
+SC1 Bài 02 학교: 58 mục từ, 4 cấu trúc
+SC1 Bài 03 일상생활: 80 mục từ, 4 cấu trúc
+SC1 Bài 04 날짜와 요일: 66 mục từ, 2 cấu trúc
+SC1 Bài 05 하루 일과: 58 mục từ, 4 cấu trúc
+SC1 Bài 06 주말: 64 mục từ, 3 cấu trúc
+SC1 Bài 07 물건 사기 (1): 70 mục từ, 3 cấu trúc
+SC1 Bài 08 음식: 70 mục từ, 3 cấu trúc
+SC1 Bài 09 집: 72 mục từ, 3 cấu trúc
+SC1 Bài 10 가족: 62 mục từ, 3 cấu trúc
+SC1 Bài 11 날씨: 70 mục từ, 4 cấu trúc
+SC1 Bài 12 전화 (1): 72 mục từ, 3 cấu trúc
+SC1 Bài 13 생일: 65 mục từ, 3 cấu trúc
+SC1 Bài 14 취미: 77 mục từ, 3 cấu trúc
+SC1 Bài 15 교통 (1): 53 mục từ, 3 cấu trúc
+SC2 Bài 01 만남: 60 mục từ, 3 cấu trúc
+SC2 Bài 02 약속: 58 mục từ, 4 cấu trúc
+SC2 Bài 03 물건 사기 (2): 59 mục từ, 3 cấu trúc
+SC2 Bài 04 병원: 122 mục từ, 3 cấu trúc
+SC2 Bài 05 편지: 74 mục từ, 3 cấu trúc
+SC2 Bài 06 교통 (2): 72 mục từ, 3 cấu trúc
+SC2 Bài 07 전화 (2): 70 mục từ, 3 cấu trúc
+SC2 Bài 08 영화: 77 mục từ, 3 cấu trúc
+SC2 Bài 09 휴일: 108 mục từ, 3 cấu trúc
+SC2 Bài 10 외모: 35 mục từ, 3 cấu trúc
+SC2 Bài 11 여행: 59 mục từ, 3 cấu trúc
+SC2 Bài 12 공공장소: 48 mục từ, 3 cấu trúc
+SC2 Bài 13 도시: 125 mục từ, 3 cấu trúc
+SC2 Bài 14 계획: 75 mục từ, 3 cấu trúc
+SC2 Bài 15 한국 생활: 74 mục từ, 3 cấu trúc
+
+CHỈNH SỬA CẦN XEM LẠI:
+SC1 Bài02 hiệu sách -> 서점 = hiệu sách [ĐÃ SỬA]
+SC1 Bài02 máy vi tính -> 컴퓨터 = máy vi tính, máy tính [ĐÃ SỬA]
+SC1 Bài02 가게 -> 가게 = cửa hàng, cửa tiệm [ĐÃ SỬA]
+SC1 Bài02 당 -> 강당 = hội trường lớn, giảng đường lớn [ĐÃ SỬA]
+SC1 Bài03 좋다 -> 좋다 = tốt; đẹp; ngon (tùy ngữ cảnh); không đồng nghĩa trực tiếp với 좋아하다 [ĐÃ SỬA]
+SC1 Bài03 그저께 -> 그저께 = hôm kia (hai ngày trước) [ĐÃ SỬA]
+SC1 Bài07 시장 -> 시장 = chợ; thị trưởng (hai từ đồng âm khác nghĩa) [ĐÃ SỬA]
+SC1 Bài07 안=속 -> 안 / 속 = bên trong (khác sắc thái sử dụng) [ĐÃ SỬA]
+SC1 Bài09 아래 =밑=깊 -> 아래 / 밑 = bên dưới, phía dưới [ĐÃ SỬA]
+SC1 Bài10 나중에 =앞으로 -> 나중에 / 앞으로 = sau này / từ nay trở đi (không hoàn toàn đồng nghĩa) [ĐÃ SỬA]
+SC2 Bài01 칠절하다 -> 친절하다 = tử tế, thân thiện, ân cần [ĐÃ SỬA]
+SC2 Bài01 이야기를 들다 -> 이야기를 듣다 = nghe câu chuyện [ĐÃ SỬA]
+SC2 Bài08 잘 생겼가 -> 잘생겼다 = đẹp trai, có ngoại hình ưa nhìn [ĐÃ SỬA]

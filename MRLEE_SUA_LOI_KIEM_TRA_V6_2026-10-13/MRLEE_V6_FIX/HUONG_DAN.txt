@@ -1,0 +1,11 @@
+﻿MR LEE - SUA LOI SCRIPT KIEM TRA V6
+
+Loi cu: PowerShell 5.1 co the doc file UTF-8 khong BOM sai ma, gay "The string is missing the terminator".
+FIX chi thay file 03-KIEM_TRA_V6.ps1. KHONG sua du lieu website, banner hay Git.
+
+BUOC 1: Giai nen ZIP FIX nay, de rieng trong thu muc bat ky.
+BUOC 2: Chay FIX_CHECKER_V6.cmd. No se tim script cu trong thu muc website va sao luu ben ngoai website.
+BUOC 3: Neu KIEM TRA OK, chay file 02-DAY_GITHUB_V6.cmd trong goi V6 CU de day ma nguon neu ban CHUA push.
+BUOC 4: Neu FAILED bao thieu file, hay chay 01-CAP_NHAT_V6.cmd cua goi V6 cu roi chay lai file kiem tra.
+
+Website: C:\Users\Surface\Documents\tienghanmrlee.github.io

@@ -1,0 +1,28 @@
+MR LEE V6 - NANG CAP TU VUNG VA NGU PHAP CAP 3-6
+
+CO SO DU LIEU
+- Sơ cấp 1 & 2: không thay nội dung; 30 bài tiếp tục dùng V5 hiện tại.
+- Trung cấp 1, Trung cấp 2, Cao cấp 1, Cao cấp 2: 60 bài, mỗi bài 68 mục từ/cụm từ.
+- Chia từ theo chủ đề và từ mở rộng cùng cấp (có thể lặp lại có chủ đích để ôn tập).
+- Ngữ pháp mỗi bài: 2 điểm V5 + 1 điểm bổ sung + 1 cấu trúc ôn lại từ bài trước.
+- 10 câu bài tập mỗi lần: 4 lựa chọn nghĩa, 2 viết từ tiếng Hàn, 2 hiểu câu, 2 ngữ pháp.
+- Sau lần luyện, hệ thống có bộ từ thay đổi cho lần tiếp theo, lấy từ cùng bài.
+- 10 câu luyện nói vẫn dựa trên bài hiện tại và bài trước.
+
+CAI DAT (WINDOWS SURFACE)
+1. Giải nén ZIP vào một thư mục RIÊNG ngoài website.
+2. Chạy 01-CAP_NHAT_V6.cmd để sao lưu rồi cài lên C:\Users\Surface\Documents\tienghanmrlee.github.io.
+3. Chạy 03-KIEM_TRA_V6.cmd, xem ít nhất các đường dẫn:
+   hoc-theo-bai.html?cap=3&bai=1
+   hoc-theo-bai.html?cap=4&bai=5
+   hoc-theo-bai.html?cap=5&bai=10
+   hoc-theo-bai.html?cap=6&bai=15
+4. Chạy 02-DAY_GITHUB_V6.cmd và nhập DAY để commit + push. KHÔNG chạy git add -A.
+5. Mở GitHub Pages và nhấn Ctrl+Shift+R để bỏ cache.
+
+AN TOAN
+- Script chỉ cập nhật hồ sơ bài học cấp 3-6, có sao lưu tại thư mục cha website.
+- Không chỉnh sửa index.html, hình ảnh 1-9, mrlee-slide.js, tài khoản, Firebase, Firestore, BXH.
+- Không dùng push --force. Nếu push bị từ chối, giữ nguyên và xử lý xung đột Git trước.
+- Bản V6 là nội dung biên soạn bổ sung, cần người dạy kiểm duyệt các sắc thái, ví dụ và câu hỏi trước khi dùng đánh giá chính thức.
+- Chỉ kiểm tra lấy dữ liệu đúng bài hoặc bài trước ở cấp mã nguồn; chưa chứng minh mọi cấu trúc ngữ pháp trong câu hoàn toàn không vượt chương trình.

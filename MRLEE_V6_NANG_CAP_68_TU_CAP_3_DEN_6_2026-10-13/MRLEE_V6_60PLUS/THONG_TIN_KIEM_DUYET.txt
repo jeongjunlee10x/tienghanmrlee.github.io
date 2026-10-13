@@ -1,0 +1,8 @@
+MR LEE V6 - TIÊU CHÍ KIỂM DUYỆT
+- Cấp 3-6: 60 bài, mỗi bài 68 mục từ/cụm từ không lặp nhau trong bài.
+- Hai nhóm: trọng tâm theo chủ đề / mở rộng trình độ (mở rộng có thể lặp có chủ đích giữa bài).
+- Ngữ pháp mỗi bài: 2 cấu trúc V5 + 1 cấu trúc mới kèm ví dụ + 1 cấu trúc ôn từ bài trước.
+- Mỗi bài vẫn có 10 câu luyện nói và 10 bài tập, lấy từ bài hiện tại hoặc bài trước, thay đổi ngân hàng từ sau mỗi lượt.
+- Khung tham khảo: chương trình 6 cấp Sejong. Không tái bản nội dung sách Sejong/Seoul/Tiếng Hàn Tổng Hợp.
+- Chưa thẩm định thủ công đầy đủ từng sắc thái từ vựng, biến thể ngữ pháp và từng câu mẫu; cần giáo viên kiểm duyệt trước khi chấm điểm chính thức.
+- Giữ nguyên dữ liệu Sơ cấp 1, 2; không sửa index, banner, auth, firebase hay bảng xếp hạng.

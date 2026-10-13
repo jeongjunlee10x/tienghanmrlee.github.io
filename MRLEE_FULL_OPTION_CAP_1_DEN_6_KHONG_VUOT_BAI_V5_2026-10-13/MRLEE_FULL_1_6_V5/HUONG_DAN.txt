@@ -1,0 +1,27 @@
+MR LEE - FULL OPTION CẤP 1-6 / V5
+Ngày: 13/10/2026
+
+1. Giải nén file ZIP RA NGOÀI thư mục website (ví dụ Desktop\MRLEE_FULL_1_6_V5).
+2. Chạy 01-CAP_NHAT.cmd (tự tạo bản sao lưu ngoài website).
+3. Chạy 03-KIEM_TRA.cmd và mở hoc-theo-bai.html?cap=1&bai=1, cap=3&bai=1, cap=6&bai=15.
+4. Chạy 02-DAY_GITHUB.cmd, nhập DAY. Chỉ 5 file được chọn để commit.
+5. Trên GitHub Pages nhấn Ctrl + Shift + R.
+
+CẤU TRÚC: 6 cấp x 15 bài = 90 bài. Mỗi bài: từ vựng, ngữ pháp, 10 câu luyện nói, 10 bài tập, nghe phát âm, ghi âm nghe lại, tìm kiếm và ẩn nghĩa.
+
+KHÔNG VƯỢT BÀI:
+- Phần mềm chọn câu luyện nói theo chỉ số (cấp-1)*15 + bài, chỉ lấy từ bài đó hoặc các bài có chỉ số nhỏ hơn.
+- Đáp án và phương án nhiễu câu hỏi chỉ chọn từ bài đó, hoặc ngữ pháp các bài trước; KHÔNG lấy từ dữ liệu bài sau.
+- Kiểm thử tự động: 90/90 bài có 10 câu luyện nói và 10 bài tập; không có nguồn dữ liệu tương lai.
+- Giới hạn: chưa có bộ phân tích hình thái tiếng Hàn đầy đủ; các câu mẫu trong dữ liệu lộ trình cần giáo viên duyệt để chắc chắn không có cấu trúc ngôn ngữ vượt bài.
+
+NGUỒN:
+- Sơ cấp 1-2: văn bản 30 bài do người dùng cung cấp, đã hiệu đính sơ bộ trong bản V2 trước.
+- Trung cấp 1-Cao cấp 2: 60 chủ đề/240 câu mẫu từ lộ trình gốc; 600 mục từ và 120 thẻ giải thích ngữ pháp do trợ lý biên soạn, chưa thẩm định chuyên gia từng câu.
+- Cách phân cấp tham khảo Sejong và Seoul; không sao chép nội dung thuộc bản quyền của sách.
+- Với giáo trình Tiếng Hàn Tổng hợp dành cho người Việt Nam, chưa đối chiếu từng bài vì người dùng chưa cung cấp sách.
+
+AN TOÀN:
+- KHÔNG đụng index.html; KHÔNG đụng 9 ảnh bìa, điều khiển slideshow, logo, Firebase, Firestore, bang xep hang.
+- Không ghi âm lên server; bản ghi tạm trong trình duyệt. Điểm bài tập mới lưu cục bộ.
+- Script ngăn ghi đè nếu trang học theo bài hiện tại khác cấu trúc được hỗ trợ.

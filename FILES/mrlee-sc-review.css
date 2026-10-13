@@ -1,0 +1,13 @@
+/* MR LEE SC1+SC2 tools phase 1 - scoped names, no global styles */
+.mrlee-sc-toolbox{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:12px 0 14px;padding:13px 15px;border:1px solid #dae4ee;border-radius:13px;background:#f8fbff;color:#1c3452;font-family:inherit}
+.mrlee-sc-toolbox label{font-size:13px;font-weight:700}
+.mrlee-sc-toolbox input{min-width:160px;flex:1 1 200px;min-height:39px;padding:8px 12px;border:1px solid #b8c8d9;border-radius:9px;background:#fff;color:#102b4d;font-family:inherit;font-size:14px}
+.mrlee-sc-toolbox button{min-height:39px;border:1px solid #bacbdf;border-radius:9px;background:#fff;color:#17436a;padding:6px 12px;font:700 13px/1.4 inherit;cursor:pointer}
+.mrlee-sc-toolbox button:hover{background:#eaf4ff}
+.mrlee-sc-toolbox .mrlee-sc-count{font-size:12px;color:#596b83;white-space:nowrap}
+.mrlee-sc-toolbox .mrlee-sc-count[role=status]{min-width:72px}
+.mrlee-sc-hidden-meaning .vocab-table td.vi{filter:blur(6px);transition:filter .16s;user-select:none}
+.mrlee-sc-hidden-meaning .vocab-table td.vi:hover,.mrlee-sc-hidden-meaning .vocab-table td.vi:focus-within{filter:none}
+.mrlee-sc-noresults{margin:0 0 15px;font-size:13px;color:#79521c}
+@media(max-width:520px){.mrlee-sc-toolbox{padding:10px}.mrlee-sc-toolbox label{width:100%}.mrlee-sc-toolbox input{min-width:100%}}
+@media(prefers-reduced-motion:reduce){.mrlee-sc-hidden-meaning .vocab-table td.vi{transition:none}}

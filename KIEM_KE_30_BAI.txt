@@ -1,0 +1,45 @@
+KIEM KE SO CAP 1 VA SO CAP 2 - TIENG HAN MR LEE
+Nguon: goi website V2 tu cuoc tro chuyen.
+Trang thai: DANG CHO NOI DUNG TAI LIEU GOOGLE DRIVE.
+Tong so bai: 30
+Tong so muc tu vung (bao gom tu lap lai theo bai): 2113
+SC1: 997 muc tu vung
+SC2: 1116
+
+DANH SACH 30 BAI
+SC1 - Bai 01 - 소개: 60 muc tu vung, 15 dong ngu phap hien co
+SC1 - Bai 02 - 학교: 58 muc tu vung, 13 dong ngu phap hien co
+SC1 - Bai 03 - 일상생활: 80 muc tu vung, 17 dong ngu phap hien co
+SC1 - Bai 04 - 날짜와 요일: 66 muc tu vung, 38 dong ngu phap hien co
+SC1 - Bai 05 - 하루 일과: 58 muc tu vung, 68 dong ngu phap hien co
+SC1 - Bai 06 - 주말: 64 muc tu vung, 15 dong ngu phap hien co
+SC1 - Bai 07 - 물건 사기 (1): 70 muc tu vung, 42 dong ngu phap hien co
+SC1 - Bai 08 - 음식: 70 muc tu vung, 12 dong ngu phap hien co
+SC1 - Bai 09 - 집: 72 muc tu vung, 32 dong ngu phap hien co
+SC1 - Bai 10 - 가족: 62 muc tu vung, 44 dong ngu phap hien co
+SC1 - Bai 11 - 날씨: 70 muc tu vung, 41 dong ngu phap hien co
+SC1 - Bai 12 - 전화 (1): 72 muc tu vung, 16 dong ngu phap hien co
+SC1 - Bai 13 - 생일: 65 muc tu vung, 18 dong ngu phap hien co
+SC1 - Bai 14 - 취미: 77 muc tu vung, 37 dong ngu phap hien co
+SC1 - Bai 15 - 교통 (1): 53 muc tu vung, 21 dong ngu phap hien co
+SC2 - Bai 01 - 만남: 60 muc tu vung, 15 dong ngu phap hien co
+SC2 - Bai 02 - 약속: 58 muc tu vung, 26 dong ngu phap hien co
+SC2 - Bai 03 - 물건 사기 (2): 59 muc tu vung, 20 dong ngu phap hien co
+SC2 - Bai 04 - 병원: 122 muc tu vung, 15 dong ngu phap hien co
+SC2 - Bai 05 - 편지: 74 muc tu vung, 21 dong ngu phap hien co
+SC2 - Bai 06 - 교통 (2): 72 muc tu vung, 15 dong ngu phap hien co
+SC2 - Bai 07 - 전화 (2): 70 muc tu vung, 22 dong ngu phap hien co
+SC2 - Bai 08 - 영화: 77 muc tu vung, 14 dong ngu phap hien co
+SC2 - Bai 09 - 휴일: 108 muc tu vung, 20 dong ngu phap hien co
+SC2 - Bai 10 - 외모: 35 muc tu vung, 30 dong ngu phap hien co
+SC2 - Bai 11 - 여행: 59 muc tu vung, 14 dong ngu phap hien co
+SC2 - Bai 12 - 공공장소: 48 muc tu vung, 23 dong ngu phap hien co
+SC2 - Bai 13 - 도시: 125 muc tu vung, 31 dong ngu phap hien co
+SC2 - Bai 14 - 계획: 75 muc tu vung, 14 dong ngu phap hien co
+SC2 - Bai 15 - 한국 생활: 74 muc tu vung, 323 dong ngu phap hien co
+
+VAN DE DA PHAT HIEN:
+- Phan ngu phap trong file hien tai chu yeu la cac dong van ban da bi ghep cot (Y NGHIA - CACH DUNG - VI DU), chua duoc phan tach thanh cau truc ngu phap chuan.
+- Khong co tai lieu Drive de so sanh nen CHUA thuc hien sua nghia tieng Viet / chinh ta tieng Han / cong thuc ngu phap.
+- Tap JSON la ban sao noi dung goc, khong phai tai lieu da hieu dinh.
+- Ban va giai doan 1 chi bo sung cong cu loc tu vung va che nghia, khong thay doi noi dung bai hoc.

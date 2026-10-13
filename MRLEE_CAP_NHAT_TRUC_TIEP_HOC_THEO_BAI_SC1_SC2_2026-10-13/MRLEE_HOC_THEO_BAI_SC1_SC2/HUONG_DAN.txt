@@ -1,0 +1,19 @@
+MR LEE — CẬP NHẬT TRỰC TIẾP HỌC THEO BÀI (SƠ CẤP 1–2)
+
+TÁC DỤNG:
+- Link hoc-theo-bai.html?cap=1&bai=1 hiện đủ từ vựng và ngữ pháp Bài 1.
+- Tương tự cho 30 bài thuộc cap=1 và cap=2.
+- Từ vựng có tìm kiếm, ẩn nghĩa, đọc tiếng Hàn.
+- 10 câu bài tập phần từ vựng lấy từ đúng bài học; kết quả vẫn chỉ lưu trên máy.
+- 10 câu luyện nói vẫn giữ cơ chế cũ: 4 câu trọng tâm + 6 câu ôn tập cùng cấp.
+- Cấp 3–6, hệ thống điểm, đăng nhập, 9 ảnh bìa và logo không thay đổi.
+- Nội dung từ sách người dùng gửi, 13 mục từ chỉnh chọn lọc, 95 cấu trúc được trình bày lại; chưa hiệu đính thủ công tất cả từ vựng.
+
+CÀI ĐẶT:
+1. Giải nén ZIP.
+2. Chạy 01-CAP_NHAT.cmd (có sao lưu vào Documents\MRLEE_BACKUP_...).
+3. Chạy 02-DAY_GITHUB.cmd và xác nhận DAY.
+4. Mở hoc-theo-bai.html?cap=1&bai=1 và Ctrl+Shift+R.
+
+FILE SỬA: hoc-theo-bai.html, mrlee-lesson-page.js, mrlee-sc-lesson-data.js, mrlee-sc-lesson.css.
+KHÔNG sửa index.html, images/, mrlee-slide.js, Firebase, database, bảng xếp hạng.

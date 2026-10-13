@@ -1,0 +1,14 @@
+﻿cap,bai,tu_cu,tu_moi,nghia_moi,ket_qua,ly_do
+1,2,hiệu sách,서점,hiệu sách,ĐÃ SỬA,Sửa lỗi đảo cột: tiếng Việt bị đưa vào ô tiếng Hàn
+1,2,máy vi tính,컴퓨터,"máy vi tính, máy tính",ĐÃ SỬA,Bổ sung từ Hàn bị rơi mất khi sao chép bảng: 컴퓨터 là đề xuất biên tập
+1,2,가게,가게,"cửa hàng, cửa tiệm",ĐÃ SỬA,Xóa ký tự g thừa
+1,2,당,강당,"hội trường lớn, giảng đường lớn",ĐÃ SỬA,Sửa phần từ Hàn bị cắt mất 강 (đề xuất biên tập)
+1,3,좋다,좋다,tốt; đẹp; ngon (tùy ngữ cảnh); không đồng nghĩa trực tiếp với 좋아하다,ĐÃ SỬA,Phân biệt tính từ 좋다 và động từ 좋아하다
+1,3,그저께,그저께,hôm kia (hai ngày trước),ĐÃ SỬA,Sửa nghĩa quá mơ hồ
+1,7,시장,시장,chợ; thị trưởng (hai từ đồng âm khác nghĩa),ĐÃ SỬA,Phân biệt từ đồng âm
+1,7,안=속,안 / 속,bên trong (khác sắc thái sử dụng),ĐÃ SỬA,Không viết hai danh từ thành đồng nghĩa tuyệt đối
+1,9,아래 =밑=깊,아래 / 밑,"bên dưới, phía dưới",ĐÃ SỬA,"깊 có nghĩa ""sâu"", không đồng nghĩa với dưới"
+1,10,나중에 =앞으로,나중에 / 앞으로,sau này / từ nay trở đi (không hoàn toàn đồng nghĩa),ĐÃ SỬA,Phân biệt trạng từ thời gian
+2,1,칠절하다,친절하다,"tử tế, thân thiện, ân cần",ĐÃ SỬA,Sửa lỗi chính tả tiếng Hàn
+2,1,이야기를 들다,이야기를 듣다,nghe câu chuyện,ĐÃ SỬA,"Sửa động từ: nghe là 듣다, không phải 들다"
+2,8,잘 생겼가,잘생겼다,"đẹp trai, có ngoại hình ưa nhìn",ĐÃ SỬA,Sửa lỗi chính tả chia dạng từ

@@ -1,0 +1,16 @@
+HƯỚNG DẪN NÂNG CẤP THEO VĂN BẢN - MR LEE - 13/10/2026
+
+1. Giải nén ZIP ngoài thư mục website.
+2. Chạy 01-CAP_NHAT_SC.cmd.
+   Script KHÔNG ghi đè HTML cũ; chỉ chèn liên kết đến 3 tệp JS/CSS để thay bảng ngữ pháp khi tải trang.
+   Mọi tệp HTML và JS/CSS hiện có (nếu có) đều được sao lưu bên ngoài dự án.
+3. Mở so-cap-1.html và so-cap-2.html trên website và kiểm tra 30 bài.
+4. Chạy 02-DAY_GITHUB.cmd, nhập DAY hai lần. Chỉ 5 file liên quan được commit.
+5. Tải lại bằng Ctrl+Shift+R.
+
+Nội dung: 30 bài; 95 cấu trúc ngữ pháp; 13 mục từ chỉnh sửa có đối chiếu với văn bản.
+Các bảng từ vựng còn lại và 15 câu bài tập hiện có ở mỗi bài được giữ nguyên.
+Không thay đổi index.html, 9 ảnh bìa, trình chiếu, logo, dữ liệu học viên, leaderboard, Firebase.
+
+Báo cáo BAO_CAO_CHINH_SUA_TU_VUNG.csv có danh sách lỗi từ vựng đã sửa.
+Lưu ý: một số mục của văn bản nguồn vẫn cần rà soát thủ công bổ sung trước khi công bố đã hiệu đính toàn bộ 2.113 mục từ.

@@ -1,0 +1,23 @@
+MR LEE - NÂNG CẤP SƠ CẤP 1 + SƠ CẤP 2 / GIAI ĐOẠN 1
+
+TRẠNG THÁI: DỮ LIỆU DRIVE CHƯA TRUY CẬP ĐƯỢC.
+GÓI NÀY KHÔNG SỬA TỪ VỰNG, NGỮ PHÁP HAY BÀI TẬP GỐC.
+
+ĐÃ TRIỂN KHAI:
+- Kiểm kê 30 bài và xuất dữ liệu từ vựng/ngữ pháp hiện tại: DU_LIEU_GOC_SC1_SC2.json
+- Thêm ô lọc từ vựng tiếng Hàn hoặc nghĩa tiếng Việt cho từng bài học.
+- Thêm nút ẩn/hiện nghĩa tiếng Việt để tự luyện tập.
+- Script chèn vào 2 trang đang có theo cách không thay thế toàn bộ file HTML.
+- Tự động sao lưu các file bị sửa ra ngoài thư mục website.
+
+CÁCH CÀI:
+1. Giải nén toàn bộ ZIP vào thư mục bất kỳ trên Windows.
+2. Chạy 01-CAP_NHAT_SC.cmd (hoặc PowerShell 01-CAP_NHAT_SC.ps1).
+3. Mở so-cap-1.html và so-cap-2.html để kiểm tra các công cụ mới.
+4. Chạy 02-DAY_GITHUB.cmd, nhập DAY khi muốn commit/push đúng 4 file.
+5. Mở website và Ctrl+Shift+R.
+
+TỆP KHÔNG ĐƯỢC ĐỘNG TỚI: index.html, images/1.png...9.png, logo.png, mrlee-slide.js, mrlee-slide.css, dữ liệu điểm học viên và Firebase.
+
+PHẦN TIẾP THEO:
+Cần bản DOCX/PDF trực tiếp từ link Google Docs/Drive để rà soát/biên soạn từ vựng - ngữ pháp. Khi đó mới thực hiện chỉnh sửa kiến thức và tạo bản cập nhật nội dung cho cả 30 bài.

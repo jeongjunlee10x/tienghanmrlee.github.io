@@ -1,0 +1,8 @@
+MRLEE SƠ CẤP — BẢN CẬP NHẬT TRỰC TIẾP HỌC THEO BÀI
+Tổng số bài: 30
+Tổng số mục từ theo bài: 2097 (gồm các mục trùng giữa các bài)
+Tổng số cấu trúc ngữ pháp: 95
+Số mục đã hiệu đính chọn lọc: 13
+Giữ nguyên 10 câu luyện nói cũ / mỗi bài (chưa tái biên soạn theo bài)
+Bài tập sơ cấp 1–2: 10 câu được tự sinh từ từ vựng đúng bài, gồm chọn đáp án và viết từ; không phải 10 câu do giáo viên biên soạn và chấm thủ công.
+Không đụng file index, ảnh bìa, slide, auth, firebase, leaderboard.
