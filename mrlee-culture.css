@@ -66,3 +66,5 @@
 @media(max-width:540px){.topic-grid{grid-template-columns:1fr;gap:14px}.topic-art{height:120px}.culture-hero{min-height:330px}.culture-hero h1{font-size:30px}.culture-metrics{grid-template-columns:1fr 1fr}.culture-metrics .metric:last-child{grid-column:1/-1}.metric strong{font-size:20px}.culture-section{padding:34px 0 55px}.filter-buttons{gap:6px}.filter-buttons button{font-size:11px;padding:8px 10px}.lesson-head{padding:24px 20px}.lesson-head h1{font-size:25px}.lesson-block{padding:21px 18px}.lesson-side{grid-template-columns:1fr}.lesson-side .side-panel{margin-bottom:0}}
 @media(prefers-reduced-motion:reduce){.topic-card,.progress-fill{transition:none}}
 .topic-nothing:not([hidden]){display:block}
+/* Tôn trọng trạng thái hidden ở nút chuyển câu hỏi văn hóa. */
+.quiz-option[hidden]{display:none!important}

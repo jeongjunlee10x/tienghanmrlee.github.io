@@ -46,7 +46,7 @@
           <div class="topic-art" style="--tone-a:${p[0]};--tone-b:${p[1]}" data-ko="${escapeText(t.ko)}"><span class="topic-emoji" aria-hidden="true">${t.icon}</span></div>
           <div class="topic-body"><div class="topic-eyebrow">${categoryNames[t.group] || 'VĂN HÓA'}</div>
           <h3>${escapeText(t.title)}<span lang="ko">${escapeText(t.ko)}</span></h3><p>${escapeText(t.description)}</p>
-          <div class="topic-end"><span>${completed ? '<span class="topic-done">✓ Đã hoàn thành</span>' : 'Đọc bài học →'}</span><span>6 từ · 1 câu hỏi</span></div></div></a>`;
+          <div class="topic-end"><span>${completed ? '<span class="topic-done">✓ Đã hoàn thành</span>' : 'Đọc bài học →'}</span><span>6 từ · 5 câu hỏi</span></div></div></a>`;
       }).join('');
       document.getElementById('culture-empty').hidden = visible.length !== 0;
       progressDisplay();
@@ -88,26 +88,55 @@
     const feedback = document.getElementById('quiz-feedback');
     const markBtn = document.getElementById('lesson-mark-complete');
     const markHelp = document.getElementById('complete-help');
-    document.getElementById('quiz-question').textContent=t.quiz.question;
-    let passed=false;
-    function displayExisting(){ if(getCompleted().has(t.slug)){markBtn.textContent='✓ Đã hoàn thành bài học';markHelp.textContent='Tiến độ đã được lưu trên trình duyệt này.';} }
-    choices.innerHTML=t.quiz.choices.map((choice,i)=>`<button class="quiz-option" type="button" data-choice="${i}"><span class="letter">${String.fromCharCode(65+i)}</span><span lang="ko">${escapeText(choice)}</span></button>`).join('');
-    choices.querySelectorAll('[data-choice]').forEach(btn=>btn.addEventListener('click',()=>{
-      if(passed) return;
-      const correct = Number(btn.dataset.choice)===t.quiz.correct;
-      choices.querySelectorAll('[data-choice]').forEach(b=>b.classList.remove('incorrect'));
-      feedback.className='quiz-feedback show'+(correct?'':' wrong');
-      if(correct){passed=true;btn.classList.add('correct');choices.querySelectorAll('[data-choice]').forEach(b=>b.disabled=true);feedback.textContent='Chính xác! '+t.quiz.explanation;markBtn.disabled=false;markHelp.textContent='Bạn đã trả lời đúng. Nhấn nút để lưu trạng thái hoàn thành.';}
-      else {btn.classList.add('incorrect');feedback.textContent='Chưa chính xác, hãy thử lại với một đáp án khác.';}
-    }));
+    const quizQuestions=[t.quiz];
+    // Bốn câu từ vựng thêm vào cho từng bài: tổng cộng 5 câu / chủ đề.
+    for(let i=0;i<Math.min(4,t.words.length);i++){
+      const w=t.words[i];
+      const alternatives=topics.flatMap(row=>row.words.map(x=>x.vi)).filter(x=>x!==w.vi);
+      const distractors=[...new Set(alternatives)].slice(i*5,i*5+3);
+      const choices=[w.vi,...distractors];
+      const shift=i%choices.length;
+      const rotated=[...choices.slice(shift),...choices.slice(0,shift)];
+      quizQuestions.push({question:`Từ tiếng Hàn “${w.ko}” có nghĩa là gì?`,choices:rotated,correct:rotated.indexOf(w.vi),explanation:`${w.ko} = ${w.vi}.`});
+    }
+    let questionNo=0,score=0,passed=false;
+    const advance=document.createElement('button');advance.type='button';advance.className='quiz-option';advance.style.marginTop='12px';advance.hidden=true;
+    choices.after(advance);
+    function displayExisting(){if(getCompleted().has(t.slug)){markBtn.textContent='✓ Đã hoàn thành bài học';markBtn.disabled=true;markHelp.textContent='Tiến độ đã được lưu trên trình duyệt này.';}}
+    function renderQuiz(){
+      const q=quizQuestions[questionNo];
+      document.getElementById('quiz-question').textContent=`Câu ${questionNo+1}/${quizQuestions.length}: ${q.question}`;
+      feedback.className='quiz-feedback';feedback.textContent='';advance.hidden=true;
+      choices.innerHTML=q.choices.map((choice,i)=>`<button class="quiz-option" type="button" data-choice="${i}"><span class="letter">${String.fromCharCode(65+i)}</span><span>${escapeText(choice)}</span></button>`).join('');
+      choices.querySelectorAll('[data-choice]').forEach(btn=>btn.addEventListener('click',()=>{
+        const correct=Number(btn.dataset.choice)===q.correct;
+        if(correct)score++;
+        choices.querySelectorAll('[data-choice]').forEach(b=>{b.disabled=true;if(Number(b.dataset.choice)===q.correct)b.classList.add('correct');});
+        if(!correct)btn.classList.add('incorrect');
+        feedback.className='quiz-feedback show'+(correct?'':' wrong');
+        feedback.textContent=(correct?'Đúng! ':'Chưa đúng. ')+(q.explanation||'')+` · Điểm hiện tại: ${score}/${questionNo+1}`;
+        advance.textContent=questionNo===quizQuestions.length-1?'Xem kết quả':'Câu tiếp theo →';advance.hidden=false;
+      }));
+    }
+    advance.addEventListener('click',()=>{
+      if(questionNo>=quizQuestions.length){score=0;questionNo=0;renderQuiz();return;}
+      questionNo++;
+      if(questionNo<quizQuestions.length){renderQuiz();return;}
+      passed=score>=4;
+      choices.innerHTML='';advance.hidden=false;
+      feedback.className='quiz-feedback show'+(passed?'':' wrong');
+      feedback.textContent=`Bạn đúng ${score}/${quizQuestions.length} câu. ${passed?'Đạt yêu cầu (ít nhất 4/5).':'Cần đạt ít nhất 4/5. Vui lòng làm lại.'}`;
+      if(passed){advance.hidden=true;markBtn.disabled=false;markHelp.textContent='Đạt từ 4/5. Nhấn nút để lưu tiến độ.';}
+      else {advance.textContent='Làm lại 5 câu hỏi';}
+    });
     markBtn.addEventListener('click',()=>{
-      if(!passed) return;
+      if(!passed)return;
       const saved=saveComplete(t.slug);
       markBtn.textContent=saved?'✓ Đã hoàn thành bài học':'✓ Đã trả lời đúng';
-      markHelp.textContent=saved?'Đã lưu tiến độ trên trình duyệt này.':'Trình duyệt không cho phép lưu tiến độ; bạn vẫn có thể tiếp tục học.';
+      markHelp.textContent=saved?'Đã lưu tiến độ trên trình duyệt này.':'Không thể lưu tiến độ; bạn vẫn có thể tiếp tục học.';
       markBtn.disabled=true;progressDisplay();
     });
-    displayExisting();
+    renderQuiz();displayExisting();
     const sourceNode = document.getElementById('lesson-sources');
     const official=t.source?`<a href="${escapeText(t.source.url)}" rel="noopener noreferrer" target="_blank">↗ ${escapeText(t.source.label)}</a>`:'';
     const video=t.video?`<a href="${escapeText(t.video.url)}" rel="noopener noreferrer" target="_blank">▶ ${escapeText(t.video.label)}</a>`:'';
