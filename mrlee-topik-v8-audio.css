@@ -1,0 +1,7 @@
+/* Audio patch V8. Does not modify the site's branding. */
+.tv-audio .tv-voice-status{margin:8px 0 3px;padding:10px 12px;background:#fff;border:1px solid #d9e6f2;border-radius:10px;font-size:13px;line-height:1.6;color:#344d6a}
+.tv-voice-status[data-state="playing"]{border-color:#93c0ab;background:#f1faf4;color:#215c45}
+.tv-voice-status[data-state="error"]{border-color:#e5b7a4;background:#fff6ef;color:#873b24}
+.tv-audio .tv-native-player{width:100%;margin:8px 0}
+.tv-audio .tv-player-note{font-size:12px;color:#4e6278;margin:8px 0 0}
+.tv-audio .tv-btn:focus-visible{outline:3px solid #2d77a9;outline-offset:2px}
