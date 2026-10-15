@@ -1,0 +1,22 @@
+{
+  "version":"2026-10-16",
+  "administrativeNote":"Từ 01/07/2026 Jeonnam và Gwangju hợp nhất thành 전남광주통합특별시; GeoJSON ranh giới nguồn 2023 còn 17 phân vùng nên ứng dụng gộp hai vùng này trong một đơn vị logic (16 vùng).",
+  "regions":[
+    {"id":"seoul","ko":"서울특별시","en":"Seoul","vi":"Seoul","aliases":["Seoul","서울"],"center":[126.978,37.566],"zoom":10},
+    {"id":"busan","ko":"부산광역시","en":"Busan","vi":"Busan","aliases":["Pusan","부산"],"center":[129.075,35.179],"zoom":10},
+    {"id":"daegu","ko":"대구광역시","en":"Daegu","vi":"Daegu","aliases":["Taegu"],"center":[128.601,35.871],"zoom":10},
+    {"id":"incheon","ko":"인천광역시","en":"Incheon","vi":"Incheon","aliases":["Inchon"],"center":[126.705,37.456],"zoom":10},
+    {"id":"daejeon","ko":"대전광역시","en":"Daejeon","vi":"Daejeon","aliases":["Taejon"],"center":[127.385,36.351],"zoom":10},
+    {"id":"ulsan","ko":"울산광역시","en":"Ulsan","vi":"Ulsan","aliases":[],"center":[129.311,35.538],"zoom":10},
+    {"id":"sejong","ko":"세종특별자치시","en":"Sejong","vi":"Sejong","aliases":[],"center":[127.289,36.48],"zoom":10},
+    {"id":"gyeonggi","ko":"경기도","en":"Gyeonggi","vi":"Gyeonggi","aliases":["Kyonggi"],"center":[127.15,37.42],"zoom":8},
+    {"id":"gangwon","ko":"강원특별자치도","en":"Gangwon","vi":"Gangwon","aliases":["강원도","Kangwon"],"center":[128.21,37.69],"zoom":8},
+    {"id":"chungbuk","ko":"충청북도","en":"Chungcheongbuk-do","vi":"Chungbuk","aliases":["Chungbuk","North Chungcheong"],"center":[127.71,36.63],"zoom":8.5},
+    {"id":"chungnam","ko":"충청남도","en":"Chungcheongnam-do","vi":"Chungnam","aliases":["Chungnam","South Chungcheong"],"center":[126.8,36.52],"zoom":8.5},
+    {"id":"jeonbuk","ko":"전북특별자치도","en":"Jeonbuk","vi":"Jeonbuk","aliases":["전라북도","North Jeolla","Jeollabuk-do"],"center":[127.09,35.82],"zoom":8.5},
+    {"id":"jeonnam-gwangju","ko":"전남광주통합특별시","en":"Jeonnam–Gwangju Special City","vi":"Jeonnam–Gwangju","aliases":["전라남도","광주광역시","Jeonnam","Gwangju","South Jeolla","Jeollanam-do","광주특별시"],"center":[126.86,35.04],"zoom":8},
+    {"id":"gyeongbuk","ko":"경상북도","en":"Gyeongsangbuk-do","vi":"Gyeongbuk","aliases":["North Gyeongsang","Kyongbuk"],"center":[128.8,36.47],"zoom":8},
+    {"id":"gyeongnam","ko":"경상남도","en":"Gyeongsangnam-do","vi":"Gyeongnam","aliases":["South Gyeongsang","Kyongnam"],"center":[128.2,35.37],"zoom":8.5},
+    {"id":"jeju","ko":"제주특별자치도","en":"Jeju","vi":"Jeju","aliases":["Jeju-do"],"center":[126.53,33.5],"zoom":9}
+  ]
+}

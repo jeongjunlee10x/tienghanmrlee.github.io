@@ -1,0 +1,853 @@
+{
+  "version": "2026-10-16-initial",
+  "coverage": "initial-curated-seed-not-national-complete",
+  "notice": "Bản khởi tạo nhằm kiểm tra chức năng. Tọa độ hạt giống chỉ là vị trí tham khảo gần khuôn viên, chưa kiểm chứng từng cổng/campus; dữ liệu toàn quốc đang chờ nạp và kiểm chứng nguồn giáo dục chính thức.",
+  "schools": [
+    {
+      "id": "snu",
+      "ko": "서울대학교",
+      "en": "Seoul National University",
+      "vi": "Đại học Quốc gia Seoul",
+      "aliases": [
+        "SNU"
+      ],
+      "type": "university",
+      "website": "https://www.snu.ac.kr",
+      "campuses": [
+        {
+          "id": "gwanak",
+          "ko": "관악캠퍼스",
+          "en": "Gwanak Campus",
+          "vi": "Gwanak",
+          "region": "seoul",
+          "city": "Gwanak-gu",
+          "cityKo": "관악구",
+          "lat": 37.46,
+          "lng": 126.952,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "yonsei",
+      "ko": "연세대학교",
+      "en": "Yonsei University",
+      "vi": "Đại học Yonsei",
+      "aliases": [],
+      "type": "university",
+      "website": "https://www.yonsei.ac.kr",
+      "campuses": [
+        {
+          "id": "sinchon",
+          "ko": "신촌캠퍼스",
+          "en": "Sinchon Campus",
+          "vi": "Sinchon",
+          "region": "seoul",
+          "city": "Seodaemun-gu",
+          "cityKo": "서대문구",
+          "lat": 37.566,
+          "lng": 126.938,
+          "accuracy": "approximate"
+        },
+        {
+          "id": "songdo",
+          "ko": "국제캠퍼스",
+          "en": "International Campus",
+          "vi": "Songdo",
+          "region": "incheon",
+          "city": "Yeonsu-gu",
+          "cityKo": "연수구",
+          "lat": 37.388,
+          "lng": 126.66,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "korea",
+      "ko": "고려대학교",
+      "en": "Korea University",
+      "vi": "Đại học Korea",
+      "aliases": [
+        "KU"
+      ],
+      "type": "university",
+      "website": "https://www.korea.ac.kr",
+      "campuses": [
+        {
+          "id": "seoul",
+          "ko": "서울캠퍼스",
+          "en": "Seoul Campus",
+          "vi": "Seoul",
+          "region": "seoul",
+          "city": "Seongbuk-gu",
+          "cityKo": "성북구",
+          "lat": 37.589,
+          "lng": 127.032,
+          "accuracy": "approximate"
+        },
+        {
+          "id": "sejong",
+          "ko": "세종캠퍼스",
+          "en": "Sejong Campus",
+          "vi": "Sejong",
+          "region": "sejong",
+          "city": "Sejong",
+          "cityKo": "세종시",
+          "lat": 36.611,
+          "lng": 127.287,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "skku",
+      "ko": "성균관대학교",
+      "en": "Sungkyunkwan University",
+      "vi": "Đại học Sungkyunkwan",
+      "aliases": [
+        "SKKU",
+        "Sungkyunkwan"
+      ],
+      "type": "university",
+      "website": "https://www.skku.edu",
+      "campuses": [
+        {
+          "id": "humanities",
+          "ko": "인문사회과학캠퍼스",
+          "en": "Humanities and Social Sciences Campus",
+          "vi": "Nhân văn – KHXH",
+          "region": "seoul",
+          "city": "Jongno-gu",
+          "cityKo": "종로구",
+          "lat": 37.588,
+          "lng": 126.994,
+          "accuracy": "approximate"
+        },
+        {
+          "id": "natural",
+          "ko": "자연과학캠퍼스",
+          "en": "Natural Sciences Campus",
+          "vi": "Khoa học tự nhiên",
+          "region": "gyeonggi",
+          "city": "Suwon",
+          "cityKo": "수원시",
+          "lat": 37.294,
+          "lng": 126.974,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "kyunghee",
+      "ko": "경희대학교",
+      "en": "Kyung Hee University",
+      "vi": "Đại học Kyung Hee",
+      "aliases": [
+        "KHU"
+      ],
+      "type": "university",
+      "website": "https://www.khu.ac.kr",
+      "campuses": [
+        {
+          "id": "seoul",
+          "ko": "서울캠퍼스",
+          "en": "Seoul Campus",
+          "vi": "Seoul",
+          "region": "seoul",
+          "city": "Dongdaemun-gu",
+          "cityKo": "동대문구",
+          "lat": 37.596,
+          "lng": 127.052,
+          "accuracy": "approximate"
+        },
+        {
+          "id": "global",
+          "ko": "국제캠퍼스",
+          "en": "Global Campus",
+          "vi": "Global (Yongin)",
+          "region": "gyeonggi",
+          "city": "Yongin",
+          "cityKo": "용인시",
+          "lat": 37.24,
+          "lng": 127.08,
+          "accuracy": "approximate"
+        },
+        {
+          "id": "gwangneung",
+          "ko": "광릉캠퍼스",
+          "en": "Gwangneung Campus",
+          "vi": "Gwangneung",
+          "region": "gyeonggi",
+          "city": "Namyangju",
+          "cityKo": "남양주시",
+          "lat": 37.752,
+          "lng": 127.176,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "hanyang",
+      "ko": "한양대학교",
+      "en": "Hanyang University",
+      "vi": "Đại học Hanyang",
+      "aliases": [],
+      "type": "university",
+      "website": "https://www.hanyang.ac.kr",
+      "campuses": [
+        {
+          "id": "seoul",
+          "ko": "서울캠퍼스",
+          "en": "Seoul Campus",
+          "vi": "Seoul",
+          "region": "seoul",
+          "city": "Seongdong-gu",
+          "cityKo": "성동구",
+          "lat": 37.558,
+          "lng": 127.046,
+          "accuracy": "approximate"
+        },
+        {
+          "id": "erica",
+          "ko": "ERICA캠퍼스",
+          "en": "ERICA Campus",
+          "vi": "ERICA",
+          "region": "gyeonggi",
+          "city": "Ansan",
+          "cityKo": "안산시",
+          "lat": 37.299,
+          "lng": 126.834,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "chungang",
+      "ko": "중앙대학교",
+      "en": "Chung-Ang University",
+      "vi": "Đại học Chung-Ang",
+      "aliases": [
+        "CAU"
+      ],
+      "type": "university",
+      "website": "https://www.cau.ac.kr",
+      "campuses": [
+        {
+          "id": "seoul",
+          "ko": "서울캠퍼스",
+          "en": "Seoul Campus",
+          "vi": "Seoul",
+          "region": "seoul",
+          "city": "Dongjak-gu",
+          "cityKo": "동작구",
+          "lat": 37.505,
+          "lng": 126.957,
+          "accuracy": "approximate"
+        },
+        {
+          "id": "anseong",
+          "ko": "다빈치캠퍼스",
+          "en": "Da Vinci Campus",
+          "vi": "Anseong",
+          "region": "gyeonggi",
+          "city": "Anseong",
+          "cityKo": "안성시",
+          "lat": 37.004,
+          "lng": 127.229,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "ewha",
+      "ko": "이화여자대학교",
+      "en": "Ewha Womans University",
+      "vi": "Đại học Nữ Ewha",
+      "aliases": [],
+      "type": "university",
+      "website": "https://www.ewha.ac.kr",
+      "campuses": [
+        {
+          "id": "seoul",
+          "ko": "서울캠퍼스",
+          "en": "Seoul Campus",
+          "vi": "Seoul",
+          "region": "seoul",
+          "city": "Seodaemun-gu",
+          "cityKo": "서대문구",
+          "lat": 37.561,
+          "lng": 126.946,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "sogang",
+      "ko": "서강대학교",
+      "en": "Sogang University",
+      "vi": "Đại học Sogang",
+      "aliases": [],
+      "type": "university",
+      "website": "https://www.sogang.ac.kr",
+      "campuses": [
+        {
+          "id": "seoul",
+          "ko": "서울캠퍼스",
+          "en": "Seoul Campus",
+          "vi": "Seoul",
+          "region": "seoul",
+          "city": "Mapo-gu",
+          "cityKo": "마포구",
+          "lat": 37.551,
+          "lng": 126.941,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "pnu",
+      "ko": "부산대학교",
+      "en": "Pusan National University",
+      "vi": "Đại học Quốc gia Pusan",
+      "aliases": [
+        "PNU",
+        "Busan National University"
+      ],
+      "type": "university",
+      "website": "https://www.pusan.ac.kr",
+      "campuses": [
+        {
+          "id": "busan",
+          "ko": "부산캠퍼스",
+          "en": "Busan Campus",
+          "vi": "Busan",
+          "region": "busan",
+          "city": "Geumjeong-gu",
+          "cityKo": "금정구",
+          "lat": 35.232,
+          "lng": 129.083,
+          "accuracy": "approximate"
+        },
+        {
+          "id": "miryang",
+          "ko": "밀양캠퍼스",
+          "en": "Miryang Campus",
+          "vi": "Miryang",
+          "region": "gyeongnam",
+          "city": "Miryang",
+          "cityKo": "밀양시",
+          "lat": 35.493,
+          "lng": 128.747,
+          "accuracy": "approximate"
+        },
+        {
+          "id": "yangsan",
+          "ko": "양산캠퍼스",
+          "en": "Yangsan Campus",
+          "vi": "Yangsan",
+          "region": "gyeongnam",
+          "city": "Yangsan",
+          "cityKo": "양산시",
+          "lat": 35.328,
+          "lng": 129.007,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "silla",
+      "ko": "신라대학교",
+      "en": "Silla University",
+      "vi": "Đại học Silla",
+      "aliases": [],
+      "type": "university",
+      "website": "https://www.silla.ac.kr",
+      "campuses": [
+        {
+          "id": "busan",
+          "ko": "부산캠퍼스",
+          "en": "Busan Campus",
+          "vi": "Busan",
+          "region": "busan",
+          "city": "Sasang-gu",
+          "cityKo": "사상구",
+          "lat": 35.17,
+          "lng": 128.995,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "dong-a",
+      "ko": "동아대학교",
+      "en": "Dong-A University",
+      "vi": "Đại học Dong-A",
+      "aliases": [
+        "Donga"
+      ],
+      "type": "university",
+      "website": "https://www.donga.ac.kr",
+      "campuses": [
+        {
+          "id": "seunghak",
+          "ko": "승학캠퍼스",
+          "en": "Seunghak Campus",
+          "vi": "Seunghak",
+          "region": "busan",
+          "city": "Saha-gu",
+          "cityKo": "사하구",
+          "lat": 35.113,
+          "lng": 128.967,
+          "accuracy": "approximate"
+        },
+        {
+          "id": "bumin",
+          "ko": "부민캠퍼스",
+          "en": "Bumin Campus",
+          "vi": "Bumin",
+          "region": "busan",
+          "city": "Seo-gu",
+          "cityKo": "서구",
+          "lat": 35.103,
+          "lng": 129.021,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "ajou",
+      "ko": "아주대학교",
+      "en": "Ajou University",
+      "vi": "Đại học Ajou",
+      "aliases": [],
+      "type": "university",
+      "website": "https://www.ajou.ac.kr",
+      "campuses": [
+        {
+          "id": "suwon",
+          "ko": "수원캠퍼스",
+          "en": "Suwon Campus",
+          "vi": "Suwon",
+          "region": "gyeonggi",
+          "city": "Suwon",
+          "cityKo": "수원시",
+          "lat": 37.283,
+          "lng": 127.044,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "dankook",
+      "ko": "단국대학교",
+      "en": "Dankook University",
+      "vi": "Đại học Dankook",
+      "aliases": [],
+      "type": "university",
+      "website": "https://www.dankook.ac.kr",
+      "campuses": [
+        {
+          "id": "jukjeon",
+          "ko": "죽전캠퍼스",
+          "en": "Jukjeon Campus",
+          "vi": "Jukjeon",
+          "region": "gyeonggi",
+          "city": "Yongin",
+          "cityKo": "용인시",
+          "lat": 37.321,
+          "lng": 127.125,
+          "accuracy": "approximate"
+        },
+        {
+          "id": "cheonan",
+          "ko": "천안캠퍼스",
+          "en": "Cheonan Campus",
+          "vi": "Cheonan",
+          "region": "chungnam",
+          "city": "Cheonan",
+          "cityKo": "천안시",
+          "lat": 36.839,
+          "lng": 127.174,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "baekseok",
+      "ko": "백석대학교",
+      "en": "Baekseok University",
+      "vi": "Đại học Baekseok",
+      "aliases": [],
+      "type": "university",
+      "website": "https://www.bu.ac.kr",
+      "campuses": [
+        {
+          "id": "cheonan",
+          "ko": "천안캠퍼스",
+          "en": "Cheonan Campus",
+          "vi": "Cheonan",
+          "region": "chungnam",
+          "city": "Cheonan",
+          "cityKo": "천안시",
+          "lat": 36.843,
+          "lng": 127.184,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "cnu",
+      "ko": "충남대학교",
+      "en": "Chungnam National University",
+      "vi": "Đại học Quốc gia Chungnam",
+      "aliases": [
+        "CNU"
+      ],
+      "type": "university",
+      "website": "https://www.cnu.ac.kr",
+      "campuses": [
+        {
+          "id": "daedeok",
+          "ko": "대덕캠퍼스",
+          "en": "Daedeok Campus",
+          "vi": "Daedeok",
+          "region": "daejeon",
+          "city": "Yuseong-gu",
+          "cityKo": "유성구",
+          "lat": 36.368,
+          "lng": 127.345,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "knu",
+      "ko": "경북대학교",
+      "en": "Kyungpook National University",
+      "vi": "Đại học Quốc gia Kyungpook",
+      "aliases": [
+        "KNU"
+      ],
+      "type": "university",
+      "website": "https://www.knu.ac.kr",
+      "campuses": [
+        {
+          "id": "daegu",
+          "ko": "대구캠퍼스",
+          "en": "Daegu Campus",
+          "vi": "Daegu",
+          "region": "daegu",
+          "city": "Buk-gu",
+          "cityKo": "북구",
+          "lat": 35.89,
+          "lng": 128.613,
+          "accuracy": "approximate"
+        },
+        {
+          "id": "sangju",
+          "ko": "상주캠퍼스",
+          "en": "Sangju Campus",
+          "vi": "Sangju",
+          "region": "gyeongbuk",
+          "city": "Sangju",
+          "cityKo": "상주시",
+          "lat": 36.377,
+          "lng": 128.15,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "ulsan",
+      "ko": "울산대학교",
+      "en": "University of Ulsan",
+      "vi": "Đại học Ulsan",
+      "aliases": [],
+      "type": "university",
+      "website": "https://www.ulsan.ac.kr",
+      "campuses": [
+        {
+          "id": "ulsan",
+          "ko": "울산캠퍼스",
+          "en": "Ulsan Campus",
+          "vi": "Ulsan",
+          "region": "ulsan",
+          "city": "Nam-gu",
+          "cityKo": "남구",
+          "lat": 35.543,
+          "lng": 129.257,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "jnu",
+      "ko": "전남대학교",
+      "en": "Chonnam National University",
+      "vi": "Đại học Quốc gia Chonnam",
+      "aliases": [
+        "CNU Gwangju"
+      ],
+      "type": "university",
+      "website": "https://www.jnu.ac.kr",
+      "campuses": [
+        {
+          "id": "gwangju",
+          "ko": "광주캠퍼스",
+          "en": "Gwangju Campus",
+          "vi": "Gwangju",
+          "region": "jeonnam-gwangju",
+          "city": "Gwangju",
+          "cityKo": "광주",
+          "lat": 35.177,
+          "lng": 126.909,
+          "accuracy": "approximate"
+        },
+        {
+          "id": "yeosu",
+          "ko": "여수캠퍼스",
+          "en": "Yeosu Campus",
+          "vi": "Yeosu",
+          "region": "jeonnam-gwangju",
+          "city": "Yeosu",
+          "cityKo": "여수시",
+          "lat": 34.774,
+          "lng": 127.698,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "jbnu",
+      "ko": "전북대학교",
+      "en": "Jeonbuk National University",
+      "vi": "Đại học Quốc gia Jeonbuk",
+      "aliases": [
+        "Chonbuk National University"
+      ],
+      "type": "university",
+      "website": "https://www.jbnu.ac.kr",
+      "campuses": [
+        {
+          "id": "jeonju",
+          "ko": "전주캠퍼스",
+          "en": "Jeonju Campus",
+          "vi": "Jeonju",
+          "region": "jeonbuk",
+          "city": "Jeonju",
+          "cityKo": "전주시",
+          "lat": 35.846,
+          "lng": 127.13,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "kangwon",
+      "ko": "강원대학교",
+      "en": "Kangwon National University",
+      "vi": "Đại học Quốc gia Kangwon",
+      "aliases": [],
+      "type": "university",
+      "website": "https://www.kangwon.ac.kr",
+      "campuses": [
+        {
+          "id": "chuncheon",
+          "ko": "춘천캠퍼스",
+          "en": "Chuncheon Campus",
+          "vi": "Chuncheon",
+          "region": "gangwon",
+          "city": "Chuncheon",
+          "cityKo": "춘천시",
+          "lat": 37.869,
+          "lng": 127.744,
+          "accuracy": "approximate"
+        },
+        {
+          "id": "samcheok",
+          "ko": "삼척캠퍼스",
+          "en": "Samcheok Campus",
+          "vi": "Samcheok",
+          "region": "gangwon",
+          "city": "Samcheok",
+          "cityKo": "삼척시",
+          "lat": 37.448,
+          "lng": 129.159,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "cbnu",
+      "ko": "충북대학교",
+      "en": "Chungbuk National University",
+      "vi": "Đại học Quốc gia Chungbuk",
+      "aliases": [],
+      "type": "university",
+      "website": "https://www.chungbuk.ac.kr",
+      "campuses": [
+        {
+          "id": "cheongju",
+          "ko": "개신캠퍼스",
+          "en": "Gaesin Campus",
+          "vi": "Cheongju",
+          "region": "chungbuk",
+          "city": "Cheongju",
+          "cityKo": "청주시",
+          "lat": 36.627,
+          "lng": 127.455,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "gnu",
+      "ko": "경상국립대학교",
+      "en": "Gyeongsang National University",
+      "vi": "Đại học Quốc gia Gyeongsang",
+      "aliases": [
+        "GNU"
+      ],
+      "type": "university",
+      "website": "https://www.gnu.ac.kr",
+      "campuses": [
+        {
+          "id": "gajwa",
+          "ko": "가좌캠퍼스",
+          "en": "Gajwa Campus",
+          "vi": "Jinju",
+          "region": "gyeongnam",
+          "city": "Jinju",
+          "cityKo": "진주시",
+          "lat": 35.154,
+          "lng": 128.099,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "jejunu",
+      "ko": "제주대학교",
+      "en": "Jeju National University",
+      "vi": "Đại học Quốc gia Jeju",
+      "aliases": [],
+      "type": "university",
+      "website": "https://www.jejunu.ac.kr",
+      "campuses": [
+        {
+          "id": "ara",
+          "ko": "아라캠퍼스",
+          "en": "Ara Campus",
+          "vi": "Ara",
+          "region": "jeju",
+          "city": "Jeju City",
+          "cityKo": "제주시",
+          "lat": 33.456,
+          "lng": 126.562,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "seoultech",
+      "ko": "서울과학기술대학교",
+      "en": "Seoul National University of Science and Technology",
+      "vi": "Đại học Khoa học và Công nghệ Seoul",
+      "aliases": [
+        "SeoulTech"
+      ],
+      "type": "university",
+      "website": "https://www.seoultech.ac.kr",
+      "campuses": [
+        {
+          "id": "nowon",
+          "ko": "공릉캠퍼스",
+          "en": "Gongneung Campus",
+          "vi": "Gongneung",
+          "region": "seoul",
+          "city": "Nowon-gu",
+          "cityKo": "노원구",
+          "lat": 37.632,
+          "lng": 127.078,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "dongyangmirae",
+      "ko": "동양미래대학교",
+      "en": "Dongyang Mirae University",
+      "vi": "Cao đẳng Dongyang Mirae",
+      "aliases": [
+        "Dongyang Mirae College"
+      ],
+      "type": "college",
+      "website": "https://www.dongyang.ac.kr",
+      "campuses": [
+        {
+          "id": "seoul",
+          "ko": "서울캠퍼스",
+          "en": "Seoul Campus",
+          "vi": "Seoul",
+          "region": "seoul",
+          "city": "Guro-gu",
+          "cityKo": "구로구",
+          "lat": 37.5,
+          "lng": 126.867,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "inhatechnical",
+      "ko": "인하공업전문대학",
+      "en": "Inha Technical College",
+      "vi": "Cao đẳng Kỹ thuật Inha",
+      "aliases": [
+        "Inha Technical University"
+      ],
+      "type": "college",
+      "website": "https://www.inhatc.ac.kr",
+      "campuses": [
+        {
+          "id": "incheon",
+          "ko": "인천캠퍼스",
+          "en": "Incheon Campus",
+          "vi": "Incheon",
+          "region": "incheon",
+          "city": "Michuhol-gu",
+          "cityKo": "미추홀구",
+          "lat": 37.449,
+          "lng": 126.655,
+          "accuracy": "approximate"
+        }
+      ]
+    },
+    {
+      "id": "seoularts",
+      "ko": "서울예술대학교",
+      "en": "Seoul Institute of the Arts",
+      "vi": "Cao đẳng Nghệ thuật Seoul",
+      "aliases": [
+        "Seoul Arts"
+      ],
+      "type": "college",
+      "website": "https://www.seoularts.ac.kr",
+      "campuses": [
+        {
+          "id": "ansan",
+          "ko": "안산캠퍼스",
+          "en": "Ansan Campus",
+          "vi": "Ansan",
+          "region": "gyeonggi",
+          "city": "Ansan",
+          "cityKo": "안산시",
+          "lat": 37.315,
+          "lng": 126.825,
+          "accuracy": "approximate"
+        }
+      ]
+    }
+  ]
+}
