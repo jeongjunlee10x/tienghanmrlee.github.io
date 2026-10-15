@@ -14,3 +14,5 @@
 .topic img{transition:transform .4s ease}
 .topic:hover img{transform:scale(1.045)}
 @media(max-width:680px){.mrPhotoGrid{grid-template-columns:1fr;gap:14px}.mrphoto img{height:215px}.mrphoto figcaption{padding:14px}.mrPhotoIntro{font-size:14px}}
+
+.mrphoto.photoUnavailable::before{content:"Ảnh tư liệu chưa tải được · chọn Nguồn ảnh bên dưới";display:block;color:#9a3412;background:#fff7ed;padding:22px;font-weight:700;text-align:center}.mrphoto.photoUnavailable img{display:none}.mrphoto figcaption a{overflow-wrap:anywhere}
