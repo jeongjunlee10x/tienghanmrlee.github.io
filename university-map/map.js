@@ -1,4 +1,4 @@
-/* MR LEE Korea University Explorer V2 — verified official registry + campus review. */
+/* MR LEE Korea University Explorer V4 — verified official registry + campus review. */
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
@@ -11,7 +11,7 @@
   const mapsQuery = c => 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(c.address || [c.school.ko,c.cityKo,regionName(c.region)].filter(Boolean).join(' '));
   const state = {regions:[], schools:[], campuses:[], region:null, city:null, query:'', type:'all', selected:null, map:null, mapReady:false, polygonReady:false, campusSourceReady:false, cityFeatures:[], selectedSchoolId:null};
   const regionById = id => state.regions.find(r => r.id === id);
-  const regionName = id => regionById(id)?.vi || id;
+  const regionName = id => regionById(id)?.vi || (id==='unknown'?'Chưa rõ khu vực':id);
   const campusName = c => c.ko ? `${c.ko} · ${c.en}` : c.en;
   const allSchoolCampuses = id => state.campuses.filter(c=>c.school.id === id);
   const schoolQueryText = s => norm([s.ko,s.vi,s.en,...(s.aliases||[])].join(' '));
@@ -93,7 +93,7 @@
     }
   }
   function render(){renderCrumb();renderRegions();renderCities();renderCards();updateMapMarkers();updateBoundaryStyles();}
-  function setSearch(s){state.query=s;state.selected=null;state.selectedSchoolId=null;render();showSuggestions();}
+  function setSearch(s){if(s.trim()){state.region=null;state.city=null;}state.query=s;state.selected=null;state.selectedSchoolId=null;render();showSuggestions();}
   function resetNavigation(clearSearch=true){state.region=null;state.city=null;state.selected=null;state.selectedSchoolId=null;if(clearSearch){state.query='';$('mapSearch').value='';}render();fitCountry();}
   function chooseRegion(id){state.region=id;state.city=null;state.selected=null;state.selectedSchoolId=null;state.query='';$('mapSearch').value='';render();$('searchMatches').hidden=true;const r=regionById(id);if(r && state.mapReady)state.map.flyTo({center:r.center,zoom:r.zoom,duration:900});}
   function chooseCity(city){state.city=city;state.selected=null;state.query='';state.selectedSchoolId=null;$('mapSearch').value='';render();if(city)fitCampuses(getFilteredCampuses());}
@@ -230,7 +230,7 @@
       state.regions=reg.regions;state.schools=sch.schools;state.campuses=[];
       const ids=new Set();
       for(const s of state.schools){for(const c of s.campuses || []){
-        if(!regionById(c.region))continue;const uid=s.id+'::'+c.id;if(ids.has(uid))continue;ids.add(uid);
+        if(!regionById(c.region) && c.region!=='unknown')continue;const uid=s.id+'::'+c.id;if(ids.has(uid))continue;ids.add(uid);
         const lat=c.lat===null||c.lat===undefined||c.lat===''?null:Number(c.lat);
         const lng=c.lng===null||c.lng===undefined||c.lng===''?null:Number(c.lng);
         const campus={...c,lat,lng,uid,school:s};
