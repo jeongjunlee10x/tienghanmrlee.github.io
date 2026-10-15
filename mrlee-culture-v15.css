@@ -1,0 +1,20 @@
+
+/* MR LEE V15 — ảnh AI phân theo bài, lời giải thích trực tiếp bên dưới */
+.mrleeAiSection .mrAiHeader{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.mrleeAiSection .mrAiBadge{display:inline-flex;align-items:center;background:#e9f3ff;color:#13518d;border-radius:100px;padding:6px 11px;font-weight:800;font-size:12px;letter-spacing:.3px}
+.mrAiIntro{color:#50647a;line-height:1.75}
+.mrAiGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:19px;margin:18px 0}
+.mrAiCard{margin:0;background:#fff;border:1px solid #dbe6ef;border-radius:18px;overflow:hidden;box-shadow:0 10px 32px rgba(12,39,74,.07)}
+.mrAiCard img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:contain;background:#f5f7fa;cursor:zoom-in}
+.mrAiCard.wide img{aspect-ratio:3/2}
+.mrAiCard figcaption{padding:16px 17px 18px}
+.mrAiCard .mrAiNumber{font-size:12px;color:#1877be;font-weight:800;margin:0 0 5px}
+.mrAiCard h3{font-size:18px;margin:0 0 7px;color:#153650}
+.mrAiCard figcaption p{margin:0;color:#40566a;line-height:1.7;font-size:14px}
+.mrAiNotice{border-left:4px solid #3b82c4;padding:12px 14px;background:#edf5fd;border-radius:6px;line-height:1.6;color:#37546e}
+body.mrAiModalOpen{overflow:hidden}
+.mrAiLightbox{position:fixed;inset:0;z-index:99999;background:rgba(10,21,35,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;gap:12px}
+.mrAiLightbox img{max-width:min(94vw,1200px);max-height:80vh;object-fit:contain;border-radius:8px}
+.mrAiLightbox button{background:#fff;border:none;border-radius:10px;padding:9px 16px;cursor:pointer;font-weight:700}
+.mrAiLightbox p{color:white;text-align:center;max-width:700px;line-height:1.6;margin:0}
+@media(max-width:700px){.mrAiGrid{grid-template-columns:1fr}.mrAiCard img{aspect-ratio:auto}.mrAiCard.wide img{aspect-ratio:auto}}
