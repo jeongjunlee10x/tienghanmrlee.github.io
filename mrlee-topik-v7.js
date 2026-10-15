@@ -42,6 +42,12 @@ function playAudio(index,speed){
  if(v121CurrentAudio){v121CurrentAudio.pause();v121CurrentAudio.currentTime=0;v121CurrentAudio=null;}
  window.speechSynthesis?.cancel();
  if(src){
+ if(window.MRLEE_TOPIK_AUDIO_GUARD){
+  window.MRLEE_TOPIK_AUDIO_GUARD.play(q.id,speed)
+   .then(a=>{v121CurrentAudio=a})
+   .catch(e=>alert('Không phát được câu '+q.id+': '+e.message));
+  return;
+ }
   v121CurrentAudio=new Audio(src);v121CurrentAudio.playbackRate=speed;
   v121CurrentAudio.play().catch(()=>alert('Không phát được MP3 câu '+q.id+'. Hãy kiểm tra file topik-audio và chạy website bằng localhost.'));
   return;

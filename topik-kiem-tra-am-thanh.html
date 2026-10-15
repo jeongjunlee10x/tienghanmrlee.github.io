@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kiểm tra MP3 TOPIK | MR LEE</title>
+<style>body{font:16px system-ui,sans-serif;background:#f0f5fb;color:#18324c;margin:0}header{background:#123e70;color:#fff;padding:28px 5%}header a{color:white}main{max-width:1050px;margin:24px auto;padding:0 16px}button,select{font:inherit;border:1px solid #a7bed5;border-radius:9px;padding:10px 14px;background:white;cursor:pointer}button:disabled{opacity:.5;cursor:default}.panel{background:#fff;padding:20px;border-radius:16px;box-shadow:0 4px 18px #09244012;margin:14px 0}.actions{display:flex;gap:8px;flex-wrap:wrap}.ok{color:#167242}.bad{color:#ad301f}.note{color:#546b80;font-size:14px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}article{border:1px solid #d5e3ed;padding:13px;border-radius:10px}audio{width:100%}progress{width:100%;height:15px}#details[hidden]{display:none}article p{white-space:pre-line;line-height:1.5}span.state{font-weight:700}</style>
+</head><body><header><a href="topik-v12.html">← Về TOPIK</a><h1>🎧 Kiểm tra toàn bộ phần nghe TOPIK</h1><p>Kiểm tra đường dẫn và khả năng giải mã âm thanh của từng câu. Không thay thế việc nghe kiểm âm trực tiếp.</p></header>
+<main><section class="panel"><div class="actions"><button id="run">Quét toàn bộ MP3 TOPIK</button><button id="stop" disabled>Dừng</button><button id="failed" disabled>Chỉ xem lỗi</button></div><p id="status" role="status">Đang đọc danh mục…</p><progress id="progress" value="0" max="124"></progress><p class="note">Quét sử dụng khả năng tải metadata của trình duyệt, không phát toàn bộ từng câu. Một số thiết bị/mạng có thể quá thời gian và cần quét lại.</p></section>
+<div id="details" class="panel"><h2>Danh sách câu nghe</h2><div id="items" class="grid"></div></div></main>
+<script src="mrlee-topik-v121-library-data.js"></script>
+<script>
+(() => {'use strict';
+ const rows=window.MRLEE_TOPIK_LIBRARY_121||[], statuses=new Map(),$=id=>document.getElementById(id);let aborted=false,errorsOnly=false;
+ $('status').textContent=`Đã nhận ${rows.length} câu nghe từ ngân hàng TOPIK. Nhấn Quét để kiểm tra.`;$('progress').max=rows.length||1;
+ function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+ function render(){const list=rows.filter(x=>!errorsOnly||statuses.get(x.id)?.state==='bad');$('items').innerHTML=list.map(x=>{
+   const v=statuses.get(x.id),src='topik-audio/'+encodeURIComponent(x.id)+'.mp3';
+   return `<article><strong>${esc(x.id)}</strong> · TOPIK ${x.level===1?'I':'II'} <span class="state ${v?.state==='bad'?'bad':'ok'}">${v?.state==='bad'?'✕ '+esc(v.reason):v?.state==='ok'?'✓ Tải được metadata':'Chưa quét'}</span><audio controls preload="none" data-path="${src}"></audio><details><summary>Xem lời thoại</summary><p lang="ko">${esc(x.script)}</p></details></article>`;
+  }).join('')||'<p>Không có câu nào trong bộ lọc.</p>';
+  $('items').querySelectorAll('audio[data-path]').forEach(a => { a.src = a.dataset.path; });
+ }
+ function test(x){return new Promise(resolve=>{
+   const a=new Audio(),src='topik-audio/'+encodeURIComponent(x.id)+'.mp3',timeout=setTimeout(()=>finish('bad','Quá thời gian 12 giây'),12000);
+   let finished=false;
+   function finish(state,reason=''){if(finished)return;finished=true;clearTimeout(timeout);a.pause();a.removeAttribute('src');a.load();resolve({state,reason});}
+   a.preload='metadata';a.onloadedmetadata=()=>finish('ok');a.onerror=()=>finish('bad','Không đọc được MP3');a.src=src;a.load();
+ });}
+ async function run(){aborted=false;errorsOnly=false;$('run').disabled=true;$('stop').disabled=false;$('failed').disabled=true;statuses.clear();let done=0,fail=0,cursor=0;
+  $('progress').value=0;$('items').innerHTML='';
+  async function worker(){while(!aborted&&cursor<rows.length){const row=rows[cursor++];const v=await test(row);statuses.set(row.id,v);done++;if(v.state==='bad')fail++;$('progress').value=done;$('status').textContent=`Đã kiểm tra ${done}/${rows.length}. Lỗi hoặc quá thời gian: ${fail}.`;}}
+  await Promise.all(Array.from({length:4},worker));$('stop').disabled=true;$('run').disabled=false;$('failed').disabled=false;
+  $('status').textContent=`${aborted?'Đã dừng':'Hoàn tất'}: ${done}/${rows.length} · ${fail} mục lỗi hoặc quá thời gian. ${fail?'Kiểm tra lại từng mục bên dưới.':'Tất cả MP3 đã tải được metadata.'}`;render();
+ }
+ $('run').onclick=run;$('stop').onclick=()=>{aborted=true};$('failed').onclick=()=>{errorsOnly=!errorsOnly;$('failed').textContent=errorsOnly?'Xem tất cả':'Chỉ xem lỗi';render()};render();
+})();
+</script>
+</body></html>
