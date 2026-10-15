@@ -303,6 +303,32 @@
       writeDirect(card.querySelector('.card-bottom'),data[2]);
       card.querySelectorAll('.group-tags span').forEach((tag,index)=>{if(data[3][index])writeText(tag,data[3][index])});
     });
+    // MRLEE_MAP6_FULL_TITLE_V3_20261016: use IDs/href, not position-sensitive 9-card translations.
+    const mrleeMapLabelsV3 = {
+      vi: 'Bản đồ các trường đại học Hàn Quốc',
+      ko: '한국의 대학교 지도',
+      en: 'Map of Universities in South Korea'
+    };
+    const mrleeMapTitleV3 = mrleeMapLabelsV3[locale] || mrleeMapLabelsV3.vi;
+    const mrleeMapCardV3 = document.getElementById('mrlee-university-map-card');
+    if (mrleeMapCardV3) {
+      const heading = mrleeMapCardV3.querySelector('h3');
+      if (heading) heading.textContent = mrleeMapTitleV3;
+      mrleeMapCardV3.setAttribute('href', 'ban-do-dai-hoc-han-quoc.html');
+      mrleeMapCardV3.setAttribute('aria-label', mrleeMapTitleV3);
+    }
+    const mrleeMapToolV3 = document.getElementById('mrlee-map-shortcut');
+    if (mrleeMapToolV3) {
+      const name = mrleeMapToolV3.querySelector('strong');
+      if (name) name.textContent = mrleeMapTitleV3;
+      mrleeMapToolV3.setAttribute('href','ban-do-dai-hoc-han-quoc.html');
+      mrleeMapToolV3.setAttribute('aria-label',mrleeMapTitleV3);
+    }
+    const mrleeMapNavV3 = document.querySelector('.site-nav > a.nav-university-map');
+    if (mrleeMapNavV3) {
+      mrleeMapNavV3.textContent = '🗺️ ' + mrleeMapTitleV3;
+      mrleeMapNavV3.setAttribute('href','ban-do-dai-hoc-han-quoc.html');
+    }
     writeText('.bottom-cta h2',t.ctaTitle);
     writeTailText('.bottom-cta p',t.ctaAfter);
     writeDirect('.bottom-cta .action-btn',v.explore);
@@ -318,7 +344,7 @@
   function translateHomepage() {
     const t = labels();
     const v3Cards = $$('.feature-grid > .feature-card');
-    if (v3Cards.length === 4 && v3Cards[0].getAttribute('href') === 'hoc-tieng-han.html') {
+    if ((v3Cards.length === 4 || v3Cards.length === 6) && v3Cards[0].getAttribute('href') === 'hoc-tieng-han.html') {
       translateV3Homepage();
       return;
     }
