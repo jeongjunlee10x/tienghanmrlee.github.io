@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thư viện nghe MR LEE</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#eef4fa;color:#18324b;font:16px system-ui,sans-serif}
+header{padding:25px 5%;background:linear-gradient(120deg,#10385d,#16699b);color:white}
+header a{color:white}
+main{max-width:1040px;margin:24px auto;padding:0 16px}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+button,select,input{font:inherit;padding:10px;border:1px solid #b7cfe1;border-radius:9px}
+button{cursor:pointer;background:white}
+button[aria-pressed=true]{background:#0c598c;color:white}
+.filters{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px}
+.filters label{display:grid;gap:4px;flex:1;min-width:220px}
+article{background:white;border:1px solid #d7e5ef;padding:14px;margin:9px 0;border-radius:12px}
+article small{color:#61748b}
+article p{font-size:19px;margin:8px 0}
+audio{width:100%;max-width:560px}
+#pager{display:flex;gap:10px;margin:18px 0 48px}
+</style>
+</head>
+<body>
+<header>
+<a href="hoc-tieng-han.html">← Trở về học tiếng Hàn</a>
+<h1>🎧 Thư viện nghe MR LEE</h1>
+<p>8.026 mục · 5 phân hệ · chia theo bài và thư mục con</p>
+</header>
+<main>
+<nav id="groups" aria-label="5 mục nghe"></nav>
+<div class="filters">
+<label>Thư mục con
+<select id="folder"><option value="">Tất cả</option></select>
+</label>
+<label>Tìm kiếm
+<input id="search" placeholder="Nhập từ hoặc câu tiếng Hàn">
+</label>
+<label>Tốc độ
+<select id="speed">
+<option value="0.75">0,75×</option>
+<option value="1" selected>1×</option>
+<option value="1.25">1,25×</option>
+<option value="1.5">1,5×</option>
+</select>
+</label>
+</div>
+<p id="status" role="status">Đang tải danh mục…</p>
+<div id="results"></div>
+<div id="pager"></div>
+</main>
+<script>
+(()=>{
+'use strict';
+const groups=[
+['01_HOC_TIENG_HAN','1 · Học tiếng Hàn'],
+['02_GIAO_TIEP','2 · Giao tiếp'],
+['03_TOPIK','3 · TOPIK'],
+['04_PHONG_VAN','4 · Phỏng vấn'],
+['05_VAN_HOA','5 · Văn hóa']
+];
+const $=id=>document.getElementById(id);
+let items=[],group=groups[0][0],page=0,folder='';
+const requested=new URLSearchParams(location.search).get('muc');
+if(groups.some(x=>x[0]===requested))group=requested;
+
+function el(tag,text){
+ const x=document.createElement(tag);
+ if(text!=null)x.textContent=text;
+ return x;
+}
+function nav(){
+ const p=$('groups');p.replaceChildren();
+ for(const [id,label] of groups){
+  const b=el('button',label);
+  b.type='button';
+  b.setAttribute('aria-pressed',String(id===group));
+  b.onclick=()=>{
+   group=id;folder='';page=0;
+   folders();nav();render();
+  };
+  p.append(b);
+ }
+}
+function folders(){
+ const values=[...new Set(
+  items.filter(r=>r.file.startsWith(group+'/'))
+  .map(r=>r.file.split('/').slice(1,-1).join(' / '))
+ )].sort();
+ const s=$('folder');
+ s.replaceChildren(new Option('Tất cả',''),
+  ...values.map(v=>new Option(v,v)));
+ s.value=folder;
+}
+function render(){
+ const term=$('search').value.trim().toLowerCase();
+ const rows=items.filter(r=>
+  r.file.startsWith(group+'/') &&
+  (!folder||r.file.split('/').slice(1,-1).join(' / ')===folder) &&
+  (!term||(r.text+' '+r.file).toLowerCase().includes(term))
+ );
+ const count=Math.max(1,Math.ceil(rows.length/25));
+ page=Math.min(page,count-1);
+ $('status').textContent=rows.length+' mục · Trang '+(page+1)+'/'+count;
+ const p=$('results');p.replaceChildren();
+ for(const r of rows.slice(page*25,page*25+25)){
+  const card=el('article');
+  card.append(el('small',r.file.split('/').slice(1,-1).join(' › ')));
+  card.append(el('p',r.text));
+  const audio=el('audio');
+  audio.controls=true;
+  audio.preload='none';
+  audio.playbackRate=Number($('speed').value);
+  audio.src='MRLEE_AUDIO/'+r.file.split('/').map(encodeURIComponent).join('/');
+  audio.addEventListener('play',()=>{
+   document.querySelectorAll('audio').forEach(a=>{
+    if(a!==audio)a.pause();
+   });
+  });
+  audio.addEventListener('error',()=>{
+   card.append(el('small','Không phát được MP3.'));
+  });
+  card.append(audio);p.append(card);
+ }
+ const pager=$('pager');pager.replaceChildren();
+ for(const [name,d] of [['← Trước',-1],['Tiếp →',1]]){
+  const b=el('button',name);
+  b.disabled=d<0?page===0:page===count-1;
+  b.onclick=()=>{page+=d;render();window.scrollTo(0,0)};
+  pager.append(b);
+ }
+}
+$('search').oninput=()=>{page=0;render()};
+$('folder').onchange=e=>{folder=e.target.value;page=0;render()};
+$('speed').onchange=()=>{
+ document.querySelectorAll('audio').forEach(a=>{
+  a.playbackRate=Number($('speed').value);
+ });
+};
+nav();
+fetch('MRLEE_AUDIO/catalog.json')
+.then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
+.then(data=>{
+ if(!Array.isArray(data))throw Error('Danh mục không hợp lệ');
+ items=data;folders();render();
+})
+.catch(e=>$('status').textContent='Lỗi danh mục: '+e.message);
+})();
+</script>
+</body>
+</html>
