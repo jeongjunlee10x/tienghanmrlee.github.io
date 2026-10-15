@@ -4,6 +4,7 @@
  */
 import { LEVELS, ROADMAP_UNITS } from './mrlee-roadmap-bank.js';
 import { LEVEL_TIPS } from './mrlee-vocab-bank.js';
+import { PRO_LESSONS } from './mrlee-pro-lesson-data.js'; // MRLEE_PRO_WORKBOOK_V3_20261015
 import { SC_LESSONS } from './mrlee-sc-lesson-data.js?v=mrlee6-v6';
 import { ADVANCED_LESSONS } from './mrlee-advanced-lesson-data.js?v=mrlee6-v6';
 const $=id=>document.getElementById(id);
@@ -67,30 +68,8 @@ const firstAdvanced={
  ['분석 결과에 입각하여 평가하겠습니다.','Tôi sẽ đánh giá dựa trên kết quả phân tích.']]
 };
 function lessonSentences(d){
-  const chosen=[],seen=new Set();
-  const push=(x,source)=>{
-    if(!x?.ko||!x?.vi||seen.has(normalize(x.ko))||chosen.length>=10)return;
-    seen.add(normalize(x.ko));chosen.push({...x,sourceOrdinal:source.ordinal,sourceLabel:source.ordinal===d.ordinal?'Trong bài này':`Ôn cấp ${source.cap} · Bài ${source.bai}`});
-  };
-  if(d.cap===1&&d.bai===1){firstSc.forEach(([ko,vi])=>push({ko,vi},d));return chosen;}
-  if(d.cap>=3){
-    (d.samples||[]).forEach(x=>push(x,d));
-    if(d.bai===1)(firstAdvanced[d.cap]||[]).forEach(([ko,vi])=>push({ko,vi},d));
-  }else{
-    d.grammar.flatMap(grammarExamples).forEach(x=>push(x,d));
-    // Sơ cấp ưu tiên ví dụ đúng từng bài trong giáo trình giáo viên cung cấp;
-    // không dùng ngân hàng câu mẫu cũ vì từng có cấu trúc vượt bài.
-  }
-  // Truy ngược: không bao giờ lấy từ d.ordinal+1 trở đi.
-  for(let n=d.ordinal-1;n>=1&&chosen.length<10;n--){
-    const prev=data[n-1];
-    if(!prev||prev.ordinal>=d.ordinal)continue;
-    const s=prev.cap>=3?(prev.samples||[]):prev.grammar.flatMap(grammarExamples);
-    s.forEach(x=>push(x,prev));
-    if(prev.cap===1&&prev.bai===1)firstSc.forEach(([ko,vi])=>push({ko,vi},prev));
-    if(prev.cap>=3&&prev.bai===1)(firstAdvanced[prev.cap]||[]).forEach(([ko,vi])=>push({ko,vi},prev));
-  }
-  return chosen.slice(0,10);
+  const unit=PRO_LESSONS[`${d.cap}-${String(d.bai).padStart(2,'0')}`];
+  return (unit?.listening||[]).map(x=>({...x,sourceOrdinal:d.ordinal,sourceLabel:'Câu nghe chuyên biệt của bài'}));
 }
 function lessonVocabulary(d){
   const seen=new Set();
@@ -191,7 +170,10 @@ async function toggleRecord(btn,play){
   }catch(err){alert(`Không thể sử dụng micro: ${err?.message||'Vui lòng cấp quyền.'}`);}
 }
 function renderSpeaking(d,samples){
-  $('lessonSpeak').innerHTML=samples.map((s,i)=>`<div class="mr-new-row mr-v5-speaking"><div><strong>Câu ${i+1} · <small>${esc(s.sourceLabel)}</small></strong><div class="mr-new-korean" lang="ko">${esc(s.ko)}</div><div>${esc(s.vi)}</div></div><div class="mr-v5-actions"><button class="mr-new-btn" data-play="${i}" type="button">🔊 Nghe</button><button class="mr-new-btn" data-record="${i}" type="button">🎙️ Ghi âm</button><audio data-audio="${i}" controls hidden></audio></div></div>`).join('');
+  $('lessonSpeak').innerHTML=samples.map((s,i)=>`<div class="mr-new-row mr-v5-speaking"><div><strong>Câu ${i+1} · <small>${esc(s.sourceLabel)}</small></strong><div class="mr-new-korean" lang="ko">${esc(s.ko)}</div><div>${esc(s.vi)}</div></div><div class="mr-v5-actions"><audio controls preload="metadata" data-mrlee-pro-file="${i}" src="${esc(s.audio)}" aria-label="MP3 câu nghe ${i+1}" style="width:min(300px,100%);display:block"></audio><span data-mrlee-pro-error="${i}" role="status" style="font-size:12px;color:#a04e08"></span><button class="mr-new-btn" data-play="${i}" type="button">🗣️ Giọng trình duyệt dự phòng</button><button class="mr-new-btn" data-record="${i}" type="button">🎙️ Ghi âm</button><audio data-audio="${i}" controls hidden></audio></div></div>`).join('');
+  $('lessonSpeak').querySelectorAll('[data-mrlee-pro-file]').forEach(a=>{
+    a.addEventListener('error',()=>{const t=$('lessonSpeak').querySelector(`[data-mrlee-pro-error="${a.dataset.mrleeProFile}"]`);if(t)t.textContent='MP3 chưa tải được; dùng nút giọng trình duyệt hoặc kiểm tra danh mục.';});
+  });
   $('lessonSpeak').addEventListener('click',e=>{
     const b=e.target.closest('button');if(!b)return;
     if(b.hasAttribute('data-play'))speak(samples[Number(b.dataset.play)].ko);
@@ -221,18 +203,30 @@ function renderQuiz(d,questions){
     else{const inp=document.createElement('input');inp.className='mr-new-input';inp.lang='ko';inp.placeholder='Nhập từ tiếng Hàn';const b=document.createElement('button');b.type='button';b.className='mr-new-btn primary';b.textContent='Kiểm tra';b.onclick=()=>grade(inp.value);inp.onkeydown=e=>{if(e.key==='Enter')grade(inp.value);};answers.append(inp,b);}
   };draw();
 }
+function renderWorkbook(d,units){
+  const target=$('lessonWorkbook');
+  if(!target)return;
+  const profile=(()=>{try{return localStorage.getItem('MRLEE.PRO.PROFILE')||'hocvien-001'}catch{return 'hocvien-001'}})();
+  let progress={};try{progress=JSON.parse(localStorage.getItem(`MRLEE.PRO.WORKBOOK.${profile}.${d.cap}.${d.bai}`)||'{}')}catch{}
+  target.innerHTML=units.map((ex,i)=>{
+    const done=progress[ex.id];
+    const url=`mrlee-bai-tap-pro.html?cap=${d.cap}&bai=${d.bai}&tap=${i+1}`;
+    return `<a class="mr-new-btn" href="${url}" style="display:block;text-align:left;padding:12px;min-width:170px;max-width:100%;white-space:normal">${i+1}. ${esc(ex.title)}<br><small>${ex.questions.length} câu · ${done?`Điểm tốt nhất ${done.best}/6`:'Chưa làm'}</small></a>`;
+  }).join('');
+}
+
 function showLesson(){
   const d=findData(cap,bai),u=findRoadmap(cap,bai);
   if(!d||!u){$('lessonIntro').textContent='Bài học không tồn tại. Vui lòng chọn bài hợp lệ.';return;}
-  const samples=lessonSentences(d),questions=buildQuestions(d,0);
-  if(samples.length!==10||questions.length!==10){$('lessonIntro').textContent='Dữ liệu bài học chưa đủ 10 câu. Không hiển thị câu vượt bài để bù số lượng.';return;}
+  const samples=lessonSentences(d),units=PRO_LESSONS[`${d.cap}-${String(d.bai).padStart(2,'0')}`]?.exercises||[];
+  if(samples.length!==10||units.length!==15||units.some(x=>x.questions.length!==6)){$('lessonIntro').textContent='Thiếu dữ liệu 10 câu nghe hoặc 15 bộ × 6 câu.';return;}
   // Kiểm tra chủ động trước khi hiển thị nội dung cho học viên.
-  if(samples.some(x=>x.sourceOrdinal>d.ordinal)||questions.some(x=>x.sourceOrdinal>d.ordinal)){throw Error('Phát hiện nội dung vượt bài.');}
+  if(samples.some(x=>x.sourceOrdinal>d.ordinal)){throw Error('Phát hiện nội dung vượt bài.');}
   document.title=`${levelName} · Bài ${bai}: ${u.title} | Tiếng Hàn Mr Lee`;
   $('lessonTitle').textContent=`${levelName} · Bài ${bai}: ${u.title}`;
   $('lessonIntro').textContent=u.goal;
   $('lessonContent').classList.remove('mr-new-hidden');$('lessonCards').classList.add('mr-new-hidden');
-  $('lessonTip').textContent=LEVEL_TIPS[cap];renderGrammar(d);renderVocab(d);renderSpeaking(d,samples);renderQuiz(d,questions);
+  $('lessonTip').textContent=LEVEL_TIPS[cap];renderGrammar(d);renderVocab(d);renderSpeaking(d,samples);renderWorkbook(d,units);
   $('lessonContentNote').textContent=cap<=2?'Từ vựng và ngữ pháp dựa trên văn bản giáo trình Mr Lee cung cấp; các mục đang tiếp tục được hiệu đính.':'Nội dung Trung–Cao cấp: từ trọng tâm theo chủ đề và từ mở rộng theo cấp; biên soạn độc lập theo khung 6 cấp. Ví dụ, sắc thái từ và bài tập cần giáo viên thẩm định trước khi sử dụng chính thức.';
   $('lessonEarned').textContent='Điểm bài tập lưu trên trình duyệt; chưa cộng điểm toàn server. Nội dung bổ sung cần giáo viên rà soát trước khi dùng để đánh giá chính thức.';
   $('lessonReturn').href=`hoc-theo-bai.html?cap=${cap}`;
