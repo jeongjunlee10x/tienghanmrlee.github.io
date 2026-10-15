@@ -11,3 +11,7 @@ main{max-width:1460px;margin:auto;padding:0 22px}.intro{padding:27px 4px 23px;di
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 /* Author styles must not override the browser's hidden attribute. */
 [hidden]{display:none!important}
+
+/* V2: campus coordinate audit badges & links */
+.pin-status{display:block;color:#8d611b;font-weight:700;line-height:1.4;margin-top:4px}
+.slide a{display:inline-block;margin-right:8px;margin-top:5px}

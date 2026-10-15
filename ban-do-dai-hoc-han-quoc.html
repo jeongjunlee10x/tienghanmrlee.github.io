@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@5.6.2/dist/maplibre-gl.css">
-  <link rel="stylesheet" href="university-map/map.css?v=1">
+  <link rel="stylesheet" href="university-map/map.css?v=2">
 </head>
 <body>
   <a class="skip" href="#mapSearch">Đến ô tìm kiếm</a>
@@ -21,7 +21,7 @@
   <main>
     <section class="intro" aria-labelledby="map-title">
       <div><div class="kicker">DU HỌC HÀN QUỐC · 한국 유학</div><h1 id="map-title">Khám phá đại học Hàn Quốc <span>qua bản đồ</span></h1><p>Chọn khu vực → thành phố/quận → trường, hoặc tìm ngay tên đại học và từng cơ sở bằng tiếng Việt, Anh, Hàn.</p></div>
-      <div class="intro-stats"><span><strong id="statSchools">—</strong> trường trong dữ liệu</span><span><strong id="statCampuses">—</strong> cơ sở</span><span><strong>16</strong> khu vực cấp tỉnh (2026)</span></div>
+      <div class="intro-stats"><span><strong id="statSchools">—</strong> trường trong dữ liệu</span><span><strong id="statCampuses">—</strong> cơ sở</span><span><strong id="statPins">—</strong> cơ sở có ghim</span><span><strong>16</strong> khu vực cấp tỉnh (2026)</span></div>
     </section>
     <div class="notice" role="note"><strong>Thông tin dữ liệu:</strong> <span id="dataNotice">Đang tải dữ liệu...</span> <a href="https://www.data.go.kr/data/15107736/standard.do" target="_blank" rel="noopener noreferrer">Nguồn giáo dục quốc gia ↗</a></div>
     <section class="workspace" aria-label="Bản đồ và công cụ tìm trường">
@@ -40,7 +40,7 @@
       <div class="map-panel">
         <div id="map" role="application" aria-label="Bản đồ Hàn Quốc có thể thu phóng, kéo và chọn trường"><div id="mapFallback" class="map-fallback"><div class="map-fallback-flag">🇰🇷</div><strong>Đang khởi tạo bản đồ...</strong><span>Bạn vẫn có thể tìm và chọn trường bằng danh sách bên trái.</span></div></div>
         <div class="map-actions"><button id="homeView" type="button" title="Toàn Hàn Quốc">◎ Toàn quốc</button><button id="showAllMatches" type="button" title="Tất cả cơ sở đang hiển thị">⌗ Xem tất cả</button></div>
-        <div class="map-legend"><span><i></i> Vị trí tham khảo</span><small>Chạm/click để xem trường · Lăn chuột/chụm tay để thu phóng</small></div>
+        <div class="map-legend"><span><i></i> Chỉ các cơ sở có tọa độ mới xuất hiện dưới dạng ghim</span><small>Chạm/click để xem trường · Lăn chuột/chụm tay để thu phóng</small></div>
         <div class="slides-head"><span><strong id="slidesTitle">Các trường theo khu vực</strong><small id="slidesCount"></small></span><div><button type="button" id="slidePrev" aria-label="Thẻ trước">‹</button><button type="button" id="slideNext" aria-label="Thẻ tiếp">›</button></div></div>
         <div id="campusSlides" class="slides" tabindex="0" aria-label="Các thẻ trường cuộn ngang"></div>
       </div>
@@ -48,11 +48,11 @@
     <section class="info">
       <h2>Phân biệt trường và từng cơ sở đào tạo</h2>
       <p>Một trường có thể có nhiều campus ở các tỉnh khác nhau. Gõ tên trường để thấy tất cả; gõ tên campus hoặc thành phố để lọc; chọn “Xem tất cả cơ sở” để phóng bản đồ bao trọn các campus. Số trường và số campus được thống kê riêng, tránh đếm trùng.</p>
-      <p><strong>Lưu ý:</strong> Trong bản triển khai khởi tạo, tọa độ trên bản đồ là vị trí tham khảo, không được xem như vị trí cổng trường đã xác minh. Không công bố học phí, ngành học, học bổng hoặc tuyển sinh khi chưa có dữ liệu kiểm chứng.</p>
+      <p><strong>Lưu ý:</strong> Các cơ sở mới nhập từ nguồn quốc gia sẽ có trong danh sách ngay cả khi chưa xác minh tọa độ. Chỉ nơi đã có tọa độ hợp lệ mới xuất hiện dưới dạng ghim. Dữ liệu mẫu có thể chứa tọa độ tham khảo và được ghi rõ trạng thái. Không công bố học phí, ngành học, học bổng hoặc tuyển sinh khi chưa có dữ liệu kiểm chứng.</p>
     </section>
   </main>
   <footer>© TIẾNG HÀN MR LEE · <a href="index.html">Quay lại trang chủ</a> · <a href="https://www.data.go.kr/data/15107736/standard.do" target="_blank" rel="noopener noreferrer">Nguồn dữ liệu công Hàn Quốc</a></footer>
   <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@5.6.2/dist/maplibre-gl.js" defer></script>
-  <script src="university-map/map.js?v=1" defer></script>
+  <script src="university-map/map.js?v=2" defer></script>
 </body>
 </html>

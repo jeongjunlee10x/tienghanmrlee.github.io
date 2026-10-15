@@ -1,4 +1,4 @@
-/* MR LEE Korea University Explorer — standalone; does not touch Firebase/TOPIK. */
+/* MR LEE Korea University Explorer V2 — verified official registry + campus review. */
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
@@ -6,13 +6,16 @@
   const norm = text => String(text ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase().replace(/[^\p{L}\p{N}]+/gu,'').trim();
   const validUrl = url => /^https:\/\//i.test(String(url ?? '')) ? url : '#';
   const safeText = text => escapeHtml(text || '—');
+  const hasPin = c => Number.isFinite(c.lat) && Number.isFinite(c.lng) && c.lat>=32 && c.lat<=39 && c.lng>=124 && c.lng<=132;
+  const pinStatus = c => hasPin(c) ? (c.accuracy==='verified' ? 'Đã xác minh tọa độ' : 'Ghim tham khảo — chưa xác minh') : 'Chưa xác minh tọa độ — có địa chỉ';
+  const mapsQuery = c => 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(c.address || [c.school.ko,c.cityKo,regionName(c.region)].filter(Boolean).join(' '));
   const state = {regions:[], schools:[], campuses:[], region:null, city:null, query:'', type:'all', selected:null, map:null, mapReady:false, polygonReady:false, campusSourceReady:false, cityFeatures:[], selectedSchoolId:null};
   const regionById = id => state.regions.find(r => r.id === id);
   const regionName = id => regionById(id)?.vi || id;
   const campusName = c => c.ko ? `${c.ko} · ${c.en}` : c.en;
   const allSchoolCampuses = id => state.campuses.filter(c=>c.school.id === id);
   const schoolQueryText = s => norm([s.ko,s.vi,s.en,...(s.aliases||[])].join(' '));
-  function campQueryText(c) {return norm([c.ko,c.en,c.vi,c.city,c.cityKo,regionName(c.region),regionById(c.region)?.ko,...(regionById(c.region)?.aliases||[])].join(' '));}
+  function campQueryText(c) {return norm([c.ko,c.en,c.vi,c.city,c.cityKo,c.address,c.officialBranch,regionName(c.region),regionById(c.region)?.ko,...(regionById(c.region)?.aliases||[])].join(' '));}
   function matchesSchool(s,q) {return schoolQueryText(s).includes(q) || [s.ko,s.vi,s.en,...(s.aliases||[])].some(n=>norm(n).includes(q));}
   function matchesCampus(c,q) {return campQueryText(c).includes(q) || [c.ko,c.en,c.vi,c.city,c.cityKo].some(n=>norm(n).includes(q));}
   function regionSearch(q) {return state.regions.find(r=>[r.vi,r.en,r.ko,...r.aliases].some(x=>norm(x)===q));}
@@ -77,14 +80,14 @@
     $('slidesCount').textContent=`${uniqueSchools(campuses)} trường · ${campuses.length} cơ sở`;
     $('slidesTitle').textContent=state.selectedSchoolId ? 'Các cơ sở của trường đang chọn' : 'Khám phá các cơ sở';
     const results=$('resultsList'),slides=$('campusSlides');results.innerHTML='';slides.innerHTML='';
-    if(!campuses.length){results.innerHTML='<div class="empty">Chưa có cơ sở đã nhập dữ liệu phù hợp. Điều này không có nghĩa khu vực không có trường.</div>';slides.innerHTML='<div class="empty">Hãy đổi khu vực hoặc tên tìm kiếm.</div>';return;}
+    if(!campuses.length){results.innerHTML='<div class="empty">Không có cơ sở phù hợp trong dữ liệu đã nhập. Điều này không có nghĩa khu vực không có trường.</div>';slides.innerHTML='<div class="empty">Hãy đổi khu vực hoặc tên tìm kiếm.</div>';return;}
     for(const c of campuses){
       const nSchool=schoolCampuses(c.school).length;
       const res=document.createElement('button');res.type='button';res.className='result'+(state.selected===c.uid?' selected':'');res.setAttribute('data-campus',c.uid);
-      res.innerHTML=`<div><strong>${safeText(c.school.vi||c.school.en)}</strong><small>${safeText(c.school.ko)} · ${safeText(c.ko||c.en)}</small><small>${safeText(c.city)} · ${safeText(regionName(c.region))}</small></div><b>${nSchool>1?nSchool+' CS':'↗'}</b>`;
+      res.innerHTML=`<div><strong>${safeText(c.school.vi||c.school.en)}</strong><small>${safeText(c.school.ko)} · ${safeText(c.ko||c.en)}</small><small>${safeText(c.city)} · ${safeText(regionName(c.region))}</small><small>${safeText(pinStatus(c))}</small></div><b>${nSchool>1?nSchool+' CS':hasPin(c)?'📍':'⌕'}</b>`;
       res.onclick=()=>chooseCampus(c.uid);results.append(res);
       const slide=document.createElement('article');slide.className='slide'+(state.selected===c.uid?' selected':'');slide.setAttribute('data-campus',c.uid);slide.tabIndex=0;slide.role='button';
-      slide.innerHTML=`<span class="small-tag">${nSchool>1?nSchool+' cơ sở thuộc trường':'Cơ sở'} · ${safeText(regionName(c.region))}</span><h3>${safeText(c.school.vi||c.school.en)}</h3><p>${safeText(c.school.ko)}<br>${safeText(c.ko||c.en)} · ${safeText(c.city)}</p><a href="${escapeHtml(validUrl(c.school.website))}" target="_blank" rel="noopener noreferrer">Website trường ↗</a>`;
+      slide.innerHTML=`<span class="small-tag">${nSchool>1?nSchool+' cơ sở thuộc trường':'Cơ sở'} · ${safeText(regionName(c.region))}</span><h3>${safeText(c.school.vi||c.school.en)}</h3><p>${safeText(c.school.ko)}<br>${safeText(c.ko||c.en)} · ${safeText(c.city)}<br>${safeText(c.address || '')}</p><small class="pin-status">${safeText(pinStatus(c))}</small><a href="${escapeHtml(mapsQuery(c))}" target="_blank" rel="noopener noreferrer">Tìm địa chỉ trên Google Maps ↗</a>${c.school.website?`<a href="${escapeHtml(validUrl(c.school.website))}" target="_blank" rel="noopener noreferrer">Website trường ↗</a>`:''}`;
       slide.onclick=(e)=>{if(e.target.closest('a'))return;chooseCampus(c.uid)};slide.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();chooseCampus(c.uid);}};
       slides.append(slide);
     }
@@ -100,7 +103,7 @@
     const ul=$('searchMatches');ul.innerHTML='';
     const head=document.createElement('div');head.className='match';head.innerHTML=`<strong>${safeText(school.vi||school.en)} · ${campuses.length} cơ sở</strong>`;ul.append(head);
     const all=document.createElement('button');all.type='button';all.className='match';all.innerHTML='<span><strong>⌗ Xem tất cả cơ sở trên bản đồ</strong></span>';all.onclick=()=>fitCampuses(campuses);ul.append(all);
-    campuses.forEach(c=>{const b=document.createElement('button');b.className='match';b.type='button';b.innerHTML=`<span><strong>${safeText(c.ko||c.en)}</strong><small>${safeText(c.city)} · ${safeText(regionName(c.region))}</small></span><em>Đến cơ sở ↗</em>`;b.onclick=()=>chooseCampus(c.uid);ul.append(b);});ul.hidden=false;
+    campuses.forEach(c=>{const b=document.createElement('button');b.className='match';b.type='button';b.innerHTML=`<span><strong>${safeText(c.ko||c.en)}</strong><small>${safeText(c.city)} · ${safeText(regionName(c.region))} · ${safeText(pinStatus(c))}</small></span><em>Xem cơ sở ↗</em>`;b.onclick=()=>chooseCampus(c.uid);ul.append(b);});ul.hidden=false;
     $('mapSearch').setAttribute('aria-expanded','true');
   }
   function chooseCampus(uid){
@@ -109,7 +112,7 @@
     state.selected=uid;state.selectedSchoolId=c.school.id;render();
     const res=$('resultsList').querySelector(`[data-campus="${CSS.escape(uid)}"]`);res?.scrollIntoView({block:'nearest'});
     $('campusSlides').querySelector(`[data-campus="${CSS.escape(uid)}"]`)?.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
-    if(state.mapReady){state.map.flyTo({center:[c.lng,c.lat],zoom:13.5,duration:900});openPopup(c);}
+    if(state.mapReady && hasPin(c)){state.map.flyTo({center:[c.lng,c.lat],zoom:13.5,duration:900});openPopup(c);}
     $('searchMatches').hidden=true;$('mapSearch').setAttribute('aria-expanded','false');
   }
   function suggestionItems(q){
@@ -126,13 +129,13 @@
     for(const item of items){const b=document.createElement('button');b.type='button';b.className='match';b.setAttribute('role','option');b.innerHTML=`<span><strong>${safeText(item.title)}</strong><small>${safeText(item.description)}</small></span><em>${item.kind==='school'?'Trường':item.kind==='campus'?'Cơ sở':'Khu vực'}</em>`;b.onclick=()=>{if(item.kind==='school')chooseSchool(item.id);else if(item.kind==='region')chooseRegion(item.id);else chooseCampus(item.id);};el.append(b);}
     el.hidden=false;$('mapSearch').setAttribute('aria-expanded','true');
   }
-  function flyToCampuses(campuses){const m=state.map;if(!state.mapReady||!campuses.length)return;const lons=campuses.map(c=>c.lng),lats=campuses.map(c=>c.lat);if(campuses.length===1||Math.abs(Math.max(...lons)-Math.min(...lons))<0.0005&&Math.abs(Math.max(...lats)-Math.min(...lats))<0.0005){m.flyTo({center:[campuses[0].lng,campuses[0].lat],zoom:12,duration:850});return;}m.fitBounds([[Math.min(...lons),Math.min(...lats)],[Math.max(...lons),Math.max(...lats)]],{padding:85,maxZoom:12,duration:900});}
+  function flyToCampuses(campuses){const m=state.map;if(!state.mapReady||!campuses.length)return;const pts=campuses.filter(hasPin);if(!pts.length)return;const lons=pts.map(c=>c.lng),lats=pts.map(c=>c.lat);if(pts.length===1||Math.abs(Math.max(...lons)-Math.min(...lons))<0.0005&&Math.abs(Math.max(...lats)-Math.min(...lats))<0.0005){m.flyTo({center:[pts[0].lng,pts[0].lat],zoom:12,duration:850});return;}m.fitBounds([[Math.min(...lons),Math.min(...lats)],[Math.max(...lons),Math.max(...lats)]],{padding:85,maxZoom:12,duration:900});}
   function fitCampuses(campuses){flyToCampuses(campuses);}
   function fitCountry(){if(state.mapReady)state.map.fitBounds([[124.5,32.8],[131.2,38.9]],{padding:33,duration:800});}
-  function mapFeatures(){return {type:'FeatureCollection',features:getFilteredCampuses().map(c=>({type:'Feature',geometry:{type:'Point',coordinates:[c.lng,c.lat]},properties:{uid:c.uid,title:c.school.en,city:c.city}}))};}
+  function mapFeatures(){return {type:'FeatureCollection',features:getFilteredCampuses().filter(hasPin).map(c=>({type:'Feature',geometry:{type:'Point',coordinates:[c.lng,c.lat]},properties:{uid:c.uid,title:c.school.en,city:c.city}}))};}
   function updateMapMarkers(){if(!state.mapReady||!state.campusSourceReady)return;state.map.getSource('university-campus-points')?.setData(mapFeatures());}
   function openPopup(c){if(!state.mapReady)return;
-    const html=`<div class="pin-popup"><strong>${safeText(c.school.vi||c.school.en)}</strong><small>${safeText(c.school.ko)} · ${safeText(c.ko||c.en)}</small><small>${safeText(c.city)}, ${safeText(regionName(c.region))}</small><small>📍 Vị trí tham khảo, cần xác minh cổng trường</small><a href="${escapeHtml(validUrl(c.school.website))}" target="_blank" rel="noopener noreferrer">Website chính thức ↗</a></div>`;
+    const html=`<div class="pin-popup"><strong>${safeText(c.school.vi||c.school.en)}</strong><small>${safeText(c.school.ko)} · ${safeText(c.ko||c.en)}</small><small>${safeText(c.city)}, ${safeText(regionName(c.region))}</small><small>${safeText(c.address)}</small><small>${safeText(pinStatus(c))}</small><a href="${escapeHtml(validUrl(c.school.website))}" target="_blank" rel="noopener noreferrer">Website chính thức ↗</a></div>`;
     new maplibregl.Popup({offset:16,maxWidth:'280px'}).setLngLat([c.lng,c.lat]).setHTML(html).addTo(state.map);
   }
   function initMap(){
@@ -226,11 +229,21 @@
     try{const [reg,sch]=await Promise.all([fetch('university-map/regions.json').then(r=>{if(!r.ok)throw Error('Cannot load regions');return r.json()}),fetch('university-map/universities.json').then(r=>{if(!r.ok)throw Error('Cannot load universities');return r.json()})]);
       state.regions=reg.regions;state.schools=sch.schools;state.campuses=[];
       const ids=new Set();
-      for(const s of state.schools){for(const c of s.campuses){if(!Number.isFinite(c.lat)||!Number.isFinite(c.lng)||c.lat<32||c.lat>39||c.lng<124||c.lng>132)continue;
-        if(!regionById(c.region))continue;const uid=s.id+'::'+c.id;if(ids.has(uid))continue;ids.add(uid);state.campuses.push({...c,uid,school:s});}}
-      const total=state.campuses.length;
+      for(const s of state.schools){for(const c of s.campuses || []){
+        if(!regionById(c.region))continue;const uid=s.id+'::'+c.id;if(ids.has(uid))continue;ids.add(uid);
+        const lat=c.lat===null||c.lat===undefined||c.lat===''?null:Number(c.lat);
+        const lng=c.lng===null||c.lng===undefined||c.lng===''?null:Number(c.lng);
+        const campus={...c,lat,lng,uid,school:s};
+        if(!hasPin(campus)){campus.lat=null;campus.lng=null;campus.accuracy='unverified';}
+        state.campuses.push(campus);
+      }}
+      const total=state.campuses.length, pinCount=state.campuses.filter(hasPin).length;
       $('statSchools').textContent=String(uniqueSchools(state.campuses));$('statCampuses').textContent=String(total);
-      $('dataNotice').textContent=`Bản đầu: ${uniqueSchools(state.campuses)} trường / ${total} cơ sở mẫu; chưa phải danh mục toàn quốc. Ghim được đánh dấu vị trí tham khảo. Đã hỗ trợ tìm đa cơ sở, lọc vùng và nhập dữ liệu mở rộng.`;
+      if($('statPins'))$('statPins').textContent=String(pinCount);
+      const imported=sch.coverage==='national-official-registry-imported-not-independently-audited';
+      $('dataNotice').textContent= imported
+        ? `Đã nhập ${uniqueSchools(state.campuses)} trường / ${total} địa chỉ từ nguồn công. ${pinCount} vị trí có ghim; ${total-pinCount} cơ sở chỉ hiển thị trong danh sách chờ xác minh tọa độ. Danh mục gốc không nhất thiết liệt kê mọi campus nhỏ.`
+        : `Dữ liệu khởi tạo ${uniqueSchools(state.campuses)} trường / ${total} cơ sở mẫu, ${pinCount} ghim tham khảo. CHƯA nhập danh mục trường toàn quốc. Muốn cập nhật hãy chạy công cụ nhập nguồn chính thức trong gói V2.`;
       render();initMap();
       const params=new URLSearchParams(location.search);if(params.has('q')){$('mapSearch').value=params.get('q').slice(0,100);setSearch($('mapSearch').value);}
     }catch(err){$('dataNotice').textContent='Không đọc được danh sách trường. Hãy chạy trên web server (không mở file://) và kiểm tra tệp JSON.';fallback('Không tải được dữ liệu: '+err.message);console.error(err);}
