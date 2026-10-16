@@ -41,6 +41,10 @@ button:hover,.btn:hover{background:#edf5fc}.btn{display:inline-flex;align-items:
 </style>
   <link rel="stylesheet" href="mrlee-avatar.css">
 <link rel="stylesheet" href="mrlee-redesign.css?v=20261010-v1">
+<link rel="stylesheet" href="mrlee-ui-2026.css?v=20261015">
+<!-- MRLEE_HOVER_V13 -->
+<link rel="stylesheet" href="/assets/mrlee-hover-info.css?v=13">
+<script defer src="/assets/mrlee-hover-info.js?v=13"></script>
 </head>
 <body>
 <header class="topbar">
@@ -58,6 +62,12 @@ button:hover,.btn:hover{background:#edf5fc}.btn{display:inline-flex;align-items:
 <div><div class="eyebrow" data-i18n="eyebrow">TRUNG TÂM HỌC VIÊN</div><h1 data-i18n="heading">Hành trình học tập của bạn</h1><p class="muted" id="studentEmail" aria-live="polite" data-i18n="authWaiting">Đang xác minh tài khoản...</p></div>
 <div class="controls"><label for="levelFilter" data-i18n="level">Trình độ</label><select id="levelFilter"><option value="all" data-i18n="all">Tất cả</option><option value="sc1" data-i18n="sc1">Sơ cấp 1</option><option value="sc2" data-i18n="sc2">Sơ cấp 2</option><option value="tc1" data-i18n="tc1">Trung cấp 1</option><option value="general" data-i18n="general">Tổng hợp</option></select><button id="refreshBtn" type="button" data-i18n="refresh">Làm mới</button></div>
 </div>
+<nav class="ml-home-tools" aria-label="Tiện ích dành cho học viên" style="margin:0 0 23px">
+<a class="ml-home-tool" href="ai-tro-ly.html"><span class="ml-ico">🧠</span><span><strong>Tra cứu bài &amp; AI</strong><small>Tìm lời giải có nguồn</small></span></a>
+<a class="ml-home-tool" href="topik-nghe-24-cau.html"><span class="ml-ico">🎧</span><span><strong>Luyện nghe</strong><small>Nghe lại và đổi tốc độ</small></span></a>
+<a class="ml-home-tool" href="bang-xep-hang.html"><span class="ml-ico">🏆</span><span><strong>Thứ hạng của tôi</strong><small>Bảng toàn server theo ví điểm</small></span></a>
+<a class="ml-home-tool" href="lich-su-hoc-tap.html"><span class="ml-ico">📈</span><span><strong>Tiến trình</strong><small>Nhật ký và kết quả đã lưu</small></span></a>
+</nav>
 <div id="status" class="status" role="status" aria-live="polite" data-i18n="loading">Đang tải lịch sử trên Firebase...</div>
 <div class="stats">
 <div class="stat"><small data-i18n="attempts">Lượt kiểm tra</small><strong id="statAttempts">—</strong></div>
@@ -82,4 +92,5 @@ button:hover,.btn:hover{background:#edf5fc}.btn{display:inline-flex;align-items:
 <script type="module" src="mrlee-avatar.js"></script>
 <script type="module" src="mrlee-daily-boot.js?v=20261010"></script>
 <script defer src="mrlee-redesign.js?v=20261010-v1"></script>
+<script defer src="mrlee-listening-plus.js?v=20261015"></script>
 </body></html>

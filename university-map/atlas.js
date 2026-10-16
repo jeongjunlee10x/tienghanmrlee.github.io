@@ -60,18 +60,47 @@
  }
  function getRegionSchools(id){const found=new Set(vm.campuses.filter(c=>id==='all'||(id==='unknown'?!c._region:c._region===id)).map(c=>c.school._key));return [...found].map(k=>vm.schoolByKey.get(k)).filter(Boolean);}
  function elsvg(name,attrs){const el=document.createElementNS(svgNS,name);for(const [k,v] of Object.entries(attrs||{}))el.setAttribute(k,String(v));return el;}
+ // Preview province on hover/focus; NEVER open the school list until click or search.
+ const hoverBox=$('provinceHoverInfo');
+ function hideProvinceHint(){hoverBox.hidden=true;}
+ function showProvinceHint(region,event){
+  if(!(region in area))return;
+  const schools=getRegionSchools(region);
+  const campuses=vm.campuses.filter(c=>c._region===region).length;
+  const sample=schools.slice(0,4).map(s=>schoolLabel(s)).join(' · ');
+  hoverBox.replaceChildren();
+  const strong=document.createElement('strong');strong.textContent=area[region].ko+' · '+area[region].vi;
+  const count=document.createElement('span');count.textContent=schools.length+' trường · '+campuses+' campus';
+  const desc=document.createElement('small');desc.textContent=sample+(schools.length>4?' …':'');
+  const foot=document.createElement('em');foot.textContent='Click tỉnh để mở danh sách bên cạnh';
+  hoverBox.append(strong,count,desc,foot);hoverBox.hidden=false;
+  const container=$('koreaAtlas').getBoundingClientRect();
+  const space=$('provinceHoverInfo').parentElement.getBoundingClientRect();
+  const rx=event?.clientX??(container.left+container.width/2);
+  const ry=event?.clientY??(container.top+container.height/2);
+  const left=Math.min(space.width-hoverBox.offsetWidth-9,Math.max(9,rx-space.left+14));
+  const top=Math.min(space.height-hoverBox.offsetHeight-9,Math.max(9,ry-space.top-18));
+  hoverBox.style.left=left+'px';hoverBox.style.top=top+'px';
+ }
+ function bindRegionHover(el,id){
+  el.addEventListener('pointerenter',event=>showProvinceHint(id,event));
+  el.addEventListener('pointermove',event=>showProvinceHint(id,event));
+  el.addEventListener('pointerleave',hideProvinceHint);
+  el.addEventListener('focus',event=>showProvinceHint(id,event));
+  el.addEventListener('blur',hideProvinceHint);
+ }
  function updateAtlas(){
   const grp=$('regionShapes');const lab=$('regionLabels');grp.replaceChildren();lab.replaceChildren();
   // Use silhouettes traced from the user's reference as an illustration, NOT official cadastral boundaries.
   for(const k of major){
    if(!vm.shapes[k])continue;
    const p=elsvg('path',{d:vm.shapes[k],fill:area[k].c,class:'province'+(vm.region===k?' selected':vm.region!=='all'?' dimmed':''),'data-area':k,'aria-label':area[k].vi+' — '+getRegionSchools(k).length+' trường',tabindex:'0',role:'button'});
-   p.addEventListener('click',()=>selectRegion(k));p.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectRegion(k)}});grp.append(p);
+   bindRegionHover(p,k);p.addEventListener('click',()=>selectRegion(k));p.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectRegion(k)}});grp.append(p);
   }
   for(const id of cityIds){
    const info=area[id];const g=elsvg('g',{class:'region-dot','data-area':id,role:'button',tabindex:'0','aria-label':info.vi+' — '+getRegionSchools(id).length+' trường'});
    const shape=elsvg('circle',{cx:info.x,cy:info.y,r:info.r,fill:info.c});
-   g.append(shape);g.addEventListener('click',()=>selectRegion(id));g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectRegion(id)}});
+   g.append(shape);bindRegionHover(g,id);g.addEventListener('click',()=>selectRegion(id));g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectRegion(id)}});
    if(vm.region!=='all'&&vm.region!==id)g.style.opacity='.42';grp.append(g);
   }
   for(const [id,info] of Object.entries(area)){
@@ -97,19 +126,8 @@
   select.value=vm.region;
  }
  function selectRegion(id){
-  vm.region=(id in area||id==='unknown')?id:'all';vm.loaded=0;vm.selectedKey=null;$('detail').hidden=true;$('regionSelect').value=vm.region;
+  vm.region=(id in area||id==='unknown')?id:'all';vm.query='';$('searchInput').value='';vm.loaded=0;vm.selectedKey=null;$('detail').hidden=true;$('regionSelect').value=vm.region;hideProvinceHint();
   render();
- }
- function renderQuick(groups){
-  const quick=$('schoolQuickLinks');quick.replaceChildren();
-  const show=groups;
-  $('mapSelectionTitle').textContent=vm.region==='all'?'Trường trên bản đồ Hàn Quốc':vm.region==='unknown'?'Trường chưa xác định tỉnh':`Các trường tại ${area[vm.region]?.ko||vm.region}`;
-  $('mapSelectionCount').textContent=show.length+' trường — không ẩn tên';
-  show.forEach(item=>{
-   const b=document.createElement('button');b.type='button';b.textContent=schoolLabel(item.school);
-   b.onclick=()=>selectSchool(item.school._key,item.campuses[0]?._id);quick.append(b);
-  });
-  if(!show.length)quick.innerHTML='<small style="color:#8598aa">Không có trường phù hợp với bộ lọc hiện tại.</small>';
  }
  function renderList(groups){
   const list=$('schoolResults');list.replaceChildren();
@@ -120,50 +138,21 @@
   const fragment=document.createDocumentFragment();
   groups.forEach((entry,i)=>{
    const s=entry.school;
-   const row=document.createElement('button');row.className='school-row'+(vm.selectedKey===s._key?' active':'');row.type='button';row.setAttribute('aria-label',schoolLabel(s)+' — mở thông tin Google Maps và website');
+   const row=document.createElement('button');row.className='school-row'+(vm.selectedKey===s._key?' active':'');row.type='button';row.dataset.schoolKey=s._key;row.setAttribute('aria-label',schoolLabel(s)+' — mở thông tin Google Maps và website');
    row.innerHTML=`<span class="school-index">${String(i+1).padStart(2,'0')}</span><span class="school-text"><strong>${esc(schoolLabel(s))}</strong><small>${esc(s.ko||s.en||'')} · ${s._campuses.length} campus / cơ sở</small></span><span class="row-chevron">›</span>`;
-   row.onclick=()=>selectSchool(s._key,entry.campuses[0]?._id);fragment.append(row);
+   row.addEventListener('pointerenter',()=>selectSchool(s._key,entry.campuses[0]?._id,{preview:true}));row.addEventListener('focus',()=>selectSchool(s._key,entry.campuses[0]?._id,{preview:true}));row.onclick=()=>selectSchool(s._key,entry.campuses[0]?._id);fragment.append(row);
   });list.append(fragment);
  }
- // All university names, by province, including campuses not yet matched to a province.
- function renderDirectory(groups){
-  const dir=$('atlasSchoolDirectory');dir.replaceChildren();
-  const byRegion=new Map();
-  groups.forEach(({school,campuses})=>{
-   const unique=new Set();
-   campuses.forEach(c=>{
-    const region=c._region||'unknown';if(unique.has(region))return;unique.add(region);
-    if(!byRegion.has(region))byRegion.set(region,[]);
-    byRegion.get(region).push({school,campus:c});
-   });
-  });
-  $('directoryTotal').textContent=`(${groups.length} trường / ${[...byRegion.values()].reduce((a,x)=>a+x.length,0)} lượt theo khu vực)`;
-  const keys=Object.keys(area).filter(k=>byRegion.has(k));
-  if(byRegion.has('unknown'))keys.push('unknown');
-  const fragment=document.createDocumentFragment();
-  for(const key of keys){
-   const entries=byRegion.get(key);const section=document.createElement('section');section.className='directory-group';
-   const h=document.createElement('h3');h.textContent=(area[key]?.ko||'CHƯA XÁC ĐỊNH TỈNH')+' · '+entries.length+' trường';section.append(h);
-   const items=document.createElement('div');items.className='directory-school-grid';
-   entries.sort((a,b)=>schoolLabel(a.school).localeCompare(schoolLabel(b.school),'vi'));
-   entries.forEach(({school,campus})=>{
-    const button=document.createElement('button');button.type='button';button.className='directory-school';
-    button.textContent=schoolLabel(school);button.title=(school.ko||school.en||'')+' — chọn trường';
-    button.onclick=()=>selectSchool(school._key,campus._id);items.append(button);
-   });section.append(items);fragment.append(section);
-  }
-  if(!keys.length){const p=document.createElement('p');p.className='empty-state';p.textContent='Không có trường phù hợp';fragment.append(p);}
-  dir.append(fragment);
- }
  function render(){
-  const groups=groupSchools();renderList(groups);renderQuick(groups);renderDirectory(groups);updateAtlas();
+  const groups=groupSchools();$('provinceSidebar').hidden=(vm.region==='all'&&!vm.query&&!vm.selectedKey);renderList(groups);updateAtlas();
   $('countSchools').textContent=vm.schools.length.toLocaleString('vi-VN');
   $('countCampuses').textContent=vm.campuses.length.toLocaleString('vi-VN');
   $('countRegions').textContent=Object.keys(area).length;
  }
- function selectSchool(key,campusId){
+ function selectSchool(key,campusId,options={}){
   const school=vm.schoolByKey.get(key);if(!school)return;
   vm.selectedKey=key;
+  $('provinceSidebar').hidden=false;
   const branches=school._campuses; // Always show every campus, even those in other provinces.
   const campus=branches.find(c=>c._id===campusId)||(vm.region!=='all'?branches.find(c=>c._region===vm.region):null)||branches[0];if(!campus)return;
   vm.chosenCampus=campus._id;
@@ -216,9 +205,9 @@
    document.querySelectorAll('.province,.region-dot').forEach(p=>{if(p.dataset.area===campus._region)p.classList.add('selected');else p.classList.remove('selected')});
   }
   // Preserve shareable selection without forcing a page reload.
-  try{history.replaceState(null,'','#'+encodeURIComponent(key)+'/'+encodeURIComponent(campus._id));}catch(_){/* ignore */}
-  const row=[...document.querySelectorAll('.school-row')].find(r=>r.textContent.includes(title));if(row){document.querySelectorAll('.school-row').forEach(x=>x.classList.remove('active'));row.classList.add('active')}
-  if(window.innerWidth<1100)d.scrollIntoView({behavior:'smooth',block:'nearest'});
+  if(!options.preview){try{history.replaceState(null,'','#'+encodeURIComponent(key)+'/'+encodeURIComponent(campus._id));}catch(_){/* ignore */}}
+  document.querySelectorAll('.school-row').forEach(r=>r.classList.toggle('active',r.dataset.schoolKey===key));
+  if(!options.preview&&window.innerWidth<760)d.scrollIntoView({behavior:'smooth',block:'nearest'});
  }
  async function loadData(){
   try{
@@ -263,13 +252,11 @@
    if(vm.shapes&&Object.keys(vm.shapes).length)updateAtlas();
   }
  }
- $('searchInput').addEventListener('input',e=>{vm.query=normal(e.target.value);vm.loaded=0;if(vm.query){vm.region='all';$('regionSelect').value='all';}render();});
- $('clearSearch').onclick=()=>{vm.query='';vm.loaded=0;$('searchInput').value='';render()};
+ $('searchInput').addEventListener('input',e=>{vm.query=normal(e.target.value);vm.loaded=0;vm.selectedKey=null;$('detail').hidden=true;if(vm.query){vm.region='all';$('regionSelect').value='all';}render();const matches=groupSchools();if(vm.query.length>=3&&matches.length===1)selectSchool(matches[0].school._key,matches[0].campuses[0]?._id,{preview:true});});
+ $('clearSearch').onclick=()=>{vm.query='';vm.selectedKey=null;vm.loaded=0;$('detail').hidden=true;$('searchInput').value='';render()};
  $('regionSelect').onchange=e=>selectRegion(e.target.value);
- $('resetRegion').onclick=()=>{vm.region='all';vm.type='all';vm.query='';vm.loaded=0;$('searchInput').value='';$('detail').hidden=true;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.filter==='all'));renderOptions();render();};
- $('closeDetail').onclick=()=>{$('detail').hidden=true;vm.selectedKey=null;try{history.replaceState(null,'',location.pathname+location.search)}catch(_){}};
- $('expandDirectory').onclick=()=>{vm.directoryExpanded=!vm.directoryExpanded;const el=$('atlasSchoolDirectory');el.classList.toggle('expanded',vm.directoryExpanded);$('expandDirectory').setAttribute('aria-expanded',String(vm.directoryExpanded));$('expandDirectory').textContent=vm.directoryExpanded?'↕ Thu gọn (vẫn cuộn xem đủ)':'↕ Mở rộng toàn bộ';};
- $('showAllSchools').onclick=()=>{vm.region='all';vm.query='';vm.type='all';vm.loaded=0;$('searchInput').value='';document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.filter==='all'));$('detail').hidden=true;renderOptions();render();$('atlasSchoolDirectory').scrollTop=0;};
+ $('resetRegion').onclick=()=>{vm.region='all';vm.type='all';vm.query='';vm.loaded=0;vm.selectedKey=null;$('searchInput').value='';$('detail').hidden=true;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.filter==='all'));renderOptions();render();};
+ $('closeDetail').onclick=()=>{$('detail').hidden=true;vm.selectedKey=null;if(vm.region==='all'&&!vm.query)$('provinceSidebar').hidden=true;try{history.replaceState(null,'',location.pathname+location.search)}catch(_){}};
  document.querySelectorAll('.filter-btn').forEach(b=>b.onclick=()=>{vm.type=b.dataset.filter;vm.loaded=0;document.querySelectorAll('.filter-btn').forEach(x=>x.classList.toggle('active',x===b));render()});
  loadData();
 })();

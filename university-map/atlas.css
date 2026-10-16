@@ -31,3 +31,30 @@
 .profile-footnote{font-size:11px!important;color:#61758c!important;margin:6px 0 10px!important}
 .evidence-link{font-size:11px}
 @media (max-width:640px){.profile-grid{grid-template-columns:1fr}}
+
+/* MR LEE V13 — map-first, compact layout; list appears only after selecting a province or searching. */
+[hidden]{display:none!important}
+.top{height:56px;padding-inline:clamp(12px,2.2vw,34px)}
+.brandmark{width:34px;height:34px;border-radius:9px}.brand{font-size:14px}
+.hero{max-width:1700px;padding:14px clamp(12px,2.2vw,34px) 10px;gap:12px}
+.hero h1{font-size:clamp(20px,2vw,29px);margin:5px 0 3px}.hero p{font-size:10px;line-height:1.6;max-width:830px}
+.totals>div{padding:9px 10px;min-width:86px;border-radius:9px}.totals b{font-size:20px}
+.workspace{max-width:1750px;padding-inline:clamp(9px,1.6vw,26px);grid-template-columns:minmax(0,1fr) minmax(320px,390px);gap:11px}
+.workspace:has(#provinceSidebar[hidden]){grid-template-columns:minmax(0,1fr)}
+.map-column,.catalogue{border-radius:12px}
+.map-top{padding:11px 16px 7px}.map-space{height:min(63vh,585px);min-height:380px}
+.map-search{margin:6px 16px 7px}.map-search .search-panel{padding:0}.map-search .input-row{height:40px;max-width:650px;margin:auto}.map-search .input-row input{font-size:12px}
+.map-search .search-help{display:none}.source-note{padding:6px 16px 10px;font-size:9px}
+.catalogue{min-height:0;max-height:82vh;overflow:auto}.filters{padding:12px 13px 10px}.filters .filter-actions{margin-top:8px}
+.detail{max-height:340px;padding:11px 12px;flex-shrink:0}.detail h3{font-size:15px;margin:6px 0}
+.profile-grid{gap:6px;margin:7px 0}.profile-field{padding:7px 8px;border-radius:7px;font-size:11px;gap:3px}.profile-field strong{font-size:11px}.profile-label{font-size:9px}
+.campus-card{padding:9px}.campus-tab-list{margin:6px 0}.campus-tab{padding:7px}
+.school-results{max-height:42vh;min-height:0;padding:0 9px 8px 11px}.school-row{padding:8px 5px 8px 0}.school-text strong{font-size:11px}
+.list-bar{padding:12px 12px 8px}.full-list-hint{display:none}.notice{margin-top:6px;font-size:10px}
+.province-hover-info{position:absolute;z-index:10;pointer-events:none;min-width:175px;max-width:265px;width:max-content;background:rgba(9,38,65,.96);color:#fff;border:1px solid #65c0e04a;border-radius:11px;padding:10px 12px;box-shadow:0 9px 28px #001b3055;line-height:1.5}
+.province-hover-info strong,.province-hover-info span,.province-hover-info small,.province-hover-info em{display:block}
+.province-hover-info strong{font-size:12px}.province-hover-info span{color:#94e1f9;font-weight:800;font-size:11px;margin:3px 0}.province-hover-info small{font-size:10px;color:#e2f3fe}.province-hover-info em{font-size:9px;margin-top:6px;color:#cde6a5;font-style:normal}
+.region-dot,.province{outline-offset:2px}.province:focus-visible{stroke:#0a5789;stroke-width:5px}
+@media(max-width:1100px){.workspace,.workspace:has(#provinceSidebar[hidden]){grid-template-columns:1fr}.catalogue{max-height:none}.map-space{height:clamp(410px,55vw,570px)}}
+@media(max-width:680px){.top{height:54px;padding:0 9px}.top nav{gap:6px}.top nav a{font-size:9px}.hero{padding:12px 11px}.hero h1{font-size:21px}.hero p{font-size:9px}.totals{margin-top:8px}.totals>div{padding:7px}.totals b{font-size:17px}.workspace{padding:0 7px}.map-top{padding:8px 9px 3px}.map-search{margin:5px 9px}.map-space{height:clamp(375px,75vh,510px);min-height:375px}.school-results{max-height:52vh}.detail{max-height:410px}.map-tools a{font-size:9px}.province-hover-info{max-width:200px}.profile-grid{grid-template-columns:1fr}}
+@media(hover:none){.province-hover-info{display:none!important}}

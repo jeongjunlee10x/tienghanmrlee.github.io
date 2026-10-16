@@ -1,0 +1,5 @@
+/* MR LEE V13 — nonintrusive hover/focus info across regular site pages. */
+#mrleeHoverPreview{position:fixed;z-index:2147480000;max-width:min(300px,calc(100vw - 20px));min-width:170px;width:max-content;background:rgba(13,38,66,.97);color:#fff;padding:10px 12px;border-radius:11px;border:1px solid #ffffff30;box-shadow:0 12px 32px #00162d50;pointer-events:none;overflow-wrap:anywhere;font:500 12px/1.5 system-ui,'Be Vietnam Pro',sans-serif}
+#mrleeHoverPreview[hidden]{display:none!important}#mrleeHoverPreview strong,#mrleeHoverPreview small,#mrleeHoverPreview span{display:block}#mrleeHoverPreview strong{font-size:12px;font-weight:800;color:#fff}#mrleeHoverPreview small{font-size:11px;line-height:1.6;color:#deebf9;margin-top:5px}#mrleeHoverPreview small[hidden]{display:none}#mrleeHoverPreview span{font-size:10px;color:#a3ddf4;margin-top:5px}
+@media (hover:none), (pointer:coarse){#mrleeHoverPreview{display:none!important}}
+@media (prefers-reduced-motion:reduce){#mrleeHoverPreview{transition:none!important}}
