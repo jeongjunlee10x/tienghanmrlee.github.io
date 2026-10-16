@@ -1,58 +1,38 @@
 <!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0d2f52">
-  <meta name="description" content="Bản đồ tương tác các trường đại học, cao đẳng Hàn Quốc và cơ sở đào tạo. Tìm theo tên trường tiếng Việt, Hàn, Anh hoặc địa điểm.">
-  <title>Bản đồ đại học Hàn Quốc | Tiếng Hàn Mr Lee</title>
-  <link rel="icon" href="images/logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@5.6.2/dist/maplibre-gl.css">
-  <link rel="stylesheet" href="university-map/map.css?v=2">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b2644"><meta name="description" content="Bản đồ vị trí đại học Hàn Quốc theo tỉnh màu, bấm trường để mở Google Maps và website chính thức — TIẾNG HÀN MR LEE.">
+<title>Toàn quốc Đại học Hàn Quốc · MR LEE</title>
+<link rel="icon" href="images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="university-map/atlas.css?v=12-20261016">
 </head>
 <body>
-  <a class="skip" href="#mapSearch">Đến ô tìm kiếm</a>
-  <header class="topbar">
-    <a class="brand" href="index.html"><img src="images/logo.png" alt="MR LEE" width="49" height="49"><span>TIẾNG HÀN MR LEE<small>KOREA UNIVERSITY EXPLORER</small></span></a>
-    <nav aria-label="Điều hướng"><a href="index.html">⌂ Trang chủ</a><a href="lo-trinh-topik.html">Lộ trình TOPIK</a><a href="dang-nhap.html">Học viên</a></nav>
-  </header>
-  <main>
-    <section class="intro" aria-labelledby="map-title">
-      <div><div class="kicker">DU HỌC HÀN QUỐC · 한국 유학</div><h1 id="map-title">Khám phá đại học Hàn Quốc <span>qua bản đồ</span></h1><p>Chọn khu vực → thành phố/quận → trường, hoặc tìm ngay tên đại học và từng cơ sở bằng tiếng Việt, Anh, Hàn.</p></div>
-      <div class="intro-stats"><span><strong id="statSchools">—</strong> trường trong dữ liệu</span><span><strong id="statCampuses">—</strong> cơ sở</span><span><strong id="statPins">—</strong> cơ sở có ghim</span><span><strong>16</strong> khu vực cấp tỉnh (2026)</span></div>
-    </section>
-    <div class="notice" role="note"><strong>Thông tin dữ liệu:</strong> <span id="dataNotice">Đang tải dữ liệu...</span> <a href="https://www.data.go.kr/data/15107736/standard.do" target="_blank" rel="noopener noreferrer">Nguồn giáo dục quốc gia ↗</a></div>
-    <section class="workspace" aria-label="Bản đồ và công cụ tìm trường">
-      <aside class="sidebar">
-        <div class="panel-head"><strong>🔎 Tìm trường &amp; cơ sở</strong><small>Không phân biệt dấu, hỗ trợ 한국어 / English</small></div>
-        <label class="sr" for="mapSearch">Tên trường, cơ sở, tỉnh hoặc thành phố</label>
-        <div class="search-wrap"><input id="mapSearch" type="search" autocomplete="off" placeholder="Ví dụ: 성균관대, SKKU, Suwon..." aria-controls="searchMatches" aria-expanded="false"><button id="clearSearch" type="button" title="Xóa tìm kiếm" aria-label="Xóa tìm kiếm">×</button></div>
-        <div id="searchMatches" class="search-matches" role="listbox" hidden></div>
-        <div class="filters" aria-label="Bộ lọc"><button class="chip active" data-type="all" aria-pressed="true">Tất cả</button><button class="chip" data-type="university" aria-pressed="false">Đại học</button><button class="chip" data-type="college" aria-pressed="false">Cao đẳng</button></div>
-        <div class="crumb" id="crumb" aria-label="Đường dẫn khu vực"><button data-back="all">Hàn Quốc</button></div>
-        <div class="side-title"><strong id="sideTitle">Chọn tỉnh / thành phố cấp tỉnh</strong><button id="backBtn" type="button" hidden>↶ Quay lại</button></div>
-        <div id="regionList" class="regions"></div>
-        <div id="cityList" class="cities" hidden></div>
-        <div class="side-results"><div class="side-title"><strong id="resultsTitle">Các trường</strong><span id="resultCounter" class="count">0</span></div><div id="resultsList" class="results-list" aria-live="polite"></div></div>
-      </aside>
-      <div class="map-panel">
-        <div id="map" role="application" aria-label="Bản đồ Hàn Quốc có thể thu phóng, kéo và chọn trường"><div id="mapFallback" class="map-fallback"><div class="map-fallback-flag">🇰🇷</div><strong>Đang khởi tạo bản đồ...</strong><span>Bạn vẫn có thể tìm và chọn trường bằng danh sách bên trái.</span></div></div>
-        <div class="map-actions"><button id="homeView" type="button" title="Toàn Hàn Quốc">◎ Toàn quốc</button><button id="showAllMatches" type="button" title="Tất cả cơ sở đang hiển thị">⌗ Xem tất cả</button></div>
-        <div class="map-legend"><span><i></i> Chỉ các cơ sở có tọa độ mới xuất hiện dưới dạng ghim</span><small>Chạm/click để xem trường · Lăn chuột/chụm tay để thu phóng</small></div>
-        <div class="slides-head"><span><strong id="slidesTitle">Các trường theo khu vực</strong><small id="slidesCount"></small></span><div><button type="button" id="slidePrev" aria-label="Thẻ trước">‹</button><button type="button" id="slideNext" aria-label="Thẻ tiếp">›</button></div></div>
-        <div id="campusSlides" class="slides" tabindex="0" aria-label="Các thẻ trường cuộn ngang"></div>
-      </div>
-    </section>
-    <section class="info">
-      <h2>Phân biệt trường và từng cơ sở đào tạo</h2>
-      <p>Một trường có thể có nhiều campus ở các tỉnh khác nhau. Gõ tên trường để thấy tất cả; gõ tên campus hoặc thành phố để lọc; chọn “Xem tất cả cơ sở” để phóng bản đồ bao trọn các campus. Số trường và số campus được thống kê riêng, tránh đếm trùng.</p>
-      <p><strong>Lưu ý:</strong> Các cơ sở mới nhập từ nguồn quốc gia sẽ có trong danh sách ngay cả khi chưa xác minh tọa độ. Chỉ nơi đã có tọa độ hợp lệ mới xuất hiện dưới dạng ghim. Dữ liệu mẫu có thể chứa tọa độ tham khảo và được ghi rõ trạng thái. Không công bố học phí, ngành học, học bổng hoặc tuyển sinh khi chưa có dữ liệu kiểm chứng.</p>
-    </section>
-  </main>
-  <footer>© TIẾNG HÀN MR LEE · <a href="index.html">Quay lại trang chủ</a> · <a href="https://www.data.go.kr/data/15107736/standard.do" target="_blank" rel="noopener noreferrer">Nguồn dữ liệu công Hàn Quốc</a></footer>
-  <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@5.6.2/dist/maplibre-gl.js" defer></script>
-  <script src="university-map/map.js?v=2" defer></script>
-</body>
-</html>
+<a class="sr-only skip-link" href="#searchInput">Tới ô tìm trường</a>
+<header class="top"><a class="brand" href="index.html"><span class="brandmark">MR</span><span>TIẾNG HÀN MR LEE<small>전국 대학 위치도 · Korea University Atlas</small></span></a><nav><a href="index.html">Trang chủ</a><a href="ban-do-dai-hoc-han-quoc-chi-tiet.html" class="nav-alt">Bản đồ chi tiết ↗</a></nav></header>
+<main>
+<section class="hero"><div><span class="eyebrow">TÌM HIỂU DU HỌC HÀN QUỐC</span><h1>Bản đồ trường đại học <em>toàn Hàn Quốc</em></h1><p>Chọn một tỉnh trên bản đồ hoặc mở danh sách đầy đủ theo tỉnh để xem mọi trường hiện có. Tìm nhanh theo tên trường. Bấm trường để xem mọi campus và mở <b>Google Maps</b>, <b>website chính thức</b> — không cần API key.</p></div><div class="totals"><div><b id="countSchools">—</b><span>Trường đang có</span></div><div><b id="countCampuses">—</b><span>Cơ sở / campus</span></div><div><b id="countRegions">17</b><span>Khu vực trên sơ đồ</span></div></div></section>
+<section class="workspace" aria-label="Bản đồ trường đại học tương tác">
+<div class="map-column">
+ <div class="map-top"><span class="bubble"><i></i> Sơ đồ tỉnh/thành tương tác</span><div class="map-tools"><button id="resetRegion" type="button">↺ Toàn quốc</button><a href="ban-do-dai-hoc-han-quoc-chi-tiet.html">Xem bản đồ kéo/zoom ↗</a></div></div>
+ <div class="map-space"><svg id="koreaAtlas" role="group" aria-label="Sơ đồ các tỉnh thành Hàn Quốc có thể nhấn chọn" viewBox="80 68 520 748" preserveAspectRatio="xMidYMid meet"><defs><filter id="areaShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#0d2841" flood-opacity=".14"/></filter></defs><g id="regionShapes"></g><g id="regionLabels"></g></svg><div class="map-stamp">색상별 지역 클릭<br><b>CLICK TO EXPLORE</b></div></div>
+ <div class="selected-region-strip"><div class="section-bar"><strong id="mapSelectionTitle">Chọn tỉnh để xem danh sách trường</strong><span id="mapSelectionCount">Bản đồ Hàn Quốc</span></div><div id="schoolQuickLinks" class="quick-links" aria-label="Các trường thuộc tỉnh đang chọn"></div>
+ <div class="directory-toolbar"><strong>Danh mục đầy đủ theo tỉnh <span id="directoryTotal">—</span></strong><div class="directory-actions"><button type="button" id="expandDirectory" aria-expanded="false">↕ Mở rộng toàn bộ</button><button type="button" id="showAllSchools">Hiện tất cả trường</button></div></div>
+ <p class="directory-hint">Hiển thị tất cả tên trường đã có trong dữ liệu, kể cả nhóm chưa xác định tỉnh. Cuộn trong danh sách hoặc chọn Mở rộng toàn bộ.</p>
+ <div id="atlasSchoolDirectory" class="atlas-directory" role="region" aria-label="Danh sách tất cả trường theo tỉnh" tabindex="0"></div></div>
+ <p class="source-note">Mọi tên trong danh mục đang lưu trên website đều có thể tìm trong bảng bên dưới; sơ đồ tỉnh chỉ hiển thị số lượng để tránh chữ quá nhỏ. Bố cục minh họa theo ảnh mẫu người dùng; ranh giới được đơn giản hóa để dễ chọn, không dùng xác định pháp lý. Tọa độ campus lấy theo dữ liệu MR LEE đang có, không tự gán khi chưa kiểm chứng.</p>
+</div>
+<aside class="catalogue" aria-label="Danh sách trường và campus">
+ <div class="search-panel"><h2>Tìm trường & campus</h2><label class="sr-only" for="searchInput">Tìm trường</label><div class="input-row"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"></circle><path d="m15 15 6 6"></path></svg><input id="searchInput" type="search" placeholder="VD: YTECH, GUMI, CHUNGANG, 대학교..." autocomplete="off"><button id="clearSearch" type="button" aria-label="Xóa tìm kiếm">×</button></div><div class="search-help">Tìm bằng tên Việt · Anh · Hàn, tên viết tắt, tên cơ sở</div></div>
+ <div class="filters"><div class="filter-line"><label for="regionSelect">Tỉnh / thành</label><select id="regionSelect"><option value="all">Tất cả Hàn Quốc</option></select></div><div class="filter-actions"><button type="button" class="filter-btn active" data-filter="all">Tất cả</button><button type="button" class="filter-btn" data-filter="university">Đại học</button><button type="button" class="filter-btn" data-filter="college">Cao đẳng</button></div></div>
+ <div class="list-bar"><strong id="resultTitle">Danh sách trường</strong><span id="resultCount">Đang tải…</span></div><p class="full-list-hint" id="fullListHint">Danh sách không giới hạn 50 trường. Cuộn để xem hết, hoặc dùng ô tìm kiếm.</p><div id="schoolResults" class="school-results" aria-live="polite"></div>
+ <div class="detail" id="detail" hidden aria-live="polite"><div class="detail-head"><span>HỒ SƠ TRƯỜNG</span><button id="closeDetail" type="button" aria-label="Đóng hồ sơ">×</button></div><div id="detailBody"></div></div>
+</aside>
+</section>
+<div class="notice" id="notice" role="status" aria-live="polite">Đang đọc danh mục trường đại học MR LEE...</div>
+<section class="bottom"><h2>Cách sử dụng bản đồ</h2><div class="bottom-steps"><div><b>01</b><strong>Chọn tỉnh hoặc tìm trường</strong><p>Bấm vào vùng màu trên bản đồ hoặc nhập tên trường.</p></div><div><b>02</b><strong>Chọn đúng campus</strong><p>Mỗi trường có thể có nhiều cơ sở ở những thành phố khác nhau.</p></div><div><b>03</b><strong>Google Maps · Website · Liên hệ</strong><p>Xem tên Hàn/Anh, địa chỉ, số điện thoại, fax, mã số thuế có xác minh và liên kết Google Maps / website trường.</p></div></div></section>
+</main><footer>© TIẾNG HÀN MR LEE · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> · <a href="https://github.com/southkorea/southkorea-maps" target="_blank" rel="noopener noreferrer">Tham khảo dữ liệu địa giới</a></footer>
+<script src="university-map/atlas.js?v=12-20261016" defer></script>
+</body></html>
