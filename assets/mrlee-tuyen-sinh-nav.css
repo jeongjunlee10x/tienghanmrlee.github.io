@@ -1,0 +1,6 @@
+/* V14: scoped navigation addition; no changes to existing site selectors. */
+#mrlee-admissions-nav-link.mrlee-admissions-added-link{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 13px;margin:3px;color:#fff!important;background:#136778;border-radius:8px;font-size:12px;font-weight:800;line-height:1.4;text-decoration:none;white-space:nowrap;box-shadow:0 5px 17px rgba(0,0,0,.10)}
+#mrlee-admissions-nav-link.mrlee-admissions-added-link:hover{background:#e76e57!important;color:#fff!important}
+#mrlee-admissions-nav-link.mrlee-admissions-floating-link{position:fixed;bottom:18px;left:18px;z-index:9990;color:#fff;background:#136778;border-radius:30px;padding:11px 16px;box-shadow:0 8px 22px rgba(15,54,69,.26);font:800 12px/1.5 'Be Vietnam Pro',Arial,sans-serif;text-decoration:none}
+#mrlee-admissions-nav-link.mrlee-admissions-floating-link:hover{background:#e76e57}
+@media(max-width:640px){#mrlee-admissions-nav-link.mrlee-admissions-floating-link{bottom:13px;left:12px;font-size:11px;padding:10px 13px}}
