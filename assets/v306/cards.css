@@ -1,0 +1,43 @@
+/* MR LEE V30.6 — Sharp, topic-specific images and compact cards. NO logo changes. */
+html[data-mrlee-v306="images"] #mainContent .feature-cards{
+  height:auto!important;min-height:0!important;
+  display:grid!important;grid-template-columns:repeat(8,minmax(0,1fr));gap:9px!important;
+}
+html[data-mrlee-v306="images"] #mainContent .feature-card{
+  min-height:0!important;height:auto!important;display:flex!important;
+  flex-direction:column!important;border-radius:15px!important;overflow:hidden;
+  background:#fff;box-shadow:0 6px 18px rgba(23,55,103,.12)!important;
+}
+html[data-mrlee-v306="images"] #mainContent .feature-card img{
+  width:100%!important;height:clamp(100px,8.3vw,160px)!important;flex:0 0 auto;
+  display:block;object-fit:cover!important;object-position:center 45%;
+  image-rendering:auto;filter:none!important;opacity:1!important;
+}
+html[data-mrlee-v306="images"] #mainContent .feature-info{
+  flex:1;min-height:50px!important;padding:9px 10px 10px!important;
+  display:flex!important;flex-direction:column!important;gap:4px!important;
+}
+html[data-mrlee-v306="images"] #mainContent .feature-info b{font-size:clamp(11px,.76vw,13px)!important;line-height:1.35!important;color:#0e3167!important}
+html[data-mrlee-v306="images"] #mainContent .feature-info small{font-size:clamp(10px,.65vw,12px)!important;line-height:1.4!important;display:block!important;color:#6b7d97!important}
+html[data-mrlee-v306="images"] #mainContent .feature-card:hover img{transform:scale(1.035)!important}
+html[data-mrlee-v306="images"] #mainContent .step-card img{filter:none!important;opacity:1!important;object-fit:cover!important;image-rendering:auto}
+@media(max-width:1100px){html[data-mrlee-v306="images"] #mainContent .feature-cards{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:600px){html[data-mrlee-v306="images"] #mainContent .feature-cards{grid-template-columns:repeat(2,minmax(0,1fr))}html[data-mrlee-v306="images"] #mainContent .feature-card img{height:118px!important}}
+/* V23 dynamically generated gallery cards: restore sharp photos and only darken the text band. */
+.v23-editorial a{overflow:hidden;isolation:isolate}
+.v23-editorial img{filter:none!important;image-rendering:auto;opacity:1!important;object-fit:cover!important}
+.v23-editorial a:hover img{transform:scale(1.035)}
+/* Six levels use corresponding photographs in the same visual family. */
+html[data-mrlee-v24="learning-hub"] .section-hero::before{background-image:linear-gradient(90deg,rgba(7,29,69,.25),rgba(7,29,69,.03)),url('images/learning-hangeul.webp')!important;filter:none!important;opacity:.98!important}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(-n+6)::before{
+  background-image:linear-gradient(0deg,rgba(6,27,62,.90),rgba(6,27,62,.12)),url('images/learning-cap-1.webp')!important;
+  background-position:center!important;background-size:cover!important;filter:none!important;opacity:1!important;
+}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(2)::before{background-image:linear-gradient(0deg,rgba(6,27,62,.90),rgba(6,27,62,.12)),url('images/learning-cap-2.webp')!important}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(3)::before{background-image:linear-gradient(0deg,rgba(6,27,62,.90),rgba(6,27,62,.12)),url('images/learning-cap-3.webp')!important}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(4)::before{background-image:linear-gradient(0deg,rgba(6,27,62,.90),rgba(6,27,62,.12)),url('images/learning-cap-4.webp')!important}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(5)::before{background-image:linear-gradient(0deg,rgba(6,27,62,.90),rgba(6,27,62,.12)),url('images/learning-cap-5.webp')!important}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(6)::before{background-image:linear-gradient(0deg,rgba(6,27,62,.90),rgba(6,27,62,.12)),url('images/learning-cap-6.webp')!important}
+html[data-mrlee-v24="books"] .books-hero{background:linear-gradient(95deg,rgba(7,27,61,.85),rgba(8,38,80,.18)),url('images/learning-books.webp') 50% 45%/cover no-repeat!important}
+html[data-mrlee-v24="topik-pro"] .pro-header::after,html[data-mrlee-v24="topik-hub"] .section-hero::before{background-image:linear-gradient(90deg,rgba(7,29,69,.22),rgba(7,29,69,.08)),url('images/learning-topik.webp')!important;filter:none!important}
+@media(prefers-reduced-motion:reduce){.v23-editorial a:hover img,html[data-mrlee-v306="images"] #mainContent .feature-card:hover img{transform:none!important}}

@@ -1,0 +1,31 @@
+{
+  "version": "V30.6",
+  "images": {
+    "feature-1-tuyen-sinh": "mùa_xuân_rực_rỡ_nơi_khuôn_viên_đại_học.png",
+    "feature-2-ban-do": "bản_đồ_du_học_hàn_quốc_mùa_hoa_anh_đào.png",
+    "feature-3-tim-truong": "khám_phá_khuôn_viên_đại_học_mùa_xuân.png",
+    "feature-4-ho-so-visa": "hồ_sơ_du_học_hàn_quốc_mùa_hoa_anh_đào.png",
+    "feature-5-hoc-tieng-han": "học_tiếng_hàn_giữa_mùa_hoa_anh_đào.png",
+    "feature-6-thi-topik": "học_topik_giữa_mùa_hoa_anh_đào.png",
+    "feature-7-ky-tuc-xa": "phòng_ký_túc_xá_mùa_hoa_anh_đào.png",
+    "feature-8-doi-song": "sắc_xuân_seoul_dưới_hoa_anh_đào.png",
+    "step-1-tu-van": "tư_vấn_du_học_hàn_quốc_bên_cửa_sổ.png",
+    "step-2-ho-so": "góc_học_tập_hồ_sơ_du_học_mùa_xuân.png",
+    "step-3-nop-visa": "trao_hộ_chiếu_mùa_hoa_anh_đào.png",
+    "step-4-xuat-canh": "hành_trình_từ_sân_bay_đến_giảng_đường.png",
+    "step-5-ho-tro": "hướng_dẫn_hòa_nhập_giữa_sắc_xuân_кампus.png",
+    "learning-hangeul": "học_tiếng_hàn_giữa_mùa_hoa_anh_đào.png",
+    "learning-roadmap": "hành_trình_học_tiếng_hàn_mùa_xuân.png",
+    "learning-listening": "học_tập_mùa_xuân_cùng_âm_nhạc.png",
+    "learning-topik": "học_topik_giữa_mùa_hoa_anh_đào.png",
+    "learning-books": "học_tập_dưới_tán_hoa_anh_đào.png",
+    "learning-cap-1": "học_tiếng_hàn_dưới_tán_hoa_anh_đào.png",
+    "learning-cap-2": "học_ngữ_pháp_hàn_dưới_tán_anh_đào.png",
+    "learning-cap-3": "nữ_sinh_mùa_xuân_bên_bàn_học.png",
+    "learning-cap-4": "học_tập_mùa_xuân_cùng_âm_nhạc.png",
+    "learning-cap-5": "học_topik_dưới_sắc_hoa_anh_đào.png",
+    "learning-cap-6": "học_topik_giữa_mùa_hoa_anh_đào.png",
+    "culture": "sắc_xuân_seoul_dưới_hoa_anh_đào.png"
+  },
+  "note": "Only decorative photographs. Original logo and glass-wearing hero remain unchanged."
+}
