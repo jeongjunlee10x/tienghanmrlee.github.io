@@ -1,0 +1,175 @@
+{
+  "checked": "2026-10-17",
+  "note": "Mức và điều kiện là tóm lược trang chính thức tại thời điểm tham khảo, không có nghĩa đang nhận hồ sơ; xác minh theo năm học.",
+  "items": [
+    {
+      "id": "gks-undergrad",
+      "category": "government",
+      "title": "GKS – Undergraduate",
+      "subtitle": "Học bổng Chính phủ Hàn Quốc · Cao đẳng/Đại học",
+      "value": "Học phí + sinh hoạt + vé bay",
+      "level": "Cao đẳng, Cử nhân",
+      "require": [
+        "Quốc tịch thuộc quốc gia được mời; cả ứng viên và cha/mẹ không có quốc tịch Hàn (ngoại lệ xem quy định).",
+        "Thông thường dưới 25 tuổi theo mốc của năm tuyển, tốt nghiệp THPT, kết quả học tập tương đương ≥80%.",
+        "Chọn tuyến Đại sứ quán hoặc tuyến Trường; phải đọc thông báo GKS-U từng năm."
+      ],
+      "benefits": [
+        "Đào tạo tiếng Hàn (nếu áp dụng), học phí, trợ cấp, vé máy bay theo quy định từng năm."
+      ],
+      "apply": "Theo hướng dẫn GKS-U mới nhất, không áp dụng một hạn nộp chung.",
+      "source": "https://www.niied.go.kr/web/niied/contents/niiedEng/eng_gksDegree"
+    },
+    {
+      "id": "gks-grad",
+      "category": "government",
+      "title": "GKS – Graduate",
+      "subtitle": "Học bổng Chính phủ Hàn Quốc · Thạc sĩ/Tiến sĩ",
+      "value": "Hỗ trợ toàn diện theo chương trình",
+      "level": "Thạc sĩ, Tiến sĩ",
+      "require": [
+        "Thông thường dưới 40 tuổi theo điều kiện từng năm; tốt nghiệp trình độ tương ứng.",
+        "Điều kiện quốc tịch và GPA theo hướng dẫn đợt tuyển GKS-G."
+      ],
+      "benefits": [
+        "Học phí, đào tạo tiếng, trợ cấp và vé bay tùy loại chương trình."
+      ],
+      "apply": "Kiểm tra GKS-G mới nhất qua NIIED/Study in Korea.",
+      "source": "https://www.gks.go.kr/en/plan/scholarship.do"
+    },
+    {
+      "id": "gks-exchange",
+      "category": "government",
+      "title": "GKS – Exchange Students",
+      "subtitle": "Chương trình trao đổi học kỳ",
+      "value": "Trợ cấp + vé máy bay",
+      "level": "Sinh viên trao đổi",
+      "require": [
+        "Đang theo học ở đại học nước ngoài có hợp tác phù hợp; kết quả học tập thường ≥80%.",
+        "Không áp dụng cho người chỉ đăng ký khóa tiếng Hàn; xem điều kiện quốc tịch/học kỳ trong thông báo."
+      ],
+      "benefits": [
+        "Trợ cấp khoảng 630.000 KRW/tháng theo thông tin công bố; vé máy bay theo quy định."
+      ],
+      "apply": "Thông qua đơn vị hợp tác/trường; mức hỗ trợ và chỉ tiêu có thể thay đổi.",
+      "source": "https://www.gks.go.kr/en/plan/scholarship.do"
+    },
+    {
+      "id": "kaist",
+      "category": "university",
+      "title": "KAIST Scholarship",
+      "subtitle": "KAIST · sinh viên quốc tế",
+      "value": "100% học phí 8 học kỳ",
+      "level": "Đại học",
+      "require": [
+        "Ứng viên chương trình International Undergraduate Admission; xét cùng hồ sơ tuyển sinh.",
+        "Duy trì GPA >2.7/4.3 sau năm nhất."
+      ],
+      "benefits": [
+        "Miễn học phí 8 kỳ; hỗ trợ 350.000 KRW/tháng; bảo hiểm y tế theo trang KAIST."
+      ],
+      "apply": "Chọn học bổng KAIST trong đơn ứng tuyển.",
+      "source": "https://admission.kaist.ac.kr/intl-undergraduate/support/scholarships/kaist/"
+    },
+    {
+      "id": "ku-a",
+      "category": "university",
+      "title": "Korea University – Global Leader A/B",
+      "subtitle": "Học bổng đại học quốc tế",
+      "value": "50%–100% học phí",
+      "level": "Đại học",
+      "require": [
+        "Được xét dựa trên kết quả tuyển sinh, không phải nộp đơn học bổng riêng.",
+        "Gia hạn yêu cầu tối thiểu 12 tín chỉ và GPA 3.5 (A) hoặc 3.0 (B)."
+      ],
+      "benefits": [
+        "A: 100% học phí 4 kỳ cho tân sinh viên; B: 50% học phí 4 kỳ. Sinh viên chuyển tiếp có thời hạn khác."
+      ],
+      "apply": "Xem tuyển sinh quốc tế KU kỳ đang tuyển.",
+      "source": "https://oia.korea.ac.kr/oia2026/KU-Scholarships.do"
+    },
+    {
+      "id": "ku-anam",
+      "category": "university",
+      "title": "Korea University – Anam Global",
+      "subtitle": "Học bổng tuyển sinh hệ đại học",
+      "value": "100% học phí tới 8 học kỳ",
+      "level": "Đại học",
+      "require": [
+        "Chỉ cho sinh viên năm nhất đủ điều kiện; xét kết quả tuyển sinh.",
+        "Điều kiện duy trì tối thiểu 12 tín chỉ và GPA 3.5 theo thông báo."
+      ],
+      "benefits": [
+        "Học phí toàn phần tối đa 8 kỳ."
+      ],
+      "apply": "Xem hướng dẫn và quy định KU.",
+      "source": "https://oia.korea.ac.kr/oia2026/KU-Scholarships.do"
+    },
+    {
+      "id": "pnu",
+      "category": "university",
+      "title": "Pusan National University – TOPIK",
+      "subtitle": "Học bổng học phí cho sinh viên quốc tế",
+      "value": "Theo cấp TOPIK",
+      "level": "Đại học",
+      "require": [
+        "Sinh viên nước ngoài mới nhập học/chuyển tiếp; mức xét căn cứ TOPIK và diện tuyển."
+      ],
+      "benefits": [
+        "TOPIK 6: toàn bộ học phí học kỳ đầu; TOPIK 5,4: các hạng Full tuition II / I của trường."
+      ],
+      "apply": "Chỉ áp dụng theo bảng thông báo từng kỳ; học phí được khấu trừ khi đủ điều kiện.",
+      "source": "https://www.pusan.ac.kr/eng/CMS/Contents/Contents.do?mCode=MN016"
+    },
+    {
+      "id": "karts",
+      "category": "university",
+      "title": "K-Arts AMA+",
+      "subtitle": "Học bổng nghệ thuật dành cho nước đang phát triển",
+      "value": "Học phí + sinh hoạt + hỗ trợ khác",
+      "level": "Cử nhân, Sau đại học",
+      "require": [
+        "Ứng viên ngành nghệ thuật từ quốc gia nằm trong danh sách đủ điều kiện.",
+        "Điều kiện chuyên môn, portfolio và vòng tuyển theo hướng dẫn K-Arts từng năm."
+      ],
+      "benefits": [
+        "Học phí, đào tạo tiếng Hàn, trợ cấp sinh hoạt, vé bay, bảo hiểm theo chương trình."
+      ],
+      "apply": "Xem tuyển AMA+ chính thức trên website K-Arts.",
+      "source": "https://www.gks.go.kr/en/plan/scholarship.do"
+    },
+    {
+      "id": "posco",
+      "category": "foundation",
+      "title": "POSCO TJ Park – Asian Fellowship",
+      "subtitle": "Học bổng quỹ dành cho sinh viên châu Á",
+      "value": "Học phí + sinh hoạt (tùy khóa)",
+      "level": "Thạc sĩ, Tiến sĩ",
+      "require": [
+        "Ứng viên châu Á dự định theo học bậc thạc sĩ/tiến sĩ tại Hàn Quốc theo điều kiện chương trình.",
+        "Một số ngành/khóa không áp dụng; kiểm tra trực tiếp quỹ."
+      ],
+      "benefits": [
+        "Học phí và trợ cấp sinh hoạt theo chương trình lựa chọn."
+      ],
+      "apply": "Thông báo chính thức của POSCO TJ Park Foundation.",
+      "source": "https://www.postf.org/ko/page/asia/scholar.do"
+    },
+    {
+      "id": "kf",
+      "category": "foundation",
+      "title": "Korea Foundation – Korean Studies",
+      "subtitle": "Hỗ trợ nghiên cứu sau đại học",
+      "value": "Hỗ trợ học phí theo khu vực",
+      "level": "Thạc sĩ, Tiến sĩ",
+      "require": [
+        "Người theo học Korean Studies đủ điều kiện chương trình của Korea Foundation."
+      ],
+      "benefits": [
+        "Hỗ trợ học phí cho 1 năm tùy địa phương/nguồn cấp."
+      ],
+      "apply": "Kiểm tra chương trình và hồ sơ năm hiện hành tại Korea Foundation.",
+      "source": "https://www.gks.go.kr/en/plan/scholarship.do"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+<!doctype html><html lang="vi"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bản đồ hành chính & Cảnh quan Hàn Quốc | TIẾNG HÀN MR LEE</title>
+<meta name="description" content="Bản đồ khám phá Hàn Quốc qua các tỉnh, thành phố, quận huyện, phường và phong cảnh địa phương.">
+<link rel="icon" href="assets/branding/logo-mrlee.png"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@5.6.2/dist/maplibre-gl.css">
+<link rel="stylesheet" href="assets/mrlee-geo/design.css?v=2">
+<script defer src="https://cdn.jsdelivr.net/npm/maplibre-gl@5.6.2/dist/maplibre-gl.js"></script>
+<script defer src="assets/mrlee-geo/korea.js?v=1"></script>
+</head><body>
+<header class="top"><a class="brand" href="index.html"><img src="assets/branding/logo-mrlee.png" alt="MR LEE"><span>TIẾNG HÀN MR LEE<small>KOREA CULTURE & GEOGRAPHY</small></span></a><nav><a href="index.html">Trang chủ</a><a href="tim-truong.html">🎓 Tìm trường</a><a href="ban-do-han-quoc.html" aria-current="page">🗺 Bản đồ Hàn Quốc</a><a href="hoc-bong-han-quoc.html">🏅 Học bổng</a></nav></header>
+<main><section class="hero map-hero"><span class="eyebrow">대한민국 · KOREA EXPLORER</span><h1>Khám phá <em>Hàn Quốc</em> từ bản đồ</h1><p>Chọn tỉnh/thành → thành phố/quận/huyện → phường, xã, thị trấn. Khám phá ảnh phong cảnh, khu vực nổi bật và đặc trưng địa phương.</p></section>
+<section class="atlas-layout"><div class="atlas-main"><div class="atlas-tools"><select id="provincePick" aria-label="Chọn tỉnh, thành"><option value="">Chọn tỉnh / thành phố</option></select><button id="backAtlas" type="button">↶ Lùi một cấp</button><button id="resetAtlas" type="button">⌂ Toàn quốc</button><span id="geoProgress" role="status">Đang chuẩn bị bản đồ…</span></div>
+<div id="koreaMap" class="korea-map" aria-label="Bản đồ tương tác Hàn Quốc"><div id="mapEmpty">Đang nạp bản đồ. Có thể chọn khu vực bằng danh sách bên dưới.</div></div><div class="area-list-head"><h2 id="areaHeading">17 tỉnh và thành phố trực thuộc</h2><input id="areaFilter" type="search" aria-label="Lọc địa danh" placeholder="Lọc địa danh / địa giới..."></div><div id="areaList" class="area-list"></div><p class="source-note">Địa giới: dữ liệu công V-World (bản phân phối 2023, đối chiếu mã địa giới trước khi sử dụng cho hồ sơ pháp lý). Tên địa danh có thể thay đổi. Bản đồ được dùng để khám phá địa lý, không dùng để xác định ranh giới pháp lý. <a href="https://github.com/KnellBalm/kr-admin-geojson" target="_blank" rel="noopener">Nguồn dữ liệu ↗</a></p></div>
+<aside class="destination" id="destination"><div class="photo-hero" id="placeHero"><span>대한민국 · KOREA</span></div><div class="destination-body"><span class="eyebrow" id="placeLevel">TOÀN QUỐC</span><h2 id="placeName">Hàn Quốc · 대한민국</h2><p id="placeDesc">Chạm hoặc rê vào từng khu vực để xem chi tiết. Nhấn để khám phá các khu vực cấp dưới.</p><div class="photo-gallery" id="placeGallery"></div><p class="source-note" id="photoNotice">Hình ảnh từ Wikimedia Commons nếu có, hiển thị kèm nguồn và giấy phép. Không có ảnh phù hợp sẽ giữ nền mặc định.</p><div id="placeChildren" class="place-children"></div></div></aside></section>
+</main><footer>© TIẾNG HÀN MR LEE · <a href="index.html">Trang chủ</a> · <a href="tim-truong.html">Tìm trường riêng ↗</a> · Dữ liệu ảnh Wikimedia Commons tùy khả dụng.</footer>
+</body></html>

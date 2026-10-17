@@ -24,6 +24,45 @@
 <link rel="stylesheet" href="assets/v305/photo-refresh.css?v=30.5" data-mrlee-v305="photos">
 <link rel="stylesheet" href="assets/v306/cards.css?v=306" data-mrlee-v306="images">
 <script defer src="assets/v306/gallery-refresh.js?v=306" data-mrlee-v306="gallery"></script>
+<link rel="stylesheet" href="assets/mrlee-geo/home-addons.css?v=20261017" data-mrlee-geo-home="2">
+<script defer src="assets/mrlee-geo/home-routing.js?v=20261017" data-mrlee-geo="2"></script>
+<style id="mrlee-layout-compact-v1">
+
+/* XOA XUNG DOT GRID CU CUA MAIN */
+html[data-mrlee-v303="reference"] #mainContent {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    height: auto !important;
+    max-height: none !important;
+    grid-template-rows: none !important;
+    overflow: visible !important;
+}
+
+/* THE CHUC NANG KHONG DUOC KEO DAI */
+html[data-mrlee-v306="images"] #mainContent .feature-cards {
+    flex: 0 0 auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    grid-auto-rows: max-content !important;
+    align-items: start !important;
+}
+
+/* CHIEU CAO THE THEO NOI DUNG */
+html[data-mrlee-v306="images"] #mainContent .feature-card {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    align-self: start !important;
+}
+
+/* KHONG KEO DAI VUNG CHU */
+html[data-mrlee-v306="images"] #mainContent .feature-info {
+    flex: 0 0 auto !important;
+    min-height: 0 !important;
+}
+
+</style>
 </head>
 <body data-mrlee-version="MRLEE_MAIN_V30_3">
 <a class="skip-link" href="#mainContent">Tới nội dung chính</a>

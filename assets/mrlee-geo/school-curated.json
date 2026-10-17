@@ -1,0 +1,185 @@
+{
+  "sourceDate": "2026-10-17",
+  "note": "Chỉ áp dụng trường có tên tiếng Hàn trùng khớp hoàn toàn. Tọa độ đại diện Wikidata, không phải tọa độ cổng/campus chính xác.",
+  "byKoreanName": {
+    "서울대학교": {
+      "name": "Seoul National University",
+      "website": "https://en.snu.ac.kr/",
+      "address_en": "1 Gwanak-ro, Gwanak-gu, Seoul 08826, Korea",
+      "phone": "+82-2-880-6971 / +82-2-880-6977 (Admissions)",
+      "email": "snuadmit@snu.ac.kr",
+      "majors": [
+        "Thông tin ngành/chương trình đại học và sau đại học: kiểm tra mục Admissions theo kỳ tuyển (không tự suy diễn danh mục tiếp nhận quốc tế)."
+      ],
+      "scholarships": [
+        "GKS (nếu chương trình/trường thuộc danh sách nhận hồ sơ từng kỳ). Tra cứu điều kiện theo thông báo chính thức."
+      ],
+      "d4": [
+        "Có chương trình tiếng Hàn tại Korean Language Education Center (LEI); tư vấn visa D-4 phụ thuộc giấy tờ và quy định visa riêng. Liên hệ +82-2-880-5488."
+      ],
+      "d2": [
+        "Tuyển sinh quốc tế đại học/sau đại học: đọc Hướng dẫn đăng ký và điều kiện từng kỳ trong mục Admissions."
+      ],
+      "coordinates": {
+        "lat": 37.46,
+        "lng": 126.9525,
+        "quality": "approximate-university",
+        "source_url": "https://www.wikidata.org/wiki/Q39913"
+      },
+      "source_url": "https://en.snu.ac.kr/contact_us",
+      "extra_sources": [
+        "https://en.snu.ac.kr/about/campus/gwanak/address",
+        "https://en.snu.ac.kr/admission"
+      ],
+      "major_source": "https://en.snu.ac.kr/admission"
+    },
+    "연세대학교": {
+      "name": "Yonsei University",
+      "website": "https://www.yonsei.ac.kr/",
+      "address_en": "50 Yonsei-ro, Seodaemun-gu, Seoul 03722, Korea",
+      "phone": "+82-2-2123-4131 (Admissions)",
+      "email": "ysadms@yonsei.ac.kr",
+      "majors": [
+        "Ngôn ngữ & Văn học Hàn Quốc",
+        "Quản trị kinh doanh",
+        "Toán học",
+        "Vật lý",
+        "Hóa học",
+        "Kỹ thuật",
+        "Y Dược (điều kiện tuyển sinh riêng)"
+      ],
+      "scholarships": [
+        "Chính sách học bổng phụ thuộc chương trình/campus; xem hệ thống học bổng và hướng dẫn tuyển sinh của Yonsei."
+      ],
+      "d4": [
+        "Korean Language Institute: liên hệ +82-2-2123-3464~5 để kiểm tra khóa học và khả năng cấp giấy tờ D-4."
+      ],
+      "d2": [
+        "Ứng tuyển sinh viên quốc tế: theo Application Guide và từng hệ đào tạo/campus; không có điều kiện TOPIK chung cố định."
+      ],
+      "coordinates": {
+        "lat": 37.560278,
+        "lng": 126.936944,
+        "quality": "approximate-university",
+        "source_url": "https://www.wikidata.org/wiki/Q39988"
+      },
+      "source_url": "https://admission.yonsei.ac.kr/seoul/admission/html/international/guide.asp",
+      "extra_sources": [
+        "https://admission.yonsei.ac.kr/seoul/admission/html/campus/location.asp",
+        "https://yonsei.ac.kr/en_sc/2241/subview.do"
+      ],
+      "major_source": "https://www.yonsei.ac.kr/en_sc/1849/subview.do"
+    },
+    "고려대학교": {
+      "name": "Korea University",
+      "website": "https://www.korea.ac.kr/",
+      "address_en": "145 Anam-ro, Seongbuk-gu, Seoul 02841, Korea",
+      "phone": "+82-2-3290-1157 / 5156~5157 (International undergraduate)",
+      "email": "admission@korea.ac.kr",
+      "majors": [
+        "Quản trị kinh doanh",
+        "Ngôn ngữ & Văn học Hàn Quốc",
+        "Triết học",
+        "Lịch sử",
+        "Truyền thông",
+        "Kỹ thuật y sinh",
+        "Quan hệ quốc tế",
+        "Tâm lý học",
+        "An ninh thông minh",
+        "Nghệ thuật & Thiết kế"
+      ],
+      "scholarships": [
+        "Global Leader A: học phí toàn phần 4 kỳ cho tân sinh viên (điều kiện duy trì GPA ≥ 3.5 và 12 tín chỉ theo thông báo).",
+        "Global Leader B: 50% học phí 4 kỳ cho tân sinh viên (điều kiện duy trì GPA ≥ 3.0 và 12 tín chỉ).",
+        "Anam Global: học phí toàn phần tối đa 8 kỳ cho tân sinh viên đủ điều kiện.",
+        "Challenge C: thưởng KRW 300.000/500.000 với khóa tiếng Hàn KU cấp 5/6, theo hướng dẫn."
+      ],
+      "d4": [
+        "Chương trình tiếng Hàn của KU Korean Language Center: điều kiện đăng ký và thị thực xem tại website của trung tâm."
+      ],
+      "d2": [
+        "Hệ đại học quốc tế: xem Admission Guide, yêu cầu quốc tịch/học lực/ngôn ngữ và lịch xét tuyển theo kỳ, không suy đoán TOPIK bắt buộc."
+      ],
+      "coordinates": {
+        "lat": 37.588672,
+        "lng": 127.032939,
+        "quality": "approximate-university",
+        "source_url": "https://www.wikidata.org/wiki/Q39997"
+      },
+      "source_url": "https://oia.korea.ac.kr/oia2026/KU-Scholarships.do",
+      "extra_sources": [
+        "https://oia.korea.ac.kr/oia2026/KU-Scholarships.do"
+      ],
+      "major_source": "https://oia.korea.ac.kr/oia2026/Schools-Department.do"
+    },
+    "한국과학기술원": {
+      "name": "KAIST",
+      "website": "https://www.kaist.ac.kr/en/",
+      "address_en": "291 Daehak-ro, Yuseong-gu, Daejeon 34141, Korea",
+      "phone": "+82-42-350-4803 / 4804 (International undergraduate)",
+      "email": "creative.adm@kaist.ac.kr",
+      "majors": [
+        "Danh mục các chương trình khoa học, kỹ thuật và công nghệ được công bố tại KAIST Admissions; chuyên ngành tuyển sinh quốc tế khác nhau theo kỳ."
+      ],
+      "scholarships": [
+        "KAIST Scholarship (ứng viên quốc tế đủ điều kiện): miễn học phí 8 học kỳ, hỗ trợ KRW 350.000/tháng và bảo hiểm; yêu cầu duy trì GPA > 2.7/4.3 sau năm nhất."
+      ],
+      "d4": [
+        "Không kết luận KAIST có khóa D-4 đủ điều kiện; cần tra cứu trực tiếp thông báo chương trình ngôn ngữ."
+      ],
+      "d2": [
+        "International Undergraduate Admission: xem hồ sơ tuyển sinh quốc tế; đăng ký học bổng cùng hồ sơ, tích chọn mục học bổng KAIST trong đơn theo hướng dẫn."
+      ],
+      "coordinates": {
+        "lat": 36.371944,
+        "lng": 127.363056,
+        "quality": "approximate-university",
+        "source_url": "https://www.wikidata.org/wiki/Q39949"
+      },
+      "source_url": "https://admission.kaist.ac.kr/intl-undergraduate/support/scholarships/kaist/",
+      "extra_sources": [
+        "https://admission.kaist.ac.kr/undergraduate/"
+      ],
+      "major_source": "https://admission.kaist.ac.kr/intl-undergraduate/"
+    },
+    "부산대학교": {
+      "name": "Pusan National University",
+      "website": "https://www.pusan.ac.kr/eng/Main.do",
+      "address_en": "2 Busandaehak-ro 63beon-gil, Geumjeong-gu, Busan 46241, Korea",
+      "phone": "+82-51-510-3856 (International Admissions)",
+      "email": "iadmission@pusan.ac.kr",
+      "majors": [
+        "Toán học",
+        "Vật lý",
+        "Thống kê",
+        "Hóa học",
+        "Vi sinh",
+        "Kỹ thuật cơ khí",
+        "Kỹ thuật hàng không",
+        "Kỹ thuật hàng hải",
+        "Kỹ thuật hóa học"
+      ],
+      "scholarships": [
+        "Học bổng sinh viên quốc tế mới nhập học theo TOPIK: cấp 6 miễn toàn bộ học phí kỳ đầu; cấp 5/4 hưởng các mức Full tuition II/I theo bảng của trường (không đồng nhất với 100%).",
+        "Đang học: học bổng thành tích, chương trình và điều kiện GPA/TOPIK theo thông báo PNU."
+      ],
+      "d4": [
+        "Chương trình ngôn ngữ: theo International Language Institute / Korean Language Program của PNU; đối chiếu hồ sơ D-4 với trường."
+      ],
+      "d2": [
+        "Undergraduate Admission Guide: xét tuyển và học bổng theo từng kỳ; điều kiện cụ thể cần theo thông báo."
+      ],
+      "coordinates": {
+        "lat": 35.233981,
+        "lng": 129.079311,
+        "quality": "approximate-university",
+        "source_url": "https://www.wikidata.org/wiki/Q53122"
+      },
+      "source_url": "https://www.pusan.ac.kr/eng/CMS/Contents/Contents.do?mCode=MN016",
+      "extra_sources": [
+        "https://www.pusan.ac.kr/eng/Main.do"
+      ],
+      "major_source": "https://www.pusan.ac.kr/eng/CMS/OrganizationMgr/Undergraduate.do?mCode=MN019"
+    }
+  }
+}

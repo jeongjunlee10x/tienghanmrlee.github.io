@@ -5833,7 +5833,12 @@
       "ko": "동강대학교",
       "en": "Donggang University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "동강대학교",
+        "Donggang University",
+        "Đại học Donggang",
+        "DONGGANG"
+      ],
       "type": "college",
       "subType": "junior-college",
       "website": "https://www.dkc.ac.kr",
@@ -5923,7 +5928,13 @@
       "ko": "대원대학교",
       "en": "Daewon University College",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "대원대학교",
+        "Daewon University College",
+        "Cao đẳng Daewon",
+        "DEAWOON",
+        "DAEWON"
+      ],
       "type": "college",
       "subType": "junior-college",
       "website": "https://www.daewon.ac.kr",
@@ -6163,7 +6174,17 @@
       "ko": "대경대학교",
       "en": "Daekyeung College",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "대경대학교",
+        "Daekyeung University",
+        "Đại học Daekyeung",
+        "DAEKYUNG",
+        "DEAKYUNG",
+        "DEAKEYUNG",
+        "DAEKEYUNG",
+        "DAEKEYUNG DAEGU",
+        "DAEKYUNG DEAGU"
+      ],
       "type": "college",
       "subType": "junior-college",
       "website": "https://www.tk.ac.kr",
@@ -6185,6 +6206,25 @@
           "officialBranch": "본교",
           "source": "data.go.kr/15107736",
           "hasOfficialAddress": true
+        },
+        {
+          "id": "namyangju",
+          "ko": "한류캠퍼스",
+          "en": "Hallyu Campus (Namyangju)",
+          "vi": "Cơ sở Hallyu Namyangju",
+          "region": "gyeonggi",
+          "city": "Namyangju",
+          "address": "경기도 남양주시 진접읍 팔야산단로 58",
+          "phone": "031-8034-8100",
+          "source_url": "https://www.tk.ac.kr/sub/intro17.php",
+          "aliases": [
+            "DEAKEYUNG YANGJU",
+            "DEAKYUNG YANGJU",
+            "DAEKYUNG YANGJU"
+          ],
+          "lat": null,
+          "lng": null,
+          "accuracy": "unverified"
         }
       ]
     },
@@ -6253,7 +6293,13 @@
       "ko": "김해대학교",
       "en": "Gimhae University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "김해대학교",
+        "Gimhae University",
+        "Đại học Gimhae",
+        "GEAMHEA",
+        "GIMHAE"
+      ],
       "type": "college",
       "subType": "junior-college",
       "website": "https://www.gimhae.ac.kr",
@@ -6463,7 +6509,12 @@
       "ko": "구미대학교",
       "en": "Gumi University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "구미대학교",
+        "Gumi University",
+        "Đại học Gumi",
+        "GUMI"
+      ],
       "type": "college",
       "subType": "junior-college",
       "website": "https://www.gumi.ac.kr",
@@ -6553,7 +6604,13 @@
       "ko": "서정대학교",
       "en": "Seojeong University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "서정대학교",
+        "Seojeong University",
+        "Đại học Seojeong",
+        "SEOJEONG",
+        "SEOJOENG"
+      ],
       "type": "college",
       "subType": "junior-college",
       "website": "https://www.seojeong.ac.kr",
@@ -6583,7 +6640,13 @@
       "ko": "서일대학교",
       "en": "Seoil University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "서일대학교",
+        "Seoil University",
+        "Đại học Seoil",
+        "SOEIL",
+        "SEOIL"
+      ],
       "type": "college",
       "subType": "junior-college",
       "website": "https://www.seoil.ac.kr",
@@ -6913,7 +6976,12 @@
       "ko": "부산과학기술대학교",
       "en": "Busan Institute Of Science And Technology",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "부산과학기술대학교",
+        "Busan Institute of Science and Technology",
+        "Đại học Khoa học và Công nghệ Busan",
+        "BIST"
+      ],
       "type": "college",
       "subType": "junior-college",
       "website": "https://bist.ac.kr",
@@ -7063,7 +7131,12 @@
       "ko": "문경대학교",
       "en": "Munkyung College",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "문경대학교",
+        "Munkyung College",
+        "Cao đẳng Munkyung",
+        "MUNKYUNG"
+      ],
       "type": "college",
       "subType": "junior-college",
       "website": "https://www.mkc.ac.kr",
@@ -7633,7 +7706,13 @@
       "ko": "여주대학교",
       "en": "Yeoju Institute Of Technology",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "여주대학교",
+        "Yeoju Institute of Technology",
+        "Đại học Yeoju (YTECH)",
+        "YTECH",
+        "YEOJU"
+      ],
       "type": "college",
       "subType": "junior-college",
       "website": "https://www.yit.ac.kr",
@@ -7903,7 +7982,12 @@
       "ko": "순천제일대학교",
       "en": "Suncheon Jeil College",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "순천제일대학교",
+        "Suncheon Jeil College",
+        "Cao đẳng Suncheon Jeil",
+        "SUNCHEON JEIL"
+      ],
       "type": "college",
       "subType": "junior-college",
       "website": "https://www.suncheon.ac.kr",
@@ -8083,7 +8167,13 @@
       "ko": "세경대학교",
       "en": "Saekyung University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "세경대학교",
+        "Saekyung University",
+        "Đại học Saekyung",
+        "SAEKYUNG",
+        "SEAKEYUNG"
+      ],
       "type": "college",
       "subType": "junior-college",
       "website": "https://www.saekyung.ac.kr",
@@ -8953,7 +9043,12 @@
       "ko": "웅지세무대학교",
       "en": "Woongji Accounting & Tax College",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "웅지세무대학교",
+        "Woongji Tax College",
+        "Cao đẳng Thuế Woongji",
+        "WOONGJI"
+      ],
       "type": "college",
       "subType": "junior-college",
       "website": "https://www.wat.ac.kr",
@@ -9883,7 +9978,13 @@
       "ko": "혜전대학교",
       "en": "Hyejeon University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "혜전대학교",
+        "Hyejeon College",
+        "Cao đẳng Hyejeon",
+        "HYEJEON",
+        "HYEJOEN"
+      ],
       "type": "college",
       "subType": "junior-college",
       "website": "https://www.hj.ac.kr",
@@ -9943,7 +10044,12 @@
       "ko": "한양여자대학교",
       "en": "Hanyang Womens University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "한양여자대학교",
+        "Hanyang Women's University",
+        "Đại học Nữ Hanyang",
+        "HANYANG WOMEN"
+      ],
       "type": "college",
       "subType": "junior-college",
       "website": "https://www.hywoman.ac.kr",
@@ -11074,7 +11180,12 @@
       "ko": "경기대학교",
       "en": "Kyonggi University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "경기대학교",
+        "Kyonggi University",
+        "Đại học Kyonggi",
+        "KYONGGI"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.kyonggi.ac.kr",
@@ -11151,7 +11262,12 @@
       "ko": "건양대학교",
       "en": "Konyang University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "건양대학교",
+        "Konyang University",
+        "Đại học Konyang",
+        "KONYANG"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.konyang.ac.kr",
@@ -11324,7 +11440,12 @@
       "ko": "강남대학교",
       "en": "Kangnam University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "강남대학교",
+        "Kangnam University",
+        "Đại học Kangnam",
+        "KANGNAM"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.kangnam.ac.kr",
@@ -11478,7 +11599,13 @@
       "ko": "가톨릭관동대학교",
       "en": "Catholic Kwandong University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "가톨릭관동대학교",
+        "Catholic Kwandong University",
+        "Đại học Công giáo Kwandong",
+        "CATHOLIC KWANGDONG",
+        "CATHOLIC KWANDONG"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.cku.ac.kr",
@@ -11708,7 +11835,14 @@
       "ko": "국립경국대학교",
       "en": "Gyeongguk National University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "국립경국대학교",
+        "Gyeongguk National University",
+        "Đại học Quốc gia Gyeongguk",
+        "ANDONG",
+        "ANDONG NATIONAL UNIVERSITY",
+        "GYEONGGUK"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.andong.ac.kr",
@@ -12134,7 +12268,13 @@
       "ko": "계명대학교",
       "en": "Keimyung University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "계명대학교",
+        "Keimyung University",
+        "Đại học Keimyung",
+        "KEYMYUNG",
+        "KEIMYUNG"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.kmu.ac.kr",
@@ -12333,7 +12473,12 @@
       "ko": "경성대학교",
       "en": "Kyungsung University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "경성대학교",
+        "Kyungsung University",
+        "Đại học Kyungsung",
+        "KYUNGSUNG"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.ks.ac.kr",
@@ -12621,7 +12766,11 @@
       "en": "Namseoul University",
       "vi": "",
       "aliases": [
-        "남서울대학교(산업대)"
+        "남서울대학교(산업대)",
+        "남서울대학교",
+        "Namseoul University",
+        "Đại học Namseoul",
+        "NAMSEOUL"
       ],
       "type": "university",
       "subType": "대학",
@@ -12802,7 +12951,14 @@
       "ko": "극동대학교",
       "en": "Far East University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "극동대학교",
+        "Far East University",
+        "Đại học Far East",
+        "GUEKDONG",
+        "GEUKDONG",
+        "KEUKDONG"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.kdu.ac.kr",
@@ -13139,7 +13295,14 @@
       "ko": "부산외국어대학교",
       "en": "Busan University Of Foreign Studies",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "부산외국어대학교",
+        "Busan University of Foreign Studies",
+        "Đại học Ngoại ngữ Busan",
+        "NN BUSAN",
+        "NGOAI NGU BUSAN",
+        "BUFS"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.bufs.ac.kr",
@@ -13319,7 +13482,12 @@
       "ko": "배재대학교",
       "en": "Pai Chai University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "배재대학교",
+        "Pai Chai University",
+        "Đại học Pai Chai",
+        "PAICHAI"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.pcu.ac.kr",
@@ -13727,7 +13895,13 @@
       "en": "Dongguk University",
       "vi": "",
       "aliases": [
-        "동국대학교(WISE)"
+        "동국대학교(WISE)",
+        "동국대학교",
+        "Dongguk University",
+        "Đại học Dongguk",
+        "DONGGUK",
+        "DONGGUK TM",
+        "DONGGUK CODE"
       ],
       "type": "university",
       "subType": "대학",
@@ -13767,6 +13941,28 @@
           "officialBranch": "본교",
           "source": "data.go.kr/15107736",
           "hasOfficialAddress": true
+        },
+        {
+          "id": "seoul",
+          "ko": "서울캠퍼스",
+          "en": "Seoul Campus",
+          "vi": "Cơ sở Seoul",
+          "region": "seoul",
+          "city": "Seoul",
+          "lat": null,
+          "lng": null,
+          "accuracy": "unverified"
+        },
+        {
+          "id": "wise",
+          "ko": "WISE캠퍼스",
+          "en": "WISE Campus (Gyeongju)",
+          "vi": "Cơ sở WISE Gyeongju",
+          "region": "gyeongbuk",
+          "city": "Gyeongju",
+          "lat": null,
+          "lng": null,
+          "accuracy": "unverified"
         }
       ]
     },
@@ -13925,7 +14121,13 @@
       "ko": "대신대학교",
       "en": "Daeshin University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "대신대학교",
+        "Daeshin University",
+        "Đại học Daeshin",
+        "DEASHIN",
+        "DAESHIN"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.daeshin.ac.kr",
@@ -13985,7 +14187,12 @@
       "ko": "세명대학교",
       "en": "Semyung University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "세명대학교",
+        "Semyung University",
+        "Đại học Semyung",
+        "SEMYUNG"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.semyung.ac.kr",
@@ -14015,7 +14222,13 @@
       "ko": "성신여자대학교",
       "en": "Sungshin Womens University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "성신여자대학교",
+        "Sungshin Women's University",
+        "Đại học Nữ Sungshin",
+        "NU SHUNGSHIN",
+        "SUNGSHIN WOMEN"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.sungshin.ac.kr",
@@ -14105,7 +14318,12 @@
       "ko": "성결대학교",
       "en": "Sungkyul University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "성결대학교",
+        "Sungkyul University",
+        "Đại học Sungkyul",
+        "SUNGKYUL"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.sungkyul.ac.kr",
@@ -14135,7 +14353,12 @@
       "ko": "선문대학교",
       "en": "Sun Moon University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "선문대학교",
+        "Sun Moon University",
+        "Đại học Sun Moon",
+        "SUNMOON"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.sunmoon.ac.kr",
@@ -14195,7 +14418,14 @@
       "ko": "서울한영대학교",
       "en": "Seoul Hanyoung University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "서울한영대학교",
+        "Seoul Hanyoung University",
+        "Đại học Seoul Hanyoung",
+        "SEOUL HANYOUNG",
+        "SEOUL HANYOUNG HANU",
+        "SEOUL HANYOUNG HUMI"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://shyu.ac.kr",
@@ -14225,7 +14455,13 @@
       "ko": "서울장신대학교",
       "en": "Seoul Jangsin University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "서울장신대학교",
+        "Seoul Jangsin University",
+        "Đại học Seoul Jangsin",
+        "SEOUL JANGSHIN",
+        "SEOUL JANGSIN"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.sjs.ac.kr",
@@ -14285,7 +14521,15 @@
       "ko": "서울신학대학교",
       "en": "Seoul Theological University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "서울신학대학교",
+        "Seoul Theological University",
+        "Đại học Thần học Seoul",
+        "STU",
+        "STU CODE",
+        "STU IES",
+        "STU HOA LAN"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.stu.ac.kr",
@@ -14799,7 +15043,12 @@
       "ko": "예원예술대학교",
       "en": "Yewon Arts University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "예원예술대학교",
+        "Yewon Arts University",
+        "Đại học Nghệ thuật Yewon",
+        "YEWON"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.yewon.ac.kr",
@@ -15065,7 +15314,12 @@
       "ko": "안양대학교",
       "en": "Anyang University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "안양대학교",
+        "Anyang University",
+        "Đại học Anyang",
+        "ANYANG"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.anyang.ac.kr/main/index.do",
@@ -15142,7 +15396,13 @@
       "ko": "아신대학교",
       "en": "ACTS University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "아신대학교",
+        "ACTS University",
+        "Đại học ACTS",
+        "ACTS",
+        "ASIA UNITED THEOLOGICAL UNIVERSITY"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.acts.ac.kr",
@@ -15399,7 +15659,15 @@
       "ko": "숙명여자대학교",
       "en": "Sookmyung WomenS University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "숙명여자대학교",
+        "Sookmyung Women's University",
+        "Đại học Nữ Sookmyung",
+        "SOOKMYUNG",
+        "SOOKMYUNG WOMEN",
+        "SOOKMYUNG MIANCO",
+        "SOOKMYUNG HUMI"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.sookmyung.ac.kr",
@@ -15806,7 +16074,12 @@
       "ko": "인하대학교",
       "en": "Inha University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "인하대학교",
+        "Inha University",
+        "Đại học Inha",
+        "INHA"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.inha.ac.kr",
@@ -16144,7 +16417,13 @@
       "ko": "원광대학교",
       "en": "Wonkwang University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "원광대학교",
+        "Wonkwang University",
+        "Đại học Wonkwang",
+        "WONKANG",
+        "WONKWANG"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.wku.ac.kr",
@@ -16235,7 +16514,12 @@
       "en": "Woosong University",
       "vi": "",
       "aliases": [
-        "우송대학교(산업대)"
+        "우송대학교(산업대)",
+        "우송대학교",
+        "Woosong University",
+        "Đại học Woosong",
+        "WOOSUNG",
+        "WOOSONG"
       ],
       "type": "university",
       "subType": "대학",
@@ -16386,7 +16670,12 @@
       "ko": "한경국립대학교",
       "en": "Hankyong National University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "한경국립대학교",
+        "Hankyong National University",
+        "Đại học Quốc gia Hankyong",
+        "HANKYONG"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.hknu.ac.kr",
@@ -16446,7 +16735,13 @@
       "ko": "평택대학교",
       "en": "Pyeongtaek University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "평택대학교",
+        "Pyeongtaek University",
+        "Đại học Pyeongtaek",
+        "PYEONGTEK",
+        "PYEONGTAEK"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.ptu.ac.kr",
@@ -16746,7 +17041,13 @@
       "ko": "청주대학교",
       "en": "Cheongju University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "청주대학교",
+        "Cheongju University",
+        "Đại học Cheongju",
+        "CHOENGJU",
+        "CHEONGJU"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.cju.ac.kr",
@@ -16806,7 +17107,12 @@
       "ko": "청운대학교",
       "en": "Chungwoon University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "청운대학교",
+        "Chungwoon University",
+        "Đại học Chungwoon",
+        "CHUNGWOON"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.chungwoon.ac.kr",
@@ -16836,7 +17142,12 @@
       "ko": "창신대학교",
       "en": "Changshin University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "창신대학교",
+        "Changshin University",
+        "Đại học Changshin",
+        "CHANGSHIN"
+      ],
       "type": "university",
       "subType": "대학",
       "website": "https://www.cs.ac.kr",
@@ -18496,7 +18807,12 @@
       "ko": "강동대학교",
       "en": "Gangdong University",
       "vi": "",
-      "aliases": [],
+      "aliases": [
+        "강동대학교",
+        "Gangdong University",
+        "Đại học Gangdong",
+        "GANGDONG"
+      ],
       "type": "college",
       "subType": "junior-college",
       "website": "https://www.gangdong.ac.kr",
@@ -19615,6 +19931,31 @@
           "officialBranch": "본교",
           "source": "data.go.kr/15107736",
           "hasOfficialAddress": true
+        }
+      ]
+    },
+    {
+      "id": "mrlee-assist",
+      "ko": "서울과학종합대학원대학교",
+      "en": "aSSIST University",
+      "vi": "Đại học aSSIST",
+      "type": "university",
+      "aliases": [
+        "ASSIST",
+        "SEOUL SCHOOL OF INTEGRATED SCIENCES AND TECHNOLOGIES"
+      ],
+      "campuses": [
+        {
+          "id": "main",
+          "ko": "본교",
+          "en": "Main campus / địa điểm trường",
+          "vi": "Cơ sở chính (chờ kiểm tra)",
+          "region": "seoul",
+          "city": "Seoul",
+          "lat": null,
+          "lng": null,
+          "accuracy": "unverified",
+          "verification_note": "Chưa xác minh tọa độ; không đặt ghim tự động."
         }
       ]
     }
