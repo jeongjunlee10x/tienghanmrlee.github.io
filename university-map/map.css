@@ -15,3 +15,52 @@ main{max-width:1460px;margin:auto;padding:0 22px}.intro{padding:27px 4px 23px;di
 /* V2: campus coordinate audit badges & links */
 .pin-status{display:block;color:#8d611b;font-weight:700;line-height:1.4;margin-top:4px}
 .slide a{display:inline-block;margin-right:8px;margin-top:5px}
+
+/* MR LEE V5 search > focus campus > verified detail */
+.search-submit{width:100%;background:#176bad;color:#fff;border:0;border-radius:10px;padding:10px;font-size:12px;font-weight:800;letter-spacing:.25px;margin-top:9px;box-shadow:0 4px 13px #1a6fb333}
+.search-submit:hover{background:#114f86}.search-submit:focus-visible{outline:3px solid #f5af57}
+.campus-detail{position:absolute;top:68px;right:12px;z-index:7;width:min(355px,calc(100% - 24px));max-height:min(510px,calc(100% - 78px));overflow:auto;background:#fff;border:1px solid #d1e2f1;border-radius:15px;box-shadow:0 15px 38px #14355455;scrollbar-width:thin}
+.campus-detail-top{position:sticky;top:0;z-index:1;background:#123c62;color:white;display:flex;align-items:center;justify-content:space-between;padding:8px 12px;font-size:10px;letter-spacing:.5px}
+.campus-detail-top button{border:0;background:#ffffff20;color:white;font-size:23px;line-height:1;border-radius:8px;width:32px;height:30px}
+.campus-picture{height:142px;position:relative;background:#dfecf7;overflow:hidden}.campus-picture img{width:100%;height:100%;object-fit:cover}.campus-picture .photo-credit{position:absolute;bottom:4px;right:6px;padding:2px 5px;border-radius:3px;background:#0009;color:#fff;font-size:9px}.campus-picture.photo-failed:before{content:'Không tải được ảnh · Mở website trường để xem';position:absolute;inset:0;display:grid;place-items:center;padding:10px;color:#345}
+.campus-photo-empty{height:90px;background:linear-gradient(130deg,#e4f3ff,#cddfee);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2px;color:#45607c}.campus-photo-empty span{font-size:22px}.campus-photo-empty strong{font-size:11px}.campus-photo-empty small{font-size:9px}
+.campus-detail-content{padding:13px 14px 16px}.campus-detail-content h2{font-size:15px;line-height:1.45;color:#173f69;margin:0 0 3px}.campus-detail-content p{font-size:11px;color:#55677a;margin:5px 0}.campus-detail-content .campus-school-ko{font-weight:600}.campus-detail-content .campus-campus-name{background:#ecf7ff;color:#246193;border-radius:7px;padding:7px;font-weight:700}
+.campus-detail-content dl{margin:10px 0}.campus-detail-content dl>div{border-top:1px solid #edf0f4;padding:8px 0}.campus-detail-content dt{color:#7b8da0;font-weight:700;font-size:9px;letter-spacing:.5px;text-transform:uppercase}.campus-detail-content dd{font-size:11px;line-height:1.6;color:#264962;margin:4px 0}.campus-detail-content dd small{font-size:9px;color:#6e8091}.campus-detail-content .pending{color:#9c5d1f}.campus-detail-content .verified{color:#17754a}.source-badge{font-size:8px;color:#167047;background:#e0f4e8;padding:2px 4px;border-radius:4px;white-space:nowrap}
+.campus-siblings strong{font-size:11px;color:#234868}.campus-siblings-list{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}.campus-siblings-list button{border:1px solid #cbdceb;border-radius:7px;background:#f3f9ff;padding:6px 7px;color:#255787;font-size:10px;text-align:left;line-height:1.4}.campus-siblings-list button.current{background:#1d6da9;color:#fff}
+.campus-action-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}.campus-action-links a{font-size:10px;text-decoration:none;color:#155e91;background:#e8f3fe;padding:7px 9px;border-radius:7px;font-weight:700}.campus-action-links a.primary{background:#1a75b8;color:#fff}.campus-detail-content .location-warning{background:#fff6e7;color:#a35e1c;border-radius:8px;padding:9px}.campus-detail-content .photo-source,.campus-detail-content .checked-at{display:block;font-size:9px;color:#758699;margin-top:7px}
+.school-options{max-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:5px;margin-top:10px}.school-options button{display:flex;justify-content:space-between;align-items:center;gap:7px;border:1px solid #dbe9f6;border-radius:7px;background:#f7fbff;padding:9px;text-align:left;color:#154871}.school-options button:hover{background:#e3f2ff}.school-options button strong{font-size:11px}.school-options button small{display:block;color:#5f7790;font-size:9px}
+@media(max-width:760px){.campus-detail{top:180px;bottom:auto;right:0;width:100%;border-radius:15px 15px 0 0;max-height:250px;box-shadow:0 -9px 30px #14355455}.campus-photo-empty{height:50px}.campus-picture{height:95px}.campus-detail-content{padding:9px 13px}.campus-detail-content h2{font-size:13px}.campus-detail-content dl{margin:5px 0}}
+
+@media(max-width:410px){.campus-detail{top:142px;max-height:225px}}
+
+/* MR LEE V6: dedicated visible +/- controls (outside the map canvas). */
+.map-zoom-controls{position:absolute;left:14px;top:14px;z-index:6;display:flex;flex-direction:column;gap:5px;pointer-events:auto}
+.map-zoom-controls button{width:42px;height:42px;border:1px solid #bed4e6;border-radius:10px;background:#fff;color:#123c62;font-size:27px;line-height:1;box-shadow:0 4px 18px #173e6533;font-weight:700;cursor:pointer;touch-action:manipulation}
+.map-zoom-controls button:hover,.map-zoom-controls button:focus-visible{background:#ddecff;outline:2px solid #367aaf;outline-offset:1px}
+.zoom-notice:not([hidden]){position:absolute;top:111px;left:14px;z-index:5;max-width:min(350px,calc(100% - 32px));background:#ffffffed;padding:9px 12px;border-radius:9px;box-shadow:0 4px 20px #1d406b30;color:#123c62;font-size:11px;line-height:1.5;pointer-events:none}
+@media(max-width:760px){.map-zoom-controls{left:8px;top:8px}.map-zoom-controls button{width:40px;height:40px}.zoom-notice:not([hidden]){top:107px;left:8px;max-width:calc(100% - 16px);font-size:10px}}
+
+/* V7 — danh sách gọn, ưu tiên diện tích bản đồ */
+.workspace{grid-template-columns:minmax(235px,255px) minmax(0,1fr);gap:10px;min-height:0}
+.sidebar{padding:12px;max-height:calc(100vh - 125px);min-height:520px;overflow-y:auto;border-radius:13px}
+.sidebar .panel-head strong{font-size:13px}.sidebar .panel-head small{font-size:9px}
+.search-wrap input{height:39px;font-size:11px}.search-submit{padding:10px 5px!important;font-size:10px!important}
+.regions{grid-template-columns:repeat(2,minmax(0,1fr));max-height:136px;gap:4px}.region{padding:5px}.region small{display:none}
+.cities{max-height:92px}.side-results{margin-top:9px;padding-top:9px}
+.results-list{max-height:245px;gap:3px}.results-list.collapsed{display:none}
+.result{padding:7px 8px;border-radius:8px;gap:4px}.result strong{font-size:10px}.result small{font-size:9px;line-height:1.3}
+.result small:nth-child(4){display:none}
+.side-title #toggleSchoolList{white-space:nowrap;background:#edf6ff;border:1px solid #c8dff0;border-radius:7px;padding:4px 7px;font-size:10px;font-weight:700}
+.list-more-button{width:100%;padding:9px;background:#edf6ff;color:#1b5689;border:1px solid #c8dbef;border-radius:8px;font-weight:700;cursor:pointer}
+#map{height:clamp(470px,65vh,730px)}
+.slides{padding-bottom:8px;gap:6px}.slide{min-height:90px;padding:9px;flex-basis:185px;border-radius:10px}
+.slide h3{margin:5px 0 2px;font-size:11px}.slide p{max-height:32px;overflow:hidden;font-size:9px}.slide .pin-status,.slide a{display:none}
+.slides-head{padding:7px 10px}.map-legend{padding:5px 10px}
+@media(max-width:1000px){.workspace{grid-template-columns:240px minmax(0,1fr)}}
+@media(max-width:760px){.workspace{display:flex;flex-direction:column;gap:8px}.sidebar{order:1;max-height:none;min-height:0;padding:10px;overflow:visible}.map-panel{order:2}.sidebar .regions{grid-template-columns:repeat(4,minmax(0,1fr));max-height:92px}.results-list{max-height:140px}#map{height:360px}.slide{flex-basis:164px}}
+@media(max-width:410px){.sidebar .regions{grid-template-columns:repeat(3,minmax(0,1fr))}#map{height:330px}}
+
+/* V9: OpenStreetMap location candidates, on top of MapLibre, not replacing the map. */
+.geo-results{position:absolute;top:170px;left:12px;z-index:6;width:min(350px,calc(100% - 24px));max-height:min(310px,calc(100% - 188px));overflow:auto;background:#fff;box-shadow:0 9px 32px #153b6070;border:1px solid #c6d9e8;border-radius:11px}
+.geo-results[hidden]{display:none!important}.geo-title{background:#edf5ff;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;color:#133e63;gap:8px}.geo-title strong{font-size:11px}.geo-close{background:#fff;border:1px solid #d5e4f1;border-radius:7px;font-size:20px;padding:0px 8px}.geo-body{padding:9px 12px}.geo-body>p{font-size:11px;color:#46627a;margin:4px 0 10px;line-height:1.55}.geo-body>a{display:inline-block;font-size:10px;font-weight:700;color:#166daa;margin:6px 10px 4px 0}.geo-candidate{display:block;background:#fff;border:1px solid #d6e5f0;border-radius:8px;width:100%;padding:9px;text-align:left;margin:6px 0;cursor:pointer}.geo-candidate:hover,.geo-candidate.chosen{border-color:#2682c1;background:#ecf7ff}.geo-candidate strong{font-size:11px;color:#163f64;display:block}.geo-candidate small{font-size:9px;color:#667e95;display:block;margin-top:3px;line-height:1.4}.geo-hint{color:#8e5919!important;background:#fff8e9;padding:8px;border-radius:7px}
+@media(max-width:760px){.geo-results{top:130px;left:8px;width:min(285px,calc(100% - 16px));max-height:175px}.geo-body{padding:6px}.geo-title{padding:7px}}

@@ -12,8 +12,8 @@
     img.addEventListener('error',function(){
       phase++;
       if(phase===1){img.src=photo.remote;}
-      else if(phase===2){img.src=fallback;img.alt='Hình đồ họa dự phòng khi ảnh chụp thực tế không tải được';img.classList.add('fallbackPhoto');}
-      else{img.style.display='none';}
+      else if(phase===2){img.src='https://commons.wikimedia.org/wiki/Special:Redirect/file/'+encodeURIComponent(photo.filename)+'?width=540';}
+      else{img.style.display='none';img.dataset.photoUnavailable='1';img.parentElement.classList.add('photoUnavailable');}
     });
     img.src=photo.local;
   }
@@ -36,7 +36,7 @@
     const intro=document.createElement('p');intro.className='mrPhotoIntro';intro.textContent='Mỗi ảnh là tư liệu thực, có giải thích ngay phía dưới và đường dẫn đến nguồn, tác giả, giấy phép. Một số ảnh kỹ năng sống minh họa thao tác ở ngoài Hàn Quốc và được ghi rõ trong chú thích.';
     const grid=document.createElement('div');grid.className='mrPhotoGrid';
     t.realPhotos.forEach((p,i)=>grid.appendChild(renderPhotoCard(p,t,i)));
-    const note=document.createElement('p');note.className='mrPhotoNote';note.textContent='Ảnh do Wikimedia Commons cung cấp; cần Internet để tải ảnh nếu máy chưa lưu bản chụp. Nếu không kết nối, trang vẫn hiển thị hình minh họa V13. Ảnh y tế/cứu hộ chỉ mang tính minh họa, không thay thế hướng dẫn thực hành chuyên môn.';
+    const note=document.createElement('p');note.className='mrPhotoNote';note.textContent='Bộ ảnh: 34 ảnh chụp tư liệu phục vụ 66 thẻ chú thích. Ảnh được lưu tại images/culture-v14 sau khi chạy bộ tải ảnh. Nếu một ảnh không hiện, nhấn Nguồn ảnh để xem bản chụp gốc. Ảnh y tế/cứu hộ chỉ minh họa, không thay đào tạo thực hành.';
     section.append(h,intro,grid,note);
     const before=document.querySelector('#how')||document.querySelector('#image');
     if(before)content.insertBefore(section,before);else content.prepend(section);

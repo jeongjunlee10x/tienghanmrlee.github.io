@@ -1,0 +1,69 @@
+{
+  "version": "2026-10-16-v5-curated-seed",
+  "notice": "Chi thong tin lien he tu website truong duoc doi chieu. Chua xac minh toa do GPS hay quyen su dung hinh anh. Khong danh dau verified cho location.",
+  "campuses": {
+    "snu::gwanak": {
+      "address": "1 Gwanak-ro, Gwanak-gu, Seoul 08826, Republic of Korea",
+      "phone": "+82-2-880-5114",
+      "phone_label": "Tổng đài trường",
+      "source_url": "https://en.snu.ac.kr/contact_us",
+      "source_type": "website_truong",
+      "verified_at": "2026-10-16",
+      "photo_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Seoul_National_University_20171026_164458.jpg?width=960",
+      "photo_credit": "H. Y. Shin 000 / Wikimedia Commons",
+      "photo_license": "CC0 1.0",
+      "photo_source": "https://commons.wikimedia.org/wiki/File:Seoul_National_University_20171026_164458.jpg",
+      "school_ko": "서울대학교",
+      "region": "seoul",
+      "address_hint_ko": "관악로 1"
+    },
+    "yonsei::sinchon": {
+      "address": "50 Yonsei-ro, Seodaemun-gu, Seoul 03722, Republic of Korea",
+      "phone": "1599-1885",
+      "phone_label": "Tổng đài trường",
+      "source_url": "https://www.yonsei.ac.kr/en_sc/1834/subview.do",
+      "source_type": "website_truong",
+      "verified_at": "2026-10-16",
+      "photo_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Yonsei_University_campus.jpg?width=960",
+      "photo_credit": "Christian Bolz / Wikimedia Commons",
+      "photo_license": "CC BY-SA 4.0",
+      "photo_source": "https://commons.wikimedia.org/wiki/File:Yonsei_University_campus.jpg",
+      "school_ko": "연세대학교",
+      "region": "seoul",
+      "address_hint_ko": "연세로 50"
+    },
+    "yonsei::songdo": {
+      "address": "85 Songdogwahak-ro, Yeonsu-gu, Incheon 21983, Republic of Korea",
+      "phone": "032-749-3131",
+      "phone_label": "Văn phòng Yonsei University College tại campus",
+      "source_url": "https://uc.yonsei.ac.kr/uc/intro/location-Shinchon.do",
+      "source_type": "website_truong",
+      "verified_at": "2026-10-16",
+      "school_ko": "연세대학교",
+      "region": "incheon",
+      "address_hint_ko": "송도과학로 85"
+    },
+    "skku::humanities": {
+      "address": "25-2 Sungkyunkwan-ro, Jongno-gu, Seoul 03063, Republic of Korea",
+      "phone": "1811-8585",
+      "phone_label": "Tổng đài trường",
+      "source_url": "https://www.skku.ac.kr/eng/About/campusinfo/campus_telInfo.do",
+      "source_type": "website_truong",
+      "verified_at": "2026-10-16",
+      "school_ko": "성균관대학교",
+      "region": "seoul",
+      "address_hint_ko": "성균관로 25-2"
+    },
+    "skku::natural": {
+      "address": "2066 Seobu-ro, Jangan-gu, Suwon-si, Gyeonggi-do 16419, Republic of Korea",
+      "phone": "1811-8585",
+      "phone_label": "Tổng đài trường",
+      "source_url": "https://www.skku.ac.kr/eng/About/campusinfo/campus_telInfo2.do",
+      "source_type": "website_truong",
+      "verified_at": "2026-10-16",
+      "school_ko": "성균관대학교",
+      "region": "gyeonggi",
+      "address_hint_ko": "서부로 2066"
+    }
+  }
+}

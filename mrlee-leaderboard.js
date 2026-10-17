@@ -14,11 +14,12 @@ const caption=el('p','mlb-sub','Điểm động lực từ ví học tập · B�
 const status=el('p','mlb-status','Đang kết nối bảng điểm…');status.setAttribute('role','status');
 const personal=el('p','mlb-personal','Đăng nhập để đánh dấu thứ hạng của bạn.');
 const search=el('input','mlb-input');search.type='search';search.placeholder='Tìm tên học viên…';search.setAttribute('aria-label','Tìm tên trong bảng xếp hạng toàn server');
+const summary=el('div','ml-rank-summary');
 const list=el('ol','mlb-list');list.setAttribute('aria-label','Thứ hạng, học viên và tổng điểm');
 const nav=el('nav','mlb-pagination');nav.setAttribute('aria-label','Trang bảng xếp hạng');
 const prev=el('button','mlb-join','← Trước'),next=el('button','mlb-join','Tiếp →'),pageLabel=el('span');prev.type=next.type='button';nav.append(prev,pageLabel,next);
 const retry=el('button','mlb-join','Thử kết nối lại');retry.type='button';retry.hidden=true;
-root.append(head,caption,status,personal);if(full)root.append(search);root.append(list);if(full)root.append(nav);root.append(retry);
+root.append(head,caption,status,personal);if(full)root.append(summary,search);root.append(list);if(full)root.append(nav);root.append(retry);
 if(!full){
  const link=el('a','mlb-all','Xem tất cả học viên →');link.href='bang-xep-hang.html';root.append(link);
  const close=el('button','mlb-close','×');close.type='button';close.setAttribute('aria-label','Thu gọn bảng xếp hạng');head.append(close);
@@ -35,10 +36,11 @@ function render(){
  personal.textContent=uid?(mine?`Bạn đứng thứ #${fmt(mine.rank)} · ${fmt(mine.points)} điểm`:'Chưa có tên của bạn. Hãy đăng nhập và mở trang để đồng bộ ví điểm.'): 'Mọi người đều xem được bảng điểm. Đăng nhập để đánh dấu thứ hạng của bạn.';
  const filtered=full?rows.filter(x=>searchable(x.alias).includes(searchable(search.value.trim()))):rows;
  const pages=Math.max(1,Math.ceil(filtered.length/size));page=Math.min(page,pages-1);
+ if(full){summary.replaceChildren();for(const [name,value] of [['Tổng học viên',fmt(rows.length)],['Điểm cao nhất',rows.length?fmt(rows[0].points):'—'],['Hạng của bạn',mine?'#'+fmt(mine.rank):'—']]){const cell=el('span','',name);cell.append(el('strong','',value));summary.append(cell)}}
  list.replaceChildren();
  const visible=full?filtered.slice(page*size,(page+1)*size):rows.slice(0,10);
  for(const row of visible){
-  const item=el('li','mlb-item'+(row.id===uid?' mlb-is-me':''));
+  const item=el('li','mlb-item'+(row.id===uid?' mlb-is-me':'')+(row.rank<=3?' mlb-top-'+row.rank:''));
   const rank=el('span','mlb-position',`#${fmt(row.rank)}`);
   const profile=el('div','mlb-profile');profile.append(el('strong','',row.alias+(row.id===uid?' (Bạn)':'')),el('small','',row.rank<=3?['🥇 Hạng nhất','🥈 Hạng nhì','🥉 Hạng ba'][row.rank-1]:`🔥 ${fmt(row.streak)} ngày liên tiếp`));
   item.append(rank,profile,el('strong','mlb-points',`${fmt(row.points)} điểm`));list.append(item);
