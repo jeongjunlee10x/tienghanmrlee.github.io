@@ -1,0 +1,65 @@
+/* MR LEE V30.5 — presentation-only photo refresh.
+   Preserve original logo, hero with glasses, school search, consultation and rankings.
+   High-resolution WebP cards; avoid image blur from 190px thumbnails. */
+html[data-mrlee-v305="photos"] #mainContent .feature-card img,
+html[data-mrlee-v305="photos"] #mainContent .step-card img{
+  width:100%;object-fit:cover;image-rendering:auto;
+  filter:none!important;opacity:1!important;
+  -webkit-filter:none!important;backdrop-filter:none!important;
+  transform:translateZ(0);transition:transform .27s ease;
+}
+html[data-mrlee-v305="photos"] #mainContent .feature-card:hover img,
+html[data-mrlee-v305="photos"] #mainContent .step-card:hover img{
+  transform:scale(1.045);
+}
+html[data-mrlee-v305="photos"] #mainContent .feature-card,
+html[data-mrlee-v305="photos"] #mainContent .step-card{
+  overflow:hidden;isolation:isolate;border:1px solid rgba(193,214,247,.88);
+  box-shadow:0 5px 16px rgba(30,67,119,.10);
+}
+html[data-mrlee-v305="photos"] #mainContent .feature-card:focus-visible,
+html[data-mrlee-v305="photos"] #mainContent .step-card:focus-visible{
+  outline:3px solid #1483fa;outline-offset:2px;
+}
+/* Six study levels use six distinct subject-led illustrations rather than repeated, unrelated campus photos. */
+html[data-mrlee-v24="learning-hub"] .section-hero::before{
+  background:linear-gradient(90deg,rgba(5,33,78,.12),rgba(5,33,78,.03)),url('images/learning-hero.webp') 54% 40%/cover no-repeat!important;
+  opacity:.95!important;filter:none!important;
+}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(-n+6)::before{
+  background-image:linear-gradient(0deg,rgba(4,28,65,.94) 0%,rgba(4,33,70,.43) 46%,rgba(4,33,70,.02) 100%),url('images/learning-cap-1.webp')!important;
+  background-position:center!important;background-size:cover!important;
+  filter:none!important;opacity:1!important;
+}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(2)::before{
+  background-image:linear-gradient(0deg,rgba(4,28,65,.94),rgba(4,33,70,.43) 46%,rgba(4,33,70,.02)),url('images/learning-cap-2.webp')!important;
+}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(3)::before{
+  background-image:linear-gradient(0deg,rgba(4,28,65,.94),rgba(4,33,70,.43) 46%,rgba(4,33,70,.02)),url('images/learning-cap-3.webp')!important;
+}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(4)::before{
+  background-image:linear-gradient(0deg,rgba(4,28,65,.94),rgba(4,33,70,.43) 46%,rgba(4,33,70,.02)),url('images/learning-cap-4.webp')!important;
+}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(5)::before{
+  background-image:linear-gradient(0deg,rgba(4,28,65,.94),rgba(4,33,70,.43) 46%,rgba(4,33,70,.02)),url('images/learning-cap-5.webp')!important;
+}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(6)::before{
+  background-image:linear-gradient(0deg,rgba(4,28,65,.94),rgba(4,33,70,.43) 46%,rgba(4,33,70,.02)),url('images/learning-cap-6.webp')!important;
+}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:hover::before{
+  transform:scale(1.04);transition:transform .26s ease;
+}
+html[data-mrlee-v24="books"] .books-hero{
+  background:linear-gradient(95deg,rgba(8,31,73,.89),rgba(18,64,114,.40)),url('images/learning-books.webp') 50% 47%/cover no-repeat!important;
+}
+html[data-mrlee-v24="topik-pro"] .pro-header::after,
+html[data-mrlee-v24="topik-hub"] .section-hero::before{
+  background:linear-gradient(90deg,rgba(21,27,80,.10),rgba(29,34,75,.18)),url('images/learning-topik.webp') 52% 43%/cover no-repeat!important;
+  filter:none!important;
+}
+/* Do not hide UI behind imagery; support reduced motion. */
+@media(prefers-reduced-motion:reduce){
+ html[data-mrlee-v305="photos"] #mainContent .feature-card img,
+ html[data-mrlee-v305="photos"] #mainContent .step-card img,
+ html[data-mrlee-v24="learning-hub"] .destination-grid>.destination::before{transition:none!important;transform:none!important}
+}
