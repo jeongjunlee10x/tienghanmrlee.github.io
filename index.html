@@ -8,8 +8,10 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
 <link href="assets/v20/home.css?v=20.0" rel="stylesheet"/><script defer="" src="assets/v20/home.js?v=20.0"></script>
+<link rel="stylesheet" href="assets/v21/consult.css?v=21.0">
+<script src="assets/v21/consult.js?v=21.0" defer></script>
 </head>
-<body data-mrlee-version="MRLEE_MAIN_V20">
+<body data-mrlee-version="MRLEE_MAIN_V21">
 <a class="skip-link" href="#mainContent">Tới nội dung chính</a>
 <header class="site-header"><div class="header-inner">
 <a aria-label="Trang chủ MR LEE" class="brand" href="index.html"><img alt="MR LEE" height="43" onerror="this.onerror=null;this.src='assets/v20/brand.svg'" src="images/logo.png" width="43"/><span><b>MR LEE</b><small>DU HỌC HÀN QUỐC 🇰🇷</small></span></a>
@@ -77,17 +79,60 @@
 <div><span>KakaoTalk</span><strong>ycleeee</strong></div>
 <div><span>Messenger</span><a href="https://m.me/821366751066220" rel="noopener noreferrer" target="_blank">Mở Messenger (kiểm tra đúng trang)</a></div>
 </div>
-<form class="consult-form" id="consultForm">
-<label>Họ và tên<input id="consultName" maxlength="100" placeholder="Họ và tên" required=""/></label>
-<label>Số điện thoại<input id="consultPhone" maxlength="24" placeholder="Số điện thoại" required=""/></label>
-<label>Chương trình quan tâm<select id="consultProgram"><option>Chưa xác định</option><option>Học tiếng (D-4-1)</option><option>Đại học / Cao đẳng (D-2)</option><option>Sau đại học</option></select></label>
-<button class="btn-primary full" type="submit">Tạo phiếu tư vấn</button>
+<form class="consult-form-v21" id="consultFormV21" autocomplete="on">
+  <div class="v21-form-header">
+    <span class="v21-form-icon" aria-hidden="true">✍</span>
+    <div><b>PHIẾU ĐĂNG KÝ TƯ VẤN</b><small>Điền đầy đủ thông tin để MR LEE có thể tư vấn lộ trình phù hợp.</small></div>
+  </div>
+  <div class="v21-form-grid">
+    <label class="v21-field">Họ và tên <span class="v21-required">*</span><input name="fullName" id="v21FullName" autocomplete="name" required minlength="2" maxlength="100" placeholder="Nguyễn Văn A"></label>
+    <label class="v21-field">Ngày / Tháng / Năm sinh <span class="v21-required">*</span><input name="birthDate" id="v21BirthDate" type="date" autocomplete="bday" required></label>
+    <label class="v21-field">Số điện thoại <span class="v21-required">*</span><input name="phone" id="v21Phone" type="tel" inputmode="tel" autocomplete="tel" required minlength="9" maxlength="16" placeholder="0xxxxxxxxx"></label>
+    <label class="v21-field">Chương trình quan tâm <span class="v21-required">*</span>
+      <select name="program" id="v21Program" required>
+        <option value="">— Chọn chương trình —</option>
+        <option>Du học tiếng Hàn D-4-1</option>
+        <option>Du học Cao đẳng / Đại học D-2</option>
+        <option>Du học Thạc sĩ / Tiến sĩ</option>
+        <option>Học bổng du học Hàn Quốc</option>
+        <option>Chưa xác định – cần tư vấn</option>
+      </select>
+    </label>
+  </div>
+  <fieldset class="v21-education">
+    <legend>01 · Trình độ Trung học phổ thông (THPT)</legend>
+    <label class="v21-field">Tên trường THPT <span class="v21-required">*</span><input name="highSchool" id="v21HighSchool" required maxlength="160" placeholder="Tên trường THPT đã / đang theo học"></label>
+    <div class="v21-radio-caption">Tình trạng tốt nghiệp THPT <span class="v21-required">*</span></div>
+    <div class="v21-choice-group">
+      <label class="v21-choice"><input type="radio" name="highSchoolStatus" value="Đã tốt nghiệp" required><span>✓ Đã tốt nghiệp</span></label>
+      <label class="v21-choice"><input type="radio" name="highSchoolStatus" value="Chưa tốt nghiệp" required><span>○ Chưa tốt nghiệp</span></label>
+    </div>
+  </fieldset>
+  <fieldset class="v21-education">
+    <legend>02 · Trình độ Cao đẳng / Đại học</legend>
+    <label class="v21-field">Tên trường CĐ / Đại học<input name="higherSchool" id="v21HigherSchool" maxlength="160" placeholder="Tên trường nếu đã / đang theo học"></label>
+    <div class="v21-radio-caption">Tình trạng tốt nghiệp CĐ / Đại học <span class="v21-required">*</span></div>
+    <div class="v21-choice-group">
+      <label class="v21-choice"><input type="radio" name="higherSchoolStatus" value="Đã tốt nghiệp" required><span>✓ Đã tốt nghiệp</span></label>
+      <label class="v21-choice"><input type="radio" name="higherSchoolStatus" value="Chưa tốt nghiệp" required><span>○ Chưa tốt nghiệp</span></label>
+      <label class="v21-choice"><input type="radio" name="higherSchoolStatus" value="Chưa học CĐ/ĐH" required checked><span>— Chưa học CĐ/ĐH</span></label>
+    </div>
+  </fieldset>
+  <label class="v21-consent"><input id="v21Consent" type="checkbox" required><span>Tôi đồng ý sử dụng các thông tin trên để tư vấn tuyển sinh. Phiếu chỉ được chia sẻ khi tôi chủ động gửi qua Messenger/Email; website không tự lưu hồ sơ vào hệ thống.</span></label>
+  <label class="v21-consent"><input id="v21Guardian" type="checkbox"><span>Nếu chưa đủ 18 tuổi, tôi đã được phụ huynh hoặc người giám hộ đồng ý cho liên hệ tư vấn.</span></label>
+  <div class="v21-submit-row"><button class="v21-submit" type="submit">✉ TẠO PHIẾU TƯ VẤN <span>→</span></button><small>Chưa gửi tự động đến Meta.</small></div>
 </form>
-<div hidden="" id="consultResult">
-<textarea id="consultCopyText" readonly="" rows="6"></textarea>
-<div class="result-actions">
-<button class="btn-secondary full" id="copyConsult" type="button">Sao chép nội dung</button>
-</div>
+<div class="v21-result" id="v21Result" hidden aria-live="polite">
+  <div class="v21-result-title">✓ Phiếu tư vấn đã tạo</div>
+  <p id="v21ResultDesc">Bạn cần gửi phiếu qua kênh liên hệ để nhân viên MR LEE nhận được.</p>
+  <textarea id="v21Preview" readonly rows="11" aria-label="Nội dung phiếu tư vấn"></textarea>
+  <div class="v21-result-buttons">
+    <a class="v21-messenger" id="v21OpenMessenger" href="https://m.me/821366751066220" target="_blank" rel="noopener noreferrer">Sao chép &amp; mở Messenger ↗</a>
+    <a class="v21-email" id="v21OpenEmail" href="mailto:tienghanmrlee@gmail.com">Gửi qua Email ↗</a>
+    <button class="v21-copy" id="v21Copy" type="button">Sao chép phiếu</button>
+  </div>
+  <div class="v21-status" id="v21Status" role="status"></div>
+  <p class="v21-hint">Messenger không tự gửi nội dung: sau khi mở chat, vui lòng dán phiếu và nhấn <strong>Gửi</strong>. Gửi Email cần xác nhận trong ứng dụng email.</p>
 </div>
 </dialog>
 <footer class="site-footer">MR LEE • Liên hệ <a href="tel:0376991180">0376991180</a> • <a href="mailto:tienghanmrlee@gmail.com">tienghanmrlee@gmail.com</a></footer>
