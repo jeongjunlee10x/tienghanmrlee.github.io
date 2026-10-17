@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#102a56">
+  <meta name="description" content="MR LEE V26: kiểm tra khả năng tải các trang và tài nguyên công khai, không truy cập dữ liệu cá nhân.">
+  <title>Kiểm tra website | TIẾNG HÀN MR LEE</title>
+  <link rel="icon" type="image/png" href="assets/branding/logo-mrlee.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/v26/health.css?v=26.0">
+  <script defer src="assets/v26/health.js?v=26.0"></script>
+</head>
+<body>
+  <header class="masthead"><div class="inner top">
+    <a class="brand" href="index.html"><img src="assets/branding/logo-mrlee.png" width="58" height="58" alt="Logo chính thức TIẾNG HÀN MR LEE"><span><strong>TIẾNG HÀN MR LEE</strong><small>WEBSITE QUALITY CENTER</small></span></a>
+    <nav aria-label="Điều hướng"><a href="index.html">Trang chủ</a><a href="hoc-tieng-han.html">Học tập</a><a href="mrlee-topik-pro.html">TOPIK</a><a href="ban-do-dai-hoc-han-quoc.html">Bản đồ</a></nav>
+  </div></header>
+  <main class="main inner">
+    <section class="hero"><div class="hero-copy"><span class="eyebrow">MR LEE · QUALITY ASSURANCE · V26</span><h1>Website khỏe mạnh,<br><em>học tập liền mạch.</em></h1>
+      <p>Kiểm tra khả năng tải trang và tài nguyên công khai từ thiết bị của bạn. Không đọc tài khoản, không gửi dữ liệu học viên, không sửa Firebase hoặc kết quả thi.</p>
+      <div class="actions"><button id="runTest" class="action-primary" type="button">Bắt đầu kiểm tra <span aria-hidden="true">↗</span></button><button id="saveTest" type="button" class="action-quiet" disabled>Xuất báo cáo JSON</button></div>
+      <p id="runStatus" class="status" role="status" aria-live="polite">Chưa chạy kiểm tra.</p>
+    </div><div class="visual" aria-hidden="true"><div class="orb"><span>MR LEE</span><b>✓</b><small>Web Check</small></div><div class="float float-a">UI / UX</div><div class="float float-b">KOREAN EDTECH</div><div class="line-art"></div></div></section>
+    <section class="metrics" aria-label="Thống kê kiểm tra">
+      <div class="metric"><small>TÀI NGUYÊN ĐÃ KIỂM TRA</small><strong id="totalCount">0</strong><span>Tệp / trang công khai</span></div>
+      <div class="metric"><small>HOẠT ĐỘNG</small><strong id="okCount">0</strong><span>HTTP 2xx</span></div>
+      <div class="metric"><small>CẦN KIỂM TRA</small><strong id="badCount">0</strong><span>Lỗi hoặc bị chặn</span></div>
+      <div class="metric"><small>HOÀN THÀNH</small><strong id="doneCount">0%</strong><span>Tiến độ kiểm thử</span></div>
+    </section>
+    <div class="section-heading"><div><span class="eyebrow darker">SYSTEM CHECKLIST</span><h2>Kiểm tra theo nhóm trang</h2></div><span class="disclaimer">Chỉ xác nhận tải tệp · Không thay thế kiểm thử chức năng</span></div>
+    <div id="checks" class="checks" aria-live="polite"></div>
+    <div class="footnote"><b>Giới hạn kiểm tra:</b> Kết quả HTTP 200 không chứng minh chức năng học tập, bản đồ tương tác, phát MP3, đăng nhập, TOPIK, bảng xếp hạng hay gửi Meta hoạt động đúng. Các chức năng này phải được thử thủ công bằng tài khoản và dữ liệu được phép truy cập.</div>
+  </main>
+  <footer class="footer inner"><span>© TIẾNG HÀN MR LEE · Chỉ kiểm tra công khai · Không ghi dữ liệu</span><a href="index.html">Quay lại trang chủ ↗</a></footer>
+</body></html>
