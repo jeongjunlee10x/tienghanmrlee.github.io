@@ -1,0 +1,16 @@
+/* MR LEE ADMIN - typography & legibility patch, 2026-10-18 */
+html[data-mrlee-v25="admin-console"],html[data-mrlee-v23="admin"]{font-synthesis:none;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html[data-mrlee-v25="admin-console"] body,html[data-mrlee-v23="admin"] body{
+ font-family:'Be Vietnam Pro','Segoe UI',Arial,sans-serif!important;
+ font-size:14px;line-height:1.65;letter-spacing:0;text-rendering:optimizeLegibility;
+ -webkit-font-smoothing:antialiased;font-synthesis:none;overflow-wrap:break-word
+}
+html[data-mrlee-v25="admin-console"] :is(button,input,select,textarea,table,th,td,label,option),
+html[data-mrlee-v23="admin"] :is(button,input,select,textarea,table,th,td,label,option){font-family:'Be Vietnam Pro','Segoe UI',Arial,sans-serif!important;letter-spacing:normal}
+html[data-mrlee-v25="admin-console"] :is(.topbar h2,.panel-head h3,.auth-head h1,.kpi strong,.cell-main),
+html[data-mrlee-v23="admin"] :is(.topbar h2,.panel-head h3,.auth-head h1,.kpi strong,.cell-main){font-family:'Be Vietnam Pro','Segoe UI',Arial,sans-serif!important;line-height:1.35!important;letter-spacing:0!important;font-weight:750!important;overflow-wrap:anywhere}
+html[data-mrlee-v25="admin-console"] .side-menu button,html[data-mrlee-v23="admin"] .side-menu button{font-size:12.5px!important;line-height:1.55!important;white-space:normal}
+html[data-mrlee-v25="admin-console"] .data-table th,html[data-mrlee-v23="admin"] .data-table th{font-size:11.5px!important;line-height:1.55!important;white-space:normal}
+html[data-mrlee-v25="admin-console"] .data-table td,html[data-mrlee-v23="admin"] .data-table td{font-size:12px!important;line-height:1.65!important}
+html[data-mrlee-v25="admin-console"] .sidebar,html[data-mrlee-v23="admin"] .sidebar{overflow-wrap:anywhere}
+@media(max-width:740px){html[data-mrlee-v25="admin-console"] .side-menu button,html[data-mrlee-v23="admin"] .side-menu button{font-size:11.5px!important}}
