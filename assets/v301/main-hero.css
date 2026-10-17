@@ -1,0 +1,115 @@
+/* MR LEE V30.1 — MAIN only. Existing HTML IDs, JS, data, and navigation stay unchanged.
+   The approved image remains at assets/branding/logo-mrlee.png (single source of truth). */
+html[data-mrlee-v30="home"]{--m301-navy:#0b2d68;--m301-pink:#fc086b;--m301-blue:#0874f8;--m301-outline:#dbe6f6}
+html[data-mrlee-v30="home"] body{font-family:'Be Vietnam Pro',Arial,sans-serif;letter-spacing:-.015em;color:#102e62;background:#f5f8ff}
+/* header: official *full* logo only, no competing SVG/text mark */
+html[data-mrlee-v30="home"] .site-header{height:72px;box-shadow:0 5px 25px rgba(17,60,122,.06);border-bottom:1px solid #dce6f6;background:rgba(255,255,255,.97)}
+html[data-mrlee-v30="home"] .header-inner{max-width:1770px;padding:8px 27px;gap:18px}
+html[data-mrlee-v30="home"] a.brand{min-width:184px;max-width:210px;padding:0;background:transparent;border:0;flex-shrink:0}
+html[data-mrlee-v30="home"] a.brand img,
+html[data-mrlee-v30="home"] a.brand img.mrlee-approved-logo{display:block;width:194px!important;max-width:100%!important;height:auto!important;max-height:64px!important;object-fit:contain!important;filter:none!important;transform:none!important}
+html[data-mrlee-v30="home"] .main-nav{gap:clamp(7px,1.2vw,18px);justify-content:center}
+html[data-mrlee-v30="home"] .main-nav>a{font-family:'Be Vietnam Pro',Arial,sans-serif;font-size:clamp(10px,.8vw,13px);font-weight:700;letter-spacing:-.02em;color:#173c75}
+html[data-mrlee-v30="home"] .main-nav>a.active{color:#0a61dd}
+html[data-mrlee-v30="home"] .top-cta{background:linear-gradient(105deg,#fb075d,#ff388c);border-radius:15px;min-height:46px;box-shadow:0 9px 19px #ff1c7440;font-size:12px;padding:10px 17px}
+/* hero: crisp photographic composition inspired by the approved reference image */
+html[data-mrlee-v30="home"] .hero{
+ min-height:398px;height:clamp(398px,34.5vw,496px);flex:none;position:relative;isolation:isolate;overflow:hidden;
+ background:#ecf6ff;border:1px solid #dce9f9;border-radius:23px 23px 5px 5px;
+ box-shadow:0 12px 28px #15396a18}
+html[data-mrlee-v30="home"] .hero-atmosphere{
+ position:absolute;inset:0;z-index:0;opacity:1!important;filter:none!important;
+ background-image:linear-gradient(90deg,#eff7ff 0%,rgba(239,247,255,.99) 27%,rgba(240,247,255,.97) 36%,rgba(240,247,255,.65) 48%,rgba(240,247,255,.1) 65%,transparent 78%),url('hero-seoul.webp');
+ background-position:center,right center;background-size:cover,auto 110%;background-repeat:no-repeat}
+html[data-mrlee-v30="home"] .hero:before{content:'✿';position:absolute;left:-46px;top:-70px;z-index:1;font-size:175px;line-height:1;color:#fdb2d3;opacity:.4;transform:rotate(-15deg)}
+html[data-mrlee-v30="home"] .hero:after{content:'✿';position:absolute;left:-56px;bottom:-79px;z-index:1;font-size:143px;line-height:1;color:#ffbfda;opacity:.40;transform:rotate(22deg)}
+html[data-mrlee-v30="home"] .hero-stamp,
+html[data-mrlee-v30="home"] .hero-photo{display:none!important}
+html[data-mrlee-v30="home"] .hero-copy{position:relative;z-index:2;box-sizing:border-box;width:min(59%,865px);max-width:100%;padding:clamp(17px,2.1vw,36px) 0 20px clamp(30px,5vw,89px)}
+html[data-mrlee-v30="home"] .hero .script{font-family:'Noto Serif',Georgia,serif!important;font-weight:600;font-style:italic;font-size:clamp(16px,1.43vw,25px);line-height:1.42;letter-spacing:-.035em;color:#f80d70;filter:none;text-shadow:0 1px white;white-space:normal}
+html[data-mrlee-v30="home"] .hero h1{font-family:'Be Vietnam Pro',Arial,sans-serif!important;font-weight:900;font-size:clamp(46px,5.5vw,100px);letter-spacing:-.065em;line-height:1.03;color:#0b3073;margin:9px 0 8px;white-space:normal;text-shadow:none}
+html[data-mrlee-v30="home"] .hero h1 span{color:#fc096a;text-shadow:none}
+html[data-mrlee-v30="home"] .hero-copy>p{font-family:'Noto Serif',Georgia,serif!important;font-weight:600;font-style:italic;letter-spacing:-.024em;font-size:clamp(13px,1.28vw,20px);line-height:1.55;color:#173e74;margin:8px 0 14px;overflow-wrap:normal}
+html[data-mrlee-v30="home"] .hero-points{max-width:790px;min-height:49px;border-radius:100px;padding:4px 6px;background:rgba(255,255,255,.93);box-shadow:0 7px 25px #18478718;backdrop-filter:blur(8px);gap:0}
+html[data-mrlee-v30="home"] .hero-points span{font-family:'Be Vietnam Pro',Arial,sans-serif;font-size:clamp(10px,.79vw,12px);font-weight:750;white-space:nowrap;color:#163875;padding:8px 7px}
+html[data-mrlee-v30="home"] .hero-buttons{max-width:790px;gap:12px;margin-top:15px}
+html[data-mrlee-v30="home"] .hero-buttons a,html[data-mrlee-v30="home"] .hero-buttons button{font-family:'Be Vietnam Pro',Arial,sans-serif;font-size:clamp(10px,.93vw,14px);font-weight:900;white-space:normal;min-height:60px;padding:11px 18px;border:2px solid rgba(255,255,255,.98);border-radius:20px;box-shadow:0 9px 18px #0d489b27;letter-spacing:-.02em;transition:transform .18s,box-shadow .18s}
+html[data-mrlee-v30="home"] .hero-cta{background:linear-gradient(100deg,#ff0760,#ff3a90)!important}
+html[data-mrlee-v30="home"] .hero-map{background:linear-gradient(110deg,#0861ed,#159aff)!important}
+html[data-mrlee-v30="home"] .hero-buttons b{display:grid;place-items:center;flex:none;width:31px;height:31px;padding:0;border-radius:50%;font-size:18px;background:rgba(255,255,255,.21)}
+html[data-mrlee-v30="home"] .hero-buttons :where(a,button):hover{transform:translateY(-3px);box-shadow:0 16px 25px #125fb944}
+/* Search bar: clean structure, existing form JS unchanged. */
+html[data-mrlee-v30="home"] .search-strip{margin-top:-5px;border-radius:20px;border:1px solid #e0e8f6;background:#fffffff5;min-height:72px;padding:10px 12px;gap:10px;box-shadow:0 10px 24px #183d701b}
+html[data-mrlee-v30="home"] .school-search{grid-template-columns:minmax(190px,2fr) minmax(150px,1.15fr) minmax(140px,1.05fr) minmax(130px,.85fr);gap:10px}
+html[data-mrlee-v30="home"] .field input,html[data-mrlee-v30="home"] .field select{height:49px;border-radius:13px;background:#fff;border:1px solid #dce5f3;font-size:clamp(10px,.75vw,12px);font-family:'Be Vietnam Pro',Arial,sans-serif;padding:0 15px;color:#16407d;line-height:1.4}
+html[data-mrlee-v30="home"] .field input::placeholder{color:#7888a4;opacity:1}
+html[data-mrlee-v30="home"] .search-button{font-family:'Be Vietnam Pro',Arial,sans-serif;font-weight:850;font-size:clamp(11px,.78vw,13px);height:49px;background:linear-gradient(100deg,#045bf1,#1597ff);border-radius:13px;white-space:nowrap;box-shadow:0 5px 12px #1964cf24}
+html[data-mrlee-v30="home"] .quick-links{gap:7px}
+html[data-mrlee-v30="home"] .quick-links a{display:grid;place-items:center;text-align:center;min-height:49px;font-size:clamp(9px,.67vw,11px);padding:10px 12px;border-radius:12px;background:#ecf4ff;color:#1e4c9b;border:1px solid #e4edfb;line-height:1.25}
+/* downstream homepage remains fully functional */
+html[data-mrlee-v30="home"] #mainContent{max-width:1970px;padding:10px clamp(9px,1.75vw,32px) 14px;gap:10px;height:auto!important;overflow:visible!important}
+html[data-mrlee-v30="home"] .feature-cards{min-height:138px;height:clamp(140px,12vw,160px);flex:none}
+html[data-mrlee-v30="home"] .journey{min-height:150px;height:clamp(150px,13vw,177px);flex:none}
+html[data-mrlee-v30="home"] .ranking{min-height:110px;height:clamp(110px,11vw,140px);flex:none}
+html[data-mrlee-v30="home"] .feature-info b,html[data-mrlee-v30="home"] .step-card b{font-family:'Be Vietnam Pro',Arial,sans-serif;font-weight:800}
+@media(max-width:1390px){
+ html[data-mrlee-v30="home"] .main-nav{gap:7px}
+ html[data-mrlee-v30="home"] .header-inner{gap:12px;padding:6px 15px}
+ html[data-mrlee-v30="home"] a.brand img,html[data-mrlee-v30="home"] a.brand img.mrlee-approved-logo{width:168px!important}
+ html[data-mrlee-v30="home"] a.brand{min-width:169px}
+ html[data-mrlee-v30="home"] .hero{height:410px;min-height:400px}
+ html[data-mrlee-v30="home"] .hero-copy{width:60%;padding-left:4%}
+ html[data-mrlee-v30="home"] .hero h1{font-size:clamp(44px,5.65vw,78px)}
+ html[data-mrlee-v30="home"] .hero-atmosphere{background-size:cover,auto 105%}
+ html[data-mrlee-v30="home"] .quick-links a{padding:8px}
+}
+@media(max-width:1199px){
+ html[data-mrlee-v30="home"] .main-nav{display:none}
+ html[data-mrlee-v30="home"] .menu-toggle{display:block}
+ html[data-mrlee-v30="home"] .header-inner{justify-content:space-between}
+ html[data-mrlee-v30="home"] .hero-copy{width:68%}
+ html[data-mrlee-v30="home"] .hero-atmosphere{background-image:linear-gradient(90deg,#edf7ff 0%,rgba(239,247,255,.97) 44%,rgba(239,247,255,.3) 75%,transparent 100%),url('hero-seoul.webp');background-size:cover,auto 100%}
+ html[data-mrlee-v30="home"] .search-strip{flex-wrap:wrap}
+ html[data-mrlee-v30="home"] .school-search{flex-basis:100%}
+ html[data-mrlee-v30="home"] .quick-links{width:100%;justify-content:space-evenly}
+ html[data-mrlee-v30="home"] .quick-links a{flex:1}
+}
+@media(max-width:900px){
+ html[data-mrlee-v30="home"] .hero{height:auto;min-height:390px}
+ html[data-mrlee-v30="home"] .hero-copy{width:76%;padding:24px 16px 22px 28px}
+ html[data-mrlee-v30="home"] .hero h1{font-size:clamp(41px,7.3vw,63px)}
+ html[data-mrlee-v30="home"] .hero .script{font-size:clamp(16px,2.3vw,22px)}
+ html[data-mrlee-v30="home"] .hero-points{flex-wrap:wrap;border-radius:18px;max-width:560px}
+ html[data-mrlee-v30="home"] .hero-points span{min-width:48%;flex:1;font-size:11px}
+ html[data-mrlee-v30="home"] .hero-points span:nth-child(2){border:0}
+ html[data-mrlee-v30="home"] .hero-buttons{gap:8px}
+ html[data-mrlee-v30="home"] .hero-buttons a,html[data-mrlee-v30="home"] .hero-buttons button{min-height:52px;padding:9px 12px;font-size:11px}
+ html[data-mrlee-v30="home"] .school-search{grid-template-columns:repeat(2,minmax(0,1fr))}
+ html[data-mrlee-v30="home"] .feature-cards,html[data-mrlee-v30="home"] .journey,html[data-mrlee-v30="home"] .ranking{height:auto}
+}
+@media(max-width:570px){
+ html[data-mrlee-v30="home"] .site-header{min-height:64px;height:auto}
+ html[data-mrlee-v30="home"] a.brand img,html[data-mrlee-v30="home"] a.brand img.mrlee-approved-logo{width:138px!important}
+ html[data-mrlee-v30="home"] a.brand{min-width:140px}
+ html[data-mrlee-v30="home"] .top-cta{display:none}
+ html[data-mrlee-v30="home"] .hero{min-height:550px;border-radius:18px 18px 4px 4px}
+ html[data-mrlee-v30="home"] .hero-atmosphere{background-image:linear-gradient(180deg,#eaf5ff 0%,rgba(237,247,255,.99) 34%,rgba(238,247,255,.9) 50%,rgba(236,247,255,.1) 78%,transparent 100%),url('hero-seoul.webp');background-size:cover,auto 65%;background-position:center,right bottom}
+ html[data-mrlee-v30="home"] .hero-copy{width:100%;padding:19px 15px 30px}
+ html[data-mrlee-v30="home"] .hero .script{font-size:16px;max-width:99%;display:block}
+ html[data-mrlee-v30="home"] .hero h1{font-size:clamp(36px,9vw,54px);margin:6px 0;line-height:1.1}
+ html[data-mrlee-v30="home"] .hero-copy>p{font-size:12px;max-width:95%;line-height:1.6;margin:6px 0 10px}
+ html[data-mrlee-v30="home"] .hero-points{max-width:100%;min-height:0;padding:5px;border-radius:13px;background:#ffffffd9}
+ html[data-mrlee-v30="home"] .hero-points span{font-size:9px;padding:5px 3px}
+ html[data-mrlee-v30="home"] .hero-buttons{flex-direction:column;max-width:310px;margin-top:10px;gap:6px}
+ html[data-mrlee-v30="home"] .hero-buttons a,html[data-mrlee-v30="home"] .hero-buttons button{min-height:43px;font-size:10px;padding:6px 12px;border-radius:14px;flex:none}
+ html[data-mrlee-v30="home"] .hero-buttons b{width:26px;height:26px;font-size:14px}
+ html[data-mrlee-v30="home"] .search-strip{padding:8px;border-radius:14px;gap:7px}
+ html[data-mrlee-v30="home"] .school-search{gap:7px;grid-template-columns:repeat(2,minmax(0,1fr))}
+ html[data-mrlee-v30="home"] .field input,html[data-mrlee-v30="home"] .field select,html[data-mrlee-v30="home"] .search-button{height:44px;font-size:11px}
+ html[data-mrlee-v30="home"] .field-search{grid-column:1/-1}
+ html[data-mrlee-v30="home"] .search-button{grid-column:1/-1}
+ html[data-mrlee-v30="home"] .quick-links{gap:5px}
+ html[data-mrlee-v30="home"] .quick-links a{font-size:9px;padding:7px 4px;min-height:44px}
+ html[data-mrlee-v30="home"] .feature-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+}
+@media(prefers-reduced-motion:reduce){html[data-mrlee-v30="home"] .hero-buttons a,html[data-mrlee-v30="home"] .hero-buttons button{transition:none}}
