@@ -1,0 +1,19 @@
+/* MRLEE_CONTACTS_V17_1: floating contact links; no ranking/map changes. */
+.mr-contact-rail{position:fixed;z-index:95;right:13px;top:50%;transform:translateY(-40%);display:flex;flex-direction:column;align-items:flex-end;gap:9px;pointer-events:none}
+.mr-contact-fab{pointer-events:auto;min-width:65px;min-height:62px;display:flex;align-items:center;flex-direction:column;justify-content:center;gap:4px;padding:8px 9px;text-align:center;color:#fff;background:#166ceb;border:2px solid rgba(255,255,255,.96);border-radius:18px;box-shadow:0 7px 20px rgba(15,43,95,.23);font-size:11px;font-family:inherit;font-weight:850;line-height:1.12;text-decoration:none;cursor:pointer;transition:transform .18s,box-shadow .18s,filter .18s}
+.mr-contact-fab:hover,.mr-contact-fab:focus-visible{transform:translateX(-5px);box-shadow:0 11px 26px rgba(15,43,95,.3);filter:brightness(1.05);color:#fff}
+.mr-contact-fab .mr-fab-icon{font-size:22px;font-weight:900;line-height:1.1}
+.mr-contact-fab .mr-fab-text{font-size:10.5px;letter-spacing:-.15px;color:#fff}
+.mr-contact-fab.mr-phone{background:linear-gradient(145deg,#18bd76,#078756)}
+.mr-contact-fab.mr-zalo{background:linear-gradient(145deg,#1689ff,#005bd6)}
+.mr-contact-fab.mr-messenger{background:linear-gradient(145deg,#a14cff,#583ce8)}
+.mr-contact-fab.mr-kakao{background:linear-gradient(145deg,#ffdc41,#f4b934);color:#382908}
+.mr-contact-fab.mr-kakao .mr-fab-text{color:#382908}
+.mr-contact-toast{position:fixed;z-index:101;right:94px;bottom:22px;max-width:min(340px,calc(100vw - 24px));border:1px solid #d4e3f4;background:#fff;color:#18365b;padding:13px 16px;box-shadow:0 12px 35px #12234536;border-radius:13px;font-size:12px;font-weight:750;line-height:1.5}
+.mr-contact-toast[hidden]{display:none!important}
+.mr-contact-facts{margin:13px 0;padding:12px 13px;border:1px solid #deebfa;background:#f5f9ff;border-radius:12px;display:grid;grid-template-columns:1fr 1fr;gap:9px 12px;font-size:12px}
+.mr-contact-facts a{color:#076ce8;font-weight:850;text-decoration:underline}.mr-contact-facts b{display:block;font-size:10px;color:#627391;margin-bottom:4px}.mr-contact-facts span{font-weight:800;word-break:break-word}
+.mr-copy-inline{border:0;background:#ffdf53;color:#352b0c;border-radius:8px;padding:4px 7px;margin-left:6px;font-weight:800;font-size:10px;cursor:pointer}
+@media(max-width:760px){body{padding-bottom:70px!important}.mr-contact-rail{inset:auto 0 0 0;top:auto;right:0;transform:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:6px 8px max(7px,env(safe-area-inset-bottom));background:rgba(255,255,255,.97);border-top:1px solid #dce7f7;box-shadow:0 -5px 22px #142f5b22;backdrop-filter:blur(14px)}.mr-contact-fab{min-width:0;min-height:48px;flex-direction:row;gap:5px;border-radius:11px;padding:6px 4px;box-shadow:none;border-width:0;font-size:9px}.mr-contact-fab .mr-fab-icon{font-size:19px}.mr-contact-fab .mr-fab-text{font-size:9px}.mr-contact-fab:hover,.mr-contact-fab:focus-visible{transform:translateY(-2px)}.mr-contact-toast{right:12px;bottom:87px}}
+@media(max-width:375px){.mr-contact-fab{gap:3px}.mr-contact-fab .mr-fab-text{font-size:8px}}
+@media(prefers-reduced-motion:reduce){.mr-contact-fab{transition:none}}
