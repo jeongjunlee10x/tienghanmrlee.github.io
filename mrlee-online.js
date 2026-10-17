@@ -1,6 +1,7 @@
 // MR.LEE - kiểm tra Online: giao diện dùng API chấm điểm phía máy chủ.
 // Không nhập mrlee-online-bank.js vào trình duyệt.
 import { LEVELS } from './mrlee-online-catalog.js';
+import { startPracticeExam, finishPracticeExam } from './assets/v302/practice-engine.js';
 import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
 import { getAuth, reload } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
 import { firebaseConfig, isFirebaseConfigured } from './firebase-config.js';
@@ -22,6 +23,7 @@ let interval = null;
 let completed = false;
 let submitting = false;
 let starting = false;
+let localPracticeMode = false;
 
 function safe(str) { return String(str).replace(/[&<>"']/g, ch => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[ch])); }
 function show(id) {
@@ -83,7 +85,7 @@ async function quizApi(body) {
     credentials: 'same-origin'
   });
   const contentType = response.headers.get('content-type') || '';
-  if (!contentType.includes('application/json')) throw new Error('API chưa sẵn sàng trên Cloudflare. Không chuyển bài sang GitHub Pages cũ.');
+  if (!contentType.includes('application/json')) { const err = new Error('Máy chủ chưa cung cấp API chấm bài.'); err.code = 'EXAM_API_UNAVAILABLE'; throw err; }
   const data = await response.json();
   if (!response.ok) {
     const explanation = {
@@ -92,10 +94,37 @@ async function quizApi(body) {
       'attempt-expired-or-invalid': 'Phiên thi đã hết hạn. Hãy trở lại danh sách và làm lại.',
       'invalid-answers': 'Dữ liệu câu trả lời không hợp lệ.'
     }[data.error] || `Máy chủ báo lỗi: ${String(data.error || response.status).slice(0, 100)}`;
-    throw new Error(explanation);
+    const err = new Error(explanation);
+    if (data.error === 'quiz-api-not-configured') err.code = 'EXAM_API_UNAVAILABLE';
+    throw err;
   }
   return data;
 }
+// MRLEE_EXAM_V30_2_GITHUB_PRACTICE_FIX
+const ON_GITHUB_PAGES = /\.github\.io$/i.test(location.hostname);
+async function startExamWithFallback(level, index) {
+  if (ON_GITHUB_PAGES) {
+    // Giữ yêu cầu đăng nhập / xác minh email như bản gốc; tuyệt đối không bỏ auth-guard.
+    await firebaseToken();
+    const data = await startPracticeExam(level, index);
+    localPracticeMode = true;
+    return data;
+  }
+  try {
+    const data = await quizApi({ action: 'start', level, batch: index });
+    localPracticeMode = false;
+    return data;
+  } catch (error) {
+    // Chỉ dự phòng khi endpoint không có hoặc thiếu cấu hình, không bỏ qua lỗi auth.
+    if (error.code !== 'EXAM_API_UNAVAILABLE') throw error;
+    await firebaseToken();
+    const data = await startPracticeExam(level, index);
+    localPracticeMode = true;
+    notify('API chấm điểm chưa hoạt động; đã mở bài luyện tập dự phòng (không tính điểm chính thức).');
+    return data;
+  }
+}
+
 function formatTime(sec) { return `${String(Math.floor(sec / 60)).padStart(2, '0')}:${String(sec % 60).padStart(2, '0')}`; }
 function updateProgress() {
   const count = responses.filter(x => x !== null).length;
@@ -137,7 +166,7 @@ async function startBatch(index) {
   document.querySelectorAll('.start-btn').forEach(el => { el.disabled = true; });
   try {
     const level = selectedLevel;
-    const data = await quizApi({ action: 'start', level, batch: index });
+    const data = await startExamWithFallback(level, index);
     if (typeof data.ticket !== 'string' || !Array.isArray(data.questions) || data.questions.length < 1 || data.questions.length > 10 ||
         !data.questions.every(q => Array.isArray(q.options) && q.options.length >= 2 && q.options.length <= 8)) {
       throw new Error('Máy chủ trả về đề thi không hợp lệ.');
@@ -155,7 +184,7 @@ async function startBatch(index) {
     deadline = Date.now() + Math.min(DURATION_SECONDS, Number(data.durationSeconds) || DURATION_SECONDS) * 1000;
     const batch = getBatch(level, index);
     $('exam-title').textContent = `Kiểm tra lần ${batch.number} · ${TITLE[level]} · ${batch.range}`;
-    $('exam-subtitle').textContent = 'Chọn một đáp án cho mỗi câu. Bạn có 15 phút để hoàn thành.';
+    $('exam-subtitle').textContent = (localPracticeMode ? 'LUYỆN TẬP TẠI WEBSITE · Không phải điểm thi/xếp hạng chính thức. ' : '') + 'Chọn một đáp án cho mỗi câu. Bạn có 15 phút để hoàn thành.';
     renderQuestions();
     $('timer').textContent = '15:00';
     show('exam-view');
@@ -176,7 +205,7 @@ function renderResults(data, expired) {
   const { score, total, review } = data;
   const batch = getBatch(selectedLevel, activeBatch);
   $('result-title').textContent = `Hoàn thành Kiểm tra lần ${batch.number} · ${TITLE[selectedLevel]}`;
-  $('result-description').textContent = (expired ? 'Đã hết thời gian làm bài. ' : '') +
+  $('result-description').textContent = (localPracticeMode ? 'KẾT QUẢ LUYỆN TẬP — không dùng để tính BXH toàn server. ' : '') + (expired ? 'Đã hết thời gian làm bài. ' : '') +
     (score === total ? 'Bạn làm đúng tất cả! Hãy duy trì phong độ.' : score >= 7 ? 'Kết quả tốt! Hãy ôn lại những câu còn sai.' : 'Bạn nên ôn lại từ vựng và ngữ pháp của các bài này trước khi làm lại.');
   $('result-score').textContent = `${score}/${total}`;
   $('result-percent').textContent = `${Math.round(score * 100 / total)}%`;
@@ -210,8 +239,8 @@ function renderResults(data, expired) {
   show('result-box');
   // learning-tracker.js: đây vẫn là điểm luyện tập do client gửi, không phải điểm xếp hạng được server chứng thực.
   window.dispatchEvent(new CustomEvent('mrlee:practice-finished', { detail: {
-    examId: `online-${selectedLevel}-lan-${batch.number}`,
-    examTitle: `Kiểm tra lần ${batch.number} · ${TITLE[selectedLevel]} · ${batch.range}`,
+    examId: `${localPracticeMode ? "online-practice" : "online"}-${selectedLevel}-lan-${batch.number}`,
+    examTitle: `${localPracticeMode ? "Luyện tập" : "Kiểm tra"} lần ${batch.number} · ${TITLE[selectedLevel]} · ${batch.range}`,
     level: selectedLevel, score, total, durationSeconds,
     review: review.map(q => ({
       question: String(q.question ?? '').slice(0, 500),
@@ -230,7 +259,7 @@ async function finish(expired = false) {
   submitting = true; notify('');
   $('submit-top').disabled = true; $('submit-bottom').disabled = true;
   try {
-    const data = await quizApi({ action: 'submit', ticket, answers: responses });
+    const data = localPracticeMode ? finishPracticeExam(ticket, responses) : await quizApi({ action: 'submit', ticket, answers: responses });
     if (!Array.isArray(data.review) || data.review.length !== examItems.length ||
         !Number.isInteger(data.score) || !Number.isInteger(data.total) || data.total !== examItems.length ||
         data.score < 0 || data.score > data.total) throw new Error('Máy chủ trả về kết quả không hợp lệ.');
