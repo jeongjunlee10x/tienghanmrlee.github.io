@@ -1,0 +1,63 @@
+/* MR LEE V30 - Safe additive design polish. All rules scoped to V30-marked public pages.
+   Never alters official logo, exam controls, score data, audio players, roles or map pins. */
+html[data-mrlee-v30] {
+  --mr30-ink:#102a56;
+  --mr30-blue:#2563eb;
+  --mr30-border:rgba(48,93,151,.18);
+  --mr30-ring:#1768d1;
+  --mr30-shadow:0 16px 42px rgba(24,65,122,.12);
+}
+html[data-mrlee-v30] :where(a,button,input,select,textarea,[tabindex]):focus-visible {
+  outline:3px solid var(--mr30-ring);
+  outline-offset:3px;
+}
+html[data-mrlee-v30] :where(img.site-logo-image,img.mrlee-approved-logo,.brand img,.logo img){
+  object-fit:contain!important;
+  max-width:100%;
+  height:auto;
+  filter:none!important;
+  clip-path:none!important;
+}
+html[data-mrlee-v30] :where(main,article,section){min-width:0}
+html[data-mrlee-v30] :where(pre,code){overflow-wrap:anywhere}
+html[data-mrlee-v30] :where(img,video,svg){max-width:100%}
+html[data-mrlee-v30] :where(.card,.feature-card,.step-card,.destination,.topic-card,.ts-program-card,.ts-university-card){
+  backface-visibility:hidden;
+}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+  html[data-mrlee-v30] :where(.feature-card,.step-card,.destination,.topic-card,.ts-program-card,.ts-university-card):hover{
+    transform:translateY(-3px);
+    box-shadow:var(--mr30-shadow);
+  }
+}
+/* MAIN stays compact with genuine student ranking, not university ranking */
+html[data-mrlee-v30="home"] .feature-card:focus-visible,
+html[data-mrlee-v30="home"] .step-card:focus-visible{border-radius:16px}
+html[data-mrlee-v30="home"] :where(.school-search input,.school-search select){min-width:0;max-width:100%}
+html[data-mrlee-v30="home"] .rank-strip{scroll-padding:16px;overscroll-behavior-x:contain}
+/* On reading/tutorial pages, protect font size & comfortable Vietnamese/Korean line-height. */
+html[data-mrlee-v30="learning"] :where(.content-section p,.lesson-body p,.lesson-card p,.section p){line-height:1.72}
+html[data-mrlee-v30="culture"] :where(.topic-card p,.card p,.lesson-body p){line-height:1.72}
+html[data-mrlee-v30="journey"] :where(.step-content p,.step-text p,.faq p){line-height:1.78}
+/* Long university names, table content and course cards must not spill. */
+html[data-mrlee-v30] :where(.school-name,.university-name,.profile-name,.card-title,.destination h3){overflow-wrap:anywhere}
+/* Form controls: mobile tap targets without rearranging validators or submission logic. */
+html[data-mrlee-v30="home"] :where(.contact-dialog input,.contact-dialog select,.contact-dialog textarea){min-height:42px}
+html[data-mrlee-v30="home"] .contact-dialog :where(button,[type=submit]){min-height:44px}
+/* Non-invasive auxiliary return-to-top control added only to ordinary content pages. */
+.mr30-top{position:fixed;inset:auto 20px 20px auto;z-index:30;min-width:42px;min-height:42px;padding:8px 12px;border:1px solid #cbdff7;border-radius:999px;background:#fff;color:#164b94;box-shadow:0 10px 26px #17478029;font:700 13px/1.2 'Be Vietnam Pro',system-ui,sans-serif;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .2s,transform .2s}
+.mr30-top[data-visible="1"]{opacity:1;pointer-events:auto;transform:translateY(0)}
+.mr30-top:hover{background:#eaf3ff}
+@media(max-width:700px){
+  html[data-mrlee-v30] :where(input,select,textarea,button){max-width:100%}
+  html[data-mrlee-v30] :where(.data-table,.table-scroll,table){max-width:100%}
+  html[data-mrlee-v30] :where(.table-scroll,.table-wrap){overflow-x:auto;overscroll-behavior-x:contain}
+  html[data-mrlee-v30] :where(.section-hero,.page-hero){background-position:center}
+  .mr30-top{inset:auto 10px 12px auto;font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  html[data-mrlee-v30] :where(.feature-card,.step-card,.destination,.topic-card,.ts-program-card,.ts-university-card){transform:none!important;animation:none!important;transition:none!important}
+  .mr30-top{transition:none}
+}
+/* Keep floating consultation rail on MAIN unobstructed. */
+html[data-mrlee-v30="home"] .mr30-top{right:auto;left:18px}
