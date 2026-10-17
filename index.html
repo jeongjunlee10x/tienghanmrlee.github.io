@@ -1,88 +1,82 @@
 <!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#102b65">
-  <meta name="description" content="MR LEE: tuyển sinh du học Hàn Quốc, bảng xếp hạng học viên và truy cập nhanh Học, Thi, TOPIK, Bản đồ." >
-  <meta property="og:title" content="MR LEE | Tuyển sinh và bảng xếp hạng">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://jeongjunlee10x.github.io/tienghanmrlee.github.io/assets/v17/cover.webp">
-  <title>MR LEE · Tuyển sinh | Học, Thi, TOPIK & BXH</title>
-  <link rel="icon" href="assets/v17/brand.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/v17/home.css?v=17.0.0">
-  <script src="assets/v17/home.js?v=17.0.0" defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#09255a">
+<meta name="description" content="MR LEE - tư vấn lộ trình du học Hàn Quốc: học tiếng, đại học, sau đại học, tìm trường trên bản đồ và kết nối tư vấn qua Messenger, Zalo.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MR LEE | Tuyển sinh du học Hàn Quốc">
+<meta property="og:description" content="Khám phá hành trình học tập tại Hàn Quốc, tìm trường và nhận tư vấn theo mục tiêu cùng MR LEE.">
+<meta property="og:image" content="https://jeongjunlee10x.github.io/tienghanmrlee.github.io/assets/v16/hero-student.webp">
+<title>MR LEE — Tuyển sinh du học Hàn Quốc | Trang chủ</title>
+<link rel="icon" href="assets/mrlee-admissions-mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@500;700&display=swap" rel="stylesheet">
+<link href="assets/v16/main.css?v=16.0.1" rel="stylesheet">
+<script src="assets/v16/main.js?v=16.0.1" defer></script>
 </head>
-<body data-mrlee-version="MRLEE_MAIN_V17">
-  <a class="skip-link" href="#rank">Bỏ qua menu, tới bảng xếp hạng</a>
-  <header class="topbar" id="top">
-    <div class="topbar-inner">
-      <a href="index.html" class="brand" aria-label="MR LEE, về trang chủ">
-        <img id="brandLogo" src="images/logo.png" alt="" width="42" height="42">
-        <span class="brand-name"><b>MR LEE</b><small>DU HỌC HÀN QUỐC <span aria-hidden="true">🇰🇷</span></small></span>
-      </a>
-      <nav class="main-nav" aria-label="Chức năng chính">
-        <a href="index.html" class="nav-link current" aria-current="page"><span aria-hidden="true">⌂</span> Trang chủ</a>
-        <button class="nav-link nav-menu-trigger" data-menu="hoc" aria-expanded="false" aria-controls="navFlyout" type="button"><span aria-hidden="true">📖</span> Học <span class="chevron" aria-hidden="true">⌄</span></button>
-        <button class="nav-link nav-menu-trigger" data-menu="thi" aria-expanded="false" aria-controls="navFlyout" type="button"><span aria-hidden="true">✍</span> Thi <span class="chevron" aria-hidden="true">⌄</span></button>
-        <button class="nav-link nav-menu-trigger" data-menu="topik" aria-expanded="false" aria-controls="navFlyout" type="button"><span aria-hidden="true">🎯</span> TOPIK <span class="chevron" aria-hidden="true">⌄</span></button>
-        <a href="ban-do-dai-hoc-han-quoc.html" class="nav-link"><span aria-hidden="true">📍</span> Bản đồ</a>
-        <a href="#rank" class="nav-link"><span aria-hidden="true">🏆</span> BXH</a>
-        <a href="trung-tam-hoc-vien.html" class="nav-link nav-secondary"><span aria-hidden="true">👤</span> Học viên</a>
-      </nav>
-      <button class="top-cta" id="openContactTop" type="button"><span aria-hidden="true">✉</span> Tư vấn <span aria-hidden="true">↗</span></button>
-    </div>
-    <div class="nav-flyout" id="navFlyout" hidden>
-      <div class="flyout-top"><div><strong id="flyoutHeading">Học tiếng Hàn</strong><small id="flyoutSubheading">Chọn mục để mở trực tiếp</small></div><button id="closeFlyout" type="button" aria-label="Đóng danh sách">✕</button></div>
-      <div class="flyout-grid" id="flyoutLinks"></div>
-    </div>
-  </header>
-
-  <main id="mainContent">
-    <section class="hero" aria-labelledby="heroTitle">
-      <div class="hero-glow a" aria-hidden="true"></div><div class="hero-glow b" aria-hidden="true"></div>
-      <div class="hero-inner">
-        <div class="hero-copy">
-          <p class="kicker"><span class="dot"></span> TUYỂN SINH DU HỌC HÀN QUỐC</p>
-          <h1 id="heroTitle">Chạm tới ước mơ <strong>Hàn Quốc</strong></h1>
-          <p class="hero-description">Cùng MR LEE tìm hiểu chương trình, chọn trường và lên kế hoạch cho hành trình của bạn.</p>
-          <div class="hero-actions">
-            <button class="primary-btn" id="openContactHero" type="button">✉ Đăng ký tư vấn <span aria-hidden="true">↗</span></button>
-            <a class="outline-btn" href="tuyen-sinh.html">Tuyển sinh chi tiết <span aria-hidden="true">↗</span></a>
-          </div>
-        </div>
-        <div class="hero-visual"><img src="assets/v17/hero-student.webp" alt="Hình minh họa du học sinh Hàn Quốc" width="650" height="650" fetchpriority="high"><span class="hero-tag">🇻🇳 VIỆT NAM <b>✈</b> 🇰🇷 HÀN QUỐC</span></div>
-      </div>
-    </section>
-
-    <section class="leaderboard" id="rank" aria-labelledby="rankingTitle">
-      <div class="ranking-heading">
-        <div class="ranking-label"><div class="trophy" aria-hidden="true">🏆</div><div><h2 id="rankingTitle">BẢNG XẾP HẠNG HỌC VIÊN</h2><p>Xem thứ hạng và điểm trực tiếp từ bảng xếp hạng hiện có của MR LEE</p></div></div>
-        <div class="ranking-actions"><button type="button" id="refreshRank" title="Tải lại bảng xếp hạng" aria-label="Tải lại bảng xếp hạng">↻ <span>Tải lại</span></button><a href="bang-xep-hang.html" target="_blank" rel="noopener noreferrer">Mở toàn màn hình ↗</a></div>
-      </div>
-      <div class="frame-area"><div id="rankLoading" class="frame-loading" role="status">Đang tải bảng xếp hạng…</div><iframe title="Bảng xếp hạng học viên MR LEE" id="rankFrame" src="bang-xep-hang.html" loading="eager"></iframe></div>
-      <p class="frame-hint">Bảng xếp hạng gốc được hiển thị trực tiếp, có thể cuộn bên trong khung. Nếu trình duyệt chặn hiển thị, chọn <a href="bang-xep-hang.html">Mở bảng xếp hạng</a>.</p>
-    </section>
-  </main>
-
-  <dialog id="contactDialog" class="contact-dialog" aria-labelledby="contactTitle">
-    <form method="dialog"><button class="dialog-close" aria-label="Đóng cửa sổ tư vấn">✕</button></form>
-    <div class="dialog-title"><span aria-hidden="true">💬</span><div><strong id="contactTitle">Đăng ký tư vấn cùng MR LEE</strong><p>Tạo phiếu để gửi qua kênh liên hệ chính thức.</p></div></div>
-    <form id="consultForm">
-      <label for="consultName">Họ và tên <span>*</span></label><input id="consultName" type="text" autocomplete="name" required maxlength="100" placeholder="Họ và tên của bạn">
-      <label for="consultPhone">Số điện thoại <span>*</span></label><input id="consultPhone" type="tel" autocomplete="tel" inputmode="tel" required maxlength="24" placeholder="Số điện thoại liên hệ">
-      <label for="consultProgram">Chương trình quan tâm</label><select id="consultProgram"><option>Chưa xác định</option><option>Học tiếng (D-4-1)</option><option>Đại học / Cao đẳng (D-2)</option><option>Sau đại học</option></select>
-      <label class="privacy-check"><input id="consultAgree" type="checkbox" required><span>Tôi đồng ý tạo phiếu và tự gửi thông tin qua kênh mình chọn.</span></label>
-      <button type="submit" class="primary-btn wide">Tạo phiếu tư vấn →</button>
-    </form>
-    <div id="consultResult" hidden><label for="consultCopyText">Phiếu tư vấn đã tạo</label><textarea id="consultCopyText" rows="6" readonly></textarea><button id="copyConsult" class="outline-btn wide" type="button">📋 Sao chép nội dung phiếu</button><p id="copyStatus" role="status"></p></div>
-    <div class="contact-channels"><a id="linkMessenger" hidden target="_blank" rel="noopener noreferrer" class="channel meta">Messenger ↗</a><a id="linkZalo" hidden target="_blank" rel="noopener noreferrer" class="channel zalo">Zalo ↗</a><a id="linkFacebook" hidden target="_blank" rel="noopener noreferrer" class="channel facebook">Facebook ↗</a></div>
-    <p id="noContacts" class="contact-note">Chưa thiết lập link Facebook / Messenger / Zalo. Vui lòng dùng thông tin liên hệ đã công bố trên trang tuyển sinh chi tiết.</p>
-    <p class="contact-note">Phiếu được tạo trên trình duyệt; website không tự gửi hoặc lưu phiếu vào hệ thống.</p>
-  </dialog>
-  <footer class="micro-footer">MR LEE · TIẾNG HÀN &amp; DU HỌC HÀN QUỐC <span>·</span> <a href="tuyen-sinh.html">Tuyển sinh chi tiết</a> <span>·</span> <a href="ban-do-dai-hoc-han-quoc.html">Danh mục trường</a></footer>
-</body>
-</html>
+<body>
+<a class="skip-link" href="#content">Đi đến nội dung chính</a>
+<header class="site-header" id="top">
+ <div class="container head-inner">
+  <a href="index.html" class="brand" aria-label="MR LEE - Trang chủ"><span class="brand-pict"><img src="images/logo.png" id="siteLogo" alt="" width="45" height="45" loading="eager"></span><span class="brand-title"><b>MR LEE</b><small>DU HỌC HÀN QUỐC <span aria-hidden="true">🇰🇷</span></small></span></a>
+  <button type="button" class="mobile-menu" id="navToggle" aria-label="Mở menu" aria-controls="navMain" aria-expanded="false"><span></span><span></span><span></span></button>
+  <nav id="navMain" class="nav-main" aria-label="Điều hướng chính">
+   <a class="active" href="index.html">⌂ Trang chủ</a><a href="#programs">Chương trình</a><a href="#search">Tìm trường</a><a href="ban-do-dai-hoc-han-quoc.html">Bản đồ đại học</a><a href="#journey">Lộ trình</a><a href="hoc-tieng-han.html">Học tiếng Hàn</a><a href="#contact">Liên hệ</a>
+  </nav>
+  <a class="button button-hot head-cta" href="#contact"><span aria-hidden="true">✉</span> Tư vấn ngay <span aria-hidden="true">↗</span></a>
+ </div>
+</header>
+<main id="content">
+<section class="hero" aria-labelledby="homeTitle">
+ <div class="hero-decor decor-left" aria-hidden="true">✿ ✿ ✿</div><div class="hero-decor decor-right" aria-hidden="true">✿ ✿</div>
+ <div class="container hero-grid">
+  <div class="hero-copy">
+   <div class="hero-pill"><span class="pulse"></span> DU HỌC HÀN QUỐC · 한국 유학</div>
+   <p class="hero-script">Cùng MR LEE chạm tới ước mơ <span>♥</span></p>
+   <h1 id="homeTitle">TUYỂN SINH<br><em>DU HỌC HÀN QUỐC</em></h1>
+   <p class="hero-sub">Bắt đầu hành trình học tiếng, chọn trường và chuẩn bị hồ sơ với lộ trình phù hợp <strong>mục tiêu của bạn.</strong></p>
+   <div class="hero-promises" aria-label="Các nội dung hỗ trợ"><span><strong>✦ Tư vấn 1:1</strong><small>Theo hồ sơ</small></span><span><strong>▣ Lộ trình rõ</strong><small>Từ A đến Z</small></span><span><strong>✧ Đồng hành</strong><small>Từng giai đoạn</small></span></div>
+   <div class="hero-actions"><a href="#contact" class="button button-hot button-big"><span class="btn-circle">✉</span><span>ĐĂNG KÝ TƯ VẤN<small>Messenger / Zalo</small></span><b>↗</b></a><a href="ban-do-dai-hoc-han-quoc.html" class="button button-blue button-big"><span class="btn-circle">▧</span><span>XEM BẢN ĐỒ ĐẠI HỌC<small>Tra cứu trường tại Hàn Quốc</small></span><b>↗</b></a></div>
+  </div>
+  <div class="hero-picture"><div class="hero-photo-orbit" aria-hidden="true"></div><img src="assets/v16/hero-student.webp" alt="Hình minh họa sinh viên chuẩn bị du học Hàn Quốc, mùa hoa anh đào" width="650" height="650" fetchpriority="high"><div class="hero-flag">🇻🇳 <span>VIỆT NAM</span> ✈ 🇰🇷 <span>HÀN QUỐC</span></div><div class="hero-sticker"><span>✦</span><strong>YOUR NEXT<br>CHAPTER</strong><small>Study in Korea</small></div></div>
+ </div>
+ <div class="hero-bottom" aria-hidden="true"><span>HỌC TẬP</span><i>✦</i><span>TRẢI NGHIỆM</span><i>✦</i><span>PHÁT TRIỂN</span></div>
+</section>
+<section id="programs" class="section section-programs" aria-labelledby="programTitle">
+ <div class="container">
+  <div class="section-header slim-header"><div><p class="eyebrow">KHÁM PHÁ CHƯƠNG TRÌNH</p><h2 id="programTitle">Chọn con đường <span>của bạn</span></h2></div><a class="inline-more" href="tuyen-sinh.html">Xem tuyển sinh chi tiết <span>↗</span></a></div>
+  <div class="program-grid">
+   <a class="program-card pc-pink" href="#contact" data-select-program="Học tiếng D-4-1"><img src="assets/v16/hoc-tieng.webp" alt="Sinh viên học tập" loading="lazy" width="740" height="360"><div class="program-body"><div class="program-icon">가</div><div><small>HỆ D-4-1</small><h3>Học tiếng Hàn</h3><p>Lộ trình nền tảng</p></div><span class="go-circle">↗</span></div></a>
+   <a class="program-card pc-blue" href="#contact" data-select-program="Đại học / Cao đẳng D-2"><img src="assets/v16/dai-hoc.webp" alt="Khuôn viên một trường đại học" loading="lazy" width="740" height="360"><div class="program-body"><div class="program-icon">🎓</div><div><small>HỆ D-2</small><h3>Đại học / Cao đẳng</h3><p>Tìm trường &amp; ngành học</p></div><span class="go-circle">↗</span></div></a>
+   <a class="program-card pc-mint" href="#contact" data-select-program="Sau đại học D-2"><img src="assets/v16/sau-dai-hoc.webp" alt="Môi trường học thuật tại Hàn Quốc" loading="lazy" width="740" height="360"><div class="program-body"><div class="program-icon">✧</div><div><small>THẠC SĨ · TIẾN SĨ</small><h3>Sau đại học</h3><p>Nâng cao chuyên môn</p></div><span class="go-circle">↗</span></div></a>
+   <a class="program-card pc-gold" href="#guide"><img src="assets/v16/hoc-bong.webp" alt="Kiến trúc và khuôn viên Hàn Quốc" loading="lazy" width="740" height="360"><div class="program-body"><div class="program-icon">★</div><div><small>THÔNG TIN HỖ TRỢ</small><h3>Học bổng</h3><p>Tra cứu điều kiện thực tế</p></div><span class="go-circle">↗</span></div></a>
+   <a class="program-card pc-lilac" href="#journey"><img src="assets/v16/visa.webp" alt="Hồ sơ và giấy tờ du học minh họa" loading="lazy" width="740" height="360"><div class="program-body"><div class="program-icon">▤</div><div><small>HƯỚNG DẪN</small><h3>Hồ sơ · Visa</h3><p>Các bước cần chuẩn bị</p></div><span class="go-circle">↗</span></div></a>
+   <a class="program-card pc-peach" href="#gallery"><img src="assets/v16/campus.webp" alt="Kiến trúc trường học tại Hàn Quốc" loading="lazy" width="740" height="360"><div class="program-body"><div class="program-icon">⌂</div><div><small>CUỘC SỐNG DU HỌC</small><h3>Trải nghiệm Hàn Quốc</h3><p>Khám phá nơi học &amp; sống</p></div><span class="go-circle">↗</span></div></a>
+  </div>
+ </div>
+</section>
+<section class="find-section" id="search" aria-labelledby="findTitle"><div class="container"><div class="find-box">
+ <div class="find-label"><span class="find-badge">⌕</span><div><strong id="findTitle">Tìm trường đại học</strong><small>Tra cứu từ danh sách trường đang có trên bản đồ MR LEE</small></div></div>
+ <form id="schoolForm" class="find-controls" role="search"><label class="sr-only" for="schoolKeyword">Tên trường</label><input id="schoolKeyword" type="search" placeholder="Tên trường tiếng Hàn / Anh / Việt" autocomplete="off"><label class="sr-only" for="schoolRegion">Tỉnh, thành phố</label><select id="schoolRegion"><option value="">Tất cả tỉnh / thành</option></select><button class="button button-blue" type="submit">⌕ Tìm trường</button><a class="map-shortcut" href="ban-do-dai-hoc-han-quoc.html">▧ Bản đồ <span>↗</span></a></form>
+ <div id="schoolInfo" class="find-count" role="status">Đang tải danh sách trường...</div>
+ <div id="schoolResults" class="school-results" hidden></div>
+ </div></div></section>
+<section class="stats-strip" aria-label="Thông tin tra cứu"><div class="container stats-grid"><div class="stat"><span class="stat-icon purple">♜</span><div><strong id="schoolTotal">—</strong><small>Trường trong danh mục MR LEE</small></div></div><div class="stat"><span class="stat-icon pink">⌖</span><div><strong id="regionTotal">—</strong><small>Vùng có dữ liệu trường</small></div></div><div class="stat"><span class="stat-icon amber">▧</span><div><strong id="campusTotal">—</strong><small>Campus đã được nhập</small></div></div><div class="stat"><span class="stat-icon blue">∞</span><div><strong>01</strong><small>Nơi tìm trường và lộ trình</small></div></div></div></section>
+<section id="journey" class="section section-journey"><div class="container"><div class="section-header"><div><p class="eyebrow">TỪ MỤC TIÊU ĐẾN NGÔI TRƯỜNG MƠ ƯỚC</p><h2>Lộ trình du học <span>5 bước</span></h2></div><p>Từng bước được hướng dẫn theo hồ sơ và quy định tại thời điểm nộp.</p></div><div class="journey-grid">
+ <a href="#contact" class="journey-step"><div class="step-num pink">01</div><div class="step-pict">👩‍💼</div><h3>Tư vấn định hướng</h3><p>Chọn chương trình và trường phù hợp</p></a>
+ <a href="#guide" class="journey-step"><div class="step-num blue">02</div><div class="step-pict">📋</div><h3>Chuẩn bị hồ sơ</h3><p>Rà soát giấy tờ, học lực, ngoại ngữ</p></a>
+ <a href="ban-do-dai-hoc-han-quoc.html" class="journey-step"><div class="step-num amber">03</div><div class="step-pict">🏛️</div><h3>Chọn trường &amp; nộp</h3><p>Kiểm tra lịch tuyển và điều kiện</p></a>
+ <a href="#guide" class="journey-step"><div class="step-num mint">04</div><div class="step-pict">✈️</div><h3>Visa &amp; chuẩn bị bay</h3><p>Thực hiện theo hướng dẫn chính thức</p></a>
+ <a href="#gallery" class="journey-step"><div class="step-num lilac">05</div><div class="step-pict">🎓</div><h3>Nhập học &amp; thích nghi</h3><p>Khám phá trường và môi trường sống</p></a>
+ </div></div></section>
+<section class="section value-section" id="guide"><div class="container value-grid"><div class="value-copy"><p class="eyebrow">VÌ SAO BẮT ĐẦU CÙNG MR LEE?</p><h2>Học tiếng. Tìm trường.<br><span>Lên kế hoạch cho tương lai.</span></h2><p>Trang tuyển sinh tập trung vào những công cụ bạn thật sự cần: tra cứu trường, chuẩn bị hồ sơ và kết nối tư vấn — không dùng học phí hay cam kết tỷ lệ visa không có nguồn xác thực.</p><a href="tuyen-sinh.html" class="button button-outline">Khám phá hướng dẫn chi tiết <span>↗</span></a></div><div class="value-cards"><a href="hoc-tieng-han.html"><span>📘</span><b>Học tiếng Hàn</b><small>Bài học và luyện tập</small></a><a href="ban-do-dai-hoc-han-quoc.html"><span>📍</span><b>Bản đồ trường</b><small>Tra cứu theo địa phương</small></a><a href="topik-luyen-de.html"><span>📝</span><b>Luyện thi TOPIK</b><small>Thực hành và ôn luyện</small></a><a href="#contact"><span>💬</span><b>Tư vấn mục tiêu</b><small>Liên hệ qua kênh của MR LEE</small></a><a href="bang-xep-hang.html"><span>🏆</span><b>Bảng xếp hạng</b><small>Theo dõi kết quả học tập</small></a><a href="trung-tam-hoc-vien.html"><span>👤</span><b>Trung tâm học viên</b><small>Hồ sơ và tiện ích</small></a><a href="nghe-toan-bo.html"><span>🎧</span><b>Luyện nghe</b><small>Kho học tiếng Hàn</small></a><a href="bo-sach.html"><span>📚</span><b>Bộ sách</b><small>Tài liệu và bài học</small></a></div></div></section>
+<section class="section section-gallery" id="gallery"><div class="container"><div class="section-header"><div><p class="eyebrow">HÌNH ẢNH / STUDY IN KOREA</p><h2>Một chút cảm hứng <span>Hàn Quốc</span></h2></div><p>Hình ảnh minh họa cho hành trình học tập — không đại diện cho trường liên kết hoặc kết quả tuyển sinh thực tế.</p></div><div class="gallery-grid"><a href="ban-do-dai-hoc-han-quoc.html" class="gallery-large"><img src="assets/v16/nganh-hoc.webp" alt="Khuôn viên trường đại học minh họa" loading="lazy"><span>Khám phá trường đại học <b>↗</b></span></a><a href="tuyen-sinh.html"><img src="assets/v16/tot-nghiep.webp" alt="Sinh viên mặc lễ phục tốt nghiệp minh họa" loading="lazy"><span>Góc học tập <b>↗</b></span></a><a href="#contact"><img src="assets/v16/doi-song.webp" alt="Các bạn trẻ trong môi trường học tập" loading="lazy"><span>Hành trình du học <b>↗</b></span></a><a href="#journey"><img src="assets/v16/ho-so.webp" alt="Giấy tờ du học minh họa" loading="lazy"><span>Chuẩn bị hồ sơ <b>↗</b></span></a><a href="ban-do-dai-hoc-han-quoc.html"><img src="assets/v16/han-quoc.webp" alt="Sinh viên bên ngoài khuôn viên Hàn Quốc minh họa" loading="lazy"><span>Khám phá Hàn Quốc <b>↗</b></span></a></div></div></section>
+<section class="section section-faq"><div class="container faq-grid"><div><p class="eyebrow">CÂU HỎI THƯỜNG GẶP</p><h2>Trước khi <span>đăng ký</span></h2><p>Thông tin tham khảo, yêu cầu cuối cùng theo thông báo của từng trường và cơ quan cấp thị thực.</p></div><div class="faq-items"><details><summary>Chưa biết tiếng Hàn có thể tìm hiểu du học không?<span>＋</span></summary><p>Vẫn có thể tìm hiểu các lộ trình học tiếng; điều kiện đầu vào do từng trường quy định.</p></details><details><summary>Học phí và học bổng xem ở đâu?<span>＋</span></summary><p>Học phí và học bổng phụ thuộc trường, ngành và kỳ nhập học. Hãy xem website chính thức của trường qua bản đồ rồi trao đổi với tư vấn viên.</p></details><details><summary>Danh sách trường có đồng nghĩa trường liên kết với MR LEE không?<span>＋</span></summary><p>Không. Danh mục để tra cứu thông tin và tìm trường, không phải danh sách hợp tác tuyển sinh được chứng thực.</p></details><details><summary>Điền mẫu tư vấn có tự động gửi về Messenger/Zalo không?<span>＋</span></summary><p>Chưa. Trang tạo phiếu để bạn xem lại và sao chép; bạn chủ động gửi qua kênh liên hệ đã được MR LEE cấu hình.</p></details></div></div></section>
+<section class="section contact-section" id="contact"><div class="container contact-grid"><div class="contact-copy"><div class="contact-glow" aria-hidden="true"></div><p class="eyebrow light">✦ BẮT ĐẦU HÀNH TRÌNH</p><h2>Ước mơ Hàn Quốc?<br><em>Hãy bắt đầu hôm nay.</em></h2><p>Điền thông tin ngắn gọn để tạo phiếu tư vấn. Sau đó sao chép và tự gửi qua Messenger hoặc Zalo chính thức của MR LEE.</p><div class="contact-links"><a id="mainMessenger" class="social-btn meta" href="#contact" hidden target="_blank" rel="noopener noreferrer">✉ Messenger <b>↗</b></a><a id="mainZalo" class="social-btn zalo" href="#contact" hidden target="_blank" rel="noopener noreferrer">Z Zalo <b>↗</b></a><a id="mainFacebook" class="social-btn facebook" href="#contact" hidden target="_blank" rel="noopener noreferrer">f Facebook <b>↗</b></a></div><p class="contact-none" id="channelNote">Kênh Meta / Zalo đang chờ cấu hình liên kết chính thức.</p><div class="privacy-note">🛡 Không yêu cầu tải CCCD, hộ chiếu hoặc giấy tờ cá nhân tại đây.</div></div><div class="form-panel"><span class="form-tag">ĐĂNG KÝ TƯ VẤN</span><h3>MR LEE đồng hành cùng bạn</h3><p>Chỉ tạo nội dung phiếu trên máy bạn, chưa gửi tự động.</p><form id="consultForm"><div class="field-grid"><label>Họ và tên <span>*</span><input id="leadName" name="name" type="text" required maxlength="100" autocomplete="name" placeholder="Họ tên của bạn"></label><label>Số điện thoại <span>*</span><input id="leadPhone" name="phone" type="tel" required maxlength="24" autocomplete="tel" inputmode="tel" placeholder="09xxxxxxxx"></label></div><div class="field-grid"><label>Chương trình <span>*</span><select id="leadProgram" required><option value="">Chọn chương trình</option><option>Học tiếng D-4-1</option><option>Đại học / Cao đẳng D-2</option><option>Sau đại học D-2</option><option>Chưa xác định</option></select></label><label>Trình độ hiện tại<select id="leadLevel"><option value="">Chưa chọn</option><option>Đang học THPT</option><option>Đã tốt nghiệp THPT</option><option>Đang học CĐ/ĐH</option><option>Đã tốt nghiệp CĐ/ĐH</option><option>Khác</option></select></label></div><label>Mục tiêu / câu hỏi<textarea id="leadMessage" rows="3" maxlength="500" placeholder="Ví dụ: muốn học tiếng ở Busan..."></textarea></label><label class="consent"><input id="leadConsent" type="checkbox" required><span>Tôi đồng ý tạo phiếu từ thông tin vừa nhập và tự chọn kênh gửi.</span></label><button class="button button-hot submit-btn" type="submit">TẠO PHIẾU TƯ VẤN <b>↗</b></button></form><div id="leadOutput" hidden><h4>✓ Phiếu tư vấn đã sẵn sàng</h4><textarea id="leadText" readonly rows="7"></textarea><div class="lead-action-row"><button type="button" class="button button-outline" id="copyLead">📋 Sao chép phiếu</button><a id="sendMeta" class="button button-blue" hidden target="_blank" rel="noopener noreferrer">Mở Messenger ↗</a><a id="sendZalo" class="button button-zalo" hidden target="_blank" rel="noopener noreferrer">Mở Zalo ↗</a></div><small id="leadStatus" role="status">Vui lòng tự gửi phiếu sau khi sao chép.</small></div></div></div></section>
+</main>
+<footer class="site-footer"><div class="container footer-grid"><div><strong class="footer-brand">MR LEE <span>✦</span></strong><p>TIẾNG HÀN · DU HỌC HÀN QUỐC</p><small>Đồng hành cùng hành trình học tập của bạn.</small></div><nav aria-label="Liên kết cuối trang"><a href="index.html">Trang chủ</a><a href="tuyen-sinh.html">Tuyển sinh chi tiết</a><a href="ban-do-dai-hoc-han-quoc.html">Bản đồ đại học</a><a href="hoc-tieng-han.html">Học tiếng Hàn</a><a href="bang-xep-hang.html">Bảng xếp hạng</a><a href="trung-tam-hoc-vien.html">Hồ sơ học viên</a><a href="nghe-toan-bo.html">Luyện nghe</a><a href="bo-sach.html">Bộ sách</a></nav><p class="footer-disclaimer">Thông tin định hướng; không bảo đảm đậu trường, nhận học bổng hoặc được cấp visa. Điều kiện cuối cùng theo công bố chính thức.</p></div></footer>
+<div class="floating-contact" id="floatingContact" aria-label="Liên hệ nhanh"><a id="floatMeta" class="float-item float-meta" hidden target="_blank" rel="noopener noreferrer" aria-label="Messenger MR LEE">✉</a><a id="floatZalo" class="float-item float-zalo" hidden target="_blank" rel="noopener noreferrer" aria-label="Zalo MR LEE">Z</a><a href="#contact" class="float-item float-contact" aria-label="Đăng ký tư vấn">✦</a></div>
+</body></html>
