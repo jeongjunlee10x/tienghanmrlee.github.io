@@ -52,3 +52,5 @@
   .contact-dialog:has(.consult-form-v21) .contact-info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (prefers-reduced-motion:reduce){.v21-choice span{transition:none}}
+
+.v21-facebook{color:#2057ba;background:#e9f1ff;border:1px solid #cfe0ff;}

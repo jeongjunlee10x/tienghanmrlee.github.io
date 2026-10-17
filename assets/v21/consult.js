@@ -9,7 +9,7 @@
   const status = $('#v21Status');
   const higherSchool = $('#v21HigherSchool');
   const birthDate = $('#v21BirthDate');
-  const messengerUrl = 'https://m.me/821366751066220'; // Public Page recipient MUST be verified by owner.
+  const messengerUrl = 'https://m.me/MRLEEKR10'; // Uses owner-provided public Page username MRLEEKR10; user must confirm chat opens correctly.
   const intakeEmail = 'tienghanmrlee@gmail.com';
   let preparedText = '';
 
