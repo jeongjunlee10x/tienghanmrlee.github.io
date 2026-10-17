@@ -1,0 +1,170 @@
+/* MR LEE V24 · Chuyên sâu UI/UX trên các trang hiện có.
+   Chỉ sửa trình bày; không can thiệp Firebase, điểm, Audio, xác thực, đáp án. */
+:root{--v24-ink:#112b50;--v24-border:#dae6f5;--v24-shadow:0 24px 64px rgba(16,46,89,.12);--v24-font:'Be Vietnam Pro','Noto Sans KR',system-ui,sans-serif}
+html[data-mrlee-v24] body{font-family:var(--v24-font)}
+html[data-mrlee-v24] :where(button,a,input,select,textarea):focus-visible{outline:3px solid #fa8c98!important;outline-offset:3px}
+html[data-mrlee-v24] :where(img.site-logo-image,img.mrlee-approved-logo,.ml-ai-brand img,.brand img){object-fit:contain!important;filter:none!important;clip-path:none!important}
+/* HỌC TIẾNG HÀN — trang tổng quan 6 cấp, không thay bài học. */
+html[data-mrlee-v24="learning-hub"] body{background:linear-gradient(180deg,#eef6ff 0,#f6f9fd 500px,#f5f8fd 100%)}
+html[data-mrlee-v24="learning-hub"] .section-hero{min-height:276px;border-radius:26px;background:linear-gradient(92deg,#0a254f 0%,#164c82 53%,#1f70a5 100%)!important;box-shadow:0 23px 64px rgba(12,52,113,.22)}
+html[data-mrlee-v24="learning-hub"] .section-hero::before{content:"";inset:0 0 0 auto;width:47%;height:auto;border:0;border-radius:0;opacity:.9;background:linear-gradient(90deg,#144d8300 0%,#10376626 30%,#102a4230),url('../v23/images/korean-learning.webp') center 40%/cover no-repeat;z-index:-1}
+html[data-mrlee-v24="learning-hub"] .section-hero::after{content:"가 · 나 · 다";inset:auto 5% 12% auto;width:auto;height:auto;border-radius:0;font:900 clamp(24px,4vw,50px)/1.1 'Noto Sans KR',sans-serif;color:#ffffff22;letter-spacing:.24em;background:none}
+html[data-mrlee-v24="learning-hub"] .section-hero .hero-text{max-width:67%;position:relative;z-index:1}
+html[data-mrlee-v24="learning-hub"] .section-hero h1{font-size:clamp(32px,3.4vw,50px);letter-spacing:-.045em}
+html[data-mrlee-v24="learning-hub"] .section-hero p{color:#e9f3ff!important;font-size:clamp(13px,1vw,15px);line-height:1.75}
+html[data-mrlee-v24="learning-hub"] .hero-symbol{opacity:.15;filter:none}
+html[data-mrlee-v24="learning-hub"] .content-section{padding-top:23px}
+html[data-mrlee-v24="learning-hub"] .content-section>.section-title{margin-bottom:17px;font-size:clamp(22px,2.3vw,29px)}
+html[data-mrlee-v24="learning-hub"] .destination-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination{min-width:0;min-height:177px;overflow:hidden;isolation:isolate;transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(-n+6){min-height:221px;padding:21px;display:flex;align-items:flex-end;background-color:#123e70;border:1px solid #ffffff99;color:#fff;box-shadow:0 14px 32px rgba(16,50,100,.15)}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(-n+6)::before{content:"";position:absolute;inset:0;z-index:-2;background-image:linear-gradient(0deg,rgba(5,23,55,.96) 0%,rgba(7,38,76,.65) 44%,rgba(24,70,108,.08) 100%),url('../v23/images/korean-campus.webp');background-size:cover;background-position:center;transition:transform .38s ease,filter .38s ease}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(2)::before{background-image:linear-gradient(0deg,rgba(5,23,55,.94),rgba(5,37,77,.5),rgba(10,40,80,.05)),url('../v23/images/korean-learning.webp')}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(3)::before{background-image:linear-gradient(0deg,rgba(20,24,65,.94),rgba(20,37,80,.56),rgba(20,60,100,.06)),url('../v23/images/korean-graduate.webp')}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(4)::before{background-image:linear-gradient(0deg,rgba(18,18,57,.95),rgba(33,35,95,.5),rgba(13,71,119,.09)),url('../v23/images/korean-paperwork.webp')}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(5)::before{background-image:linear-gradient(0deg,rgba(13,35,65,.95),rgba(8,57,93,.52),rgba(30,82,93,.08)),url('../v23/images/korean-life.webp')}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(6)::before{background-image:linear-gradient(0deg,rgba(32,22,65,.95),rgba(29,34,73,.58),rgba(30,55,101,.1)),url('../v23/images/korean-culture.webp')}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(-n+6):hover::before{transform:scale(1.06);filter:saturate(1.12)}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(-n+6) .dest-icon{position:absolute;top:15px;left:17px;width:45px;height:45px;font-size:23px;border-radius:13px;background:#ffffffea!important}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(-n+6)>span:last-child{width:100%}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(-n+6) h2{color:#fff;font-size:clamp(16px,1.23vw,20px);text-shadow:0 2px 9px #031d47ab}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(-n+6) p{color:#e9f3ff;font-size:11px;line-height:1.62}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(-n+6) .dest-cta{color:#a3d8ff!important;font-weight:800;margin-top:9px}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(n+7){background:linear-gradient(145deg,#fff,#f0f7ff);border:1px solid #dbe9fa;box-shadow:0 9px 25px rgba(23,57,108,.08)}
+html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:hover{transform:translateY(-5px);box-shadow:0 23px 40px rgba(9,38,87,.2)}
+html[data-mrlee-v24="learning-hub"] #mrlee-audio-library{padding:22px 22px 28px;border-radius:22px;margin:6px 0 18px;background:linear-gradient(115deg,#ebf8ff,#fff);border:1px solid #d7eaf8;box-shadow:0 12px 35px rgba(19,65,106,.09)}
+html[data-mrlee-v24="learning-hub"] #mrlee-audio-library .destination{min-height:0!important;border:1px solid #bfdaee;border-radius:15px;background:#fff;color:#174d81}
+/* Các trang giáo trình, mục bài và mục TOPIK: bố cục rõ, không thay nội dung bài. */
+html[data-mrlee-v24="courses"] body,html[data-mrlee-v24="books"] body,html[data-mrlee-v24="topik-hub"] body{background:radial-gradient(ellipse at 6% 0%,#e5efff 0,transparent 50%),#f5f8fc}
+html[data-mrlee-v24="courses"] .section-hero,html[data-mrlee-v24="topik-hub"] .section-hero{border:1px solid #ffffff78;box-shadow:var(--v24-shadow);border-radius:26px}
+html[data-mrlee-v24="topik-hub"] .section-hero{background:linear-gradient(100deg,#221e55,#4c328e 65%,#6b4bb5)!important}
+html[data-mrlee-v24="topik-hub"] .section-hero::before{inset:0 0 0 auto;width:45%;height:100%;border:0;border-radius:0;opacity:.55;background:linear-gradient(90deg,#33215b00,#33215b55),url('../v23/images/korean-graduate.webp') center/cover no-repeat}
+html[data-mrlee-v24="courses"] :where(.mr-new-panel,.panel,.lesson-card),html[data-mrlee-v24="topik-hub"] :where(.destination,.info-panel){border-radius:19px;box-shadow:0 12px 28px rgba(24,54,103,.08)}
+html[data-mrlee-v24="topik-hub"] .destination-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+html[data-mrlee-v24="topik-hub"] .destination-grid .destination{background:linear-gradient(145deg,#fff,#f8f8ff);border-left:4px solid #7964c7}
+html[data-mrlee-v24="topik-hub"] .destination-grid .dest-icon{background:#efe9ff!important}
+html[data-mrlee-v24="topik-hub"] .destination-grid .dest-cta{color:#6045ae!important}
+html[data-mrlee-v24="books"] .books-hero{background:linear-gradient(95deg,rgba(13,41,80,.97),rgba(22,86,147,.75)),url('../v23/images/korean-paperwork.webp') center/cover no-repeat!important;border-radius:0 0 25px 25px;box-shadow:0 17px 42px #122b5350}
+html[data-mrlee-v24="books"] :where(.book-card,.book-level,.books-card){border-radius:19px;box-shadow:0 13px 31px #1d467f14;transition:transform .23s ease,box-shadow .23s ease}
+html[data-mrlee-v24="books"] :where(.book-card,.book-level,.books-card):hover{transform:translateY(-4px);box-shadow:0 20px 46px #1d467f27}
+/* Nghe: giữ nguyên audio gốc, thay vỏ giao diện và bộ lọc. */
+html[data-mrlee-v24="listening"] body{background:radial-gradient(circle at 90% 20%,#d9f5fa,transparent 38%),#f2f8fc;color:#193858}
+html[data-mrlee-v24="listening"] header{position:relative;overflow:hidden;background:linear-gradient(110deg,#0c2b52 0%,#135c82 70%,#088b94 100%);padding:39px max(5%,calc((100% - 1090px)/2));box-shadow:0 12px 40px #062a5d28}
+html[data-mrlee-v24="listening"] header::after{content:"듣기 · LISTEN";font:900 clamp(26px,4vw,55px)/1.3 'Noto Sans KR',sans-serif;position:absolute;right:4%;bottom:10px;color:#ffffff1c;pointer-events:none}
+html[data-mrlee-v24="listening"] header h1{font-size:clamp(29px,3.4vw,44px);margin:12px 0 8px;letter-spacing:-.035em}
+html[data-mrlee-v24="listening"] header p{max-width:620px;color:#e8f6ff;font-size:14px}
+html[data-mrlee-v24="listening"] main{max-width:1090px;margin:20px auto}
+html[data-mrlee-v24="listening"] #groups{border-radius:17px;padding:13px;background:#fff;border:1px solid #d8eaf5;box-shadow:0 8px 23px #1748710f;gap:8px}
+html[data-mrlee-v24="listening"] #groups button{border-radius:11px;background:#f4f9ff;border:1px solid #d7e8f3;font-weight:750;font-size:13px;min-height:44px}
+html[data-mrlee-v24="listening"] #groups button[aria-pressed="true"]{background:#105ca1;border-color:#105ca1;color:#fff;box-shadow:0 5px 13px #0d5b992f}
+html[data-mrlee-v24="listening"] .filters{gap:12px;padding:15px 18px;border:1px solid #daebf4;border-radius:18px;background:#fff;box-shadow:0 8px 22px #18587e0e}
+html[data-mrlee-v24="listening"] .filters :is(input,select){min-height:45px;border-radius:11px;border:1px solid #cbddea;background:#fafdff;width:100%;font-size:14px}
+html[data-mrlee-v24="listening"] #results{display:grid;gap:12px}
+html[data-mrlee-v24="listening"] #results article{margin:0;padding:18px 21px;border-radius:18px;border:1px solid #dbeaf4;background:#fff;box-shadow:0 8px 22px rgba(12,54,83,.07)}
+html[data-mrlee-v24="listening"] #results article p{font-family:'Noto Sans KR','Be Vietnam Pro',sans-serif;font-size:clamp(18px,2vw,22px);line-height:1.68;color:#103b62}
+html[data-mrlee-v24="listening"] #results article audio{max-width:none;width:100%;accent-color:#1976bf}
+html[data-mrlee-v24="listening"] #pager button{min-width:120px;font-weight:750;border-radius:12px}
+/* Dashboard: dữ liệu hoàn toàn từ hệ thống hiện có. */
+html[data-mrlee-v24="student"] body{background:radial-gradient(circle at 10% 1%,#dfeaff,transparent 31%),#f4f7fc}
+html[data-mrlee-v24="student"] .intro{position:relative;isolation:isolate;background:linear-gradient(108deg,#0e2b57 0%,#1a4e83 65%,#2382a5 100%);color:#fff;border-radius:23px;padding:clamp(19px,3vw,35px);overflow:hidden;box-shadow:0 19px 51px #12457734;align-items:center}
+html[data-mrlee-v24="student"] .intro::before{content:"";position:absolute;inset:0 0 0 auto;width:40%;background:linear-gradient(90deg,#153e7900,#0d4f6f33),url('../v23/images/korean-learning.webp') center/cover no-repeat;z-index:-1;opacity:.55}
+html[data-mrlee-v24="student"] .intro :is(h1,.eyebrow,#studentEmail){color:#fff!important}
+html[data-mrlee-v24="student"] .intro .eyebrow{color:#bfe9ff!important;letter-spacing:.12em}
+html[data-mrlee-v24="student"] .intro .controls{position:relative;z-index:1;padding:10px;border:1px solid #ffffff52;background:#ffffffde;border-radius:13px;color:#24456b}
+html[data-mrlee-v24="student"] .intro .controls :is(select,button){border-color:#b6d3ee;color:#124d88}
+html[data-mrlee-v24="student"] .ml-home-tools{gap:12px}
+html[data-mrlee-v24="student"] .ml-home-tool{border-radius:17px!important;background:#fff!important;box-shadow:0 9px 24px #133a7912!important;border:1px solid #dbe7f7!important;transition:transform .22s ease,box-shadow .22s ease}
+html[data-mrlee-v24="student"] .ml-home-tool:hover{transform:translateY(-4px);box-shadow:0 18px 38px #1343792a!important}
+html[data-mrlee-v24="student"] .stats .stat{position:relative;overflow:hidden;border:1px solid #dce9f5;box-shadow:0 13px 31px #193b7813;border-radius:18px;background:linear-gradient(153deg,#fff,#f8fbff)}
+html[data-mrlee-v24="student"] .stats .stat::before{content:"";position:absolute;inset:0 0 auto;height:4px;background:linear-gradient(90deg,#165ce0,#55cdf6)}
+html[data-mrlee-v24="student"] .stats .stat:nth-child(2)::before{background:linear-gradient(90deg,#e4a43d,#ffd88c)}
+html[data-mrlee-v24="student"] .stats .stat:nth-child(3)::before{background:linear-gradient(90deg,#9769e9,#bd9bf4)}
+html[data-mrlee-v24="student"] .stats .stat:nth-child(4)::before{background:linear-gradient(90deg,#11a99c,#7de0cb)}
+html[data-mrlee-v24="student"] .panel{box-shadow:0 16px 35px #173b7512;border-radius:20px}
+html[data-mrlee-v24="student"] .shortcuts .shortcut{background:#f2f7ff;border:1px solid #d7e8f6;padding:15px;border-radius:13px;transition:transform .2s ease,background-color .2s ease}
+html[data-mrlee-v24="student"] .shortcuts .shortcut:hover{background:#e6f2ff;transform:translateY(-2px)}
+/* BXH toàn server: chỉ style theo .mlb-top-* thật, không tạo hạng hoặc điểm. */
+html[data-mrlee-v24="ranking"] body{background:radial-gradient(ellipse at 8% 6%,#fff0cf,transparent 36%),radial-gradient(ellipse at 88% 8%,#dce9ff,transparent 36%),#f5f8ff}
+html[data-mrlee-v24="ranking"] .v24-ranking-intro{max-width:960px;margin:12px auto 17px;position:relative;overflow:hidden;padding:27px clamp(22px,4vw,42px);border-radius:25px;border:1px solid #ffffff91;background:linear-gradient(107deg,#112e54 0%,#1d477a 69%,#715526 100%);box-shadow:0 22px 49px #1d3d6a35;color:white}
+html[data-mrlee-v24="ranking"] .v24-ranking-intro::after{content:"★";position:absolute;right:5%;top:-45px;font-size:155px;color:#f3c66124;pointer-events:none}
+html[data-mrlee-v24="ranking"] .v24-ranking-intro small{font-weight:900;color:#ffd999;letter-spacing:.13em}
+html[data-mrlee-v24="ranking"] .v24-ranking-intro h2{color:#fff;font-size:clamp(23px,2.8vw,34px);letter-spacing:-.035em;line-height:1.35;margin:6px 0 5px}
+html[data-mrlee-v24="ranking"] .v24-ranking-intro p{max-width:650px;font-size:13px;color:#e5eef9;margin:4px 0 0}
+html[data-mrlee-v24="ranking"] #mrlee-public-ranking{border:1px solid #e0e8f6;box-shadow:0 24px 55px rgba(19,48,85,.12)}
+html[data-mrlee-v24="ranking"] #mrlee-public-ranking .ml-rank-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}
+html[data-mrlee-v24="ranking"] #mrlee-public-ranking .ml-rank-summary>span{display:flex;flex-direction:column;gap:6px;padding:16px;border:1px solid #dce7f3;border-radius:15px;color:#6e8298;background:linear-gradient(144deg,#fff,#f8fbff);font-weight:750;font-size:12px;box-shadow:0 8px 22px #1545790d}
+html[data-mrlee-v24="ranking"] #mrlee-public-ranking .ml-rank-summary strong{font-size:clamp(19px,2.3vw,28px);color:#173e72;font-variant-numeric:tabular-nums}
+html[data-mrlee-v24="ranking"] #mrlee-public-ranking .mlb-list{gap:9px}
+html[data-mrlee-v24="ranking"] #mrlee-public-ranking .mlb-item{background:#fff;border-radius:15px;border:1px solid #e0e9f4;transition:transform .2s ease,box-shadow .2s ease}
+html[data-mrlee-v24="ranking"] #mrlee-public-ranking .mlb-item.mlb-top-1{background:linear-gradient(112deg,#fff8e6,#fff);border-left:5px solid #e5ad42}
+html[data-mrlee-v24="ranking"] #mrlee-public-ranking .mlb-item.mlb-top-2{background:linear-gradient(112deg,#f3f7fc,#fff);border-left:5px solid #96afc8}
+html[data-mrlee-v24="ranking"] #mrlee-public-ranking .mlb-item.mlb-top-3{background:linear-gradient(112deg,#fff0e6,#fff);border-left:5px solid #d78c5b}
+html[data-mrlee-v24="ranking"] #mrlee-public-ranking .mlb-item.mlb-top-1 .mlb-position{color:#a36b08}
+html[data-mrlee-v24="ranking"] #mrlee-public-ranking .mlb-item.mlb-top-2 .mlb-position{color:#526d8d}
+html[data-mrlee-v24="ranking"] #mrlee-public-ranking .mlb-item.mlb-top-3 .mlb-position{color:#a35422}
+html[data-mrlee-v24="ranking"] #mrlee-public-ranking .mlb-item:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(14,39,89,.1)}
+/* TOPIK PRO: phong cách trung tâm luyện thi, không động tới #proGame. */
+html[data-mrlee-v24="topik-pro"] body{background:radial-gradient(circle at 85% 0%,#eee4ff,transparent 38%),#f3f6fc}
+html[data-mrlee-v24="topik-pro"] .pro-header{position:relative;isolation:isolate;padding:38px 0 36px;overflow:hidden;background:linear-gradient(104deg,#1b2356,#34418b 60%,#5d50a7)}
+html[data-mrlee-v24="topik-pro"] .pro-header::after{content:"";position:absolute;right:0;inset-block:0;width:36%;background:linear-gradient(90deg,#353e8700,#242c5d43),url('../v23/images/korean-graduate.webp') 50% 38%/cover no-repeat;opacity:.52;z-index:-1}
+html[data-mrlee-v24="topik-pro"] .pro-header .pro-wrap{position:relative;z-index:1}
+html[data-mrlee-v24="topik-pro"] .pro-header h1{max-width:710px;color:#fff;font-size:clamp(28px,3.7vw,44px);letter-spacing:-.035em;line-height:1.27;margin:12px 0}
+html[data-mrlee-v24="topik-pro"] .pro-header p{max-width:680px;color:#e8e8ff;font-size:14px}
+html[data-mrlee-v24="topik-pro"] .pro-panel{border-radius:21px;border:1px solid #e0e5f6;box-shadow:0 13px 32px #263b8911}
+html[data-mrlee-v24="topik-pro"] .pro-panel h2{color:#252f6d;letter-spacing:-.025em;font-size:clamp(18px,2vw,23px)}
+html[data-mrlee-v24="topik-pro"] .pro-grid label{color:#42577a;font-weight:750}
+html[data-mrlee-v24="topik-pro"] .pro-grid :is(input,select){border:1px solid #cbd9ee;background:#fbfcff;border-radius:11px;min-height:46px}
+html[data-mrlee-v24="topik-pro"] .pro-actions button{min-height:45px;border-radius:11px}
+html[data-mrlee-v24="topik-pro"] .pro-primary{background:linear-gradient(100deg,#3c3cb0,#6554cc);border-color:transparent;color:white}
+html[data-mrlee-v24="topik-pro"] .pro-stats{gap:12px}
+html[data-mrlee-v24="topik-pro"] .pro-stats>div{border-radius:16px;padding:18px;background:linear-gradient(130deg,#fff,#f8f8ff);border:1px solid #dee4f4;box-shadow:0 8px 22px #253f9910}
+html[data-mrlee-v24="topik-pro"] .pro-stats strong{color:#312b8a;font-size:clamp(22px,2.5vw,30px)}
+html[data-mrlee-v24="topik-pro"] #proGame{border-left:4px solid #6551b9;box-shadow:0 9px 26px #203a720b}
+html[data-mrlee-v24="topik-pro"] .pro-choices button{min-height:62px;transition:none}
+/* AI: nâng khung, tuyệt đối không chỉnh câu trả lời/streaming. */
+html[data-mrlee-v24="ai"] body{background:radial-gradient(ellipse at 12% 12%,#e7e5ff,transparent 43%),radial-gradient(ellipse at 90% 30%,#daf9ff,transparent 33%),#f5f7fd}
+html[data-mrlee-v24="ai"] .ml-ai-hero{position:relative;isolation:isolate;background:radial-gradient(circle at 85% 15%,#277eaf 0%,transparent 46%),linear-gradient(110deg,#17204d,#342e7a 65%,#0e6481);box-shadow:0 25px 64px rgba(27,38,91,.24)}
+html[data-mrlee-v24="ai"] .ml-ai-hero:after{content:"";position:absolute;inset:0;opacity:.11;pointer-events:none;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:28px 28px;z-index:-1}
+html[data-mrlee-v24="ai"] .ml-ai-hero h1{letter-spacing:-.037em}
+html[data-mrlee-v24="ai"] .ml-ai-workspace{box-shadow:0 18px 46px #18275f16;border:1px solid #dce2f6}
+html[data-mrlee-v24="ai"] .ml-ai-workspace :is(textarea,select){background:#f9fbff;border-radius:14px;border:1px solid #ccdafa}
+html[data-mrlee-v24="ai"] .ml-ai-workspace textarea:focus{border-color:#6d69d0;outline:2px solid #a9a5ed}
+html[data-mrlee-v24="ai"] .ml-ai-submit{background:linear-gradient(102deg,#3737a2,#2178b6);box-shadow:0 7px 16px #224a9335}
+html[data-mrlee-v24="ai"] .ml-ai-result{border:1px solid #dfe7fa;background:linear-gradient(155deg,#fff,#f9faff);box-shadow:0 8px 22px #1634800d}
+/* Đăng nhập và tài khoản: chỉ trình bày, không can thiệp auth. */
+html[data-mrlee-v24="auth"] body{background:radial-gradient(circle at 85% 14%,#e5f4ff,transparent 35%),radial-gradient(circle at 6% 7%,#f5e6ff,transparent 36%),#f5f8fd}
+html[data-mrlee-v24="auth"] :where(.intro,.panel,.login-card,.auth-card){border-radius:23px;box-shadow:0 17px 45px #18355b18}
+html[data-mrlee-v24="auth"] :where(input,select){border-radius:12px}
+/* Bài học dài: đọc dễ, không đổi thứ tự bài, câu, đáp án. */
+html[data-mrlee-v24="lesson"] body{background:#f6f9fe}
+html[data-mrlee-v24="lesson"] .lesson-section{border:1px solid #dbe6f4;border-radius:16px;box-shadow:0 9px 23px #1739670e;background:#fff;overflow:auto}
+html[data-mrlee-v24="lesson"] .lesson-section :where(table){max-width:100%}
+html[data-mrlee-v24="lesson"] .lesson-section :where(th){background:#eaf2ff;color:#193966}
+html[data-mrlee-v24="lesson"] .lesson-section :where(td){line-height:1.7}
+/* Responsive: độc lập với thay đổi JS, không ảnh hưởng layout bài thi thực tế. */
+@media(max-width:900px){
+ html[data-mrlee-v24="learning-hub"] .destination-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ html[data-mrlee-v24="student"] .intro::before{opacity:.17}
+}
+@media(max-width:650px){
+ html[data-mrlee-v24="learning-hub"] .section-hero{min-height:245px;padding:29px 22px}
+ html[data-mrlee-v24="learning-hub"] .section-hero::before{width:100%;opacity:.21}
+ html[data-mrlee-v24="learning-hub"] .section-hero .hero-text{max-width:100%}
+ html[data-mrlee-v24="learning-hub"] .destination-grid{grid-template-columns:1fr;gap:12px}
+ html[data-mrlee-v24="learning-hub"] .destination-grid>.destination:nth-child(-n+6){min-height:178px}
+ html[data-mrlee-v24="learning-hub"] #mrlee-audio-library{padding:18px}
+ html[data-mrlee-v24="topik-hub"] .destination-grid{grid-template-columns:1fr}
+ html[data-mrlee-v24="student"] .intro{align-items:stretch;flex-direction:column}
+ html[data-mrlee-v24="student"] .intro .controls{width:100%;align-items:center}
+ html[data-mrlee-v24="ranking"] .v24-ranking-intro{margin:12px 10px 16px}
+ html[data-mrlee-v24="ranking"] #mrlee-public-ranking .ml-rank-summary{grid-template-columns:1fr}
+ html[data-mrlee-v24="ranking"] #mrlee-public-ranking .ml-rank-summary>span{padding:10px 14px}
+ html[data-mrlee-v24="topik-pro"] .pro-header{padding:30px 0}
+ html[data-mrlee-v24="topik-pro"] .pro-header::after{width:100%;opacity:.13}
+ html[data-mrlee-v24="listening"] header::after{opacity:.3}
+}
+@media(prefers-reduced-motion:reduce){html[data-mrlee-v24] *{transition-duration:.01ms!important;animation-duration:.01ms!important;scroll-behavior:auto!important}}
+/* Topik PRO shortcut links injected independently from exam logic. */
+html[data-mrlee-v24="topik-pro"] .v24-pro-shortcuts{width:min(1040px,calc(100% - 32px));margin:-16px auto 17px;position:relative;z-index:2;display:flex;gap:10px;flex-wrap:wrap;padding:13px;border:1px solid #e1e5f7;background:#fff;border-radius:16px;box-shadow:0 11px 27px rgba(28,36,106,.12)}
+html[data-mrlee-v24="topik-pro"] .v24-pro-shortcuts a{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:9px 14px;text-decoration:none;font-weight:750;font-size:12px;background:#f2f1fe;border:1px solid #e4e0fa;color:#3e3c92;border-radius:11px}
+html[data-mrlee-v24="topik-pro"] .v24-pro-shortcuts a:hover{background:#e6e2fc}
