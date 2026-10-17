@@ -1,0 +1,93 @@
+/* MR LEE V25 · Experience Collection · scoped CSS (no exam engine mutations)
+   Uses approved V22 logo through existing site-logo component. */
+html[data-mrlee-v25]{--x-ink:#142849;--x-royal:#215dd5;--x-cyan:#0a9aa7;--x-sky:#eef6ff;--x-paper:#fff;--x-line:#dce8f5;--x-radius:22px;--x-shadow:0 17px 45px rgba(13,53,109,.09);scroll-padding-top:88px}
+html[data-mrlee-v25] body{font-family:'Be Vietnam Pro','Noto Sans KR',system-ui,sans-serif}
+html[data-mrlee-v25] :where(button,a,input,select,textarea,summary):focus-visible{outline:3px solid #ed6a81!important;outline-offset:3px}
+html[data-mrlee-v25] :where(.page-hero,.section-hero,.hero,.tv-heading,.lessonHero){isolation:isolate}
+html[data-mrlee-v25] :where(.panel,.info-panel,.mr-new-panel,.content-section,.section,.destination,.lesson-card,.topic-card,.card,.filter,.exam-card){transition:box-shadow .23s ease,border-color .23s ease}
+html[data-mrlee-v25] :where(.panel,.info-panel,.mr-new-panel,.content-section){border-radius:20px;box-shadow:var(--x-shadow);border-color:var(--x-line)}
+html[data-mrlee-v25] :where(.panel,.info-panel,.mr-new-panel,.content-section):focus-within{border-color:#97bff4}
+html[data-mrlee-v25] :where(button,.btn,.mr-new-btn,.ts-btn){touch-action:manipulation}
+/* Shared quick-path navigation, only inserted on non-exam pages; content links are real routes */
+.v25-route-tray{max-width:1160px;margin:18px auto 22px;padding:12px;background:#ffffffeb;box-shadow:0 12px 32px #14457914;border:1px solid #dae9f8;border-radius:20px;display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.v25-route-tray strong{font-size:12px;color:#274e8a;padding:0 11px;white-space:nowrap}
+.v25-route-tray a{color:#184b87!important;font-size:12px!important;text-decoration:none!important;font-weight:750;display:inline-flex;align-items:center;gap:5px;border:1px solid #e2ecf9;border-radius:999px;padding:9px 13px;background:#f7faff;white-space:nowrap;min-height:38px;transition:transform .18s,background .18s,border-color .18s}
+.v25-route-tray a:hover{transform:translateY(-2px);border-color:#b9d8fc;background:#e7f2ff}
+.v25-route-tray a[aria-current=page]{background:#1c57ad;color:#fff!important;border-color:#1c57ad}
+.v25-route-tray a:focus-visible{outline:3px solid #ec5a7c}
+/* Korean Conversation Studio · vivid blue and photographic framing */
+html[data-mrlee-v25=conversation] body{background:radial-gradient(circle at 100% 2%,#daf1fc 0,transparent 32%),linear-gradient(180deg,#f0f7ff,#fbfdff 40%,#f7faff)}
+html[data-mrlee-v25=conversation] :where(main.shell,main.wrap,main.mr-new-shell){max-width:1180px}
+html[data-mrlee-v25=conversation] :where(.page-hero,.section-hero){position:relative;overflow:hidden;border-radius:25px!important;background:linear-gradient(102deg,#102f60 0%,#18528b 58%,#147c8c 100%)!important;box-shadow:0 22px 55px #173d7c26;color:white;padding:clamp(22px,3.3vw,45px)!important}
+html[data-mrlee-v25=conversation] :where(.page-hero,.section-hero)::before{content:'';position:absolute;right:0;top:0;bottom:0;width:43%;background:linear-gradient(90deg,#174b8700,#123b6254),url('../v23/images/korean-learning.webp') center/cover no-repeat;opacity:.67;z-index:-1;mask-image:linear-gradient(90deg,transparent,#000 40%)}
+html[data-mrlee-v25=conversation] :where(.page-hero,.section-hero) :where(h1,h2){color:#fff!important;max-width:740px;letter-spacing:-.045em;text-wrap:balance;text-shadow:0 3px 15px #12346935}
+html[data-mrlee-v25=conversation] :where(.page-hero,.section-hero) :where(p,small){color:#e3f5ff!important;max-width:730px;line-height:1.85}
+html[data-mrlee-v25=conversation] :where(.panel,.mr-new-panel,.content-section,.info-panel){background:#fff;border:1px solid #dceaf8;overflow:hidden}
+html[data-mrlee-v25=conversation] :where(.btn,.mr-new-btn):not(:disabled){border-radius:13px;box-shadow:0 4px 12px #174a8220;transition:filter .18s,transform .18s,box-shadow .18s}
+html[data-mrlee-v25=conversation] :where(.btn,.mr-new-btn):not(:disabled):hover{filter:saturate(1.09);transform:translateY(-2px);box-shadow:0 10px 18px #174a822e}
+html[data-mrlee-v25=conversation] :where(textarea,input,select){border-radius:12px}
+html[data-mrlee-v25=conversation] :where(.panel h2,.mr-new-panel h2,.content-section h2){letter-spacing:-.03em;color:#1d487f}
+/* Speaking practice with points: preserve recording and scoring; minor readability only */
+html[data-mrlee-v25=speaking-score] body{background:linear-gradient(150deg,#eaf5fe,#fdfefe 32%,#edf7f6)}
+html[data-mrlee-v25=speaking-score] :where(.mp-panel,.mp-stats){border-radius:19px;border-color:#d9e9f5;box-shadow:0 12px 34px #163c7413}
+html[data-mrlee-v25=speaking-score] :where(input,select,textarea){border-radius:11px}
+/* Culture Storybook · warm editorial photography */
+html[data-mrlee-v25=culture-story] body{background:linear-gradient(155deg,#fff7ef 0%,#f6fbff 45%,#f8fafc 100%);color:#23314d}
+html[data-mrlee-v25=culture-story] :where(.hero,.lessonHero){position:relative;overflow:hidden;border:1px solid #e8e4dc;border-radius:26px!important;box-shadow:0 20px 50px #6a4c2421;background:linear-gradient(100deg,#f9ecda,#fff5e5 55%,#e8f8ff)!important}
+html[data-mrlee-v25=culture-story] .hero:before{content:'';position:absolute;inset:0 0 0 auto;width:43%;background:url('../v23/images/korean-culture.webp') center/cover no-repeat;opacity:.76;mask-image:linear-gradient(90deg,transparent,#000 34%);pointer-events:none}
+html[data-mrlee-v25=culture-story] :where(.hero h1,.lessonHero h1){color:#714329;letter-spacing:-.055em;text-wrap:balance;position:relative}
+html[data-mrlee-v25=culture-story] .sectionHeading h2{color:#344f75;letter-spacing:-.03em}
+html[data-mrlee-v25=culture-story] :where(.topic-card,.card,.side,.disclaimer){border-radius:18px;border-color:#e8e5df;box-shadow:0 8px 23px #66513812}
+html[data-mrlee-v25=culture-story] :where(.filter,.chip){border-radius:999px}
+html[data-mrlee-v25=culture-story] :where(.topic-card,.card):hover{box-shadow:0 17px 33px #64523a26;border-color:#eacda9}
+/* Hangeul Lab · letter clarity wins over decoration */
+html[data-mrlee-v25=hangeul] body{background:linear-gradient(150deg,#eef7ff,#fff 46%,#f2f6fc)}
+html[data-mrlee-v25=hangeul] .hero{border-radius:26px;box-shadow:0 16px 45px #1a447c22;background:linear-gradient(105deg,#153970,#3473bf 75%,#37aeb8)!important;overflow:hidden;position:relative}
+html[data-mrlee-v25=hangeul] .hero:after{content:'한글';position:absolute;right:24px;bottom:-27px;font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:clamp(92px,14vw,210px);color:#ffffff17;pointer-events:none;line-height:1}
+html[data-mrlee-v25=hangeul] .hero :where(h1,p){color:#fff!important;position:relative;z-index:1}
+html[data-mrlee-v25=hangeul] :where(.section,.comp){border:1px solid #deebf8;border-radius:21px;box-shadow:0 12px 32px #1c4c8514}
+html[data-mrlee-v25=hangeul] :where(.section h2,.comp h3){color:#1a4884;letter-spacing:-.025em}
+html[data-mrlee-v25=hangeul] :where(.symbol,.glyph,.hangul,.letter){font-family:'Noto Sans KR',sans-serif}
+/* TOPIK preparation pages: menu and reading rhythm, not actual exam screen */
+html[data-mrlee-v25=topik-library] body{background:radial-gradient(circle at 92% 7%,#e8eefb 0%,transparent 36%),linear-gradient(155deg,#f2f6fd,#fff 57%)}
+html[data-mrlee-v25=topik-library] :where(.header,.tv-top){box-shadow:0 4px 21px #163a7c0f}
+html[data-mrlee-v25=topik-library] :where(main.wrap,main.tv-shell){max-width:1170px}
+html[data-mrlee-v25=topik-library] :where(.grid,.tv-shell){gap:clamp(13px,1.5vw,21px)}
+html[data-mrlee-v25=topik-library] :where(.card,.exam-card,.panel,.tv-card){border-radius:19px;border-color:#dbe6f6;box-shadow:0 12px 32px #21467813}
+html[data-mrlee-v25=topik-library] :where(.card,.exam-card,.tv-card):hover{box-shadow:0 18px 37px #21467822;border-color:#adc9f3}
+html[data-mrlee-v25=topik-library] :where(h1,h2){letter-spacing:-.04em;text-wrap:balance}
+html[data-mrlee-v25=topik-library] :where(.tv-shell button,.grid button){border-radius:11px}
+/* TOPIK listening library / diagnostics: audio control placement remains original */
+html[data-mrlee-v25=topik-listening] body{background:linear-gradient(145deg,#edf5ff,#fbfcff 35%,#f5fbff)}
+html[data-mrlee-v25=topik-listening] :where(.tv-listen-card,.panel,.controls){border:1px solid #dce9f8;border-radius:19px;box-shadow:0 11px 29px #183d7513;background:#fff}
+html[data-mrlee-v25=topik-listening] .tv-listen-card{transition:box-shadow .2s,border-color .2s}
+html[data-mrlee-v25=topik-listening] .tv-listen-card:focus-within{border-color:#8fbff4;box-shadow:0 13px 34px #1c5c9c21}
+html[data-mrlee-v25=topik-listening] :where(audio,progress){max-width:100%}
+html[data-mrlee-v25=topik-listening] :where(button,select,input){border-radius:10px}
+/* EXAM: skip layout, timer and choices. Only readable focus and form frame. */
+html[data-mrlee-v25=exam-safe] :where(button,input,select,textarea):focus-visible{outline-color:#146bd6!important}
+html[data-mrlee-v25=exam-safe] :where(.exam-view,.quiz-layout,.question-card){--v25-ring:#2d77d6}
+/* Admin Console: styles only, preserve role gate and hidden panels */
+html[data-mrlee-v25=admin-console] body{background:#f1f6fd}
+html[data-mrlee-v25=admin-console] .topbar{background:linear-gradient(105deg,#fcfdff,#f2f8ff)!important;box-shadow:0 5px 23px #19345b12}
+html[data-mrlee-v25=admin-console] .sidebar{background:linear-gradient(180deg,#0b2c5a 0%,#123d70 66%,#0c284e 100%)!important}
+html[data-mrlee-v25=admin-console] :where(.panel,.kpi,.auth-wrap){border:1px solid #dfe9f6;border-radius:19px;box-shadow:0 11px 26px #1a3b6813}
+html[data-mrlee-v25=admin-console] .kpi{position:relative;overflow:hidden}
+html[data-mrlee-v25=admin-console] .kpi:before{content:'';position:absolute;inset:0 0 auto;height:3px;background:linear-gradient(90deg,#337bea,#1bb1bc)}
+html[data-mrlee-v25=admin-console] :where(.table-scroll,.toolbar){max-width:100%}
+html[data-mrlee-v25=admin-console] .table-scroll{border-radius:13px;border:1px solid #e0eaf5}
+html[data-mrlee-v25=admin-console] :where(.data-table th,.data-table td){vertical-align:middle}
+html[data-mrlee-v25=admin-console] :where(button,input,select,textarea){font-family:inherit}
+/* Admissions: remain in existing V15 layout; presentation-only refined */
+html[data-mrlee-v25=admissions-plus] .ts-hero{box-shadow:0 22px 60px #15345e22;isolation:isolate}
+html[data-mrlee-v25=admissions-plus] :where(.ts-program-card,.ts-university-card){border-radius:20px;box-shadow:0 15px 35px #12457817;transition:box-shadow .22s,border-color .22s}
+html[data-mrlee-v25=admissions-plus] :where(.ts-program-card,.ts-university-card):hover{box-shadow:0 21px 42px #12457828;border-color:#8fbdef}
+html[data-mrlee-v25=admissions-plus] :where(.ts-section h2){letter-spacing:-.045em;text-wrap:balance}
+/* Original lesson navigator: preserve content, improve visible learning cards */
+html[data-mrlee-v25=lesson-index] .hero{border-radius:24px;overflow:hidden;box-shadow:0 19px 49px #153c7220}
+html[data-mrlee-v25=lesson-index] :where(.section,.card,.level-card){border-radius:18px;border-color:#dce7f6;box-shadow:0 10px 28px #183b6e16}
+html[data-mrlee-v25=lesson-index] :where(.section h2,.hero h1){letter-spacing:-.04em}
+/* Shared visual safety */
+@media(max-width:850px){.v25-route-tray{margin:12px 12px 18px;border-radius:16px;gap:7px}.v25-route-tray strong{flex:0 0 100%;padding-left:5px}html[data-mrlee-v25=conversation] :where(.page-hero,.section-hero)::before{width:67%;opacity:.28}}
+@media(max-width:600px){.v25-route-tray{padding:10px;gap:6px}.v25-route-tray a{min-height:40px;padding:8px 10px;font-size:11px!important}html[data-mrlee-v25=conversation] :where(.page-hero,.section-hero)::before{width:100%;opacity:.18}html[data-mrlee-v25=culture-story] .hero:before{opacity:.18;width:100%}html[data-mrlee-v25] :where(.panel,.mr-new-panel,.content-section){border-radius:15px}html[data-mrlee-v25=admin-console] .table-scroll{overflow-x:auto;overscroll-behavior-inline:contain}}
+@media(prefers-reduced-motion:reduce){html[data-mrlee-v25] :where(*,*::before,*::after){transition-duration:.01ms!important;animation-duration:.01ms!important;scroll-behavior:auto!important}}
