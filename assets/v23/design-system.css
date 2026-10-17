@@ -1,0 +1,110 @@
+/* MR LEE V23 | Premium Korean EdTech. Progressive visual layer. No auth/audio/exam/scoring mutations. */
+:root{--v23-navy:#102a56;--v23-blue:#2563eb;--v23-red:#e63f53;--v23-ink:#172033;--v23-muted:#64748b;--v23-ground:#f4f7fc;--v23-line:#dae4f2;--v23-white:#fff;--v23-soft-shadow:0 14px 36px rgba(14,39,86,.095);--v23-deep-shadow:0 23px 62px rgba(14,39,86,.17);--v23-curve:22px;--v23-font:'Be Vietnam Pro','Noto Sans KR',system-ui,'Segoe UI',sans-serif}
+html[data-mrlee-v23]{scroll-padding-top:88px}
+html[data-mrlee-v23] body{font-family:var(--v23-font);-webkit-font-smoothing:antialiased}
+html[data-mrlee-v23] :where(button,input,select,textarea){font-family:inherit}
+html[data-mrlee-v23] :where(a,button,input,select,textarea,summary):focus-visible{outline:3px solid #f27e8b!important;outline-offset:3px}
+html[data-mrlee-v23] img{max-width:100%}
+html[data-mrlee-v23] img.mrlee-approved-logo{object-fit:contain!important;object-position:center!important;filter:none!important;transform:none!important;clip-path:none!important}
+html[data-mrlee-v23] :where(.site-top,.site-header,.topbar,.header,.ml-ai-header,.top,.ts-header){backdrop-filter:saturate(1.15) blur(12px)}
+html[data-mrlee-v23] :where(.content-section,.info-panel,.destination,.section-card,.topic-card,.book-card,.lesson-card,.course-card,.ai-panel,.mlb-full,.panel){border-color:var(--v23-line);}
+/* Admissions: preserve compact original photo-led composition; upgrade legibility and micro-interactions */
+html[data-mrlee-v23='home'] body{color:#102a56;background-color:#eef4ff}
+html[data-mrlee-v23='home'] .site-header{border-bottom:1px solid rgba(37,99,235,.1);box-shadow:0 5px 30px #153b6d0b}
+html[data-mrlee-v23='home'] .hero{background:linear-gradient(112deg,#e8f3ff,#f5fbff 54%,#f9e9f1);border:1px solid rgba(255,255,255,.72);box-shadow:var(--v23-deep-shadow);isolation:isolate}
+html[data-mrlee-v23='home'] .hero-atmosphere{opacity:.69;background-image:linear-gradient(92deg,rgba(255,255,255,.9),rgba(239,247,255,.76) 48%,rgba(241,248,255,.12) 85%),url('../v23/images/korean-campus.webp')}
+html[data-mrlee-v23='home'] .hero h1{text-shadow:0 3px 14px #fff8;letter-spacing:-.052em}
+html[data-mrlee-v23='home'] .hero-photo>img{filter:drop-shadow(0 16px 16px rgba(10,39,80,.16))}
+html[data-mrlee-v23='home'] .hero-copy>p{color:#183867;text-shadow:0 1px 0 #fff}
+html[data-mrlee-v23='home'] .hero-points{border:1px solid #eef3ff;box-shadow:0 8px 25px #0e428626}
+html[data-mrlee-v23='home'] .hero-buttons :is(a,button),html[data-mrlee-v23='home'] .top-cta{transition:transform .22s ease,filter .22s ease,box-shadow .22s ease}
+html[data-mrlee-v23='home'] .hero-buttons :is(a,button):hover,html[data-mrlee-v23='home'] .top-cta:hover{transform:translateY(-3px);filter:saturate(1.12);box-shadow:0 15px 29px #1452a541}
+html[data-mrlee-v23='home'] .search-strip{border-color:#e2eafb;box-shadow:0 12px 34px #1141701e}
+html[data-mrlee-v23='home'] .field :is(select,input){background:#fafdff;border-color:#d5e2f5;font-size:clamp(11px,.75vw,13px)}
+html[data-mrlee-v23='home'] .search-button{background:linear-gradient(110deg,#1265ec,#178dff);box-shadow:0 7px 15px #1278e824}
+html[data-mrlee-v23='home'] :is(.feature-card,.step-card,.scholarship,.ranking){border:1px solid rgba(223,234,247,.94);box-shadow:0 8px 24px #123b7f13}
+html[data-mrlee-v23='home'] .feature-card img,html[data-mrlee-v23='home'] .step-card img{transition:transform .38s ease,filter .38s ease}
+html[data-mrlee-v23='home'] .feature-card:hover img,html[data-mrlee-v23='home'] .step-card:hover img{transform:scale(1.06);filter:saturate(1.13)}
+html[data-mrlee-v23='home'] .feature-card:hover,html[data-mrlee-v23='home'] .step-card:hover{border-color:#b4d2fd;box-shadow:0 16px 33px #133e801c}
+html[data-mrlee-v23='home'] .journey-label{background:linear-gradient(130deg,#e1f2ff,#fff7fc 91%);border:1px solid #d8e7fa}
+html[data-mrlee-v23='home'] .journey-label strong{letter-spacing:-.075em}
+html[data-mrlee-v23='home'] .scholarship{background:linear-gradient(115deg,#ffe4f1 0%,#f7f9ff 100%)}
+html[data-mrlee-v23='home'] .ranking{background:linear-gradient(110deg,#fff 0%,#f8fbff 100%)}
+html[data-mrlee-v23='home'] .student-rank{box-shadow:0 4px 16px #123d8509}
+/* Education hubs: vivid editorial image without altering lessons' semantics */
+html[data-mrlee-v23='learning'] body{--v23-accent:#2563eb}
+html[data-mrlee-v23='learning'] .section-hero{position:relative;isolation:isolate;overflow:hidden;box-shadow:var(--v23-deep-shadow);background:linear-gradient(96deg,#0a2b5c 0%,#185299 62%,#4078a4 100%)!important;border:1px solid #c7d9f1;border-radius:var(--v23-curve)}
+html[data-mrlee-v23='learning'] .section-hero::before{content:'';position:absolute;inset:0 0 0 auto;width:43%;background:linear-gradient(90deg,#174f9300 0%,#174f9355 15%,#14467522 100%),url('images/korean-learning.webp') center/cover no-repeat;z-index:-1}
+html[data-mrlee-v23='learning'] .section-hero .hero-text{position:relative;z-index:2;max-width:70%}
+html[data-mrlee-v23='learning'] .section-hero p{color:#e9f5ff!important}
+html[data-mrlee-v23='learning'] :where(.destination,.book-card,.topic-card,.panel,.info-panel){box-shadow:var(--v23-soft-shadow);border-radius:18px;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+html[data-mrlee-v23='learning'] :where(.destination,.book-card,.topic-card):hover{transform:translateY(-4px);box-shadow:0 23px 42px rgba(21,54,94,.17);border-color:#a7c6ec}
+html[data-mrlee-v23='learning'] .content-section>.section-title{letter-spacing:-.035em;color:#133b79}
+html[data-mrlee-v23='learning'] .dest-icon{border-radius:16px;box-shadow:inset 0 0 0 1px rgba(21,56,103,.08)}
+html[data-mrlee-v23='learning'] .dest-cta{color:#1765dc!important;font-weight:800}
+/* Cultural and communication: warmer visual style without altering audio/recording controls */
+html[data-mrlee-v23='culture'] body{--v23-accent:#0fa596}
+html[data-mrlee-v23='culture'] .section-hero{background:linear-gradient(108deg,#153454,#1c7582)!important;border-radius:22px;box-shadow:var(--v23-soft-shadow);isolation:isolate;overflow:hidden;position:relative}
+html[data-mrlee-v23='culture'] .section-hero:before{content:'';position:absolute;right:0;inset-block:0;width:43%;background:url('images/korean-culture.webp') center/cover no-repeat;opacity:.65;z-index:-1;mask-image:linear-gradient(90deg,transparent,#000 35%)}
+html[data-mrlee-v23='culture'] :where(.topic-card,.culture-card,.panel,.destination){border-radius:18px;box-shadow:var(--v23-soft-shadow);transition:transform .2s ease}
+html[data-mrlee-v23='culture'] :where(.topic-card,.culture-card,.destination):hover{transform:translateY(-3px)}
+/* Premium leaderboard. Must not create names, scores or ranks. */
+html[data-mrlee-v23='ranking'] body{background:radial-gradient(circle at 10% 6%,#ffedd0,transparent 33%),radial-gradient(circle at 88% 12%,#e4f0ff,transparent 32%),#f5f8fd}
+html[data-mrlee-v23='ranking'] .mlb-topbar{background:#fffefaed!important;box-shadow:0 5px 22px rgba(10,49,91,.07)}
+html[data-mrlee-v23='ranking'] #mrlee-public-ranking{border-radius:24px;box-shadow:0 24px 72px rgba(10,38,74,.14)}
+html[data-mrlee-v23='ranking'] :where(.mlb-item,.mlb-card,.mlb-podium-card){transition:box-shadow .24s ease,transform .24s ease}
+html[data-mrlee-v23='ranking'] :where(.mlb-item,.mlb-card,.mlb-podium-card):hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(10,41,83,.12)}
+/* Korean visa/admissions/roadmap editorial */
+html[data-mrlee-v23='journey'] body{background:#f5f8fe}
+html[data-mrlee-v23='journey'] .hero{background:linear-gradient(118deg,#f4f8ff,#e9f3ff)}
+html[data-mrlee-v23='journey'] .hero-shell{border-radius:26px;overflow:hidden;box-shadow:var(--v23-deep-shadow)}
+html[data-mrlee-v23='journey'] .block{box-shadow:var(--v23-soft-shadow);border-radius:22px}
+html[data-mrlee-v23='journey'] .action .num{background:linear-gradient(140deg,#dceaff,#f0f6ff)}
+html[data-mrlee-v23='journey'] .step-card{transition:transform .2s ease,box-shadow .2s ease}
+html[data-mrlee-v23='journey'] .step-card:hover{transform:translateY(-2px);box-shadow:var(--v23-soft-shadow)}
+html[data-mrlee-v23='admissions'] body{--v23-accent:#e63f53}
+html[data-mrlee-v23='admissions'] :where(.ts-card,.ts-panel,.ts-university-card){box-shadow:var(--v23-soft-shadow)}
+/* AI must stay usable and readable; improve only framing and focus state */
+html[data-mrlee-v23='ai'] body{--v23-accent:#7c3aed}
+html[data-mrlee-v23='ai'] .ml-ai-header{box-shadow:0 6px 22px #172a6a10}
+html[data-mrlee-v23='ai'] :where(.ml-ai-panel,.ml-ai-card,.ml-ai-result,.ml-ai-search){border-radius:18px;box-shadow:var(--v23-soft-shadow)}
+/* Profile/auth and admin: preserve access-control and application widgets */
+html[data-mrlee-v23='student'] body{--v23-accent:#1b70e4}
+html[data-mrlee-v23='student'] :where(.profile-card,.student-card,.panel,.stat-card){box-shadow:var(--v23-soft-shadow);border-radius:19px}
+html[data-mrlee-v23='auth'] body{--v23-accent:#1b70e4}
+html[data-mrlee-v23='auth'] :where(.auth-card,.login-card,.account-panel){box-shadow:var(--v23-deep-shadow);border-radius:24px}
+html[data-mrlee-v23='admin'] body{--v23-accent:#1b70e4}
+html[data-mrlee-v23='admin'] :where(.auth-card,.panel,.stat-card){box-shadow:var(--v23-soft-shadow);border-radius:18px}
+/* Exam/timed quiz pages: only typography/focus/contrast; no transition or layout overrides */
+html[data-mrlee-v23='exam'] body{--v23-accent:#153d73}
+html[data-mrlee-v23='exam'] :where(button,input,select):focus-visible{outline-color:#2563eb!important}
+/* A11y, images, and responsive safety */
+.v23-editorial{display:grid;grid-template-columns:1.3fr repeat(3,1fr);gap:12px;margin:18px 0 23px;padding:0;isolation:isolate}
+.v23-editorial>a{min-width:0;text-decoration:none!important;position:relative;min-height:133px;overflow:hidden;border-radius:18px;background:#0c2c61;box-shadow:var(--v23-soft-shadow);display:block;border:1px solid #ffffff75}
+.v23-editorial>a:before{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,24,51,.94) 0%,rgba(12,42,80,.4) 65%,rgba(12,42,80,.1) 100%);z-index:1}
+.v23-editorial img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .42s ease,filter .3s ease}
+.v23-editorial>a:hover img{transform:scale(1.07);filter:saturate(1.12)}
+.v23-editorial>a:hover{box-shadow:0 21px 44px #0e3b7d35}
+.v23-editorial .v23-text{position:absolute;inset:auto 14px 14px;z-index:2;display:grid;gap:5px;color:#fff;text-shadow:0 2px 7px #102e68aa}
+.v23-editorial .v23-text strong{font-weight:900;font-size:clamp(12px,.95vw,16px);letter-spacing:-.015em}
+.v23-editorial .v23-text small{font-size:11px;color:#edf5ff;opacity:.92}
+.v23-editorial>a:first-child{min-height:146px}
+.v23-editorial>a:first-child .v23-text strong{font-size:clamp(16px,1.2vw,22px)}
+.v23-editorial .v23-chevron{position:absolute;right:13px;top:12px;z-index:2;background:#ffffffdf;color:#1b4c84;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;font-weight:900}
+html[data-mrlee-v23] .v23-editorial:focus-within{outline-offset:3px}
+@media(min-width:1024px){html[data-mrlee-v23='home'] .feature-cards{height:clamp(124px,16vh,157px)}html[data-mrlee-v23='home'] .journey{height:clamp(145px,18vh,178px)}html[data-mrlee-v23='home'] .feature-info b{font-size:clamp(10px,.75vw,13px)}html[data-mrlee-v23='home'] .feature-info small{font-size:clamp(9px,.57vw,10px)}}
+@media(max-width:1050px){.v23-editorial{grid-template-columns:repeat(2,minmax(0,1fr))}.v23-editorial>a:first-child{min-height:133px}html[data-mrlee-v23='learning'] .section-hero .hero-text{max-width:78%}}
+@media(max-width:720px){.v23-editorial{gap:9px;margin:12px 0 18px}.v23-editorial>a{min-height:132px;border-radius:14px}.v23-editorial .v23-text{inset:auto 10px 11px}.v23-editorial .v23-text strong{font-size:12px!important}.v23-editorial .v23-text small{font-size:10px}.v23-editorial .v23-chevron{width:24px;height:24px;right:9px;top:9px}html[data-mrlee-v23='learning'] .section-hero::before{width:100%;opacity:.18;mask-image:none}html[data-mrlee-v23='learning'] .section-hero .hero-text{max-width:100%}html[data-mrlee-v23='home'] .hero h1{white-space:normal}}
+@media(max-width:390px){.v23-editorial{grid-template-columns:1fr}.v23-editorial>a{min-height:113px}.v23-editorial>a:first-child{min-height:135px}}
+@media(prefers-reduced-motion:reduce){html[data-mrlee-v23] *,html[data-mrlee-v23] *::before,html[data-mrlee-v23] *::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+/* University atlas: SVG shapes/campus data remain untouched. Improve panels only. */
+html[data-mrlee-v23='map'] body{--v23-accent:#1664da}
+html[data-mrlee-v23='map'] .top{box-shadow:0 5px 25px rgba(8,38,83,.1)}
+html[data-mrlee-v23='map'] .hero{border-radius:22px;box-shadow:var(--v23-soft-shadow)}
+html[data-mrlee-v23='map'] :where(.map-column,.catalogue,.map-top,.search-panel,.detail,.v19-city-panel){border-radius:18px;box-shadow:0 9px 28px rgba(12,52,91,.08)}
+html[data-mrlee-v23='map'] .map-space{background:radial-gradient(circle at 50% 35%,#eef8ff,#e4f0fb 72%,#e4e9f8);border-radius:18px}
+html[data-mrlee-v23='map'] :where(.filter-btn,.v19-city-chips button,.map-tools button){transition:background-color .18s ease,box-shadow .18s ease;}
+html[data-mrlee-v23='map'] :where(.filter-btn,.v19-city-chips button,.map-tools button):hover{box-shadow:0 3px 10px rgba(18,77,134,.13)}
+/* TOPIK course hubs, excluding exam sessions. */
+html[data-mrlee-v23='learning'] :where(.card,.topik-card,.tv-card,.exam-card){border-radius:19px;box-shadow:var(--v23-soft-shadow)}
+html[data-mrlee-v23='learning'] :where(.card,.topik-card,.tv-card):hover{border-color:#b8d0f4}
