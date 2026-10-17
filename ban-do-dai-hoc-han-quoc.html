@@ -7,8 +7,9 @@
 <link rel="icon" href="images/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="university-map/atlas.css?v=13-hover-20261016">
-<link rel="stylesheet" href="/assets/mrlee-hover-info.css?v=13">
+<link rel="stylesheet" href="university-map/atlas.css?v=19-fix20261017">
+<link rel="stylesheet" href="assets/mrlee-hover-info.css?v=19">
+<link rel="stylesheet" href="university-map/atlas-v19-enhance.css?v=19-fix20261017">
 </head>
 <body>
 <a class="sr-only skip-link" href="#searchInput">Tới ô tìm trường</a>
@@ -20,6 +21,7 @@
  <div class="map-top"><span class="bubble"><i></i> Sơ đồ tỉnh/thành tương tác</span><div class="map-tools"><button id="resetRegion" type="button">↺ Toàn quốc</button><a href="ban-do-dai-hoc-han-quoc-chi-tiet.html">Xem bản đồ kéo/zoom ↗</a></div></div>
  <div class="map-search"> <div class="search-panel"><label class="sr-only" for="searchInput">Tìm trường</label><div class="input-row"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"></circle><path d="m15 15 6 6"></path></svg><input id="searchInput" type="search" placeholder="VD: YTECH, GUMI, CHUNGANG, 대학교..." autocomplete="off"><button id="clearSearch" type="button" aria-label="Xóa tìm kiếm">×</button></div><div class="search-help">Tìm bằng tiếng Hàn · Anh · Việt</div></div>
 </div>
+ <section class="v19-city-panel" id="v19CityPanel" hidden aria-label="Các thành phố trong tỉnh"><div class="v19-city-heading"><strong>Thành phố / 시·군</strong><span>Rê chuột hoặc chạm để lọc trường</span></div><div class="v19-city-chips" id="v19CityChips"></div></section>
  <div class="map-space"><div id="provinceHoverInfo" class="province-hover-info" hidden role="status" aria-live="off"></div><svg id="koreaAtlas" role="group" aria-label="Sơ đồ các tỉnh thành Hàn Quốc có thể nhấn chọn" viewBox="80 68 520 748" preserveAspectRatio="xMidYMid meet"><defs><filter id="areaShadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#0d2841" flood-opacity=".14"/></filter></defs><g id="regionShapes"></g><g id="regionLabels"></g></svg><div class="map-stamp">색상별 지역 클릭<br><b>CLICK TO EXPLORE</b></div></div>
  <p class="source-note">Rê chuột lên tỉnh để xem nhanh · Click tỉnh để hiển thị toàn bộ trường bên cạnh · Click Google Maps / Website trong hồ sơ. Sơ đồ chỉ mang tính minh họa, không dùng làm ranh giới pháp lý.</p>
 </div>
@@ -31,7 +33,8 @@
 </section>
 <div class="notice" id="notice" role="status" aria-live="polite">Đang đọc danh mục trường đại học MR LEE...</div>
 
-</main><footer>© TIẾNG HÀN MR LEE · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> · <a href="https://github.com/southkorea/southkorea-maps" target="_blank" rel="noopener noreferrer">Tham khảo dữ liệu địa giới</a></footer>
-<script src="university-map/atlas.js?v=13-hover-20261016" defer></script>
-<script src="/assets/mrlee-hover-info.js?v=13" defer></script>
+</main><footer>© TIẾNG HÀN MR LEE · <a href="mailto:tienghanmrlee@gmail.com">tienghanmrlee@gmail.com</a> · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> · <a href="https://github.com/southkorea/southkorea-maps" target="_blank" rel="noopener noreferrer">Tham khảo dữ liệu địa giới</a></footer>
+<script src="university-map/atlas.js?v=19-fix20261017" defer></script>
+<script src="university-map/atlas-v19-enhance.js?v=19-fix20261017" defer></script>
+<script src="assets/mrlee-hover-info.js?v=19" defer></script>
 </body></html>

@@ -1,0 +1,13 @@
+/* MR LEE V19: enhancing the original SVG atlas, not replacing it */
+.v19-city-panel{padding:14px 16px;background:linear-gradient(135deg,#eff6ff,#fff0f6);border:1px solid #dbe7ff;border-radius:17px;margin:12px 0 4px;box-shadow:0 8px 20px rgba(12,55,122,.06)}
+.v19-city-panel[hidden]{display:none!important}
+.v19-city-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.v19-city-heading strong{color:#113b8b;font-weight:800}
+.v19-city-heading span{font-size:.77rem;color:#647998}
+.v19-city-chips{display:flex;gap:8px;flex-wrap:wrap;max-height:110px;overflow:auto}
+.v19-city-chip{border:1px solid #d6e4fd;background:#fff;color:#214e9a;font:inherit;font-weight:700;font-size:.8rem;cursor:pointer;padding:9px 12px;border-radius:999px;transition:transform .15s,background-color .15s}
+.v19-city-chip:hover,.v19-city-chip:focus-visible,.v19-city-chip.active{background:linear-gradient(135deg,#176bff,#ff4b99);color:#fff;border-color:transparent;transform:translateY(-1px)}
+.school-row[hidden]{display:none!important}
+.map-space{background:linear-gradient(160deg,#f8fbff 0%,#eaf4ff 55%,#fff2f7 100%)}
+.province:hover,.region-dot:hover{filter:brightness(1.06) drop-shadow(0 5px 7px rgba(25,92,200,.2));cursor:pointer}
+@media(max-width:850px){.v19-city-chips{max-height:160px}}
