@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html data-mrlee-v23="home" lang="vi" data-mrlee-v30="home" data-mrlee-v303="reference" data-mrlee-v305="photos" data-mrlee-v306="images"><head>
+<html data-mrlee-auth2="pending" data-mrlee-v23="home" lang="vi" data-mrlee-v30="home" data-mrlee-v303="reference" data-mrlee-v305="photos" data-mrlee-v306="images"><head>
 <meta charset="utf-8"/><meta content="width=device-width,initial-scale=1,viewport-fit=cover" name="viewport"/>
 <meta content="#1245a0" name="theme-color"/><meta content="MR LEE – Tuyển sinh du học Hàn Quốc, học tiếng Hàn, thi TOPIK, bản đồ và bảng xếp hạng học viên." name="description"/>
 <title>MR LEE | Tuyển sinh du học Hàn Quốc</title>
@@ -68,69 +68,12 @@ html[data-mrlee-v306="images"] #mainContent .feature-info {
 <!-- MRLEE_AUTH_RESTORE_20261018_HEAD -->
 <link rel="stylesheet" href="assets/mrlee-auth-restore/auth-nav.css?v=20261018" data-mrlee-auth-nav="css">
 <script type="module" src="assets/mrlee-auth-restore/auth-nav.js?v=20261018" data-mrlee-auth-nav="js"></script>
-<!-- MRLEE_AUTH_UI_PATCH_START -->
-<style id="mrlee-auth-ui-patch">
-  .mrlee-auth-cta {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 10px !important;
-    min-width: 168px !important;
-    min-height: 52px !important;
-    padding: 14px 22px !important;
-    border-radius: 16px !important;
-    font-size: 16px !important;
-    font-weight: 800 !important;
-    line-height: 1.1 !important;
-    letter-spacing: .2px !important;
-    text-decoration: none !important;
-    white-space: nowrap !important;
-    box-shadow: 0 10px 26px rgba(15, 23, 42, .12) !important;
-    transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease !important;
-    margin: 6px 8px 6px 0 !important;
-  }
-
-  .mrlee-auth-cta:hover {
-    transform: translateY(-1px) !important;
-    box-shadow: 0 14px 30px rgba(15, 23, 42, .16) !important;
-  }
-
-  .mrlee-auth-login {
-    background: linear-gradient(135deg, #1d4ed8, #2563eb) !important;
-    color: #fff !important;
-    border: 1px solid rgba(37, 99, 235, .95) !important;
-  }
-
-  .mrlee-auth-register {
-    background: linear-gradient(135deg, #ec4899, #f472b6) !important;
-    color: #fff !important;
-    border: 1px solid rgba(244, 114, 182, .95) !important;
-  }
-
-  .mrlee-auth-cta svg,
-  .mrlee-auth-cta i {
-    flex: 0 0 auto !important;
-  }
-
-  .mrlee-consult-hidden {
-    display: none !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-  }
-
-  @media (max-width: 768px) {
-    .mrlee-auth-cta {
-      width: 100% !important;
-      min-width: 0 !important;
-      min-height: 54px !important;
-      font-size: 16px !important;
-      padding: 14px 16px !important;
-      border-radius: 15px !important;
-      margin: 6px 0 !important;
-    }
-  }
-</style>
-<!-- MRLEE_AUTH_UI_PATCH_END -->\n</head>
+\n<!-- MRLEE_AUTH_UI_V2_20261018_START -->
+<link rel="stylesheet" href="assets/mrlee-auth2/auth2.css?v=20261018-2" data-mrlee-auth2="css">
+<script defer src="assets/mrlee-auth2/auth2-ui.js?v=20261018-2" data-mrlee-auth2="ui"></script>
+<script type="module" src="assets/mrlee-auth2/auth2.js?v=20261018-2" data-mrlee-auth2="auth"></script>
+<!-- MRLEE_AUTH_UI_V2_20261018_END -->
+</head>
 <body data-mrlee-version="MRLEE_MAIN_V30_3">
 <a class="skip-link" href="#mainContent">Tới nội dung chính</a>
 <header class="site-header"><div class="header-inner">
@@ -139,10 +82,15 @@ html[data-mrlee-v306="images"] #mainContent .feature-info {
 <a class="active" href="index.html">Trang chủ</a><a href="tuyen-sinh.html">Tuyển sinh</a><a href="ban-do-dai-hoc-han-quoc.html">Bản đồ đại học</a><a href="#ranking">Bảng xếp hạng</a>
 <a href="hoc-tieng-han.html">Học</a><a href="kiem-tra-online.html">Thi</a><a href="mrlee-topik-pro.html">TOPIK</a><a href="#contactPanel">Liên hệ</a></nav>
 <a aria-label="Tìm trường" class="nav-search" href="#schoolSearch" title="Tìm trường">⌕</a>
-<a id="mrlee-auth-nav" href="dang-nhap.html" aria-label="Đăng ký hoặc đăng nhập học viên">👤 Đăng ký / Đăng nhập</a>
+<a id="mrlee-auth-nav" href="dang-nhap.html" aria-label="Đăng ký hoặc đăng nhập học viên" class="mrlee-auth2-account">👤 Đăng ký / Đăng nhập</a>
+<div id="mrlee-auth2-actions" aria-label="Tài khoản học viên"><a class="mrlee-auth2-btn mrlee-auth2-login" href="dang-nhap.html">Đăng nhập</a><a class="mrlee-auth2-btn mrlee-auth2-register" href="dang-nhap.html?mode=register">Đăng ký</a></div>
+
 <button class="top-cta" id="openContactTop" type="button">✈ Đăng ký tư vấn →</button>
+<button id="mrlee-auth2-locked-top" type="button">🔒 Tư vấn · Đăng nhập để mở</button>
+
 <button aria-controls="mobileNav" aria-expanded="false" aria-label="Mở menu" class="menu-toggle" id="menuToggle" type="button">☰</button>
-</div><nav class="mobile-nav" hidden="" id="mobileNav">
+</div><div id="mrlee-auth2-mobile-strip" aria-label="Tài khoản học viên trên điện thoại"><a class="mrlee-auth2-btn mrlee-auth2-login mrlee-auth2-guest" href="dang-nhap.html">Đăng nhập</a><a class="mrlee-auth2-btn mrlee-auth2-register mrlee-auth2-guest" href="dang-nhap.html?mode=register">Đăng ký</a><a id="mrlee-auth2-mobile-account" href="dang-nhap.html">👤 Tài khoản học viên</a></div>
+<nav class="mobile-nav" hidden="" id="mobileNav">
 <a href="index.html">Trang chủ</a><a href="tuyen-sinh.html">Tuyển sinh</a><a href="ban-do-dai-hoc-han-quoc.html">Bản đồ đại học</a><a href="#ranking">Bảng xếp hạng</a><a href="hoc-tieng-han.html">Học</a><a href="kiem-tra-online.html">Thi</a><a href="mrlee-topik-pro.html">TOPIK</a><a href="#contactPanel">Liên hệ</a>
 <a id="mrlee-auth-nav-mobile" href="dang-nhap.html" aria-label="Đăng ký hoặc đăng nhập học viên">👤 Đăng ký / Đăng nhập</a>
 </nav></header>
@@ -151,7 +99,9 @@ html[data-mrlee-v306="images"] #mainContent .feature-info {
 <div class="hero-copy"><span class="script">Cùng MR LEE chạm tới ước mơ ♥</span><h1>DU HỌC<br/><span>HÀN QUỐC</span></h1>
 <p>Hành trình tri thức – Mở lối tương lai toàn cầu</p>
 <div class="hero-points"><span class="v303-benefit"><span class="v303-symbol" aria-hidden="true">☏</span><span class="v303-info"><b>Tư vấn 1:1</b><small>Cùng chuyên gia</small></span></span><span class="v303-benefit"><span class="v303-symbol" aria-hidden="true">▤</span><span class="v303-info"><b>Lộ trình rõ ràng</b><small>Phù hợp mục tiêu</small></span></span><span class="v303-benefit"><span class="v303-symbol" aria-hidden="true">✓</span><span class="v303-info"><b>Hỗ trợ hồ sơ</b><small>Từ A đến Z</small></span></span><span class="v303-benefit"><span class="v303-symbol" aria-hidden="true">♥</span><span class="v303-info"><b>Đồng hành</b><small>Trong suốt hành trình</small></span></span></div>
-<div class="hero-buttons"><button class="hero-cta" id="openContactHero" type="button">💬 ĐĂNG KÝ TƯ VẤN NGAY <b>→</b></button><a class="hero-map" href="ban-do-dai-hoc-han-quoc.html">▣ XEM BẢN ĐỒ ĐẠI HỌC <b>→</b></a></div>
+<div class="hero-buttons"><button class="hero-cta" id="openContactHero" type="button">💬 ĐĂNG KÝ TƯ VẤN NGAY <b>→</b></button>
+<button id="mrlee-auth2-locked-hero" type="button" aria-haspopup="dialog">🔒 TƯ VẤN DU HỌC · ĐĂNG NHẬP ĐỂ MỞ <b aria-hidden="true">→</b></button>
+<a class="hero-map" href="ban-do-dai-hoc-han-quoc.html">▣ XEM BẢN ĐỒ ĐẠI HỌC <b>→</b></a></div>
 </div>
 </section>
 <div class="search-strip"><form autocomplete="off" class="school-search" id="schoolSearchForm"><div class="field field-search"><label class="sr-only" for="schoolSearch">Tìm trường</label><input id="schoolSearch" placeholder="Tìm trường theo tên (Hàn / Anh / Việt)..." type="search"/><div class="suggestions" hidden="" id="searchSuggestions"></div></div><div class="field"><label class="sr-only" for="regionSelectMain">Tỉnh thành</label><select id="regionSelectMain"><option value="">Chọn tỉnh / thành phố</option></select></div><div class="field"><label class="sr-only" for="typeSelectMain">Loại trường</label><select id="typeSelectMain"><option value="">Chọn loại trường</option><option value="university">Đại học</option><option value="college">Cao đẳng</option></select></div><button class="search-button" type="submit">Tìm trường⌕</button></form>
@@ -259,139 +209,5 @@ html[data-mrlee-v306="images"] #mainContent .feature-info {
 </dialog>
 <footer class="site-footer">MR LEE • Liên hệ <a href="tel:0376991180">0376991180</a> • <a href="mailto:tienghanmrlee@gmail.com">tienghanmrlee@gmail.com</a></footer>
 <script type="module" src="assets/mrlee-announcement/notice.js?v=20261018-2" data-mrlee-ranking-notice="1"></script>
-<!-- MRLEE_AUTH_GUARD_START -->
-<script id="mrlee-auth-guard">
-(function() {
-  const CONSULT_TEXT = ['đăng ký tư vấn', 'dang ky tu van'];
-  const LOGIN_TEXT = ['đăng nhập', 'dang nhap', 'login', 'log in'];
-  const REGISTER_TEXT = ['đăng ký', 'dang ky', 'register', 'sign up'];
-
-  function norm(s) {
-    return (s || '')
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/\s+/g, ' ')
-      .trim();
-  }
-
-  function textOf(el) {
-    return norm(el.innerText || el.textContent || el.getAttribute('aria-label') || '');
-  }
-
-  function looksLikeText(el, candidates) {
-    const t = textOf(el);
-    return candidates.some(x => t.includes(norm(x)));
-  }
-
-  function getAllClickable() {
-    return Array.from(document.querySelectorAll('a,button,[role="button"],.btn,.button'));
-  }
-
-  function markAuthButtons() {
-    getAllClickable().forEach(el => {
-      const t = textOf(el);
-      const href = norm(el.getAttribute('href') || '');
-      const idcl = norm((el.id || '') + ' ' + (el.className || ''));
-
-      const isLogin =
-        looksLikeText(el, LOGIN_TEXT) ||
-        href.includes('login') || href.includes('dang-nhap') ||
-        idcl.includes('login') || idcl.includes('dangnhap');
-
-      const isRegister =
-        (
-          looksLikeText(el, REGISTER_TEXT) &&
-          !looksLikeText(el, CONSULT_TEXT)
-        ) ||
-        href.includes('register') || href.includes('dang-ky') ||
-        idcl.includes('register') || idcl.includes('dangky');
-
-      if (isLogin) {
-        el.classList.add('mrlee-auth-cta', 'mrlee-auth-login');
-      }
-
-      if (isRegister) {
-        el.classList.add('mrlee-auth-cta', 'mrlee-auth-register');
-      }
-    });
-  }
-
-  function getConsultButtons() {
-    return getAllClickable().filter(el => {
-      const t = textOf(el);
-      const href = norm(el.getAttribute('href') || '');
-      const idcl = norm((el.id || '') + ' ' + (el.className || ''));
-
-      return CONSULT_TEXT.some(x => t.includes(norm(x)))
-        || href.includes('tu-van')
-        || idcl.includes('tuvan')
-        || idcl.includes('consult');
-    });
-  }
-
-  function setConsultVisible(isVisible) {
-    getConsultButtons().forEach(el => {
-      if (isVisible) {
-        el.classList.remove('mrlee-consult-hidden');
-      } else {
-        el.classList.add('mrlee-consult-hidden');
-      }
-    });
-  }
-
-  function handleAuthUser(user) {
-    const loggedIn = !!user;
-    setConsultVisible(loggedIn);
-  }
-
-  function bindFirebaseAuth() {
-    try {
-      if (window.firebase && typeof window.firebase.auth === 'function') {
-        window.firebase.auth().onAuthStateChanged(function(user) {
-          handleAuthUser(user);
-        });
-        return true;
-      }
-    } catch (e) {}
-
-    try {
-      if (window.auth && typeof window.onAuthStateChanged === 'function') {
-        window.onAuthStateChanged(window.auth, function(user) {
-          handleAuthUser(user);
-        });
-        return true;
-      }
-    } catch (e) {}
-
-    return false;
-  }
-
-  function boot() {
-    markAuthButtons();
-    setConsultVisible(false);
-
-    const bound = bindFirebaseAuth();
-
-    if (!bound) {
-      // fallback an toàn: chưa xác nhận được auth thì vẫn ẩn
-      setConsultVisible(false);
-    }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
-  } else {
-    boot();
-  }
-
-  // quét lại nhẹ để xử lý phần tử render muộn
-  let times = 0;
-  const timer = setInterval(() => {
-    markAuthButtons();
-    times += 1;
-    if (times >= 12) clearInterval(timer);
-  }, 700);
-})();
-</script>
-<!-- MRLEE_AUTH_GUARD_END -->\n</body></html>
+\n<dialog id="mrlee-auth2-dialog" aria-labelledby="mrlee-auth2-dialog-title" aria-modal="true"><button id="mrlee-auth2-dialog-close" type="button" class="mrlee-auth2-close" aria-label="Đóng">×</button><h2 id="mrlee-auth2-dialog-title">🔒 Đăng nhập để đăng ký tư vấn</h2><p>Để bảo vệ thông tin học viên, vui lòng đăng nhập bằng tài khoản đã xác minh email. Nếu chưa có tài khoản, bạn có thể đăng ký miễn phí.</p><div class="mrlee-auth2-dialog-buttons"><a class="mrlee-auth2-btn mrlee-auth2-login" href="dang-nhap.html">Đăng nhập</a><a class="mrlee-auth2-btn mrlee-auth2-register" href="dang-nhap.html?mode=register">Đăng ký</a></div><p class="mrlee-auth2-caution">Sau khi đăng nhập, chọn Trở về trang chủ để nút Đăng ký tư vấn xuất hiện.</p></dialog>
+</body></html>
