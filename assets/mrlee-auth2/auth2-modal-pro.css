@@ -1,0 +1,92 @@
+/* TIẾNG HÀN MR LEE - Consultation sign-in modal V4. Scoped; does not touch Firebase. */
+#mrlee-auth2-dialog.mrlee-auth2-pro {
+  position: fixed;
+  inset: 0;
+  box-sizing: border-box;
+  display: none;
+  width: min(556px, calc(100vw - 32px)) !important;
+  max-width: none !important;
+  max-height: min(94dvh, 760px) !important;
+  margin: auto !important;
+  padding: 0 !important;
+  overflow: auto !important;
+  border: 1px solid rgba(255,255,255,.92) !important;
+  border-radius: 28px !important;
+  background: #fff !important;
+  color: #183258 !important;
+  box-shadow: 0 34px 98px rgba(8,27,68,.31), 0 6px 25px rgba(8,27,68,.12) !important;
+  font-family: 'Be Vietnam Pro', system-ui, sans-serif !important;
+  text-align: left;
+  isolation: isolate;
+}
+#mrlee-auth2-dialog.mrlee-auth2-pro[open] {display: block !important;}
+#mrlee-auth2-dialog.mrlee-auth2-pro::backdrop {
+  background: rgba(7,28,65,.68) !important;
+  backdrop-filter: blur(7px) saturate(.8) !important;
+}
+#mrlee-auth2-dialog .mrlee-auth2-pro-shell {position:relative; overflow:hidden; background:linear-gradient(160deg,#f4f8ff 0,#fff 40%,#fff 100%);}
+#mrlee-auth2-dialog .mrlee-auth2-pro-shell::before {content:'';position:absolute;pointer-events:none;top:-72px;right:-65px;width:260px;height:245px;border-radius:50%;background:radial-gradient(circle,rgba(255,182,213,.32),rgba(255,182,213,0) 68%);}
+#mrlee-auth2-dialog .mrlee-auth2-pro-shell::after {content:'';position:absolute;pointer-events:none;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#164cc0,#2685f7 45%,#fb428c 84%,#ff9ac6);}
+#mrlee-auth2-dialog .mrlee-auth2-pro-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:21px 70px 16px 27px;border-bottom:1px solid #eaf0fa;min-height:85px;box-sizing:border-box;}
+#mrlee-auth2-dialog .mrlee-auth2-pro-brand {display:flex;align-items:center;gap:11px;color:#102c63;font-weight:900;letter-spacing:-.4px;font-size:15px;line-height:1.15;}
+#mrlee-auth2-dialog .mrlee-auth2-pro-brand img {object-fit:contain;width:165px;height:50px;flex:none;}
+#mrlee-auth2-dialog .mrlee-auth2-pro-brand strong {color:#f46a21;white-space:nowrap;}
+#mrlee-auth2-dialog .mrlee-auth2-pro-brand small {display:block;font-size:10px;font-weight:600;letter-spacing:0;color:#8190a9;margin-top:5px;}
+#mrlee-auth2-dialog .mrlee-auth2-pro-korea {font:800 9px/1.1 'Be Vietnam Pro',sans-serif;letter-spacing:1.2px;color:#7d91b4;white-space:nowrap;}
+#mrlee-auth2-dialog .mrlee-auth2-pro-korea span {color:#fa4e95;}
+#mrlee-auth2-dialog .mrlee-auth2-close {position:absolute !important;z-index:2;top:22px !important;right:23px !important;width:37px !important;height:37px !important;display:grid !important;place-items:center !important;padding:9px !important;border:1px solid #e1eafb !important;border-radius:13px !important;background:#f0f5ff !important;color:#375b97 !important;cursor:pointer;transition:background .2s,transform .2s;}
+#mrlee-auth2-dialog .mrlee-auth2-close:hover {background:#e2edff !important;transform:rotate(90deg);}
+#mrlee-auth2-dialog .mrlee-auth2-close svg {width:18px;height:18px;}
+#mrlee-auth2-dialog .mrlee-auth2-pro-body {padding:23px 30px 21px;text-align:center;}
+#mrlee-auth2-dialog .mrlee-auth2-pro-shield {width:65px;height:65px;display:grid;place-items:center;margin:0 auto 12px;border-radius:22px;color:#fff;background:linear-gradient(140deg,#1859d6,#429bff);box-shadow:0 13px 23px rgba(29,105,225,.24);transform:rotate(-4deg);}
+#mrlee-auth2-dialog .mrlee-auth2-pro-shield svg {width:37px;height:37px;transform:rotate(4deg);}
+#mrlee-auth2-dialog .mrlee-auth2-pro-eyebrow {display:inline-flex;align-items:center;justify-content:center;padding:7px 13px;border-radius:99px;background:#edf4ff;color:#245fc8;font-size:10px;font-weight:850;letter-spacing:1.25px;}
+#mrlee-auth2-dialog #mrlee-auth2-dialog-title {margin:11px 0 9px !important;padding:0 !important;font-size:clamp(23px,3vw,30px) !important;line-height:1.38 !important;letter-spacing:-.9px !important;font-weight:900 !important;color:#10316f !important;text-align:center !important;}
+#mrlee-auth2-dialog #mrlee-auth2-dialog-title span {color:#ef257c;}
+#mrlee-auth2-dialog .mrlee-auth2-pro-desc {margin:0 auto 16px !important;max-width:455px;font-size:13px !important;line-height:1.8 !important;font-weight:500;color:#63728a !important;text-align:center;}
+#mrlee-auth2-dialog .mrlee-auth2-pro-benefits {display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:0 0 20px;}
+#mrlee-auth2-dialog .mrlee-auth2-pro-benefits span {display:inline-flex;align-items:center;gap:5px;padding:8px 12px;border-radius:10px;color:#2057a1;background:#edf6ff;border:1px solid #dbeaff;font-size:11px;font-weight:750;}
+#mrlee-auth2-dialog .mrlee-auth2-pro-benefits svg {width:15px;height:15px;stroke:#159579;}
+#mrlee-auth2-dialog .mrlee-auth2-dialog-buttons {display:grid !important;grid-template-columns:1fr 1fr !important;gap:11px !important;margin:0 0 16px !important;}
+#mrlee-auth2-dialog .mrlee-auth2-dialog-buttons a.mrlee-auth2-btn {display:flex !important;align-items:center !important;justify-content:center !important;gap:8px !important;min-height:56px !important;width:100% !important;min-width:0 !important;margin:0 !important;box-sizing:border-box !important;border:0 !important;border-radius:15px !important;padding:14px 12px !important;color:#fff !important;font-size:14px !important;font-weight:850 !important;text-decoration:none !important;box-shadow:0 10px 22px rgba(18,74,170,.15) !important;transition:transform .18s,box-shadow .18s,filter .18s !important;}
+#mrlee-auth2-dialog .mrlee-auth2-dialog-buttons a.mrlee-auth2-login {background:linear-gradient(120deg,#1344b3,#2479ea) !important;}
+#mrlee-auth2-dialog .mrlee-auth2-dialog-buttons a.mrlee-auth2-register {background:linear-gradient(120deg,#e91f74,#fa5997) !important;}
+#mrlee-auth2-dialog .mrlee-auth2-dialog-buttons a:hover {transform:translateY(-2px) !important;filter:saturate(1.12);box-shadow:0 14px 30px rgba(18,74,170,.25) !important;}
+#mrlee-auth2-dialog .mrlee-auth2-dialog-buttons a svg {width:19px;height:19px;flex:none;}
+#mrlee-auth2-dialog .mrlee-auth2-pro-arr {font-size:18px;line-height:1;margin-left:2px;}
+#mrlee-auth2-dialog .mrlee-auth2-pro-safety {display:flex;align-items:flex-start;gap:9px;text-align:left;background:#f5f8ff;border:1px solid #e3eafa;border-radius:13px;padding:12px 13px;font-size:11px;line-height:1.65;color:#65748d;font-weight:550;}
+#mrlee-auth2-dialog .mrlee-auth2-pro-safety svg {width:17px;height:17px;color:#4080d4;flex:none;margin-top:1px;}
+#mrlee-auth2-dialog .mrlee-auth2-pro-footer {padding:13px 18px;text-align:center;font:italic 700 12px/1.5 'Be Vietnam Pro',sans-serif;color:#bd4b82;background:linear-gradient(90deg,#fff3f8,#f5f9ff);border-top:1px solid #f5e7ef;}
+#mrlee-auth2-dialog .mrlee-auth2-pro-footer span {font-style:normal;color:#ef257c;}
+#mrlee-auth2-dialog :is(a,button):focus-visible {outline:3px solid #ffb649 !important;outline-offset:3px !important;}
+@media(max-width:575px){
+  #mrlee-auth2-dialog.mrlee-auth2-pro {width:calc(100vw - 22px) !important;max-height:calc(100dvh - 22px) !important;border-radius:21px !important;}
+  #mrlee-auth2-dialog .mrlee-auth2-pro-header {min-height:73px;padding:14px 58px 12px 17px;}
+  #mrlee-auth2-dialog .mrlee-auth2-pro-brand{font-size:12px;gap:8px;}
+  #mrlee-auth2-dialog .mrlee-auth2-pro-brand img{width:144px;height:44px;}
+  #mrlee-auth2-dialog .mrlee-auth2-pro-brand small{font-size:9px;}
+  #mrlee-auth2-dialog .mrlee-auth2-pro-korea{display:none;}
+  #mrlee-auth2-dialog .mrlee-auth2-close{top:16px !important;right:15px !important;width:36px !important;height:36px !important;}
+  #mrlee-auth2-dialog .mrlee-auth2-pro-body{padding:16px 17px 15px;}
+  #mrlee-auth2-dialog .mrlee-auth2-pro-shield{width:51px;height:51px;border-radius:18px;margin-bottom:10px;}
+  #mrlee-auth2-dialog .mrlee-auth2-pro-shield svg{width:31px;height:31px;}
+  #mrlee-auth2-dialog .mrlee-auth2-pro-eyebrow{font-size:8px;padding:6px 9px;letter-spacing:.9px;}
+  #mrlee-auth2-dialog #mrlee-auth2-dialog-title{font-size:22px !important;margin:9px 0 6px !important;}
+  #mrlee-auth2-dialog .mrlee-auth2-pro-desc{font-size:11px !important;line-height:1.65 !important;margin-bottom:12px !important;}
+  #mrlee-auth2-dialog .mrlee-auth2-pro-benefits{margin-bottom:13px;gap:6px;}
+  #mrlee-auth2-dialog .mrlee-auth2-pro-benefits span{font-size:9px;padding:6px 8px;}
+  #mrlee-auth2-dialog .mrlee-auth2-dialog-buttons{gap:8px !important;margin-bottom:12px !important;}
+  #mrlee-auth2-dialog .mrlee-auth2-dialog-buttons a.mrlee-auth2-btn{min-height:49px !important;border-radius:12px !important;font-size:12px !important;padding:10px 6px !important;gap:5px !important;}
+  #mrlee-auth2-dialog .mrlee-auth2-dialog-buttons a svg{width:16px;height:16px;}
+  #mrlee-auth2-dialog .mrlee-auth2-pro-safety{font-size:10px;padding:9px;}
+  #mrlee-auth2-dialog .mrlee-auth2-pro-footer{padding:10px;font-size:10px;}
+}
+@media(max-height:650px) and (min-width:576px){
+ #mrlee-auth2-dialog .mrlee-auth2-pro-header{padding-top:12px;padding-bottom:10px;min-height:65px;}
+ #mrlee-auth2-dialog .mrlee-auth2-pro-body{padding-top:12px;padding-bottom:12px;}
+ #mrlee-auth2-dialog .mrlee-auth2-pro-shield{width:51px;height:51px;margin-bottom:7px;}
+ #mrlee-auth2-dialog .mrlee-auth2-pro-shield svg{width:31px;height:31px;}
+ #mrlee-auth2-dialog .mrlee-auth2-pro-desc{margin-bottom:10px !important;}
+ #mrlee-auth2-dialog .mrlee-auth2-pro-benefits{margin-bottom:11px;}
+}
+@media(prefers-reduced-motion:reduce){#mrlee-auth2-dialog *{transition:none !important;animation:none !important;}}
