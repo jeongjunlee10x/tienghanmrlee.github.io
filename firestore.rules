@@ -503,6 +503,15 @@ service cloud.firestore {
     }
     // MRLEE_AUTH_RESTORE_STUDENT_REGISTRATION_RULES_END
 
+    // MRLEE_LIVE_UPDATES_V3_FIRESTORE_START
+    // Cong khai chi doc thong bao DA DUOC ADMIN xuat ban.
+    // Khong cho client tu tao tin, khong doc ho so / du lieu rieng tu.
+    match /siteAnnouncements/{noticeId} {
+      allow get, list: if true;
+      allow create, update, delete: if false;
+    }
+    // MRLEE_LIVE_UPDATES_V3_FIRESTORE_END
+
     match /{document=**} {
       allow read, write: if false;
     }

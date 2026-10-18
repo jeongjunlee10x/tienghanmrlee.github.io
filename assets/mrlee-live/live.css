@@ -1,0 +1,22 @@
+/* MR LEE live update center. Scoped CSS: never overrides core website layout. */
+#mrlee-live-bell{position:relative;z-index:20;display:inline-grid;place-items:center;flex:0 0 auto;min-width:46px;height:46px;padding:0 10px;border:1px solid #c5d6f6;border-radius:15px;background:#fff;color:#16458f;box-shadow:0 4px 18px #17478819;cursor:pointer;font-size:23px;line-height:1}
+#mrlee-live-bell:hover{background:#edf5ff}
+#mrlee-live-count{position:absolute;right:-5px;top:-6px;display:grid;place-items:center;min-width:20px;height:20px;padding:0 4px;border-radius:12px;background:#ed206e;color:#fff;font-size:11px;font-weight:800;box-sizing:border-box}
+#mrlee-live-count[hidden]{display:none!important}
+#mrlee-live-bell.mrlee-live-floating{position:fixed;top:18px;right:16px;z-index:9993}
+#mrlee-live-panel{box-sizing:border-box;position:fixed;inset:auto 14px 14px auto;z-index:9999;width:min(440px,calc(100vw - 28px));max-height:min(72vh,650px);overflow:hidden;border:1px solid #d7e3f7;border-radius:20px;background:#fff;box-shadow:0 22px 60px #12356a44;font:14px/1.6 'Be Vietnam Pro',system-ui,sans-serif;color:#122c55;display:flex;flex-direction:column}
+#mrlee-live-panel[hidden]{display:none!important}
+#mrlee-live-panel .mrlee-live-head{display:flex;align-items:center;gap:10px;padding:16px;border-bottom:1px solid #e8eef7}
+#mrlee-live-panel .mrlee-live-head strong{font-size:16px;flex:1}
+#mrlee-live-panel button.mrlee-live-action{padding:7px 10px;background:#eaf2ff;color:#174c9b;border:0;border-radius:9px;font-weight:700;cursor:pointer}
+#mrlee-live-panel .mrlee-live-list{overflow:auto;max-height:400px;overscroll-behavior:contain}
+#mrlee-live-panel .mrlee-live-item{display:block;width:100%;box-sizing:border-box;text-align:left;border:0;border-bottom:1px solid #f0f3f7;padding:13px 17px;color:inherit;background:#fff;cursor:pointer}
+#mrlee-live-panel .mrlee-live-item:hover{background:#f4f8ff}
+#mrlee-live-panel .mrlee-live-item[data-unread="true"]{background:#edf5ff}
+#mrlee-live-panel .mrlee-live-item b{font-size:13px;display:block}
+#mrlee-live-panel .mrlee-live-item span{display:block;font-size:12px;color:#52657c;margin-top:4px;overflow-wrap:anywhere}
+#mrlee-live-panel .mrlee-live-foot{padding:10px 16px;font-size:11px;color:#71809a}
+#mrlee-live-toast{position:fixed;z-index:9999;bottom:25px;left:50%;transform:translateX(-50%);width:min(470px,calc(100vw - 30px));box-sizing:border-box;padding:13px 18px;border:1px solid #b5cdf7;border-radius:15px;box-shadow:0 10px 35px #173d7944;background:#fff;color:#154386;font:700 13px/1.5 'Be Vietnam Pro',system-ui,sans-serif;text-align:center}
+#mrlee-live-toast[hidden]{display:none!important}
+@media(max-width:950px){#mrlee-live-bell:not(.mrlee-live-floating){min-width:42px;height:42px;padding:0 7px;font-size:21px}}
+@media(max-width:700px){#mrlee-live-panel{inset:auto 10px 12px 10px;width:auto;max-height:74dvh}}
