@@ -68,7 +68,69 @@ html[data-mrlee-v306="images"] #mainContent .feature-info {
 <!-- MRLEE_AUTH_RESTORE_20261018_HEAD -->
 <link rel="stylesheet" href="assets/mrlee-auth-restore/auth-nav.css?v=20261018" data-mrlee-auth-nav="css">
 <script type="module" src="assets/mrlee-auth-restore/auth-nav.js?v=20261018" data-mrlee-auth-nav="js"></script>
-</head>
+<!-- MRLEE_AUTH_UI_PATCH_START -->
+<style id="mrlee-auth-ui-patch">
+  .mrlee-auth-cta {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    min-width: 168px !important;
+    min-height: 52px !important;
+    padding: 14px 22px !important;
+    border-radius: 16px !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    line-height: 1.1 !important;
+    letter-spacing: .2px !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    box-shadow: 0 10px 26px rgba(15, 23, 42, .12) !important;
+    transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease !important;
+    margin: 6px 8px 6px 0 !important;
+  }
+
+  .mrlee-auth-cta:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, .16) !important;
+  }
+
+  .mrlee-auth-login {
+    background: linear-gradient(135deg, #1d4ed8, #2563eb) !important;
+    color: #fff !important;
+    border: 1px solid rgba(37, 99, 235, .95) !important;
+  }
+
+  .mrlee-auth-register {
+    background: linear-gradient(135deg, #ec4899, #f472b6) !important;
+    color: #fff !important;
+    border: 1px solid rgba(244, 114, 182, .95) !important;
+  }
+
+  .mrlee-auth-cta svg,
+  .mrlee-auth-cta i {
+    flex: 0 0 auto !important;
+  }
+
+  .mrlee-consult-hidden {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  @media (max-width: 768px) {
+    .mrlee-auth-cta {
+      width: 100% !important;
+      min-width: 0 !important;
+      min-height: 54px !important;
+      font-size: 16px !important;
+      padding: 14px 16px !important;
+      border-radius: 15px !important;
+      margin: 6px 0 !important;
+    }
+  }
+</style>
+<!-- MRLEE_AUTH_UI_PATCH_END -->\n</head>
 <body data-mrlee-version="MRLEE_MAIN_V30_3">
 <a class="skip-link" href="#mainContent">Tới nội dung chính</a>
 <header class="site-header"><div class="header-inner">
@@ -197,4 +259,139 @@ html[data-mrlee-v306="images"] #mainContent .feature-info {
 </dialog>
 <footer class="site-footer">MR LEE • Liên hệ <a href="tel:0376991180">0376991180</a> • <a href="mailto:tienghanmrlee@gmail.com">tienghanmrlee@gmail.com</a></footer>
 <script type="module" src="assets/mrlee-announcement/notice.js?v=20261018-2" data-mrlee-ranking-notice="1"></script>
-</body></html>
+<!-- MRLEE_AUTH_GUARD_START -->
+<script id="mrlee-auth-guard">
+(function() {
+  const CONSULT_TEXT = ['đăng ký tư vấn', 'dang ky tu van'];
+  const LOGIN_TEXT = ['đăng nhập', 'dang nhap', 'login', 'log in'];
+  const REGISTER_TEXT = ['đăng ký', 'dang ky', 'register', 'sign up'];
+
+  function norm(s) {
+    return (s || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function textOf(el) {
+    return norm(el.innerText || el.textContent || el.getAttribute('aria-label') || '');
+  }
+
+  function looksLikeText(el, candidates) {
+    const t = textOf(el);
+    return candidates.some(x => t.includes(norm(x)));
+  }
+
+  function getAllClickable() {
+    return Array.from(document.querySelectorAll('a,button,[role="button"],.btn,.button'));
+  }
+
+  function markAuthButtons() {
+    getAllClickable().forEach(el => {
+      const t = textOf(el);
+      const href = norm(el.getAttribute('href') || '');
+      const idcl = norm((el.id || '') + ' ' + (el.className || ''));
+
+      const isLogin =
+        looksLikeText(el, LOGIN_TEXT) ||
+        href.includes('login') || href.includes('dang-nhap') ||
+        idcl.includes('login') || idcl.includes('dangnhap');
+
+      const isRegister =
+        (
+          looksLikeText(el, REGISTER_TEXT) &&
+          !looksLikeText(el, CONSULT_TEXT)
+        ) ||
+        href.includes('register') || href.includes('dang-ky') ||
+        idcl.includes('register') || idcl.includes('dangky');
+
+      if (isLogin) {
+        el.classList.add('mrlee-auth-cta', 'mrlee-auth-login');
+      }
+
+      if (isRegister) {
+        el.classList.add('mrlee-auth-cta', 'mrlee-auth-register');
+      }
+    });
+  }
+
+  function getConsultButtons() {
+    return getAllClickable().filter(el => {
+      const t = textOf(el);
+      const href = norm(el.getAttribute('href') || '');
+      const idcl = norm((el.id || '') + ' ' + (el.className || ''));
+
+      return CONSULT_TEXT.some(x => t.includes(norm(x)))
+        || href.includes('tu-van')
+        || idcl.includes('tuvan')
+        || idcl.includes('consult');
+    });
+  }
+
+  function setConsultVisible(isVisible) {
+    getConsultButtons().forEach(el => {
+      if (isVisible) {
+        el.classList.remove('mrlee-consult-hidden');
+      } else {
+        el.classList.add('mrlee-consult-hidden');
+      }
+    });
+  }
+
+  function handleAuthUser(user) {
+    const loggedIn = !!user;
+    setConsultVisible(loggedIn);
+  }
+
+  function bindFirebaseAuth() {
+    try {
+      if (window.firebase && typeof window.firebase.auth === 'function') {
+        window.firebase.auth().onAuthStateChanged(function(user) {
+          handleAuthUser(user);
+        });
+        return true;
+      }
+    } catch (e) {}
+
+    try {
+      if (window.auth && typeof window.onAuthStateChanged === 'function') {
+        window.onAuthStateChanged(window.auth, function(user) {
+          handleAuthUser(user);
+        });
+        return true;
+      }
+    } catch (e) {}
+
+    return false;
+  }
+
+  function boot() {
+    markAuthButtons();
+    setConsultVisible(false);
+
+    const bound = bindFirebaseAuth();
+
+    if (!bound) {
+      // fallback an toàn: chưa xác nhận được auth thì vẫn ẩn
+      setConsultVisible(false);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+
+  // quét lại nhẹ để xử lý phần tử render muộn
+  let times = 0;
+  const timer = setInterval(() => {
+    markAuthButtons();
+    times += 1;
+    if (times >= 12) clearInterval(timer);
+  }, 700);
+})();
+</script>
+<!-- MRLEE_AUTH_GUARD_END -->\n</body></html>
