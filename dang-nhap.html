@@ -36,6 +36,7 @@
 
 <link rel="stylesheet" href="assets/v24/deep-ui.css?v=24.0" data-mrlee-v24-design="1">
 <script src="assets/v24/deep-ui.js?v=24.0" defer data-mrlee-v24-design="1"></script>
+<link rel="stylesheet" href="assets/mrlee-auth-restore/registration.css?v=20261018">
 </head>
 <body>
   <header><nav class="nav"><a class="brand" href="index.html"><img src="assets/branding/logo-mrlee.png" alt="" onerror="this.style.display='none'">TIẾNG HÀN MR LEE</a><a class="back" href="index.html">← Trang chủ</a></nav></header>
@@ -53,14 +54,52 @@
             <div id="name-field" class="field hidden"><label for="full-name">Họ và tên</label><input id="full-name" name="name" type="text" autocomplete="name" maxlength="80" placeholder="Nguyễn Văn A"></div>
             <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="ten@gmail.com"></div>
             <div class="field"><label for="password">Mật khẩu</label><input id="password" name="password" type="password" autocomplete="current-password" required minlength="6" placeholder="Nhập mật khẩu"><div id="password-hint" class="hint hidden">Mật khẩu cần từ 10 ký tự, có chữ hoa, chữ thường và số. Không dùng chung mật khẩu với tài khoản khác.</div></div>
-            <div id="confirm-field" class="field hidden"><label for="confirm-password">Nhập lại mật khẩu</label><input id="confirm-password" name="new-password-confirm" type="password" autocomplete="new-password" placeholder="Nhập lại mật khẩu"></div>
-            <label id="consent-field" class="check-row hidden"><input id="consent" type="checkbox"><span>Tôi đồng ý sử dụng email để xác thực tài khoản qua Firebase Authentication. <a href="#privacy">Thông tin quyền riêng tư</a>.</span></label>
+            <!-- MRLEE_REGISTER_DETAILS_BEGIN -->
+<section id="mrlee-signup-details" hidden aria-label="Thông tin học viên đăng ký">
+  <p class="mrlee-info">Thông tin đăng ký học viên theo mẫu tư vấn. Không tự động gửi phiếu đến Messenger/Email và không công khai các thông tin này.</p>
+  <fieldset>
+    <legend>BƯỚC 1 · Thông tin cá nhân</legend>
+    <div class="mrlee-row">
+      <div class="field"><label for="mrlee-birth">Ngày / tháng / năm sinh *</label><input id="mrlee-birth" type="date" autocomplete="bday" data-mrlee-required></div>
+      <div class="field"><label for="mrlee-phone">Số điện thoại *</label><input id="mrlee-phone" type="tel" inputmode="tel" autocomplete="tel" pattern="[+]?[0-9 .-]{9,16}" minlength="9" maxlength="16" placeholder="0xxxxxxxxx" data-mrlee-required></div>
+    </div>
+    <div class="field"><label for="mrlee-program">Chương trình quan tâm *</label>
+      <select id="mrlee-program" data-mrlee-required><option value="">— Chọn chương trình —</option>
+        <option>Du học tiếng Hàn D-4-1</option><option>Du học Cao đẳng / Đại học D-2</option>
+        <option>Du học Thạc sĩ / Tiến sĩ</option><option>Học bổng du học Hàn Quốc</option>
+        <option>Chưa xác định – cần tư vấn</option>
+      </select>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>BƯỚC 2 · Trình độ THPT</legend>
+    <div class="field"><label for="mrlee-high-school">Tên trường THPT *</label><input id="mrlee-high-school" maxlength="160" placeholder="Tên trường THPT đã / đang theo học" data-mrlee-required></div>
+    <div class="mrlee-info">Tình trạng tốt nghiệp THPT *</div>
+    <label class="mrlee-choice"><input type="radio" name="mrlee-high-status" value="Đã tốt nghiệp" data-mrlee-required> Đã tốt nghiệp</label>
+    <label class="mrlee-choice"><input type="radio" name="mrlee-high-status" value="Chưa tốt nghiệp"> Chưa tốt nghiệp</label>
+  </fieldset>
+  <fieldset>
+    <legend>BƯỚC 3 · Cao đẳng / Đại học</legend>
+    <div class="field"><label for="mrlee-higher-school">Tên trường CĐ / Đại học (nếu có)</label><input id="mrlee-higher-school" maxlength="160" placeholder="Để trống nếu chưa học"></div>
+    <div class="mrlee-info">Tình trạng tốt nghiệp CĐ / Đại học *</div>
+    <label class="mrlee-choice"><input type="radio" name="mrlee-higher-status" value="Đã tốt nghiệp" data-mrlee-required> Đã tốt nghiệp</label>
+    <label class="mrlee-choice"><input type="radio" name="mrlee-higher-status" value="Chưa tốt nghiệp"> Chưa tốt nghiệp</label>
+    <label class="mrlee-choice"><input type="radio" name="mrlee-higher-status" value="Chưa học CĐ/ĐH" checked> Chưa học CĐ/ĐH</label>
+  </fieldset>
+  <label class="mrlee-choice mrlee-guardian"><input id="mrlee-guardian" type="checkbox"> Nếu dưới 18 tuổi, tôi xác nhận đã được phụ huynh/người giám hộ đồng ý đăng ký.</label>
+  <p class="mrlee-info">Thông tin bổ sung được lưu riêng vào hồ sơ đăng ký của chính tài khoản trên Firebase Firestore (sau khi quyền lưu hồ sơ đã được triển khai). Không dùng cho quảng cáo nếu chưa có sự đồng ý riêng.</p>
+</section>
+<!-- MRLEE_REGISTER_DETAILS_END -->
+
+<div id="confirm-field" class="field hidden"><label for="confirm-password">Nhập lại mật khẩu</label><input id="confirm-password" name="new-password-confirm" type="password" autocomplete="new-password" placeholder="Nhập lại mật khẩu"></div>
+            <label id="consent-field" class="check-row hidden"><input id="consent" type="checkbox"><span>Tôi đồng ý dùng email để xác thực tài khoản và lưu các thông tin đăng ký học viên (họ tên, ngày sinh, số điện thoại, chương trình, học vấn) trong hồ sơ riêng tư trên Firebase. Thông tin này không tự động gửi phiếu tư vấn. <a href="#privacy">Thông tin quyền riêng tư</a>.</span></label>
             <button id="submit-button" type="submit" class="primary">Đăng nhập</button>
           </form>
           <div class="actions"><button id="forgot-button" type="button" class="link-btn">Quên mật khẩu?</button></div>
           <div class="notice">Website không thu phí đăng nhập. Không chia sẻ mật khẩu với bất kỳ ai. Nếu đăng ký mới, hãy kiểm tra cả thư mục Spam/Thư rác để xác minh email.</div>
         </div>
-        <div id="verify-view" class="hidden" aria-live="polite"><h2>Kiểm tra email của bạn</h2><p class="muted">Chúng tôi đã yêu cầu Firebase gửi liên kết xác minh đến:</p><span id="verify-email" class="email-badge"></span><p>Hãy mở email, nhấn liên kết xác minh rồi quay lại đây chọn <strong>Tôi đã xác minh</strong>.</p><p id="verify-message" class="status" role="status" aria-live="polite"></p><button id="check-email-button" type="button" class="primary">Tôi đã xác minh</button><div class="actions"><button id="resend-email-button" type="button" class="secondary">Gửi lại email xác minh</button><button id="verify-logout-button" type="button" class="secondary">Dùng tài khoản khác</button></div></div>
+        <div id="verify-view" class="hidden" aria-live="polite"><h2>Kiểm tra email của bạn</h2><p class="muted">Chúng tôi đã yêu cầu Firebase gửi liên kết xác minh đến:</p><span id="verify-email" class="email-badge"></span><p>Hãy mở email, nhấn liên kết xác minh rồi quay lại đây chọn <strong>Tôi đã xác minh</strong>.</p><div id="mrlee-reg-feedback" role="status" aria-live="polite"></div>
+<p id="verify-message" class="status" role="status" aria-live="polite"></p><button id="check-email-button" type="button" class="primary">Tôi đã xác minh</button><div class="actions"><button id="resend-email-button" type="button" class="secondary">Gửi lại email xác minh</button><button id="verify-logout-button" type="button" class="secondary">Dùng tài khoản khác</button></div></div>
         <div id="account-view" class="hidden" aria-live="polite"><h2>Xin chào, học viên!</h2><p class="muted">Bạn đã đăng nhập và xác minh email thành công.</p>
 <!-- MRLEE_AVATAR_ACCOUNT_BEGIN -->
 <section class="mrlee-avatar-box" id="mrlee-avatar-box" aria-label="Ảnh đại diện học viên" hidden>
@@ -94,5 +133,6 @@
 
 <script type="module" src="mrlee-engagement.js?v=20261010"></script>
 <script defer src="mrlee-redesign.js?v=20261010-v1"></script>
+<script type="module" src="assets/mrlee-auth-restore/registration.js?v=20261018"></script>
 </body>
 </html>

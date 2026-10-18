@@ -8,6 +8,7 @@
 
 <link rel="stylesheet" href="assets/v23/design-system.css?v=23.0" data-mrlee-v23-design="1">
 <script defer src="assets/v23/enhance.js?v=23.0" data-mrlee-v23-design="1"></script>
+<style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
 </head><body><header><a href="topik-v12.html">← Về TOPIK</a><h1>🎧 Kiểm tra toàn bộ phần nghe TOPIK</h1><p>Kiểm tra đường dẫn và khả năng giải mã âm thanh của từng câu. Không thay thế việc nghe kiểm âm trực tiếp.</p></header>
 <main><section class="panel"><div class="actions"><button id="run">Quét toàn bộ MP3 TOPIK</button><button id="stop" disabled>Dừng</button><button id="failed" disabled>Chỉ xem lỗi</button></div><p id="status" role="status">Đang đọc danh mục…</p><progress id="progress" value="0" max="124"></progress><p class="note">Quét sử dụng khả năng tải metadata của trình duyệt, không phát toàn bộ từng câu. Một số thiết bị/mạng có thể quá thời gian và cần quét lại.</p></section>
 <div id="details" class="panel"><h2>Danh sách câu nghe</h2><div id="items" class="grid"></div></div></main>
@@ -38,4 +39,5 @@
  $('run').onclick=run;$('stop').onclick=()=>{aborted=true};$('failed').onclick=()=>{errorsOnly=!errorsOnly;$('failed').textContent=errorsOnly?'Xem tất cả':'Chỉ xem lỗi';render()};render();
 })();
 </script>
+<script type="module" src="auth-guard.js"></script>
 </body></html>

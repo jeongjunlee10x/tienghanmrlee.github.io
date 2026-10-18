@@ -1,0 +1,20 @@
+/* Scoped student registration fields in the existing Firebase Authentication page. */
+#mrlee-signup-details[hidden]{display:none!important}
+#mrlee-signup-details{border:1px solid #d4e2f5;border-radius:14px;padding:17px;margin:7px 0 18px;background:#f8fbff}
+#mrlee-signup-details fieldset{min-width:0;border:1px solid #e0e9f6;border-radius:11px;background:#fff;padding:13px 14px;margin:14px 0}
+#mrlee-signup-details legend{color:#143b75;font-weight:900;padding:0 7px;font-size:13px}
+#mrlee-signup-details .field{margin:9px 0 13px}
+#mrlee-signup-details label{font-size:13px;font-weight:700;display:block;margin-bottom:5px}
+#mrlee-signup-details input:not([type=radio]):not([type=checkbox]),#mrlee-signup-details select{
+ width:100%;box-sizing:border-box;min-height:45px;padding:10px 12px;border:1px solid #c9d8ec;
+ border-radius:9px;background:#fff;font:inherit;color:#203654;
+}
+#mrlee-signup-details .mrlee-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#mrlee-signup-details .mrlee-choice{display:flex;align-items:center;gap:7px;margin:8px 0;font-weight:600;font-size:12px}
+#mrlee-signup-details .mrlee-choice input{margin:0;width:auto;accent-color:#1464d7}
+#mrlee-signup-details .mrlee-info{font-size:12px;font-weight:400;color:#5c708d;line-height:1.6}
+#mrlee-signup-details .mrlee-guardian{padding:12px;background:#f5f7fd;border-radius:9px}
+#mrlee-reg-feedback{font-size:12px;padding:11px;border-radius:9px;margin-top:11px;display:none}
+#mrlee-reg-feedback[data-kind=error]{display:block;background:#fff1f0;color:#a02020}
+#mrlee-reg-feedback[data-kind=success]{display:block;background:#ecfbf2;color:#086b3e}
+@media(max-width:510px){#mrlee-signup-details{padding:10px}#mrlee-signup-details .mrlee-row{grid-template-columns:1fr}}

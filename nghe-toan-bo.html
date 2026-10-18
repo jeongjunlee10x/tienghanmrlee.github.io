@@ -35,6 +35,7 @@ audio{width:100%;max-width:560px}
 
 <link rel="stylesheet" href="assets/v30/polish.css?v=30.0" data-mrlee-v30="style">
 <script defer src="assets/v30/polish.js?v=30.0" data-mrlee-v30="style"></script>
+<style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
 </head>
 <body>
 <header>
@@ -162,5 +163,6 @@ fetch('MRLEE_AUDIO/catalog.json')
 .catch(e=>$('status').textContent='Lỗi danh mục: '+e.message);
 })();
 </script>
+<script type="module" src="auth-guard.js"></script>
 </body>
 </html>

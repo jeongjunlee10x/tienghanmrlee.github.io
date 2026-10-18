@@ -1,0 +1,15 @@
+/* MR LEE - Restored authentication links; scoped to avoid other navigation and video. */
+#mrlee-auth-nav, #mrlee-auth-nav-mobile {
+  display: inline-flex; align-items:center;justify-content:center;gap:8px;
+  box-sizing:border-box; text-decoration:none; white-space:nowrap;
+  font-family:"Be Vietnam Pro",system-ui,Arial,sans-serif; font-size:12px;
+  font-weight:800;letter-spacing:0;line-height:1.3;
+  border:1px solid #cdddf7; border-radius:999px; padding:11px 15px;
+  background:#edf4ff; color:#103774; box-shadow:0 4px 12px #123f7810;
+  max-width:280px; text-overflow:ellipsis; overflow:hidden;
+}
+#mrlee-auth-nav:hover,#mrlee-auth-nav-mobile:hover { background:#e1edff; border-color:#81aefa; }
+#mrlee-auth-nav:focus-visible,#mrlee-auth-nav-mobile:focus-visible{ outline:3px solid #ff8e42;outline-offset:2px; }
+#mrlee-auth-nav-mobile{display:flex;justify-content:flex-start;border-radius:12px;margin:6px 3px;}
+@media(max-width:1050px){#mrlee-auth-nav{padding:9px 11px;font-size:11px;}}
+@media(max-width:850px){#mrlee-auth-nav{display:none;}}

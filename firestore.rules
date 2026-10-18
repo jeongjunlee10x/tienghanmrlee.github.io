@@ -452,6 +452,57 @@ service cloud.firestore {
     }
 
     // Mac dinh tu choi duong dan chua duoc khai bao.
+    // MRLEE_AUTH_RESTORE_STUDENT_REGISTRATION_RULES_BEGIN
+    // Hồ sơ đăng ký chỉ chủ tài khoản Firebase được đọc/ghi; không công khai lên BXH.
+    function mrleeRegistrationValid() {
+      return request.resource.data.keys().hasOnly([
+          'fullName','birthDate','phone','program','highSchool','highSchoolStatus',
+          'higherSchool','higherSchoolStatus','guardianConsent','consentAt','createdAt','updatedAt'
+        ])
+        && request.resource.data.keys().hasAll([
+          'fullName','birthDate','phone','program','highSchool','highSchoolStatus',
+          'higherSchool','higherSchoolStatus','guardianConsent','consentAt','createdAt','updatedAt'
+        ])
+        && request.resource.data.fullName is string
+        && request.resource.data.fullName.size() >= 2
+        && request.resource.data.fullName.size() <= 80
+        && request.resource.data.birthDate is string
+        && request.resource.data.birthDate.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+        && request.resource.data.phone is string
+        && request.resource.data.phone.matches('^[+]?[0-9.-]{9,16}$')
+        && request.resource.data.program in [
+          'Du học tiếng Hàn D-4-1','Du học Cao đẳng / Đại học D-2',
+          'Du học Thạc sĩ / Tiến sĩ','Học bổng du học Hàn Quốc',
+          'Chưa xác định – cần tư vấn'
+        ]
+        && request.resource.data.highSchool is string
+        && request.resource.data.highSchool.size() >= 2
+        && request.resource.data.highSchool.size() <= 160
+        && request.resource.data.highSchoolStatus in ['Đã tốt nghiệp','Chưa tốt nghiệp']
+        && request.resource.data.higherSchool is string
+        && request.resource.data.higherSchool.size() <= 160
+        && request.resource.data.higherSchoolStatus in ['Đã tốt nghiệp','Chưa tốt nghiệp','Chưa học CĐ/ĐH']
+        && (request.resource.data.higherSchoolStatus == 'Chưa học CĐ/ĐH'
+          || request.resource.data.higherSchool.size() >= 2)
+        && request.resource.data.guardianConsent is bool
+        && request.resource.data.consentAt is string
+        && request.resource.data.consentAt.size() <= 40
+        && request.resource.data.createdAt is timestamp
+        && request.resource.data.updatedAt == request.time;
+    }
+    match /studentRegistrations/{uid} {
+      allow get: if request.auth != null && request.auth.uid == uid;
+      allow list: if false;
+      allow create: if request.auth != null && request.auth.uid == uid
+        && mrleeRegistrationValid()
+        && request.resource.data.createdAt == request.time;
+      allow update: if request.auth != null && request.auth.uid == uid
+        && mrleeRegistrationValid()
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if false;
+    }
+    // MRLEE_AUTH_RESTORE_STUDENT_REGISTRATION_RULES_END
+
     match /{document=**} {
       allow read, write: if false;
     }
