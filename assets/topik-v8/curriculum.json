@@ -1,0 +1,1530 @@
+{
+  "version": "8.0.0",
+  "updated": "2026-10-18",
+  "levels": {
+    "1": [
+      {
+        "day": 1,
+        "title": "Phân tích cấu trúc đề, chia thời gian",
+        "skills": [
+          "listening",
+          "reading"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững phân tích cấu trúc đề, chia thời gian; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến phân tích cấu trúc đề, chia thời gian.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 2,
+        "title": "Nghe câu hỏi – chọn câu đáp",
+        "skills": [
+          "listening"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững nghe câu hỏi – chọn câu đáp; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến nghe câu hỏi – chọn câu đáp.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 3,
+        "title": "Trợ từ, thời điểm và đuôi câu",
+        "skills": [
+          "listening",
+          "reading"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững trợ từ, thời điểm và đuôi câu; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến trợ từ, thời điểm và đuôi câu.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 4,
+        "title": "Đọc điền từ thích hợp",
+        "skills": [
+          "reading"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững đọc điền từ thích hợp; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến đọc điền từ thích hợp.",
+          "40 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 5,
+        "title": "Kiểm tra nhỏ và chữa lỗi",
+        "skills": [
+          "listening",
+          "reading"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững kiểm tra nhỏ và chữa lỗi; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến kiểm tra nhỏ và chữa lỗi.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 6,
+        "title": "Nghe xác định câu đúng/sai",
+        "skills": [
+          "listening"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững nghe xác định câu đúng/sai; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến nghe xác định câu đúng/sai.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 7,
+        "title": "Đọc chọn câu phù hợp ngữ cảnh",
+        "skills": [
+          "reading"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững đọc chọn câu phù hợp ngữ cảnh; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến đọc chọn câu phù hợp ngữ cảnh.",
+          "40 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 8,
+        "title": "Nghe đối thoại dài hơn",
+        "skills": [
+          "listening"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững nghe đối thoại dài hơn; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến nghe đối thoại dài hơn.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 9,
+        "title": "Luyện tốc độ đọc",
+        "skills": [
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững luyện tốc độ đọc; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến luyện tốc độ đọc.",
+          "40 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 10,
+        "title": "Kiểm tra nghe và đọc từng phần",
+        "skills": [
+          "listening",
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững kiểm tra nghe và đọc từng phần; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến kiểm tra nghe và đọc từng phần.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": true
+      },
+      {
+        "day": 11,
+        "title": "Đọc tìm chủ đề và ý chính",
+        "skills": [
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững đọc tìm chủ đề và ý chính; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến đọc tìm chủ đề và ý chính.",
+          "40 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 12,
+        "title": "Phân tích câu dễ nhầm",
+        "skills": [
+          "listening",
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững phân tích câu dễ nhầm; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến phân tích câu dễ nhầm.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 13,
+        "title": "Nghe giới hạn thời gian",
+        "skills": [
+          "listening"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững nghe giới hạn thời gian; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến nghe giới hạn thời gian.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 14,
+        "title": "Luyện đề ngắn có chữa giải thích",
+        "skills": [
+          "listening",
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững luyện đề ngắn có chữa giải thích; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến luyện đề ngắn có chữa giải thích.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 15,
+        "title": "Thi thử rút gọn giữa lộ trình",
+        "skills": [
+          "listening",
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững thi thử rút gọn giữa lộ trình; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến thi thử rút gọn giữa lộ trình.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 16,
+        "title": "Ôn các mẫu câu nghe sai",
+        "skills": [
+          "listening"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững ôn các mẫu câu nghe sai; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến ôn các mẫu câu nghe sai.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 17,
+        "title": "Nghe theo điểm yếu",
+        "skills": [
+          "listening"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững nghe theo điểm yếu; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến nghe theo điểm yếu.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 18,
+        "title": "Luyện theo nhịp đề nghe PBT/IBT",
+        "skills": [
+          "listening"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững luyện theo nhịp đề nghe pbt/ibt; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến luyện theo nhịp đề nghe pbt/ibt.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 19,
+        "title": "Từ vựng qua câu đã sai",
+        "skills": [
+          "listening",
+          "reading"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững từ vựng qua câu đã sai; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến từ vựng qua câu đã sai.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 20,
+        "title": "Thi thử rút gọn lần 2",
+        "skills": [
+          "listening",
+          "reading"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững thi thử rút gọn lần 2; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến thi thử rút gọn lần 2.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": true
+      },
+      {
+        "day": 21,
+        "title": "Nghe khó và bẫy đổi ý",
+        "skills": [
+          "listening"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững nghe khó và bẫy đổi ý; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến nghe khó và bẫy đổi ý.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 22,
+        "title": "Luyện đáp án đồng nghĩa",
+        "skills": [
+          "listening",
+          "reading"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững luyện đáp án đồng nghĩa; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến luyện đáp án đồng nghĩa.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 23,
+        "title": "Ôn các từ thường nhầm",
+        "skills": [
+          "listening",
+          "reading"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững ôn các từ thường nhầm; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến ôn các từ thường nhầm.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 24,
+        "title": "Nghe theo chủ đề",
+        "skills": [
+          "listening"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững nghe theo chủ đề; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến nghe theo chủ đề.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 25,
+        "title": "Đánh giá lần 3",
+        "skills": [
+          "listening",
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững đánh giá lần 3; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến đánh giá lần 3.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 26,
+        "title": "Ôn nghe nhóm lỗi nhiều nhất",
+        "skills": [
+          "listening"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững ôn nghe nhóm lỗi nhiều nhất; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến ôn nghe nhóm lỗi nhiều nhất.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 27,
+        "title": "Tổng ôn từ vựng/điểm ngữ pháp",
+        "skills": [
+          "listening",
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững tổng ôn từ vựng/điểm ngữ pháp; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến tổng ôn từ vựng/điểm ngữ pháp.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 28,
+        "title": "Chữa đề và sổ tay sai",
+        "skills": [
+          "listening",
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững chữa đề và sổ tay sai; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến chữa đề và sổ tay sai.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 29,
+        "title": "Ôn nhẹ và nhận diện từ khóa",
+        "skills": [
+          "listening",
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững ôn nhẹ và nhận diện từ khóa; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến ôn nhẹ và nhận diện từ khóa.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": false
+      },
+      {
+        "day": 30,
+        "title": "THI THỬ BỘ ĐỀ HOÀN CHỈNH · TOPIK I",
+        "skills": [
+          "listening",
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững thi thử bộ đề hoàn chỉnh · topik i; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến thi thử bộ đề hoàn chỉnh · topik i.",
+          "40 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 60,
+        "assessment": true
+      }
+    ],
+    "2": [
+      {
+        "day": 1,
+        "title": "Chẩn đoán nghe, đọc và viết",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững chẩn đoán nghe, đọc và viết; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến chẩn đoán nghe, đọc và viết.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 2,
+        "title": "Cấu trúc đề, phân bổ thời gian",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững cấu trúc đề, phân bổ thời gian; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến cấu trúc đề, phân bổ thời gian.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 3,
+        "title": "Nghe tình huống và nội dung chính",
+        "skills": [
+          "listening"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững nghe tình huống và nội dung chính; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến nghe tình huống và nội dung chính.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 4,
+        "title": "Nghe mục đích và ý định người nói",
+        "skills": [
+          "listening"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững nghe mục đích và ý định người nói; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến nghe mục đích và ý định người nói.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 5,
+        "title": "Đọc tiêu đề, quảng cáo, thông báo",
+        "skills": [
+          "reading"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững đọc tiêu đề, quảng cáo, thông báo; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến đọc tiêu đề, quảng cáo, thông báo.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 6,
+        "title": "Từ nối: nguyên nhân – kết quả",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững từ nối: nguyên nhân – kết quả; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến từ nối: nguyên nhân – kết quả.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 7,
+        "title": "Nghe thái độ và lập trường",
+        "skills": [
+          "listening"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững nghe thái độ và lập trường; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến nghe thái độ và lập trường.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 8,
+        "title": "Ngữ pháp trong ngữ cảnh",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững ngữ pháp trong ngữ cảnh; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến ngữ pháp trong ngữ cảnh.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 9,
+        "title": "Viết PBT câu 51: điền thông tin",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững viết pbt câu 51: điền thông tin; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến viết pbt câu 51: điền thông tin.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 10,
+        "title": "Kiểm tra nhỏ & chữa lỗi",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững kiểm tra nhỏ & chữa lỗi; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến kiểm tra nhỏ & chữa lỗi.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": true
+      },
+      {
+        "day": 11,
+        "title": "Nghe xác định quan hệ và chủ đề",
+        "skills": [
+          "listening"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững nghe xác định quan hệ và chủ đề; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến nghe xác định quan hệ và chủ đề.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 12,
+        "title": "Nghe quan điểm và căn cứ",
+        "skills": [
+          "listening"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững nghe quan điểm và căn cứ; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến nghe quan điểm và căn cứ.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 13,
+        "title": "Đọc xác định luận điểm chính",
+        "skills": [
+          "reading"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững đọc xác định luận điểm chính; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến đọc xác định luận điểm chính.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 14,
+        "title": "Sắp xếp mạch câu đúng",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững sắp xếp mạch câu đúng; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến sắp xếp mạch câu đúng.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 15,
+        "title": "Phân tích bẫy từ đồng nghĩa",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 1,
+        "goal": "Nắm vững phân tích bẫy từ đồng nghĩa; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến phân tích bẫy từ đồng nghĩa.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 16,
+        "title": "Nghe bài nói và phỏng vấn",
+        "skills": [
+          "listening"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững nghe bài nói và phỏng vấn; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến nghe bài nói và phỏng vấn.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 17,
+        "title": "Đọc suy luận thái độ tác giả",
+        "skills": [
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững đọc suy luận thái độ tác giả; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến đọc suy luận thái độ tác giả.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 18,
+        "title": "Viết PBT câu 52: logic đoạn văn",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững viết pbt câu 52: logic đoạn văn; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến viết pbt câu 52: logic đoạn văn.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 19,
+        "title": "Ôn câu 51–52 theo ngữ cảnh",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững ôn câu 51–52 theo ngữ cảnh; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến ôn câu 51–52 theo ngữ cảnh.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 20,
+        "title": "Kiểm tra kỹ năng tổng hợp",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững kiểm tra kỹ năng tổng hợp; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến kiểm tra kỹ năng tổng hợp.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": true
+      },
+      {
+        "day": 21,
+        "title": "Nghe thái độ qua chuyển ý",
+        "skills": [
+          "listening"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững nghe thái độ qua chuyển ý; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến nghe thái độ qua chuyển ý.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 22,
+        "title": "Đọc chủ đề và câu trung tâm",
+        "skills": [
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững đọc chủ đề và câu trung tâm; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến đọc chủ đề và câu trung tâm.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 23,
+        "title": "Suy nghĩa từ theo văn cảnh",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững suy nghĩa từ theo văn cảnh; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến suy nghĩa từ theo văn cảnh.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 24,
+        "title": "Đọc thứ tự câu và từ nối",
+        "skills": [
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững đọc thứ tự câu và từ nối; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến đọc thứ tự câu và từ nối.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 25,
+        "title": "Viết PBT câu 53: đọc dữ liệu",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững viết pbt câu 53: đọc dữ liệu; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến viết pbt câu 53: đọc dữ liệu.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 26,
+        "title": "Viết câu 53: so sánh số liệu",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững viết câu 53: so sánh số liệu; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến viết câu 53: so sánh số liệu.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 27,
+        "title": "Viết câu 53: kết luận theo chứng cứ",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững viết câu 53: kết luận theo chứng cứ; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến viết câu 53: kết luận theo chứng cứ.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 28,
+        "title": "Viết PBT câu 54: lên dàn ý",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững viết pbt câu 54: lên dàn ý; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến viết pbt câu 54: lên dàn ý.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 29,
+        "title": "Viết câu 54: luận cứ và ví dụ",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững viết câu 54: luận cứ và ví dụ; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến viết câu 54: luận cứ và ví dụ.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 30,
+        "title": "Đánh giá giữa lộ trình",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 2,
+        "goal": "Nắm vững đánh giá giữa lộ trình; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến đánh giá giữa lộ trình.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": true
+      },
+      {
+        "day": 31,
+        "title": "Chữa lỗi đánh giá giữa kỳ",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững chữa lỗi đánh giá giữa kỳ; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến chữa lỗi đánh giá giữa kỳ.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 32,
+        "title": "Chữa câu 51–54 theo cấu trúc",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững chữa câu 51–54 theo cấu trúc; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến chữa câu 51–54 theo cấu trúc.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 33,
+        "title": "Viết câu 54: mở bài đúng đề",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững viết câu 54: mở bài đúng đề; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến viết câu 54: mở bài đúng đề.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 34,
+        "title": "Viết câu 54: phát triển luận điểm",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững viết câu 54: phát triển luận điểm; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến viết câu 54: phát triển luận điểm.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 35,
+        "title": "Viết câu 54: phản biện và kết luận",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững viết câu 54: phản biện và kết luận; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến viết câu 54: phản biện và kết luận.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 36,
+        "title": "Luyện nghe bài nói dài",
+        "skills": [
+          "listening"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững luyện nghe bài nói dài; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến luyện nghe bài nói dài.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 37,
+        "title": "Luyện đọc bài nhiều đoạn",
+        "skills": [
+          "reading"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững luyện đọc bài nhiều đoạn; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến luyện đọc bài nhiều đoạn.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 38,
+        "title": "Sửa câu 53, dùng số liệu chính xác",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững sửa câu 53, dùng số liệu chính xác; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến sửa câu 53, dùng số liệu chính xác.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 39,
+        "title": "Sửa câu 54, liên kết logic",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững sửa câu 54, liên kết logic; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến sửa câu 54, liên kết logic.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 40,
+        "title": "Đánh giá năng lực lần 2",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững đánh giá năng lực lần 2; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến đánh giá năng lực lần 2.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": true
+      },
+      {
+        "day": 41,
+        "title": "Chữa lỗi năng lực lần 2",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững chữa lỗi năng lực lần 2; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến chữa lỗi năng lực lần 2.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 42,
+        "title": "Nghe ý ngầm, phân biệt lời dẫn",
+        "skills": [
+          "listening"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững nghe ý ngầm, phân biệt lời dẫn; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến nghe ý ngầm, phân biệt lời dẫn.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 43,
+        "title": "Đọc đoạn dài và lập luận",
+        "skills": [
+          "reading"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững đọc đoạn dài và lập luận; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến đọc đoạn dài và lập luận.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 44,
+        "title": "Suy luận quan điểm trong bối cảnh",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững suy luận quan điểm trong bối cảnh; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến suy luận quan điểm trong bối cảnh.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 45,
+        "title": "Viết câu 51–52 giới hạn thời gian",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 3,
+        "goal": "Nắm vững viết câu 51–52 giới hạn thời gian; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến viết câu 51–52 giới hạn thời gian.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 46,
+        "title": "Viết câu 53 có đồng hồ",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững viết câu 53 có đồng hồ; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến viết câu 53 có đồng hồ.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 47,
+        "title": "Viết câu 54 có đồng hồ",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững viết câu 54 có đồng hồ; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến viết câu 54 có đồng hồ.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 48,
+        "title": "Chữa bài 53–54 theo rubric",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững chữa bài 53–54 theo rubric; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến chữa bài 53–54 theo rubric.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 49,
+        "title": "Phối hợp nghe, đọc, viết",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững phối hợp nghe, đọc, viết; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến phối hợp nghe, đọc, viết.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 50,
+        "title": "Đánh giá năng lực lần 3",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững đánh giá năng lực lần 3; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến đánh giá năng lực lần 3.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": true
+      },
+      {
+        "day": 51,
+        "title": "Phân tích lỗi đánh giá lần 3",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững phân tích lỗi đánh giá lần 3; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến phân tích lỗi đánh giá lần 3.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 52,
+        "title": "Ôn nghe nhóm lỗi nhiều nhất",
+        "skills": [
+          "listening"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững ôn nghe nhóm lỗi nhiều nhất; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến ôn nghe nhóm lỗi nhiều nhất.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 53,
+        "title": "Ôn đọc nhóm lỗi nhiều nhất",
+        "skills": [
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững ôn đọc nhóm lỗi nhiều nhất; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến ôn đọc nhóm lỗi nhiều nhất.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 54,
+        "title": "Tổng ôn mạch viết câu 51–54",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững tổng ôn mạch viết câu 51–54; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến tổng ôn mạch viết câu 51–54.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 55,
+        "title": "Đề mô phỏng rút gọn",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững đề mô phỏng rút gọn; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến đề mô phỏng rút gọn.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 56,
+        "title": "Chữa đề và sửa lập luận",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững chữa đề và sửa lập luận; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến chữa đề và sửa lập luận.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 57,
+        "title": "Ôn chiến thuật theo kỹ năng",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững ôn chiến thuật theo kỹ năng; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến ôn chiến thuật theo kỹ năng.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 58,
+        "title": "Luyện nhẹ bài viết yếu nhất",
+        "skills": [
+          "writing",
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững luyện nhẹ bài viết yếu nhất; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến luyện nhẹ bài viết yếu nhất.",
+          "55 phút: Đọc, gạch dữ kiện và giải thích bằng chứng cho đáp án. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 59,
+        "title": "Tổng kết chiến thuật vào phòng thi",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững tổng kết chiến thuật vào phòng thi; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến tổng kết chiến thuật vào phòng thi.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": false
+      },
+      {
+        "day": 60,
+        "title": "THI THỬ BỘ ĐỀ HOÀN CHỈNH · TOPIK II",
+        "skills": [
+          "listening",
+          "writing",
+          "reading"
+        ],
+        "stage": 4,
+        "goal": "Nắm vững thi thử bộ đề hoàn chỉnh · topik ii; nhận diện bẫy và giải thích lựa chọn.",
+        "tasks": [
+          "15 phút: ôn từ vựng/ngữ pháp liên quan đến thi thử bộ đề hoàn chỉnh · topik ii.",
+          "55 phút: Nghe 2 lượt và ghi từ khóa, so sánh transcript sau khi nộp. Soạn bài viết bằng tiếng Hàn, tự so với rubric.",
+          "10–20 phút: làm câu luyện mới, đối chiếu đáp án và ghi 3 lỗi cần tránh."
+        ],
+        "minutes": 90,
+        "assessment": true
+      }
+    ]
+  }
+}
