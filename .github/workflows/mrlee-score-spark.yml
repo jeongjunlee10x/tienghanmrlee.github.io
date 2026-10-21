@@ -1,0 +1,32 @@
+name: MR LEE - Chấm điểm TOPIK miễn phí (Firebase Spark)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17,47 * * * *'
+    - cron: '7 13 * * 0'    # 20:07 CN gio Viet Nam
+    - cron: '9 17 * * 0'    # 00:09 thu Hai gio Viet Nam
+permissions:
+  contents: read
+concurrency:
+  group: mrlee-score-spark-serial
+  cancel-in-progress: false
+jobs:
+  score:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    if: github.repository == 'jeongjunlee10x/tienghanmrlee.github.io'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Cai firebase-admin trong worker
+        working-directory: scripts/mrlee-score-spark
+        run: npm install --omit=dev --no-audit --no-fund
+      - name: Cham diem va tong ket tuan
+        working-directory: scripts/mrlee-score-spark
+        env:
+          MRLEE_FIREBASE_SERVICE_ACCOUNT: ${{ secrets.MRLEE_FIREBASE_SERVICE_ACCOUNT }}
+        run: node runner.cjs

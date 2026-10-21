@@ -1,0 +1,8 @@
+{
+  "name": "mrlee-score-spark-worker",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "firebase-admin": "^13.5.0"
+  }
+}
