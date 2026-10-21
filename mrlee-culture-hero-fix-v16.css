@@ -1,0 +1,98 @@
+/* MR LEE Culture V16.1: fix unreadable lesson hero and giant portrait image.
+   Scoped to van-hoa-bai-hoc.html (linked on that page only).
+   No effect on quizzes, videos, authentication or points. */
+body .wrap .lessonHero {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr) !important;
+  gap: 0 !important;
+  align-items: stretch !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  height: auto !important;
+  overflow: hidden !important;
+  border: 1px solid #eadfd3 !important;
+  border-radius: 24px !important;
+  background: linear-gradient(118deg, #fff9ef 0%, #f6ebdc 100%) !important;
+  color: #18385a !important;
+  box-shadow: 0 14px 36px rgba(50, 66, 86, .10);
+}
+body .wrap .lessonHero .lessonHeroText {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  min-width: 0 !important;
+  padding: 34px clamp(22px, 3.8vw, 54px) !important;
+  background: transparent !important;
+  color: #18385a !important;
+  overflow-wrap: anywhere;
+}
+body .wrap .lessonHero .lessonHeroText .chip {
+  display: inline-flex !important;
+  padding: 7px 13px !important;
+  border-radius: 999px !important;
+  background: #e4edf9 !important;
+  border: 1px solid #cadcf0 !important;
+  color: #194c7b !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: .04em;
+}
+body .wrap .lessonHero .lessonHeroText h1 {
+  color: #173758 !important;
+  font-size: clamp(26px, 3.15vw, 43px) !important;
+  line-height: 1.27 !important;
+  letter-spacing: -.025em;
+  margin: 15px 0 13px !important;
+  text-shadow: none !important;
+}
+body .wrap .lessonHero .lessonHeroText h1 small {
+  display: block !important;
+  color: #226c88 !important;
+  font-size: clamp(15px, 1.5vw, 19px) !important;
+  line-height: 1.5 !important;
+  font-weight: 650 !important;
+  margin-top: 7px !important;
+  opacity: 1 !important;
+}
+body .wrap .lessonHero .lessonHeroText p {
+  color: #40546c !important;
+  font-size: clamp(14px, 1.15vw, 16px) !important;
+  line-height: 1.75 !important;
+  font-weight: 500 !important;
+  opacity: 1 !important;
+  margin: 3px 0 0 !important;
+  max-width: 56ch;
+  text-shadow: none !important;
+}
+body .wrap .lessonHero > img {
+  display: block !important;
+  width: 100% !important;
+  height: 360px !important;
+  min-height: 0 !important;
+  max-height: 360px !important;
+  aspect-ratio: auto !important;
+  object-fit: cover !important;
+  object-position: center 22% !important;
+  align-self: stretch !important;
+  border-radius: 0 !important;
+  background: #e6dfd5 !important;
+}
+@media (min-width: 821px) and (max-width: 1120px) {
+  body .wrap .lessonHero > img { height: 320px !important; max-height: 320px !important; }
+  body .wrap .lessonHero .lessonHeroText { padding: 24px 30px !important; }
+}
+@media (max-width: 820px) {
+  body .wrap .lessonHero { grid-template-columns: minmax(0, 1fr) !important; }
+  body .wrap .lessonHero .lessonHeroText { padding: 23px 24px !important; }
+  body .wrap .lessonHero > img {
+    height: 230px !important;
+    max-height: 230px !important;
+    min-height: 0 !important;
+    object-position: center 18% !important;
+  }
+}
+@media (max-width: 420px) {
+  body .wrap .lessonHero .lessonHeroText { padding: 21px 19px !important; }
+  body .wrap .lessonHero > img { height: 205px !important; max-height: 205px !important; }
+}
