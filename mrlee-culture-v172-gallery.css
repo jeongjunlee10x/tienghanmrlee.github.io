@@ -1,0 +1,16 @@
+/* MR LEE V17.2 — curated AI gallery, scoped to Culture */
+#cultureImagesV17[hidden], #cultureImagesV16[hidden]{display:none!important}
+.mr172Block{overflow:hidden;margin:18px 0;background:linear-gradient(155deg,#fff,#f8fbff)!important}
+.mr172Block h2{color:#133c70!important;line-height:1.3!important}
+.mr172Lead{font-size:15px;line-height:1.8;color:#294567!important;margin:0 0 18px}
+.mr172Grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.mr172Card{margin:0!important;background:#fff;border:1px solid #d9e4f0;border-radius:16px;overflow:hidden;box-shadow:0 8px 25px rgba(26,56,87,.055)}
+.mr172Card img{width:100%;height:auto;aspect-ratio:3/2;display:block!important;object-fit:cover!important;background:#e8eff7;opacity:1!important;visibility:visible!important}
+.mr172Card figcaption{display:flex;flex-direction:column;gap:3px;padding:13px 14px 15px;text-align:left}
+.mr172Card figcaption strong{font-size:14px;color:#163b68;font-weight:800}
+.mr172Card figcaption span{font-size:13px;color:#3b5d7f;line-height:1.45}
+.mr172Card figcaption small{font-size:12px;color:#697b8d;font-family:'Noto Sans KR',sans-serif}
+.mr172Note{color:#465e79!important;font-size:12px;line-height:1.65;margin:14px 0 0;padding:9px 12px;border-left:3px solid #437ec9;background:#f3f7fd}
+.mr172AiTag{display:inline-block;font-size:10px;font-weight:750;color:#1b5d89;border:1px solid #bfdbea;background:#f1faff;border-radius:99px;padding:4px 9px;margin-top:5px}
+@media(max-width:850px){.mr172Grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.mr172Grid{grid-template-columns:1fr}.mr172Card img{max-height:300px}.mr172Block{padding:15px!important}}
