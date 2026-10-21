@@ -1,0 +1,8 @@
+/* MR LEE Culture V17.2.1 visibility repair, scoped to two culture pages */
+#cultureImagesV172.mr1721Ready{display:block!important;visibility:visible!important;opacity:1!important;height:auto!important;content-visibility:visible!important;overflow:visible!important;transform:none!important}
+#cultureImagesV172.mr1721Ready .mr172Grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px!important;visibility:visible!important;opacity:1!important}
+#cultureImagesV172.mr1721Ready .mr172Card{display:block!important;opacity:1!important;visibility:visible!important}
+#cultureImagesV172.mr1721Ready .mr172Card img{display:block!important;opacity:1!important;visibility:visible!important;width:100%!important;aspect-ratio:3/2!important;object-fit:cover!important}
+#topics a.topic img[data-mrlee1721],#topicHero img[data-mrlee1721]{display:block!important;opacity:1!important;visibility:visible!important}
+@media(max-width:850px){#cultureImagesV172.mr1721Ready .mr172Grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:540px){#cultureImagesV172.mr1721Ready .mr172Grid{grid-template-columns:1fr!important}}
