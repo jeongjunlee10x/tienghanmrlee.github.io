@@ -1,0 +1,31 @@
+/* MR LEE CULTURE V17 — non-destructive, scoped media and caption styles */
+.mr17Block{border:1px solid #dce9f5;background:#fff;border-radius:22px;padding:clamp(16px,3vw,28px);box-shadow:0 12px 35px rgba(20,53,106,.065)}
+.mr17Block h2{font-weight:850!important;color:#12366b!important;line-height:1.3;margin:0 0 10px!important}
+.mr17Lead{color:#415574!important;font-size:15px;line-height:1.75;margin:0 0 18px}
+.mr17Grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.mr17Image{margin:0;min-width:0;border:1px solid #e0e8f2;border-radius:17px;overflow:hidden;background:#f8fafc}
+.mr17Image>img,.mr17Missing{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:#eef4fb}
+.mr17Missing{display:flex;align-items:center;justify-content:center;padding:15px;text-align:center;font-size:13px;font-weight:650;color:#586f8a;border-bottom:1px dashed #cbd9eb}
+.mr17Image figcaption{display:flex;flex-direction:column;gap:6px;padding:12px 13px 16px}
+.mr17Image figcaption strong{color:#163b6b;font-size:14px;line-height:1.45}
+.mr17Image figcaption small{color:#4e6082;line-height:1.55;font-size:12px}
+.mr17Number{font-size:11px;font-weight:850;color:#046c91;text-transform:uppercase;letter-spacing:.05em}
+.mr17Korean{font-family:'Noto Sans KR',sans-serif;color:#3a6885;font-size:12px}
+.mr17Info{margin-top:15px;border:1px solid #dce8f6;border-radius:13px;padding:14px 16px;background:#f2f7fd;color:#315379;display:flex;flex-wrap:wrap;gap:8px;font-size:13px;line-height:1.6}
+.mr17Info strong{color:#164577}
+.mr17VideoCard{border:1px solid #dce8f6;border-radius:18px;background:linear-gradient(110deg,#f3f8ff,#fff);padding:clamp(16px,2vw,24px)}
+.mr17VideoCard h3{font-size:clamp(17px,2.5vw,23px);line-height:1.4;margin:12px 0 10px;color:#143869}
+.mr17VideoCard p{color:#49617c;line-height:1.7}
+.mr17Label{display:inline-flex;background:#dceefb;color:#1c4e7e;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:800}
+.mr17Watch{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:13px 18px;background:#1262bd;color:white!important;font-weight:800;text-decoration:none;min-height:48px}
+.mr17Watch:hover,.mr17Watch:focus-visible{background:#0b4289;color:#fff}
+.mr17VideoCard p.mr17Source{font-size:12px;margin:14px 0 0;color:#50627a}
+.mr17TopicBadge{display:inline-flex;margin:8px 0 0;border:1px solid #bed4ea;border-radius:999px;padding:5px 10px;font-size:11px;font-weight:750;color:#0e4c7a;background:#f4f9ff}
+@media(max-width:860px){.mr17Grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.mr17Grid{grid-template-columns:1fr}.mr17Block{padding:15px}.mr17VideoCard{padding:15px}.mr17Watch{width:100%;text-align:center}}
+
+.mr17Grid.mr17Single{grid-template-columns:minmax(0,520px)}
+.mr17PendingDetails{margin-top:14px;border:1px dashed #c0d2e5;border-radius:14px;padding:12px 15px;background:#f9fbff;color:#294a70;font-size:13px}
+.mr17PendingDetails summary{font-weight:800;cursor:pointer;list-style:revert}
+.mr17PendingDetails ul{padding-left:20px;color:#536b84;line-height:1.7}
+@media(max-width:540px){.mr17Grid.mr17Single{grid-template-columns:minmax(0,1fr)}}
