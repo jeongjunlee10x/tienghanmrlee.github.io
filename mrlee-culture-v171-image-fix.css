@@ -1,0 +1,5 @@
+/* Culture V17.1 - images only */
+.mr171FallbackText{min-height:160px;display:flex;align-items:center;justify-content:center;background:linear-gradient(120deg,#153a72,#2863a2);color:#fff;font-weight:700;text-align:center;padding:1rem;border-radius:12px}
+#topics a.topic img{display:block;object-fit:cover;max-width:100%}
+#topicHero img{object-fit:cover}
+#cultureImagesV17 img{max-width:100%;object-fit:cover}
