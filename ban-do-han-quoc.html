@@ -12,11 +12,60 @@
 <link rel="stylesheet" href="assets/mrlee-live/live.css?v=20261018-3" data-mrlee-live="css">
 <script type="module" src="assets/mrlee-live/live.js?v=20261018-3" data-mrlee-live="js"></script>
 <!-- MRLEE_LIVE_UPDATES_V3_END -->
+<link rel="stylesheet" href="assets/mrlee-score-v12/score.css?v=12.0"><script type="module" src="assets/mrlee-score-v12/widget.js?v=12.0"></script><link rel="stylesheet" href="assets/mrlee-tourism/v1/tourism-map.css?v=1.0" data-mrlee-tourism="css">
 </head><body>
 <header class="top"><a class="brand" href="index.html"><img src="assets/branding/logo-mrlee.png" alt="MR LEE"><span>TIẾNG HÀN MR LEE<small>KOREA CULTURE & GEOGRAPHY</small></span></a><nav><a href="index.html">Trang chủ</a><a href="tim-truong.html">🎓 Tìm trường</a><a href="ban-do-han-quoc.html" aria-current="page">🗺 Bản đồ Hàn Quốc</a><a href="hoc-bong-han-quoc.html">🏅 Học bổng</a></nav></header>
 <main><section class="hero map-hero"><span class="eyebrow">대한민국 · KOREA EXPLORER</span><h1>Khám phá <em>Hàn Quốc</em> từ bản đồ</h1><p>Chọn tỉnh/thành → thành phố/quận/huyện → phường, xã, thị trấn. Khám phá ảnh phong cảnh, khu vực nổi bật và đặc trưng địa phương.</p></section>
+
+<!-- MRLEE TOURISM ILLUSTRATED MAP V1 START - safe addition above administrative atlas -->
+<section id="mrlee-tourism-v1" class="tm-section" aria-labelledby="tm-title">
+  <div class="tm-banner">
+    <div>
+      <span class="tm-eyebrow">대한민국 여행 · TIẾNG HÀN MR LEE</span>
+      <h2 id="tm-title">Bản đồ du lịch <em>Hàn Quốc</em></h2>
+      <p>Khám phá địa danh trên bản đồ minh họa: phóng to, thu nhỏ, kéo xem, chạm ghim để đọc giới thiệu, xem tranh ảnh và mở chỉ đường thực tế.</p>
+    </div>
+    <div class="tm-banner-links">
+      <a href="#mrlee-tourism-v1">📍 Điểm du lịch</a>
+      <a href="#koreaMap">🗺 Bản đồ địa giới ↓</a>
+      <a href="tim-truong.html">🎓 Tìm trường</a>
+    </div>
+  </div>
+  <div class="tm-shell">
+    <aside class="tm-sidebar" aria-label="Tìm kiếm điểm du lịch">
+      <h3>🔎 Khám phá địa danh</h3>
+      <div><label for="tm-search">Tìm điểm du lịch hoặc thành phố</label><input class="tm-field" id="tm-search" type="search" placeholder="Ví dụ: Busan, Jeju, cung điện..." autocomplete="off"></div>
+      <div class="tm-filter-row">
+        <div><label for="tm-region">Theo khu vực</label><select class="tm-field" id="tm-region"></select></div>
+        <div><label for="tm-kind">Theo chủ đề</label><select class="tm-field" id="tm-kind"></select></div>
+      </div>
+      <div class="tm-count-line"><span id="tm-count" role="status" aria-live="polite">18 điểm</span><button class="tm-text-button" id="tm-clear" type="button">Xóa bộ lọc ↺</button></div>
+      <div id="tm-results" class="tm-results" aria-label="Danh sách điểm du lịch"></div>
+    </aside>
+    <div class="tm-map-column">
+      <div class="tm-toolbar"><div><strong>🗺 Hàn Quốc — bản đồ minh họa</strong><br><small>Chọn ghim • Kéo xem • Cuộn chuột để zoom</small></div>
+      <div class="tm-controls" aria-label="Điều khiển phóng to bản đồ"><button id="tm-zoom-out" type="button" aria-label="Thu nhỏ">−</button><span id="tm-zoom-label">100%</span><button id="tm-zoom-in" type="button" aria-label="Phóng to">+</button><button id="tm-fit" type="button" aria-label="Xem toàn bộ bản đồ" title="Xem toàn bộ">⤢</button></div></div>
+      <div id="tm-viewport" class="tm-viewport" tabindex="0" aria-label="Bản đồ du lịch minh họa; dùng nút phóng to và kéo để di chuyển"><div id="tm-canvas" class="tm-canvas"><img src="images/tourism-map/mrlee-korea-tourism-map.webp" alt="Bản đồ du lịch minh họa AI các vùng của Hàn Quốc, dựa trên thiết kế đã chọn" draggable="false"><div id="tm-pins" class="tm-pins"></div></div></div>
+      <div class="tm-map-note"><span>📌 Ghim đặt gần đúng trên tranh minh họa, <strong>không dùng để định vị hoặc dẫn đường</strong>. Chọn “Chỉ đường” để xem vị trí thực.</span><button type="button" id="tm-random">🎲 Khám phá</button></div>
+    </div>
+    <aside class="tm-detail" aria-live="polite" aria-label="Thông tin điểm du lịch đang chọn">
+      <div class="tm-detail-top"><img id="tm-photo-main" class="tm-feature-image" alt="Ảnh minh họa địa điểm" loading="lazy"><span class="tm-art-chip">✨ Minh họa AI</span></div>
+      <div class="tm-detail-body">
+        <span id="tm-place-region" class="tm-region-chip"></span><h3 id="tm-place-name">Khám phá Hàn Quốc</h3><span id="tm-place-ko"></span>
+        <p id="tm-place-desc"></p><img id="tm-photo-secondary" class="tm-second-photo" loading="lazy" alt="Tranh minh họa bổ sung">
+        <p id="tm-place-tip" class="tm-hint"></p>
+        <a id="tm-maps-link" class="tm-maps-link" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/">📍 Xem vị trí và chỉ đường trên Google Maps ↗</a>
+        <div id="tm-detail-video" class="tm-video-panel"></div>
+      </div>
+    </aside>
+  </div>
+  <div class="tm-footer-note">📷 Tranh bản đồ và ảnh minh họa được tạo bằng AI, không phải ảnh chụp thực tế. 🎬 Video quảng bá được mở từ kênh VISITKOREA trên YouTube; không tải lại hoặc lưu trên máy chủ MR LEE. Trang bản đồ hành chính ở bên dưới vẫn giữ nguyên.</div>
+</section>
+<!-- MRLEE TOURISM ILLUSTRATED MAP V1 END -->
+
 <section class="atlas-layout"><div class="atlas-main"><div class="atlas-tools"><select id="provincePick" aria-label="Chọn tỉnh, thành"><option value="">Chọn tỉnh / thành phố</option></select><button id="backAtlas" type="button">↶ Lùi một cấp</button><button id="resetAtlas" type="button">⌂ Toàn quốc</button><span id="geoProgress" role="status">Đang chuẩn bị bản đồ…</span></div>
 <div id="koreaMap" class="korea-map" aria-label="Bản đồ tương tác Hàn Quốc"><div id="mapEmpty">Đang nạp bản đồ. Có thể chọn khu vực bằng danh sách bên dưới.</div></div><div class="area-list-head"><h2 id="areaHeading">17 tỉnh và thành phố trực thuộc</h2><input id="areaFilter" type="search" aria-label="Lọc địa danh" placeholder="Lọc địa danh / địa giới..."></div><div id="areaList" class="area-list"></div><p class="source-note">Địa giới: dữ liệu công V-World (bản phân phối 2023, đối chiếu mã địa giới trước khi sử dụng cho hồ sơ pháp lý). Tên địa danh có thể thay đổi. Bản đồ được dùng để khám phá địa lý, không dùng để xác định ranh giới pháp lý. <a href="https://github.com/KnellBalm/kr-admin-geojson" target="_blank" rel="noopener">Nguồn dữ liệu ↗</a></p></div>
 <aside class="destination" id="destination"><div class="photo-hero" id="placeHero"><span>대한민국 · KOREA</span></div><div class="destination-body"><span class="eyebrow" id="placeLevel">TOÀN QUỐC</span><h2 id="placeName">Hàn Quốc · 대한민국</h2><p id="placeDesc">Chạm hoặc rê vào từng khu vực để xem chi tiết. Nhấn để khám phá các khu vực cấp dưới.</p><div class="photo-gallery" id="placeGallery"></div><p class="source-note" id="photoNotice">Hình ảnh từ Wikimedia Commons nếu có, hiển thị kèm nguồn và giấy phép. Không có ảnh phù hợp sẽ giữ nền mặc định.</p><div id="placeChildren" class="place-children"></div></div></aside></section>
 </main><footer>© TIẾNG HÀN MR LEE · <a href="index.html">Trang chủ</a> · <a href="tim-truong.html">Tìm trường riêng ↗</a> · Dữ liệu ảnh Wikimedia Commons tùy khả dụng.</footer>
+<script defer src="assets/mrlee-tourism/v1/tourism-map.js?v=1.0" data-mrlee-tourism="js"></script>
 </body></html>

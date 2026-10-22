@@ -1,0 +1,73 @@
+/* Scoped interactive Korea tourism atlas — preserves original administrative map */
+#mrlee-tourism-v1{--tm-blue:#1056b5;--tm-deep:#12335a;--tm-rose:#ff567b;--tm-border:#e5eefd;--tm-surface:#fff;font-family:'Be Vietnam Pro','Noto Sans KR',system-ui,sans-serif;color:var(--tm-deep);width:min(1480px,calc(100% - 32px));max-width:1480px;margin:12px auto 36px;isolation:isolate;box-sizing:border-box}
+#mrlee-tourism-v1 *,#mrlee-tourism-v1 *:before,#mrlee-tourism-v1 *:after{box-sizing:border-box}
+#mrlee-tourism-v1 button,#mrlee-tourism-v1 input,#mrlee-tourism-v1 select{font:inherit}
+#mrlee-tourism-v1 button{cursor:pointer}
+#mrlee-tourism-v1 .tm-banner{border:1px solid #dceaff;background:linear-gradient(110deg,#e6f4ff,#fff9f1 70%,#fff0f7);border-radius:25px;padding:25px 30px;display:flex;gap:24px;align-items:center;justify-content:space-between;box-shadow:0 14px 35px #153d6b12;margin-bottom:16px}
+#mrlee-tourism-v1 .tm-eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;color:#1660b9;text-transform:uppercase}
+#mrlee-tourism-v1 .tm-banner h2{font-size:clamp(24px,3vw,36px);font-weight:900;line-height:1.18;letter-spacing:-.04em;margin:9px 0;color:#163b71}
+#mrlee-tourism-v1 .tm-banner h2 em{font-style:normal;color:#ec4277}
+#mrlee-tourism-v1 .tm-banner p{font-size:13px;line-height:1.7;color:#49607d;max-width:800px;margin:0}
+#mrlee-tourism-v1 .tm-banner-links{display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap}
+#mrlee-tourism-v1 .tm-banner-links a{border-radius:999px;background:#fff;color:#164b8b;font-size:12px;font-weight:800;padding:11px 15px;text-decoration:none;border:1px solid #d5e4f9;white-space:nowrap}
+#mrlee-tourism-v1 .tm-shell{display:grid;grid-template-columns:minmax(245px,.8fr) minmax(375px,1.65fr) minmax(270px,.95fr);gap:14px;align-items:stretch}
+#mrlee-tourism-v1 .tm-sidebar,#mrlee-tourism-v1 .tm-map-column,#mrlee-tourism-v1 .tm-detail{min-width:0;border:1px solid var(--tm-border);border-radius:23px;overflow:hidden;background:#fff;box-shadow:0 12px 30px #143d6810}
+#mrlee-tourism-v1 .tm-sidebar{padding:17px;display:flex;flex-direction:column;gap:12px}
+#mrlee-tourism-v1 h3{font-size:16px;font-weight:800;line-height:1.4;margin:0;color:#183b68}
+#mrlee-tourism-v1 label{font-size:11px;font-weight:800;color:#49617d;display:block;margin-bottom:4px}
+#mrlee-tourism-v1 .tm-field{width:100%;background:#f8fbff;border:1px solid #dfeafa;border-radius:12px;color:#213f62;font-size:12px;padding:11px 12px;outline-offset:2px}
+#mrlee-tourism-v1 .tm-filter-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#mrlee-tourism-v1 .tm-count-line{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;color:#647b94}
+#mrlee-tourism-v1 #tm-count{color:#1764ba;font-weight:800}
+#mrlee-tourism-v1 .tm-text-button{border:0;background:transparent;color:#1764ba;font-weight:800;font-size:11px;padding:6px}
+#mrlee-tourism-v1 .tm-results{overflow:auto;max-height:608px;display:grid;align-content:start;gap:8px;padding:2px}
+#mrlee-tourism-v1 .tm-result{display:flex;align-items:center;gap:9px;padding:7px;min-height:67px;width:100%;border:1px solid #e4edf7;border-radius:13px;background:#fff;color:#193d62;text-align:left;transition:.15s}
+#mrlee-tourism-v1 .tm-result:hover,#mrlee-tourism-v1 .tm-result.is-active{background:#eef6ff;border-color:#94c9ff}
+#mrlee-tourism-v1 .tm-result img{width:72px;height:54px;object-fit:cover;flex:none;border-radius:9px;background:#e8f2fc}
+#mrlee-tourism-v1 .tm-result span:nth-child(2){flex:1;min-width:0}
+#mrlee-tourism-v1 .tm-result strong{display:block;font-size:11.5px;line-height:1.45;color:#153b6b}
+#mrlee-tourism-v1 .tm-result small{display:block;font-size:10px;color:#6e8299;margin-top:2px}
+#mrlee-tourism-v1 .tm-empty{font-size:12px;line-height:1.6;color:#526982;padding:15px}
+#mrlee-tourism-v1 .tm-map-column{display:flex;flex-direction:column;background:#e6f5ff}
+#mrlee-tourism-v1 .tm-toolbar{background:#fff;min-height:54px;padding:9px 12px;display:flex;gap:9px;align-items:center;justify-content:space-between}
+#mrlee-tourism-v1 .tm-toolbar strong{color:#173e70;font-size:12px}
+#mrlee-tourism-v1 .tm-toolbar small{color:#68819c;font-size:10px}
+#mrlee-tourism-v1 .tm-controls{display:flex;align-items:center;gap:4px}
+#mrlee-tourism-v1 .tm-controls button{width:35px;height:35px;background:#fff;border:1px solid #d6e5f6;color:#215b9f;border-radius:9px;font-size:20px;font-weight:800}
+#mrlee-tourism-v1 .tm-controls button:hover{background:#eaf5ff}
+#mrlee-tourism-v1 #tm-zoom-label{color:#527294;font-size:11px;min-width:40px;text-align:center}
+#mrlee-tourism-v1 .tm-viewport{height:760px;max-height:78vh;min-height:440px;position:relative;overflow:hidden;background:linear-gradient(145deg,#b8e0fb,#67bbea);touch-action:none;cursor:grab;outline-offset:3px;user-select:none}
+#mrlee-tourism-v1 .tm-viewport:active{cursor:grabbing}
+#mrlee-tourism-v1 .tm-canvas{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
+#mrlee-tourism-v1 .tm-canvas>img{display:block;width:100%;height:100%;pointer-events:none;object-fit:contain}
+#mrlee-tourism-v1 .tm-pins{position:absolute;inset:0;pointer-events:none}
+#mrlee-tourism-v1 .tm-pin{pointer-events:auto;position:absolute;z-index:2;border:0;background:transparent;padding:0;transform:translate(-50%,-50%);width:27px;height:31px}
+#mrlee-tourism-v1 .tm-pin[hidden]{display:none!important}
+#mrlee-tourism-v1 .tm-pin-icon{display:grid;place-items:center;width:27px;height:27px;background:#fff;border:2px solid #e94473;border-radius:9px 9px 9px 2px;box-shadow:0 3px 12px #152b5360;font-size:11px;font-weight:900;color:#da2556;transform:rotate(-12deg)}
+#mrlee-tourism-v1 .tm-pin:hover .tm-pin-icon,#mrlee-tourism-v1 .tm-pin.is-active .tm-pin-icon{background:#e52c65;color:#fff;border-color:#fff;transform:rotate(0deg) scale(1.19)}
+#mrlee-tourism-v1 .tm-map-note{background:#fff;padding:10px 13px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+#mrlee-tourism-v1 .tm-map-note span{font-size:10px;color:#53708e;line-height:1.6}
+#mrlee-tourism-v1 #tm-random{background:#edf5ff;color:#20599c;border:1px solid #d8e8ff;border-radius:9px;white-space:nowrap;font-size:11px;font-weight:800;padding:9px 10px}
+#mrlee-tourism-v1 .tm-detail{display:flex;flex-direction:column}
+#mrlee-tourism-v1 .tm-detail-top{position:relative}
+#mrlee-tourism-v1 .tm-feature-image{width:100%;height:216px;display:block;object-fit:cover;background:#dceefa}
+#mrlee-tourism-v1 .tm-art-chip{position:absolute;bottom:10px;left:11px;background:#102f59c9;color:white;padding:7px 10px;border-radius:999px;font-size:10px}
+#mrlee-tourism-v1 .tm-detail-body{padding:17px;display:flex;flex-direction:column;gap:10px}
+#mrlee-tourism-v1 .tm-region-chip{font-size:10px;font-weight:800;letter-spacing:.09em;color:#d23a70;text-transform:uppercase}
+#mrlee-tourism-v1 .tm-detail h3{font-size:21px;line-height:1.35;margin:0;letter-spacing:-.03em}
+#mrlee-tourism-v1 #tm-place-ko{font-size:12px;font-weight:600;color:#7090b0}
+#mrlee-tourism-v1 .tm-detail p{font-size:12px;line-height:1.8;color:#526b87;margin:0}
+#mrlee-tourism-v1 .tm-second-photo{width:100%;height:114px;object-fit:cover;border-radius:11px;border:1px solid #edf1f6}
+#mrlee-tourism-v1 .tm-hint{background:#eff8ff;border-left:3px solid #559ae1;padding:10px;border-radius:9px}
+#mrlee-tourism-v1 .tm-maps-link{background:linear-gradient(110deg,#1264c9,#1698cc);padding:12px 13px;border-radius:12px;font-size:12px;color:#fff;text-decoration:none;text-align:center;font-weight:800;display:block}
+#mrlee-tourism-v1 .tm-video-panel{border-top:1px solid #e6eef6;padding-top:13px;display:grid;gap:8px}
+#mrlee-tourism-v1 .tm-video-panel strong{font-size:12px;color:#164b85}
+#mrlee-tourism-v1 .tm-video-panel p{font-size:10.5px;color:#66819a}
+#mrlee-tourism-v1 .tm-video-buttons{display:flex;gap:8px;align-items:center}
+#mrlee-tourism-v1 .tm-video-panel a,#mrlee-tourism-v1 .tm-video-panel button{border:1px solid #dae8f8;border-radius:10px;font-size:11px;color:#18548f;padding:8px 11px;background:#f5faff;text-decoration:none;font-weight:800}
+#mrlee-tourism-v1 .tm-video-panel iframe{display:block;border:0;width:100%;aspect-ratio:16/9;border-radius:12px;background:#11253d}
+#mrlee-tourism-v1 .tm-footer-note{margin-top:12px;border:1px dashed #bfd6ec;border-radius:12px;padding:11px 14px;font-size:11px;line-height:1.8;color:#536d88;background:#f9fcff}
+@media(max-width:1250px){#mrlee-tourism-v1 .tm-shell{grid-template-columns:minmax(220px,.7fr) minmax(340px,1.25fr)}#mrlee-tourism-v1 .tm-detail{grid-column:1/-1;display:grid;grid-template-columns:minmax(240px,.7fr) 1fr}#mrlee-tourism-v1 .tm-feature-image{height:100%;min-height:290px}#mrlee-tourism-v1 .tm-art-chip{bottom:16px}}
+@media(max-width:780px){#mrlee-tourism-v1{width:calc(100% - 20px);margin:10px auto 22px}#mrlee-tourism-v1 .tm-banner{padding:19px;display:block}#mrlee-tourism-v1 .tm-banner-links{margin-top:14px}#mrlee-tourism-v1 .tm-shell{grid-template-columns:1fr}#mrlee-tourism-v1 .tm-sidebar{padding:14px}#mrlee-tourism-v1 .tm-results{display:flex;overflow-x:auto;overflow-y:hidden;max-height:none;padding:4px 0 8px;scroll-snap-type:x mandatory}#mrlee-tourism-v1 .tm-result{min-width:230px;max-width:240px;scroll-snap-align:start}#mrlee-tourism-v1 .tm-viewport{height:560px;max-height:78vh;min-height:390px}#mrlee-tourism-v1 .tm-detail{grid-column:auto;display:block}#mrlee-tourism-v1 .tm-feature-image{height:250px;min-height:0}#mrlee-tourism-v1 .tm-map-note{align-items:flex-start}}
+@media(max-width:420px){#mrlee-tourism-v1 .tm-toolbar{padding:8px}#mrlee-tourism-v1 .tm-toolbar small{display:none}#mrlee-tourism-v1 .tm-controls button{width:32px;height:32px}#mrlee-tourism-v1 .tm-viewport{height:510px;min-height:350px}#mrlee-tourism-v1 .tm-filter-row{gap:6px}}
+@media(prefers-reduced-motion:reduce){#mrlee-tourism-v1 .tm-result{transition:none}}
