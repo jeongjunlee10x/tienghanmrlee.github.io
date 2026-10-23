@@ -7,7 +7,7 @@
   const root = document.getElementById('mrlee-tourism-v1');
   if (!root || root.dataset.ready === '1') return;
   root.dataset.ready = '1';
-  const A = 'images/tourism-map/places/';
+  const A = 'images/tourism-map-hd/places/';
   const places = [
     {id:'gyeongbokgung',name:'Cung điện Gyeongbokgung',ko:'경복궁',region:'Seoul',kind:'Di sản',x:20,y:9,query:'Gyeongbokgung Palace Seoul South Korea',desc:'Cung điện hoàng gia nổi tiếng tại Seoul, lý tưởng để tìm hiểu triều đại Joseon và trải nghiệm hanbok.',tip:'Đi bộ tham quan Gwanghwamun, Gyeongbokgung và các bảo tàng gần đó.',video:'seoul'},
     {id:'bukchon',name:'Làng cổ Bukchon Hanok',ko:'북촌한옥마을',region:'Seoul',kind:'Di sản',x:34,y:14,query:'Bukchon Hanok Village Seoul South Korea',desc:'Những con hẻm với nhà hanok truyền thống nằm giữa lòng Seoul. Đây là khu dân cư đang sinh sống.',tip:'Giữ trật tự, tôn trọng cư dân và kiểm tra giới hạn giờ tham quan.',video:'seoul'},

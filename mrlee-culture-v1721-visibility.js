@@ -2,7 +2,7 @@
    Scoped display/re-render repair for V17.2's EXISTING 110 WebP files.
    No changes to media content, scores, video or login. */
 (()=>{'use strict';
- const prefix='images/culture-v172-ai/';
+ const prefix='images/culture-v18-hd/';
  const localSVG='images/culture-v13/';
  const registry=window.MRLEE_CULTURE_V17_MEDIA||{};
  const fallbackTopics=Array.isArray(window.MRLEE_CULTURE_V13)?window.MRLEE_CULTURE_V13:[];

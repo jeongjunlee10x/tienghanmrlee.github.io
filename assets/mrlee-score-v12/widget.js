@@ -122,7 +122,7 @@ function initUI() {
   if (!dashboard) return;
   const show = (el, text) => { if (el) el.textContent = text; };
   const mine = $('#v12mine'), history = $('#v12history'), podium = $('#v12podium'), notice = $('#v12notice'), all = $('#v12all'), old = $('#v12old'), attendance = $('#v12attendance');
-  attendance?.addEventListener('click', () => award({ type:'attendance' }));
+  if (attendance) { attendance.disabled = true; attendance.title = 'Chi bam diem danh khong duoc cong diem'; attendance.textContent = 'Diem danh: 0 diem'; }
   let stopL = null, stopW = null, stopH = null;
   function loadCurrent(u) {
     if (stopL) stopL(); if (stopW) stopW(); if (stopH) stopH();

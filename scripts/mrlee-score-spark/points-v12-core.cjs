@@ -18,7 +18,7 @@ function weekOf(date = new Date()) {
 }
 function weekBefore(now = new Date()) { return weekOf(new Date(now.valueOf() - 7 * 86400000)); }
 function score(type, correct, total) {
-  if (type === 'attendance') return 2;
+  if (type === 'attendance') return 0;
   const pc = total > 0 ? correct / total : 0;
   if (type === 'quiz') return pc < .6 ? 0 : Math.min(12, Math.round(12 * pc));
   if (type === 'listening') return pc < .6 ? 0 : Math.min(20, Math.round(20 * pc));

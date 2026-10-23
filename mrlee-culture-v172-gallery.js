@@ -11,7 +11,7 @@
  const mk=(tag,cl,t)=>{const e=document.createElement(tag);if(cl)e.className=cl;if(t!==undefined)e.textContent=String(t);return e;};
  const params=new URLSearchParams(location.search);
  const current=params.get('chu-de')||topicNames[0];
- const ai=(id,k)=>`images/culture-v172-ai/${encodeURIComponent(id)}/${String(k).padStart(2,'0')}.webp?v=172`;
+ const ai=(id,k)=>`images/culture-v18-hd/${encodeURIComponent(id)}/${String(k).padStart(2,'0')}.webp?v=172`;
  const svg=id=>`images/culture-v13/${encodeURIComponent(id)}.svg?v=171`;
  const safety=new Set(['so-cap-cuu','goi-cuu-ho','hoa-hoan','benh-vien','an-toan-giao-thong']);
  function photo(id,k,hero=false){
