@@ -55,6 +55,29 @@ function sectionAdvance(force=false){if(!session)return;const p=currentProfile()
  if(last){finalize();return}session.sectionIndex++;session.itemIndex=0;session.scriptShown=false;session.sectionEnd=Date.now()+p.sections[session.sectionIndex][2]*60000;persist();render()}
 function finalize(){clearInterval(timer);if(!session)return;const s=session;const p=currentProfile();const summary={};const resultItems=[];for(const [kind] of p.sections){if(kind==='writing')continue;const ids=s.order[kind]||[],acc=ids.map(id=>{const q=byId.get(id);const given=s.answers[id];const good=given===q.correct;resultItems.push({id,kind,chosen:given??null,correct:good});return good});summary[kind]=`${acc.filter(Boolean).length}/${ids.length}`}
  const audioIds=s.order.listening||[];const linkedAudio=audioIds.filter(id=>!!getSource(byId.get(id))).length;const playedAudio=audioIds.filter(id=>s.audioUsed?.[id]===true).length;const validAudio=!s.invalidAudio&&linkedAudio===audioIds.length&&playedAudio===audioIds.length;const record={date:new Date().toLocaleString('vi-VN'),timestamp:Date.now(),profile:s.profile,listening:summary.listening,reading:summary.reading,writingTasks:(p.sections.find(x=>x[0]==='writing')||[])[1]||0,validAudio,linkedAudio,playedAudio,totalAudio:audioIds.length,answers:resultItems,drafts:{...s.drafts}};
+ // Archive per-question answer selections and ALL TOPIK II writing drafts to the student's Firebase history.
+ // These are learning records, never official TOPIK grades.
+ const review=resultItems.map((a)=>{
+   const q=byId.get(a.id);
+   return {question:String((a.kind==='listening'?(q.script||''):(q.passage||''))+'\n'+q.question).slice(0,500),
+     choices:(q.choices||[]).slice(0,8).map(x=>String(x).slice(0,300)),
+     selectedIndex:Number.isInteger(a.chosen)?a.chosen:-1,
+     correctIndex:Number(q.correct),explanation:String((q.why||'')+' · '+(q.strategy||'')).slice(0,700),
+     type:a.kind,lessonNumber:null};
+ });
+ for(const task of (WRITING[s.profile]||[])){
+   review.push({question:String(task.task||task.name).slice(0,500),choices:[],selectedIndex:-1,
+     correctIndex:-1,type:'writing',lessonNumber:null,answerText:String(s.drafts[task.id]||'').slice(0,5000),
+     explanation:String(task.guide||'').slice(0,700)});
+ }
+ if(review.length<=120 && resultItems.length<=100){
+   window.dispatchEvent(new CustomEvent('mrlee:practice-finished',{detail:{
+     examId:'topik-v11-'+s.profile.toLowerCase(),examTitle:'Thi thử TOPIK · '+p.name,
+     level:'general',score:resultItems.filter(q=>q.correct).length,total:resultItems.length,
+     durationSeconds:Math.min(7200,Math.max(0,Math.floor((Date.now()-s.started)/1000))),
+     review
+   }}));
+ }
  store.attempts=(store.attempts||[]).concat([record]).slice(-60);store.wrongIds=Array.from(new Set([...(store.wrongIds||[]),...resultItems.filter(x=>!x.correct).map(x=>x.id)]));session=null;view='results';persist();render()}
 function last(){return (store.attempts||[]).slice(-1)[0]}
 function results(){const r=last();if(!r)return home();return `<section class="panel"><p class="step">Báo cáo mô phỏng · ${escapeHTML(r.profile)}</p><h2>Đã nộp bài</h2><div class="grid3"><div class="stat"><span class="label">Nghe</span><strong>${escapeHTML(r.listening||'—')}</strong></div><div class="stat"><span class="label">Đọc</span><strong>${escapeHTML(r.reading||'—')}</strong></div><div class="stat"><span class="label">Viết</span><strong>${r.writingTasks?'Chưa chấm':'Không có'}</strong></div></div><div class="warning"><strong>${r.validAudio?'Đã nghe hết đủ MP3':'Chưa hợp lệ để đánh giá nghe'}:</strong> ${r.playedAudio}/${r.totalAudio} câu đã phát tới hết trên trình duyệt (có đường dẫn ${r.linkedAudio}/${r.totalAudio}). Đây không phải thước đo chuẩn hóa; không quy đổi thành điểm/cấp TOPIK chính thức. Với TOPIK II, giáo viên cần đọc bài viết trước khi đánh giá tổng thể.</div><div class="actions"><button class="btn" data-act="review">Chữa đáp án</button><button class="btn secondary" data-act="export">Xuất dữ liệu bài làm</button><button class="btn soft" data-act="home">Trở về tổng quan</button></div></section>${r.writingTasks?`<section class="panel"><h2>Bài viết đã lưu – gửi giáo viên chấm</h2>${(WRITING[r.profile]||[]).map(w=>`<details class="detail"><summary>Câu ${w.no}: ${escapeHTML(w.name)}</summary><div class="inside"><p><b>Tiêu chí đối chiếu:</b> ${escapeHTML(w.guide)}</p><p class="ko" lang="ko">${escapeHTML(r.drafts[w.id]||'(Chưa làm)')}</p></div></details>`).join('')}</section>`:''}`}
