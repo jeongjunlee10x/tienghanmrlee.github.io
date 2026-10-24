@@ -68,7 +68,7 @@ async function recordEvent(kind, title, detail = '') {
 }
 
 function saveFeedback(message, isError = false) {
-  const box = document.getElementById('results') || document.getElementById('result-box');
+  const box = document.getElementById('results') || document.getElementById('result-box') || document.getElementById('workGame') || document.getElementById('v11App') || document.getElementById('v10-room') || document.getElementById('v10-app');
   if (!box) return;
   let output = document.getElementById('mrlee-save-status');
   if (!output) {
