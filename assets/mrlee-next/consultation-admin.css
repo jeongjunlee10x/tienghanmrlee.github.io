@@ -1,0 +1,19 @@
+/* MR LEE consultations: isolated admin styles; no auth UI tampering. */
+.mrlee-lead-summary{padding:14px;border:1px solid #badbfa;border-radius:12px;background:#e8f5ff;color:#153a63;font-weight:750;margin:14px 0}
+.mrlee-lead-filter{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.mrlee-lead-filter input{width:min(450px,100%);flex:1;min-width:180px}
+.mrlee-lead-filter :is(input,select){padding:10px 13px;border:1px solid #c2d5e8;border-radius:10px;background:#fff;color:#143858}
+.mrlee-lead-backdrop{position:fixed;inset:0;z-index:100002;background:#000b;display:grid;place-items:center;padding:12px;overflow:auto}
+.mrlee-lead-backdrop[hidden]{display:none!important}
+.mrlee-lead-dialog{background:#fff;color:#163956;max-width:690px;width:100%;max-height:min(88vh,900px);overflow:auto;padding:clamp(16px,3vw,30px);border-radius:18px;box-shadow:0 22px 70px #0008}
+.mrlee-lead-top{display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid #d6e2ef;padding-bottom:12px}
+.mrlee-lead-entry{font-size:13px;padding:6px 0;margin:0;border-bottom:1px solid #f0f4fa;overflow-wrap:anywhere}
+#mrleeLeadEditor{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:15px}
+#mrleeLeadEditor label{display:grid;gap:5px;font-size:12px;font-weight:800}
+#mrleeLeadEditor label:nth-child(3){grid-column:1/-1}
+#mrleeLeadEditor :is(input,select,textarea){padding:11px 12px;max-width:100%;min-width:0;border:1px solid #bed3e6;border-radius:10px;font-size:13px}
+#mrleeLeadSaveStatus{font-size:12px}
+html[data-mrlee-theme="future"] .mrlee-lead-summary{background:#0c3256;border-color:#2278ab;color:#d6f6ff}
+html[data-mrlee-theme="future"] .mrlee-lead-dialog{background:linear-gradient(120deg,#071b38,#122348);color:#e4f7ff;border:1px solid #2389c5}
+html[data-mrlee-theme="future"] #mrleeLeadEditor :is(input,select,textarea){background:#10274a;border-color:#286a98;color:#f0f9ff}
+@media(max-width:600px){#mrleeLeadEditor{grid-template-columns:1fr}#mrleeLeadEditor label:nth-child(3){grid-column:auto}}
