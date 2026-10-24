@@ -4,10 +4,20 @@ const KEY='MRLEE.THEME.V1',ROOT='assets/mrlee-dual-ui/cards/',doc=document,html=
 const path=decodeURIComponent(location.pathname.split('/').pop()||'index.html');
 // V2 cinematic artwork complements existing approved SVGs and keeps original branding untouched.
 const cinematicCss=doc.createElement('link');cinematicCss.rel='stylesheet';cinematicCss.href='assets/mrlee-dual-ui/cinematic-v2.css?v=20261024-2';cinematicCss.dataset.mrleeCinematic='v2';doc.head.append(cinematicCss);
+const premiumCss=doc.createElement('link');premiumCss.rel='stylesheet';premiumCss.href='assets/mrlee-next/premium.css?v=20261024c';doc.head.append(premiumCss);
 const admin=path==='admin.html';
 const sceneNames=['learning','speaking','topik','interview','culture','universities','home','admin'];
 function which(t){t=String(t).toLowerCase();if(/mrlee-bai-tap-pro|workbook/.test(t))return 'workbook';if(/trung-tam-hoc-vien|ho-so-hoc-vien/.test(t))return 'profile';if(/admin|xep-hang|ranking/.test(t))return 'admin';if(/van-hoa|culture|du-lich|kham-pha/.test(t))return 'culture';if(/phong-van/.test(t))return 'interview';if(/ban-do|dai-hoc|truong/.test(t))return 'universities';if(/giao-tiep|hoi-thoai|noi/.test(t))return 'speaking';if(/topik|kiem-tra|luyen-de|thi|nghe/.test(t))return 'topik';if(/hoc-|bai-tap|workbook|hoc-vien/.test(t))return 'learning';return 'home'}
-function asset(n){return ROOT+(n==='profile'?'learning':n)+'.svg'}
+function asset(n){
+ const list=['home','learning','speaking','topik','interview','culture','universities','workbook','profile','admin','consultation'];
+ if(list.includes(n))return 'assets/mrlee-next/scenes/'+n+'.svg';
+ if(/^(elementary|intermediate|advanced)/.test(n))return 'assets/mrlee-next/scenes/learning.svg';
+ if(['mock','roadmap','placement','listening','writing'].includes(n))return 'assets/mrlee-next/scenes/topik.svg';
+ if(n==='schools')return 'assets/mrlee-next/scenes/universities.svg';
+ if(n==='history')return 'assets/mrlee-next/scenes/profile.svg';
+ if(['food','daily','life'].includes(n))return 'assets/mrlee-next/scenes/culture.svg';
+ return 'assets/mrlee-next/scenes/learning.svg';
+}
 const photos={profile:'learning-roadmap.webp',elementary1:'learning-cap-1.webp',elementary2:'learning-cap-2.webp',intermediate1:'learning-cap-3.webp',intermediate2:'learning-cap-4.webp',advanced1:'learning-cap-5.webp',advanced2:'learning-cap-6.webp',learning:'learning-books.webp',workbook:'learning-books.webp',speaking:'learning-cap-2.webp',topik:'feature-6-thi-topik.webp',mock:'learning-topik.webp',placement:'learning-topik.webp',roadmap:'learning-roadmap.webp',history:'learning-roadmap.webp',listening:'learning-listening.webp',writing:'learning-books.webp',interview:'step-1-tu-van.webp',culture:'culture.webp',daily:'culture.webp',food:'culture.webp',life:'culture.webp',universities:'feature-2-ban-do.webp',schools:'feature-3-tim-truong.webp',home:'feature-1-tuyen-sinh.webp',admin:'learning-roadmap.webp'};
 let theme='fresh';try{theme=localStorage.getItem(KEY)==='future'?'future':'fresh'}catch{}
 function update(v){theme=v==='future'?'future':'fresh';html.dataset.mrleeTheme=theme;try{localStorage.setItem(KEY,theme)}catch{}
@@ -31,7 +41,7 @@ function cardTheme(link){
 function decorate(){
  html.dataset.mrleeScene=which(path);
  html.style.setProperty('--mrlee-scene','url("'+asset(which(path))+'")');
- html.style.setProperty('--mrlee-scene-photo','url("assets/v306/images/'+(photos[which(path)]||'feature-1-tuyen-sinh.webp')+'")');
+ html.style.setProperty('--mrlee-scene-photo','url("'+asset(which(path))+'")');
  doc.querySelectorAll('.destination-grid a.destination,.quick-links a,.shortcuts a.shortcut,.mr-new-grid a,.mrlee-topik-shortcuts a').forEach(a=>{
   if(a.querySelector('.mrlee-card-visual'))return;if(!a.matches('.destination'))a.classList.add('mrlee-custom-future-card');
   const s=doc.createElement('span');s.className='mrlee-card-visual';s.setAttribute('aria-hidden','true');
@@ -46,7 +56,7 @@ function decorate(){
   const kind=cardTheme(link);
   const el=doc.createElement('span');el.className='mrlee-topic-photo';el.setAttribute('aria-hidden','true');
   el.style.setProperty('--mrlee-tile-svg','url("'+asset(kind)+'")');
-  el.style.setProperty('--mrlee-tile-photo','url("assets/v306/images/'+(photos[kind]||photos[which(path)]||'learning-books.webp')+'")');
+  el.style.setProperty('--mrlee-tile-photo','url("'+asset(kind)+'")');
   link.append(el);
  });
  doc.querySelectorAll('.feature-card img').forEach((el,i)=>{
@@ -95,6 +105,40 @@ function pageGallery(){
  else{const main=doc.querySelector('main,.shell,.pro-wrap');if(main)main.prepend(holder)}
 }
 
-function run(){controls();decorate();pageGallery();update(theme)}
+
+function portal(){
+ if(admin||doc.querySelector('.mrlee-next-portal'))return;
+ const groups={
+ home:[['Học tiếng Hàn','hoc-tieng-han.html','learning'],['Giao tiếp','giao-tiep-theo-chu-de.html','speaking'],['TOPIK','kiem-tra-topik.html','topik'],['Phỏng vấn','giao-tiep-phong-van.html','interview'],['Văn hóa Hàn Quốc','van-hoa-han-quoc.html','culture'],['Bản đồ trường đại học','ban-do-dai-hoc-han-quoc.html','universities'],['WORKBOOK','mrlee-bai-tap-pro.html','workbook'],['Hồ sơ học viên','trung-tam-hoc-vien.html','profile'],['Đăng ký tư vấn','dang-ky-tu-van.html','consultation']],
+ learning:[['Sơ cấp 1','hoc-theo-bai.html?cap=1','learning'],['Sơ cấp 2','hoc-theo-bai.html?cap=2','learning'],['Trung cấp 1','hoc-theo-bai.html?cap=3','learning'],['Trung cấp 2','hoc-theo-bai.html?cap=4','learning'],['Cao cấp 1','hoc-theo-bai.html?cap=5','learning'],['Cao cấp 2','hoc-theo-bai.html?cap=6','learning'],['WORKBOOK','mrlee-bai-tap-pro.html','workbook']],
+ speaking:[['Hội thoại thực tế','hoi-thoai-tap-noi.html','speaking'],['Luyện nói nâng cao','luyen-noi-nang-cao.html','speaking'],['Luyện nghe','nghe-toan-bo.html','speaking'],['Phỏng vấn','giao-tiep-phong-van.html','interview'],['Luyện TOPIK','kiem-tra-topik.html','topik']],
+ topik:[['Kiểm tra đầu vào','kiem-tra-dau-vao.html','topik'],['Lộ trình ôn thi','lo-trinh-topik.html','topik'],['Luyện đề TOPIK I / II','de-thi-topik.html','topik'],['Thi thử PBT / IBT','topik-v11.html','topik'],['Lịch sử kết quả','lich-su-hoc-tap.html','profile']],
+ interview:[['Luyện phỏng vấn','on-luyen-phong-van.html','interview'],['Phỏng vấn du học','giao-tiep-phong-van.html','interview'],['Hội thoại mẫu','hoi-thoai-tap-noi.html','speaking'],['Luyện phản xạ','luyen-noi-nang-cao.html','speaking'],['Tư vấn du học','dang-ky-tu-van.html','consultation']],
+ culture:[['Văn hóa theo chủ đề','van-hoa-bai-hoc.html','culture'],['Bản đồ du lịch Hàn Quốc','ban-do-han-quoc.html','culture'],['Bản đồ đại học','ban-do-dai-hoc-han-quoc.html','universities'],['Giao tiếp đời sống','giao-tiep-theo-chu-de.html','speaking'],['Định hướng du học','dang-ky-tu-van.html','consultation']],
+ universities:[['Tìm trường','tim-truong.html','universities'],['Bản đồ chi tiết','ban-do-dai-hoc-han-quoc-chi-tiet.html','universities'],['Học bổng','hoc-bong-han-quoc.html','universities'],['Thông tin tuyển sinh','tuyen-sinh.html','consultation'],['Đăng ký tư vấn','dang-ky-tu-van.html','consultation']],
+ workbook:[['Bài tập theo bài','mrlee-bai-tap-pro.html','workbook'],['Bài học','hoc-tieng-han.html','learning'],['Luyện nghe','nghe-toan-bo.html','speaking'],['Thi thử TOPIK','topik-v11.html','topik'],['Lịch sử bài làm','lich-su-hoc-tap.html','profile']],
+ profile:[['Tiến độ và lịch sử','lich-su-hoc-tap.html','profile'],['Học tiếng Hàn','hoc-tieng-han.html','learning'],['Luyện thi TOPIK','kiem-tra-topik.html','topik'],['WORKBOOK','mrlee-bai-tap-pro.html','workbook'],['Tư vấn định hướng','dang-ky-tu-van.html','consultation']]
+ };
+ const kind=which(path),items=path==='index.html'?groups.home:(groups[kind]||[]);if(!items.length)return;
+ const section=doc.createElement('section');section.className='mrlee-next-portal';
+ const head=doc.createElement('div');head.className='mrlee-next-portal-heading';
+ const h=doc.createElement('h2');h.textContent=path==='index.html'?'KHÁM PHÁ HỆ SINH THÁI MR LEE':'CHỌN CHỨC NĂNG HỌC TẬP';
+ const desc=doc.createElement('p');desc.textContent='Điều hướng trực tiếp đến nội dung thật · Hai giao diện dùng chung kết quả và tài khoản.';head.append(h,desc);section.append(head);
+ const nav=doc.createElement('nav');nav.className='mrlee-next-portal-grid';nav.setAttribute('aria-label','Chuyên mục chính');
+ items.forEach(([name,url,category],i)=>{
+ const a=doc.createElement('a');a.className='mrlee-next-portal-card';a.href=url;
+ a.style.setProperty('--mrlee-next-image','url("'+asset(category)+'")');
+ const visual=doc.createElement('span');visual.className='image-layer';const num=doc.createElement('span');num.className='number';num.textContent=String(i+1).padStart(2,'0');visual.append(num);
+ const caption=doc.createElement('span');caption.className='caption-layer';
+ const title=doc.createElement('strong');title.textContent=name;
+ const subtitle=doc.createElement('small');subtitle.textContent=name==='Đăng ký tư vấn'?'Phiếu trực tuyến lưu vào Admin':'Học và thực hành trên hệ thống MR LEE';
+ const go=doc.createElement('em');go.textContent='Mở chức năng ↗';caption.append(title,subtitle,go);a.append(visual,caption);nav.append(a);
+ });section.append(nav);
+ const hero=doc.querySelector('.section-hero,.hero,.page-hero,.v10-hero,.pro-header,.intro');
+ const content=doc.querySelector('main,.shell,.pro-wrap,.content-section');
+ if(hero?.parentElement)hero.after(section);else if(content)content.prepend(section);
+}
+
+function run(){controls();decorate();portal();update(theme)}
 if(doc.readyState==='loading')doc.addEventListener('DOMContentLoaded',run,{once:true});else run();
 })();
