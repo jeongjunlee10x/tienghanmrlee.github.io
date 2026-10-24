@@ -15,9 +15,11 @@ data.consent=document.getElementById('mrleeConsultConsent').checked;data.under18
 submit.disabled=true;submit.textContent='Đang lưu yêu cầu...';status('Đang gửi phiếu an toàn đến hệ thống.');
 try{
 const r=await fetch('https://pkxqsboyotlyoizzxizb.supabase.co/functions/v1/mrlee-consultation-submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-const result=await r.json();if(!r.ok||!result.ok)throw Error(result.error||'Không thể lưu yêu cầu.');
+const result=await r.json();if(!r.ok||!result?.ok)throw Error(result?.error||'Không thể lưu yêu cầu.');
+// Receipt is required; never show success without an actual server-issued reference.
+if(typeof result.requestId!=='string'||!/^[A-Za-z0-9_-]{8,100}$/.test(result.requestId))throw Error('Hệ thống chưa trả về mã phiếu hợp lệ. Vui lòng liên hệ bộ phận tư vấn để kiểm tra trước khi gửi lại.');
 document.getElementById('mrleeConsultReceipt').hidden=false;document.getElementById('mrleeConsultReceiptId').textContent=result.requestId;
-document.getElementById('mrleeConsultReceiptText').textContent=result.message;
+document.getElementById('mrleeConsultReceiptText').textContent=result.message||'Yêu cầu của bạn đã được tiếp nhận; hãy lưu mã phiếu.';
 status('✓ Phiếu đã được lưu. Bạn có thể lưu lại mã yêu cầu để đối chiếu.',true);f.querySelectorAll('input,select,textarea').forEach(x=>{if(x.type!=='hidden'&&!x.closest('.cf-turnstile'))x.disabled=true});submit.hidden=true;
 }catch(err){status(err.message||'Lỗi kết nối, vui lòng thử lại.');if(window.turnstile?.reset)window.turnstile.reset()}
 finally{submit.disabled=false;if(!submit.hidden)submit.textContent='GỬI PHIẾU TƯ VẤN →'}
