@@ -32,7 +32,19 @@ for(const m of theme.matchAll(/'([a-z0-9-]+\.html(?:\?[^']*)?)'/gi)){
  const f=m[1].split('?')[0];if(!exists(f))errors.push('BROKEN DYNAMIC PORTAL LINK: '+f);
 }
 
+// R1 release guards: real six-section navigation, Admin counts from RLS,
+// and presentation labels which cannot silently drift back to sample totals.
+const navCssFile='assets/mrlee-v2/primary-nav.css';
+if(!exists(navCssFile))errors.push('V2 NAV CSS MISSING');
+else if(!fs.readFileSync(navCssFile,'utf8').includes('.mrlee-v2-primary-nav { display:none; }'))errors.push('FRESH THEME NAV LEAK');
+for(const x of ['function primaryNav()','assets/mrlee-v2/primary-nav.css','Bản đồ các trường ĐH Hàn Quốc']){
+ if(!theme.includes(x))errors.push('V2 NAV MISSING: '+x);
+}
+const adminCharts=exists('assets/mrlee-dual-ui/admin-charts.js')?fs.readFileSync('assets/mrlee-dual-ui/admin-charts.js','utf8'):'';
+if(!adminCharts.includes("select('id,level,last_activity_at',{count:'exact'})"))errors.push('ADMIN STUDENT TOTAL NOT SERVER-COUNTED');
+if(!adminCharts.includes('activeTotal:activeCount.error?null:activeCount.count'))errors.push('ADMIN ACTIVE KPI NOT SERVER-COUNTED');
 const admin=exists('admin.html')?fs.readFileSync('admin.html','utf8'):'';
+if(admin.includes('Tiếng HÃ n'))errors.push('ADMIN TITLE MOJIBAKE');
 for(const x of ['consultation-admin.js','admin-charts.js','MRLEE_ADMIN_PLACEMENT_BRIDGE','logo-mrlee.png'])if(!admin.includes(x))errors.push('ADMIN MISSING: '+x);
 const form=exists('dang-ky-tu-van.html')?fs.readFileSync('dang-ky-tu-van.html','utf8'):'';
 for(const x of ['cf-turnstile','mrleeConsultConsent','mrleeConsultReceipt','logo-mrlee.png'])if(!form.includes(x))errors.push('CONSULT MISSING: '+x);
