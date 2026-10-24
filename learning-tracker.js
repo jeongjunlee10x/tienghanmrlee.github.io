@@ -101,22 +101,25 @@ window.addEventListener('mrlee:practice-finished', async event => {
   // mrlee-review-v1: optional snapshot for a saved practice attempt.
   // Older quizzes can continue saving scores with no review details.
   let reviewJson = '';
-  if (Array.isArray(data.review) && data.review.length >= 1 && data.review.length <= 100) {
+  if (Array.isArray(data.review) && data.review.length >= 1 && data.review.length <= 120) {
     const questions = data.review.map(q => ({
       question:String(q.question??'').slice(0,500),
       choices:Array.isArray(q.choices)?q.choices.slice(0,8).map(v=>String(v).slice(0,300)):[],
       selectedIndex:Number(q.selectedIndex),
       correctIndex:Number(q.correctIndex),
       explanation:String(q.explanation??'').slice(0,700),
+      answerText: q.type === 'writing' ? String(q.answerText??'').slice(0,5000) : undefined,
       lessonNumber:Number.isInteger(q.lessonNumber)?q.lessonNumber:null,
       type:String(q.type??'').slice(0,60)
     }));
-    const valid = questions.every(q=>q.question && q.choices.length>=2 && q.choices.length<=8
-      && Number.isInteger(q.correctIndex) && q.correctIndex>=0 && q.correctIndex<q.choices.length
-      && Number.isInteger(q.selectedIndex) && q.selectedIndex>=-1 && q.selectedIndex<q.choices.length);
+    const valid = questions.every(q=>q.question && (q.type === 'writing' ? q.choices.length===0 : q.choices.length>=2 && q.choices.length<=8)
+      && (q.type === 'writing'
+         ? q.correctIndex === -1 && q.selectedIndex === -1 && typeof q.answerText === 'string'
+         : (Number.isInteger(q.correctIndex) && q.correctIndex>=0 && q.correctIndex<q.choices.length
+            && Number.isInteger(q.selectedIndex) && q.selectedIndex>=-1 && q.selectedIndex<q.choices.length)));
     if (valid) {
       const serialized=JSON.stringify({version:1,questions});
-      if (serialized.length<=120000) reviewJson=serialized;
+      if (new TextEncoder().encode(serialized).length<=112000) reviewJson=serialized;
     }
   }
   const score = data.score, total = data.total;
@@ -126,7 +129,7 @@ window.addEventListener('mrlee:practice-finished', async event => {
   const level = clean(data.level, 20).toLowerCase();
   const durationSeconds = Number.isInteger(data.durationSeconds)
     ? Math.max(0, Math.min(7200, data.durationSeconds)) : 0;
-  if (!/^[a-z0-9-]+$/.test(examId) || !examTitle || !['sc1', 'sc2', 'tc1', 'general'].includes(level)) return;
+  if (!/^[a-z0-9-]+$/.test(examId) || !examTitle || !['sc1', 'sc2', 'sc3', 'sc4', 'sc5', 'sc6', 'tc1', 'general'].includes(level)) return;
   saveFeedback('Đang lưu điểm luyện tập vào tài khoản...');
   try {
     const user = await verifiedUser;
@@ -136,7 +139,9 @@ window.addEventListener('mrlee:practice-finished', async event => {
       source: 'client_practice', createdAt: serverTimestamp(),
       ...(reviewJson ? {reviewJson} : {})
     });
-    saveFeedback('Đã lưu điểm luyện tập vào tài khoản.');
+    saveFeedback(reviewJson || !Array.isArray(data.review)
+      ? 'Đã lưu điểm luyện tập vào tài khoản.'
+      : 'Đã lưu điểm, nhưng bài làm chi tiết quá lớn nên chưa thể đồng bộ đầy đủ.');
   } catch (error) {
     console.warn('Không lưu được điểm luyện tập:', error);
     saveFeedback('Chưa lưu được điểm lên Firebase. Hãy kiểm tra Internet, đăng nhập và Firestore Rules, rồi làm bài lại.', true);
