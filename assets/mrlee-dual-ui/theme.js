@@ -46,7 +46,7 @@ function cardTheme(link){
 function decorate(){
  html.dataset.mrleeScene=which(path);
  html.style.setProperty('--mrlee-scene','url("'+asset(which(path))+'")');
- html.style.setProperty('--mrlee-scene-photo','url("'+asset(which(path))+'")');
+ html.style.setProperty('--mrlee-scene-photo','url("assets/v306/images/'+(photos[which(path)]||'learning-roadmap.webp')+'")');
  doc.querySelectorAll('.destination-grid a.destination,.quick-links a,.shortcuts a.shortcut,.mr-new-grid a,.mrlee-topik-shortcuts a').forEach(a=>{
   if(a.querySelector('.mrlee-card-visual'))return;if(!a.matches('.destination'))a.classList.add('mrlee-custom-future-card');
   const s=doc.createElement('span');s.className='mrlee-card-visual';s.setAttribute('aria-hidden','true');
