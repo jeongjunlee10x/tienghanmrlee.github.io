@@ -75,22 +75,22 @@ html[data-mrlee-theme="future"] .auth-head h1{color:#ecfaff!important;font-weigh
       <button data-nav="overview" class="active"><b>â—«</b> Tổng quan</button>
       <button data-nav="students"><b>♙</b> Quản lý học viên</button>
       <button data-nav="scores"><b>▤</b> Kết quả học tập</button>
-      <button data-nav="activity"><b>â—·</b> Hoạt động học tập</button>
+      <button data-nav="activity"><b>◷</b> Hoạt động học tập</button>
       <button data-nav="rewards"><b>ðŸŽ</b> Phiếu nhận thưởng</button>
       <button data-nav="settings"><b>⚙</b> Hệ thống</button>
     </nav>
     <div class="side-footer"><span id="adminEmail"></span><button id="logout" class="btn sm white">Đăng xuất</button></div>
   </aside>
   <div class="content">
-    <header class="topbar"><div><h2 id="pageTitle">Tổng quan</h2><p>Quản lý dữ liệu học viên trên hệ thống riêng</p></div><div class="topbar-right"><span class="connection" id="connection">â— Đã kết nối</span><div class="user-dot" id="avatarInitial">A</div></div></header>
+    <header class="topbar"><div><h2 id="pageTitle">Tổng quan</h2><p>Quản lý dữ liệu học viên trên hệ thống riêng</p></div><div class="topbar-right"><span class="connection" id="connection">● Đã kết nối</span><div class="user-dot" id="avatarInitial">A</div></div></header>
     <main class="main-pad">
       <div id="syncStatus" class="sync-strip pending" role="status">Chưa có lần đồng bộ thành công. Hãy chạy GitHub Actions sau khi cấu hình.</div>
       <section id="page-overview" class="page">
         <div class="kpis">
-          <div class="kpi"><span>Tổng học viên</span><strong id="kpiStudents">0</strong><i>♙</i></div>
-          <div class="kpi"><span>Đã có hoạt động học</span><strong id="kpiActive">0</strong><i>✓</i></div>
-          <div class="kpi"><span>Lượt ghi điểm</span><strong id="kpiScores">0</strong><i>▤</i></div>
-          <div class="kpi"><span>Điểm trung bình (%)</span><strong id="kpiAvg">—</strong><i>â—·</i></div>
+          <div class="kpi"><span>Hồ sơ đang hiển thị (tối đa 1.000)</span><strong id="kpiStudents">0</strong><i>♙</i></div>
+          <div class="kpi"><span>Có hoạt động học (trong mẫu)</span><strong id="kpiActive">0</strong><i>✓</i></div>
+          <div class="kpi"><span>Bài ghi điểm (tối đa 2.000)</span><strong id="kpiScores">0</strong><i>▤</i></div>
+          <div class="kpi"><span>Điểm trung bình mẫu (%)</span><strong id="kpiAvg">—</strong><i>◷</i></div>
         </div>
         <div class="grid-2">
           <div class="panel"><div class="panel-head"><div><h3>Phân bố trình độ</h3><p>Hồ sơ đồng bộ Firebase và hồ sơ nhập thủ công</p></div></div><div class="levels" id="levelBars"></div></div>
@@ -139,7 +139,7 @@ html[data-mrlee-theme="future"] .auth-head h1{color:#ecfaff!important;font-weigh
   const $=id=>document.getElementById(id);
   const K_URL='mrlee_admin_supabase_url', K_KEY='mrlee_admin_supabase_publishable';
   let client=null, account=null, students=[], scores=[], activities=[], lastSync=null, modalType='', editingId=null, view='overview';
-  const levels=['Sơ cấp 1','Sơ cấp 2','TOPIK I','TOPIK II','Khác'];
+  const levels=['Sơ cấp 1','Sơ cấp 2','Trung cấp 1','Trung cấp 2','Cao cấp 1','Cao cấp 2','TOPIK I','TOPIK II','Khác'];
   const statuses=['Đang học','Tạm nghỉ','Hoàn thành'];
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const date=s=>String(s||'').slice(0,10);
@@ -164,9 +164,9 @@ html[data-mrlee-theme="future"] .auth-head h1{color:#ecfaff!important;font-weigh
     ]);
     for(const result of [a,b,c,d])if(result.error)throw result.error;
     students=a.data||[];scores=b.data||[];activities=c.data||[];lastSync=d.data?.[0]||null;
-    $('connection').textContent='â— Đã kết nối';$('connection').classList.remove('off');renderAll();
+    $('connection').textContent='● Đã kết nối';$('connection').classList.remove('off');renderAll();
     if(students.length===1000||scores.length===2000||activities.length===1000)toast('Đã đạt giới hạn hiển thị dữ liệu; cần phân trang nếu quy mô học viên lớn.',true);
-  }catch(e){$('connection').textContent='â— Lỗi truy vấn';$('connection').classList.add('off');toast('Không đọc được dữ liệu: '+(e.message||e),true);throw e}}
+  }catch(e){$('connection').textContent='● Lỗi truy vấn';$('connection').classList.add('off');toast('Không đọc được dữ liệu: '+(e.message||e),true);throw e}}
   function navigate(to){view=to;document.querySelectorAll('[data-nav]').forEach(el=>el.classList.toggle('active',el.dataset.nav===to));document.querySelectorAll('.page').forEach(el=>el.hidden=el.id!=='page-'+to);$('pageTitle').textContent=({overview:'Tổng quan',students:'Quản lý học viên',scores:'Kết quả học tập',activity:'Hoạt động học tập',settings:'Cấu hình hệ thống',rewards:'Phiếu nhận thưởng'})[to]||'Quản trị';if(to==='rewards')loadRewardClaims()}
   document.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.nav)));
   $('logout').addEventListener('click',async()=>{await client?.auth.signOut();account=null;students=[];scores=[];activities=[];lastSync=null;showAuth('login')});
@@ -174,7 +174,7 @@ html[data-mrlee-theme="future"] .auth-head h1{color:#ecfaff!important;font-weigh
   $('reconfigure').addEventListener('click',async()=>{await client?.auth.signOut();client=null;account=null;let c=readConfig();$('cfgUrl').value=c.url;$('cfgKey').value=c.key;showAuth('setup')});
   function nameById(id){return students.find(s=>s.id===id)?.full_name||'Học viên không tồn tại'}
   function renderAll(){renderOverview();renderStudents();renderScores();renderActivity();renderSyncStatus()}
-  function renderOverview(){let active=students.filter(s=>Boolean(s.last_activity_at)).length;let avg=scores.length?scores.reduce((sum,s)=>sum+Number(s.score)/Number(s.max_score)*100,0)/scores.length:null;$('kpiStudents').textContent=fmtNum(students.length);$('kpiActive').textContent=fmtNum(active);$('kpiScores').textContent=fmtNum(scores.length);$('kpiAvg').textContent=avg===null?'—':avg.toFixed(1).replace('.',',')+'%';$('levelBars').innerHTML=levels.map(l=>{let n=students.filter(s=>s.level===l).length;return `<div><div class="level-line"><span>${esc(l)}</span><span>${n}</span></div><div class="meter"><div style="width:${students.length?n/students.length*100:0}%"></div></div></div>`}).join('');$('recentResults').innerHTML=scores.length?scores.slice(0,5).map(s=>`<div class="recent-item"><div><strong>${esc(nameById(s.student_id))}</strong><br><span>${esc(s.exam_title)} · ${esc(date(s.exam_date))}</span></div><b>${Number(s.score)}/${Number(s.max_score)}</b></div>`).join(''):'<div class="empty">Chưa có kết quả được nhập.</div>'}
+  function renderOverview(){let active=students.filter(s=>Boolean(s.last_activity_at)).length;const scored=scores.filter(s=>Number(s.max_score)>0&&Number.isFinite(Number(s.score)));let avg=scored.length?scored.reduce((sum,s)=>sum+Number(s.score)/Number(s.max_score)*100,0)/scored.length:null;$('kpiStudents').textContent=fmtNum(students.length);$('kpiActive').textContent=fmtNum(active);$('kpiScores').textContent=fmtNum(scores.length);$('kpiAvg').textContent=avg===null?'—':avg.toFixed(1).replace('.',',')+'%';$('levelBars').innerHTML=levels.map(l=>{let n=students.filter(s=>s.level===l).length;return `<div><div class="level-line"><span>${esc(l)}</span><span>${n}</span></div><div class="meter"><div style="width:${students.length?n/students.length*100:0}%"></div></div></div>`}).join('');$('recentResults').innerHTML=scores.length?scores.slice(0,5).map(s=>`<div class="recent-item"><div><strong>${esc(nameById(s.student_id))}</strong><br><span>${esc(s.exam_title)} · ${esc(date(s.exam_date))}</span></div><b>${Number(s.score)}/${Number(s.max_score)}</b></div>`).join(''):'<div class="empty">Chưa có kết quả được nhập.</div>'}
   function pill(s){return `<span class="pill ${s==='Đang học'?'green':s==='Tạm nghỉ'?'yellow':s==='Hoàn thành'?'gray':''}">${esc(s)}</span>`}
   function renderStudents(){let q=$('studentSearch').value.trim().toLocaleLowerCase('vi'),f=$('studentFilter').value;let filtered=students.filter(s=>(f==='all'||s.status===f)&&[s.full_name,s.email,s.phone,s.level].some(x=>String(x||'').toLocaleLowerCase('vi').includes(q)));$('studentsTbody').innerHTML=filtered.map(s=>`<tr><td><div class="cell-main">${esc(s.full_name)}</div><div class="muted">${esc(s.email)}</div>${s.firebase_uid?'<span class="sync-tag">Firebase</span>':'<span class="sync-tag">Thủ công</span>'}</td><td>${esc(s.phone||'—')}</td><td>${esc(s.level)}${s.firebase_learning_level&&s.firebase_learning_level!==s.level?`<span class="mini-time">Đã luyện: ${esc(s.firebase_learning_level)}</span>`:''}</td><td>${pill(s.status)}</td><td>${s.last_activity_at?esc(localDate(s.last_activity_at)):'—'}</td><td>${esc(date(s.joined_at))}</td><td class="td-actions"><button class="btn sm soft" data-action="edit-student" data-id="${s.id}">Sửa</button><button class="btn sm danger" data-action="delete-student" data-id="${s.id}">Xóa</button></td></tr>`).join('')||'<tr><td colspan="7" class="empty">Chưa có học viên phù hợp.</td></tr>';$('studentCount').textContent=`Đang hiển thị ${filtered.length}/${students.length} hồ sơ. Học viên Firebase có nhãn riêng; hồ sơ thủ công không bị xóa.`}
   function renderScores(){let q=$('scoreSearch').value.trim().toLocaleLowerCase('vi');let filtered=scores.filter(s=>[s.exam_title,nameById(s.student_id)].some(x=>x.toLocaleLowerCase('vi').includes(q)));$('scoresTbody').innerHTML=filtered.map(s=>`<tr><td><div class="cell-main">${esc(nameById(s.student_id))}</div></td><td>${esc(s.exam_title)}</td><td><b>${Number(s.score)} / ${Number(s.max_score)}</b></td><td>${(Number(s.score)/Number(s.max_score)*100).toFixed(1)}%</td><td>${s.source_kind==='firebase_practice'?'<span class="sync-tag">Firebase · Luyện tập</span>':'Thủ công'}</td><td>${esc(date(s.exam_date))}</td><td class="td-actions"><button class="btn sm soft" data-action="edit-score" data-id="${s.id}">Sửa</button><button class="btn sm danger" data-action="delete-score" data-id="${s.id}">Xóa</button></td></tr>`).join('')||'<tr><td colspan="7" class="empty">Chưa có kết quả phù hợp.</td></tr>';$('scoreCount').textContent=`Đang hiển thị ${filtered.length}/${scores.length} kết quả. Điểm Firebase là điểm luyện tập tự chấm, không phải điểm thi chính thức.`}
