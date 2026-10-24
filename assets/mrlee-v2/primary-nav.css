@@ -1,0 +1,56 @@
+/* MR LEE V2 R1 — actual main-category navigation.
+   Scoped to FUTURE ONLY. Existing Fresh theme and student data are untouched.
+   All labels and actions are real HTML links, never decorative mockup buttons. */
+.mrlee-v2-primary-nav { display:none; }
+html[data-mrlee-theme="future"] .mrlee-v2-primary-nav {
+  display:flex; align-items:center; gap:16px; width:min(1400px,calc(100% - 32px));
+  margin:8px auto 22px; padding:14px 16px; border:1px solid rgba(90,223,255,.36);
+  border-radius:18px; background:linear-gradient(120deg,rgba(9,30,64,.98),rgba(8,17,42,.94));
+  box-shadow:0 14px 35px rgba(0,0,0,.29),inset 0 1px rgba(138,237,255,.14);
+  color:#f4faff; font-family:"Be Vietnam Pro","Noto Sans KR",system-ui,sans-serif;
+  isolation:isolate; position:relative; z-index:18; box-sizing:border-box;
+}
+html[data-mrlee-theme="future"] .mrlee-v2-primary-nav * { box-sizing:border-box; }
+html[data-mrlee-theme="future"] .mrlee-v2-nav-label {
+  flex:0 0 108px; font-size:11px; line-height:1.5; font-weight:850;
+  letter-spacing:.12em; color:#91e5f4; text-wrap:balance;
+}
+html[data-mrlee-theme="future"] .mrlee-v2-nav-list {
+  display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); width:100%;
+  gap:8px; list-style:none; padding:0; margin:0; min-width:0;
+}
+html[data-mrlee-theme="future"] .mrlee-v2-nav-list li {min-width:0;padding:0;margin:0}
+html[data-mrlee-theme="future"] .mrlee-v2-nav-list a {
+  min-height:58px; height:100%; display:flex; align-items:center; gap:8px;
+  text-decoration:none; padding:10px 12px; border-radius:12px;
+  font-size:12px; line-height:1.45; font-weight:750; color:#f4faff;
+  background:rgba(25,58,101,.52); border:1px solid rgba(91,190,243,.28);
+  transition:background .2s,border-color .2s,transform .2s;
+  overflow-wrap:break-word;
+}
+html[data-mrlee-theme="future"] .mrlee-v2-nav-list small {
+  font-size:10px; color:#7feeff; letter-spacing:.05em; flex:none;
+}
+html[data-mrlee-theme="future"] .mrlee-v2-nav-list a:hover,
+html[data-mrlee-theme="future"] .mrlee-v2-nav-list a[aria-current="page"] {
+  border-color:#6fe9ff; background:linear-gradient(110deg,rgba(26,117,159,.55),rgba(93,65,164,.48));
+  color:#fff; transform:translateY(-2px);
+}
+html[data-mrlee-theme="future"] .mrlee-v2-nav-list a:focus-visible {
+  outline:3px solid #ffdc7f!important; outline-offset:3px!important;
+}
+@media(max-width:1240px){
+ html[data-mrlee-theme="future"] .mrlee-v2-primary-nav { flex-direction:column; align-items:stretch; gap:9px; }
+ html[data-mrlee-theme="future"] .mrlee-v2-nav-label {flex:auto;}
+ html[data-mrlee-theme="future"] .mrlee-v2-nav-list {grid-template-columns:repeat(3,minmax(0,1fr));}
+}
+@media(max-width:620px){
+ html[data-mrlee-theme="future"] .mrlee-v2-primary-nav {width:calc(100% - 20px); margin:7px auto 15px; padding:11px;border-radius:14px;}
+ html[data-mrlee-theme="future"] .mrlee-v2-nav-label {font-size:10px;}
+ html[data-mrlee-theme="future"] .mrlee-v2-nav-list {grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px;}
+ html[data-mrlee-theme="future"] .mrlee-v2-nav-list a {font-size:11px;min-height:52px;padding:8px 9px;}
+}
+@media(prefers-reduced-motion:reduce){
+ html[data-mrlee-theme="future"] .mrlee-v2-nav-list a {transition:none}
+ html[data-mrlee-theme="future"] .mrlee-v2-nav-list a:hover {transform:none}
+}
