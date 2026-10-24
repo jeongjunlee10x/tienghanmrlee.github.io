@@ -8,7 +8,7 @@ const pageNames={'page-overview':'Tổng quan hệ thống','page-students':'H�
 function panel(page){
  if(page.querySelector('.mrlee-admin-analytics'))return;
  const box=d.createElement('div');box.className='mrlee-admin-analytics';
- box.innerHTML='<div class="mrlee-analytics-head"><div><h3>◈ Thống kê — '+esc(pageNames[page.id]||'Trung tâm quản trị')+'</h3><small>Biểu đồ chung và tiến độ học tập từ dữ liệu Supabase (không dùng số liệu mẫu)</small></div><div><label for="mrleePeriod'+esc(page.id)+'">Khoảng thời gian:</label> <select class="mrlee-chart-period" id="mrleePeriod'+esc(page.id)+'"><option value="7">7 ngày</option><option value="14" selected>14 ngày</option><option value="30">30 ngày</option></select> <button type="button" class="btn soft mrlee-chart-reload">↻ Cập nhật</button></div></div><div class="mrlee-admin-kpis"><div><small>Tổng học viên</small><strong data-stat="students">—</strong></div><div><small>Học viên hoạt động 7 ngày</small><strong data-stat="active">—</strong></div><div><small>Bài luyện tập đã lưu</small><strong data-stat="attempts">—</strong></div><div><small>Bài đạt từ 70% (điểm luyện tập)</small><strong data-stat="passed">—</strong></div></div><div class="mrlee-admin-charts"><div class="mrlee-chart-panel"><strong>Hoạt động theo ngày — bài làm và lượt học</strong><div data-chart="activity"><p>Đang tải số liệu...</p></div></div><div class="mrlee-chart-panel"><strong>Điểm luyện tập trung bình theo cấp hiện tại</strong><div data-chart="levels"><p>Đang tải số liệu...</p></div></div></div><p class="mrlee-chart-note" style="font-size:11px;opacity:.75;margin-top:9px">Các điểm luyện tập do thiết bị gửi không phải điểm thi TOPIK chính thức. Biểu đồ cấp học thể hiện tỷ lệ điểm đạt được, không phải % hoàn thành giáo trình.</p>';
+ box.innerHTML='<div class="mrlee-analytics-head"><div><h3>◈ Thống kê — '+esc(pageNames[page.id]||'Trung tâm quản trị')+'</h3><small>Biểu đồ chung và tiến độ học tập từ dữ liệu Supabase (không dùng số liệu mẫu)</small></div><div><label for="mrleePeriod'+esc(page.id)+'">Khoảng thời gian:</label> <select class="mrlee-chart-period" id="mrleePeriod'+esc(page.id)+'"><option value="7">7 ngày</option><option value="14" selected>14 ngày</option><option value="30">30 ngày</option></select> <button type="button" class="btn soft mrlee-chart-reload">↻ Cập nhật</button></div></div><div class="mrlee-admin-kpis"><div><small>Tổng học viên</small><strong data-stat="students">—</strong></div><div><small>Học viên hoạt động 7 ngày</small><strong data-stat="active">—</strong></div><div><small>Bài luyện tập đã lưu</small><strong data-stat="attempts">—</strong></div><div><small>Bài đạt từ 70% (điểm luyện tập)</small><strong data-stat="passed">—</strong></div></div><div class="mrlee-admin-charts"><div class="mrlee-chart-panel"><strong>Hoạt động theo ngày — bài làm và lượt học</strong><div data-chart="activity"><p>Đang tải số liệu...</p></div></div><div class="mrlee-chart-panel"><strong>Điểm luyện tập trung bình theo cấp hiện tại</strong><div data-chart="levels"><p>Đang tải số liệu...</p></div></div><div class="mrlee-chart-panel mrlee-chart-progress"><strong>Tiến độ hoạt động học tập theo trình độ</strong><div data-chart="learning-progress"><p>Đang tải dữ liệu học tập...</p></div></div></div><p class="mrlee-chart-note" style="font-size:11px;opacity:.75;margin-top:9px">Dữ liệu Supabase thực tế, không chèn số ảo. Điểm tự chấm không phải điểm TOPIK chính thức; số lượt học không phải % hoàn thành giáo trình.</p>';
  page.prepend(box);
  box.querySelector('select').addEventListener('change',e=>{period=Number(e.target.value)||14;d.querySelectorAll('.mrlee-chart-period').forEach(s=>{s.value=String(period)});if(cache)renderAll()});
  box.querySelector('button').addEventListener('click',()=>void load(true));
@@ -37,19 +37,48 @@ function chartLevels(scores,students){
  }).join('');
  return '<svg viewBox="0 0 380 198" role="img" aria-label="Điểm trung bình theo trình độ học viên; các cấp không có bài luyện ghi dấu gạch ngang">'+contents+'</svg><small>Chỉ tính khi có bài làm và cấp của học viên được ghi nhận.</small>';
 }
+/* Progress here counts actual saved learning events. It is not a fabricated
+ * curriculum completion percentage; Firestore has no audited completion
+ * denominator for all 90 lessons yet.
+ */
+function chartStudyProgress(events,students){
+ const levels=['Sơ cấp 1','Sơ cấp 2','Trung cấp 1','Trung cấp 2','Cao cấp 1','Cao cấp 2','Khác'];
+ const userLevels=new Map(students.map(s=>[String(s.id),String(s.level||'Khác')]));
+ const counts=levels.map(()=>({lesson:0,practice:0,visit:0}));
+ for(const item of events){
+   const index=levels.indexOf(userLevels.get(String(item.student_id))||'Khác');
+   const i=index<0?6:index;
+   const k=String(item.kind||'').toLowerCase();
+   const category=k==='lesson'?'lesson':(k==='practice'?'practice':'visit');
+   counts[i][category]++;
+ }
+ const total=counts.reduce((v,x)=>v+x.lesson+x.practice+x.visit,0);
+ if(!total)return '<p style="font-size:12px;color:inherit">Chưa ghi nhận hoạt động học tập để thống kê.</p>';
+ const colors={lesson:'#40e0fa',practice:'#aa89ff',visit:'#5176a1'};
+ const max=Math.max(1,...counts.map(x=>x.lesson+x.practice+x.visit));
+ const rows=counts.map((x,i)=>{
+   const n=x.lesson+x.practice+x.visit;if(!n)return '';
+   let offset=0;const bars=['lesson','practice','visit'].map(k=>{
+     const width=263*x[k]/max,out='<rect x="'+(109+offset)+'" y="'+(i*27+18)+'" width="'+width+'" height="16" rx="3" fill="'+colors[k]+'"><title>'+x[k]+' '+(k==='lesson'?'bài học':k==='practice'?'luyện tập':'lượt xem')+'</title></rect>';offset+=width;return out;
+   }).join('');
+   return '<text x="2" y="'+(i*27+30)+'" font-size="12" fill="#a5c9e7">'+levels[i]+'</text>'+bars+'<text x="379" y="'+(i*27+30)+'" font-size="12" fill="#dcecff">'+n+'</text>';
+ }).join('');
+ return '<svg viewBox="0 0 440 230" role="img" aria-label="Số lượt bài học, luyện tập, truy cập đã ghi nhận theo trình độ học viên">'+rows+'</svg><div class="mrlee-chart-legend"><span style="--swatch:'+colors.lesson+'">Lượt học bài</span><span style="--swatch:'+colors.practice+'">Lượt luyện tập</span><span style="--swatch:'+colors.visit+'">Lượt truy cập</span></div><small>Tiến độ hoạt động là lượt được đồng bộ; chưa phải tỷ lệ hoàn thành giáo trình. Dữ liệu hiển thị tối đa 1.500 sự kiện gần nhất.</small>';
+}
 function renderAll(){
  if(!cache)return;ensure();
  const {students,scores,events,total}=cache,weekAgo=Date.now()-7*864e5;
  const active=students.filter(s=>s.last_activity_at&&new Date(s.last_activity_at).getTime()>=weekAgo).length;
  const passed=scores.filter(s=>Number(s.max_score)>0&&Number(s.score)/Number(s.max_score)>=.7).length;
  const pct=scores.length?Math.round(100*passed/scores.length):0;
- const c1=chartActivity(scores,events),c2=chartLevels(scores,students);
+ const c1=chartActivity(scores,events),c2=chartLevels(scores,students),c3=chartStudyProgress(events,students);
  d.querySelectorAll('.mrlee-admin-analytics').forEach(el=>{
   for(const [k,v] of Object.entries({students:students.length,active,attempts:total,passed:scores.length?pct+'%':'—'})){
    const o=el.querySelector('[data-stat="'+k+'"]');if(o)o.textContent=String(v);
   }
   el.querySelector('[data-chart="activity"]').innerHTML=c1;
   el.querySelector('[data-chart="levels"]').innerHTML=c2;
+  el.querySelector('[data-chart="learning-progress"]').innerHTML=c3;
  });
 }
 async function load(force=false){
@@ -60,7 +89,7 @@ async function load(force=false){
   const [a,b,c]=await Promise.all([
    db.from('mrlee_students').select('id,level,last_activity_at').limit(2000),
    db.from('mrlee_scores').select('student_id,score,max_score,created_at,exam_date',{count:'exact'}).order('created_at',{ascending:false}).limit(1500),
-   db.from('mrlee_learning_events').select('kind,created_at').order('created_at',{ascending:false}).limit(1500)
+   db.from('mrlee_learning_events').select('student_id,kind,created_at').order('created_at',{ascending:false}).limit(1500)
   ]);
   const error=a.error||b.error||c.error;if(error)throw error;
   cache={students:a.data||[],scores:b.data||[],events:c.data||[],total:b.count??b.data?.length??0};lastLoad=Date.now();renderAll();
