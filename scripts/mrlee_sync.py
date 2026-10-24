@@ -270,7 +270,7 @@ def build_attempt(uid: str, student_id: str, document: Any) -> tuple[dict[str, A
         "exam_date": happened.astimezone(LOCAL_TZ).date().isoformat(),
         "firebase_created_at": iso(happened),
         "source_kind": "firebase_practice",
-        **({"review_snapshot": review} if review is not None else {}),
+        "review_snapshot": review,  # Same keys in every PostgREST batch; NULL when no details.
         "notes": "Điểm luyện tập tự chấm trên trình duyệt; không phải điểm thi chính thức.",
     }, happened
 
