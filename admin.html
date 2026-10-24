@@ -278,7 +278,7 @@
     getUserId: () => account?.id || null,
     openPage: (target = 'placements') => {
       if (!account || !client) return false;
-      navigate(target === 'all-attempts' ? 'all-attempts' : 'placements');
+      navigate(['all-attempts','consultations','placements'].includes(target) ? target : 'placements');
       return true;
     }
   });
@@ -286,5 +286,7 @@
 })();
 </script>
 <script defer src="mrlee-placement-admin.js?v=4"></script>
-<script defer src="assets/mrlee-dual-ui/admin-charts.js?v=20261024-1"></script>
+<link rel="stylesheet" href="assets/mrlee-next/consultation-admin.css?v=20261024">
+<script defer src="assets/mrlee-next/consultation-admin.js?v=20261024"></script>
+<script defer src="assets/mrlee-dual-ui/admin-charts.js?v=20261024-4"></script>
 </body></html>
