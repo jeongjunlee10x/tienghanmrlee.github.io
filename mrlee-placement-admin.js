@@ -34,12 +34,10 @@
   document.body.append(backdrop);
   const $=id=>document.getElementById(id);
   let rows=[],current=null,offset=0,busy=false,end=false;
-  function adminClient(){
-    // client/account are top-level lexical names of admin.html's existing classic script.
-    // Accessing them after login avoids a second Auth client or exposing admin credentials.
-    try{return typeof client!=='undefined' && typeof account!=='undefined' && account && client ? client : null}
-    catch{return null}
-  }
+  // The main admin application runs inside an IIFE, so its client/account/navigate
+  // are NOT globals. Use the explicit bridge it provides after successful login.
+  function adminBridge(){return window.MRLEE_ADMIN_PLACEMENT_BRIDGE || null}
+  function adminClient(){return adminBridge()?.getClient() || null}
   async function load(reset=true){
     const db=adminClient();if(!db){$('placementInfo').textContent='Hãy đăng nhập Admin Supabase trước.';return}
     if(busy)return;busy=true;
@@ -67,7 +65,7 @@
       <td>${safe(times(r.submitted_at))}</td>
       <td>${safe(({new:'Chờ đánh giá',reviewed:'Đã đánh giá',assigned:'Đã xếp lớp'})[r.review_status]||r.review_status)}<div class="muted">${safe(r.assigned_class||'')}</div></td>
       <td><button type="button" class="btn sm soft" data-placement-id="${safe(r.id)}">Xem đủ 50 câu</button></td>
-    </tr>`).join('')||'<tr><td colspan="6">Chưa tìm thấy bài làm.</td></tr>';
+    </tr>`).join('')||'<tr><td colspan="6">Chưa có bài nộp được lưu hoặc không có bài phù hợp bộ lọc. Mở trang Kiểm tra đầu vào, nộp thử và kiểm tra thông báo “Đã lưu đầy đủ bài làm”.</td></tr>';
     $('placementInfo').textContent=`Đã tải ${rows.length} bài; đang hiển thị ${filtered.length} bài phù hợp. Nhấn “Xem đủ 50 câu” để đánh giá và xếp lớp.`;
     $('placementMore').hidden=end;
   }
@@ -104,7 +102,7 @@
     const form=event.currentTarget;
     const data={review_status:form.elements.namedItem('review_status').value,
       assigned_class:form.elements.namedItem('assigned_class').value.trim(),teacher_notes:form.elements.namedItem('teacher_notes').value.trim(),
-      reviewed_at:new Date().toISOString(),reviewed_by:account.id};
+      reviewed_at:new Date().toISOString(),reviewed_by:adminBridge()?.getUserId() || null};
     const button=$('placementSaveReview');button.disabled=true;
     try{
       const {error}=await db.from('mrlee_placement_submissions').update(data).eq('id',current.id);
@@ -121,7 +119,13 @@
     a.href=u;a.download=`mrlee-placement-${current.submission_id}.json`;a.click();
     setTimeout(()=>URL.revokeObjectURL(u),1000);
   }
-  nav.addEventListener('click',()=>{navigate('placements');void load(true)});
+  nav.addEventListener('click',()=>{
+    if(!adminBridge()?.openPage()){
+      $('placementInfo').textContent='Vui lòng đăng nhập bằng tài khoản Admin Supabase.';
+      return;
+    }
+    void load(true);
+  });
   $('placementReload').addEventListener('click',()=>void load(true));
   $('placementMore').addEventListener('click',()=>void load(false));
   ['placementSearch','placementLevel','placementStatus'].forEach(id=>$(id).addEventListener('input',render));
