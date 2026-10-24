@@ -98,3 +98,8 @@ html[data-mrlee-theme="fresh"] .mrlee-next-button.secondary{background:#fff;colo
 @media(max-width:1000px){html[data-mrlee-theme="future"] .mrlee-next-portal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.mrlee-next-header{justify-content:center}}
 @media(max-width:720px){.mrlee-next-hero,.mrlee-consult-columns{grid-template-columns:1fr}.mrlee-next-hero-visual{min-height:195px;grid-row:1}.mrlee-next-hero-copy{grid-row:2}.mrlee-form-grid{grid-template-columns:1fr}html[data-mrlee-theme="future"] .mrlee-next-portal-grid{grid-template-columns:1fr}html[data-mrlee-theme="future"] .mrlee-next-portal-card:first-child{grid-column:auto}.mrlee-next-header nav{justify-content:center}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}html[data-mrlee-theme="future"] .mrlee-next-portal-card{transition:none}html[data-mrlee-theme="future"] .mrlee-next-portal-card:hover{transform:none}}
+
+/* CTA luôn có ở cả hai giao diện; phiếu mới được nhận trực tiếp, không yêu cầu đăng nhập */
+.mrlee-consult-direct{display:inline-flex;align-items:center;justify-content:center;padding:10px 13px;border-radius:12px;font:800 11px/1.4 "Segoe UI",system-ui,sans-serif;text-decoration:none;background:linear-gradient(120deg,#0c527f,#1357ad);border:1px solid #3bbfe7;color:#fff!important;margin:4px;box-shadow:0 7px 21px #105b9455}
+.mrlee-consult-direct:hover{filter:brightness(1.12)}
+html[data-mrlee-theme="future"] .mrlee-consult-direct{background:linear-gradient(110deg,#50f1ff,#9f7cff);color:#051735!important;border-color:#79e9ff;box-shadow:0 0 22px #4de1fc70}
