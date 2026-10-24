@@ -24,7 +24,7 @@ html[data-mrlee-theme="future"] :is(.section-hero,.page-hero,.hero,.pro-header):
  background-size:54px 54px,100% 100%;mix-blend-mode:screen;
 }
 html[data-mrlee-theme="future"] .mrlee-cinematic-gallery{max-width:1280px;width:calc(100% - 30px);margin:18px auto 28px;padding:12px 0;color:#f2faff}
-html:not([data-mrlee-theme="future"]) .mrlee-cinematic-gallery{display:none!important}
+html:not([data-mrlee-theme="future"]) :is(.mrlee-cinematic-gallery,.mrlee-topic-photo){display:none!important}
 html[data-mrlee-theme="future"] .mrlee-cinematic-title{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px;margin:0 0 12px}
 html[data-mrlee-theme="future"] .mrlee-cinematic-title h2{font:800 clamp(15px,1.5vw,20px)/1.3 system-ui;color:#e8f7ff!important;letter-spacing:.035em;margin:0}
 html[data-mrlee-theme="future"] .mrlee-cinematic-title small{color:#92d9f6;font-size:11px}
