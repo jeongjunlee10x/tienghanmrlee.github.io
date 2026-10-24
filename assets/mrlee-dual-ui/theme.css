@@ -4,7 +4,7 @@
 .mrlee-theme-switch button{font:700 12px/1.3 system-ui,sans-serif;padding:9px 12px;border:1px solid transparent;border-radius:999px;background:transparent;color:#285071;cursor:pointer}
 .mrlee-theme-switch button[aria-pressed="true"]{color:#fff;background:linear-gradient(120deg,#178fff,#3b53d5);box-shadow:0 4px 14px #1b8bf859}
 .mrlee-theme-switch button:focus-visible{outline:3px solid #ffdf73;outline-offset:3px}
-.mrlee-card-visual{display:none;position:absolute;inset:0 0 0 auto;width:53%;background-image:linear-gradient(90deg,#05152c 0%,transparent 40%),var(--mrlee-card-art);background-size:cover;background-position:center;opacity:.92;z-index:0;pointer-events:none}
+.mrlee-card-visual{display:none;position:absolute;inset:0 0 0 auto;width:53%;background-image:linear-gradient(90deg,#06162de8 0%,#071b35ab 36%,#0a143326 75%),var(--mrlee-card-photo),var(--mrlee-card-art);background-size:cover;background-position:center;opacity:.92;z-index:0;pointer-events:none}
 .mrlee-future-kicker{display:none}
 html[data-mrlee-theme="future"]{color-scheme:dark;--ink:#e8f6ff;--muted:#aac9e6;--line:#255588;--bg:#040f24;--navy:#132c52;--navy2:#1b3261}
 html[data-mrlee-theme="future"] body{background:radial-gradient(ellipse at 83% -5%,#28256b 0%,transparent 37%),radial-gradient(ellipse at 0% 50%,#052e59 0%,transparent 35%),#030c1e;color:#e8f4ff}
@@ -100,3 +100,7 @@ html[data-mrlee-theme="future"] .main-pad::before{content:"MR LEE • TRUNG TÂM
 @media(max-width:1050px){html[data-mrlee-theme="future"] .mrlee-future-levels{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:620px){html[data-mrlee-theme="future"] .mrlee-future-home{padding:10px 13px}html[data-mrlee-theme="future"] .mrlee-future-statbar{grid-template-columns:repeat(2,minmax(0,1fr))}html[data-mrlee-theme="future"] .mrlee-future-statbar>div:nth-child(2){border-right:0}html[data-mrlee-theme="future"] .mrlee-future-levels{grid-template-columns:repeat(2,minmax(0,1fr))}html[data-mrlee-theme="future"] .mrlee-future-modules{grid-template-columns:1fr 1fr}html[data-mrlee-theme="future"] .mrlee-future-modules .mrlee-future-mod-card{grid-column:span 1!important}html[data-mrlee-theme="future"] .mrlee-future-modules .mrlee-future-wide{grid-column:span 2!important}html[data-mrlee-theme="future"] .mrlee-future-hero-copy{padding:16px 18px!important}}
 @media(prefers-reduced-motion:reduce){html[data-mrlee-theme="future"] .mrlee-future-mod-card{transition:none}}
+
+html[data-mrlee-theme="future"] .mrlee-future-mod-card img{filter:saturate(1.28) contrast(1.07) brightness(.86)}
+html[data-mrlee-theme="future"] .mrlee-topik-card>img{filter:saturate(1.3) contrast(1.09) brightness(.9)}
+html[data-mrlee-theme="future"] :is(.cards img,.culture-card img,.card-grid img){filter:saturate(1.15) contrast(1.07)}

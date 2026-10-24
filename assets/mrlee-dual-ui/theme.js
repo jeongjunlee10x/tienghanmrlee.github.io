@@ -6,6 +6,7 @@ const admin=path==='admin.html';
 const sceneNames=['learning','speaking','topik','interview','culture','universities','home','admin'];
 function which(t){t=String(t).toLowerCase();if(/admin|xep-hang|ranking/.test(t))return 'admin';if(/van-hoa|culture|du-lich|kham-pha/.test(t))return 'culture';if(/phong-van/.test(t))return 'interview';if(/ban-do|dai-hoc|truong/.test(t))return 'universities';if(/giao-tiep|hoi-thoai|noi/.test(t))return 'speaking';if(/topik|kiem-tra|luyen-de|thi|nghe/.test(t))return 'topik';if(/hoc-|bai-tap|workbook|hoc-vien/.test(t))return 'learning';return 'home'}
 function asset(n){return ROOT+n+'.svg'}
+const photos={elementary1:'learning-cap-1.webp',elementary2:'learning-cap-2.webp',intermediate1:'learning-cap-3.webp',intermediate2:'learning-cap-4.webp',advanced1:'learning-cap-5.webp',advanced2:'learning-cap-6.webp',learning:'learning-books.webp',workbook:'learning-books.webp',speaking:'learning-cap-2.webp',topik:'feature-6-thi-topik.webp',mock:'learning-topik.webp',placement:'learning-topik.webp',roadmap:'learning-roadmap.webp',history:'learning-roadmap.webp',listening:'learning-listening.webp',writing:'learning-books.webp',interview:'step-1-tu-van.webp',culture:'culture.webp',daily:'culture.webp',food:'culture.webp',life:'culture.webp',universities:'feature-2-ban-do.webp',schools:'feature-3-tim-truong.webp',home:'feature-1-tuyen-sinh.webp',admin:'learning-roadmap.webp'};
 let theme='fresh';try{theme=localStorage.getItem(KEY)==='future'?'future':'fresh'}catch{}
 function update(v){theme=v==='future'?'future':'fresh';html.dataset.mrleeTheme=theme;try{localStorage.setItem(KEY,theme)}catch{}
  doc.querySelectorAll('.mrlee-theme-switch button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.theme===theme)));
@@ -30,9 +31,11 @@ function decorate(){
  doc.querySelectorAll('.destination-grid a.destination,.quick-links a,.shortcuts a.shortcut,.mr-new-grid a,.mrlee-topik-shortcuts a').forEach(a=>{
   if(a.querySelector('.mrlee-card-visual'))return;if(!a.matches('.destination'))a.classList.add('mrlee-custom-future-card');
   const s=doc.createElement('span');s.className='mrlee-card-visual';s.setAttribute('aria-hidden','true');
-  s.style.setProperty('--mrlee-card-art','url("'+asset(cardTheme(a))+'")');a.append(s);
+  const kind=cardTheme(a);
+  s.style.setProperty('--mrlee-card-art','url("'+asset(kind)+'")');
+  s.style.setProperty('--mrlee-card-photo','url("assets/v306/images/'+(photos[kind]||'learning-roadmap.webp')+'")');a.append(s);
  });
- doc.querySelectorAll('.feature-card img,.mrlee-topik-card>img').forEach((el,i)=>{
+ doc.querySelectorAll('.feature-card img').forEach((el,i)=>{
   if(el.dataset.mrleeOriginal)return;const a=el.closest('a');
   el.dataset.mrleeOriginal=el.getAttribute('src')||'';el.dataset.mrleeFuture=asset(cardTheme(a||el));
  });
