@@ -10,6 +10,10 @@
 <link rel="stylesheet" href="assets/mrlee-live/live.css?v=20261018-3" data-mrlee-live="css">
 <script type="module" src="assets/mrlee-live/live.js?v=20261018-3" data-mrlee-live="js"></script>
 <!-- MRLEE_LIVE_UPDATES_V3_END -->
+<!-- MRLEE_DUAL_UI_V1 -->
+<script>try{document.documentElement.dataset.mrleeTheme=localStorage.getItem('MRLEE.THEME.V1')==='future'?'future':'fresh'}catch(e){document.documentElement.dataset.mrleeTheme='fresh'}</script>
+<link rel="stylesheet" href="assets/mrlee-dual-ui/theme.css?v=20261024-1">
+<script defer src="assets/mrlee-dual-ui/theme.js?v=20261024-1"></script>
 </head><body>
 <header class="pro-header"><div class="pro-wrap"><a id="backToLesson" href="hoc-theo-bai.html">← Bài học hiện tại</a><span>MR LEE · Luyện tập theo giáo trình</span><h1 id="workHeading">15 bộ bài tập theo từng bài học</h1><p>15 bộ độc lập × 6 câu hỏi/bộ · đa dạng từ vựng, ngữ pháp, nghe, đọc, sắp xếp câu</p></div></header>
 <main class="pro-wrap"><section class="pro-panel"><div class="pro-grid"><label>Cấp độ <select id="workLevel"><option value="1">Sơ cấp 1</option><option value="2">Sơ cấp 2</option><option value="3">Trung cấp 1</option><option value="4">Trung cấp 2</option><option value="5">Cao cấp 1</option><option value="6">Cao cấp 2</option></select></label><label>Bài học <select id="workLesson"></select></label><label>Mã hồ sơ học viên (lưu trên thiết bị) <input id="workProfile" type="text" maxlength="48" placeholder="VD: hocvien-001" value="hocvien-001"></label></div><p class="pro-muted">Kết quả WORKBOOK lưu trên thiết bị; nếu đã đăng nhập và xác minh email Firebase, hệ thống còn lưu điểm và từng câu trả lời lên tài khoản để Admin theo dõi. Mã hồ sơ chỉ dùng tại máy này, không thay cho tài khoản đăng nhập.</p><p id="workSummary" role="status">Đang tải nội dung…</p></section>
