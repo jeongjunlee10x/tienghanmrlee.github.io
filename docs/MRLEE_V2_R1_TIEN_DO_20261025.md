@@ -6,6 +6,7 @@
 - **Admin**: KPI Tổng học viên dùng `count: 'exact'` của Supabase thay vì độ dài mẫu tối đa 2.000 người; KPI học viên hoạt động 7 ngày dùng phép đếm từ máy chủ và hiển thị gạch ngang nếu truy vấn thất bại.
 - Biểu đồ Admin được ghi rõ phạm vi mẫu dữ liệu 2.000 hồ sơ và 1.500 bản ghi gần nhất, tránh diễn giải là toàn bộ dữ liệu. Ngày hoạt động dùng múi giờ Việt Nam.
 - Sửa một số chuỗi tiếng Việt bị lỗi mã hóa ở `admin.html`.
+- Mở rộng lựa chọn trình độ Admin đủ 6 cấp (giữ nguyên TOPIK I/II và Khác); các KPI cũ có giới hạn tải 1.000/2.000 bản ghi nay được ghi rõ là mẫu, tránh nhầm với tổng hệ thống. Bỏ phép tính điểm trung bình khi max_score bằng 0.
 - CI kiểm thử cho pull request và bổ sung điều kiện chống hồi quy R1. Không sửa bảng, migrations, Firebase/Firestore Rules hay điểm học viên.
 
 ## Kiểm thử mã nguồn trong phiên làm việc
