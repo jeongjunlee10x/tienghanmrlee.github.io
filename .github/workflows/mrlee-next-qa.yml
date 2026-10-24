@@ -1,10 +1,23 @@
 name: MR LEE NEXT — Kiểm tra giao diện và liên kết
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/mrlee-v2/**'
+      - 'assets/mrlee-dual-ui/**'
+      - 'assets/mrlee-next/**'
+      - 'ban-do-dai-hoc-han-quoc.html'
+      - 'dang-ky-tu-van.html'
+      - 'tools/audit-mrlee-rewards.mjs'
+      - 'admin.html'
+      - 'tools/mrlee-next-qa.mjs'
+      - '.github/workflows/mrlee-next-qa.yml'
   push:
     branches: [main]
     paths:
       - 'assets/mrlee-next/**'
+      - 'assets/mrlee-v2/**'
       - 'assets/mrlee-dual-ui/**'
       - 'hoc-tieng-han.html'
       - 'giao-tiep-theo-chu-de.html'
@@ -22,6 +35,7 @@ on:
       - 'quy-tac-diem-mrlee.html'
       - 'tuyen-sinh.html'
       - 'tools/mrlee-next-qa.mjs'
+      - 'tools/audit-mrlee-rewards.mjs'
       - '.github/workflows/mrlee-next-qa.yml'
 permissions:
   contents: read
@@ -34,5 +48,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Kiểm tra 14 trang và link thật
+      - name: Kiểm tra trang, tệp, liên kết, mã nguồn và biểu đồ Admin
         run: node tools/mrlee-next-qa.mjs
+      - name: Kiểm toán cơ chế điểm thưởng, chỉ đọc
+        run: node tools/audit-mrlee-rewards.mjs

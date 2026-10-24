@@ -5,6 +5,11 @@ const path=decodeURIComponent(location.pathname.split('/').pop()||'index.html');
 // V2 cinematic artwork complements existing approved SVGs and keeps original branding untouched.
 const cinematicCss=doc.createElement('link');cinematicCss.rel='stylesheet';cinematicCss.href='assets/mrlee-dual-ui/cinematic-v2.css?v=20261024-2';cinematicCss.dataset.mrleeCinematic='v2';doc.head.append(cinematicCss);
 const premiumCss=doc.createElement('link');premiumCss.rel='stylesheet';premiumCss.href='assets/mrlee-next/premium.css?v=20261024c';doc.head.append(premiumCss);
+// Dedicated R1 navigation layer, shown only in the optional futuristic theme.
+const navCss=doc.createElement('link');navCss.rel='stylesheet';navCss.href='assets/mrlee-v2/primary-nav.css?v=20261025-r1';doc.head.append(navCss);
+// Production-ready V2 experience: page-specific real CTAs and accessible site footer.
+const experienceCss=doc.createElement('link');experienceCss.rel='stylesheet';experienceCss.href='assets/mrlee-v2/experience.css?v=20261025-r2';doc.head.append(experienceCss);
+const experienceScript=doc.createElement('script');experienceScript.src='assets/mrlee-v2/experience.js?v=20261025-r2';doc.head.append(experienceScript);
 const admin=path==='admin.html';
 const sceneNames=['learning','speaking','topik','interview','culture','universities','home','admin'];
 function which(t){t=String(t).toLowerCase();if(/mrlee-bai-tap-pro|workbook/.test(t))return 'workbook';if(/trung-tam-hoc-vien|ho-so-hoc-vien/.test(t))return 'profile';if(/admin|xep-hang|ranking/.test(t))return 'admin';if(/van-hoa|culture|du-lich|kham-pha/.test(t))return 'culture';if(/phong-van/.test(t))return 'interview';if(/ban-do|dai-hoc|truong/.test(t))return 'universities';if(/giao-tiep|hoi-thoai|noi/.test(t))return 'speaking';if(/topik|kiem-tra|luyen-de|thi|nghe/.test(t))return 'topik';if(/hoc-|bai-tap|workbook|hoc-vien/.test(t))return 'learning';return 'home'}
@@ -41,7 +46,7 @@ function cardTheme(link){
 function decorate(){
  html.dataset.mrleeScene=which(path);
  html.style.setProperty('--mrlee-scene','url("'+asset(which(path))+'")');
- html.style.setProperty('--mrlee-scene-photo','url("'+asset(which(path))+'")');
+ html.style.setProperty('--mrlee-scene-photo','url("assets/v306/images/'+(photos[which(path)]||'learning-roadmap.webp')+'")');
  doc.querySelectorAll('.destination-grid a.destination,.quick-links a,.shortcuts a.shortcut,.mr-new-grid a,.mrlee-topik-shortcuts a').forEach(a=>{
   if(a.querySelector('.mrlee-card-visual'))return;if(!a.matches('.destination'))a.classList.add('mrlee-custom-future-card');
   const s=doc.createElement('span');s.className='mrlee-card-visual';s.setAttribute('aria-hidden','true');
@@ -140,6 +145,32 @@ function portal(){
  if(hero?.parentElement)hero.after(section);else if(content)content.prepend(section);
 }
 
-function run(){controls();decorate();portal();update(theme)}
+
+function primaryNav(){
+ const supported=new Set(['index.html','hoc-tieng-han.html','giao-tiep-theo-chu-de.html','kiem-tra-topik.html','giao-tiep-phong-van.html','van-hoa-han-quoc.html','ban-do-dai-hoc-han-quoc.html','trung-tam-hoc-vien.html','mrlee-bai-tap-pro.html']);
+ if(admin||!supported.has(path)||doc.querySelector('.mrlee-v2-primary-nav'))return;
+ const links=[
+  ['Học tiếng Hàn','hoc-tieng-han.html','learning'],
+  ['Giao tiếp','giao-tiep-theo-chu-de.html','speaking'],
+  ['TOPIK','kiem-tra-topik.html','topik'],
+  ['Phỏng vấn','giao-tiep-phong-van.html','interview'],
+  ['Văn hóa','van-hoa-han-quoc.html','culture'],
+  ['Bản đồ các trường ĐH Hàn Quốc','ban-do-dai-hoc-han-quoc.html','universities']
+ ];
+ const nav=doc.createElement('nav');nav.className='mrlee-v2-primary-nav';nav.setAttribute('aria-label','Sáu chuyên mục chính của TIẾNG HÀN MR LEE');
+ const intro=doc.createElement('span');intro.className='mrlee-v2-nav-label';intro.textContent='KHÁM PHÁ MR LEE';nav.append(intro);
+ const list=doc.createElement('ul');list.className='mrlee-v2-nav-list';
+ links.forEach(([label,url,group],i)=>{
+  const li=doc.createElement('li'),a=doc.createElement('a');a.href=url;
+  const num=doc.createElement('small');num.textContent=String(i+1).padStart(2,'0');
+  const name=doc.createElement('span');name.textContent=label;
+  a.append(num,name);if(path===url)a.setAttribute('aria-current','page');
+  li.append(a);list.append(li);
+ });
+ nav.append(list);
+ const switcher=doc.querySelector('.mrlee-theme-switch');
+ if(switcher?.parentNode)switcher.after(nav);else doc.body.prepend(nav);
+}
+function run(){controls();primaryNav();decorate();portal();update(theme)}
 if(doc.readyState==='loading')doc.addEventListener('DOMContentLoaded',run,{once:true});else run();
 })();
