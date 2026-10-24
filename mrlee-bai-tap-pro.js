@@ -2,7 +2,7 @@
 (()=>{'use strict';
 const $=id=>document.getElementById(id), enc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const params=new URLSearchParams(location.search);
-let db={},selected=null,answered=false,progress=0,stats={correct:0,wrong:0,skipped:0},audioReady=false;
+let db={},selected=null,answered=false,progress=0,stats={correct:0,wrong:0,skipped:0},audioReady=false,attemptReview=[],attemptStart=0;
 const lv=$('workLevel'),les=$('workLesson'),profile=$('workProfile');
 function sprofile(){return (profile.value.trim()||'hocvien-001').replace(/[^\w-]/g,'_').slice(0,48)}
 function key(){return `MRLEE.PRO.WORKBOOK.${sprofile()}.${lv.value}.${les.value}`}
@@ -20,24 +20,27 @@ function refresh(){const d=current(),history=read();selected=null;progress=0;sta
  for(const unit of d.exercises){const b=document.createElement('button');b.type='button';b.className='pro-work-item';const saved=history[unit.id];b.innerHTML=`<strong>${enc(String(unit.number).padStart(2,'0'))}. ${enc(unit.title)}</strong><small>${unit.questions.length} câu · ${saved?`Điểm tốt nhất ${saved.best}/${unit.questions.length}`:'Chưa làm'}</small>`;b.onclick=()=>start(unit);box.append(b)}
  $('workGame').innerHTML='<h2>Sẵn sàng luyện</h2><p>Chọn một trong 15 bộ bài tập bên trên. Mỗi bộ có kết quả độc lập.</p>';
 }
-function start(unit){selected=unit;progress=0;stats={correct:0,wrong:0,skipped:0};$('workGame').scrollIntoView({behavior:'smooth',block:'start'});show()}
+function start(unit){selected=unit;progress=0;stats={correct:0,wrong:0,skipped:0};attemptReview=[];attemptStart=Date.now();$('workGame').scrollIntoView({behavior:'smooth',block:'start'});show()}
 function show(){const game=$('workGame');if(!selected)return;if(progress>=selected.questions.length){finish();return}
  const q=selected.questions[progress];answered=false;audioReady=!q.audio;
  const template=`<p><span class="pro-tag">Bộ ${selected.number}/15</span><span class="pro-tag">${enc(q.type)}</span><strong>Câu ${progress+1}/${selected.questions.length}</strong></p><div class="pro-progress"><div style="width:${100*progress/selected.questions.length}%"></div></div>${q.passage?`<div class="pro-passage" lang="ko">${enc(q.passage)}</div>`:''}<p class="pro-question">${enc(q.prompt)}</p>${q.audio?`<audio id="unitPlayer" class="pro-player" controls preload="metadata"></audio><p id="workAudioStatus">Đang kiểm tra tệp nghe...</p>`:''}<div id="workChoices" class="pro-choices">${q.options.map((x,i)=>`<button type="button" data-answer="${i}" ${q.audio?'disabled':''}>${'ABCD'[i]}. ${enc(x)}</button>`).join('')}</div><div id="workFeedback" class="pro-feedback" hidden></div><div class="pro-footeractions"><button id="workSkip" type="button">Bỏ qua</button><button id="workNext" type="button" class="pro-primary" hidden>${progress+1===selected.questions.length?'Xem kết quả':'Câu tiếp theo →'}</button></div>`;
  game.innerHTML=template;
  game.querySelectorAll('[data-answer]').forEach(b=>b.onclick=()=>answer(Number(b.dataset.answer)));
- $('workSkip').onclick=()=>{if(!answered){stats.skipped++;progress++;show()}};
+ $('workSkip').onclick=()=>{if(!answered){const q=selected.questions[progress];attemptReview.push({question:String((q.passage||'')+'\n'+q.prompt).slice(0,500),choices:q.options.slice(0,8),selectedIndex:-1,correctIndex:q.answer,explanation:String(q.explain||'').slice(0,700),lessonNumber:Number(les.value),type:String(q.type||'workbook')});stats.skipped++;progress++;show()}};
  $('workNext').onclick=()=>{progress++;show()};
  if(q.audio){const a=$('unitPlayer');a.src=encodeURI(q.audio);a.onloadedmetadata=()=>{audioReady=true;$('workAudioStatus').textContent='MP3 đã tải. Nhấn ▶ để nghe trước khi trả lời.';game.querySelectorAll('[data-answer]').forEach(b=>b.disabled=false)};
  a.onerror=()=>{audioReady=false;$('workAudioStatus').textContent='MP3 không tải được. Hãy bỏ qua, không bị tính sai.'};}
 }
 function answer(choice){if(answered||!selected||!audioReady)return;answered=true;const q=selected.questions[progress],ok=choice===q.answer;
+ attemptReview.push({question:String((q.passage||'')+'\n'+q.prompt).slice(0,500),choices:q.options.slice(0,8),selectedIndex:choice,correctIndex:q.answer,explanation:String(q.explain||'').slice(0,700),lessonNumber:Number(les.value),type:String(q.type||'workbook')});
  if(ok)stats.correct++;else stats.wrong++;
  $('workChoices').querySelectorAll('[data-answer]').forEach(b=>{b.disabled=true;const idx=Number(b.dataset.answer);if(idx===q.answer)b.classList.add('right');else if(idx===choice)b.classList.add('wrong')});
  const fb=$('workFeedback');fb.hidden=false;fb.textContent=(ok?'✓ Chính xác.':'✗ Chưa đúng.')+'\nĐáp án: '+q.options[q.answer]+'\n'+(q.explain||'');
  $('workSkip').hidden=true;$('workNext').hidden=false;
 }
 function finish(){const history=read()[selected.id]||{best:0,attempts:0};const graded=stats.correct+stats.wrong,pct=graded?Math.round(stats.correct/graded*100):0;
+ // Preserve ALL six prompts, choices, selections and explanations in Firebase for admin review.
+ if(attemptReview.length===selected.questions.length){window.dispatchEvent(new CustomEvent('mrlee:practice-finished',{detail:{examId:'workbook-'+lv.value+'-'+les.value+'-'+selected.number,examTitle:'WORKBOOK · Cấp '+lv.value+' · Bài '+les.value+' · Bộ '+selected.number+' · '+selected.title,level:'sc'+lv.value,score:stats.correct,total:selected.questions.length,durationSeconds:Math.min(7200,Math.max(0,Math.round((Date.now()-attemptStart)/1000))),review:attemptReview.slice()}}));}
  save(selected.id,{best:Math.max(history.best,stats.correct),attempts:history.attempts+1,last:Date.now(),correct:stats.correct,wrong:stats.wrong,skipped:stats.skipped});
  $('workGame').innerHTML=`<h2>Hoàn thành bộ ${selected.number}: ${enc(selected.title)}</h2><div class="pro-stats"><div><strong>${stats.correct}/${selected.questions.length}</strong><small>Câu đúng</small></div><div><strong>${stats.wrong}</strong><small>Câu sai</small></div><div><strong>${stats.skipped}</strong><small>Bỏ qua</small></div><div><strong>${pct}%</strong><small>Đúng trên câu đã chấm</small></div></div><div class="pro-actions"><button id="workRepeat" class="pro-primary">Làm lại bộ này</button><button id="workReturn">Chọn bộ khác</button></div>`;
  const completed=selected;$('workRepeat').onclick=()=>start(completed);$('workReturn').onclick=()=>{$('workListPanel').scrollIntoView({behavior:'smooth'})};
