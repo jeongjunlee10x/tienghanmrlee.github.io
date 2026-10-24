@@ -382,9 +382,18 @@ footer{margin-top:34px}
  const form=box.querySelector('.quiz-form'), questions=[...box.querySelectorAll('.question')], result=box.querySelector('.quiz-result');
  const norm=v=>(v||'').trim().replace(/[\s]+/g,' ').replace(/[。]+$/,'').toLowerCase();
  function value(q){const r=q.querySelector('input[type="radio"]:checked');const t=q.querySelector('.text-answer');return r?r.value:(t?t.value:'');}
- form.addEventListener('submit',e=>{e.preventDefault();let score=0, answered=0;questions.forEach(q=>{q.classList.remove('correct','wrong');const got=value(q),ans=q.dataset.answer,ok=norm(got)===norm(ans);if(got.trim())answered++;if(ok){score++;q.classList.add('correct')}else q.classList.add('wrong');q.querySelector('.feedback').innerHTML=ok?'✓ <b>Chính xác.</b>':'✕ Chưa đúng. Đáp án: <b>'+ans+'</b>';});const pct=Math.round(score/questions.length*100);result.classList.add('show');result.innerHTML='<div class="quiz-score">'+score+'/'+questions.length+' câu đúng · '+pct+'%</div><div>Bạn đã trả lời '+answered+'/'+questions.length+' câu. '+(pct>=80?'Kết quả tốt! Hãy xem lại các câu sai để nhớ chắc hơn.':pct>=60?'Khá tốt. Hãy xem lại những câu được đánh dấu đỏ.':'Hãy ôn lại Từ vựng và Ngữ pháp Bài 1 rồi thử lại nhé.')+'</div>';result.scrollIntoView({behavior:'smooth',block:'nearest'});window.dispatchEvent(new CustomEvent('mrlee:practice-finished', {
+ form.addEventListener('submit',e=>{e.preventDefault();let score=0, answered=0;questions.forEach(q=>{q.classList.remove('correct','wrong');const got=value(q),ans=q.dataset.answer,ok=norm(got)===norm(ans);if(got.trim())answered++;if(ok){score++;q.classList.add('correct')}else q.classList.add('wrong');q.querySelector('.feedback').innerHTML=ok?'✓ <b>Chính xác.</b>':'✕ Chưa đúng. Đáp án: <b>'+ans+'</b>';});const pct=Math.round(score/questions.length*100);result.classList.add('show');result.innerHTML='<div class="quiz-score">'+score+'/'+questions.length+' câu đúng · '+pct+'%</div><div>Bạn đã trả lời '+answered+'/'+questions.length+' câu. '+(pct>=80?'Kết quả tốt! Hãy xem lại các câu sai để nhớ chắc hơn.':pct>=60?'Khá tốt. Hãy xem lại những câu được đánh dấu đỏ.':'Hãy ôn lại Từ vựng và Ngữ pháp Bài 1 rồi thử lại nhé.')+'</div>';result.scrollIntoView({behavior:'smooth',block:'nearest'});
+ const review=questions.map(q=>{
+   const radios=[...q.querySelectorAll('input[type="radio"]')], correct=radios.findIndex(x=>norm(x.value)===norm(q.dataset.answer)),selected=radios.findIndex(x=>x.checked);
+   const question=(q.querySelector('.q-title,.question-text,h3,h4,p')?.textContent||q.textContent||'Bài tập sơ cấp 1').trim().slice(0,500);
+   if(q.querySelector('.text-answer')||!radios.length||correct<0){
+     return {question,choices:[],selectedIndex:-1,correctIndex:-1,answerText:String(value(q)).slice(0,5000),explanation:'Đáp án tham khảo: '+q.dataset.answer,lessonNumber:1,type:'writing'};
+   }
+   return {question,choices:radios.map(x=>(x.closest('label')?.textContent||x.value).trim().slice(0,300)),selectedIndex:selected,correctIndex:correct,explanation:'Đáp án tham khảo: '+q.dataset.answer,lessonNumber:1,type:'multiple-choice'};
+ });
+ window.dispatchEvent(new CustomEvent('mrlee:practice-finished', {
   detail: { examId: 'sc1-bai-1', examTitle: 'BÃ i táº­p SÆ¡ cáº¥p 1 Â· BÃ i 1',
-    level: 'sc1', score: score, total: questions.length, durationSeconds: 0 }
+    level: 'sc1', score: score, total: questions.length, durationSeconds: 0, review }
 }));});
  box.querySelector('.quiz-reset').addEventListener('click',()=>{form.reset();questions.forEach(q=>q.classList.remove('correct','wrong'));result.classList.remove('show');result.innerHTML='';box.scrollIntoView({behavior:'smooth',block:'start'});});
 })();
