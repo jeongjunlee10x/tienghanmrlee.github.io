@@ -57,7 +57,7 @@ a{color:inherit} button {cursor:pointer} :focus-visible{outline:3px solid #e69a4
 <link rel="stylesheet" href="assets/mrlee-live/live.css?v=20261018-3" data-mrlee-live="css">
 <script type="module" src="assets/mrlee-live/live.js?v=20261018-3" data-mrlee-live="js"></script>
 <!-- MRLEE_LIVE_UPDATES_V3_END -->
-</head>
+<link rel="stylesheet" href="assets/mrlee-score-v12/score.css?v=12.0"><script type="module" src="assets/mrlee-score-v12/widget.js?v=12.0"></script></head>
 <body>
   <header class="site-header">
     <div class="header-inner">
@@ -110,9 +110,10 @@ a{color:inherit} button {cursor:pointer} :focus-visible{outline:3px solid #e69a4
         </div>
         <div class="bank-preview" id="bankPreview" aria-live="polite">Chọn trình độ để xem thông tin bộ đề.</div>
         <p id="nameError" class="incorrect-text form-error" role="alert" aria-live="polite"></p>
-        <button class="btn" type="submit" id="startBtn">Bắt đầu làm bài →</button>
+        <label class="mrlee-placement-consent" style="display:block;margin:13px 0;line-height:1.5"><input id="mrleePlacementConsent" type="checkbox" required style="margin-right:8px">Tôi đồng ý lưu họ tên, ngày sinh và toàn bộ bài làm để giáo viên MR LEE đánh giá, xếp lớp. Dữ liệu chỉ dành cho quản trị viên.</label>
+<button class="btn" type="submit" id="startBtn">Bắt đầu làm bài →</button>
       </form>
-      <p class="privacy muted">Thông tin cá nhân và câu trả lời chỉ được xử lý trong trình duyệt để hiển thị kết quả; trang này không tự lưu lên máy chủ hoặc gửi cho giáo viên. Kết quả là đánh giá tham khảo, không phải chứng chỉ TOPIK.</p>
+      <p class="privacy muted">Khi nộp, họ tên, ngày sinh, thời gian và toàn bộ câu trả lời sẽ được lưu bảo mật trên hệ thống quản trị MR LEE để giáo viên xem lại và xếp lớp. Không công khai bài làm. Học viên có thể yêu cầu quản trị viên tra cứu hoặc xử lý thông tin cá nhân. Kết quả là đánh giá tham khảo, không phải chứng chỉ TOPIK.</p>
     </section>
 
     <section id="exam" class="hidden" aria-label="Bài kiểm tra 50 câu">
@@ -2370,6 +2371,7 @@ function updateBankPreview(){
     : "Chọn trình độ để xem thông tin bộ đề.";
 }
 function startQuiz() {
+  if (!$("mrleePlacementConsent")?.checked) {$("nameError").textContent = "Vui lòng đồng ý lưu bài làm để xếp lớp."; return;}
   const student = $("studentName").value.trim();
   const levelKey = $("studentLevel").value;
   const birthDate = $("studentDOB").value;
@@ -2405,6 +2407,16 @@ function submitQuiz(expired = false) {
   state.timerId = null;
   const points = QUESTIONS.reduce((sum,q,index) => sum + Number(state.answers[index] === q.answer),0);
   const percent = Math.round(points / QUESTIONS.length * 100);
+  // MR LEE Placement: luu BAI LAM, khong chi diem. Supabase Free; ket qua khong bi chan neu mang loi.
+  window.MRLEE_PLACEMENT?.submit({
+    consent: $("mrleePlacementConsent").checked,
+    fullName: state.student,
+    dob: state.birthDate,
+    level: state.selectedLevel,
+    answers: state.answers.slice(),
+    durationSeconds: Math.max(0, Math.min(DURATION_SECONDS, Math.round((Date.now() - (state.deadline - DURATION_SECONDS * 1000)) / 1000))),
+    startedAt: new Date(state.deadline - DURATION_SECONDS * 1000).toISOString()
+  });
   const meta = LEVEL_META[state.selectedLevel];
   window.dispatchEvent(new CustomEvent('mrlee:practice-finished', {
     detail: {
@@ -2508,5 +2520,7 @@ window.addEventListener("beforeunload",event=>{
 <script type="module" src="mrlee-engagement.js?v=20261010"></script>
 <script defer src="mrlee-redesign.js?v=20261010-v1"></script>
 <script defer src="mrlee-listening-plus.js?v=20261015"></script>
+<script defer src="mrlee-placement-config.js?v=1"></script>
+<script defer src="mrlee-placement-client.js?v=1"></script>
 </body>
 </html>

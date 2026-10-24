@@ -1,0 +1,23 @@
+/* MRLEE Placement admin - scoped, no changes to original admin styling */
+.mrp-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin:14px 0}
+.mrp-toolbar input,.mrp-toolbar select,.mrp-toolbar textarea,
+.mrp-detail input,.mrp-detail select,.mrp-detail textarea{border:1px solid #bac9dc;border-radius:8px;padding:10px;max-width:100%;font:inherit;background:#fff}
+.mrp-toolbar>input{min-width:230px;flex:1}
+.mrp-backdrop{position:fixed;inset:0;z-index:99999;background:#081b36b5;padding:16px;overflow:auto}
+.mrp-backdrop[hidden]{display:none!important}
+.mrp-detail{max-width:920px;margin:12px auto;background:#fff;padding:24px;border-radius:18px;box-shadow:0 15px 80px #05122e40}
+.mrp-header{display:flex;justify-content:space-between;align-items:center;gap:14px}
+.mrp-question{border:1px solid #ccd7e3;border-radius:12px;margin:16px 0;padding:16px;break-inside:avoid}
+.mrp-question.mrp-wrong{border-left:4px solid #dc9855}.mrp-question.mrp-right{border-left:4px solid #43a784}
+.mrp-question h4{margin:0 0 8px}.mrp-question blockquote{white-space:pre-wrap;background:#f4f7fa;padding:12px}
+.mrp-question li{padding:3px 5px}.mrp-question .mrp-selected{background:#fff1d6}.mrp-question .mrp-answer{color:#116e4f;font-weight:700}
+#placementReviewForm{border-top:2px solid #d7e2ee;margin-top:22px;padding-top:14px}
+#placementReviewForm label{display:block;flex:1}#placementReviewForm label input,#placementReviewForm label select,#placementReviewForm textarea{display:block;width:100%}
+.mrp-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+@media print{
+ body *{visibility:hidden!important}
+ .mrp-backdrop,.mrp-backdrop .mrp-detail,.mrp-backdrop .mrp-detail *{visibility:visible!important}
+ .mrp-backdrop{position:static;padding:0;background:none;overflow:visible}
+ .mrp-detail{width:100%;box-shadow:none;padding:0;max-width:100%}
+ .mrp-header button,#placementReviewForm .mrp-actions{display:none!important}
+}
