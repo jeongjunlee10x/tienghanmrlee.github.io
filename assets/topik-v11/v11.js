@@ -20,7 +20,31 @@ function say(text){if(!('speechSynthesis' in window)){alert('Trình duyệt này
 function questionMarkup(q,index,prefix,listen=false){const stem=listen?q.question:q.stem;return `<fieldset class="v10-question" data-q="${index}" data-id="${H(q.id)}"><legend>${index+1}. ${H(stem)}</legend>${listen?`<div class="v10-listen-head"><button type="button" data-play="${index}">▶ Nghe câu ${index+1}</button><span class="v10-muted">${q.kind==='vocabulary_listening'?'Luyện nghe từ chủ đề':'Dạng đề mô phỏng TOPIK'}</span></div><details data-script><summary class="v10-muted">Xem kịch bản (để sau khi nghe)</summary><div class="v10-script" lang="ko">${H(q.audio)}</div></details>`:''}${q.choices.map((c,j)=>`<label class="v10-choice"><input type="radio" name="${prefix}${index}" value="${j}"><span>${['①','②','③','④'][j]} ${H(c)}</span></label>`).join('')}<div class="v10-reveal" hidden></div></fieldset>`}
 function grade(container,list,prefix,category,uniqueKey){let correct=0,answered=0,points=0,max=0,parts={};const qs=$$('.v10-question',container);list.forEach((item,i)=>{const node=qs[i];if(!node)return;max+=item.points||5;const checked=$('input:checked',node);const right=checked&&Number(checked.value)===item.answer; if(checked){answered++;if(right){correct++;points+=item.points||5;}}const reveal=$('.v10-reveal',node);if(reveal){reveal.hidden=false;reveal.classList.toggle('wrong',!right);reveal.textContent=(right?'✓ Chính xác':'✕ '+(checked?'Chưa đúng':'Chưa trả lời'))+'. Đáp án: '+H(item.choices[item.answer])+'. '+(item.explain||'');}$$('input',node).forEach(x=>x.disabled=true);const typ=item.kind||category;const part=parts[typ]||(parts[typ]={correct:0,total:0});part.total++;if(right)part.correct++;});
 const feedback=$('.v10-score',container);if(feedback)feedback.textContent=`Đúng ${correct}/${list.length} · Đã làm ${answered}/${list.length} · Điểm luyện ${points}/${max}. `+Object.entries(parts).map(([k,v])=>`${k}: ${v.correct}/${v.total}`).join(' · ');
-if(vScore())vScore().record({id:uniqueKey,category,correct,total:list.length,points,maximum:max,level,day});set('WRONG_IDS',Array.from(new Set([...(get('WRONG_IDS',[])),...list.filter((q,i)=>{const r=qs[i],a=r&&$('input:checked',r);return !a||Number(a.value)!==q.answer}).map(q=>q.originalId||q.id)])));}
+if(vScore())vScore().record({id:uniqueKey,category,correct,total:list.length,points,maximum:max,level,day});set('WRONG_IDS',Array.from(new Set([...(get('WRONG_IDS',[])),...list.filter((q,i)=>{const r=qs[i],a=r&&$('input:checked',r);return !a||Number(a.value)!==q.answer}).map(q=>q.originalId||q.id)])));
+const review=list.map((q,i)=>{const node=qs[i],a=node&&$('input:checked',node);
+  return {question:String((q.passage||q.audio||'')+'\n'+(q.question||q.stem||q.prompt||'')).slice(0,500),
+    choices:(q.choices||[]).slice(0,8).map(x=>String(x).slice(0,300)),
+    selectedIndex:a?Number(a.value):-1,correctIndex:Number(q.answer),
+    explanation:String(q.explain||'').slice(0,700),lessonNumber:day,type:String(q.kind||category).slice(0,60)};
+});
+if(prefix==='exam'&&session?.writing?.length){
+  const draftNodes=$('[data-write]',container);
+  for(const task of session.writing){
+    const box=draftNodes.find(el=>el.dataset.write===String(task.no));
+    review.push({question:String(task.prompt||task.title).slice(0,500),choices:[],selectedIndex:-1,correctIndex:-1,
+      explanation:'Giáo viên cần chấm bài viết. Không tính vào điểm trắc nghiệm.',lessonNumber:null,
+      type:'writing',answerText:String(box?.value||'').slice(0,5000)});
+  }
+}
+if(list.length && list.length<=100 && review.length<=120){
+  window.dispatchEvent(new CustomEvent('mrlee:practice-finished',{detail:{
+    examId:('topik-pro-'+uniqueKey).toLowerCase().replace(/[^a-z0-9-]/g,'-').slice(0,60),
+    examTitle:'TOPIK PRO · '+(prefix==='exam'?'Thi thử':'Luyện theo ngày')+' · '+category+' · '+(prefix==='exam'?('TOPIK '+session.level+' '+session.format):('TOPIK '+level+' ngày '+day)),
+    level:'general',score:correct,total:list.length,
+    durationSeconds:prefix==='exam'?Math.min(7200,Math.floor((Date.now()-session.start)/1000)):0,
+    review
+  }}));
+}}
 function lesson(){const x=data.lessons[String(level)][day-1];if(!x)return;const max=level===1?30:60;const select=$('#v10-day');if(select){select.innerHTML=Array.from({length:max},(_,i)=>`<option value="${i+1}" ${i+1===day?'selected':''}>Ngày ${i+1}</option>`).join('')};const status=get(`DONE-${level}-${day}`,{});
 const vocab=cards('I. TỪ VỰNG · 어휘',`<label class="v11-search-label">Tìm nhanh trong ${x.vocabulary.length} từ vựng <input type="search" id="v11-search-words" placeholder="Nhập từ Hàn hoặc nghĩa tiếng Việt…" aria-label="Tìm từ vựng trong ngày"></label><p class="v10-muted">${H(x.sourceLesson)} · ${x.vocabulary.length} từ theo chủ đề, học xong mới chuyển sang mẫu câu và luyện đề.</p><div class="v10-words">${x.vocabulary.map((w,i)=>`<div class="v10-word"><b lang="ko">${H(w.ko)}</b><span>${H(w.vi)}</span></div>`).join('')}</div><div class="v10-toolbar"><button type="button" data-mark="vocab">✓ Đã học từ vựng</button><span class="v10-muted">${status.vocab?'Đã đánh dấu hoàn thành':''}</span></div>`,'v10-vocab');
 const grammar=cards('II. NGỮ PHÁP · 문법',`<p class="v10-muted">4 điểm ngữ pháp trọng tâm/ôn tập, có nghĩa, cách dùng và ví dụ.</p><div class="v10-grammar-grid">${x.grammar.map((g,i)=>`<article class="v10-grammar"><h3>${i+1}. ${H(g.pattern)}</h3><b>${H(g.meaning)}</b><p>${H(g.usage)}</p><blockquote><b lang="ko">${H(g.example||'Xem ví dụ trong bài')}</b><br><span class="v10-muted">${H(g.vi)}</span></blockquote></article>`).join('')}</div><div class="v10-toolbar"><button data-mark="grammar" type="button">✓ Đã học ngữ pháp</button></div>`,'v10-grammar');
