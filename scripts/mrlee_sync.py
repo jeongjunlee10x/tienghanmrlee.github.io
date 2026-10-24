@@ -194,6 +194,17 @@ class SupabaseRest:
                          params={"on_conflict": conflict}, rows=rows[start:start+BATCH_SIZE],
                          prefer="resolution=ignore-duplicates,return=minimal")
 
+    def attach_review_if_missing(self, row: dict[str, Any]) -> None:
+        snapshot = row.get("review_snapshot")
+        if not snapshot:
+            return
+        # Only enrich a pre-existing record that lacks detailed answers.
+        # Do not overwrite admin notes, a teacher's evaluation, or any score.
+        self.request("PATCH", "mrlee_scores", params={
+            "firebase_attempt_id": "eq." + row["firebase_attempt_id"],
+            "review_snapshot": "is.null",
+        }, rows={"review_snapshot": snapshot}, prefer="return=minimal")
+
     def log_success(self, data: dict[str, Any]) -> None:
         self.request("POST", "mrlee_sync_runs", rows=data, prefer="return=minimal")
 
@@ -238,6 +249,18 @@ def build_attempt(uid: str, student_id: str, document: Any) -> tuple[dict[str, A
         LOG.warning("Skipped practice attempt with invalid score for uid prefix %.6s", uid)
         return None, None
     title = clip(src.get("examTitle"), 200) or "Bài luyện tập"
+    # A snapshot is supplied by the learner's browser; preserve it as evidence,
+    # never treat its score or answer key as a trusted official examination.
+    review = None
+    raw_review = src.get("reviewJson")
+    if isinstance(raw_review, str) and len(raw_review) <= 120000:
+        try:
+            candidate = json.loads(raw_review)
+            qs = candidate.get("questions") if isinstance(candidate, dict) else None
+            if candidate.get("version") == 1 and isinstance(qs, list) and 1 <= len(qs) <= 100:
+                review = candidate
+        except (ValueError, TypeError):
+            LOG.warning("Invalid optional answer snapshot in Firebase attempt, retaining score")
     return {
         "student_id": student_id,
         "firebase_attempt_id": f"users/{uid}/practiceAttempts/{document.id}",
@@ -247,6 +270,7 @@ def build_attempt(uid: str, student_id: str, document: Any) -> tuple[dict[str, A
         "exam_date": happened.astimezone(LOCAL_TZ).date().isoformat(),
         "firebase_created_at": iso(happened),
         "source_kind": "firebase_practice",
+        **({"review_snapshot": review} if review is not None else {}),
         "notes": "Điểm luyện tập tự chấm trên trình duyệt; không phải điểm thi chính thức.",
     }, happened
 
@@ -272,7 +296,9 @@ def main() -> int:
     last_success = sb.last_success()
     # Five-minute overlap makes scheduled retries idempotent and resilient to clock drift.
     since = last_success - timedelta(minutes=5) if last_success else None
-    LOG.info("Sync mode: %s", "INCREMENTAL" if since else "INITIAL FULL")
+    review_backfill = os.getenv("MRLEE_REVIEW_BACKFILL", "0") == "1"
+    LOG.info("Sync mode: %s; old review backfill: %s",
+             "INCREMENTAL" if since else "INITIAL FULL", review_backfill)
 
     counts = {"students_seen": 0, "students_created": 0, "events_seen": 0, "attempts_seen": 0}
     for auth_user in auth.list_users().iterate_all():
@@ -323,7 +349,10 @@ def main() -> int:
                     detected_level = "Sơ cấp 2"
                 elif row["page"] == "so-cap-1.html" and not detected_level:
                     detected_level = "Sơ cấp 1"
-        for doc in read_firestore_collection(db, uid, "practiceAttempts", since):
+        # Manual/first-release backfill may inspect historical Firestore attempts.
+        # Ordinary scheduled sync remains incremental to keep Firebase Spark free.
+        attempt_since = None if review_backfill else since
+        for doc in read_firestore_collection(db, uid, "practiceAttempts", attempt_since):
             row, happened = build_attempt(uid, student_id, doc)
             if row and happened:
                 score_rows.append(row)
@@ -334,6 +363,9 @@ def main() -> int:
             sb.insert_only("mrlee_learning_events", event_rows, "firebase_event_id")
         if score_rows:
             sb.insert_only("mrlee_scores", score_rows, "firebase_attempt_id")
+            for score_row in score_rows:
+                if score_row.get("review_snapshot"):
+                    sb.attach_review_if_missing(score_row)
         counts["events_seen"] += len(event_rows)
         counts["attempts_seen"] += len(score_rows)
 
