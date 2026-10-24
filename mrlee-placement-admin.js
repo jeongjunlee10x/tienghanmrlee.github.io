@@ -174,7 +174,7 @@
         people=new Map((users.data||[]).map(p=>[p.id,p.full_name]));
       }
       const response=await db.from('mrlee_scores')
-        .select('id,student_id,exam_title,score,max_score,exam_date,firebase_created_at,review_snapshot,teacher_review')
+        .select('id,student_id,exam_title,score,max_score,exam_date,firebase_created_at,review_available')
         .order('created_at',{ascending:false}).range(offset,offset+79);
       if(response.error)throw response.error;
       rows.push(...(response.data||[]));offset+=response.data?.length||0;end=(response.data||[]).length<80;
@@ -184,11 +184,11 @@
   }
   function draw(){
     const q=d('allAttemptsSearch').value.toLocaleLowerCase('vi').trim(),kind=d('allAttemptsHasReview').value;
-    const filtered=rows.filter(x=>(kind!=='yes'||Array.isArray(x.review_snapshot?.questions))&&(kind!=='no'||!Array.isArray(x.review_snapshot?.questions))&&
+    const filtered=rows.filter(x=>(kind!=='yes'||x.review_available===true)&&(kind!=='no'||!x.review_available===true)&&
       (!q||[x.exam_title,people.get(x.student_id),x.exam_date].some(s=>String(s||'').toLocaleLowerCase('vi').includes(q))));
-    d('allAttemptsRows').innerHTML=filtered.map(x=>'<tr><td>'+esc(people.get(x.student_id)||'Học viên chưa định danh')+'</td><td>'+esc(x.exam_title)+'</td><td>'+esc(x.score)+'/'+esc(x.max_score)+'</td><td>'+esc(fmt(x.firebase_created_at||x.exam_date))+'</td><td><button type="button" class="btn sm soft" data-attempt-id="'+esc(x.id)+'">'+(Array.isArray(x.review_snapshot?.questions)?'Xem bài làm':'Xem kết quả')+'</button></td></tr>').join('')||
+    d('allAttemptsRows').innerHTML=filtered.map(x=>'<tr><td>'+esc(people.get(x.student_id)||'Học viên chưa định danh')+'</td><td>'+esc(x.exam_title)+'</td><td>'+esc(x.score)+'/'+esc(x.max_score)+'</td><td>'+esc(fmt(x.firebase_created_at||x.exam_date))+'</td><td><button type="button" class="btn sm soft" data-attempt-id="'+esc(x.id)+'">'+(x.review_available===true?'Xem bài làm':'Xem kết quả')+'</button></td></tr>').join('')||
        '<tr><td colspan="5">Không tìm thấy bài phù hợp.</td></tr>';
-    const n=rows.filter(x=>Array.isArray(x.review_snapshot?.questions)).length;
+    const n=rows.filter(x=>x.review_available===true).length;
     d('allAttemptsStatus').textContent='Đã tải '+rows.length+' kết quả; '+n+' bài có chi tiết, '+(rows.length-n)+' bài chỉ có điểm. Những lựa chọn không được lưu trước đây không thể suy ra từ tổng điểm.';
     d('allAttemptsMore').hidden=end;
   }
