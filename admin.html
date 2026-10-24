@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="assets/mrlee-announcement/admin-font-fix.css?v=20261018-2">
-<link rel="stylesheet" href="assets/mrlee-score-v12/score.css?v=12.0"><script type="module" src="assets/mrlee-score-v12/widget.js?v=12.0"></script><link rel="stylesheet" href="mrlee-placement-admin.css?v=1">
+<link rel="stylesheet" href="assets/mrlee-score-v12/score.css?v=12.0"><script type="module" src="assets/mrlee-score-v12/widget.js?v=12.0"></script><link rel="stylesheet" href="mrlee-placement-admin.css?v=2">
 </head>
 <body>
 <section id="authWrap" class="auth-wrap">
@@ -272,14 +272,14 @@
   window.MRLEE_ADMIN_PLACEMENT_BRIDGE = Object.freeze({
     getClient: () => account && client ? client : null,
     getUserId: () => account?.id || null,
-    openPage: () => {
+    openPage: (target = 'placements') => {
       if (!account || !client) return false;
-      navigate('placements');
+      navigate(target === 'all-attempts' ? 'all-attempts' : 'placements');
       return true;
     }
   });
   init();
 })();
 </script>
-<script defer src="mrlee-placement-admin.js?v=2"></script>
+<script defer src="mrlee-placement-admin.js?v=3"></script>
 </body></html>
