@@ -8,7 +8,7 @@ const pageNames={'page-overview':'Tổng quan hệ thống','page-students':'H�
 function panel(page){
  if(page.querySelector('.mrlee-admin-analytics'))return;
  const box=d.createElement('div');box.className='mrlee-admin-analytics';
- box.innerHTML='<div class="mrlee-analytics-head"><div><h3>◈ Thống kê — '+esc(pageNames[page.id]||'Trung tâm quản trị')+'</h3><small>Biểu đồ chung và tiến độ học tập từ dữ liệu Supabase (không dùng số liệu mẫu)</small></div><div><label for="mrleePeriod'+esc(page.id)+'">Khoảng thời gian:</label> <select class="mrlee-chart-period" id="mrleePeriod'+esc(page.id)+'"><option value="7">7 ngày</option><option value="14" selected>14 ngày</option><option value="30">30 ngày</option></select> <button type="button" class="btn soft mrlee-chart-reload">↻ Cập nhật</button></div></div><div class="mrlee-admin-kpis"><div><small>Tổng học viên (theo RLS)</small><strong data-stat="students">—</strong></div><div><small>Học viên hoạt động 7 ngày</small><strong data-stat="active">—</strong></div><div><small>Bài luyện tập đã lưu</small><strong data-stat="attempts">—</strong></div><div><small>Kiểm tra đầu vào</small><strong data-stat="placements">—</strong></div><div><small>Yêu cầu tư vấn</small><strong data-stat="consultations">—</strong></div><div><small>Bài đạt từ 70% (mẫu bài gần nhất)</small><strong data-stat="passed">—</strong></div></div><div class="mrlee-admin-charts"><div class="mrlee-chart-panel"><strong>Hoạt động theo ngày — tối đa 1.500 bản ghi mỗi nguồn</strong><div data-chart="activity"><p>Đang tải số liệu...</p></div></div><div class="mrlee-chart-panel"><strong>Điểm luyện tập trung bình — mẫu bài gần nhất</strong><div data-chart="levels"><p>Đang tải số liệu...</p></div></div><div class="mrlee-chart-panel mrlee-chart-progress"><strong>Tiến độ hoạt động học tập theo trình độ</strong><div data-chart="learning-progress"><p>Đang tải dữ liệu học tập...</p></div></div></div><p class="mrlee-chart-note" style="font-size:11px;opacity:.75;margin-top:9px">Dữ liệu Supabase thực tế, không chèn số ảo. Điểm tự chấm không phải điểm TOPIK chính thức; số lượt học không phải % hoàn thành giáo trình. Biểu đồ dùng tối đa 2.000 hồ sơ và 1.500 bản ghi gần nhất mỗi loại; KPI tổng học viên và hoạt động 7 ngày dùng phép đếm từ máy chủ.</p>';
+ box.innerHTML='<div class="mrlee-analytics-head"><div><h3>◈ Thống kê — '+esc(pageNames[page.id]||'Trung tâm quản trị')+'</h3><small>Số tổng hợp có đối chiếu máy chủ · Các biểu đồ có giới hạn mẫu, không phải toàn bộ dữ liệu</small></div><div><label for="mrleePeriod'+esc(page.id)+'">Khoảng thời gian:</label> <select class="mrlee-chart-period" id="mrleePeriod'+esc(page.id)+'"><option value="7">7 ngày</option><option value="14" selected>14 ngày</option><option value="30">30 ngày</option></select> <button type="button" class="btn soft mrlee-chart-reload">↻ Cập nhật</button></div></div><div class="mrlee-admin-kpis"><div><small>Tổng học viên (theo RLS)</small><strong data-stat="students">—</strong></div><div><small>Học viên hoạt động 7 ngày</small><strong data-stat="active">—</strong></div><div><small>Bài luyện tập đã lưu</small><strong data-stat="attempts">—</strong></div><div><small>Kiểm tra đầu vào</small><strong data-stat="placements">—</strong></div><div><small>Yêu cầu tư vấn</small><strong data-stat="consultations">—</strong></div><div><small>Tư vấn mới / đang liên hệ</small><strong data-stat="openLeads">—</strong></div><div><small>Bài làm có chi tiết đáp án</small><strong data-stat="reviewable">—</strong></div><div><small>Bài đạt từ 70% (mẫu bài gần nhất)</small><strong data-stat="passed">—</strong></div></div><div class="mrlee-admin-charts"><div class="mrlee-chart-panel"><strong>Hoạt động theo ngày — tối đa 1.500 bản ghi mỗi nguồn</strong><div data-chart="activity"><p>Đang tải số liệu...</p></div></div><div class="mrlee-chart-panel"><strong>Điểm luyện tập trung bình — mẫu bài gần nhất</strong><div data-chart="levels"><p>Đang tải số liệu...</p></div></div><div class="mrlee-chart-panel mrlee-chart-progress"><strong>Tiến độ hoạt động học tập theo trình độ</strong><div data-chart="learning-progress"><p>Đang tải dữ liệu học tập...</p></div></div></div><p class="mrlee-chart-note" style="font-size:11px;opacity:.75;margin-top:9px">Dữ liệu Supabase thực tế, không chèn số ảo. Điểm tự chấm không phải điểm TOPIK chính thức; số lượt học không phải % hoàn thành giáo trình. Biểu đồ dùng tối đa 2.000 hồ sơ và 1.500 bản ghi gần nhất mỗi loại; KPI tổng học viên và hoạt động 7 ngày dùng phép đếm từ máy chủ. <span class="mrlee-v2-stats-updated" aria-live="polite">Chưa tải dữ liệu.</span></p>';
  page.prepend(box);
  box.querySelector('select').addEventListener('change',e=>{period=Number(e.target.value)||14;d.querySelectorAll('.mrlee-chart-period').forEach(s=>{s.value=String(period)});if(cache)renderAll()});
  box.querySelector('button').addEventListener('click',()=>void load(true));
@@ -19,7 +19,7 @@ function rows(n){const out=[];const now=new Date(Date.now()+7*3600000);for(let i
 function chartActivity(scores,events){
  const days=rows(period),smap=Object.fromEntries(days.map(d=>[d,0])),emap={...smap};
  for(const s of scores){let k=day(s.created_at||s.exam_date);if(k in smap)smap[k]++}
- for(const e of events){let k=day(e.created_at);if(k in emap)emap[k]++}
+ for(const e of events){let k=day(e.happened_at||e.created_at);if(k in emap)emap[k]++}
  const sv=days.map(k=>smap[k]),ev=days.map(k=>emap[k]),mx=Math.max(1,...sv,...ev);
  const graph=(a,color)=>'<polyline points="'+a.map((v,i)=>[31+i*(455/(days.length-1)),155-115*v/mx].join(',')).join(' ')+'" fill="none" stroke="'+color+'" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'+a.map((v,i)=>'<circle cx="'+(31+i*455/(days.length-1))+'" cy="'+(155-115*v/mx)+'" r="2.8" fill="'+color+'"><title>'+esc(days[i])+': '+v+'</title></circle>').join('');
  const grids=[0,.5,1].map(v=>'<line x1="29" y1="'+(155-115*v)+'" x2="488" y2="'+(155-115*v)+'" stroke="#668caf" stroke-opacity=".25"/><text x="3" y="'+(159-115*v)+'" font-size="11" fill="#83a9d3">'+Math.round(mx*v)+'</text>').join('');
@@ -67,18 +67,20 @@ function chartStudyProgress(events,students){
 }
 function renderAll(){
  if(!cache)return;ensure();
- const {students,scores,events,total,placements,consultations,studentTotal,activeTotal}=cache;
+ const {students,scores,events,total,placements,consultations,studentTotal,activeTotal,openLeads,reviewable}=cache;
  const active=activeTotal??'—';
- const passed=scores.filter(s=>Number(s.max_score)>0&&Number(s.score)/Number(s.max_score)>=.7).length;
- const pct=scores.length?Math.round(100*passed/scores.length):0;
+ const validScores=scores.filter(s=>Number(s.max_score)>0&&Number.isFinite(Number(s.score)));
+ const passed=validScores.filter(s=>Number(s.score)/Number(s.max_score)>=.7).length;
+ const pct=validScores.length?Math.round(100*passed/validScores.length):0;
  const c1=chartActivity(scores,events),c2=chartLevels(scores,students),c3=chartStudyProgress(events,students);
  d.querySelectorAll('.mrlee-admin-analytics').forEach(el=>{
-  for(const [k,v] of Object.entries({students:studentTotal??'—',active,attempts:total,placements:placements??'—',consultations:consultations??'—',passed:scores.length?pct+'%':'—'})){
+  for(const [k,v] of Object.entries({students:studentTotal??'—',active,attempts:total,placements:placements??'—',consultations:consultations??'—',openLeads:openLeads??'—',reviewable:reviewable??'—',passed:validScores.length?pct+'%':'—'})){
    const o=el.querySelector('[data-stat="'+k+'"]');if(o)o.textContent=String(v);
   }
   el.querySelector('[data-chart="activity"]').innerHTML=c1;
   el.querySelector('[data-chart="levels"]').innerHTML=c2;
   el.querySelector('[data-chart="learning-progress"]').innerHTML=c3;
+  const updated=el.querySelector('.mrlee-v2-stats-updated');if(updated)updated.textContent='Lần tải dữ liệu: '+new Intl.DateTimeFormat('vi-VN',{dateStyle:'short',timeStyle:'short',timeZone:'Asia/Ho_Chi_Minh'}).format(new Date(lastLoad));
  });
 }
 async function load(force=false){
@@ -86,17 +88,19 @@ async function load(force=false){
  if(busy)return;if(cache&&!force&&Date.now()-lastLoad<5*60*1000){renderAll();return}
  busy=true;ensure();
  try{
-  const [a,b,c,placement,leads,activeCount]=await Promise.all([
+  const [a,b,c,placement,leads,activeCount,openLeadsCount,reviewCount]=await Promise.all([
    db.from('mrlee_students').select('id,level,last_activity_at',{count:'exact'}).limit(2000),
    db.from('mrlee_scores').select('student_id,score,max_score,created_at,exam_date',{count:'exact'}).order('created_at',{ascending:false}).limit(1500),
-   db.from('mrlee_learning_events').select('student_id,kind,created_at').order('created_at',{ascending:false}).limit(1500),
+   db.from('mrlee_learning_events').select('student_id,kind,created_at,happened_at').order('created_at',{ascending:false}).limit(1500),
    db.from('mrlee_placement_submissions').select('id',{count:'exact',head:true}),
    db.from('mrlee_consultation_requests').select('id',{count:'exact',head:true}),
-   db.from('mrlee_students').select('id',{count:'exact',head:true}).gte('last_activity_at',new Date(Date.now()-7*864e5).toISOString())
+   db.from('mrlee_students').select('id',{count:'exact',head:true}).gte('last_activity_at',new Date(Date.now()-7*864e5).toISOString()),
+   db.from('mrlee_consultation_requests').select('id',{count:'exact',head:true}).in('status',['new','contacting']),
+   db.from('mrlee_scores').select('id',{count:'exact',head:true}).eq('review_available',true)
   ]);
   const error=a.error||b.error||c.error;if(error)throw error;
-  cache={students:a.data||[],studentTotal:a.count??null,activeTotal:activeCount.error?null:activeCount.count,scores:b.data||[],events:c.data||[],total:b.count??b.data?.length??0,placements:placement.error?null:placement.count,consultations:leads.error?null:leads.count};lastLoad=Date.now();renderAll();
- }catch(err){d.querySelectorAll('.mrlee-admin-analytics [data-chart]').forEach(x=>{x.textContent='Không tải được dữ liệu thống kê: '+(err.message||String(err))})}
+  cache={students:a.data||[],studentTotal:a.count??null,activeTotal:activeCount.error?null:activeCount.count,scores:b.data||[],events:c.data||[],total:b.count??b.data?.length??0,placements:placement.error?null:placement.count,consultations:leads.error?null:leads.count,openLeads:openLeadsCount.error?null:openLeadsCount.count,reviewable:reviewCount.error?null:reviewCount.count};lastLoad=Date.now();renderAll();
+ }catch(err){cache=null;d.querySelectorAll('.mrlee-admin-analytics').forEach(el=>{el.querySelectorAll('[data-stat]').forEach(x=>{x.textContent='—'});const at=el.querySelector('.mrlee-v2-stats-updated');if(at)at.textContent='Dữ liệu chưa thể xác minh.'});d.querySelectorAll('.mrlee-admin-analytics [data-chart]').forEach(x=>{x.textContent='Không tải được dữ liệu thống kê: '+(err.message||String(err))})}
  finally{busy=false}
 }
 function boot(){
