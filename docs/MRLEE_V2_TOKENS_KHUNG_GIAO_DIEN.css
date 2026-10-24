@@ -1,0 +1,155 @@
+/*
+ * MR LEE V2 — DESIGN-SYSTEM SCAFFOLD FOR APPROVED FUTURISTIC THEME
+ * Reference-only until layouts & visual assets pass screenshot review.
+ * Deliberately NOT linked from public HTML.
+ * Original brand logo must always be assets/branding/logo-mrlee.png.
+ * Source: docs/MRLEE_V2_DAC_TA_TRiEN_KHAI_TOAN_DIEN_20261024.md
+ */
+:root[data-mrlee-theme="future"] {
+  --v2-bg: #050b1b;
+  --v2-bg-raised: #0b1933;
+  --v2-bg-overlay: rgba(9, 25, 53, .86);
+  --v2-primary: #5cebff;
+  --v2-secondary: #a58aff;
+  --v2-foreground: #f4faff;
+  --v2-muted: #b5c8dd;
+  --v2-outline: rgba(88, 203, 255, .35);
+  --v2-glow: 0 0 30px rgba(34, 183, 255, .16);
+  --v2-font: "Be Vietnam Pro", "Noto Sans", system-ui, sans-serif;
+  --v2-font-ko: "Noto Sans KR", system-ui, sans-serif;
+  --v2-radius-sm: 12px;
+  --v2-radius: 18px;
+  --v2-radius-lg: 24px;
+  --v2-container: 1360px;
+  --v2-ease: cubic-bezier(.2,.8,.2,1);
+}
+:root[data-mrlee-theme="future"] .mrlee-v2-layout {
+  box-sizing: border-box;
+  width: min(var(--v2-container), calc(100% - 40px));
+  margin-inline: auto;
+  color: var(--v2-foreground);
+  font-family: var(--v2-font);
+}
+:root[data-mrlee-theme="future"] :is(.mrlee-v2-panel,.mrlee-v2-card) {
+  min-width: 0;
+  border: 1px solid var(--v2-outline);
+  border-radius: var(--v2-radius-lg);
+  background: linear-gradient(140deg,rgba(13,37,72,.88),rgba(11,22,50,.91));
+  box-shadow: var(--v2-glow);
+}
+:root[data-mrlee-theme="future"] .mrlee-v2-card {
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform .2s var(--v2-ease),border-color .2s var(--v2-ease);
+}
+:root[data-mrlee-theme="future"] .mrlee-v2-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(117, 233, 255, .8);
+}
+:root[data-mrlee-theme="future"] .mrlee-v2-card:focus-visible {
+  outline: 3px solid #ffd877;
+  outline-offset: 4px;
+}
+:root[data-mrlee-theme="future"] .mrlee-v2-grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 20px;
+}
+:root[data-mrlee-theme="future"] .mrlee-v2-title {
+  margin: 0;
+  color: var(--v2-foreground);
+  font-size: clamp(28px,3.3vw,56px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -.025em;
+}
+:root[data-mrlee-theme="future"] .mrlee-v2-description {
+  max-width: 72ch;
+  color: var(--v2-muted);
+  font-size: clamp(14px,1.1vw,16px);
+  line-height: 1.75;
+}
+:root[data-mrlee-theme="future"] .mrlee-v2-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 12px 19px;
+  border: 1px solid rgba(134, 246, 255, .75);
+  border-radius: var(--v2-radius-sm);
+  background: linear-gradient(120deg,#45dfff,#9290ff);
+  color: #08172c;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+:root[data-mrlee-theme="future"] .mrlee-v2-button:focus-visible {
+  outline: 3px solid #ffe082;
+  outline-offset: 3px;
+}
+:root[data-mrlee-theme="future"] .mrlee-v2-button[disabled] {
+  opacity: .55;
+  cursor: not-allowed;
+}
+:root[data-mrlee-theme="future"] .mrlee-v2-stat {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  border-radius: var(--v2-radius);
+  background: rgba(8,31,62,.8);
+  border: 1px solid rgba(99,175,255,.23);
+}
+:root[data-mrlee-theme="future"] .mrlee-v2-stat dt {
+  color: var(--v2-muted);
+  font-size: 12px;
+}
+:root[data-mrlee-theme="future"] .mrlee-v2-stat dd {
+  margin: 0;
+  font-size: clamp(20px,2vw,32px);
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+}
+:root[data-mrlee-theme="future"] .mrlee-v2-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  align-items: center;
+  grid-template-columns: minmax(0,1fr) minmax(0,1.15fr);
+  min-height: 460px;
+  padding: clamp(24px,3vw,56px);
+  border: 1px solid var(--v2-outline);
+  border-radius: 28px;
+  background: linear-gradient(105deg,rgba(4,14,34,.99) 0%,rgba(7,24,52,.95) 45%,rgba(7,19,39,.12) 95%),var(--mrlee-v2-hero-art) right center/cover no-repeat;
+  box-shadow: var(--v2-glow);
+}
+:root[data-mrlee-theme="future"] .mrlee-v2-hero > * {
+  position: relative;
+  z-index: 1;
+}
+:root[data-mrlee-theme="future"] .mrlee-v2-art {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+:root[data-mrlee-theme="future"] .mrlee-v2-korean {
+  font-family: var(--v2-font-ko);
+}
+@media(max-width:920px){
+ :root[data-mrlee-theme="future"] .mrlee-v2-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ :root[data-mrlee-theme="future"] .mrlee-v2-hero { grid-template-columns:1fr;min-height:390px; }
+}
+@media(max-width:620px){
+ :root[data-mrlee-theme="future"] .mrlee-v2-layout { width:calc(100% - 24px); }
+ :root[data-mrlee-theme="future"] .mrlee-v2-grid { grid-template-columns:1fr;gap:14px; }
+ :root[data-mrlee-theme="future"] .mrlee-v2-hero {padding:24px;min-height:380px;background-position: center;background-size:cover; }
+}
+@media(prefers-reduced-motion:reduce){
+ :root[data-mrlee-theme="future"] .mrlee-v2-card {transition:none}
+ :root[data-mrlee-theme="future"] .mrlee-v2-card:hover {transform:none}
+}
