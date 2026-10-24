@@ -113,9 +113,18 @@ export async function commitSpeaking(user,task,score,transcripts,seconds,mode='n
     }catch(error){ result.lessonRewardStatus='error'; result.lessonRewardError=error?.code||error?.message||'unknown'; }
   }
   const level=String(task.level||'').startsWith('sc')?task.level:'general';
+  // Store recognized speech as educational evidence, NOT an audio recording.
+  // Audio stays on the learner's device; this transcript is machine generated.
+  const reviewJson=JSON.stringify({version:1,questions:task.items.map((item,i)=>({
+    question:String((item.ko||'')+' / '+(item.vi||'')).slice(0,500),
+    choices:[],selectedIndex:-1,correctIndex:-1,type:'speaking',
+    answerText:String(transcripts[i]?.heard||'').slice(0,5000),
+    explanation:'Lời được trình duyệt nhận dạng tự động; điểm khớp chỉ là tham khảo.'
+  }))});
   try{
     await addDoc(collection(db,'users',user.uid,'practiceAttempts'),{
-      examId:`speaking-${task.id}`.slice(0,60),examTitle:`Luyện nói: ${task.title}`.slice(0,110),level,score,total:100,durationSeconds:Math.max(0,Math.min(7200,Math.floor(seconds||0))),source:'client_practice',createdAt:serverTimestamp()
+      examId:`speaking-${task.id}`.slice(0,60),examTitle:`Luyện nói: ${task.title}`.slice(0,110),level,score,total:100,durationSeconds:Math.max(0,Math.min(7200,Math.floor(seconds||0))),source:'client_practice',createdAt:serverTimestamp(),
+      ...(new TextEncoder().encode(reviewJson).length<=112000 ? {reviewJson} : {})
     });result.historySaved=true;
   }catch(e){result.historySaved=false;result.historyError=e?.code||e?.message||'unknown';}
   return result;
