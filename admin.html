@@ -28,11 +28,27 @@
 <script>try{document.documentElement.dataset.mrleeTheme=localStorage.getItem('MRLEE.THEME.V1')==='future'?'future':'fresh'}catch(e){document.documentElement.dataset.mrleeTheme='fresh'}</script>
 <link rel="stylesheet" href="assets/mrlee-dual-ui/theme.css?v=20261024-1">
 <script defer src="assets/mrlee-dual-ui/theme.js?v=20261024-1"></script>
-</head>
+<style id="mrlee-admin-polish-20261024">
+/* Preserve the exact existing MR LEE image, never redraw it. */
+.mrlee-admin-official-logo{display:block;max-width:168px;width:min(168px,34vw);height:auto;max-height:62px;object-fit:contain;flex-shrink:0}
+.auth-head,.sidebrand{gap:13px}
+html[data-mrlee-theme="future"] .sidebar{background:linear-gradient(180deg,#041227,#0a1e45 53%,#050e22)!important;border-right:1px solid #268fc4}
+html[data-mrlee-theme="future"] .auth-card{background:linear-gradient(140deg,#071a39,#15224e)!important;border:1px solid #2582b2!important}
+html[data-mrlee-theme="future"] .topbar{background:#071936df!important;border-bottom:1px solid #2c86c1!important;backdrop-filter:blur(14px)}
+html[data-mrlee-theme="future"] :is(.panel,.kpi,.mrlee-admin-analytics){border-radius:17px!important;box-shadow:0 8px 34px #0007,inset 0 0 0 1px #41cdff20!important}
+html[data-mrlee-theme="future"] .sidebar .side-menu button:hover{background:#123661!important;box-shadow:inset 3px 0 0 #5be8ff}
+html[data-mrlee-theme="future"] .sidebar .side-menu button.active{background:#114476!important;border-left:3px solid #59e7ff!important}
+html[data-mrlee-theme="future"] .mrlee-admin-charts{gap:14px}
+html[data-mrlee-theme="future"] .mrlee-chart-panel{background:linear-gradient(145deg,#081b39,#0c2652)!important}
+html[data-mrlee-theme="future"] .data-table tr:hover{background:#23a5ec12}
+#page-consultations .mrlee-admin-analytics{margin-bottom:19px}
+html[data-mrlee-theme="future"] .auth-head h1{color:#ecfaff!important;font-weight:850;letter-spacing:.015em}
+@media(max-width:700px){.mrlee-admin-official-logo{max-width:130px}}
+</style></head>
 <body>
 <section id="authWrap" class="auth-wrap">
   <div class="auth-card">
-    <div class="auth-head"><div class="brandmark">L</div><div><h1>MR LEE • QUẢN TRỊ</h1><p>Trang quản trị riêng • Dữ liệu đồng bộ từ Firebase</p></div></div>
+    <div class="auth-head"><img class="mrlee-admin-official-logo" src="assets/branding/logo-mrlee.png" alt="Logo gốc TIẾNG HÀN MR LEE" width="168" height="56"><div><h1>MR LEE • QUẢN TRỊ</h1><p>Trang quản trị riêng • Dữ liệu đồng bộ từ Firebase</p></div></div>
     <p class="muted">Chỉ tÃ i khoản đã được cấp quyền quản trị mới được truy cập dữ liệu học viên.</p>
     <form id="setupForm" class="form-grid hidden" autocomplete="off">
       <div class="info warning">Thiết lập lần đầu: tạo dự án Supabase, chạy file SQL đi kèm vÃ  cấp quyền Admin cho tÃ i khoản trước khi đăng nhập.</div>
@@ -54,7 +70,7 @@
 </section>
 <div id="app" class="layout hidden">
   <aside class="sidebar">
-    <div class="sidebrand"><div class="brandmark">L</div><div><strong>TIẾNG HÃ€N MR LEE</strong><small>ADMIN MANAGEMENT</small></div></div>
+    <div class="sidebrand"><img class="mrlee-admin-official-logo" src="assets/branding/logo-mrlee.png" alt="Logo gốc TIẾNG HÀN MR LEE" width="168" height="56"><div><strong>TIẾNG HÀN MR LEE</strong><small>ADMIN MANAGEMENT</small></div></div>
     <nav class="side-menu" aria-label="Quản trị">
       <button data-nav="overview" class="active"><b>â—«</b> Tổng quan</button>
       <button data-nav="students"><b>♙</b> Quản lý học viên</button>
