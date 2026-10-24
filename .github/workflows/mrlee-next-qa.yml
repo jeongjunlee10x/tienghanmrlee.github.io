@@ -1,10 +1,19 @@
 name: MR LEE NEXT — Kiểm tra giao diện và liên kết
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/mrlee-v2/**'
+      - 'assets/mrlee-dual-ui/**'
+      - 'admin.html'
+      - 'tools/mrlee-next-qa.mjs'
+      - '.github/workflows/mrlee-next-qa.yml'
   push:
     branches: [main]
     paths:
       - 'assets/mrlee-next/**'
+      - 'assets/mrlee-v2/**'
       - 'assets/mrlee-dual-ui/**'
       - 'hoc-tieng-han.html'
       - 'giao-tiep-theo-chu-de.html'
