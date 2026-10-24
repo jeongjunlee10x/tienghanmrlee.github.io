@@ -7,6 +7,9 @@ const cinematicCss=doc.createElement('link');cinematicCss.rel='stylesheet';cinem
 const premiumCss=doc.createElement('link');premiumCss.rel='stylesheet';premiumCss.href='assets/mrlee-next/premium.css?v=20261024c';doc.head.append(premiumCss);
 // Dedicated R1 navigation layer, shown only in the optional futuristic theme.
 const navCss=doc.createElement('link');navCss.rel='stylesheet';navCss.href='assets/mrlee-v2/primary-nav.css?v=20261025-r1';doc.head.append(navCss);
+// Production-ready V2 experience: page-specific real CTAs and accessible site footer.
+const experienceCss=doc.createElement('link');experienceCss.rel='stylesheet';experienceCss.href='assets/mrlee-v2/experience.css?v=20261025-r2';doc.head.append(experienceCss);
+const experienceScript=doc.createElement('script');experienceScript.src='assets/mrlee-v2/experience.js?v=20261025-r2';doc.head.append(experienceScript);
 const admin=path==='admin.html';
 const sceneNames=['learning','speaking','topik','interview','culture','universities','home','admin'];
 function which(t){t=String(t).toLowerCase();if(/mrlee-bai-tap-pro|workbook/.test(t))return 'workbook';if(/trung-tam-hoc-vien|ho-so-hoc-vien/.test(t))return 'profile';if(/admin|xep-hang|ranking/.test(t))return 'admin';if(/van-hoa|culture|du-lich|kham-pha/.test(t))return 'culture';if(/phong-van/.test(t))return 'interview';if(/ban-do|dai-hoc|truong/.test(t))return 'universities';if(/giao-tiep|hoi-thoai|noi/.test(t))return 'speaking';if(/topik|kiem-tra|luyen-de|thi|nghe/.test(t))return 'topik';if(/hoc-|bai-tap|workbook|hoc-vien/.test(t))return 'learning';return 'home'}
