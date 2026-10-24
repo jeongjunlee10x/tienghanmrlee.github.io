@@ -13,13 +13,22 @@ function update(v){theme=v==='future'?'future':'fresh';html.dataset.mrleeTheme=t
 }
 function cardTheme(link){
  const href=link.getAttribute('href')||'',params=new URL(link.href,location.href).searchParams,cap=params.get('cap');
- if(cap&&/^[1-6]$/.test(cap))return ['','learning','culture','universities','speaking','admin','culture'][Number(cap)];
+ if(cap&&/^[1-6]$/.test(cap))return ['','elementary1','elementary2','intermediate1','intermediate2','advanced1','advanced2'][Number(cap)];
+ if(/kiem-tra-dau-vao/.test(href))return 'placement';
+ if(/lo-trinh-topik|topik-i-lo-trinh|topik-ii-lo-trinh/.test(href))return 'roadmap';
+ if(/thi-topik|topik-v11|topik-phong-luyen/.test(href))return 'mock';
+ if(/lich-su/.test(href))return 'history';
+ if(/workbook|bai-tap-pro/.test(href))return 'workbook';
+ if(/luyen-nghe|nghe-/.test(href))return 'listening';
+ if(/viet-51-54/.test(href))return 'writing';
+ if(/van-hoa-bai-hoc/.test(href))return 'daily';
+ if(/hoc-bong|tim-truong/.test(href))return 'schools';
  return which(href+' '+link.textContent);
 }
 function decorate(){
  html.style.setProperty('--mrlee-scene','url("'+asset(which(path))+'")');
- doc.querySelectorAll('.destination-grid a.destination').forEach(a=>{
-  if(a.querySelector('.mrlee-card-visual'))return;
+ doc.querySelectorAll('.destination-grid a.destination,.quick-links a,.shortcuts a.shortcut,.mr-new-grid a,.mrlee-topik-shortcuts a').forEach(a=>{
+  if(a.querySelector('.mrlee-card-visual'))return;if(!a.matches('.destination'))a.classList.add('mrlee-custom-future-card');
   const s=doc.createElement('span');s.className='mrlee-card-visual';s.setAttribute('aria-hidden','true');
   s.style.setProperty('--mrlee-card-art','url("'+asset(cardTheme(a))+'")');a.append(s);
  });
