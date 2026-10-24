@@ -107,7 +107,8 @@ function pageGallery(){
 
 
 function portal(){
- if(admin||doc.querySelector('.mrlee-next-portal'))return;
+ const allowed=new Set(['index.html','hoc-tieng-han.html','giao-tiep-theo-chu-de.html','kiem-tra-topik.html','giao-tiep-phong-van.html','van-hoa-han-quoc.html','ban-do-dai-hoc-han-quoc.html','trung-tam-hoc-vien.html','mrlee-bai-tap-pro.html']);
+ if(admin||!allowed.has(path)||doc.querySelector('.mrlee-next-portal'))return;
  const groups={
  home:[['Học tiếng Hàn','hoc-tieng-han.html','learning'],['Giao tiếp','giao-tiep-theo-chu-de.html','speaking'],['TOPIK','kiem-tra-topik.html','topik'],['Phỏng vấn','giao-tiep-phong-van.html','interview'],['Văn hóa Hàn Quốc','van-hoa-han-quoc.html','culture'],['Bản đồ trường đại học','ban-do-dai-hoc-han-quoc.html','universities'],['WORKBOOK','mrlee-bai-tap-pro.html','workbook'],['Hồ sơ học viên','trung-tam-hoc-vien.html','profile'],['Đăng ký tư vấn','dang-ky-tu-van.html','consultation']],
  learning:[['Sơ cấp 1','hoc-theo-bai.html?cap=1','learning'],['Sơ cấp 2','hoc-theo-bai.html?cap=2','learning'],['Trung cấp 1','hoc-theo-bai.html?cap=3','learning'],['Trung cấp 2','hoc-theo-bai.html?cap=4','learning'],['Cao cấp 1','hoc-theo-bai.html?cap=5','learning'],['Cao cấp 2','hoc-theo-bai.html?cap=6','learning'],['WORKBOOK','mrlee-bai-tap-pro.html','workbook']],
