@@ -1,0 +1,28 @@
+name: MR LEE NEXT — Kiểm tra giao diện và liên kết
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/mrlee-next/**'
+      - 'assets/mrlee-dual-ui/**'
+      - 'admin.html'
+      - 'index.html'
+      - 'dang-ky-tu-van.html'
+      - 'quy-tac-diem-mrlee.html'
+      - 'tuyen-sinh.html'
+      - 'tools/mrlee-next-qa.mjs'
+      - '.github/workflows/mrlee-next-qa.yml'
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Kiểm tra 14 trang và link thật
+        run: node tools/mrlee-next-qa.mjs
