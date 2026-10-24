@@ -11,7 +11,7 @@ const STUDY=new Set([
   'trung-tam-hoc-vien.html','lich-su-hoc-tap.html','giao-tiep-phong-van.html',
   'giao-tiep-theo-chu-de.html','hoi-thoai-tap-noi.html','on-luyen-phong-van.html',
   'luyen-noi-tinh-diem.html','luyen-noi-nang-cao.html','mrlee-bai-tap-pro.html',
-  'kiem-tra-topik.html','kiem-tra-dau-vao.html','kiem-tra-online.html',
+  'kiem-tra-online.html',
   'de-thi-topik.html','thi-topik-online.html','topik-luyen-de.html',
   'mrlee-topik-pro.html','lo-trinh-topik.html','topik-i-lo-trinh.html',
   'topik-ii-lo-trinh.html','topik-v10.html','topik-v11.html','topik-v12.html',
