@@ -57,3 +57,46 @@ html[data-mrlee-theme="future"] :is(.mrlee-admin-kpis>div,.mrlee-chart-panel){ba
 html[data-mrlee-theme="future"] .mrlee-admin-kpis strong{color:#4addff}
 @media(max-width:910px){.mrlee-admin-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.mrlee-admin-charts{grid-template-columns:1fr}}
 @media(max-width:610px){.mrlee-theme-switch{margin:8px auto;border-radius:12px}.mrlee-theme-switch strong{width:100%;text-align:center}html[data-mrlee-theme="future"] .destination{padding:14px 40% 14px 13px!important}}
+
+
+/* Futuristic home dashboard - the original remains intact in Fresh mode */
+html:not([data-mrlee-theme="future"]) .mrlee-future-home,html:not([data-mrlee-theme="future"]) .mrlee-future-hero-copy{display:none!important}
+html[data-mrlee-theme="future"] #mainContent>.hero{display:flex!important;align-items:center!important;min-height:470px;padding:40px 0;position:relative;isolation:isolate;background-image:linear-gradient(90deg,#020d24f5,#081a44c2 58%,#1413448c),url("../mrlee-dual-ui/cards/home.svg")!important}
+html[data-mrlee-theme="future"] #mainContent .hero .hero-copy{display:none!important}
+html[data-mrlee-theme="future"] #mainContent .hero .mrlee-future-hero-copy{display:block;z-index:3;position:relative;width:min(660px,100%);padding:26px 4vw 30px;color:#effaff}
+html[data-mrlee-theme="future"] .mrlee-future-eyebrow{display:block;font:800 11px system-ui;letter-spacing:.24em;color:#86e6ff;margin:0 0 14px}
+html[data-mrlee-theme="future"] .mrlee-future-hero-copy h1{font:bold clamp(33px,5vw,69px)/1.05 system-ui,sans-serif;letter-spacing:-.03em;margin:0 0 14px;text-shadow:0 0 26px #18c2ff5c}
+html[data-mrlee-theme="future"] .mrlee-future-hero-copy h1 em{font-style:normal;background:linear-gradient(90deg,#21ddff,#a88bff,#f09df4);color:transparent;background-clip:text}
+html[data-mrlee-theme="future"] .mrlee-future-hero-copy p{color:#e0eeff;font:400 clamp(13px,1.55vw,17px)/1.75 system-ui;margin:12px 0}
+html[data-mrlee-theme="future"] .mrlee-future-hero-copy .mrlee-future-lead{font-weight:800;font-size:clamp(15px,1.85vw,21px)}
+html[data-mrlee-theme="future"] .mrlee-future-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:25px}
+html[data-mrlee-theme="future"] .mrlee-future-cta a{padding:12px 19px;border-radius:12px;font-weight:800;font-size:13px;text-decoration:none;color:#eaffff;border:1px solid #6ccfff;background:#0c2556c9;box-shadow:0 0 16px #26caff3f}
+html[data-mrlee-theme="future"] .mrlee-future-cta a:first-child{background:linear-gradient(110deg,#21ccf9,#5178fa);color:#03162b}
+html[data-mrlee-theme="future"] .mrlee-future-home{max-width:1400px;margin:0 auto;padding:15px 30px 27px;color:#e8faff}
+html[data-mrlee-theme="future"] .mrlee-future-statbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 29px;padding:14px;border:1px solid #367fc0;border-radius:17px;background:linear-gradient(130deg,#071b3b,#10214a);box-shadow:0 0 25px #0b9cf44c}
+html[data-mrlee-theme="future"] .mrlee-future-statbar>div{display:flex;flex-direction:column;gap:2px;padding:9px 12px;border-right:1px solid #3176aa}
+html[data-mrlee-theme="future"] .mrlee-future-statbar>div:last-child{border-right:0}
+html[data-mrlee-theme="future"] .mrlee-future-statbar strong{font-size:clamp(21px,2.5vw,30px);color:#54e5ff}
+html[data-mrlee-theme="future"] .mrlee-future-statbar small{font-size:11px;color:#ceeaff}
+html[data-mrlee-theme="future"] .mrlee-future-section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:24px 0 12px}
+html[data-mrlee-theme="future"] .mrlee-future-section-head h2{color:#f7fbff;font-size:17px;margin:0;letter-spacing:.04em}
+html[data-mrlee-theme="future"] .mrlee-future-section-head a{color:#6fe5ff;font-size:12px;text-decoration:underline}
+html[data-mrlee-theme="future"] .mrlee-future-levels{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+html[data-mrlee-theme="future"] .mrlee-future-modules{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+html[data-mrlee-theme="future"] .mrlee-future-mod-card{position:relative;display:flex;flex-direction:column;gap:6px;justify-content:flex-end;min-height:166px;overflow:hidden;border-radius:14px;border:1px solid #278dc7;background:#07172f;padding:15px 12px;color:#f2fbff!important;text-decoration:none;box-shadow:0 8px 22px #02071d, inset 0 0 0 1px #58d4ff15;isolation:isolate;transition:transform .2s,border-color .2s}
+html[data-mrlee-theme="future"] .mrlee-future-mod-card:hover{transform:translateY(-3px);border-color:#7aedff;box-shadow:0 0 22px #1bd2ff47}
+html[data-mrlee-theme="future"] .mrlee-future-mod-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:.68;mask-image:linear-gradient(0deg,transparent 0%,black 90%)}
+html[data-mrlee-theme="future"] .mrlee-future-mod-card::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,#051329 0%,transparent 85%)}
+html[data-mrlee-theme="future"] .mrlee-future-mod-card strong{font-size:14px;line-height:1.25;color:#f3fcff}
+html[data-mrlee-theme="future"] .mrlee-future-mod-card small{font-size:11px;line-height:1.45;color:#d2eaff}
+html[data-mrlee-theme="future"] .mrlee-future-num{position:absolute;top:9px;left:11px;color:#62e4ff;font:bold 20px system-ui}
+html[data-mrlee-theme="future"] .mrlee-future-arrow{position:absolute;top:13px;right:12px;border-radius:50%;padding:3px 7px;background:#068dca85;color:white}
+html[data-mrlee-theme="future"] .mrlee-future-modules .mrlee-future-wide{grid-column:span 2;min-height:175px}
+html[data-mrlee-theme="future"] .mrlee-future-modules .mrlee-future-mod-card:not(.mrlee-future-wide){grid-column:span 2;min-height:150px}
+html[data-mrlee-theme="future"] #mainContent>.feature-cards{display:none!important}
+html[data-mrlee-theme="future"] .mrlee-custom-future-card{position:relative;overflow:hidden;isolation:isolate}
+html[data-mrlee-theme="future"] .mrlee-custom-future-card>:not(.mrlee-card-visual){position:relative;z-index:2}
+html[data-mrlee-theme="future"] .main-pad::before{content:"MR LEE • TRUNG TÂM QUẢN TRỊ VÀ THỐNG KÊ";display:block;color:#83f2ff;font:bold 13px system-ui;letter-spacing:.13em;padding:20px 18px;margin-bottom:16px;background:linear-gradient(105deg,#071630e8,#101b4d75),url("../mrlee-dual-ui/cards/admin.svg") center/cover;border:1px solid #277fb1;border-radius:13px}
+@media(max-width:1050px){html[data-mrlee-theme="future"] .mrlee-future-levels{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){html[data-mrlee-theme="future"] .mrlee-future-home{padding:10px 13px}html[data-mrlee-theme="future"] .mrlee-future-statbar{grid-template-columns:repeat(2,minmax(0,1fr))}html[data-mrlee-theme="future"] .mrlee-future-statbar>div:nth-child(2){border-right:0}html[data-mrlee-theme="future"] .mrlee-future-levels{grid-template-columns:repeat(2,minmax(0,1fr))}html[data-mrlee-theme="future"] .mrlee-future-modules{grid-template-columns:1fr 1fr}html[data-mrlee-theme="future"] .mrlee-future-modules .mrlee-future-mod-card{grid-column:span 1!important}html[data-mrlee-theme="future"] .mrlee-future-modules .mrlee-future-wide{grid-column:span 2!important}html[data-mrlee-theme="future"] .mrlee-future-hero-copy{padding:16px 18px!important}}
+@media(prefers-reduced-motion:reduce){html[data-mrlee-theme="future"] .mrlee-future-mod-card{transition:none}}
