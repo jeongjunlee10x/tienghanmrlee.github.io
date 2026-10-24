@@ -8,14 +8,14 @@ const pageNames={'page-overview':'Tổng quan hệ thống','page-students':'H�
 function panel(page){
  if(page.querySelector('.mrlee-admin-analytics'))return;
  const box=d.createElement('div');box.className='mrlee-admin-analytics';
- box.innerHTML='<div class="mrlee-analytics-head"><div><h3>◈ Thống kê — '+esc(pageNames[page.id]||'Trung tâm quản trị')+'</h3><small>Biểu đồ chung và tiến độ học tập từ dữ liệu Supabase (không dùng số liệu mẫu)</small></div><div><label for="mrleePeriod'+esc(page.id)+'">Khoảng thời gian:</label> <select class="mrlee-chart-period" id="mrleePeriod'+esc(page.id)+'"><option value="7">7 ngày</option><option value="14" selected>14 ngày</option><option value="30">30 ngày</option></select> <button type="button" class="btn soft mrlee-chart-reload">↻ Cập nhật</button></div></div><div class="mrlee-admin-kpis"><div><small>Tổng học viên</small><strong data-stat="students">—</strong></div><div><small>Học viên hoạt động 7 ngày</small><strong data-stat="active">—</strong></div><div><small>Bài luyện tập đã lưu</small><strong data-stat="attempts">—</strong></div><div><small>Kiểm tra đầu vào</small><strong data-stat="placements">—</strong></div><div><small>Yêu cầu tư vấn</small><strong data-stat="consultations">—</strong></div><div><small>Bài đạt từ 70% (điểm luyện tập)</small><strong data-stat="passed">—</strong></div></div><div class="mrlee-admin-charts"><div class="mrlee-chart-panel"><strong>Hoạt động theo ngày — bài làm và lượt học</strong><div data-chart="activity"><p>Đang tải số liệu...</p></div></div><div class="mrlee-chart-panel"><strong>Điểm luyện tập trung bình theo cấp hiện tại</strong><div data-chart="levels"><p>Đang tải số liệu...</p></div></div><div class="mrlee-chart-panel mrlee-chart-progress"><strong>Tiến độ hoạt động học tập theo trình độ</strong><div data-chart="learning-progress"><p>Đang tải dữ liệu học tập...</p></div></div></div><p class="mrlee-chart-note" style="font-size:11px;opacity:.75;margin-top:9px">Dữ liệu Supabase thực tế, không chèn số ảo. Điểm tự chấm không phải điểm TOPIK chính thức; số lượt học không phải % hoàn thành giáo trình.</p>';
+ box.innerHTML='<div class="mrlee-analytics-head"><div><h3>◈ Thống kê — '+esc(pageNames[page.id]||'Trung tâm quản trị')+'</h3><small>Biểu đồ chung và tiến độ học tập từ dữ liệu Supabase (không dùng số liệu mẫu)</small></div><div><label for="mrleePeriod'+esc(page.id)+'">Khoảng thời gian:</label> <select class="mrlee-chart-period" id="mrleePeriod'+esc(page.id)+'"><option value="7">7 ngày</option><option value="14" selected>14 ngày</option><option value="30">30 ngày</option></select> <button type="button" class="btn soft mrlee-chart-reload">↻ Cập nhật</button></div></div><div class="mrlee-admin-kpis"><div><small>Tổng học viên (theo RLS)</small><strong data-stat="students">—</strong></div><div><small>Học viên hoạt động 7 ngày</small><strong data-stat="active">—</strong></div><div><small>Bài luyện tập đã lưu</small><strong data-stat="attempts">—</strong></div><div><small>Kiểm tra đầu vào</small><strong data-stat="placements">—</strong></div><div><small>Yêu cầu tư vấn</small><strong data-stat="consultations">—</strong></div><div><small>Bài đạt từ 70% (mẫu bài gần nhất)</small><strong data-stat="passed">—</strong></div></div><div class="mrlee-admin-charts"><div class="mrlee-chart-panel"><strong>Hoạt động theo ngày — tối đa 1.500 bản ghi mỗi nguồn</strong><div data-chart="activity"><p>Đang tải số liệu...</p></div></div><div class="mrlee-chart-panel"><strong>Điểm luyện tập trung bình — mẫu bài gần nhất</strong><div data-chart="levels"><p>Đang tải số liệu...</p></div></div><div class="mrlee-chart-panel mrlee-chart-progress"><strong>Tiến độ hoạt động học tập theo trình độ</strong><div data-chart="learning-progress"><p>Đang tải dữ liệu học tập...</p></div></div></div><p class="mrlee-chart-note" style="font-size:11px;opacity:.75;margin-top:9px">Dữ liệu Supabase thực tế, không chèn số ảo. Điểm tự chấm không phải điểm TOPIK chính thức; số lượt học không phải % hoàn thành giáo trình. Biểu đồ dùng tối đa 2.000 hồ sơ và 1.500 bản ghi gần nhất mỗi loại; KPI tổng học viên và hoạt động 7 ngày dùng phép đếm từ máy chủ.</p>';
  page.prepend(box);
  box.querySelector('select').addEventListener('change',e=>{period=Number(e.target.value)||14;d.querySelectorAll('.mrlee-chart-period').forEach(s=>{s.value=String(period)});if(cache)renderAll()});
  box.querySelector('button').addEventListener('click',()=>void load(true));
 }
 function ensure(){pages().forEach(panel)}
-function day(x){const t=new Date(x);return Number.isFinite(t.getTime())?t.toISOString().slice(0,10):''}
-function rows(n){const out=[];for(let i=n-1;i>=0;i--){const t=new Date();t.setUTCHours(12,0,0,0);t.setUTCDate(t.getUTCDate()-i);out.push(t.toISOString().slice(0,10))}return out}
+function day(x){const t=new Date(x);return Number.isFinite(t.getTime())?new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Ho_Chi_Minh',year:'numeric',month:'2-digit',day:'2-digit'}).format(t):''}
+function rows(n){const out=[];const now=new Date(Date.now()+7*3600000);for(let i=n-1;i>=0;i--){const t=new Date(now);t.setUTCHours(12,0,0,0);t.setUTCDate(t.getUTCDate()-i);out.push(t.toISOString().slice(0,10))}return out}
 function chartActivity(scores,events){
  const days=rows(period),smap=Object.fromEntries(days.map(d=>[d,0])),emap={...smap};
  for(const s of scores){let k=day(s.created_at||s.exam_date);if(k in smap)smap[k]++}
@@ -67,13 +67,13 @@ function chartStudyProgress(events,students){
 }
 function renderAll(){
  if(!cache)return;ensure();
- const {students,scores,events,total,placements,consultations}=cache,weekAgo=Date.now()-7*864e5;
- const active=students.filter(s=>s.last_activity_at&&new Date(s.last_activity_at).getTime()>=weekAgo).length;
+ const {students,scores,events,total,placements,consultations,studentTotal,activeTotal}=cache;
+ const active=activeTotal??'—';
  const passed=scores.filter(s=>Number(s.max_score)>0&&Number(s.score)/Number(s.max_score)>=.7).length;
  const pct=scores.length?Math.round(100*passed/scores.length):0;
  const c1=chartActivity(scores,events),c2=chartLevels(scores,students),c3=chartStudyProgress(events,students);
  d.querySelectorAll('.mrlee-admin-analytics').forEach(el=>{
-  for(const [k,v] of Object.entries({students:students.length,active,attempts:total,placements:placements??'—',consultations:consultations??'—',passed:scores.length?pct+'%':'—'})){
+  for(const [k,v] of Object.entries({students:studentTotal??'—',active,attempts:total,placements:placements??'—',consultations:consultations??'—',passed:scores.length?pct+'%':'—'})){
    const o=el.querySelector('[data-stat="'+k+'"]');if(o)o.textContent=String(v);
   }
   el.querySelector('[data-chart="activity"]').innerHTML=c1;
@@ -86,15 +86,16 @@ async function load(force=false){
  if(busy)return;if(cache&&!force&&Date.now()-lastLoad<5*60*1000){renderAll();return}
  busy=true;ensure();
  try{
-  const [a,b,c,placement,leads]=await Promise.all([
-   db.from('mrlee_students').select('id,level,last_activity_at').limit(2000),
+  const [a,b,c,placement,leads,activeCount]=await Promise.all([
+   db.from('mrlee_students').select('id,level,last_activity_at',{count:'exact'}).limit(2000),
    db.from('mrlee_scores').select('student_id,score,max_score,created_at,exam_date',{count:'exact'}).order('created_at',{ascending:false}).limit(1500),
    db.from('mrlee_learning_events').select('student_id,kind,created_at').order('created_at',{ascending:false}).limit(1500),
    db.from('mrlee_placement_submissions').select('id',{count:'exact',head:true}),
-   db.from('mrlee_consultation_requests').select('id',{count:'exact',head:true})
+   db.from('mrlee_consultation_requests').select('id',{count:'exact',head:true}),
+   db.from('mrlee_students').select('id',{count:'exact',head:true}).gte('last_activity_at',new Date(Date.now()-7*864e5).toISOString())
   ]);
   const error=a.error||b.error||c.error;if(error)throw error;
-  cache={students:a.data||[],scores:b.data||[],events:c.data||[],total:b.count??b.data?.length??0,placements:placement.error?null:placement.count,consultations:leads.error?null:leads.count};lastLoad=Date.now();renderAll();
+  cache={students:a.data||[],studentTotal:a.count??null,activeTotal:activeCount.error?null:activeCount.count,scores:b.data||[],events:c.data||[],total:b.count??b.data?.length??0,placements:placement.error?null:placement.count,consultations:leads.error?null:leads.count};lastLoad=Date.now();renderAll();
  }catch(err){d.querySelectorAll('.mrlee-admin-analytics [data-chart]').forEach(x=>{x.textContent='Không tải được dữ liệu thống kê: '+(err.message||String(err))})}
  finally{busy=false}
 }
