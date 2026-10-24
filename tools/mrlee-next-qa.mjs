@@ -6,11 +6,11 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 const root=path.resolve('.');
 const pages=['index.html','hoc-tieng-han.html','giao-tiep-theo-chu-de.html','kiem-tra-topik.html','giao-tiep-phong-van.html','van-hoa-han-quoc.html','ban-do-dai-hoc-han-quoc.html','trung-tam-hoc-vien.html','mrlee-bai-tap-pro.html','tuyen-sinh.html','admin.html','dang-ky-tu-van.html','quy-tac-diem-mrlee.html','bang-diem-tuan-v12.html'];
-const scripts=['assets/mrlee-dual-ui/theme.js','assets/mrlee-dual-ui/admin-charts.js','assets/mrlee-next/consultation.js','assets/mrlee-next/consultation-admin.js','mrlee-placement-admin.js'];
+const scripts=['assets/mrlee-dual-ui/theme.js','assets/mrlee-dual-ui/admin-charts.js','assets/mrlee-next/consultation.js','assets/mrlee-next/consultation-admin.js','mrlee-placement-admin.js','assets/mrlee-v2/experience.js','tools/audit-mrlee-rewards.mjs'];
 const scenes=['home','learning','speaking','topik','interview','culture','universities','workbook','profile','admin','consultation'];
 let errors=[];
 const exists=(f)=>fs.existsSync(path.join(root,f));
-for(const f of [...pages,...scripts,'assets/mrlee-next/premium.css','assets/mrlee-next/consultation-admin.css','assets/branding/logo-mrlee.png',...scenes.map(x=>'assets/mrlee-next/scenes/'+x+'.svg')])if(!exists(f))errors.push('MISSING: '+f);
+for(const f of [...pages,...scripts,'assets/mrlee-next/premium.css','assets/mrlee-next/consultation-admin.css','assets/mrlee-v2/primary-nav.css','assets/mrlee-v2/experience.css','assets/branding/logo-mrlee.png',...scenes.map(x=>'assets/mrlee-next/scenes/'+x+'.svg')])if(!exists(f))errors.push('MISSING: '+f);
 for(const f of scripts){if(!exists(f))continue;const run=spawnSync(process.execPath,['--check',path.join(root,f)],{encoding:'utf8'});if(run.status!==0)errors.push('SYNTAX: '+f+' '+run.stderr.slice(0,500))}
 const local=/<(?:script|link|img|audio|video|a)\b[^>]*?\b(?:src|href)\s*=\s*["']([^"'#]+)["']/gi;
 for(const page of pages){
@@ -45,6 +45,17 @@ if(!adminCharts.includes("select('id,level,last_activity_at',{count:'exact'})"))
 if(!adminCharts.includes('activeTotal:activeCount.error?null:activeCount.count'))errors.push('ADMIN ACTIVE KPI NOT SERVER-COUNTED');
 const admin=exists('admin.html')?fs.readFileSync('admin.html','utf8'):'';
 if(admin.includes('Tiếng HÃ n'))errors.push('ADMIN TITLE MOJIBAKE');
+const ctxScript=exists('assets/mrlee-v2/experience.js')?fs.readFileSync('assets/mrlee-v2/experience.js','utf8'):'';
+for(const x of ['index.html','hoc-tieng-han.html','giao-tiep-theo-chu-de.html','kiem-tra-topik.html','mrlee-bai-tap-pro.html','giao-tiep-phong-van.html','van-hoa-han-quoc.html','ban-do-dai-hoc-han-quoc.html','trung-tam-hoc-vien.html','dang-ky-tu-van.html'])if(!ctxScript.includes("'"+x+"'"))errors.push('V2 EXPERIENCE ROUTE: '+x);
+for(const x of ['assets/mrlee-v2/experience.css','assets/mrlee-v2/experience.js'])if(!theme.includes(x))errors.push('THEME NOT WIRED: '+x);
+for(const p of ['ban-do-dai-hoc-han-quoc.html','dang-ky-tu-van.html']){
+ const html=exists(p)?fs.readFileSync(p,'utf8'):'';
+ for(const x of ['assets/mrlee-v2/experience.css','assets/mrlee-v2/experience.js','assets/mrlee-v2/primary-nav.css'])if(!html.includes(x))errors.push('STANDALONE DESIGN MISSING: '+p+' -> '+x);
+}
+const consultJs=exists('assets/mrlee-next/consultation.js')?fs.readFileSync('assets/mrlee-next/consultation.js','utf8'):'';
+if(!consultJs.includes('server-issued reference'))errors.push('CONSULT RECEIPT MISSING');
+if(!adminCharts.includes('openLeads:openLeadsCount.error')||!adminCharts.includes('reviewable:reviewCount.error'))errors.push('ADMIN CRM/REVIEW KPIS MISSING');
+
 for(const x of ['consultation-admin.js','admin-charts.js','MRLEE_ADMIN_PLACEMENT_BRIDGE','logo-mrlee.png'])if(!admin.includes(x))errors.push('ADMIN MISSING: '+x);
 const form=exists('dang-ky-tu-van.html')?fs.readFileSync('dang-ky-tu-van.html','utf8'):'';
 for(const x of ['cf-turnstile','mrleeConsultConsent','mrleeConsultReceipt','logo-mrlee.png'])if(!form.includes(x))errors.push('CONSULT MISSING: '+x);
