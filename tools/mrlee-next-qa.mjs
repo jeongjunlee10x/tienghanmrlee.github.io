@@ -28,6 +28,10 @@ for(const page of pages){
 }
 const theme=exists(scripts[0])?fs.readFileSync(path.join(root,scripts[0]),'utf8'):'';
 for(const x of ['mrlee-next-portal','MRLEE.THEME.V1','portal()','assets/mrlee-next/premium.css'])if(!theme.includes(x))errors.push('THEME MISSING: '+x);
+for(const m of theme.matchAll(/'([a-z0-9-]+\.html(?:\?[^']*)?)'/gi)){
+ const f=m[1].split('?')[0];if(!exists(f))errors.push('BROKEN DYNAMIC PORTAL LINK: '+f);
+}
+
 const admin=exists('admin.html')?fs.readFileSync('admin.html','utf8'):'';
 for(const x of ['consultation-admin.js','admin-charts.js','MRLEE_ADMIN_PLACEMENT_BRIDGE','logo-mrlee.png'])if(!admin.includes(x))errors.push('ADMIN MISSING: '+x);
 const form=exists('dang-ky-tu-van.html')?fs.readFileSync('dang-ky-tu-van.html','utf8'):'';
