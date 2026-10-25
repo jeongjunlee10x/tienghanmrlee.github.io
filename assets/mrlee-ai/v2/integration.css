@@ -1,0 +1,9 @@
+/* MR LEE image library V2 — one component system for both original palettes.
+   Uses original official brand image; no fabricated profile images or statistics. */
+html[data-mrlee-theme="future"] [data-mrlee-art-v2="ready"]{filter:saturate(1.06) contrast(1.05)}
+html[data-mrlee-theme="fresh"] .mrlee-v4-hero{box-shadow:0 16px 36px #2366a929}
+html[data-mrlee-theme="future"] .mrlee-v4-hero{box-shadow:0 20px 54px #000a}
+.mrlee-v4-hero-photo[data-mrlee-art-v2="ready"]{object-fit:cover;object-position:center}
+.mrlee-smart-home-card img[data-mrlee-art-v2="ready"]{object-fit:cover}
+@media(max-width:680px){.mrlee-v4-hero-photo[data-mrlee-art-v2="ready"]{object-position:60% center}}
+@media(prefers-reduced-motion:reduce){html .mrlee-smart-home-card,html .mrlee-v4-card{transition:none!important}}
