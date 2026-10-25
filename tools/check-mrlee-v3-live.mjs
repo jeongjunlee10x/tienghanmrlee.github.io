@@ -1,4 +1,4 @@
-/** MR LEE V3 live-art wiring audit. Does not claim the unuploaded WebPs exist. */
+/** MR LEE V3 live-art wiring audit. Allow legitimately tiny valid WebPs, not broken files; missing 170 slots remain explicitly pending. */
 import fs from 'node:fs';
 import path from 'node:path';
 import {spawnSync} from 'node:child_process';
@@ -15,7 +15,7 @@ for(const page of pages){
  if(!html.includes('assets/mrlee-ai/v3/live-mapping.css'))errors.push('Missing V3 CSS: '+page);
  if(!html.includes('assets/branding/logo-mrlee.png')&&!html.includes('site-logo.js'))messages.push('Check brand injection on '+page);
 }
-for(const required of ['verified(u)','new Image()','image.naturalWidth','image.onerror','dataset.mrleeTheme','background-image','index.html','admin.html','.mrlee-v4-directory-grid','mrlee-smart-home-card']){
+for(const required of ['verified(u)','new Image()','image.naturalWidth','image.onerror','dataset.mrleeTheme','background-image','index.html','admin.html','.mrlee-v4-directory-grid','.feature-card[href]','.mrlee-future-mod-card[href]']){
  if(!code.includes(required))errors.push('Missing fall-back or page mapping: '+required);
 }
 const exists=manifest.records.filter(r=>fs.existsSync(path.join(root,r.asset_path)));
@@ -23,7 +23,7 @@ const missing=manifest.records.length-exists.length;
 let invalid=0;
 for(const r of exists){
  const b=fs.readFileSync(r.asset_path);
- if(b.length<25000||b.toString('ascii',0,4)!=='RIFF'||b.toString('ascii',8,12)!=='WEBP')invalid++;
+ if(b.length<64||b.toString('ascii',0,4)!=='RIFF'||b.toString('ascii',8,12)!=='WEBP'||b.readUInt32LE(4)+8!==b.length)invalid++;
 }
 if(invalid)errors.push('Invalid installed WebP assets: '+invalid);
 console.log('MR LEE V3 mapping: '+pages.length+' pages; '+exists.length+'/'+manifest.records.length+' assets currently on disk; '+missing+' still not rendered/uploaded.');
