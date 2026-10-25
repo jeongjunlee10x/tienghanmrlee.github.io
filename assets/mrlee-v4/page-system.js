@@ -44,7 +44,7 @@ const defs={
  id:'profile',eyebrow:'MY MR LEE · LEARNING JOURNEY',title:'HỒ SƠ HỌC VIÊN',lead:'Theo dõi tiến độ và kết quả học tập',description:'Tài khoản học viên, kết quả luyện tập, nhật ký hoạt động và thứ hạng được hiển thị từ hồ sơ thực của bạn.',
  image:'learning-roadmap.webp',cta:['Xem kết quả của tôi','#statAttempts'],secondary:['Bảng xếp hạng','bang-xep-hang.html'],section:'Hành trình học tập cá nhân',hint:'Đăng nhập để xem số liệu chính xác của chính bạn',
  cards:[['Kết quả luyện tập','Điểm và lịch sử đã lưu','#attemptRows','learning-cap-3.webp'],['Tiến độ học tập','Nhật ký hoạt động','#eventRows','learning-cap-4.webp'],['WORKBOOK','Làm bài tập theo bài','mrlee-bai-tap-pro.html','learning-books.webp'],['Bảng xếp hạng','So sánh điểm động lực','bang-xep-hang.html','feature-6-thi-topik.webp']],
- tools:[['Tiếp tục học','hoc-tieng-han.html','learning-cap-1.webp'],['Luyện TOPIK','kiem-tra-topik.html','feature-6-thi-topik.webp'],['Đăng nhập','dang-nhap.html','feature-5-hoc-tieng-han.webp']]}
+ tools:[['Tiếp tục học','hoc-tieng-han.html','learning-cap-1.webp'],['Luyện TOPIK','kiem-tra-topik.html','learning-cap-5.webp'],['Đăng nhập','dang-nhap.html','feature-5-hoc-tieng-han.webp']]}
 };
 const cfg=defs[page];if(!cfg)return;
 const allowedTarget=s=>s.startsWith('#')?/^#[A-Za-z][\w-]*$/.test(s):/^[a-z0-9-]+\.html(?:\?[^"'<>]*)?$/.test(s);
