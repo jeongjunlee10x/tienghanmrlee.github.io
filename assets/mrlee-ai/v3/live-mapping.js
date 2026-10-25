@@ -79,9 +79,31 @@ async function setBackground(element,u){
 function applyCards(){
  if(filename==='index.html'){
   const map=pages['index.html'].cards;
-  d.querySelectorAll('.mrlee-smart-home-card[href]').forEach(a=>{
+  // The live homepage uses feature-card and mrlee-future-mod-card,
+  // not mrlee-smart-home-card (which was a stale selector).
+  const sourceMap={
+   'feature-1-tuyen-sinh.webp':'feature-admission',
+   'feature-2-ban-do.webp':'feature-university-map',
+   'feature-3-tim-truong.webp':'07_ban_do_dai_hoc/campus-busan',
+   'feature-5-hoc-tieng-han.webp':'02_hoc_tieng_han/level-01',
+   'feature-6-thi-topik.webp':'feature-topik',
+   'feature-7-ky-tuc-xa.webp':'03_giao_tiep/topic-dorm',
+   'feature-8-doi-song.webp':'feature-culture',
+   'learning-topik.webp':'feature-topik',
+   'learning-books.webp':'feature-workbook'
+  };
+  const cards=d.querySelectorAll(
+   '.feature-card[href], .mrlee-future-mod-card[href], .mrlee-smart-home-card[href]'
+  );
+  cards.forEach(a=>{
+   const img=a.querySelector('img');
+   if(!img)return;
+   const original=(img.getAttribute('src')||'').split('/').pop();
    const basename=(a.getAttribute('href')||'').split(/[?#]/)[0];
-   const slug=map[basename];if(slug)setImage(a.querySelector('img'),slug.includes('/')?root+slug+'.webp':url(slug));
+   const course=/[?&]cap=([1-6])(?:&|$)/.exec(a.getAttribute('href')||'');
+   const level=course?'02_hoc_tieng_han/level-0'+course[1]:null;
+   const slug=level||sourceMap[original]||map[basename];
+   if(slug)setImage(img,slug.includes('/')?root+slug+'.webp':url(slug));
   });
   return;
  }
