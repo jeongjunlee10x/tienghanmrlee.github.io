@@ -11,6 +11,7 @@ const suites=[
  ['Đường dẫn của toàn bộ trang / cú pháp JS','audit-full-site.mjs'],
  ['Hình ảnh và font trong CSS','audit-css-assets.mjs'],
  ['24 bản ghi âm TOPIK thật','audit-topik-audio.mjs'],
+ ['Kho giáo trình và AI trợ lý','check-mrlee-ai.mjs'],
  ['Chức năng cốt lõi','mrlee-next-qa.mjs'],
  ['Trang chủ / Admin Smart','check-mrlee-smart.mjs'],
  ['Giao diện trang con V4','check-mrlee-v4.mjs'],
