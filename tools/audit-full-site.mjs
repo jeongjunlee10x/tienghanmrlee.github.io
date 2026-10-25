@@ -24,8 +24,11 @@ const pages=new Map(htmlFiles.map(f=>[f,fs.readFileSync(path.join(root,f),'utf8'
 const safeDecode=v=>{try{return decodeURIComponent(v)}catch{return v}};
 const allAssets=new Set;
 for(const [file,html] of pages){
+ // Ignore embedded JavaScript template strings, which are not static DOM nodes.
+ // Preserve <script src="..."> tags themselves for actual asset validation.
+ const documentMarkup=html.replace(/(<script\b[^>]*>)[\s\S]*?(<\/script>)/gi,'$1$2');
  const ids=new Map();
- for(const m of html.matchAll(/\bid\s*=\s*["']([^"']+)["']/gi)){
+ for(const m of documentMarkup.matchAll(/\bid\s*=\s*["']([^"']+)["']/gi)){
   const key=m[1];ids.set(key,(ids.get(key)||0)+1);
  }
  for(const [id,count] of ids)if(count>1)warning('DUPLICATE_ID',file,'#'+id,String(count));
@@ -34,7 +37,7 @@ for(const [file,html] of pages){
  }
  const tagRegex=/<(script|link|img|source|video|audio|iframe|a)\b[^>]*>/gi;
  let tag;
- while((tag=tagRegex.exec(html))){
+ while((tag=tagRegex.exec(documentMarkup))){
   const name=tag[1].toLowerCase(),markup=tag[0],raw=attr(markup,name==='a'||name==='link'?'href':'src').trim();
   if(!raw)continue;
   if(raw==='/'||raw.startsWith('#')){if(raw.startsWith('#')&&name==='a'&&!ids.has(raw.slice(1)))warning('DYNAMIC_OR_MISSING_ANCHOR',file,raw);continue}
