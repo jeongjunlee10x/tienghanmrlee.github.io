@@ -15,6 +15,19 @@ const catalog=[
  {title:'Hồ sơ học viên',desc:'Xem hành trình học tập',href:'trung-tam-hoc-vien.html',img:'learning-roadmap.webp'}
 ];
 const $=(tag,cls,text)=>{const el=d.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el};
+// Short homepage no longer has the anchor targets shown in legacy top navigation.
+// Restore original anchors as soon as user selects Fresh or opens the full page.
+const reroutes={'#ranking':'bang-xep-hang.html','#schoolSearch':'ban-do-dai-hoc-han-quoc.html','#contactPanel':'dang-ky-tu-van.html'};
+function smartNavLinks(){
+ if(page!=='index.html')return;
+ const compact=root.dataset.mrleeTheme==='future'&&root.dataset.mrleeSmartExpanded!=='true';
+ d.querySelectorAll('.site-header a[href],#mobileNav a[href],a[data-mrlee-smart-original-href]').forEach(a=>{
+  const original=a.dataset.mrleeSmartOriginalHref||a.getAttribute('href');
+  if(!(original in reroutes))return;
+  if(!a.dataset.mrleeSmartOriginalHref)a.dataset.mrleeSmartOriginalHref=original;
+  a.setAttribute('href',compact?reroutes[original]:original);
+ });
+}
 function homepage(){
  const main=d.querySelector('main#mainContent'),hero=main?.querySelector(':scope > .hero');
  if(!hero||main.querySelector('.mrlee-smart-home-hub'))return;
@@ -91,7 +104,7 @@ function admin(){
  fixAdminNav();
 }
 function start(){
- if(page==='index.html')homepage();
+ if(page==='index.html'){homepage();smartNavLinks();new MutationObserver(smartNavLinks).observe(root,{attributes:true,attributeFilter:['data-mrlee-theme','data-mrlee-smart-expanded']})}
  if(page==='admin.html'){admin();fixAdminNav();
   const menu=d.querySelector('#app .side-menu');
   if(menu)new MutationObserver(fixAdminNav).observe(menu,{childList:true});
