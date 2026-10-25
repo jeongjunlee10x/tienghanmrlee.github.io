@@ -1,0 +1,32 @@
+name: MR LEE PowerShell uploader syntax
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/PUSH_ASSETS_MRLEE_V3.ps1'
+      - '.github/workflows/mrlee-powershell-uploader-qa.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/PUSH_ASSETS_MRLEE_V3.ps1'
+      - '.github/workflows/mrlee-powershell-uploader-qa.yml'
+permissions:
+  contents: read
+jobs:
+  check-windows-script:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse original Windows PowerShell 5.1 script
+        shell: powershell
+        run: |
+          $p = '.\tools\PUSH_ASSETS_MRLEE_V3.ps1'
+          $tokens = $null
+          $problems = $null
+          [System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p), [ref]$tokens, [ref]$problems) | Out-Null
+          if($problems.Count) { $problems | ForEach-Object { Write-Error $_ }; exit 1 }
+          $s = Get-Content -LiteralPath $p -Raw -Encoding UTF8
+          if($s -match '(?m)^function\s+Git\s*\(') { throw 'Function Git would shadow git.exe and overflow call depth' }
+          if($s -notmatch 'Invoke-MrLeeGit') { throw 'Expected safe Git wrapper' }
+          if($s -notmatch 'Get-Command -Name git.exe -CommandType Application') { throw 'Expected explicit git.exe executable' }
+          Write-Host 'PASS PowerShell 5.1 parser, safe external git.exe resolution.'
