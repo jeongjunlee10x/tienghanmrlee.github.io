@@ -1,0 +1,72 @@
+{
+  "version": "MRLEE_AI_V1_20261025",
+  "releaseStatus": "staged: asset binaries not in Git repository",
+  "description": "Manifest for 10 AI originals rendered as 20 optimized WebP in local ZIP; not publicly live until uploaded and verified.",
+  "count": 20,
+  "width": 1599,
+  "height": 900,
+  "mobileWidth": 900,
+  "mobileHeight": 507,
+  "assets": [
+    {
+      "scene": "home",
+      "desktop": "assets/mrlee-ai/v1/home.webp",
+      "mobile": "assets/mrlee-ai/v1/home-mobile.webp",
+      "fallback": "assets/mrlee-next/scenes/home.svg"
+    },
+    {
+      "scene": "learning",
+      "desktop": "assets/mrlee-ai/v1/learning.webp",
+      "mobile": "assets/mrlee-ai/v1/learning-mobile.webp",
+      "fallback": "assets/mrlee-next/scenes/learning.svg"
+    },
+    {
+      "scene": "speaking",
+      "desktop": "assets/mrlee-ai/v1/speaking.webp",
+      "mobile": "assets/mrlee-ai/v1/speaking-mobile.webp",
+      "fallback": "assets/mrlee-next/scenes/speaking.svg"
+    },
+    {
+      "scene": "topik",
+      "desktop": "assets/mrlee-ai/v1/topik.webp",
+      "mobile": "assets/mrlee-ai/v1/topik-mobile.webp",
+      "fallback": "assets/mrlee-next/scenes/topik.svg"
+    },
+    {
+      "scene": "workbook",
+      "desktop": "assets/mrlee-ai/v1/workbook.webp",
+      "mobile": "assets/mrlee-ai/v1/workbook-mobile.webp",
+      "fallback": "assets/mrlee-next/scenes/workbook.svg"
+    },
+    {
+      "scene": "interview",
+      "desktop": "assets/mrlee-ai/v1/interview.webp",
+      "mobile": "assets/mrlee-ai/v1/interview-mobile.webp",
+      "fallback": "assets/mrlee-next/scenes/interview.svg"
+    },
+    {
+      "scene": "culture",
+      "desktop": "assets/mrlee-ai/v1/culture.webp",
+      "mobile": "assets/mrlee-ai/v1/culture-mobile.webp",
+      "fallback": "assets/mrlee-next/scenes/culture.svg"
+    },
+    {
+      "scene": "universities",
+      "desktop": "assets/mrlee-ai/v1/universities.webp",
+      "mobile": "assets/mrlee-ai/v1/universities-mobile.webp",
+      "fallback": "assets/mrlee-next/scenes/universities.svg"
+    },
+    {
+      "scene": "profile",
+      "desktop": "assets/mrlee-ai/v1/profile.webp",
+      "mobile": "assets/mrlee-ai/v1/profile-mobile.webp",
+      "fallback": "assets/mrlee-next/scenes/profile.svg"
+    },
+    {
+      "scene": "admin",
+      "desktop": "assets/mrlee-ai/v1/admin.webp",
+      "mobile": "assets/mrlee-ai/v1/admin-mobile.webp",
+      "fallback": "assets/mrlee-next/scenes/admin.svg"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+name: MR LEE AI - kiểm tra đủ 20 ảnh WebP
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/mrlee-ai/v1/**'
+      - 'tools/verify-mrlee-ai-assets.mjs'
+      - '.github/workflows/mrlee-ai-artwork-qa.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'assets/mrlee-ai/v1/**'
+      - 'tools/verify-mrlee-ai-assets.mjs'
+      - '.github/workflows/mrlee-ai-artwork-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  media:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate artwork integration JS
+        run: |
+          node --check assets/mrlee-ai/v1/loader.js
+          node --check assets/mrlee-ai/v1/visuals.js
+          node --check tools/verify-mrlee-ai-assets.mjs
+      - name: Validate original WebP image bytes and unique SHA-256
+        if: hashFiles('assets/mrlee-ai/v1/*.webp') != ''
+        run: node tools/verify-mrlee-ai-assets.mjs
+      - name: Note staged media before image transfer
+        if: hashFiles('assets/mrlee-ai/v1/*.webp') == ''
+        run: echo "Image JS/CSS staged. WebP media not in repository; original visuals remain as fallback. NEVER claim AI images published."
