@@ -16,6 +16,7 @@ on:
       - 'tools/mrlee-next-qa.mjs'
       - 'tools/check-mrlee-v4.mjs'
       - 'tools/check-mrlee-v5.mjs'
+      - 'tools/audit-full-site.mjs'
       - 'tools/check-mrlee-smart.mjs'
       - '.github/workflows/mrlee-next-qa.yml'
   push:
@@ -65,5 +66,7 @@ jobs:
         run: node tools/check-mrlee-v4.mjs
       - name: Kiểm tra V5 — các nút gọn, đúng liên kết, tự mở nội dung thật
         run: node tools/check-mrlee-v5.mjs
+      - name: Rà soát toàn bộ HTML, đường dẫn, ảnh và JS
+        run: node tools/audit-full-site.mjs
       - name: Kiểm toán cơ chế điểm thưởng, chỉ đọc
         run: node tools/audit-mrlee-rewards.mjs
