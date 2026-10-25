@@ -1,0 +1,93 @@
+{
+  "version": "20261025-direct-1",
+  "description": "Direct GitHub deployment from assets already present on GitHub. NOT the 30 separate AI images packaged in conversation ZIP. Exact ZIP has not been uploaded.",
+  "brand": "assets/branding/logo-mrlee.png",
+  "status": "10 reused GitHub WebP assets organized by route; 30 original ZIP variants not imported",
+  "themeSupport": [
+    "fresh",
+    "future"
+  ],
+  "variants": "one original WebP per route, responsive object-fit; true mobile variants absent",
+  "pages": [
+    {
+      "page": "index.html",
+      "folder": "01_trang_chu",
+      "title": "Trang chủ",
+      "source": "assets/v303/hero-glasses.webp",
+      "hero": "assets/mrlee-ai/v2/01_trang_chu/hero/hero-desktop.webp",
+      "provenance": "Existing GitHub binary; referenced by original Git blob SHA"
+    },
+    {
+      "page": "hoc-tieng-han.html",
+      "folder": "02_hoc_tieng_han",
+      "title": "Học tiếng Hàn",
+      "source": "assets/v306/images/feature-5-hoc-tieng-han.webp",
+      "hero": "assets/mrlee-ai/v2/02_hoc_tieng_han/hero/hero-desktop.webp",
+      "provenance": "Existing GitHub binary; referenced by original Git blob SHA"
+    },
+    {
+      "page": "giao-tiep-theo-chu-de.html",
+      "folder": "03_giao_tiep",
+      "title": "Giao tiếp",
+      "source": "assets/v306/images/learning-cap-2.webp",
+      "hero": "assets/mrlee-ai/v2/03_giao_tiep/hero/hero-desktop.webp",
+      "provenance": "Existing GitHub binary; referenced by original Git blob SHA"
+    },
+    {
+      "page": "kiem-tra-topik.html",
+      "folder": "04_topik",
+      "title": "TOPIK",
+      "source": "assets/v306/images/feature-6-thi-topik.webp",
+      "hero": "assets/mrlee-ai/v2/04_topik/hero/hero-desktop.webp",
+      "provenance": "Existing GitHub binary; referenced by original Git blob SHA"
+    },
+    {
+      "page": "giao-tiep-phong-van.html",
+      "folder": "05_phong_van",
+      "title": "Phỏng vấn",
+      "source": "assets/v306/images/step-1-tu-van.webp",
+      "hero": "assets/mrlee-ai/v2/05_phong_van/hero/hero-desktop.webp",
+      "provenance": "Existing GitHub binary; referenced by original Git blob SHA"
+    },
+    {
+      "page": "van-hoa-han-quoc.html",
+      "folder": "06_van_hoa",
+      "title": "Văn hóa",
+      "source": "assets/v306/images/culture.webp",
+      "hero": "assets/mrlee-ai/v2/06_van_hoa/hero/hero-desktop.webp",
+      "provenance": "Existing GitHub binary; referenced by original Git blob SHA"
+    },
+    {
+      "page": "ban-do-dai-hoc-han-quoc.html",
+      "folder": "07_ban_do_dai_hoc",
+      "title": "Bản đồ đại học",
+      "source": "assets/v306/images/feature-2-ban-do.webp",
+      "hero": "assets/mrlee-ai/v2/07_ban_do_dai_hoc/hero/hero-desktop.webp",
+      "provenance": "Existing GitHub binary; referenced by original Git blob SHA"
+    },
+    {
+      "page": "mrlee-bai-tap-pro.html",
+      "folder": "08_workbook",
+      "title": "WORKBOOK",
+      "source": "assets/v306/images/learning-books.webp",
+      "hero": "assets/mrlee-ai/v2/08_workbook/hero/hero-desktop.webp",
+      "provenance": "Existing GitHub binary; referenced by original Git blob SHA"
+    },
+    {
+      "page": "trung-tam-hoc-vien.html",
+      "folder": "09_ho_so_hoc_vien",
+      "title": "Hồ sơ học viên",
+      "source": "assets/v306/images/learning-roadmap.webp",
+      "hero": "assets/mrlee-ai/v2/09_ho_so_hoc_vien/hero/hero-desktop.webp",
+      "provenance": "Existing GitHub binary; referenced by original Git blob SHA"
+    },
+    {
+      "page": "admin.html",
+      "folder": "10_admin",
+      "title": "Admin",
+      "source": "assets/v306/images/step-2-ho-so.webp",
+      "hero": "assets/mrlee-ai/v2/10_admin/hero/hero-desktop.webp",
+      "provenance": "Existing GitHub binary; referenced by original Git blob SHA"
+    }
+  ]
+}
