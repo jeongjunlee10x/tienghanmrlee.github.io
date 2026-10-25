@@ -5,6 +5,8 @@
 (()=>{'use strict';
 const d=document,html=d.documentElement;
 const page=decodeURIComponent(location.pathname.split('/').pop()||'index.html');
+// Standalone pages do not load the global theme controller; share the same safe AI loader.
+const aiLoader=d.createElement('script');aiLoader.defer=true;aiLoader.src='assets/mrlee-ai/v1/loader.js?v=20261025-r3';d.head.append(aiLoader);
 if(page==='admin.html')return;
 const appPages={
  'index.html':['Một hành trình học tiếng Hàn có định hướng','Từ bảng chữ cái, từ vựng và ngữ pháp đến giao tiếp, TOPIK và du học. Chọn mục tiêu phù hợp, theo dõi hành trình của bạn từng ngày.','Bắt đầu học','hoc-tieng-han.html','Kiểm tra đầu vào','kiem-tra-dau-vao.html','home','6 cấp độ học · Luyện thi TOPIK I/II'],
