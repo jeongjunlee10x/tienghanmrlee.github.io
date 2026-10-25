@@ -352,3 +352,7 @@ html[data-mrlee-theme="future"] #page-overview>.mrlee-smart-admin-actions{order:
 html[data-mrlee-theme="future"] #page-overview>.mrlee-admin-analytics{order:2}
 html[data-mrlee-theme="future"] #page-overview>.mrlee-ai-admin-banner{display:none!important}
 html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] .contact-rail{display:none!important}
+
+/* The original high-resolution logo already contains the brand name; avoid repeating it in a narrow sidebar. */
+html[data-mrlee-theme="future"] #app .sidebrand strong{display:none!important}
+html[data-mrlee-theme="future"] #app .sidebrand small{font-size:10px!important;letter-spacing:.17em!important}
