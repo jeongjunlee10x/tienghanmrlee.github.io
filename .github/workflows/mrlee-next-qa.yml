@@ -68,5 +68,8 @@ jobs:
         run: node tools/check-mrlee-v5.mjs
       - name: Rà soát toàn bộ HTML, đường dẫn, ảnh và JS
         run: node tools/audit-full-site.mjs
+      - name: Đối chiếu 24 MP3 với catalog âm thanh thật
+        run: node tools/audit-topik-audio.mjs
+        continue-on-error: true
       - name: Kiểm toán cơ chế điểm thưởng, chỉ đọc
         run: node tools/audit-mrlee-rewards.mjs
