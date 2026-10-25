@@ -6,6 +6,7 @@ on:
     paths:
       - 'assets/mrlee-v2/**'
       - 'assets/mrlee-ai/v2/**'
+      - 'assets/mrlee-ai/v3/**'
       - 'assets/mrlee-v4/**'
       - 'assets/mrlee-v5/**'
       - 'assets/mrlee-dual-ui/**'
@@ -28,6 +29,8 @@ on:
       - 'tools/check-mrlee-v4.mjs'
       - 'tools/check-mrlee-v5.mjs'
       - 'tools/check-mrlee-ai-v2-direct.mjs'
+      - 'tools/check-mrlee-v3-live.mjs'
+      - 'tools/PUSH_ASSETS_MRLEE_V3.ps1'
       - 'tools/audit-full-site.mjs'
       - 'tools/check-mrlee-smart.mjs'
       - '.github/workflows/mrlee-next-qa.yml'
@@ -37,6 +40,7 @@ on:
       - 'assets/mrlee-next/**'
       - 'assets/mrlee-v2/**'
       - 'assets/mrlee-ai/v2/**'
+      - 'assets/mrlee-ai/v3/**'
       - 'assets/mrlee-v4/**'
       - 'assets/mrlee-v5/**'
       - 'assets/mrlee-dual-ui/**'
@@ -59,6 +63,8 @@ on:
       - 'tools/check-mrlee-v4.mjs'
       - 'tools/check-mrlee-v5.mjs'
       - 'tools/check-mrlee-ai-v2-direct.mjs'
+      - 'tools/check-mrlee-v3-live.mjs'
+      - 'tools/PUSH_ASSETS_MRLEE_V3.ps1'
       - 'tools/audit-mrlee-rewards.mjs'
       - 'tools/check-mrlee-ai.mjs'
       - 'tools/check-site.mjs'
@@ -103,5 +109,7 @@ jobs:
         run: node tools/check-site.mjs
       - name: Kiểm tra V2 AI — 10 ảnh WebP thật và 10 trang đã gắn
         run: node tools/check-mrlee-ai-v2-direct.mjs
+      - name: Kiểm tra đường dẫn ảnh V3 — giữ nguyên ảnh cũ nếu ảnh mới thiếu
+        run: node tools/check-mrlee-v3-live.mjs
       - name: Kiểm toán cơ chế điểm thưởng, chỉ đọc
         run: node tools/audit-mrlee-rewards.mjs

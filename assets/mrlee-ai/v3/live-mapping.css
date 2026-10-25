@@ -1,0 +1,54 @@
+/* Real MR LEE V3 asset integration.
+ * No image means old art remains. Fresh and Future keep the same navigation.
+ * CSS art only, not admin data, no fake metrics, and official logo unchanged.
+ */
+html[data-mrlee-theme="fresh"] #mainContent>.hero[data-mrlee-v3-art]{
+ border:1px solid rgba(54,146,229,.38)!important;
+ color:#133965;
+}
+html[data-mrlee-theme="fresh"] #mainContent>.hero[data-mrlee-v3-art] :is(h1,p,.mrlee-future-hero-copy){
+ text-shadow:0 1px 9px rgba(255,255,255,.36);
+}
+html[data-mrlee-theme="future"] #mainContent>.hero[data-mrlee-v3-art]{
+ border:1px solid rgba(74,215,255,.62)!important;
+ box-shadow:0 12px 46px rgba(17,112,219,.24);
+}
+html[data-mrlee-v4] .mrlee-v4-hero-photo[data-mrlee-v3-art]{
+ object-fit:cover!important;object-position:center!important;
+ filter:none!important;
+}
+html[data-mrlee-theme="future"] .mrlee-v4-hero-photo[data-mrlee-v3-art]{
+ filter:saturate(1.14) contrast(1.06)!important;
+}
+html[data-mrlee-theme="fresh"] .mrlee-v4-hero-photo[data-mrlee-v3-art]{
+ filter:saturate(1.02) contrast(1.02)!important;
+}
+html[data-mrlee-theme="future"] .mrlee-v4-card img[data-mrlee-v3-art]{
+ filter:saturate(1.18) contrast(1.06)!important;
+}
+html[data-mrlee-theme="fresh"] .mrlee-v4-card img[data-mrlee-v3-art]{
+ filter:saturate(1.02) contrast(1.02)!important;
+}
+html[data-mrlee-theme="future"] .mrlee-smart-home-card img[data-mrlee-v3-art]{
+ opacity:.94!important;filter:saturate(1.16)!important;
+}
+html[data-mrlee-theme="fresh"] .mrlee-smart-home-card img[data-mrlee-v3-art]{
+ opacity:1!important;filter:none!important;
+}
+html[data-mrlee-theme="future"] .mrlee-smart-admin-hero[data-mrlee-v3-art]{
+ color:#f4faff;
+}
+html[data-mrlee-theme="fresh"] .mrlee-smart-admin-hero[data-mrlee-v3-art]{
+ color:#102a51;
+}
+@media(max-width:680px){
+ html[data-mrlee-v4] .mrlee-v4-hero-photo[data-mrlee-v3-art]{
+  object-position:66% center!important;
+ }
+ html[data-mrlee-theme="future"] #mainContent>.hero[data-mrlee-v3-art]{
+  background-position:68% center!important;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ [data-mrlee-v3-art]{transition:none!important}
+}
