@@ -44,7 +44,9 @@ html[data-mrlee-theme="future"] .data-table tr:hover{background:#23a5ec12}
 #page-consultations .mrlee-admin-analytics{margin-bottom:19px}
 html[data-mrlee-theme="future"] .auth-head h1{color:#ecfaff!important;font-weight:850;letter-spacing:.015em}
 @media(max-width:700px){.mrlee-admin-official-logo{max-width:130px}}
-</style></head>
+</style><link rel="stylesheet" href="assets/mrlee-v2/smart-shell.css?v=20261025-v3">
+<script defer src="assets/mrlee-v2/smart-shell.js?v=20261025-v3"></script>
+</head>
 <body>
 <section id="authWrap" class="auth-wrap">
   <div class="auth-card">
@@ -72,11 +74,11 @@ html[data-mrlee-theme="future"] .auth-head h1{color:#ecfaff!important;font-weigh
   <aside class="sidebar">
     <div class="sidebrand"><img class="mrlee-admin-official-logo" src="assets/branding/logo-mrlee.png" alt="Logo gốc TIẾNG HÀN MR LEE" width="168" height="56"><div><strong>TIẾNG HÀN MR LEE</strong><small>ADMIN MANAGEMENT</small></div></div>
     <nav class="side-menu" aria-label="Quản trị">
-      <button data-nav="overview" class="active"><b>â—«</b> Tổng quan</button>
+      <button data-nav="overview" class="active"><b>▣</b> Tổng quan</button>
       <button data-nav="students"><b>♙</b> Quản lý học viên</button>
       <button data-nav="scores"><b>▤</b> Kết quả học tập</button>
       <button data-nav="activity"><b>◷</b> Hoạt động học tập</button>
-      <button data-nav="rewards"><b>ðŸŽ</b> Phiếu nhận thưởng</button>
+      <button data-nav="rewards"><b>★</b> Phiếu nhận thưởng</button>
       <button data-nav="settings"><b>⚙</b> Hệ thống</button>
     </nav>
     <div class="side-footer"><span id="adminEmail"></span><button id="logout" class="btn sm white">Đăng xuất</button></div>
@@ -99,7 +101,7 @@ html[data-mrlee-theme="future"] .auth-head h1{color:#ecfaff!important;font-weigh
         <div class="panel"><div class="panel-head"><h3>Truy cập nhanh</h3></div><div class="navlinks"><a href="index.html" target="_blank" rel="noopener">Mở website học viên ↗</a><a href="de-thi-topik.html" target="_blank" rel="noopener">Bộ đề TOPIK ↗</a><a href="kiem-tra-online.html" target="_blank" rel="noopener">Kiểm tra Online ↗</a><a href="trung-tam-hoc-vien.html" target="_blank" rel="noopener">Trung tâm học viên ↗</a></div></div>
       </section>
       <section id="page-students" class="page" hidden>
-        <div class="panel"><div class="panel-head"><div><h3>Danh sách học viên</h3><p>Học viên Firebase được thêm tự động; hồ sơ nhập tay được giữ nguyên.</p></div><button class="btn" id="newStudent">ï¼‹ Thêm học viên</button></div>
+        <div class="panel"><div class="panel-head"><div><h3>Danh sách học viên</h3><p>Học viên Firebase được thêm tự động; hồ sơ nhập tay được giữ nguyên.</p></div><button class="btn" id="newStudent">＋ Thêm học viên</button></div>
           <div class="toolbar"><input id="studentSearch" class="search" type="search" aria-label="Tìm học viên" placeholder="Tìm tên, email, điện thoại..."><div class="tools"><select id="studentFilter" class="search" style="min-width:150px;width:auto" aria-label="Lọc trạng thái"><option value="all">Tất cả trạng thái</option><option>Đang học</option><option>Tạm nghỉ</option><option>Hoàn thành</option></select><button id="importStudentsBtn" class="btn soft sm">↑ Nhập CSV</button><button id="exportStudentsBtn" class="btn soft sm">↓ Xuất CSV</button><input id="importStudentsFile" type="file" accept=".csv,text/csv" hidden></div></div>
           <div class="table-scroll"><table class="data-table"><thead><tr><th>Học viên</th><th>Điện thoại</th><th>Trình độ</th><th>Trạng thái</th><th>Hoạt động gần nhất</th><th>Ngày tham gia</th><th>Thao tác</th></tr></thead><tbody id="studentsTbody"></tbody></table></div><div id="studentCount" class="footnote"></div>
         </div>

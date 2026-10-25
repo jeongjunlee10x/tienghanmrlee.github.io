@@ -12,6 +12,7 @@ on:
       - 'tools/audit-mrlee-rewards.mjs'
       - 'admin.html'
       - 'tools/mrlee-next-qa.mjs'
+      - 'tools/check-mrlee-smart.mjs'
       - '.github/workflows/mrlee-next-qa.yml'
   push:
     branches: [main]
@@ -50,5 +51,7 @@ jobs:
           node-version: '22'
       - name: Kiểm tra trang, tệp, liên kết, mã nguồn và biểu đồ Admin
         run: node tools/mrlee-next-qa.mjs
+      - name: Kiểm tra Smart V3 — ảnh, menu, logo, Admin
+        run: node tools/check-mrlee-smart.mjs
       - name: Kiểm toán cơ chế điểm thưởng, chỉ đọc
         run: node tools/audit-mrlee-rewards.mjs
