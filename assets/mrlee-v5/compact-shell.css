@@ -1,0 +1,234 @@
+/* MR LEE V5 — One-screen launcher on desktop, progressive disclosure on phones.
+ * Shared by Fresh and Future. All native courses/forms remain in the DOM.
+ * Scope: only the eight V4 child pages. No fabricated learning metrics.
+ */
+html[data-mrlee-v4]{
+ --v5-height:660px;
+ --v5-gap:8px;
+}
+html[data-mrlee-v4] .mrlee-v4-live-intro{
+ display:flex!important;align-items:center!important;justify-content:space-between!important;
+ gap:8px!important;flex-wrap:nowrap!important;
+}
+html[data-mrlee-v4] .mrlee-v5-open-detail{
+ display:inline-flex;align-items:center;justify-content:center;
+ min-height:37px;min-width:150px;padding:7px 13px;
+ border-radius:11px;border:1px solid var(--v4-frame);
+ background:linear-gradient(105deg,#2be3f7,#6887fb);
+ color:#03152e;font:800 11px/1.5 "Be Vietnam Pro",system-ui,sans-serif;
+ cursor:pointer;text-align:center;white-space:nowrap;
+ box-shadow:0 4px 18px #36a4f83e;
+}
+html[data-mrlee-theme="fresh"][data-mrlee-v4] .mrlee-v5-open-detail{
+ background:linear-gradient(115deg,#d9f7ff,#aad3ff);color:#123858;
+}
+html[data-mrlee-v4] .mrlee-v5-open-detail:focus-visible,
+html[data-mrlee-v4] .mrlee-v4-card:focus-visible{
+ outline:3px solid #ffdd79!important;outline-offset:3px!important;
+}
+/* Fold native, potentially lengthy tool sections until explicitly requested.
+ * Only direct siblings of the new V4 shell are affected.
+ */
+html[data-mrlee-v4-folded="true"][data-mrlee-v4]
+ main > .mrlee-v4-root ~ :is(nav,section,article,div,aside,header){
+ display:none!important;
+}
+/* Desktop: all visible category controls share one viewport; avoid vertical page scrolling
+ * ONLY when measured available height is sufficient.
+ */
+@media (min-width:980px) and (min-height:650px){
+ html[data-mrlee-v4-compact="true"][data-mrlee-v4-folded="true"]{
+  overflow-y:hidden!important;
+ }
+ html[data-mrlee-v4-compact="true"][data-mrlee-v4-folded="true"] body{
+  overflow-y:hidden!important;max-height:100svh;
+ }
+ html[data-mrlee-v4-compact="true"] main>.mrlee-v4-root{
+  height:var(--v5-height)!important;max-height:var(--v5-height)!important;
+  min-height:0!important;margin:2px 0 0!important;
+  display:grid!important;
+  grid-template-rows:minmax(130px,1.4fr) minmax(147px,1fr) minmax(64px,.5fr) 38px;
+  gap:var(--v5-gap)!important;
+  align-content:stretch;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-hero{
+  width:100%;height:100%;min-height:0!important;
+  padding:clamp(14px,2.3vw,26px)!important;border-radius:14px!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-hero-words{
+  width:min(63%,630px)!important;min-width:0;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-eyebrow{
+  font-size:9px!important;letter-spacing:.12em!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-hero-words h1{
+  font-size:clamp(22px,2.65vw,38px)!important;
+  margin:4px 0!important;line-height:1.12!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-hero-words h2{
+  font-size:clamp(12px,1.05vw,16px)!important;
+  margin:2px 0!important;line-height:1.32!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-hero-words p{
+  font-size:clamp(10px,.86vw,12px)!important;
+  line-height:1.45!important;
+  margin:2px 0!important;
+  display:-webkit-box!important;-webkit-line-clamp:2;
+  -webkit-box-orient:vertical;overflow:hidden;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-actions{
+  gap:7px!important;margin-top:5px!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-button{
+  min-height:34px!important;padding:5px 11px!important;
+  font-size:10px!important;border-radius:9px!important;
+  box-shadow:none!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-directory{
+  height:100%;min-height:0!important;margin:0!important;
+  padding:8px!important;border-radius:13px!important;
+  display:flex!important;flex-direction:column!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-section-title{
+  flex:0 0 auto;margin:0 0 6px!important;gap:3px!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-section-title h2{
+  font-size:clamp(12px,1.15vw,16px)!important;
+  line-height:1.35!important;margin:0!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-section-title small{
+  font-size:9px!important;line-height:1.3!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-directory-grid{
+  display:grid!important;
+  grid-template-columns:repeat(var(--v5-card-count,6),minmax(0,1fr))!important;
+  flex:1 1 auto!important;
+  min-height:0!important;
+  gap:7px!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-card{
+  height:100%!important;min-height:0!important;
+  border-radius:10px!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-card-copy{
+  padding:7px 9px!important;gap:1px!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-card-index{
+  font-size:clamp(11px,1.1vw,16px)!important;
+  line-height:1.18!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-card-copy strong{
+  font-size:clamp(10px,.94vw,13px)!important;line-height:1.25!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-card-caption{
+  display:none!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-card-arrow{
+  width:20px!important;height:20px!important;
+  right:6px!important;bottom:6px!important;
+  font-size:13px!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-tools{
+  height:100%;min-height:0!important;margin:0!important;
+  display:grid!important;
+  grid-template-columns:repeat(var(--v5-tool-count,6),minmax(0,1fr))!important;
+  gap:7px!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-tool{
+  min-height:0!important;height:100%!important;
+  border-radius:10px!important;
+  font-size:clamp(10px,.86vw,12px)!important;
+  padding:7px 10px!important;
+  overflow:hidden!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-tool img{
+  width:65%!important;
+  opacity:.42!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-live-intro{
+  min-height:0!important;height:38px!important;
+  padding:3px 9px!important;margin:0!important;
+  border-radius:9px!important;
+  font-size:10px!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v4-live-intro>span{
+  display:none!important;
+ }
+ html[data-mrlee-v4-compact="true"] .mrlee-v5-open-detail{
+  min-height:30px!important;min-width:125px;
+  padding:5px 9px!important;font-size:10px!important;
+ }
+ /* De-duplicate decoration and oversized blank footers on the folded launcher. */
+ html[data-mrlee-v4-compact="true"][data-mrlee-v4-folded="true"]
+ :is(footer,.foot,.mrlee-v2-site-footer,.mrlee-next-footer-links){
+  display:none!important;
+ }
+}
+/* Mobile/tablet: no unreadably tiny buttons. Still fold long native content.
+ * Two-column buttons allow thumb usage; focus on short content instead of fake
+ * one-screen promises for 390px-wide displays.
+ */
+@media(max-width:979px){
+ html[data-mrlee-v4] .mrlee-v4-hero{
+  min-height:clamp(230px,35svh,345px)!important;
+  padding:18px!important;
+ }
+ html[data-mrlee-v4] .mrlee-v4-directory-grid,
+ html[data-mrlee-v4="learning"] .mrlee-v4-directory-grid,
+ html[data-mrlee-v4="workbook"] .mrlee-v4-directory-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ }
+ html[data-mrlee-v4] .mrlee-v4-card{
+  min-height:130px!important;
+ }
+ html[data-mrlee-v4] .mrlee-v4-tools{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ }
+ html[data-mrlee-v4] .mrlee-v4-tool{
+  min-height:66px!important;font-size:11px!important;
+ }
+ html[data-mrlee-v4] .mrlee-v4-live-intro{
+  font-size:11px!important;
+ }
+}
+@media(max-width:560px){
+ html[data-mrlee-v4] .mrlee-v4-hero{
+  min-height:295px!important;
+ }
+ html[data-mrlee-v4] .mrlee-v4-hero-words{
+  width:100%!important;
+ }
+ html[data-mrlee-v4] .mrlee-v4-directory-grid,
+ html[data-mrlee-v4="learning"] .mrlee-v4-directory-grid,
+ html[data-mrlee-v4="workbook"] .mrlee-v4-directory-grid,
+ html[data-mrlee-v4="topik"] .mrlee-v4-directory-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ }
+ html[data-mrlee-v4] .mrlee-v4-card{
+  min-height:115px!important;
+ }
+ html[data-mrlee-v4] .mrlee-v4-card-copy{
+  padding:9px!important;
+ }
+ html[data-mrlee-v4] .mrlee-v4-card-caption{
+  display:none!important;
+ }
+ html[data-mrlee-v4] .mrlee-v4-tools{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ }
+ html[data-mrlee-v4] .mrlee-v4-tool{
+  min-height:60px!important;
+ }
+ html[data-mrlee-v4] .mrlee-v4-live-intro{
+  flex-wrap:wrap!important;padding:10px!important;
+ }
+ html[data-mrlee-v4] .mrlee-v4-live-intro>span{
+  display:none!important;
+ }
+ html[data-mrlee-v4] .mrlee-v5-open-detail{
+  min-height:37px;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ html[data-mrlee-v4] .mrlee-v5-open-detail{transition:none!important}
+}
