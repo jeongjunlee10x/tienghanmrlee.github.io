@@ -1,0 +1,22 @@
+/* MR LEE V3 — chỉ là tài liệu token cho hai bản thiết kế đã duyệt.
+ * KHÔNG import CSS này vào trang đang chạy trước khi có tài nguyên V3.
+ */
+:root{
+ --v3-font:"Be Vietnam Pro","Noto Sans KR",system-ui,sans-serif;
+ --v3-layout-max:1440px;
+ --v3-touch:44px;
+ --v3-card-radius:12px;
+ --v3-hero-radius:22px;
+ --v3-grid-gap:10px;
+}
+html[data-mrlee-theme="fresh"]{
+ --v3-bg:#f7fbff;--v3-text:#112f5b;--v3-panel:#fff;
+ --v3-accent:#147bf1;--v3-border:#bfd9f3;
+ --v3-glow:0 8px 25px rgba(29,100,182,.14);
+}
+html[data-mrlee-theme="future"]{
+ --v3-bg:#03102b;--v3-text:#eefaff;--v3-panel:#071e42;
+ --v3-accent:#37eaff;--v3-border:#207eec;
+ --v3-glow:0 0 18px rgba(41,164,255,.32);
+}
+@media(prefers-reduced-motion:reduce){.mrlee-v3 *{transition:none!important;animation:none!important}}
