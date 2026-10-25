@@ -7,6 +7,8 @@ on:
       - 'assets/mrlee-v2/**'
       - 'assets/mrlee-ai/v2/**'
       - 'assets/mrlee-ai/v3/**'
+      - 'assets/images/**'
+      - 'tools/check-mrlee800-home.mjs'
       - 'assets/mrlee-v4/**'
       - 'assets/mrlee-v5/**'
       - 'assets/mrlee-dual-ui/**'
@@ -41,6 +43,8 @@ on:
       - 'assets/mrlee-v2/**'
       - 'assets/mrlee-ai/v2/**'
       - 'assets/mrlee-ai/v3/**'
+      - 'assets/images/**'
+      - 'tools/check-mrlee800-home.mjs'
       - 'assets/mrlee-v4/**'
       - 'assets/mrlee-v5/**'
       - 'assets/mrlee-dual-ui/**'
@@ -111,5 +115,7 @@ jobs:
         run: node tools/check-mrlee-ai-v2-direct.mjs
       - name: Kiểm tra đường dẫn ảnh V3 — giữ nguyên ảnh cũ nếu ảnh mới thiếu
         run: node tools/check-mrlee-v3-live.mjs
+      - name: MR LEE 800 — desktop one-screen homepage, mobile safe and hero images
+        run: node tools/check-mrlee800-home.mjs
       - name: Kiểm toán cơ chế điểm thưởng, chỉ đọc
         run: node tools/audit-mrlee-rewards.mjs
