@@ -12,13 +12,13 @@ const pages={
   'mrlee-bai-tap-pro.html':'feature-workbook','bang-xep-hang.html':'feature-leaderboard',
   'ban-do-dai-hoc-han-quoc.html':'feature-university-map',
   'van-hoa-han-quoc.html':'feature-culture','trung-tam-hoc-vien.html':'feature-profile',
-  'hoc-tieng-han.html':'feature-speaking','giao-tiep-theo-chu-de.html':'feature-speaking',
+  'hoc-tieng-han.html':'02_hoc_tieng_han/level-01','giao-tiep-theo-chu-de.html':'feature-speaking',
   'giao-tiep-phong-van.html':'feature-interview','admin.html':'feature-admin'
  }},
  'hoc-tieng-han.html':{folder:'02_hoc_tieng_han',cards:[
   'level-01','level-02','level-03','level-04','level-05','level-06'],tools:[
-  'tool-vocabulary','tool-listening','tool-speaking','tool-speaking',
-  'tool-workbook','tool-lesson-exercises']},
+  'tool-vocabulary','tool-listening','tool-speaking','tool-lesson-exercises',
+  'tool-workbook','tool-grammar']},
  'giao-tiep-theo-chu-de.html':{folder:'03_giao_tiep',cards:[
   'topic-greetings','topic-restaurant','topic-shopping','topic-office'],tools:[
   'method-dialogue','method-listen-repeat','method-situations','method-reaction']},
@@ -81,7 +81,7 @@ function applyCards(){
   const map=pages['index.html'].cards;
   d.querySelectorAll('.mrlee-smart-home-card[href]').forEach(a=>{
    const basename=(a.getAttribute('href')||'').split(/[?#]/)[0];
-   const slug=map[basename];if(slug)setImage(a.querySelector('img'),url(slug));
+   const slug=map[basename];if(slug)setImage(a.querySelector('img'),slug.includes('/')?root+slug+'.webp':url(slug));
   });
   return;
  }
