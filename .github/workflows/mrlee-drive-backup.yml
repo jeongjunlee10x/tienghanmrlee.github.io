@@ -1,0 +1,96 @@
+name: MR LEE complete source and media backup
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/mrlee-ai/v3/**'
+      - '.github/workflows/mrlee-drive-backup.yml'
+permissions:
+  contents: read
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build full tracked-source snapshot with 80 MiB parts and checksums
+        run: python tools/mrlee_github_full_backup.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MRLEE-BACKUP-${{ github.run_id }}-MANIFEST
+          path: |
+            _mrlee_backup_artifact/MRLEE_BACKUP_FILE_MANIFEST.json
+            _mrlee_backup_artifact/MRLEE_BACKUP_PARTS.json
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+      - name: Upload backup segment 00
+        uses: actions/upload-artifact@v4
+        with:
+          name: MRLEE-BACKUP-${{ github.run_id }}-PART-00
+          path: _mrlee_backup_artifact/*.part00
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+      - name: Upload backup segment 01
+        uses: actions/upload-artifact@v4
+        with:
+          name: MRLEE-BACKUP-${{ github.run_id }}-PART-01
+          path: _mrlee_backup_artifact/*.part01
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+      - name: Upload backup segment 02
+        uses: actions/upload-artifact@v4
+        with:
+          name: MRLEE-BACKUP-${{ github.run_id }}-PART-02
+          path: _mrlee_backup_artifact/*.part02
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+      - name: Upload backup segment 03
+        uses: actions/upload-artifact@v4
+        with:
+          name: MRLEE-BACKUP-${{ github.run_id }}-PART-03
+          path: _mrlee_backup_artifact/*.part03
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+      - name: Upload backup segment 04
+        uses: actions/upload-artifact@v4
+        with:
+          name: MRLEE-BACKUP-${{ github.run_id }}-PART-04
+          path: _mrlee_backup_artifact/*.part04
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+      - name: Upload backup segment 05
+        uses: actions/upload-artifact@v4
+        with:
+          name: MRLEE-BACKUP-${{ github.run_id }}-PART-05
+          path: _mrlee_backup_artifact/*.part05
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+      - name: Upload backup segment 06
+        uses: actions/upload-artifact@v4
+        with:
+          name: MRLEE-BACKUP-${{ github.run_id }}-PART-06
+          path: _mrlee_backup_artifact/*.part06
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
+      - name: Upload backup segment 07
+        uses: actions/upload-artifact@v4
+        with:
+          name: MRLEE-BACKUP-${{ github.run_id }}-PART-07
+          path: _mrlee_backup_artifact/*.part07
+          if-no-files-found: ignore
+          retention-days: 7
+          compression-level: 0
