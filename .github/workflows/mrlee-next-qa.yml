@@ -12,6 +12,16 @@ on:
       - 'ban-do-dai-hoc-han-quoc.html'
       - 'dang-ky-tu-van.html'
       - 'tools/audit-mrlee-rewards.mjs'
+      - 'tools/check-mrlee-ai.mjs'
+      - 'tools/check-site.mjs'
+      - 'tools/audit-full-site.mjs'
+      - 'tools/audit-css-assets.mjs'
+      - 'tools/audit-topik-audio.mjs'
+      - 'mrlee-assistant.js'
+      - 'mrlee-assistant.css'
+      - 'mrlee-ai-config.js'
+      - 'ai-tro-ly.html'
+      - 'topik-nghe-24-cau.html'
       - 'admin.html'
       - 'tools/mrlee-next-qa.mjs'
       - 'tools/check-mrlee-v4.mjs'
@@ -46,6 +56,16 @@ on:
       - 'tools/check-mrlee-v4.mjs'
       - 'tools/check-mrlee-v5.mjs'
       - 'tools/audit-mrlee-rewards.mjs'
+      - 'tools/check-mrlee-ai.mjs'
+      - 'tools/check-site.mjs'
+      - 'tools/audit-full-site.mjs'
+      - 'tools/audit-css-assets.mjs'
+      - 'tools/audit-topik-audio.mjs'
+      - 'mrlee-assistant.js'
+      - 'mrlee-assistant.css'
+      - 'mrlee-ai-config.js'
+      - 'ai-tro-ly.html'
+      - 'topik-nghe-24-cau.html'
       - '.github/workflows/mrlee-next-qa.yml'
 permissions:
   contents: read
@@ -73,5 +93,9 @@ jobs:
         continue-on-error: true
       - name: Rà soát ảnh và font của toàn bộ CSS đang sử dụng
         run: node tools/audit-css-assets.mjs
+      - name: Xác minh trợ lý tra cứu đủ 90 bài học
+        run: node tools/check-mrlee-ai.mjs
+      - name: Kiểm tra lệnh QA chung trên website
+        run: node tools/check-site.mjs
       - name: Kiểm toán cơ chế điểm thưởng, chỉ đọc
         run: node tools/audit-mrlee-rewards.mjs
