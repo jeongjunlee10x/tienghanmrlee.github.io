@@ -71,5 +71,7 @@ jobs:
       - name: Đối chiếu 24 MP3 với catalog âm thanh thật
         run: node tools/audit-topik-audio.mjs
         continue-on-error: true
+      - name: Rà soát ảnh và font của toàn bộ CSS đang sử dụng
+        run: node tools/audit-css-assets.mjs
       - name: Kiểm toán cơ chế điểm thưởng, chỉ đọc
         run: node tools/audit-mrlee-rewards.mjs
