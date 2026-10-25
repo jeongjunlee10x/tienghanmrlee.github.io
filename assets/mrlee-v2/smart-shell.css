@@ -2,6 +2,8 @@
  * Refines approved futuristic theme, preserves fresh theme and all original routes/data.
  * Admin logo: never replace, stretch or redraw assets/branding/logo-mrlee.png.
  */
+/* Enhancement nodes remain invisible in the original fresh theme. */
+.mrlee-smart-home-hub,.mrlee-smart-admin-hero,.mrlee-smart-admin-actions{display:none!important}
 html[data-mrlee-theme="future"]{
  --smart-border:rgba(85,206,255,.42);
  --smart-panel:#071a38;
@@ -113,6 +115,7 @@ html[data-mrlee-theme="future"] #page-overview .mrlee-chart-panel svg{
  max-width:100%;height:auto!important;
 }
 html[data-mrlee-theme="future"] .mrlee-smart-admin-hero{
+ display:flex!important;
  min-height:155px;padding:22px 26px;margin:0 0 12px;
  border-radius:19px;border:1px solid var(--smart-border);
  color:var(--smart-text);position:relative;isolation:isolate;overflow:hidden;
@@ -141,7 +144,7 @@ html[data-mrlee-theme="future"] .mrlee-smart-admin-hero .mrlee-smart-admin-link{
  text-decoration:none;margin-top:6px;
 }
 html[data-mrlee-theme="future"] .mrlee-smart-admin-actions{
- display:flex;gap:9px;flex-wrap:wrap;margin:0 0 14px;align-items:center;
+ display:flex!important;gap:9px;flex-wrap:wrap;margin:0 0 14px;align-items:center;
 }
 html[data-mrlee-theme="future"] .mrlee-smart-admin-actions button{
  border:1px solid #428ac4!important;border-radius:11px;
@@ -223,7 +226,7 @@ html[data-mrlee-theme="future"][data-mrlee-smart-home="true"]:not([data-mrlee-sm
 }
 html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] .mrlee-smart-home-hub{
  width:min(1570px,calc(100% - 24px));margin:0 auto;
- display:block;color:var(--smart-text);
+ display:block!important;color:var(--smart-text);
  font-family:"Be Vietnam Pro","Noto Sans KR",system-ui,sans-serif;
 }
 html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] .mrlee-smart-hub-heading{
@@ -341,3 +344,11 @@ html[data-mrlee-theme="future"][data-mrlee-smart-home="true"][data-mrlee-smart-e
 @media(prefers-reduced-motion:reduce){
  html[data-mrlee-theme="future"] .mrlee-smart-home-card{transition:none!important}
 }
+
+/* The first-fold Admin overview has one cohesive layout, no repeated legacy KPI panels. */
+html[data-mrlee-theme="future"] #page-overview{display:flex!important;flex-direction:column!important;gap:0!important}
+html[data-mrlee-theme="future"] #page-overview>.mrlee-smart-admin-hero{order:0}
+html[data-mrlee-theme="future"] #page-overview>.mrlee-smart-admin-actions{order:1}
+html[data-mrlee-theme="future"] #page-overview>.mrlee-admin-analytics{order:2}
+html[data-mrlee-theme="future"] #page-overview>.mrlee-ai-admin-banner{display:none!important}
+html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] .contact-rail{display:none!important}
