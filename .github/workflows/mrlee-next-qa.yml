@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'assets/mrlee-v2/**'
+      - 'assets/mrlee-v4/**'
       - 'assets/mrlee-dual-ui/**'
       - 'assets/mrlee-next/**'
       - 'ban-do-dai-hoc-han-quoc.html'
@@ -12,6 +13,7 @@ on:
       - 'tools/audit-mrlee-rewards.mjs'
       - 'admin.html'
       - 'tools/mrlee-next-qa.mjs'
+      - 'tools/check-mrlee-v4.mjs'
       - 'tools/check-mrlee-smart.mjs'
       - '.github/workflows/mrlee-next-qa.yml'
   push:
@@ -19,6 +21,7 @@ on:
     paths:
       - 'assets/mrlee-next/**'
       - 'assets/mrlee-v2/**'
+      - 'assets/mrlee-v4/**'
       - 'assets/mrlee-dual-ui/**'
       - 'hoc-tieng-han.html'
       - 'giao-tiep-theo-chu-de.html'
@@ -36,6 +39,7 @@ on:
       - 'quy-tac-diem-mrlee.html'
       - 'tuyen-sinh.html'
       - 'tools/mrlee-next-qa.mjs'
+      - 'tools/check-mrlee-v4.mjs'
       - 'tools/audit-mrlee-rewards.mjs'
       - '.github/workflows/mrlee-next-qa.yml'
 permissions:
@@ -53,5 +57,7 @@ jobs:
         run: node tools/mrlee-next-qa.mjs
       - name: Kiểm tra Smart V3 — ảnh, menu, logo, Admin
         run: node tools/check-mrlee-smart.mjs
+      - name: Kiểm tra V4 — ảnh WebP thật, không trùng và liên kết trang con
+        run: node tools/check-mrlee-v4.mjs
       - name: Kiểm toán cơ chế điểm thưởng, chỉ đọc
         run: node tools/audit-mrlee-rewards.mjs
