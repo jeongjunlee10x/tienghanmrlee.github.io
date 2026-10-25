@@ -1,0 +1,52 @@
+name: MR LEE V3 - Thư viện 170 ảnh mới
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/mrlee-ai/v3/**'
+      - 'tools/mrlee-v3-assets.py'
+      - 'tools/PUSH_MRLEE_V3.ps1'
+      - '.github/workflows/mrlee-v3-170-images.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'assets/mrlee-ai/v3/**'
+      - 'tools/mrlee-v3-assets.py'
+      - '.github/workflows/mrlee-v3-170-images.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  artwork:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install non-generative image QA
+        run: python -m pip install Pillow
+      - name: Check importer syntax and manifest uniqueness
+        run: |
+          python -m py_compile tools/mrlee-v3-assets.py
+          python - <<'PY'
+          import json, pathlib
+          p=pathlib.Path('assets/mrlee-ai/v3/14_manifest_va_QA/manifest.json')
+          j=json.loads(p.read_text(encoding='utf-8'))
+          r=j['records']
+          assert len(r)==170, f'Expected 170 records, got {len(r)}'
+          assert len(set(x['id'] for x in r))==170, 'Duplicate IDs'
+          assert len(set(x['asset_path'] for x in r))==170, 'Duplicate asset paths'
+          assert all(x['asset_path'].startswith('assets/mrlee-ai/v3/') for x in r)
+          print('PASS: 170 unique new-art slots, with original media still pending.')
+          PY
+      - name: Validate asset bytes when real artwork arrives
+        shell: bash
+        run: |
+          if find assets/mrlee-ai/v3 -type f \( -name '*.webp' -o -name '*.png' \) | grep -q .; then
+            python tools/mrlee-v3-assets.py --root . --strict
+            test "$(find assets/mrlee-ai/v3 -type f -name '*.prompt.txt' | wc -l)" -eq 170
+          else
+            echo 'NO V3 GENERATED IMAGES YET: inventory and tooling ready, website not activated.'
+          fi
