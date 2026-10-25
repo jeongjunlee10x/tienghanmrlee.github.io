@@ -1,0 +1,41 @@
+name: MR LEE — Browser smoke công khai
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tools/browser-smoke.mjs'
+      - '.github/workflows/mrlee-browser-smoke.yml'
+      - 'mrlee-assistant.js'
+      - 'mrlee-assistant.css'
+      - 'mrlee-ai-config.js'
+      - 'ai-tro-ly.html'
+      - 'assets/mrlee-v4/**'
+      - 'assets/mrlee-v5/**'
+      - 'ban-do-dai-hoc-han-quoc.html'
+      - 'dang-ky-tu-van.html'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/browser-smoke.mjs'
+      - '.github/workflows/mrlee-browser-smoke.yml'
+      - 'mrlee-assistant.js'
+      - 'mrlee-assistant.css'
+      - 'ai-tro-ly.html'
+permissions:
+  contents: read
+jobs:
+  chromium:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Prepare headless Chromium only for browser tests
+        run: |
+          npm install --no-audit --no-fund --no-save --package-lock=false playwright
+          npx playwright install --with-deps chromium
+      - name: Open public MR LEE pages and test offline lesson search on Fresh/Future
+        run: node tools/browser-smoke.mjs

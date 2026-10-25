@@ -1,4 +1,6 @@
-// Searches verified local lesson records. Generative AI is an optional authenticated server feature.
+// Searches the shipped lesson source modules. Online AI is optional.
+import { SC_LESSONS } from './mrlee-sc-lesson-data.js';
+import { ADVANCED_LESSONS } from './mrlee-advanced-lesson-data.js';
 const $=id=>document.getElementById(id);
 const form=$('aiForm'),input=$('aiQuery'),mode=$('aiMode'),status=$('aiStatus'),results=$('aiResults'),online=$('aiOnline'),submit=$('aiSubmit');
 let data=[];
@@ -45,4 +47,30 @@ form.addEventListener('submit',async e=>{e.preventDefault();const query=input.va
  if(mode.value!=='search')await answerOnline(query,items);
  }finally{submit.disabled=false}});
 document.querySelectorAll('[data-example]').forEach(b=>b.addEventListener('click',()=>{input.value=b.dataset.example;input.focus();form.requestSubmit()}));
-fetch('mrlee-knowledge.json',{cache:'force-cache'}).then(r=>{if(!r.ok)throw Error('Không tải được dữ liệu');return r.json()}).then(v=>{if(!Array.isArray(v))throw Error('Dữ liệu không đúng dạng');data=v;status.textContent=`Sẵn sàng tra cứu ${data.length.toLocaleString('vi-VN')} mục từ giáo trình.`}).catch(()=>{status.textContent='Không thể đọc kho dữ liệu. Hãy mở website qua HTTP(S), không mở bằng file://.'});
+// Build the index from the exact same 90 lesson modules as the learning pages.
+function buildLessonIndex(){
+ const content=[];
+ for(const lesson of [...SC_LESSONS,...ADVANCED_LESSONS]){
+  const cap=Number(lesson.cap),bai=Number(lesson.bai);
+  if(!Number.isInteger(cap)||cap<1||cap>6||!Number.isInteger(bai)||bai<1||bai>15)continue;
+  const url='hoc-theo-bai.html?cap='+cap+'&bai='+bai;
+  const label='Cấp '+cap+' · Bài '+bai+' · '+String(lesson.title||'');
+  content.push({type:'Bài học',title:label,detail:'Từ vựng và ngữ pháp theo bài',url});
+  for(const row of Array.isArray(lesson.vocab)?lesson.vocab:[]){
+   const ko=String(Array.isArray(row)?row[0]||'':'').trim();
+   const vi=String(Array.isArray(row)?row[1]||'':'').trim();
+   if(ko&&vi)content.push({type:'Từ vựng',title:label,ko,vi,url});
+  }
+  for(const g of Array.isArray(lesson.grammar)?lesson.grammar:[]){
+   const formula=String(g.formula||'').trim(),meaning=String(g.meaning||'').trim();
+   if(formula&&meaning)content.push({type:'Ngữ pháp',title:label+' · '+formula,
+    ko:formula,vi:meaning,detail:[g.usage,g.example].filter(Boolean).join(' · ').slice(0,440),url});
+  }
+ }
+ return content;
+}
+try{
+ data=buildLessonIndex();
+ if(data.length<2000)throw Error('Dữ liệu giáo trình chưa đầy đủ.');
+ status.textContent='Sẵn sàng tra cứu '+data.length.toLocaleString('vi-VN')+' mục từ 90 bài học thực tế.';
+}catch(err){data=[];status.textContent='Không thể nạp kho bài học: '+String(err.message||err).slice(0,110)}
