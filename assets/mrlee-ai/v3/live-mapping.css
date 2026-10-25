@@ -52,3 +52,24 @@ html[data-mrlee-theme="fresh"] .mrlee-smart-admin-hero[data-mrlee-v3-art]{
 @media(prefers-reduced-motion:reduce){
  [data-mrlee-v3-art]{transition:none!important}
 }
+
+/* Once a real V3 hero decodes, remove the OLD foreground stock scene.
+ * Otherwise it masks the new hero and makes the update appear unchanged.
+ * Old scene remains intact and visible if no new WebP is available.
+ */
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-v3-art] .v303-scene{
+ opacity:0!important;visibility:hidden!important;
+}
+html[data-mrlee-theme="fresh"] #mainContent>.hero[data-mrlee-v3-art]{
+ background-color:#eaf5ff!important;
+}
+html[data-mrlee-theme="future"] #mainContent>.hero[data-mrlee-v3-art]{
+ background-color:#071537!important;
+}
+/* Real V3 image cards shown by both the existing bright homepage and future hub. */
+html[data-mrlee-theme="fresh"] :is(.feature-card,.mrlee-future-mod-card) img[data-mrlee-v3-art]{
+ filter:saturate(1.03)!important;
+}
+html[data-mrlee-theme="future"] :is(.feature-card,.mrlee-future-mod-card) img[data-mrlee-v3-art]{
+ filter:saturate(1.16) contrast(1.04)!important;
+}
