@@ -33,7 +33,17 @@ try{
     const status=await p.locator('#aiStatus').textContent();
     if(!/kết quả phù hợp nhất/i.test(status||''))throw Error('Offline AI search did not return real results: '+status);
   }},
-  {file:'ban-do-dai-hoc-han-quoc.html',check:async p=>{await p.locator('#universitySearch').first().waitFor({timeout:10000})}},
+  {file:'ban-do-dai-hoc-han-quoc.html',check:async p=>{
+    const field=p.locator('#universitySearch').first();
+    if(!await field.isVisible()){
+      const cta=p.locator('.mrlee-v4-hero a[href="#universitySearch"]').first();
+      if(await cta.count())await cta.click();
+      else await p.locator('.mrlee-v5-open-detail').click();
+    }
+    await field.waitFor({state:'visible',timeout:10000});
+    await field.fill('Seoul');
+    if(await field.inputValue()!=='Seoul')throw Error('University search input did not accept typed text');
+  }},
   {file:'dang-ky-tu-van.html',check:async p=>{await p.locator('form').first().waitFor({timeout:10000})}}
  ];
  for(const device of [{w:1440,h:900},{w:390,h:844}]){
