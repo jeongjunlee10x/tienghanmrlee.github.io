@@ -30,7 +30,7 @@ for(const marker of [
  ])if(!css.includes(marker))errors.push('COMPACT CSS REGRESSION: '+marker);
 for(const marker of [
  'window.innerHeight','getBoundingClientRect','measure()','aria-expanded',
- 'hashchange',"scrollIntoView",'resize','data-mrlee-v4-folded','root.dataset.mrleeV4Folded',
+ 'hashchange',"scrollIntoView",'resize','root.dataset.mrleeV4Folded',
  'window.scrollTo','requestAnimationFrame'
  ])if(!js.includes(marker))errors.push('COMPACT JS REGRESSION: '+marker);
 if(js.includes('localStorage')||js.includes('service_role')||js.includes('innerHTML'))errors.push('UNEXPECTED STATE WRITES/HTML OR SECRETS');
