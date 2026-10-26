@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+ <defs>
+  <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1168ee"/><stop offset="1" stop-color="#935aff"/></linearGradient>
+  <linearGradient id="gloss" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#dcecff" stop-opacity=".66"/></linearGradient>
+  <linearGradient id="cloud" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff" stop-opacity=".7"/><stop offset="1" stop-color="#f1f9ff" stop-opacity=".2"/></linearGradient>
+ </defs>
+ <circle cx="257" cy="266" r="224" fill="#dcecff" opacity=".5"/>
+ <circle cx="254" cy="250" r="195" fill="url(#tile)" opacity=".18"/>
+ <circle cx="256" cy="248" r="164" fill="url(#gloss)" stroke="#1168ee" stroke-opacity=".35" stroke-width="3"/>
+ <circle cx="256" cy="245" r="139" fill="url(#tile)"/>
+ <circle cx="256" cy="240" r="114" fill="#fff" opacity=".13"/>
+ <circle cx="196" cy="204" r="8" fill="#fe6aaf" opacity=".72"/>
+ <circle cx="164" cy="164" r="5" fill="#08bfdc" opacity=".8"/>
+ <path d="M156 149q100-95 200 0" fill="none" stroke="#fff" opacity=".28" stroke-width="10" stroke-linecap="round"/>
+ <g transform="translate(118 118) scale(2.76)" fill="none" stroke="#fff" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="22" width="80" height="64" rx="11"/><path d="M38 22v-9h24v9M42 37h16v12h12v16H58v12H42V65H30V49h12Z"/></g>
+ <circle cx="398" cy="126" r="17" fill="#fe6aaf"/>
+ <path d="M398 113v26m-13-13h26" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".8"/>
+ </svg>
