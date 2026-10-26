@@ -5,3 +5,8 @@ a[data-mrlee-official-brand] { display:inline-flex; align-items:center; gap:9px;
 .brandmark[data-mrlee-official-brand],.logo-symbol[data-mrlee-official-brand],.ts-brand-symbol[data-mrlee-official-brand] {width:auto!important;height:auto!important;min-width:0!important; background:#fff!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;padding:3px!important;border-radius:10px!important;overflow:visible!important;}
 .brandmark[data-mrlee-official-brand] img,.logo-symbol[data-mrlee-official-brand] img{width:clamp(110px,11vw,165px)!important;height:auto!important;max-height:58px!important;object-fit:contain!important;}
 @media(max-width:720px){img.mrlee-approved-logo{width:clamp(112px,32vw,152px)!important;max-height:54px!important}}
+
+/* MEME mascot replaces former horizontal academic lock-up.
+   Preserve its original aspect ratio in all pages loading site-logo.css. */
+img.mrlee-approved-logo{width:auto!important;height:clamp(46px,5vw,62px)!important;max-height:62px!important;object-fit:contain!important;aspect-ratio:auto!important;}
+a[data-mrlee-official-brand]{min-width:0!important;}

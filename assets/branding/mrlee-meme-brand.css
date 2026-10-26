@@ -1,0 +1,68 @@
+/* MR LEE MEME | new official source is assets/branding/logo-mrlee.png
+   Original user-approved transparent mascot, not a regenerated mark.
+   Main page and Admin only; low-risk overrides, no changes to Firebase. */
+.site-header a.brand > img,
+.site-header .brand img.mrlee-approved-logo,
+.top a.brand > img,
+header .site-logo img.mrlee-approved-logo {
+  display:block!important;
+  width:auto!important;
+  height:clamp(48px,4.8vw,61px)!important;
+  max-width:100%!important;
+  max-height:61px!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  aspect-ratio:auto!important;
+  background:transparent!important;
+  padding:0!important;
+  filter:none!important;
+  transform:none!important;
+}
+html[data-mrlee-v303="reference"] .site-header a.brand {
+  width:clamp(96px,8.8vw,128px)!important;
+  min-width:0!important;
+  flex:0 0 auto!important;
+}
+html[data-mrlee-v303="reference"] .site-header a.brand img {
+  height:59px!important;
+  max-height:59px!important;
+  width:auto!important;
+  max-width:100%!important;
+  object-fit:contain!important;
+}
+.auth-head img.mrlee-admin-official-logo,
+#app .sidebrand img.mrlee-admin-official-logo,
+.sidebar .sidebrand img.mrlee-admin-official-logo,
+html[data-mrlee-theme="future"] #app .sidebrand img.mrlee-admin-official-logo {
+  display:block!important;
+  width:auto!important;
+  height:clamp(58px,6.5vw,75px)!important;
+  min-width:0!important;
+  max-width:100%!important;
+  max-height:75px!important;
+  object-fit:contain!important;
+  aspect-ratio:auto!important;
+  flex:0 0 auto!important;
+  border:0!important;
+  background:transparent!important;
+  filter:none!important;
+  transform:none!important;
+}
+.auth-head, #app .sidebrand {
+  min-width:0!important;
+  align-items:center!important;
+}
+#app .sidebrand > div, .auth-head > div {
+  min-width:0!important;
+}
+@media(max-width:720px) {
+  html[data-mrlee-v303="reference"] .site-header a.brand {
+    width:92px!important;
+  }
+  html[data-mrlee-v303="reference"] .site-header a.brand img{
+    height:52px!important;max-height:52px!important;
+  }
+  #app .sidebrand img.mrlee-admin-official-logo {
+    height:62px!important;max-height:62px!important;
+  }
+}
