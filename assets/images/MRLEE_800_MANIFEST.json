@@ -50,7 +50,10 @@
       "sha256": "",
       "width": null,
       "height": null,
-      "bytes": null
+      "bytes": null,
+      "vector_fallback": "assets/images/heroes/02-hoc-tieng-han-future.svg",
+      "vector_status": "ready",
+      "vector_source": "original SVG illustration, not AI WebP"
     },
     {
       "path": "assets/images/heroes/03-giao-tiep-fresh.webp",
@@ -218,7 +221,10 @@
       "sha256": "",
       "width": null,
       "height": null,
-      "bytes": null
+      "bytes": null,
+      "vector_fallback": "assets/images/heroes/09-ho-so-hoc-vien-future.svg",
+      "vector_status": "ready",
+      "vector_source": "original SVG illustration, not AI WebP"
     },
     {
       "path": "assets/images/heroes/10-admin-fresh.webp",
@@ -230,7 +236,10 @@
       "sha256": "",
       "width": null,
       "height": null,
-      "bytes": null
+      "bytes": null,
+      "vector_fallback": "assets/images/heroes/10-admin-fresh.svg",
+      "vector_status": "ready",
+      "vector_source": "original SVG illustration, not AI WebP"
     },
     {
       "path": "assets/images/heroes/10-admin-future.webp",
@@ -254,7 +263,10 @@
       "sha256": "",
       "width": null,
       "height": null,
-      "bytes": null
+      "bytes": null,
+      "vector_fallback": "assets/images/heroes/11-tuyen-sinh-fresh.svg",
+      "vector_status": "ready",
+      "vector_source": "original SVG illustration, not AI WebP"
     },
     {
       "path": "assets/images/heroes/11-tuyen-sinh-future.webp",
@@ -266,7 +278,10 @@
       "sha256": "",
       "width": null,
       "height": null,
-      "bytes": null
+      "bytes": null,
+      "vector_fallback": "assets/images/heroes/11-tuyen-sinh-future.svg",
+      "vector_status": "ready",
+      "vector_source": "original SVG illustration, not AI WebP"
     },
     {
       "path": "assets/images/heroes/12-bang-xep-hang-fresh.webp",
@@ -278,7 +293,10 @@
       "sha256": "",
       "width": null,
       "height": null,
-      "bytes": null
+      "bytes": null,
+      "vector_fallback": "assets/images/heroes/12-bang-xep-hang-fresh.svg",
+      "vector_status": "ready",
+      "vector_source": "original SVG illustration, not AI WebP"
     },
     {
       "path": "assets/images/heroes/12-bang-xep-hang-future.webp",
@@ -290,7 +308,10 @@
       "sha256": "",
       "width": null,
       "height": null,
-      "bytes": null
+      "bytes": null,
+      "vector_fallback": "assets/images/heroes/12-bang-xep-hang-future.svg",
+      "vector_status": "ready",
+      "vector_source": "original SVG illustration, not AI WebP"
     },
     {
       "path": "assets/images/heroes/13-hangul-fresh.webp",
@@ -302,7 +323,10 @@
       "sha256": "",
       "width": null,
       "height": null,
-      "bytes": null
+      "bytes": null,
+      "vector_fallback": "assets/images/heroes/13-hangul-fresh.svg",
+      "vector_status": "ready",
+      "vector_source": "original SVG illustration, not AI WebP"
     },
     {
       "path": "assets/images/heroes/13-hangul-future.webp",
@@ -314,7 +338,10 @@
       "sha256": "",
       "width": null,
       "height": null,
-      "bytes": null
+      "bytes": null,
+      "vector_fallback": "assets/images/heroes/13-hangul-future.svg",
+      "vector_status": "ready",
+      "vector_source": "original SVG illustration, not AI WebP"
     },
     {
       "path": "assets/images/heroes/14-topik-nghe-fresh.webp",
@@ -326,7 +353,10 @@
       "sha256": "",
       "width": null,
       "height": null,
-      "bytes": null
+      "bytes": null,
+      "vector_fallback": "assets/images/heroes/14-topik-nghe-fresh.svg",
+      "vector_status": "ready",
+      "vector_source": "original SVG illustration, not AI WebP"
     },
     {
       "path": "assets/images/heroes/14-topik-nghe-future.webp",
@@ -338,7 +368,10 @@
       "sha256": "",
       "width": null,
       "height": null,
-      "bytes": null
+      "bytes": null,
+      "vector_fallback": "assets/images/heroes/14-topik-nghe-future.svg",
+      "vector_status": "ready",
+      "vector_source": "original SVG illustration, not AI WebP"
     },
     {
       "path": "assets/images/heroes/15-topik-viet-fresh.webp",
@@ -350,7 +383,10 @@
       "sha256": "",
       "width": null,
       "height": null,
-      "bytes": null
+      "bytes": null,
+      "vector_fallback": "assets/images/heroes/15-topik-viet-fresh.svg",
+      "vector_status": "ready",
+      "vector_source": "original SVG illustration, not AI WebP"
     },
     {
       "path": "assets/images/heroes/15-topik-viet-future.webp",
@@ -362,7 +398,10 @@
       "sha256": "",
       "width": null,
       "height": null,
-      "bytes": null
+      "bytes": null,
+      "vector_fallback": "assets/images/heroes/15-topik-viet-future.svg",
+      "vector_status": "ready",
+      "vector_source": "original SVG illustration, not AI WebP"
     },
     {
       "path": "assets/images/menu/menu-001-fresh.webp",
@@ -9604,5 +9643,8 @@
       "height": null,
       "bytes": null
     }
-  ]
+  ],
+  "vector_ready": 13,
+  "hero_slots_covered": 30,
+  "note_20261026": "13 vector cover illustrations were created as honest SVG fallbacks. AI WebP coverage stays 17/800."
 }

@@ -17,13 +17,20 @@ const names={
  'ban-do-dai-hoc-han-quoc.html':'07-ban-do-dai-hoc',
  'mrlee-bai-tap-pro.html':'08-workbook',
  'trung-tam-hoc-vien.html':'09-ho-so-hoc-vien',
- 'admin.html':'10-admin'
+ 'admin.html':'10-admin',
+ 'tuyen-sinh.html':'11-tuyen-sinh',
+ 'dang-ky-tu-van.html':'11-tuyen-sinh',
+ 'bang-xep-hang.html':'12-bang-xep-hang',
+ 'bang-chu-cai-tieng-han.html':'13-hangul',
+ 'topik-nghe-24-cau.html':'14-topik-nghe',
+ 'topik-nghe-124-cau.html':'14-topik-nghe',
+ 'topik-viet-51-54.html':'15-topik-viet'
 };
 const slot=names[page];if(!slot)return;
 const doc=document,root=doc.documentElement;
 const theme=()=>root.getAttribute('data-mrlee-theme')==='future'?'future':'fresh';
 const states=new Map();
-const heroURL=(t)=>'assets/images/heroes/'+slot+'-'+t+'.webp';
+const heroURL=(t,ext='webp')=>'assets/images/heroes/'+slot+'-'+t+'.'+ext;
 function valid(url){
  if(!states.has(url)){
   states.set(url,new Promise(resolve=>{
@@ -37,7 +44,9 @@ function valid(url){
 }
 let applyToken=0;
 async function updateHero(){
- const token=++applyToken,t=theme(),uri=heroURL(t);
+ const token=++applyToken,t=theme();
+ let uri=heroURL(t);
+ if(!(await valid(uri)))uri=heroURL(t,'svg');
  if(!(await valid(uri))||token!==applyToken)return;
  const home=page==='index.html';
  if(home){
@@ -53,6 +62,9 @@ async function updateHero(){
   const photo=doc.querySelector('.mrlee-v4-hero-photo,.mrlee-v4-hero img,.mrlee-smart-admin-hero img');
   if(photo && photo.tagName==='IMG'){
    photo.src=uri;photo.dataset.mrlee800Image=uri;
+  }else{
+   const backdrop=doc.querySelector('main .mrlee-v4-hero,main .hero,main [class*="-hero"],.mast .hero');
+   if(backdrop){const fog=t==='future'?'linear-gradient(90deg,rgba(4,14,39,.88),rgba(4,14,39,.13))':'linear-gradient(90deg,rgba(246,251,255,.91),rgba(246,251,255,.10))';backdrop.style.setProperty('background-image',fog+',url("'+uri+'")');backdrop.style.setProperty('background-size','cover');backdrop.style.setProperty('background-position','center');backdrop.dataset.mrlee800Image=uri;}
   }
  }
 }
