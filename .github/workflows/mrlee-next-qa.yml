@@ -26,6 +26,8 @@ on:
       - 'mrlee-ai-config.js'
       - 'ai-tro-ly.html'
       - 'topik-nghe-24-cau.html'
+      - 'assets/branding/**'
+      - 'tools/check-brand-consistency.mjs'
       - 'admin.html'
       - 'tools/mrlee-next-qa.mjs'
       - 'tools/check-mrlee-v4.mjs'
@@ -58,6 +60,8 @@ on:
       - 'mrlee-bai-tap-pro.html'
       - 'trung-tam-hoc-vien.html'
       - 'bang-diem-tuan-v12.html'
+      - 'assets/branding/**'
+      - 'tools/check-brand-consistency.mjs'
       - 'admin.html'
       - 'index.html'
       - 'dang-ky-tu-van.html'
@@ -94,6 +98,8 @@ jobs:
           node-version: '22'
       - name: Kiểm tra trang, tệp, liên kết, mã nguồn và biểu đồ Admin
         run: node tools/mrlee-next-qa.mjs
+      - name: Kiểm tra logo mascot trên tất cả các trang thực tế
+        run: node tools/check-brand-consistency.mjs
       - name: Kiểm tra Smart V3 — ảnh, menu, logo, Admin
         run: node tools/check-mrlee-smart.mjs
       - name: Kiểm tra V4 — ảnh WebP thật, không trùng và liên kết trang con

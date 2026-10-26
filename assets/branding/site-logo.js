@@ -3,7 +3,7 @@
  const current=document.currentScript;
  const OFFICIAL=new URL('logo-mrlee.png?v=20261026-meme1',current.src).href;
  const MARK=/^(?:L|MR|MR\.|🎓)$/i;
- const PICTURE=/(?:^|\/)images\/logo\.png(?:[?#].*)?$|(?:^|\/)assets\/v(?:16|17|18|19|192|193|20)\/brand\.svg(?:[?#].*)?$|(?:^|\/)assets\/mrlee-admissions-mark\.svg(?:[?#].*)?$/i;
+ const PICTURE=/(?:^|\/)assets\/branding\/logo-mrlee\.png(?:[?#].*)?$|(?:^|\/)images\/logo\.png(?:[?#].*)?$|(?:^|\/)assets\/v(?:16|17|18|19|192|193|20)\/brand\.svg(?:[?#].*)?$|(?:^|\/)assets\/mrlee-admissions-mark\.svg(?:[?#].*)?$/i;
  function setLogo(img){
   if(!img||img.tagName!=='IMG')return;
   if(img.src!==OFFICIAL){img.onerror=null;img.src=OFFICIAL;}
