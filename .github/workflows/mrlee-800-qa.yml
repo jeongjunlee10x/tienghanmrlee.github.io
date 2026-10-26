@@ -1,0 +1,30 @@
+name: MR LEE 800 - Image manifest and independent hero QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/images/**'
+      - 'tools/mrlee-800-qa.mjs'
+      - '.github/workflows/mrlee-800-qa.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/images/**'
+      - 'tools/mrlee-800-qa.mjs'
+      - '.github/workflows/mrlee-800-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  image-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check loader syntax
+        run: node --check assets/images/system/mrlee800-hero-loader.js
+      - name: Validate 800 planned slots, original WebP bytes, SVG safety and fallback coverage
+        run: node tools/mrlee-800-qa.mjs
