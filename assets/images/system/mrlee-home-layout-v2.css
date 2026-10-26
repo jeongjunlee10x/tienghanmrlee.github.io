@@ -280,3 +280,43 @@ html[data-mrlee-theme="future"] #mainContent>.mrlee-bottom-pair .rank-title a{
   transform:none!important;transition:none!important
  }
 }
+
+/* Override the legacy 2-column one-screen grid in futuristic smart mode.
+ * Otherwise the injected seven-card hub competes with its old grid cells.
+ */
+html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] main#mainContent{
+  display:flex!important;flex-direction:column!important;align-items:stretch!important;
+  grid-template-columns:none!important;grid-template-rows:none!important;
+  height:auto!important;min-height:0!important;max-height:none!important;
+  width:100%!important;max-width:1920px!important;overflow:visible!important;
+  padding:6px clamp(10px,1.2vw,22px) 12px!important;gap:8px!important
+}
+@media(min-width:1180px){
+ html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] #mainContent>.hero{
+  grid-column:auto!important;grid-row:auto!important;
+  height:clamp(275px,36vh,378px)!important;min-height:275px!important;max-height:378px!important;
+  flex:0 0 auto!important;margin:0 auto!important;padding:clamp(15px,2.6vw,40px)!important;
+  width:min(1560px,100%)!important
+ }
+ html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] #mainContent>.hero .mrlee-future-hero-copy h1{
+  font-size:clamp(29px,3.1vw,51px)!important;line-height:1.06!important;margin:3px 0!important
+ }
+ html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] #mainContent>.hero .mrlee-future-hero-copy p{
+  line-height:1.4!important;margin:3px 0!important
+ }
+ html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] #mainContent>.hero .mrlee-future-cta{
+  margin-top:5px!important
+ }
+ html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] .mrlee-smart-home-hub{
+  flex:0 0 auto!important;width:min(1560px,100%)!important
+ }
+ html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] #mainContent>.mrlee-bottom-pair{
+  width:min(1560px,100%)!important;min-height:128px!important;height:128px!important;
+  max-height:128px!important;flex:0 0 auto!important;margin:5px auto 0!important
+ }
+}
+@media(max-width:1179px){
+ html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] .mrlee-smart-home-card:first-child{
+  grid-column:auto!important
+ }
+}
