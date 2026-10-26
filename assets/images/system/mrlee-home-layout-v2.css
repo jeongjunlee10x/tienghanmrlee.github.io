@@ -320,3 +320,11 @@ html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] main#mainContent{
   grid-column:auto!important
  }
 }
+
+/* Legacy theme script inserts an extra nine-card portal immediately after the hero.
+ * The same destinations are already present in the primary cards/navigation:
+ * hide that duplicate to prevent an anonymous sixth grid row and unwanted scrolling.
+ */
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-next-portal{
+  display:none!important
+}
