@@ -1,0 +1,282 @@
+/* MR LEE 2026-10-26 | Homepage balanced v2.
+ * Preserve official logo, all real leaderboard IDs and Firebase listeners, routes,
+ * and original hero artwork. Images are not enlarged beyond their card boundaries.
+ * Scholarship and leaderboard are a dedicated joint LAST ROW.
+ */
+
+/* Independent bottom row, not squeezed into five-step journey. */
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair{
+  display:grid!important;
+  grid-template-columns:minmax(245px,.34fr) minmax(0,.66fr)!important;
+  gap:10px!important;align-items:stretch!important;
+  width:100%!important;min-width:0!important;height:auto;
+  margin:0!important;padding:0!important;box-sizing:border-box!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.scholarship,
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.ranking{
+  margin:0!important;min-height:0!important;max-height:none!important;
+  height:100%!important;width:100%!important;min-width:0!important;
+  box-sizing:border-box!important;overflow:hidden!important;border-radius:16px!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.scholarship{
+  display:block!important;position:relative!important;
+  border:1px solid #efcde0;background:linear-gradient(120deg,#fff2f9,#ffe4f3)!important;
+  padding:14px 18px!important;isolation:isolate
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.scholarship img{
+  height:100%!important;width:56%!important;position:absolute!important;inset:0 0 0 auto!important;
+  object-fit:cover!important;object-position:center!important;opacity:.66!important;
+  border-radius:0!important;z-index:-1!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.scholarship b{
+  display:block!important;position:relative!important;z-index:1!important;
+  color:#b90d64!important;font-size:clamp(15px,1.27vw,22px)!important;
+  line-height:1.22!important;text-shadow:0 1px 3px #fff8!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.scholarship span{
+  position:absolute!important;left:15px!important;bottom:12px!important;z-index:1!important;
+  border-radius:10px!important;padding:6px 10px!important;font-size:10px!important;
+  max-width:65%!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.ranking{
+  display:grid!important;grid-template-columns:minmax(164px,.25fr) minmax(0,1fr) 52px!important;
+  grid-template-rows:minmax(0,1fr)!important;gap:8px!important;align-items:center!important;
+  padding:9px 12px!important;background:#fff!important;
+  border:1px solid #dce8f7!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.ranking .rank-title{
+  min-width:0!important;align-items:center!important;gap:7px!important;
+  display:flex!important;margin:0!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair .rank-title .cup{
+  font-size:25px!important;flex:none!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair .rank-title h2{
+  font-size:clamp(12px,.91vw,16px)!important;line-height:1.18!important;margin:0 0 3px!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair .rank-title p{
+  font-size:9px!important;line-height:1.2!important;margin:0 0 2px!important;white-space:normal!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair .rank-title a{
+  padding:3px 0!important;font-size:10px!important;line-height:1.2!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair .rank-strip-wrap{
+  min-width:0!important;min-height:0!important;max-height:100%!important;
+  overflow:hidden!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair #rankSlider{
+  width:100%!important;max-width:100%!important;min-height:0!important;
+  display:flex!important;align-items:stretch!important;overflow-x:auto!important;overflow-y:hidden!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair #rankSlider>.mrlee-rank-v304-card{
+  min-height:0!important;align-self:stretch!important;
+  padding:6px 9px!important;flex-basis:185px!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair .rank-controls{
+  margin:0!important;display:flex!important;justify-content:center!important;gap:4px!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair .rank-controls button{
+  width:24px!important;height:27px!important;min-height:0!important;flex:none!important
+}
+
+/* ALL images + captions in a visual row have a shared grid, stable aspect and aligned baseline. */
+html[data-mrlee-v303="reference"] #mainContent>.feature-cards{
+  display:grid!important;grid-template-columns:repeat(8,minmax(0,1fr))!important;
+  grid-auto-rows:minmax(0,1fr)!important;gap:8px!important;align-items:stretch!important;
+  min-height:0!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.feature-cards>.feature-card{
+  min-width:0!important;min-height:0!important;height:100%!important;
+  display:grid!important;grid-template-rows:minmax(0,1fr) auto!important;
+  align-self:stretch!important;overflow:hidden!important;box-sizing:border-box!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.feature-cards>.feature-card>img{
+  display:block!important;min-width:0!important;width:100%!important;
+  height:100%!important;min-height:0!important;max-height:none!important;
+  object-fit:cover!important;object-position:center!important;aspect-ratio:auto!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.feature-cards>.feature-card>.feature-info{
+  min-height:41px!important;max-height:none!important;display:flex!important;
+  flex-direction:column!important;justify-content:center!important;
+  padding:5px 8px!important;gap:2px!important;box-sizing:border-box!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.feature-cards .feature-info :is(b,small){
+  display:block!important;overflow-wrap:break-word!important;line-height:1.18!important
+}
+
+/* The five journey cards are now a full-width, truly uniform grid. */
+html[data-mrlee-v303="reference"] #mainContent>.journey{
+  display:grid!important;grid-template-columns:minmax(135px,.78fr) minmax(0,5.2fr)!important;
+  gap:9px!important;align-items:stretch!important;min-width:0!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.journey>.journey-steps{
+  display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  grid-auto-rows:minmax(0,1fr)!important;align-items:stretch!important;gap:8px!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.journey .step-card{
+  display:grid!important;grid-template-rows:minmax(0,1fr) auto auto!important;
+  height:100%!important;min-height:0!important;min-width:0!important;
+  align-self:stretch!important;overflow:hidden!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.journey .step-card img{
+  width:100%!important;height:100%!important;min-height:0!important;
+  max-height:none!important;object-fit:cover!important
+}
+
+/* Desktop-first: hero / search / 8 services / five steps / scholarship + real ranking.
+ * Works as a single viewport when it can remain accessible above 740px high.
+ */
+@media (min-width:1180px) and (min-height:740px){
+ html[data-mrlee-v303="reference"]:not([data-mrlee-theme="future"]) #mainContent{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:minmax(0,1.65fr) minmax(44px,.27fr) minmax(0,.98fr) minmax(0,.84fr) minmax(0,.70fr)!important;
+  gap:8px!important;align-items:stretch!important;align-content:stretch!important;
+  width:100%!important;max-width:1920px!important;min-width:0!important;
+  height:calc(100dvh - 92px)!important;max-height:none!important;overflow:visible!important;
+  margin:0 auto!important;padding:8px clamp(12px,1.3vw,22px)!important
+ }
+ html[data-mrlee-v303="reference"]:not([data-mrlee-theme="future"]) #mainContent>.hero{
+  grid-column:1!important;grid-row:1!important;height:100%!important;
+  min-height:0!important;max-height:100%!important;width:100%!important;
+  margin:0!important;border-radius:17px!important;overflow:hidden!important
+ }
+ html[data-mrlee-v303="reference"]:not([data-mrlee-theme="future"]) #mainContent>.search-strip{
+  grid-column:1!important;grid-row:2!important;min-height:0!important;height:100%!important
+ }
+ html[data-mrlee-v303="reference"]:not([data-mrlee-theme="future"]) #mainContent>.feature-cards{
+  grid-column:1!important;grid-row:3!important;height:100%!important;
+  min-height:0!important;max-height:100%!important;margin:0!important;padding:0!important
+ }
+ html[data-mrlee-v303="reference"]:not([data-mrlee-theme="future"]) #mainContent>.journey{
+  grid-column:1!important;grid-row:4!important;height:100%!important;
+  min-height:0!important;max-height:100%!important;margin:0!important;padding:0!important
+ }
+ html[data-mrlee-v303="reference"]:not([data-mrlee-theme="future"]) #mainContent>.mrlee-bottom-pair{
+  grid-column:1!important;grid-row:5!important;height:100%!important;
+  min-height:0!important;max-height:100%!important;overflow:hidden!important
+ }
+ html[data-mrlee-v303="reference"]:not([data-mrlee-theme="future"]) #mainContent>.hero .hero-copy{
+  width:min(61%,710px)!important;max-width:710px!important
+ }
+ html[data-mrlee-v303="reference"]:not([data-mrlee-theme="future"]) #mainContent>.hero h1{
+  font-size:clamp(30px,3.25vw,54px)!important
+ }
+ html[data-mrlee-v303="reference"]:not([data-mrlee-theme="future"]) #mainContent>.feature-cards>.feature-card,
+ html[data-mrlee-v303="reference"]:not([data-mrlee-theme="future"]) #mainContent>.journey .step-card{
+  min-height:0!important;max-height:100%!important
+ }
+ html[data-mrlee-v303="reference"]:not([data-mrlee-theme="future"]) #mainContent>.journey .journey-label{
+  min-height:0!important;height:100%!important;padding:8px!important
+ }
+ html[data-mrlee-v303="reference"]:not([data-mrlee-theme="future"]) .mrlee-v2-primary-nav{
+  display:none!important
+ }
+}
+
+/* On shorter desktops, allow scrolling rather than clipping labels and links. */
+@media (max-width:1179px),(max-height:739px){
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair{
+  min-height:145px!important;margin:6px 0 10px!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.feature-cards{
+  height:auto!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  grid-auto-rows:minmax(155px,auto)!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.feature-cards>.feature-card{
+  min-height:155px!important;height:100%!important;
+  grid-template-rows:minmax(105px,1fr) auto!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.journey{
+  min-height:155px!important;height:auto!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.journey .step-card{
+  min-height:145px!important;grid-template-rows:minmax(80px,1fr) auto auto!important
+ }
+}
+
+/* On phones: each feature is the same width; scholarship/BXH form a neat two-row group. */
+@media(max-width:720px){
+ html[data-mrlee-v303="reference"] #mainContent>.feature-cards{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-rows:minmax(154px,auto)!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.journey{
+  grid-template-columns:minmax(0,1fr)!important;height:auto!important;gap:8px!important;
+  overflow:visible!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.journey .journey-steps{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-rows:minmax(140px,auto)!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair{
+  grid-template-columns:minmax(0,1fr)!important;gap:9px!important;
+  height:auto!important;overflow:visible!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.scholarship{
+  min-height:130px!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.ranking{
+  min-height:180px!important;height:auto!important;
+  grid-template-columns:minmax(0,1fr) 54px!important;grid-template-rows:auto minmax(70px,1fr)!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair .rank-title{
+  grid-column:1!important;grid-row:1!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair .rank-strip-wrap{
+  grid-column:1 / -1!important;grid-row:2!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair .rank-controls{
+  grid-column:2!important;grid-row:1!important
+ }
+}
+
+/* Futuristic smart view: ALL 7 cards are evenly sized, none spans two columns.
+ * The common scholarship / leaderboard row stays visible below the smart hub.
+ */
+@media(min-width:1180px){
+ html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] .mrlee-smart-home-hub{
+  width:min(1560px,calc(100% - 24px))!important;margin:0 auto!important
+ }
+ html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] .mrlee-smart-home-grid{
+  display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr))!important;
+  gap:10px!important;align-items:stretch!important
+ }
+ html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] .mrlee-smart-home-card,
+ html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] .mrlee-smart-home-card:first-child{
+  grid-column:auto!important;grid-row:auto!important;
+  min-height:160px!important;height:160px!important;padding:12px!important;
+  border-radius:14px!important
+ }
+ html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] .mrlee-smart-home-card strong{
+  font-size:clamp(11px,.96vw,15px)!important;line-height:1.21!important
+ }
+ html[data-mrlee-theme="future"][data-mrlee-smart-home="true"] .mrlee-smart-home-card small{
+  font-size:10px!important;line-height:1.15!important
+ }
+}
+html[data-mrlee-theme="future"] #mainContent>.mrlee-bottom-pair{
+  max-width:1560px!important;margin:10px auto 22px!important;
+  grid-template-columns:minmax(245px,.34fr) minmax(0,.66fr)!important
+}
+html[data-mrlee-theme="future"] #mainContent>.mrlee-bottom-pair>.scholarship{
+  background:linear-gradient(105deg,#221035,#382055)!important;border-color:#8c4a8f!important
+}
+html[data-mrlee-theme="future"] #mainContent>.mrlee-bottom-pair>.scholarship b{
+  color:#ffe6fc!important;text-shadow:0 2px 6px #000!important
+}
+html[data-mrlee-theme="future"] #mainContent>.mrlee-bottom-pair>.ranking{
+  background:#0b1b38!important;border-color:#27598a!important;color:#e7f5ff!important
+}
+html[data-mrlee-theme="future"] #mainContent>.mrlee-bottom-pair .rank-title :is(h2,p),
+html[data-mrlee-theme="future"] #mainContent>.mrlee-bottom-pair .rank-title a{
+  color:#e7f5ff!important
+}
+@media(max-width:720px){
+ html[data-mrlee-theme="future"] #mainContent>.mrlee-bottom-pair{
+  grid-template-columns:minmax(0,1fr)!important
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ html[data-mrlee-v303="reference"] #mainContent>.feature-cards>.feature-card:hover,
+ html[data-mrlee-v303="reference"] #mainContent>.journey .step-card:hover{
+  transform:none!important;transition:none!important
+ }
+}
