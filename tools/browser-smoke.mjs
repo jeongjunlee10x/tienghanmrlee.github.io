@@ -57,7 +57,7 @@ try{
   {file:'giao-tiep-phong-van.html',check:async p=>{await p.locator('main>.mrlee-v4-root .mrlee-v4-hero-photo').first().waitFor({timeout:11000})}},
   {file:'van-hoa-han-quoc.html',check:async p=>{
     const opener=p.locator('.mrlee-v5-open-detail');
-    if(await opener.count())await opener.click();
+    if(await opener.count())await opener.evaluate(el=>el.click());
     await p.locator('#topics a.topic').first().waitFor({state:'visible',timeout:15000});
     const count=await p.locator('#topics a.topic').count();
     if(count!==22)throw Error('Culture: need 22 topics; got '+count);
