@@ -26,6 +26,8 @@ assert.match(css,/body\.mrlee-contact-ready #contactPanel\.contact-rail/,'Hide l
 assert.ok(home.includes('id="contactPanel"'),'Original contact links remain as safe fallback');
 assert.match(admin,/id="mrleeAdminHealth"/,'Admin must show account-scoped diagnostics');
 assert.match(admin,/function renderAdminHealth\(\)/);
+assert.match(admin,/id="mrleeRewardHealth"/,'Reward V2 deploy status must be visible');
+assert.match(admin,/function inspectRewardModule\(\)/,'Reward V2 schema must be checked, not assumed');
 assert.match(admin,/const DEFAULT_URL='https:\/\/pkxqsboyotlyoizzxizb\.supabase\.co'/,'Admin must point at actual project');
 assert.match(admin,/DEFAULT_KEY='sb_publishable_/,'Only public API key is bundled');
 assert.match(admin,/function scorePercent\(/,'Protect against divide-by-zero');
