@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - 'tools/browser-smoke.mjs'
+      - 'assets/branding/mrlee-child-polish-v1.css'
+      - 'assets/mrlee-dual-ui/theme.js'
+      - 'dang-ky-tu-van.html'
       - 'assets/branding/home-recovery.css'
       - 'assets/mrlee-v2/smart-shell.js'
       - 'assets/mrlee-geo/home-routing.js'
@@ -22,6 +25,9 @@ on:
     branches: [main]
     paths:
       - 'tools/browser-smoke.mjs'
+      - 'assets/branding/mrlee-child-polish-v1.css'
+      - 'assets/mrlee-dual-ui/theme.js'
+      - 'dang-ky-tu-van.html'
       - 'assets/branding/home-recovery.css'
       - 'assets/mrlee-v2/smart-shell.js'
       - 'assets/mrlee-geo/home-routing.js'
@@ -80,3 +86,12 @@ jobs:
           path: artifacts/hero-b/
           retention-days: 14
           if-no-files-found: error
+
+      - name: Save subpage Chromium screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mrlee-subpage-design-review
+          path: artifacts/subpage-review/*.png
+          if-no-files-found: ignore
+          retention-days: 7

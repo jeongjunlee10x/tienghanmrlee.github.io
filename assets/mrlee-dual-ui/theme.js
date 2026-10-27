@@ -2,6 +2,7 @@
 (()=>{'use strict';
 const KEY='MRLEE.THEME.V1',ROOT='assets/mrlee-dual-ui/cards/',doc=document,html=doc.documentElement;
 const path=decodeURIComponent(location.pathname.split('/').pop()||'index.html');
+const childCss=doc.createElement('link');childCss.rel='stylesheet';childCss.href='assets/branding/mrlee-child-polish-v1.css?v=20261027-sub01';doc.head.append(childCss);
 // V2 cinematic artwork complements existing approved SVGs and keeps original branding untouched.
 const cinematicCss=doc.createElement('link');cinematicCss.rel='stylesheet';cinematicCss.href='assets/mrlee-dual-ui/cinematic-v2.css?v=20261024-2';cinematicCss.dataset.mrleeCinematic='v2';doc.head.append(cinematicCss);
 const premiumCss=doc.createElement('link');premiumCss.rel='stylesheet';premiumCss.href='assets/mrlee-next/premium.css?v=20261024c';doc.head.append(premiumCss);

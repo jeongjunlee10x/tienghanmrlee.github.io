@@ -44,7 +44,15 @@ try{
     await field.fill('Seoul');
     if(await field.inputValue()!=='Seoul')throw Error('University search input did not accept typed text');
   }},
-  {file:'dang-ky-tu-van.html',check:async p=>{await p.locator('form').first().waitFor({timeout:10000})}}
+  {file:'dang-ky-tu-van.html',check:async p=>{await p.locator('form').first().waitFor({timeout:10000})}},
+  {file:'hoc-tieng-han.html',check:async p=>{await p.locator('main>.mrlee-v4-root .mrlee-v4-hero-photo').first().waitFor({timeout:11000})}},
+  {file:'giao-tiep-theo-chu-de.html',check:async p=>{await p.locator('main>.mrlee-v4-root .mrlee-v4-hero-photo').first().waitFor({timeout:11000})}},
+  {file:'kiem-tra-topik.html',check:async p=>{await p.locator('main>.mrlee-v4-root .mrlee-v4-hero-photo').first().waitFor({timeout:11000})}},
+  {file:'giao-tiep-phong-van.html',check:async p=>{await p.locator('main>.mrlee-v4-root .mrlee-v4-hero-photo').first().waitFor({timeout:11000})}},
+  {file:'van-hoa-han-quoc.html',check:async p=>{await p.locator('main>.mrlee-v4-root .mrlee-v4-hero-photo').first().waitFor({timeout:11000})}},
+  {file:'ban-do-dai-hoc-han-quoc.html',check:async p=>{await p.locator('main>.mrlee-v4-root .mrlee-v4-hero-photo').first().waitFor({timeout:11000})}},
+  {file:'mrlee-bai-tap-pro.html',check:async p=>{await p.locator('main>.mrlee-v4-root .mrlee-v4-hero-photo').first().waitFor({timeout:11000})}},
+  {file:'trung-tam-hoc-vien.html',check:async p=>{await p.locator('main>.mrlee-v4-root .mrlee-v4-hero-photo').first().waitFor({timeout:11000})}}
  ];
  for(const device of [{w:1440,h:900},{w:390,h:844}]){
   for(const theme of ['fresh','future']){
@@ -59,6 +67,29 @@ try{
      const response=await page.goto('http://127.0.0.1:'+port+'/'+test.file,{waitUntil:'domcontentloaded',timeout:20000});
      if(!response?.ok())throw Error('HTTP status '+response?.status());
      await test.check(page);
+     if(["hoc-tieng-han.html","giao-tiep-theo-chu-de.html","kiem-tra-topik.html","giao-tiep-phong-van.html","van-hoa-han-quoc.html","ban-do-dai-hoc-han-quoc.html","mrlee-bai-tap-pro.html","trung-tam-hoc-vien.html"].includes(test.file)){
+       await page.locator('.mrlee-v4-hero-photo').first().evaluate(i=>i.decode().catch(()=>{}));
+       const v=await page.evaluate(()=>{
+        const box=e=>{if(!e)return null;const b=e.getBoundingClientRect();return {x:b.x,y:b.y,right:b.right,bottom:b.bottom,width:b.width,height:b.height}};
+        const h=document.querySelector('main>.mrlee-v4-root>.mrlee-v4-hero');
+        const im=h?.querySelector('.mrlee-v4-hero-photo'),w=h?.querySelector('.mrlee-v4-hero-words');
+        const actions=h?.querySelector('.mrlee-v4-actions');
+        return {photo:box(im),words:box(w),cta:box(actions),img:im?.naturalWidth||0,
+         scroll:w?.scrollHeight,client:w?.clientHeight,
+         cards:document.querySelectorAll('.mrlee-v4-card').length,
+         width:document.documentElement.scrollWidth,viewport:innerWidth};
+       });
+       console.log('CHILD PAGE GEOMETRY '+label+' '+JSON.stringify(v));
+       if(v.img<100)throw Error('No child hero image loaded');
+       if(v.cards<3||!v.cta||v.cta.height<25)throw Error('Missing child navigation');
+       if(v.width>v.viewport+5)throw Error('Horizontal overflow');
+       if(device.w>=980 && (Math.abs(v.words.right-v.photo.x)>5||v.cta.right>v.photo.x+5))
+         throw Error('Child buttons overlap photograph');
+       if(device.w<980 && v.cta.y<v.photo.bottom-4)throw Error('Mobile buttons overlap photograph');
+       if(v.scroll>v.client+8)throw Error('Child hero copy clipped');
+       fs.mkdirSync('artifacts/subpage-review',{recursive:true});
+       await page.screenshot({path:'artifacts/subpage-review/'+device.w+'x'+device.h+'-'+theme+'-'+test.file.slice(0,-5)+'.png',fullPage:true});
+     }
      if(test.file==='index.html') {
        await page.locator('.mrlee-smart-home-grid > a.mrlee-smart-home-card').first().waitFor({timeout:10000});
        await page.evaluate(async()=>{await Promise.all([...document.querySelectorAll('.mrlee-smart-home-grid img')].map(i=>i.decode().catch(()=>{})));});
@@ -127,7 +158,7 @@ try{
   }
  }
 }finally{if(browser)await browser.close();await new Promise(resolve=>server.close(resolve))}
-console.log('BROWSER QA Chromium: '+seen.size+'/16 public page visits passed, Fresh/Future at desktop and phone.');
+console.log('BROWSER QA Chromium: '+seen.size+'/48 public page visits passed, Fresh/Future at desktop and phone.');
 notices.slice(0,10).forEach(s=>console.warn('BROWSER NOTICE '+s));
 errors.forEach(s=>console.error('BROWSER FAIL '+s));
 if(errors.length)process.exitCode=1;

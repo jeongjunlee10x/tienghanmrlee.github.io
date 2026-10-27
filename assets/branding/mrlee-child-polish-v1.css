@@ -1,0 +1,222 @@
+/* MR LEE Subpages V1 (2026-10-27).
+   Does not replace ANY original image, logo, lesson, MP3, form, auth or ranking code.
+   It separates the existing hero portrait and content into distinct panels. */
+html[data-mrlee-v4]{
+ --sub-fg:#113963;--sub-muted:#5b7591;--sub-surface:#fff;
+ --sub-border:#d6e5f5;--sub-shadow:0 10px 28px #0a3b6319
+}
+html[data-mrlee-v4][data-mrlee-theme="future"]{
+ --sub-fg:#f0faff;--sub-muted:#afcbe6;--sub-surface:#0c2344;
+ --sub-border:#32618a;--sub-shadow:0 12px 28px #0005
+}
+html[data-mrlee-v4] body{overflow-x:clip!important}
+html[data-mrlee-v4] main>.mrlee-v4-root{
+ max-width:1560px!important;width:100%!important;min-width:0!important
+}
+/* A real two-column hero: CTAs occupy ONLY the left column. */
+html[data-mrlee-v4] main>.mrlee-v4-root>.mrlee-v4-hero{
+ display:grid!important;grid-template-columns:minmax(0,48%) minmax(0,52%)!important;
+ grid-template-rows:minmax(0,1fr)!important;align-items:stretch!important;
+ gap:0!important;padding:0!important;min-height:210px!important;
+ border-radius:19px!important;overflow:hidden!important;isolation:isolate!important;
+ border:1px solid var(--sub-border)!important;box-shadow:var(--sub-shadow)!important;
+ background:var(--sub-surface)!important
+}
+html[data-mrlee-v4] main>.mrlee-v4-root>.mrlee-v4-hero::after{
+ content:none!important;display:none!important
+}
+html[data-mrlee-v4] main>.mrlee-v4-root>.mrlee-v4-hero>img.mrlee-v4-hero-photo{
+ display:block!important;position:relative!important;inset:auto!important;
+ grid-column:2!important;grid-row:1!important;
+ width:100%!important;height:100%!important;min-height:0!important;
+ max-height:none!important;max-width:none!important;
+ margin:0!important;padding:0!important;
+ object-fit:cover!important;object-position:center!important;
+ transform:none!important;opacity:1!important;filter:none!important;z-index:0!important
+}
+html[data-mrlee-v4] main>.mrlee-v4-root>.mrlee-v4-hero>.mrlee-v4-hero-words{
+ display:flex!important;position:relative!important;z-index:1!important;
+ grid-column:1!important;grid-row:1!important;
+ flex-direction:column!important;justify-content:center!important;align-items:flex-start!important;
+ width:100%!important;min-width:0!important;max-width:none!important;
+ height:100%!important;min-height:0!important;
+ margin:0!important;padding:clamp(15px,2vw,30px)!important;
+ box-sizing:border-box!important;
+ background:linear-gradient(125deg,#f9fdff,#e5f3ff)!important;color:#17395f!important
+}
+html[data-mrlee-v4][data-mrlee-theme="future"] .mrlee-v4-hero>.mrlee-v4-hero-words{
+ background:linear-gradient(120deg,#08162d,#142f54)!important;color:#eafaff!important
+}
+html[data-mrlee-v4] .mrlee-v4-hero-words .mrlee-v4-eyebrow{
+ color:#1279a4!important;font-size:10px!important;letter-spacing:.1em!important
+}
+html[data-mrlee-v4][data-mrlee-theme="future"] .mrlee-v4-hero-words .mrlee-v4-eyebrow{color:#78edff!important}
+html[data-mrlee-v4] .mrlee-v4-hero-words h1{
+ font:900 clamp(23px,2.35vw,37px)/1.12 "Be Vietnam Pro",system-ui,sans-serif!important;
+ letter-spacing:-.04em!important;margin:3px 0!important;
+ color:#123a66!important;text-shadow:none!important
+}
+html[data-mrlee-v4][data-mrlee-theme="future"] .mrlee-v4-hero-words h1{color:#fff!important}
+html[data-mrlee-v4] .mrlee-v4-hero-words h2{
+ font:800 clamp(12px,1vw,16px)/1.3 "Be Vietnam Pro",system-ui,sans-serif!important;
+ color:#235681!important;margin:2px 0!important
+}
+html[data-mrlee-v4][data-mrlee-theme="future"] .mrlee-v4-hero-words h2{color:#d0edff!important}
+html[data-mrlee-v4] .mrlee-v4-hero-words p{
+ color:#53718f!important;font:500 clamp(11px,.83vw,13px)/1.45 "Be Vietnam Pro",system-ui,sans-serif!important;
+ margin:2px 0 5px!important;max-width:53ch!important
+}
+html[data-mrlee-v4][data-mrlee-theme="future"] .mrlee-v4-hero-words p{color:#bed8ef!important}
+html[data-mrlee-v4] .mrlee-v4-actions{
+ width:100%!important;max-width:100%!important;
+ display:flex!important;flex-wrap:wrap!important;gap:7px!important;margin:7px 0 0!important
+}
+html[data-mrlee-v4] .mrlee-v4-actions>a{
+ display:inline-flex!important;position:relative!important;align-items:center!important;
+ min-width:0!important;max-width:100%!important;width:auto!important;
+ min-height:35px!important;height:auto!important;padding:8px 11px!important;margin:0!important;
+ white-space:normal!important;box-shadow:none!important;border-radius:10px!important;
+ font:800 11px/1.3 "Be Vietnam Pro",system-ui,sans-serif!important;
+ background:#107fbe!important;color:#fff!important;border:1px solid #107fbe!important
+}
+html[data-mrlee-v4] .mrlee-v4-actions>a.mrlee-v4-button-secondary{
+ background:#e6f2fe!important;color:#195486!important;border-color:#bfd8ee!important
+}
+html[data-mrlee-v4][data-mrlee-theme="future"] .mrlee-v4-actions>a{
+ background:#5be5f4!important;color:#062640!important;border-color:#5be5f4!important
+}
+html[data-mrlee-v4][data-mrlee-theme="future"] .mrlee-v4-actions>a.mrlee-v4-button-secondary{
+ background:#173963!important;color:#effaff!important;border-color:#346994!important
+}
+/* Unified visible images and separated titles in all child-page cards. */
+html[data-mrlee-v4] .mrlee-v4-directory{
+ border-radius:15px!important;padding:12px!important;
+ border:1px solid var(--sub-border)!important;
+ background:var(--sub-surface)!important;box-shadow:var(--sub-shadow)!important
+}
+html[data-mrlee-v4] .mrlee-v4-directory-grid{gap:9px!important}
+html[data-mrlee-v4] .mrlee-v4-card{
+ display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+ grid-template-rows:minmax(0,1fr) auto!important;align-items:stretch!important;
+ min-width:0!important;padding:0!important;gap:0!important;
+ background:var(--sub-surface)!important;border:1px solid var(--sub-border)!important;
+ border-radius:12px!important;overflow:hidden!important;box-shadow:0 5px 15px #12345617!important
+}
+html[data-mrlee-v4] .mrlee-v4-card::before{content:none!important;display:none!important}
+html[data-mrlee-v4] .mrlee-v4-card>img{
+ display:block!important;position:relative!important;inset:auto!important;
+ grid-column:1!important;grid-row:1!important;z-index:0!important;
+ width:100%!important;height:100%!important;min-height:0!important;
+ object-fit:cover!important;object-position:center!important;
+ opacity:1!important;filter:none!important;transform:none!important
+}
+html[data-mrlee-v4] .mrlee-v4-card-copy{
+ display:flex!important;grid-column:1!important;grid-row:2!important;
+ flex-direction:column!important;gap:2px!important;
+ position:relative!important;z-index:1!important;width:100%!important;min-width:0!important;
+ padding:6px 9px!important;box-sizing:border-box!important;
+ background:#fff!important;border-top:1px solid #e1ebf4!important;color:#16395f!important
+}
+html[data-mrlee-v4] .mrlee-v4-card-index{color:#0f7eac!important;font-size:10px!important}
+html[data-mrlee-v4] .mrlee-v4-card-copy strong{
+ color:#143b62!important;font-size:clamp(11px,.84vw,13px)!important;
+ line-height:1.23!important;overflow-wrap:break-word!important
+}
+html[data-mrlee-v4] .mrlee-v4-card-caption{
+ display:block!important;color:#58758e!important;font-size:9px!important;line-height:1.25!important
+}
+html[data-mrlee-v4] .mrlee-v4-card-arrow{display:none!important}
+html[data-mrlee-v4][data-mrlee-theme="future"] .mrlee-v4-card-copy{
+ background:#0e284a!important;border-color:#315779!important;color:#e8f5ff!important
+}
+html[data-mrlee-v4][data-mrlee-theme="future"] .mrlee-v4-card-copy strong{color:#f4fbff!important}
+html[data-mrlee-v4][data-mrlee-theme="future"] .mrlee-v4-card-index{color:#74eaff!important}
+html[data-mrlee-v4][data-mrlee-theme="future"] .mrlee-v4-card-caption{color:#b9d3e9!important}
+html[data-mrlee-v4] .mrlee-v4-root :is(a,button,input,select):focus-visible{
+ outline:3px solid #ffce66!important;outline-offset:3px!important
+}
+/* V5 previous viewport height-lock clipped text and hid native course tools. */
+html[data-mrlee-v4-compact="true"][data-mrlee-v4],
+html[data-mrlee-v4-compact="true"][data-mrlee-v4] body{
+ overflow-y:auto!important;max-height:none!important
+}
+@media(min-width:980px){
+ html[data-mrlee-v4-compact="true"][data-mrlee-v4] main>.mrlee-v4-root{
+  display:grid!important;grid-template-rows:minmax(211px,auto) minmax(180px,auto) minmax(68px,auto) minmax(45px,auto)!important;
+  gap:9px!important;height:auto!important;max-height:none!important;min-height:0!important;
+  margin:7px auto 20px!important;align-content:start!important
+ }
+ html[data-mrlee-v4-compact="true"][data-mrlee-v4] .mrlee-v4-hero{
+  min-height:211px!important;height:auto!important;max-height:none!important
+ }
+ html[data-mrlee-v4-compact="true"][data-mrlee-v4] .mrlee-v4-directory{
+  min-height:180px!important;height:auto!important;margin:0!important
+ }
+ html[data-mrlee-v4-compact="true"][data-mrlee-v4] .mrlee-v4-directory-grid{
+  grid-template-columns:repeat(var(--v5-card-count,6),minmax(0,1fr))!important;
+  grid-template-rows:minmax(155px,auto)!important
+ }
+ html[data-mrlee-v4-compact="true"][data-mrlee-v4] .mrlee-v4-card{
+  min-height:164px!important;height:164px!important;max-height:none!important
+ }
+ html[data-mrlee-v4-compact="true"][data-mrlee-v4] .mrlee-v4-tools{
+  height:auto!important;min-height:68px!important;margin:0!important
+ }
+ html[data-mrlee-v4-compact="true"][data-mrlee-v4] .mrlee-v4-tool{
+  height:68px!important;min-height:68px!important;max-height:none!important;
+  background:var(--sub-surface)!important;color:var(--sub-fg)!important;border-color:var(--sub-border)!important
+ }
+ html[data-mrlee-v4-compact="true"][data-mrlee-v4] .mrlee-v4-live-intro{
+  height:auto!important;min-height:45px!important;margin:0!important
+ }
+}
+@media(max-width:979px){
+ html[data-mrlee-v4] main>.mrlee-v4-root>.mrlee-v4-hero{
+  display:flex!important;flex-direction:column!important;
+  height:auto!important;min-height:0!important;max-height:none!important
+ }
+ html[data-mrlee-v4] main>.mrlee-v4-root>.mrlee-v4-hero>.mrlee-v4-hero-photo{
+  order:0!important;flex:none!important;height:clamp(155px,25vw,210px)!important;
+  min-height:155px!important;width:100%!important
+ }
+ html[data-mrlee-v4] main>.mrlee-v4-root>.mrlee-v4-hero>.mrlee-v4-hero-words{
+  order:1!important;flex:none!important;height:auto!important;min-height:0!important;
+  padding:17px!important
+ }
+ html[data-mrlee-v4] .mrlee-v4-directory-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  grid-auto-rows:minmax(160px,auto)!important;grid-template-rows:none!important
+ }
+ html[data-mrlee-v4] .mrlee-v4-card{height:100%!important;min-height:160px!important}
+}
+@media(max-width:560px){
+ html[data-mrlee-v4] .mrlee-v4-directory-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ html[data-mrlee-v4] .mrlee-v4-tools{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+/* Admin / scholarship / leaderboard / consultation use their own original DOM and behavior. */
+body:has(#authWrap) .auth-card{
+ max-width:660px!important;padding:clamp(22px,3vw,42px)!important;
+ border-radius:22px!important;box-shadow:0 15px 40px #0c294a28!important
+}
+body:has(#app .side-menu) #app .table-scroll{
+ min-width:0!important;max-width:100%!important;overflow-x:auto!important
+}
+body:has(#app .side-menu) #app .toolbar{flex-wrap:wrap!important;gap:8px!important}
+body.mrlee-consult-page .mrlee-consult-columns{
+ display:grid!important;grid-template-columns:minmax(0,1.5fr) minmax(260px,.78fr)!important;
+ align-items:start!important;gap:16px!important
+}
+body.mrlee-consult-page .mrlee-consult-form-shell,
+body.mrlee-consult-page .mrlee-consult-side{min-width:0!important;border-radius:18px!important}
+body.mrlee-consult-page .mrlee-form-grid{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important
+}
+body.mrlee-consult-page .mrlee-form-grid .wide{grid-column:1/-1!important}
+body.mrlee-consult-page :is(input,textarea,select){min-width:0!important;max-width:100%!important}
+.ts-program-card{min-width:0!important}
+.mlb-page .mlb-topbar{display:flex!important;flex-wrap:wrap!important;gap:9px!important}
+@media(max-width:760px){
+ body.mrlee-consult-page .mrlee-consult-columns,
+ body.mrlee-consult-page .mrlee-form-grid{grid-template-columns:minmax(0,1fr)!important}
+ body.mrlee-consult-page .mrlee-form-grid .wide{grid-column:1!important}
+}
