@@ -2,7 +2,7 @@
  * Never replaces logos, student data, or authentication. Works on both themes.
  */
 (()=>{'use strict';
-if(/(^|\/)admin\.html$/i.test(location.pathname))return; // Admin has its own uncluttered UI.
+if(location.pathname.toLowerCase().endsWith('/admin.html'))return; // Admin has its own uncluttered UI.
 const doc=document;
 function node(tag,cls,text){const el=doc.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el}
 function boot(){
