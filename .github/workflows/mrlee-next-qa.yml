@@ -96,6 +96,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Kiểm tra bộ dữ liệu địa giới và ký túc xá
+        run: node tools/check-admin-map-and-ktx.mjs
       - name: Kiểm tra trang, tệp, liên kết, mã nguồn và biểu đồ Admin
         run: node tools/mrlee-next-qa.mjs
       - name: Kiểm tra logo mascot trên tất cả các trang thực tế

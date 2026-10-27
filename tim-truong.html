@@ -16,6 +16,7 @@
 <!-- MRLEE Meme Brand: one official logo across sections -->
 <link rel="stylesheet" href="assets/branding/site-logo.css?v=20261027-meme2" data-mrlee-v22="branding">
 <script defer src="assets/branding/site-logo.js?v=20261027-meme2" data-mrlee-v22="branding"></script>
+<link rel="stylesheet" href="assets/mrlee-geo/university-admin-map.css?v=20261027-a2">
 </head><body>
 <header class="top"><a class="brand" href="index.html"><img src="assets/branding/logo-mrlee.png" alt="MR LEE"><span>TIẾNG HÀN MR LEE<small>KOREA STUDY DIRECTORY</small></span></a><nav><a href="index.html">Trang chủ</a><a aria-current="page" href="tim-truong.html">🎓 Tìm trường</a><a href="ban-do-han-quoc.html">🗺 Bản đồ Hàn Quốc</a><a href="hoc-bong-han-quoc.html">🏅 Học bổng</a></nav></header>
 <main>
@@ -23,6 +24,7 @@
 <div class="search-row"><label class="sr" for="schoolQuery">Tên trường</label><input id="schoolQuery" type="search" placeholder="Tìm tên trường, campus, địa chỉ..." autocomplete="off"><label class="sr" for="schoolRegion">Khu vực</label><select id="schoolRegion"><option value="">Tất cả khu vực</option></select><label class="sr" for="schoolType">Loại</label><select id="schoolType"><option value="">Đại học + Cao đẳng</option><option value="university">Đại học</option><option value="college">Cao đẳng</option></select><button id="schoolClear" type="button">Xóa lọc</button></div>
 </section>
 <div class="notice" role="status" id="schoolNotice">Đang tải dữ liệu trường MR LEE...</div>
+<section class="mrlee-dorm-mini" aria-label="Thông tin ký túc xá"><img src="assets/v306/images/feature-7-ky-tuc-xa.webp" alt="Minh họa ký túc xá Hàn Quốc" loading="lazy" decoding="async"><div><b>Khám phá ký túc xá trước khi chọn trường</b><p>Tìm hiểu không gian lưu trú, nội quy và tiện nghi; cần xác minh chi phí với từng trường.</p><a href="ban-do-dai-hoc-han-quoc.html#ky-tuc-xa">Xem hình minh họa ký túc xá ↗</a></div></section>
 <section class="layout-directory"><div><div class="list-head"><h2>Danh mục trường</h2><span id="schoolCount">—</span></div><div id="schoolCards" class="school-grid" aria-live="polite"></div><button id="schoolMore" class="more" type="button" hidden>Xem thêm trường ↓</button></div><aside class="help-side"><div class="panel"><span class="eyebrow">CÁCH SỬ DỤNG</span><h3>Hồ sơ đa phương tiện</h3><p>Chọn trường để xem logo, ảnh campus, thông tin liên hệ, chuyên ngành, học bổng và tuyển sinh D-4 / D-2.</p><p>Chỉ công bố chi tiết có nguồn đối chiếu. Trường thiếu dữ liệu sẽ hiển thị trạng thái cần bổ sung.</p></div><div class="panel"><h3>📍 Chỉ đường</h3><p>Nút Naver Map / Kakao Map trong hồ sơ trường. Chỉ mở thẳng điểm đến khi tọa độ campus đã được xác minh.</p></div><a class="panel panel-link" href="ban-do-han-quoc.html">Khám phá bản đồ hành chính, cảnh quan Hàn Quốc ↗</a></aside></section>
 </main>
 <dialog id="schoolDialog" class="school-dialog"><div class="dlgbar"><b>HỒ SƠ TRƯỜNG · 학교 정보</b><button id="closeSchool" type="button" aria-label="Đóng">✕</button></div><div id="schoolDetail"></div></dialog>

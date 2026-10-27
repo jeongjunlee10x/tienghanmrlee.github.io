@@ -1,0 +1,41 @@
+/* MR LEE verified administrative map and residence illustrations. 
+   Real WGS84 province GeoJSON, labels supplementary only.
+   Image galleries are representative illustrations, never school-specific evidence. */
+.mrlee-admin-map-shell{position:relative;min-height:440px;padding:10px!important;border-radius:18px;overflow:hidden;background:linear-gradient(145deg,#e5f6ff,#c9e2f6)}
+.mrlee-admin-real-map{width:100%;max-width:730px;margin:auto;min-height:430px;display:grid;place-items:center}
+.mrlee-admin-real-map svg{display:block;width:100%;height:auto;max-height:655px;filter:drop-shadow(0 12px 17px #215a7d22)}
+.mrlee-admin-real-map svg .province{stroke:#fff;stroke-width:1.3;vector-effect:non-scaling-stroke;cursor:pointer;transition:opacity .2s,filter .2s;outline:none}
+.mrlee-admin-real-map svg .province:hover,.mrlee-admin-real-map svg .province:focus{stroke:#123a65;stroke-width:2.5;filter:brightness(1.08)}
+.mrlee-admin-real-map svg .province[data-active="true"]{stroke:#06396d;stroke-width:3;filter:brightness(1.12)}
+.mrlee-admin-real-map svg .province-label{fill:#163451;font-family:"Be Vietnam Pro",system-ui,sans-serif;font-size:11px;font-weight:800;stroke:#eaf8ff;stroke-width:2.5;paint-order:stroke fill;pointer-events:none}
+.mrlee-admin-real-map svg .minor-label{font-size:9px}
+.mrlee-admin-real-map svg .seaname{fill:#417a9c;font-size:11px;letter-spacing:.12em;font-weight:700}
+.mrlee-admin-map-loading{text-align:center;color:#315676;font-weight:750;font-size:13px;padding:30px}
+.mrlee-admin-map-credit{font-size:10px;color:#516f89;margin:0 auto 5px;text-align:center;padding:0 13px 12px;line-height:1.6}
+.mrlee-admin-map-credit a{font-weight:800;text-decoration:underline}
+html[data-mrlee-theme="future"] .mrlee-admin-map-shell{background:linear-gradient(145deg,#0e3157,#143d68)}
+html[data-mrlee-theme="future"] .mrlee-admin-real-map svg .province-label{fill:#fff;stroke:#1a3c5a}
+html[data-mrlee-theme="future"] .mrlee-admin-real-map svg .seaname{fill:#addef7}
+html[data-mrlee-theme="future"] .mrlee-admin-map-credit{color:#b6d6e9}
+.mrlee-dorm-showcase{max-width:1560px;margin:18px auto 24px;padding:20px;border-radius:20px;background:#f4faff;color:#12385d;border:1px solid #d8e9f5;box-shadow:0 10px 25px #12345618}
+.mrlee-dorm-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:0 0 15px}
+.mrlee-dorm-heading h2{font-size:clamp(20px,1.8vw,27px);line-height:1.24;margin:5px 0}
+.mrlee-dorm-heading p{font-size:13px;max-width:790px;line-height:1.6;margin:5px 0;color:#496a85}
+.mrlee-dorm-kicker{font-weight:850;color:#0f78ad;font-size:10px;letter-spacing:.15em}
+.mrlee-dorm-heading a,.mrlee-dorm-mini a{font-size:12px;font-weight:850;color:#176eae;text-decoration:underline}
+.mrlee-dorm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.mrlee-dorm-grid figure{background:white;border:1px solid #dbe8f4;margin:0;overflow:hidden;border-radius:15px;box-shadow:0 5px 17px #061f3b10}
+.mrlee-dorm-grid img{width:100%;height:clamp(160px,17vw,256px);display:block;object-fit:cover;object-position:center center;image-rendering:auto}
+.mrlee-dorm-grid figcaption{padding:11px 14px;display:grid;gap:4px;line-height:1.35}
+.mrlee-dorm-grid figcaption strong{font-size:14px;color:#123860}
+.mrlee-dorm-grid figcaption span,.mrlee-dorm-notice{font-size:11px;color:#59758b;line-height:1.5}
+.mrlee-dorm-notice{margin:10px 0 0}
+.mrlee-dorm-mini{max-width:1440px;margin:12px auto 22px;display:flex;align-items:center;gap:16px;background:#eaf6ff;border:1px solid #cce3f6;padding:12px;border-radius:17px;color:#15395e}
+.mrlee-dorm-mini img{width:185px;height:108px;flex:0 0 185px;object-fit:cover;border-radius:12px}
+.mrlee-dorm-mini b{font-size:15px}.mrlee-dorm-mini p{font-size:12px;line-height:1.5;color:#4a6985;margin:5px 0}
+html[data-mrlee-theme="future"] .mrlee-dorm-showcase,html[data-mrlee-theme="future"] .mrlee-dorm-mini{background:#0c2342;color:#eaf8ff;border-color:#30648f}
+html[data-mrlee-theme="future"] .mrlee-dorm-grid figure{background:#102d50;border-color:#345e80}
+html[data-mrlee-theme="future"] .mrlee-dorm-grid figcaption strong{color:#effbff}
+html[data-mrlee-theme="future"] :is(.mrlee-dorm-heading p,.mrlee-dorm-mini p,.mrlee-dorm-notice,.mrlee-dorm-grid figcaption span){color:#b9d6ed}
+html[data-mrlee-theme="future"] .mrlee-dorm-heading a,html[data-mrlee-theme="future"] .mrlee-dorm-mini a{color:#79e4ff}
+@media(max-width:700px){.mrlee-dorm-showcase{margin:12px 9px;padding:14px}.mrlee-dorm-grid{grid-template-columns:1fr}.mrlee-dorm-grid img{height:205px}.mrlee-dorm-mini{margin:10px;align-items:flex-start}.mrlee-dorm-mini img{width:96px;height:104px;flex-basis:96px}.mrlee-admin-map-shell{min-height:350px}.mrlee-admin-real-map{min-height:335px}}

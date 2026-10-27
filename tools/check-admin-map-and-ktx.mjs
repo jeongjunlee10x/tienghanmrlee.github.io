@@ -1,0 +1,15 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';
+const geo=JSON.parse(fs.readFileSync('assets/mrlee-geo/data/ctprvn.geojson','utf8'));
+assert.equal(geo.features.length,17);
+assert.equal(new Set(geo.features.map(f=>f.properties.CTPRVN_CD)).size,17);
+for(const f of geo.features){assert.ok(['Polygon','MultiPolygon'].includes(f.geometry.type))}
+const html=fs.readFileSync('ban-do-dai-hoc-han-quoc.html','utf8');
+assert.ok(html.includes('id="mrleeAdministrativeMap"'));
+assert.ok(!html.includes('id="mkorea"'));
+assert.ok(html.includes('id="ky-tuc-xa"'));
+assert.ok(html.includes('mrlee-geo/university-admin-map.js'));
+const src=fs.readFileSync('assets/mrlee-geo/university-admin-map.js','utf8');
+assert.ok(src.includes('ctprvn.geojson'));
+for(const p of ['tuyen-sinh.html','tim-truong.html'])assert.ok(fs.readFileSync(p,'utf8').includes('ký túc xá'));
+for(const p of ['assets/v306/images/feature-7-ky-tuc-xa.webp','assets/mrlee-ai/v3/03_giao_tiep/topic-dorm.webp'])assert.ok(fs.statSync(p).size>10000);
+console.log('MRLEE REGION QA: 17 administrative polygons; university map, dorm sections, illustrations OK');
