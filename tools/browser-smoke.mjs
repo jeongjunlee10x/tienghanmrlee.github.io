@@ -73,6 +73,32 @@ try{
        });
        console.log('HOME DETAIL '+label+' '+JSON.stringify(layoutDetail));
        console.log('HOME LAYOUT '+label+' '+JSON.stringify(m));
+       const heroAudit=await page.evaluate(()=>{
+         const root=document.documentElement;
+         const hero=document.querySelector('#mainContent>.hero[data-mrlee-hero="split"]');
+         const copy=hero?.querySelector('.mrlee-hero-copy-pane');
+         const photo=hero?.querySelector('.mrlee-hero-photo-pane');
+         const active=root.dataset.mrleeTheme==='future'?hero?.querySelector('.mrlee-future-hero-copy'):hero?.querySelector('.hero-copy');
+         const rect=e=>{if(!e)return null;const b=e.getBoundingClientRect();return {x:b.x,right:b.right,y:b.y,bottom:b.bottom,height:b.height,width:b.width}};
+         const actions=active?.querySelector('.mrlee-future-cta,.hero-buttons');
+         return {theme:root.dataset.mrleeTheme,hero:rect(hero),copy:rect(copy),photo:rect(photo),actions:rect(actions),art:getComputedStyle(photo).backgroundImage,active:getComputedStyle(active).display,copyScroll:copy?.scrollHeight,copyHeight:copy?.clientHeight};
+       });
+       console.log('HERO SPLIT '+label+' '+JSON.stringify(heroAudit));
+       const expectedArt=theme==='future'?'01-trang-chu-future.webp':'01-trang-chu-fresh.webp';
+       if(!heroAudit.art?.includes(expectedArt))throw Error('Wrong theme cover: '+heroAudit.art);
+       if(!heroAudit.photo || heroAudit.photo.height<120)throw Error('Hero cover invisible');
+       if(heroAudit.active==='none')throw Error('Hero theme copy hidden');
+       if(!heroAudit.actions || heroAudit.actions.height<25)throw Error('Hero actions invisible');
+       if(device.w>760){
+         if(heroAudit.actions.right>heroAudit.photo.x+1)throw Error('Hero actions overlap photo');
+       }else{
+         if(heroAudit.actions.y<heroAudit.photo.bottom-1)throw Error('Mobile hero actions overlap photo');
+       }
+       if(heroAudit.copyScroll>heroAudit.copyHeight+5)throw Error('Hero copy clipped by its pane');
+       for(const file of ['01-trang-chu-fresh.webp','01-trang-chu-future.webp']){
+         const st=fs.statSync(path.join(root,'assets/images/heroes',file));
+         if(st.size<100000)throw Error('Hero file too small: '+file);
+       }
        if(m.cards!==8)throw Error('Expected 8 non-duplicated dashboard cards, got '+m.cards);
        if(layoutDetail.images.filter(i=>i.ok).length<7)throw Error('Missing card artwork: '+JSON.stringify(layoutDetail.images));
        if(!m.header || m.header.y < -2 || m.header.height < 45)throw Error('Header clipped or hidden');

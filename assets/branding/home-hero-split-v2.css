@@ -1,0 +1,203 @@
+/* MR LEE · Hero B: a true split layout. NO photo-overlay controls.
+   Applies ONLY to the homepage hero. All eight module/card images are untouched.
+   Fresh and Future covers are separate, already deployed local WebP resources. */
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"]{
+  display:grid!important;
+  grid-template-columns:minmax(0,45%) minmax(0,55%)!important;
+  grid-template-rows:minmax(0,1fr)!important;
+  align-items:stretch!important;justify-items:stretch!important;
+  isolation:isolate!important;
+  box-sizing:border-box!important;
+  padding:0!important;gap:0!important;
+  overflow:hidden!important;
+  border-radius:20px!important;
+  min-height:0!important;height:330px!important;max-height:340px!important;
+  position:relative!important;
+  background:#edf6ff!important;
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"]::before,
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"]::after{
+  content:none!important;display:none!important;
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"]>.mrlee-hero-copy-pane{
+  grid-column:1!important;grid-row:1!important;
+  box-sizing:border-box!important;
+  display:flex!important;flex-direction:column!important;justify-content:center!important;
+  min-width:0!important;min-height:0!important;height:100%!important;
+  position:relative!important;z-index:2!important;
+  padding:22px clamp(19px,2.3vw,37px)!important;
+  margin:0!important;
+  overflow:visible!important;
+  background:linear-gradient(110deg,#f5fbff 0%,#e9f4ff 100%)!important;
+  color:#0c3166!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"]>.mrlee-hero-photo-pane{
+  grid-column:2!important;grid-row:1!important;
+  display:block!important;
+  position:relative!important;inset:auto!important;z-index:1!important;
+  box-sizing:border-box!important;
+  width:100%!important;min-width:0!important;height:100%!important;min-height:0!important;
+  overflow:hidden!important;
+  margin:0!important;padding:0!important;
+  border:0!important;
+  background-color:#dceafa!important;
+  background-image:url("../images/heroes/01-trang-chu-fresh.webp")!important;
+  background-size:cover!important;background-position:center center!important;
+  background-repeat:no-repeat!important;
+}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"]{
+  background:#06172f!important
+}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"]>.mrlee-hero-copy-pane{
+  background:linear-gradient(115deg,#07162e 0%,#102b51 100%)!important;
+  color:#f4faff!important
+}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"]>.mrlee-hero-photo-pane{
+  background-color:#0b234b!important;
+  background-image:url("../images/heroes/01-trang-chu-future.webp")!important
+}
+/* Native Fresh/Future copy stays intact. No cloned CTA and no overlapping photo. */
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"]
+ .mrlee-hero-copy-pane>.hero-copy,
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"]
+ .mrlee-hero-copy-pane>.mrlee-future-hero-copy{
+  box-sizing:border-box!important;
+  position:static!important;inset:auto!important;transform:none!important;
+  width:100%!important;height:auto!important;min-width:0!important;max-width:none!important;
+  margin:0!important;padding:0!important;
+  flex:0 1 auto!important;align-items:flex-start!important;justify-content:center!important;
+  flex-direction:column!important;gap:8px!important;
+  color:inherit!important;z-index:2!important;
+}
+html[data-mrlee-v303="reference"]:not([data-mrlee-theme="future"]) #mainContent>.hero[data-mrlee-hero="split"]
+ .mrlee-hero-copy-pane>.hero-copy{display:flex!important}
+html[data-mrlee-v303="reference"]:not([data-mrlee-theme="future"]) #mainContent>.hero[data-mrlee-hero="split"]
+ .mrlee-hero-copy-pane>.mrlee-future-hero-copy{display:none!important}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"]
+ .mrlee-hero-copy-pane>.hero-copy{display:none!important}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"]
+ .mrlee-hero-copy-pane>.mrlee-future-hero-copy{display:flex!important}
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .script{
+  font:italic 700 clamp(12px,1.06vw,16px)/1.25 Georgia,serif!important;
+  letter-spacing:0!important;white-space:normal!important;
+  color:#ef2872!important;margin:0!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .hero-copy h1{
+  font:900 clamp(30px,3.05vw,47px)/1.03 "Be Vietnam Pro",system-ui,sans-serif!important;
+  letter-spacing:-.055em!important;white-space:normal!important;
+  color:#113969!important;margin:2px 0 4px!important;text-shadow:none!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .hero-copy h1 span{
+  color:#ef1372!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .hero-copy>p{
+  font:600 clamp(12px,.93vw,14px)/1.48 "Be Vietnam Pro",system-ui,sans-serif!important;
+  margin:2px 0 7px!important;color:#315578!important;
+  white-space:normal!important;text-wrap:pretty!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .hero-copy>p::after{
+  display:none!important;content:none!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .hero-buttons{
+  display:flex!important;flex-wrap:wrap!important;justify-content:flex-start!important;
+  width:100%!important;max-width:100%!important;
+  gap:8px!important;margin:5px 0 0!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .hero-buttons :is(button,a),
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .mrlee-future-cta a{
+  position:static!important;transform:none!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  min-width:0!important;width:auto!important;
+  max-width:100%!important;min-height:37px!important;height:auto!important;
+  padding:8px 11px!important;margin:0!important;
+  border-radius:10px!important;border:1px solid #b2d2ee!important;
+  font:750 11px/1.3 "Be Vietnam Pro",system-ui,sans-serif!important;
+  text-align:center!important;text-decoration:none!important;white-space:normal!important;
+  box-shadow:none!important;gap:7px!important;cursor:pointer
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .hero-buttons .hero-map{
+  background:#e0f0ff!important;color:#0a407e!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .hero-buttons .hero-cta{
+  background:#ee2579!important;color:#fff!important;border-color:#ee2579!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .hero-buttons #mrlee-auth2-locked-hero{
+  background:#164a85!important;color:#fff!important;border-color:#164a85!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .hero-buttons b{
+  display:inline!important;width:auto!important;height:auto!important;
+  font-size:13px!important;background:none!important
+}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .mrlee-future-eyebrow{
+  color:#7cf1ff!important;font-size:10px!important;font-weight:800!important;
+  letter-spacing:.09em!important;line-height:1.3!important
+}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .mrlee-future-hero-copy h1{
+  font:900 clamp(30px,2.8vw,43px)/1.08 "Be Vietnam Pro",system-ui,sans-serif!important;
+  white-space:normal!important;letter-spacing:-.05em!important;
+  color:#fff!important;margin:2px 0!important;text-shadow:none!important
+}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .mrlee-future-hero-copy h1 em{
+  font-style:normal!important;color:#a4a3ff!important;
+  background:none!important;-webkit-text-fill-color:currentColor!important
+}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .mrlee-future-hero-copy p{
+  margin:1px 0!important;
+  color:#d7e9ff!important;font:500 clamp(11px,.9vw,13px)/1.45 "Be Vietnam Pro",system-ui,sans-serif!important
+}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .mrlee-future-hero-copy .mrlee-future-lead{
+  color:#f0faff!important;font-size:clamp(12px,1.08vw,16px)!important;font-weight:850!important
+}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .mrlee-future-cta{
+  width:100%!important;max-width:100%!important;display:flex!important;
+  flex-wrap:wrap!important;gap:8px!important;margin:6px 0 0!important
+}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .mrlee-future-cta a{
+  background:#154774!important;color:#f1fbff!important;
+  border-color:#3e99c9!important
+}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .mrlee-future-cta a:first-child{
+  background:#3cd8e9!important;color:#052c4d!important;border-color:#3cd8e9!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] :is(a,button):focus-visible{
+  outline:3px solid #f8ba31!important;outline-offset:3px!important
+}
+/* Tablet: content and picture remain distinct. */
+@media(max-width:1000px) and (min-width:761px){
+ html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"]{
+  grid-template-columns:minmax(0,51%) minmax(0,49%)!important;
+  height:345px!important;max-height:none!important
+ }
+}
+/* Mobile: image ABOVE copy, never behind typography or buttons. */
+@media(max-width:760px){
+ html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"],
+ html[data-mrlee-theme="future"][data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"]{
+  display:flex!important;flex-direction:column!important;
+  width:100%!important;height:auto!important;min-height:0!important;
+  max-height:none!important;padding:0!important;gap:0!important;
+  border-radius:16px!important;overflow:hidden!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"]>.mrlee-hero-photo-pane{
+  order:0!important;flex:none!important;
+  width:100%!important;height:174px!important;min-height:174px!important;
+  background-position:center 43%!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"]>.mrlee-hero-copy-pane{
+  order:1!important;flex:none!important;
+  width:100%!important;height:auto!important;min-height:0!important;
+  padding:19px 17px 21px!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .hero-copy h1,
+ html[data-mrlee-theme="future"][data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .mrlee-future-hero-copy h1{
+  font-size:clamp(29px,8vw,39px)!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] .mrlee-future-hero-copy p{
+  display:block!important
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] *{
+  transition:none!important;animation:none!important
+ }
+}
