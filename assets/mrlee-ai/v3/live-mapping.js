@@ -102,7 +102,10 @@ function applyCards(){
   cards.forEach(a=>{
    const img=a.querySelector('img');
    if(!img)return;
-   const original=(img.getAttribute('src')||'').split('/').pop();
+   // Remember the pre-enhancement asset once. Re-reading a replaced src makes the
+   // sourceMap fall back to a different route image on each theme change.
+   if(!img.dataset.mrleeV3Original)img.dataset.mrleeV3Original=img.getAttribute('src')||'';
+   const original=img.dataset.mrleeV3Original.split('/').pop();
    const basename=(a.getAttribute('href')||'').split(/[?#]/)[0];
    const course=/[?&]cap=([1-6])(?:&|$)/.exec(a.getAttribute('href')||'');
    const level=course?'02_hoc_tieng_han/level-0'+course[1]:null;
