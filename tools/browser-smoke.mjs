@@ -37,7 +37,7 @@ try{
       if(await other.count()){
         await other.evaluate(el=>el.click());
         const after=await photos.evaluateAll(images=>images.map(i=>i.getAttribute('src')));
-        if(JSON.stringify(before)!==JSON.stringify(after))throw Error('Theme switch replaced content card photos');
+        if(JSON.stringify(before)!==JSON.stringify(after)){const differences=before.map((from,i)=>from===after[i]?null:{index:i,before:from,after:after[i]}).filter(Boolean);throw Error('Theme switch replaced content card photos: '+JSON.stringify(differences.slice(0,5)));}
         await p.locator('.mrlee-theme-switch button[data-theme="'+original+'"]').evaluate(el=>el.click());
       }
     }
