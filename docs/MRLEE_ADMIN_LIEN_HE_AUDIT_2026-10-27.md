@@ -28,6 +28,9 @@
 4. **Xuất CSV có nguy cơ thực thi công thức khi mở bằng bảng tính:** các trường văn bản bắt đầu bằng =, +, -, @ (sau khoảng trắng) đã được tiền tố dấu nháy để coi là văn bản.
 5. **Không có bản báo cáo sức khỏe dễ tìm:** thêm bảng *Báo cáo trạng thái Admin* vào **Admin → Hệ thống**, đọc số dòng thực tế và thời gian đồng bộ gần nhất, cảnh báo quá 6 giờ hoặc lỗi truy vấn.
 
+### Reward V2 chưa được kích hoạt (lỗi xác nhận từ cơ sở dữ liệu)
+Truy vấn `information_schema.tables` trên Supabase production cho thấy **không có** hai bảng `public.mrlee_reward_v2_awards` và `public.mrlee_reward_v2_claims`. Trong khi đó `admin.html` vẫn truy vấn hai bảng khi mở mục Phiếu nhận thưởng, nên chức năng này hiện không hoạt động và không được coi là đã triển khai. Đã sửa giao diện báo rõ tình trạng chưa cấu hình, không giả lập dữ liệu hoặc hiển thị trạng thái thành công sai. Tệp `MRLEE_REWARD_V2_SETUP.sql` là migration có thể xem xét sau khi xác minh phân quyền và yêu cầu thu thập thông tin ngân hàng; **không tự chạy migration này** trong đợt rà soát.
+
 ## 4. Kiểm thử
 - `tools/check-contact-admin.mjs`: kiểm tra tính nhất quán của widget, fallback trang chủ, Admin health panel, khóa công khai, kiểm tra cú pháp tất cả JavaScript inline trong `admin.html`, tiêu chí điểm và xuất CSV.
 - `tools/browser-smoke.mjs`: kiểm tra nút liên hệ trên Fresh/Future ở 1440×900 và 390×844, mở/đóng trên mobile, và trang Admin ẩn dữ liệu trước khi có quyền.
