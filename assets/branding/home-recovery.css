@@ -405,3 +405,49 @@ html[data-mrlee-v303="reference"] .mrlee-v2-site-footer{
   height:166px!important;max-height:166px!important
  }
 }
+
+/* R3 visual review: improve text contrast, avoid duplicate footer and floating overlays. */
+html[data-mrlee-v303="reference"] body>.site-footer{display:flex!important}
+html[data-mrlee-v303="reference"] body>footer:not(.site-footer){
+ display:none!important
+}
+html[data-mrlee-v303="reference"] .contact-rail{
+ display:none!important
+}
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"]
+ .site-header .main-nav>a, 
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"]
+ .site-header .main-nav>a:not(.active){
+ color:#dceeff!important;text-shadow:none!important
+}
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"]
+ .site-header .main-nav>a.active{
+ color:#013870!important;background:#e7faff!important;
+ text-shadow:none!important
+}
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"]
+ #mainContent>.mrlee-bottom-pair>.ranking :is(.rank-title h2,.rank-title p,.rank-title small,.rank-title a){
+ color:#e7f5ff!important;text-shadow:none!important
+}
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"]
+ #mainContent>.mrlee-bottom-pair>.ranking :is(.rank-strip,.rank-strip-wrap,.rank-placeholder){
+ color:#e7f5ff!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.ranking .rank-title{
+ overflow:visible!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero .mrlee-future-hero-copy{
+ align-self:center!important;justify-content:center!important;transform:none!important
+}
+html[data-mrlee-v303="reference"] .mrlee-smart-home-grid>a.mrlee-smart-home-card>img{
+ filter:saturate(1.07) contrast(1.02)!important
+}
+@media(min-width:1280px) and (min-height:760px){
+ html[data-mrlee-v303="reference"] #mainContent>.hero{
+  height:290px!important;min-height:0!important
+ }
+ html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"]
+ #mainContent>.hero{
+  height:290px!important;min-height:0!important
+ }
+}

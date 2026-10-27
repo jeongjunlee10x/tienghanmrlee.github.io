@@ -82,6 +82,7 @@ try{
        if(m.awards?.visible)throw Error('Oversized scholarship injection still visible');
        if(m.width > m.viewport + 4)throw Error('Horizontal overflow '+m.width+' > '+m.viewport);
        if(device.w>=1280 && m.pair.bottom>device.h+35)throw Error('Desktop first-fold content cut: bottom='+m.pair.bottom);
+       await page.waitForTimeout(350); // allow decoded artwork to paint before screenshot
        fs.mkdirSync('artifacts/home-review',{recursive:true});
        await page.screenshot({path:'artifacts/home-review/'+device.w+'x'+device.h+'-'+theme+'.png',fullPage:true});
      }

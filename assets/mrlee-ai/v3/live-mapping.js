@@ -79,8 +79,7 @@ async function setBackground(element,u){
 function applyCards(){
  if(filename==='index.html'){
   const map=pages['index.html'].cards;
-  // The live homepage uses feature-card and mrlee-future-mod-card,
-  // not mrlee-smart-home-card (which was a stale selector).
+  // Keep the compact homepage's eight approved WebP previews. Remap only long-form legacy cards.
   const sourceMap={
    'feature-1-tuyen-sinh.webp':'feature-admission',
    'feature-2-ban-do.webp':'feature-university-map',
@@ -93,7 +92,7 @@ function applyCards(){
    'learning-books.webp':'feature-workbook'
   };
   const cards=d.querySelectorAll(
-   '.feature-card[href], .mrlee-future-mod-card[href], .mrlee-smart-home-card[href]'
+   '.feature-card[href], .mrlee-future-mod-card[href]'
   );
   cards.forEach(a=>{
    const img=a.querySelector('img');
