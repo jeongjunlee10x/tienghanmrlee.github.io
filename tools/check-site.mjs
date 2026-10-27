@@ -9,6 +9,7 @@ import {spawnSync} from 'node:child_process';
 const root=path.resolve(process.argv[2]||path.join(path.dirname(fileURLToPath(import.meta.url)),'..'));
 const suites=[
  ['Đường dẫn của toàn bộ trang / cú pháp JS','audit-full-site.mjs'],
+ ['Nút liên hệ và sức khỏe Admin','check-contact-admin.mjs'],
  ['Hình ảnh và font trong CSS','audit-css-assets.mjs'],
  ['24 bản ghi âm TOPIK thật','audit-topik-audio.mjs'],
  ['Kho giáo trình và AI trợ lý','check-mrlee-ai.mjs'],
