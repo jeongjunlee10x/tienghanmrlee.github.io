@@ -61,7 +61,7 @@ try{
      await test.check(page);
      if(test.file==='index.html') {
        await page.locator('.mrlee-smart-home-grid > a.mrlee-smart-home-card').first().waitFor({timeout:10000});
-       await Promise.all([...document.querySelectorAll('.mrlee-smart-home-grid img')].map(i=>i.decode().catch(()=>{})));
+       await page.evaluate(async()=>{await Promise.all([...document.querySelectorAll('.mrlee-smart-home-grid img')].map(i=>i.decode().catch(()=>{})));});
        const m=await page.evaluate(()=>{
         const rect=s=>{const el=document.querySelector(s);if(!el)return null;const b=el.getBoundingClientRect();return {x:b.x,y:b.y,width:b.width,height:b.height,bottom:b.bottom,visible:getComputedStyle(el).display!=='none'}};
         return {header:rect('.site-header'),hero:rect('#mainContent>.hero'),hub:rect('.mrlee-smart-home-hub'),cards:[...document.querySelectorAll('.mrlee-smart-home-grid > a')].filter(e=>e.getBoundingClientRect().height>0).length,pair:rect('#mainContent>.mrlee-bottom-pair'),awards:rect('#mrleeScholarshipsHome'),dupe:rect('#mainContent>.feature-cards'),width:document.documentElement.scrollWidth,viewport:innerWidth};
