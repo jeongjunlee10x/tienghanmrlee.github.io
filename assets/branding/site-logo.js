@@ -37,7 +37,7 @@
   const script=document.createElement('script');script.src='assets/branding/media-quality-v3.js?v=20261027-q3';script.defer=true;script.dataset.mrleeImageQuality='js';document.head.append(script);
  }
  function loadContactDock(){
-  if(/(^|\\/)admin\\.html$/i.test(location.pathname))return;
+  if(location.pathname.toLowerCase().endsWith('/admin.html'))return;
   if(document.querySelector('script[data-mrlee-contact-dock-loader]'))return;
   const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('contact-dock.css?v=20261027-r2',current.src).href;css.dataset.mrleeContactDock='css';document.head.append(css);
   const script=document.createElement('script');script.src=new URL('contact-dock.js?v=20261027-r2',current.src).href;script.defer=true;script.dataset.mrleeContactDockLoader='1';document.head.append(script);
