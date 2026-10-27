@@ -30,7 +30,7 @@ assert.match(admin,/const DEFAULT_URL='https:\/\/pkxqsboyotlyoizzxizb\.supabase\
 assert.match(admin,/DEFAULT_KEY='sb_publishable_/,'Only public API key is bundled');
 assert.match(admin,/function scorePercent\(/,'Protect against divide-by-zero');
 assert.match(admin,/new Date\(s.last_activity_at\)\.getTime\(\)>=Date\.now\(\)-7\*86400000/,'7-day active metric must use dates');
-assert.match(admin,/if\(\/\^\[\\s\\uFEFF\]\*\[=\+@-\]\//,'Spreadsheet formula-prefix protection missing');
+assert.ok(admin.includes(String.raw`if(/^[\s\uFEFF]*[=+@-]/.test(t))`),'Spreadsheet formula-prefix protection missing');
 const scripts=[...admin.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)]
   .filter(m=>!/\bsrc\s*=/.test(m[1]))
   .map(m=>m[2]).filter(s=>s.trim());
