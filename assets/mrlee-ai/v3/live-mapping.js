@@ -46,6 +46,8 @@ const pages={
 const filename=decodeURIComponent(location.pathname.split('/').pop()||'index.html');
 const config=pages[filename];if(!config)return;
 const cache=new Map();
+// Ignore stale asynchronous image decoding after a theme/page update.
+const imageRequests=new WeakMap(),backgroundRequests=new WeakMap();
 const normalizedTheme=()=>html.dataset.mrleeTheme==='future'?'future':'fresh';
 const url=(name)=>root+config.folder+'/'+name+'.webp';
 function verified(u){
@@ -61,12 +63,15 @@ function verified(u){
 }
 async function setImage(img,u){
  if(!img)return;
- if(!await verified(u))return;
+ imageRequests.set(img,u);
+ if(!await verified(u)||imageRequests.get(img)!==u||!img.isConnected)return;
  if(img.dataset.mrleeV3Art===u)return;
  img.src=u;img.dataset.mrleeV3Art=u;
 }
 async function setBackground(element,u){
- if(!element||!await verified(u))return;
+ if(!element)return;
+ backgroundRequests.set(element,u);
+ if(!await verified(u)||backgroundRequests.get(element)!==u||!element.isConnected)return;
  const tint=normalizedTheme()==='future'
    ?'linear-gradient(90deg,rgba(2,10,28,.89),rgba(5,19,49,.62) 44%,rgba(5,22,55,.03) 83%)'
    :'linear-gradient(90deg,rgba(240,250,255,.91),rgba(234,246,255,.59) 43%,rgba(240,249,255,.02) 82%)';
