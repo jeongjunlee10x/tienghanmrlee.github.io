@@ -60,6 +60,14 @@ try{
    await context.addInitScript(t=>{try{localStorage.setItem('MRLEE.THEME.V1',t)}catch{}},theme);
    for(const test of cases){
     const page=await context.newPage();
+    // Layout-only smoke on protected lesson pages: mock the redirecting guard
+    // ONLY inside headless Chromium. Production auth-guard.js is never edited.
+    const protectedLayouts=new Set(['hoc-tieng-han.html','giao-tiep-theo-chu-de.html','giao-tiep-phong-van.html','mrlee-bai-tap-pro.html','trung-tam-hoc-vien.html']);
+    if(protectedLayouts.has(test.file)){
+     await page.route('**/auth-guard.js*',route=>route.fulfill({
+      status:200,contentType:'text/javascript',body:'/* Chromium visual QA only: auth guard intentionally disabled for layout snapshot */'
+     }));
+    }
     const label=device.w+'x'+device.h+' '+theme+' '+test.file;
     const pageErrors=[];
     page.on('pageerror',err=>pageErrors.push(err.message));
