@@ -27,6 +27,15 @@ try{
  const cases=[
   {file:'index.html',check:async p=>{
     await p.locator('main').first().waitFor({timeout:10000});
+    const contact=p.locator('#mrleeContactDock');
+    await contact.waitFor({state:'visible',timeout:12000});
+    if(await contact.locator('.mrlee-contact-links > *').count()!==5)throw Error('Contact dock must expose 5 real channels');
+    if(p.viewportSize().width<=700){
+      const toggle=contact.locator('button.mrlee-contact-toggle');
+      await toggle.click();
+      if(!await contact.locator('.mrlee-contact-links').isVisible())throw Error('Mobile contact dock did not expand');
+      await toggle.click();
+    }else if(!await contact.locator('.mrlee-contact-links').isVisible())throw Error('Desktop contact channels are hidden');
     // Lesson/feature card photos must remain the same when selecting the other visual theme.
     const photos=p.locator('.feature-card img,.mrlee-v4-card img');
     if(await photos.count()){
@@ -41,6 +50,14 @@ try{
         await p.locator('.mrlee-theme-switch button[data-theme="'+original+'"]').evaluate(el=>el.click());
       }
     }
+  }},
+  {file:'admin.html',check:async p=>{
+    await p.locator('#authWrap').waitFor({state:'visible',timeout:15000});
+    if(!await p.locator('#app').evaluate(el=>el.classList.contains('hidden')))
+      throw Error('Admin data UI must be hidden before authorization');
+    const publicConfig=await p.locator('#loginForm,#setupForm').evaluateAll(forms=>forms.some(f=>!f.classList.contains('hidden')));
+    if(!publicConfig)throw Error('Admin configuration/login form is not accessible');
+    if(await p.locator('#mrleeContactDock').count())throw Error('Marketing contact dock must not obscure private Admin');
   }},
   {file:'ai-tro-ly.html',check:async p=>{
     await p.locator('#aiQuery').fill('학교');
