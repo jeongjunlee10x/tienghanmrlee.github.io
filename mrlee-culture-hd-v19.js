@@ -37,6 +37,8 @@ function covers(){
   if(img.dataset.mrleeCultureHd==='19'&&img.getAttribute('src')===asset(id,1))return;
   load(img,id,1);
   const old=$('.mr172AiTag',card);
+  const countChip=$('.cultureV16TopicTag',card);
+  if(countChip)countChip.textContent='🖼 5 ảnh HD';
   if(old)old.textContent='Minh họa AI · HD';
   else if(!$('.mrleeCultureTag',card))write($('.topicText',card)||card,'span','mrleeCultureTag','Minh họa AI · HD');
  });
