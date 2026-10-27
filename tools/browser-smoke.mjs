@@ -59,6 +59,24 @@ try{
      const response=await page.goto('http://127.0.0.1:'+port+'/'+test.file,{waitUntil:'domcontentloaded',timeout:20000});
      if(!response?.ok())throw Error('HTTP status '+response?.status());
      await test.check(page);
+     if(test.file==='index.html') {
+       await page.locator('.mrlee-smart-home-grid > a.mrlee-smart-home-card').first().waitFor({timeout:10000});
+       const m=await page.evaluate(()=>{
+        const rect=s=>{const el=document.querySelector(s);if(!el)return null;const b=el.getBoundingClientRect();return {x:b.x,y:b.y,width:b.width,height:b.height,bottom:b.bottom,visible:getComputedStyle(el).display!=='none'}};
+        return {header:rect('.site-header'),hero:rect('#mainContent>.hero'),hub:rect('.mrlee-smart-home-hub'),cards:[...document.querySelectorAll('.mrlee-smart-home-grid > a')].filter(e=>e.getBoundingClientRect().height>0).length,pair:rect('#mainContent>.mrlee-bottom-pair'),awards:rect('#mrleeScholarshipsHome'),dupe:rect('#mainContent>.feature-cards'),width:document.documentElement.scrollWidth,viewport:innerWidth};
+       });
+       console.log('HOME LAYOUT '+label+' '+JSON.stringify(m));
+       if(m.cards!==8)throw Error('Expected 8 non-duplicated dashboard cards, got '+m.cards);
+       if(!m.header || m.header.y < -2 || m.header.height < 45)throw Error('Header clipped or hidden');
+       if(!m.hero || m.hero.height < 230 || m.hero.height > (device.w>760?380:750))throw Error('Hero cropped or oversized');
+       if(!m.hub?.visible || !m.pair?.visible || m.pair.height < 90)throw Error('Homepage dashboard pair hidden');
+       if(m.dupe?.visible)throw Error('Duplicated legacy feature row still visible');
+       if(m.awards?.visible)throw Error('Oversized scholarship injection still visible');
+       if(m.width > m.viewport + 4)throw Error('Horizontal overflow '+m.width+' > '+m.viewport);
+       if(device.w>=1280 && m.pair.bottom>device.h+35)throw Error('Desktop first-fold content cut: bottom='+m.pair.bottom);
+       fs.mkdirSync('artifacts/home-review',{recursive:true});
+       await page.screenshot({path:'artifacts/home-review/'+device.w+'x'+device.h+'-'+theme+'.png',fullPage:true});
+     }
      const title=await page.title();if(!title.trim())throw Error('Empty HTML title');
      if(pageErrors.length){notices.push(label+' pageerror: '+pageErrors.slice(0,3).join(' | '))}
      seen.add(label);

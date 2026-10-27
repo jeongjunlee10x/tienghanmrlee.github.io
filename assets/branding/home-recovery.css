@@ -1,0 +1,327 @@
+/* MR LEE home recovery R1 | 27 Oct 2026.
+   One visual dashboard shared by fresh and future. No data or business logic changes.
+   This file overrides legacy viewport grids without removing functional sections. */
+html[data-mrlee-v303="reference"] {scroll-padding-top:8px}
+html[data-mrlee-v303="reference"] body {
+ overflow-x:hidden!important;
+ min-height:100vh!important;height:auto!important;
+}
+html[data-mrlee-v303="reference"] .site-header {
+ position:relative!important;top:auto!important;
+ height:auto!important;min-height:64px!important;max-height:none!important;
+ overflow:visible!important;z-index:50!important
+}
+html[data-mrlee-v303="reference"] .site-header .header-inner {
+ min-height:64px!important;height:auto!important;
+ max-width:1600px!important;margin:0 auto!important;
+ padding:6px 18px!important;align-items:center!important;
+ flex-wrap:wrap!important;gap:8px 12px!important
+}
+html[data-mrlee-v303="reference"] .site-header a.brand{
+ flex:0 0 auto!important;min-width:100px!important;
+ width:clamp(112px,10vw,150px)!important
+}
+html[data-mrlee-v303="reference"] .site-header .main-nav {
+ flex-wrap:wrap!important;min-width:0!important;
+ gap:3px 7px!important
+}
+html[data-mrlee-v303="reference"] .site-header .main-nav>a{
+ padding:7px 6px!important;font-size:clamp(10px,.85vw,12px)!important
+}
+html[data-mrlee-v303="reference"] .mrlee-theme-switch{
+ display:flex!important;align-items:center!important;justify-content:flex-end!important;
+ gap:5px!important;width:max-content!important;max-width:calc(100% - 28px)!important;
+ height:auto!important;min-height:34px!important;padding:3px 7px!important;
+ margin:3px max(12px,calc((100vw - 1570px)/2)) 4px auto!important;
+ position:relative!important;inset:auto!important;transform:none!important;
+ overflow:visible!important;z-index:10!important
+}
+html[data-mrlee-v303="reference"] .mrlee-theme-switch strong{font-size:10px!important}
+html[data-mrlee-v303="reference"] .mrlee-theme-switch button{
+ min-height:28px!important;padding:4px 10px!important;
+ font-size:10px!important;line-height:1.3!important
+}
+/* Replace stacked historic grids with a predictable vertical layout. */
+html[data-mrlee-v303="reference"] main#mainContent{
+ display:flex!important;flex-direction:column!important;
+ width:min(1600px,100%)!important;max-width:1600px!important;
+ height:auto!important;min-height:0!important;max-height:none!important;
+ padding:5px 16px 12px!important;margin:0 auto!important;
+ gap:10px!important;grid-template-columns:none!important;grid-template-rows:none!important;
+ align-items:stretch!important;align-content:normal!important;overflow:visible!important;
+ box-sizing:border-box!important
+}
+/* Never show parallel automatic portals/duplicate menus on the home dashboard. */
+html[data-mrlee-v303="reference"] body :is(
+ .mrlee-next-portal,.mrlee-v2-primary-nav,.mrlee-v2-context,
+ .mrlee-cinematic-gallery,#mrleeScholarshipsHome
+){display:none!important}
+html[data-mrlee-v303="reference"][data-mrlee-smart-home="true"]:not([data-mrlee-smart-expanded="true"])
+ #mainContent> :is(.search-strip,.feature-cards,.journey,.mrlee-future-home){
+ display:none!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero{
+ order:1!important;display:flex!important;align-items:center!important;
+ position:relative!important;isolation:isolate!important;
+ grid-column:auto!important;grid-row:auto!important;
+ width:100%!important;max-width:none!important;
+ min-height:0!important;height:clamp(255px,31vh,310px)!important;
+ max-height:none!important;flex:0 0 auto!important;
+ border-radius:20px!important;padding:18px clamp(20px,2.4vw,36px)!important;
+ margin:0!important;overflow:hidden!important;
+ border:1px solid rgba(93,159,220,.4)!important;
+ box-shadow:0 10px 28px #102b5e1a!important;
+ background-image:linear-gradient(90deg,rgba(246,251,255,.98) 0%,rgba(244,250,255,.86) 41%,rgba(246,251,255,.04) 86%),
+ url("../v303/hero-glasses.webp")!important;
+ background-position:center,center!important;background-size:cover,cover!important
+}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] #mainContent>.hero{
+ background-image:linear-gradient(90deg,rgba(2,10,31,.94) 0%,rgba(6,18,46,.74) 40%,rgba(2,8,30,.05) 90%),
+ url("../v303/hero-glasses.webp")!important;
+ border-color:#2679be!important;box-shadow:0 12px 30px #0007!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero :is(.hero-atmosphere,.v303-scene){
+ display:none!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero .hero-copy,
+html[data-mrlee-v303="reference"] #mainContent>.hero .mrlee-future-hero-copy{
+ position:relative!important;top:auto!important;left:auto!important;
+ width:min(590px,55%)!important;max-width:95%!important;height:auto!important;
+ padding:0!important;margin:0!important;gap:7px!important;
+ display:flex!important;flex-direction:column!important;justify-content:center!important;
+ align-items:flex-start!important;z-index:4!important
+}
+html[data-mrlee-v303="reference"]:not([data-mrlee-theme="future"])
+ #mainContent>.hero .mrlee-future-hero-copy{display:none!important}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"]
+ #mainContent>.hero .hero-copy{display:none!important}
+html[data-mrlee-v303="reference"] #mainContent>.hero .hero-copy h1{
+ font-size:clamp(38px,3.2vw,55px)!important;line-height:1.05!important;
+ margin:3px 0!important;letter-spacing:-.06em!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero .hero-copy .script{
+ font-size:clamp(13px,1.18vw,18px)!important;line-height:1.25!important;
+ margin:0!important;white-space:normal!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero .hero-copy>p{
+ font-size:clamp(12px,1vw,15px)!important;line-height:1.4!important;
+ margin:2px 0 5px!important;white-space:normal!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero .hero-points{
+ display:none!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero .hero-buttons{
+ display:flex!important;flex-wrap:wrap!important;gap:8px!important;
+ width:100%!important;margin:9px 0 0!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero .hero-buttons :is(a,button){
+ min-height:39px!important;height:auto!important;max-height:none!important;
+ padding:7px 12px!important;font-size:clamp(10px,.78vw,12px)!important;
+ border-radius:11px!important;white-space:normal!important;gap:8px!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero .hero-buttons b{
+ width:23px!important;height:23px!important;font-size:14px!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero .mrlee-future-hero-copy h1{
+ font-size:clamp(33px,3.2vw,53px)!important;line-height:1.08!important;
+ margin:2px 0 4px!important;color:#fff!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero .mrlee-future-hero-copy p{
+ line-height:1.35!important;margin:2px 0!important;font-size:clamp(11px,.94vw,14px)!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero .mrlee-future-hero-copy .mrlee-future-cta{
+ margin:5px 0 0!important;display:flex!important;gap:7px!important;flex-wrap:wrap!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero .mrlee-future-hero-copy .mrlee-future-cta a{
+ min-height:38px!important;padding:7px 11px!important;font-size:11px!important;
+ line-height:1.3!important;border-radius:10px!important
+}
+/* Exactly eight clear, equally sized cards; captions are outside the image area. */
+html[data-mrlee-v303="reference"][data-mrlee-smart-home="true"] .mrlee-smart-home-hub{
+ order:2!important;display:block!important;flex:0 0 auto!important;
+ width:100%!important;max-width:none!important;height:auto!important;
+ margin:0!important;padding:0!important;color:#102f56!important
+}
+html[data-mrlee-v303="reference"] .mrlee-smart-hub-heading{
+ display:flex!important;align-items:center!important;justify-content:space-between!important;
+ margin:0!important;padding:2px 3px 9px!important;gap:8px!important
+}
+html[data-mrlee-v303="reference"] .mrlee-smart-hub-heading strong{
+ color:#153a68!important;font-size:clamp(15px,1.15vw,19px)!important;
+ line-height:1.3!important
+}
+html[data-mrlee-v303="reference"] .mrlee-smart-hub-heading p{
+ color:#617895!important;font-size:10px!important
+}
+html[data-mrlee-v303="reference"] .mrlee-smart-home-grid{
+ display:grid!important;grid-template-columns:repeat(8,minmax(0,1fr))!important;
+ grid-auto-rows:154px!important;gap:9px!important;align-items:stretch!important
+}
+html[data-mrlee-v303="reference"] .mrlee-smart-home-grid>a.mrlee-smart-home-card,
+html[data-mrlee-v303="reference"] .mrlee-smart-home-grid>a.mrlee-smart-home-card:first-child{
+ display:grid!important;grid-column:auto!important;grid-row:auto!important;
+ grid-template-columns:minmax(0,1fr)!important;
+ grid-template-rows:minmax(0,1fr) auto auto!important;
+ min-height:0!important;max-height:154px!important;height:154px!important;
+ padding:0!important;gap:0!important;position:relative!important;
+ overflow:hidden!important;border-radius:13px!important;
+ background:#edf5ff!important;border:1px solid #ccdef0!important;
+ box-shadow:0 5px 16px #174c8317!important;
+ align-self:stretch!important;transform:none!important
+}
+html[data-mrlee-v303="reference"] .mrlee-smart-home-card::before{
+ display:none!important;content:none!important
+}
+html[data-mrlee-v303="reference"] .mrlee-smart-home-grid>a.mrlee-smart-home-card>img{
+ display:block!important;position:relative!important;
+ grid-row:1!important;grid-column:1!important;inset:auto!important;
+ width:100%!important;height:100%!important;max-width:100%!important;
+ min-height:0!important;margin:0!important;padding:0!important;
+ object-fit:cover!important;object-position:center center!important;
+ opacity:1!important;filter:none!important;transform:none!important;z-index:0!important
+}
+html[data-mrlee-v303="reference"] .mrlee-smart-home-grid>a.mrlee-smart-home-card>strong,
+html[data-mrlee-v303="reference"] .mrlee-smart-home-grid>a.mrlee-smart-home-card>small{
+ display:block!important;grid-column:1!important;position:relative!important;
+ width:100%!important;min-width:0!important;height:auto!important;
+ background:#fff!important;color:#12365b!important;z-index:1!important;
+ box-sizing:border-box!important;white-space:normal!important;
+ overflow-wrap:break-word!important;text-align:left!important;margin:0!important
+}
+html[data-mrlee-v303="reference"] .mrlee-smart-home-grid>a.mrlee-smart-home-card>strong{
+ grid-row:2!important;padding:6px 8px 1px!important;
+ line-height:1.2!important;font-size:clamp(11px,.85vw,13px)!important
+}
+html[data-mrlee-v303="reference"] .mrlee-smart-home-grid>a.mrlee-smart-home-card>small{
+ grid-row:3!important;padding:1px 8px 7px!important;
+ font-size:10px!important;line-height:1.15!important;color:#5a728d!important
+}
+html[data-mrlee-v303="reference"] .mrlee-smart-home-grid .mrlee-smart-arrow{display:none!important}
+html[data-mrlee-v303="reference"] .mrlee-smart-hub-extra{
+ display:flex!important;align-items:center!important;gap:7px!important;
+ flex-wrap:wrap!important;margin:8px 0 0!important
+}
+html[data-mrlee-v303="reference"] .mrlee-smart-hub-extra :is(a,button){
+ min-height:34px!important;padding:6px 11px!important;
+ border-radius:9px!important;font-size:11px!important;line-height:1.25!important
+}
+html[data-mrlee-v303="reference"] .mrlee-smart-hub-extra button{margin-left:auto!important}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] .mrlee-smart-home-hub{color:#f2f9ff!important}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] .mrlee-smart-hub-heading strong{color:#effaff!important}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] .mrlee-smart-hub-heading p{color:#a7c7e2!important}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] .mrlee-smart-home-grid>a.mrlee-smart-home-card{
+ background:#0d2a50!important;border-color:#2c77af!important;
+ box-shadow:0 5px 16px #0003!important
+}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] .mrlee-smart-home-grid>a.mrlee-smart-home-card :is(strong,small){
+ background:#092140!important;color:#f5faff!important
+}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] .mrlee-smart-home-grid>a.mrlee-smart-home-card>small{
+ color:#b6cde7!important
+}
+/* Scholarship + real leaderboard have their own uncropped, finite-height row. */
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair{
+ order:3!important;display:grid!important;
+ grid-column:auto!important;grid-row:auto!important;
+ grid-template-columns:minmax(210px,.32fr) minmax(0,.68fr)!important;
+ width:100%!important;max-width:none!important;
+ min-height:108px!important;height:108px!important;max-height:none!important;
+ gap:10px!important;padding:0!important;margin:0!important;overflow:visible!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.scholarship,
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.ranking{
+ min-height:0!important;height:108px!important;max-height:none!important;
+ width:100%!important;margin:0!important;overflow:hidden!important;
+ border-radius:15px!important;box-sizing:border-box!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.ranking{
+ display:grid!important;grid-template-columns:minmax(155px,.27fr) minmax(0,1fr) 55px!important;
+ grid-template-rows:minmax(0,1fr)!important;align-items:center!important;
+ background:#fff!important;padding:9px 12px!important;gap:8px!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.ranking .rank-title h2{
+ font-size:clamp(12px,.9vw,16px)!important;line-height:1.2!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.ranking .rank-strip-wrap{
+ min-width:0!important;min-height:0!important;max-height:100%!important;overflow:hidden!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.scholarship b{
+ font-size:clamp(15px,1.1vw,20px)!important;line-height:1.16!important
+}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.ranking{
+ background:#0b1b38!important;color:#e7f5ff!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.search-strip{order:4!important}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-future-home{order:5!important}
+html[data-mrlee-v303="reference"] #mainContent>.feature-cards{order:6!important}
+html[data-mrlee-v303="reference"] #mainContent>.journey{order:7!important}
+html[data-mrlee-v303="reference"] .site-footer{
+ position:relative!important;height:auto!important;max-height:none!important;
+ min-height:28px!important;margin:0!important;padding:6px 12px!important;
+ overflow:visible!important
+}
+html[data-mrlee-v303="reference"] .contact-rail{z-index:40!important}
+/* Lower viewports can scroll; do not clip form controls or any text. */
+@media(max-width:1279px){
+ html[data-mrlee-v303="reference"] .mrlee-smart-home-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  grid-auto-rows:154px!important
+ }
+}
+@media(max-width:760px){
+ html[data-mrlee-v303="reference"] .site-header .header-inner{padding:8px 12px!important}
+ html[data-mrlee-v303="reference"] .mrlee-theme-switch{
+  margin:5px auto!important;max-width:calc(100% - 14px)!important;
+  justify-content:center!important;flex-wrap:wrap!important
+ }
+ html[data-mrlee-v303="reference"] main#mainContent{
+  width:100%!important;height:auto!important;padding:5px 10px 22px!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.hero{
+  height:auto!important;min-height:310px!important;max-height:none!important;
+  padding:24px 16px!important;border-radius:15px!important;
+  background-position:center,61% center!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.hero :is(.hero-copy,.mrlee-future-hero-copy){
+  width:min(100%,520px)!important;max-width:100%!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.hero .hero-copy h1{
+  font-size:clamp(36px,8vw,52px)!important
+ }
+ html[data-mrlee-v303="reference"] .mrlee-smart-home-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  grid-auto-rows:166px!important;gap:9px!important
+ }
+ html[data-mrlee-v303="reference"] .mrlee-smart-home-grid>a.mrlee-smart-home-card{
+  height:166px!important;max-height:166px!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair{
+  grid-template-columns:minmax(0,1fr)!important;height:auto!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.scholarship{height:125px!important}
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.ranking{
+  height:170px!important;grid-template-columns:minmax(0,1fr) 55px!important;
+  grid-template-rows:auto minmax(0,1fr)!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair .rank-title{
+  grid-column:1!important;grid-row:1!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair .rank-strip-wrap{
+  grid-column:1/-1!important;grid-row:2!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair .rank-controls{
+  grid-column:2!important;grid-row:1!important
+ }
+ html[data-mrlee-v303="reference"] .mrlee-smart-hub-extra button{margin-left:0!important}
+}
+@media(max-height:740px) and (min-width:761px){
+ html[data-mrlee-v303="reference"] #mainContent>.hero{height:240px!important}
+ html[data-mrlee-v303="reference"] .mrlee-smart-home-grid{grid-auto-rows:132px!important}
+ html[data-mrlee-v303="reference"] .mrlee-smart-home-grid>a.mrlee-smart-home-card{
+  height:132px!important;max-height:132px!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair,
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>:is(.scholarship,.ranking){
+  height:92px!important;min-height:0!important
+ }
+}

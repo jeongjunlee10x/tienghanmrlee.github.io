@@ -6,6 +6,7 @@ const d=document,root=d.documentElement;
 const page=decodeURIComponent(location.pathname.split('/').pop()||'index.html');
 const photoRoot='assets/v306/images/';
 const catalog=[
+ {title:'Tuyển sinh',desc:'Du học và định hướng',href:'tuyen-sinh.html',img:'feature-1-tuyen-sinh.webp'},
  {title:'Học tiếng Hàn',desc:'6 cấp độ · Học theo bài',href:'hoc-tieng-han.html',img:'feature-5-hoc-tieng-han.webp'},
  {title:'Giao tiếp',desc:'Hội thoại và phản xạ',href:'giao-tiep-theo-chu-de.html',img:'learning-cap-2.webp'},
  {title:'TOPIK',desc:'Luyện thi I · II',href:'kiem-tra-topik.html',img:'feature-6-thi-topik.webp'},
@@ -20,7 +21,7 @@ const $=(tag,cls,text)=>{const el=d.createElement(tag);if(cls)el.className=cls;i
 const reroutes={'#ranking':'bang-xep-hang.html','#schoolSearch':'ban-do-dai-hoc-han-quoc.html','#contactPanel':'dang-ky-tu-van.html'};
 function smartNavLinks(){
  if(page!=='index.html')return;
- const compact=root.dataset.mrleeTheme==='future'&&root.dataset.mrleeSmartExpanded!=='true';
+ const compact=root.dataset.mrleeSmartExpanded!=='true';
  d.querySelectorAll('.site-header a[href],#mobileNav a[href],a[data-mrlee-smart-original-href]').forEach(a=>{
   const original=a.dataset.mrleeSmartOriginalHref||a.getAttribute('href');
   if(!(original in reroutes))return;
@@ -35,8 +36,8 @@ function homepage(){
  hub.id='mrleeSmartHub';
  hub.setAttribute('aria-label','Điều hướng nhanh toàn bộ website MR LEE');
  const head=$('div','mrlee-smart-hub-heading');
- head.append($('strong','','KHÁM PHÁ MR LEE'));
- head.append($('p','','7 chuyên mục học tập và định hướng · Mỗi mục đến đúng chức năng'));
+ head.append($('strong','','KHÁM PHÁ MR LEE · 8 CHUYÊN MỤC'));
+ head.append($('p','','8 chuyên mục chính · Chọn để đi thẳng tới nội dung'));
  hub.append(head);
  const grid=$('nav','mrlee-smart-home-grid');grid.setAttribute('aria-label','Các chuyên mục chính MR LEE');
  for(const item of catalog){

@@ -5,6 +5,10 @@ on:
     branches: [main]
     paths:
       - 'tools/browser-smoke.mjs'
+      - 'assets/branding/home-recovery.css'
+      - 'assets/mrlee-v2/smart-shell.js'
+      - 'assets/mrlee-geo/home-routing.js'
+      - 'index.html'
       - '.github/workflows/mrlee-browser-smoke.yml'
       - 'mrlee-assistant.js'
       - 'mrlee-assistant.css'
@@ -18,6 +22,10 @@ on:
     branches: [main]
     paths:
       - 'tools/browser-smoke.mjs'
+      - 'assets/branding/home-recovery.css'
+      - 'assets/mrlee-v2/smart-shell.js'
+      - 'assets/mrlee-geo/home-routing.js'
+      - 'index.html'
       - '.github/workflows/mrlee-browser-smoke.yml'
       - 'mrlee-assistant.js'
       - 'mrlee-assistant.css'
@@ -39,3 +47,12 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Open public MR LEE pages and test offline lesson search on Fresh/Future
         run: node tools/browser-smoke.mjs
+
+      - name: Save real Chromium homepage screenshots (both themes)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mrlee-home-visual-review
+          path: artifacts/home-review/*.png
+          if-no-files-found: ignore
+          retention-days: 7
