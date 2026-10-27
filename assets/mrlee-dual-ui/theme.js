@@ -69,7 +69,7 @@ function decorate(){
  });
  doc.querySelectorAll('.feature-card img').forEach((el,i)=>{
   if(el.dataset.mrleeOriginal)return;const a=el.closest('a');
-  el.dataset.mrleeOriginal=el.getAttribute('src')||'';el.dataset.mrleeFuture=asset(cardTheme(a||el));
+  el.dataset.mrleeOriginal=el.getAttribute('src')||'';el.dataset.mrleeFuture=el.dataset.mrleeOriginal; // Keep content-card photos identical in both themes.
  });
  const host=doc.querySelector('.section-hero .hero-text,.v10-hero,.pro-header .pro-wrap');
  if(host&&!host.querySelector('.mrlee-future-kicker')){const x=doc.createElement('span');x.className='mrlee-future-kicker';x.textContent='KOREAN LANGUAGE · GLOBAL FUTURE';host.prepend(x)}
