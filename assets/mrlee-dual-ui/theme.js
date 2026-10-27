@@ -30,7 +30,7 @@ const photos={profile:'learning-roadmap.webp',elementary1:'learning-cap-1.webp',
 let theme='fresh';try{theme=localStorage.getItem(KEY)==='future'?'future':'fresh'}catch{}
 function update(v){theme=v==='future'?'future':'fresh';html.dataset.mrleeTheme=theme;try{localStorage.setItem(KEY,theme)}catch{}
  doc.querySelectorAll('.mrlee-theme-switch button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.theme===theme)));
- doc.querySelectorAll('[data-mrlee-original]').forEach(el=>{el.src=theme==='future'?el.dataset.mrleeFuture:el.dataset.mrleeOriginal});
+ doc.querySelectorAll('[data-mrlee-original]').forEach(el=>{if(el.dataset.mrleeOriginal===el.dataset.mrleeFuture)return;const src=theme==='future'?el.dataset.mrleeFuture:el.dataset.mrleeOriginal;if(el.getAttribute('src')!==src)el.src=src});
 }
 function cardTheme(link){
  const href=link.getAttribute('href')||'',params=new URL(link.href,location.href).searchParams,cap=params.get('cap');
@@ -69,7 +69,7 @@ function decorate(){
  });
  doc.querySelectorAll('.feature-card img').forEach((el,i)=>{
   if(el.dataset.mrleeOriginal)return;const a=el.closest('a');
-  el.dataset.mrleeOriginal=el.getAttribute('src')||'';el.dataset.mrleeFuture=asset(cardTheme(a||el));
+  el.dataset.mrleeOriginal=el.getAttribute('src')||'';el.dataset.mrleeFuture=el.dataset.mrleeOriginal; // Keep content-card photos identical in both themes.
  });
  const host=doc.querySelector('.section-hero .hero-text,.v10-hero,.pro-header .pro-wrap');
  if(host&&!host.querySelector('.mrlee-future-kicker')){const x=doc.createElement('span');x.className='mrlee-future-kicker';x.textContent='KOREAN LANGUAGE · GLOBAL FUTURE';host.prepend(x)}

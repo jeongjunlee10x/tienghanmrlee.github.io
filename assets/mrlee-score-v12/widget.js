@@ -123,9 +123,9 @@ function initUI() {
   const show = (el, text) => { if (el) el.textContent = text; };
   const mine = $('#v12mine'), history = $('#v12history'), podium = $('#v12podium'), notice = $('#v12notice'), all = $('#v12all'), old = $('#v12old'), attendance = $('#v12attendance');
   if (attendance) { attendance.disabled = true; attendance.title = 'Chi bam diem danh khong duoc cong diem'; attendance.textContent = 'Diem danh: 0 diem'; }
-  let stopL = null, stopW = null, stopH = null;
+  let stopL = null, stopW = null, stopH = null, stopOld = null;
   function loadCurrent(u) {
-    if (stopL) stopL(); if (stopW) stopW(); if (stopH) stopH();
+    if (stopL) stopL(); if (stopW) stopW(); if (stopH) stopH(); if (stopOld) { stopOld(); stopOld = null; }
     if (!u) { show(mine,'Đăng nhập để xem điểm của bạn.');show(old,'—');show(history,'');return; }
     stopL = onSnapshot(doc(db,`mrleeV12AllTime/${u.uid}`),snap=>show(all,fmt(snap.data()?.points||0)),()=>show(all,'—'));
     stopW = onSnapshot(doc(db,`mrleeV12Weekly/${week}/members/${u.uid}`),snap=>show(mine,fmt(snap.data()?.points||0)+' điểm trong '+week),()=>show(mine,'Lỗi tải điểm'));
@@ -134,7 +134,7 @@ function initUI() {
       if (snap.empty) history.textContent='Chưa có lần cộng điểm nào trong hệ thống V12.';
       snap.forEach(d=>{const item=d.data(), p=document.createElement('li');p.textContent=`+${fmt(item.points)} · ${item.type} · ${item.item} (${item.week})`;history.append(p);});
     },()=>show(history,'Chưa đọc được lịch sử điểm.'));
-    onSnapshot(doc(db,`users/${u.uid}/studyPoints/wallet`),snap=>show(old,fmt(snap.data()?.balance || 0)),()=>show(old,'—'));
+    stopOld = onSnapshot(doc(db,`users/${u.uid}/studyPoints/wallet`),snap=>show(old,fmt(snap.data()?.balance || 0)),()=>show(old,'—'));
   }
   onAuthStateChanged(getAuth(),loadCurrent);
   onSnapshot(query(collection(db,`mrleeV12Weekly/${week}/members`),orderBy('points','desc'),limit(30)),snap=> {

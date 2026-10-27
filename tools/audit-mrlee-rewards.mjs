@@ -21,6 +21,7 @@ const checks=[
  ['Firestore transaction present',()=>/runTransaction/.test(read('browser')),'Transaction alone is not a complete anti-abuse proof'],
  ['Security rules pair wallet and receipt',()=>/lessonRewardCreated/.test(read('rules'))&&/getAfter/.test(read('rules')),'Confirm against Firestore Emulator prior to changes'],
  ['Public rank is marked as motivation',()=>/Điểm động lực/.test(read('leaderboard')),'Leaderboard is not an official TOPIK certificate'],
+ ['Old points listener unsubscribes on account change',()=>/stopOld\s*=\s*onSnapshot\(/.test(readFileSync(resolve(root,'assets/mrlee-score-v12/widget.js'),'utf8'))&&/if\s*\(stopOld\)\s*\{\s*stopOld\(\)/.test(readFileSync(resolve(root,'assets/mrlee-score-v12/widget.js'),'utf8')),'Prevent stale wallet snapshots and listener leaks after sign-out'],
  ['Server-side TOPIK Spark scorer exists',()=>/runTransaction/.test(read('scoring'))&&/tx.create\(event/.test(read('scoring')),'Separate ledger; do not add to browser wallet without migration'],
  ['Reward claim endpoint delegates to RPC',()=>/mrlee_reward_v2_submit_claim/.test(read('rewardV2')),'External endpoint requires deployment and live grant verification'],
  ['Reward SQL is repository artifact',()=>/mrlee_reward_v2_awards/.test(read('rewardMigration')),'SQL file does not prove deployment to Supabase']
