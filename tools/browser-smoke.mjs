@@ -55,7 +55,18 @@ try{
   {file:'giao-tiep-theo-chu-de.html',check:async p=>{await p.locator('main>.mrlee-v4-root .mrlee-v4-hero-photo').first().waitFor({timeout:11000})}},
   {file:'kiem-tra-topik.html',check:async p=>{await p.locator('main>.mrlee-v4-root .mrlee-v4-hero-photo').first().waitFor({timeout:11000})}},
   {file:'giao-tiep-phong-van.html',check:async p=>{await p.locator('main>.mrlee-v4-root .mrlee-v4-hero-photo').first().waitFor({timeout:11000})}},
-  {file:'van-hoa-han-quoc.html',check:async p=>{await p.locator('main>.mrlee-v4-root .mrlee-v4-hero-photo').first().waitFor({timeout:11000})}},
+  {file:'van-hoa-han-quoc.html',check:async p=>{
+    await p.locator('#topics a.topic').first().waitFor({timeout:12000});
+    const count=await p.locator('#topics a.topic').count();
+    if(count!==22)throw Error('Culture: need 22 topics; got '+count);
+    const images=p.locator('#topics a.topic img');
+    await images.evaluateAll(async all=>await Promise.all(all.map(im=>im.decode().catch(()=>{}))));
+    const bad=await images.evaluateAll(all=>all.filter(im=>im.naturalWidth<800).map(im=>({src:im.src,w:im.naturalWidth})));
+    if(bad.length)throw Error('Culture HD topic images are not full size: '+JSON.stringify(bad.slice(0,4)));
+    await p.locator('#search').fill('CPR');
+    if(await p.locator('#topics a.topic').count()<1)throw Error('Culture search filter broken');
+    await p.locator('#search').fill('');
+  }},
 
   {file:'mrlee-bai-tap-pro.html',check:async p=>{await p.locator('main>.mrlee-v4-root .mrlee-v4-hero-photo').first().waitFor({timeout:11000})}},
   {file:'trung-tam-hoc-vien.html',check:async p=>{await p.locator('main>.mrlee-v4-root .mrlee-v4-hero-photo').first().waitFor({timeout:11000})}}

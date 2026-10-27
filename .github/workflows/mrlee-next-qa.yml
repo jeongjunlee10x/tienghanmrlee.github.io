@@ -10,6 +10,10 @@ on:
       - 'assets/images/**'
       - 'tools/check-mrlee800-home.mjs'
       - 'assets/mrlee-v4/**'
+      - 'mrlee-culture-hd-v19.*'
+      - 'van-hoa-han-quoc.html'
+      - 'van-hoa-bai-hoc.html'
+      - 'tools/check-culture-hd-v19.mjs'
       - 'assets/mrlee-v5/**'
       - 'assets/mrlee-dual-ui/**'
       - 'assets/mrlee-next/**'
@@ -48,6 +52,10 @@ on:
       - 'assets/images/**'
       - 'tools/check-mrlee800-home.mjs'
       - 'assets/mrlee-v4/**'
+      - 'mrlee-culture-hd-v19.*'
+      - 'van-hoa-han-quoc.html'
+      - 'van-hoa-bai-hoc.html'
+      - 'tools/check-culture-hd-v19.mjs'
       - 'assets/mrlee-v5/**'
       - 'assets/mrlee-dual-ui/**'
       - 'hoc-tieng-han.html'
@@ -106,6 +114,8 @@ jobs:
         run: node tools/check-brand-consistency.mjs
       - name: Kiểm tra Smart V3 — ảnh, menu, logo, Admin
         run: node tools/check-mrlee-smart.mjs
+      - name: Kiểm tra 110 ảnh văn hóa thực, kích thước và 22 chủ đề
+        run: node tools/check-culture-hd-v19.mjs
       - name: Kiểm tra V4 — ảnh WebP thật, không trùng và liên kết trang con
         run: node tools/check-mrlee-v4.mjs
       - name: Kiểm tra V5 — các nút gọn, đúng liên kết, tự mở nội dung thật

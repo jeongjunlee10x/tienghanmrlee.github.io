@@ -1,0 +1,88 @@
+/* MR LEE CULTURE V19 — one consistent visual design for list + lesson + modal */
+html[data-mrlee-v23="culture"] #topics a.topic{background:#fff;border-radius:18px;overflow:hidden;border:1px solid #d4e4f5;box-shadow:0 10px 29px #0e37571b}
+html[data-mrlee-v23="culture"] #topics a.topic>img{
+ display:block!important;position:relative!important;inset:auto!important;
+ width:100%!important;height:205px!important;min-height:0!important;
+ max-width:100%!important;margin:0!important;padding:0!important;
+ object-fit:cover!important;object-position:center!important;
+ image-rendering:auto!important;filter:none!important;-webkit-filter:none!important;
+ opacity:1!important;visibility:visible!important;transform:none!important;
+ transition:none!important;border-radius:0!important;background:#e5f0fc!important
+}
+html[data-mrlee-v23="culture"] #topics a.topic:hover>img{filter:none!important;transform:none!important}
+html[data-mrlee-v23="culture"] #topics a.topic .topicText{background:#fff;color:#123962;padding:16px 17px!important}
+html[data-mrlee-v23="culture"] #topics a.topic .topicText h3{color:#143e69!important;line-height:1.35!important}
+html[data-mrlee-v23="culture"] #topics a.topic .topicText p{color:#526e8b!important;line-height:1.53!important}
+.mrleeCultureTag{display:inline-flex;border-radius:99px;padding:4px 9px;margin-top:7px;color:#0b5783;background:#eaf7ff;border:1px solid #b8dcf2;font-size:10px;font-weight:800}
+html[data-mrlee-v23="culture"] .heroVisual img{
+ width:100%!important;max-width:100%!important;height:150px!important;
+ object-fit:cover!important;object-position:center!important;
+ filter:none!important;opacity:1!important;image-rendering:auto!important
+}
+html[data-mrlee-v23="culture"] #topicHero{isolation:isolate}
+html[data-mrlee-v23="culture"] #topicHero>img{
+ position:relative!important;display:block!important;max-width:100%!important;
+ width:100%!important;min-height:250px!important;max-height:430px!important;height:100%!important;
+ object-fit:cover!important;object-position:center!important;
+ filter:none!important;opacity:1!important;transform:none!important
+}
+#cultureImagesV19.mrleeCulture19{
+ display:block!important;visibility:visible!important;opacity:1!important;
+ margin:19px 0!important;padding:clamp(14px,2vw,25px)!important;
+ border-radius:20px!important;border:1px solid #d7e5f4!important;
+ background:linear-gradient(145deg,#fff,#f4faff)!important;
+ box-shadow:0 9px 29px #19395719!important;overflow:visible!important
+}
+#cultureImagesV19 h2{font-size:clamp(18px,1.5vw,24px)!important;color:#153d6b!important;margin:0 0 8px!important;line-height:1.35!important}
+#cultureImagesV19 .mrleeCultureLead{font-size:13px!important;line-height:1.67!important;color:#4e6c88!important;margin:0 0 15px!important}
+#cultureImagesV19 .mrleeCultureGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}
+#cultureImagesV19 .mrleeCultureFigure{
+ margin:0!important;min-width:0!important;overflow:hidden!important;border-radius:15px!important;
+ border:1px solid #d8e6f4!important;background:#fff!important;
+ box-shadow:0 5px 21px #17365312!important
+}
+#cultureImagesV19 .mrleeCultureFigure:first-child{grid-column:1/-1!important}
+#cultureImagesV19 .mrleeCultureFigure img{
+ display:block!important;visibility:visible!important;opacity:1!important;
+ width:100%!important;height:auto!important;min-height:0!important;
+ aspect-ratio:16 / 10!important;object-fit:cover!important;object-position:center!important;
+ image-rendering:auto!important;filter:none!important;-webkit-filter:none!important;
+ transform:none!important;transition:none!important;background:#eaf3fb!important;cursor:zoom-in
+}
+#cultureImagesV19 .mrleeCultureFigure:first-child img{aspect-ratio:16 / 7!important}
+#cultureImagesV19 .mrleeCultureFigure img.mrleeCultureVector{object-fit:contain!important}
+#cultureImagesV19 figcaption{display:flex!important;flex-direction:column!important;gap:4px!important;padding:10px 13px 13px!important}
+#cultureImagesV19 figcaption b{color:#153d67!important;font-size:13px!important}
+#cultureImagesV19 figcaption span{color:#527292!important;font-size:12px!important;line-height:1.45!important}
+#cultureImagesV19 figcaption small{color:#738fa8!important;font-size:11px!important}
+#cultureImagesV19 .mrleeCultureNotice{
+ margin:13px 0 0!important;padding:11px 13px!important;line-height:1.6!important;font-size:12px!important;
+ color:#365977!important;background:#eaf4ff!important;border-left:3px solid #148fba!important
+}
+#cultureImagesV16,#cultureImagesV17,#cultureImagesV172,#mrleeAiPhotos,#realPhotos{display:none!important}
+html[data-mrlee-theme="future"] #topics a.topic{background:#0c2647!important;border-color:#245d8a!important}
+html[data-mrlee-theme="future"] #topics a.topic .topicText{background:#0c2647!important;color:#eaf8ff!important}
+html[data-mrlee-theme="future"] #topics a.topic .topicText h3{color:#f3fbff!important}
+html[data-mrlee-theme="future"] #topics a.topic .topicText p{color:#b6d2ec!important}
+html[data-mrlee-theme="future"] #cultureImagesV19.mrleeCulture19{background:linear-gradient(140deg,#102a4d,#071b34)!important;border-color:#285b86!important}
+html[data-mrlee-theme="future"] #cultureImagesV19 :is(h2,figcaption b){color:#f1faff!important}
+html[data-mrlee-theme="future"] #cultureImagesV19 :is(.mrleeCultureLead,figcaption span,figcaption small){color:#b9d6ef!important}
+html[data-mrlee-theme="future"] #cultureImagesV19 .mrleeCultureFigure{background:#0b2545!important;border-color:#31618a!important}
+html[data-mrlee-theme="future"] #cultureImagesV19 .mrleeCultureNotice{background:#0c3054!important;color:#d2e7f7!important}
+.mrleeCultureViewer{position:fixed;inset:0;z-index:2147482000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px;background:#030d20f3;color:#fff}
+.mrleeCultureViewer img{max-width:min(96vw,1500px);max-height:76vh;width:auto;height:auto;object-fit:contain}
+.mrleeCultureViewerClose{align-self:flex-end;padding:10px 18px;background:#ffffff;color:#10294a;border-radius:10px;font-weight:850;cursor:pointer}
+.mrleeCultureViewer p{font-size:13px;text-align:center;color:#d8ecff}
+body.mrleeCultureOpen{overflow:hidden!important}
+@media(max-width:700px){
+ #topics.cards{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+ #topics a.topic>img{height:165px!important}
+ #topics a.topic .topicText{padding:12px!important}
+ #topics a.topic .topicText h3{font-size:14px!important}
+ #cultureImagesV19 .mrleeCultureGrid{grid-template-columns:minmax(0,1fr)!important;gap:12px!important}
+ #cultureImagesV19 .mrleeCultureFigure:first-child{grid-column:1!important}
+ #cultureImagesV19 .mrleeCultureFigure:first-child img{aspect-ratio:16/10!important}
+ #topicHero>img{height:220px!important;min-height:200px!important}
+}
+@media(max-width:440px){#topics.cards{grid-template-columns:minmax(0,1fr)!important}#topics a.topic>img{height:200px!important}}
+@media(prefers-reduced-motion:reduce){#topics a.topic:hover{transform:none!important}}

@@ -27,7 +27,7 @@ const defs={
  tools:[['Tập nói và ghi âm','hoi-thoai-tap-noi.html','learning-listening.webp'],['WORKBOOK','mrlee-bai-tap-pro.html','learning-books.webp'],['Đăng ký tư vấn','dang-ky-tu-van.html','feature-1-tuyen-sinh.webp']]},
  'van-hoa-han-quoc.html':{
  id:'culture',eyebrow:'KOREAN CULTURE · LIFE · TRADITION',title:'VĂN HÓA HÀN QUỐC',lead:'Khám phá con người và cuộc sống xứ kim chi',description:'Từ phong tục, lễ hội, ẩm thực tới trường học, giao thông và kỹ năng sống thiết yếu ở Hàn Quốc.',
- image:'feature-7-ky-tuc-xa.webp',cta:['Khám phá 22 chủ đề','#topicSection'],secondary:['Bản đồ khám phá','ban-do-han-quoc.html'],section:'Khám phá văn hóa và kỹ năng sống',hint:'Các bài thực tế và hướng dẫn hiện có ở bên dưới',
+ image:'culture.webp',cta:['Khám phá 22 chủ đề','#topicSection'],secondary:['Bản đồ khám phá','ban-do-han-quoc.html'],section:'Khám phá văn hóa và kỹ năng sống',hint:'Các bài thực tế và hướng dẫn hiện có ở bên dưới',
  cards:[['Ẩm thực','Văn hóa ăn uống Hàn Quốc','#topicSection','culture.webp'],['Lễ hội','Phong tục và truyền thống','#topicSection','feature-1-tuyen-sinh.webp'],['Đời sống','Sinh hoạt và giao thông','#topicSection','step-4-xuat-canh.webp'],['Kỹ năng sống','Sơ cứu, giấy tờ và hỗ trợ','#topicSection','step-5-ho-tro.webp']],
  tools:[['Bài văn hóa','van-hoa-bai-hoc.html','feature-4-ho-so-visa.webp'],['Bản đồ du lịch','ban-do-han-quoc.html','feature-2-ban-do.webp'],['Giao tiếp đời sống','giao-tiep-theo-chu-de.html','learning-cap-2.webp']]},
  'ban-do-dai-hoc-han-quoc.html':{
