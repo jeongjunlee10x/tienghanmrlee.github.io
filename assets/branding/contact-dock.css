@@ -1,5 +1,6 @@
+/* Keep contact controls above the #mrleeV12Widget weekly-score pill (bottom-right, very high z-index). */
 /* MR LEE contact dock · site-wide floating access; mobile-safe and keyboard accessible. */
-#mrleeContactDock{position:fixed;right:max(12px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom));z-index:950;display:flex;align-items:flex-end;flex-direction:column;gap:8px;max-width:calc(100vw - 24px);font-family:system-ui,"Be Vietnam Pro",Arial,sans-serif;pointer-events:none}
+#mrleeContactDock{position:fixed;right:max(12px,env(safe-area-inset-right));bottom:max(84px,calc(env(safe-area-inset-bottom) + 72px));z-index:950;display:flex;align-items:flex-end;flex-direction:column;gap:8px;max-width:calc(100vw - 24px);font-family:system-ui,"Be Vietnam Pro",Arial,sans-serif;pointer-events:none}
 #mrleeContactDock :is(a,button){pointer-events:auto;box-sizing:border-box;font-family:inherit}
 #mrleeContactDock .mrlee-contact-links{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
 #mrleeContactDock .mrlee-contact-link{position:relative;display:flex;align-items:center;justify-content:center;width:48px;height:48px;border:2px solid #fff;border-radius:50%;color:#fff;text-decoration:none;box-shadow:0 6px 22px #081d4299;font-size:18px;font-weight:850;background:#2563eb;cursor:pointer;transition:transform .18s,box-shadow .18s}
@@ -16,5 +17,5 @@
 #mrleeContactDock .mrlee-contact-status{display:none;max-width:230px;padding:8px 11px;border-radius:10px;background:#142e4d;color:#fff;font-size:12px;box-shadow:0 7px 18px #06172c77}
 #mrleeContactDock .mrlee-contact-status:not(:empty){display:block}
 body.mrlee-contact-ready #contactPanel.contact-rail{display:none!important}
-@media(max-width:700px){#mrleeContactDock{bottom:max(16px,env(safe-area-inset-bottom));right:max(12px,env(safe-area-inset-right))}#mrleeContactDock .mrlee-contact-links{display:none}#mrleeContactDock[data-open="true"] .mrlee-contact-links{display:flex}#mrleeContactDock .mrlee-contact-toggle{display:inline-flex}#mrleeContactDock .mrlee-contact-link{width:44px;height:44px;font-size:16px}#mrleeContactDock .mrlee-contact-label{opacity:1;transform:none;right:52px;background:#152d4eeb;font-size:11px}#mrleeContactDock[data-open="false"] .mrlee-contact-status{max-width:170px}}
+@media(max-width:700px){#mrleeContactDock{bottom:max(82px,calc(env(safe-area-inset-bottom) + 70px));right:max(12px,env(safe-area-inset-right))}#mrleeContactDock .mrlee-contact-links{display:none}#mrleeContactDock[data-open="true"] .mrlee-contact-links{display:flex}#mrleeContactDock .mrlee-contact-toggle{display:inline-flex}#mrleeContactDock .mrlee-contact-link{width:44px;height:44px;font-size:16px}#mrleeContactDock .mrlee-contact-label{opacity:1;transform:none;right:52px;background:#152d4eeb;font-size:11px}#mrleeContactDock[data-open="false"] .mrlee-contact-status{max-width:170px}}
 @media(prefers-reduced-motion:reduce){#mrleeContactDock *{transition:none!important}}
