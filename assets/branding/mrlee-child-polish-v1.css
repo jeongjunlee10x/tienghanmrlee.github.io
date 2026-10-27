@@ -220,3 +220,19 @@ body.mrlee-consult-page :is(input,textarea,select){min-width:0!important;max-wid
  body.mrlee-consult-page .mrlee-form-grid{grid-template-columns:minmax(0,1fr)!important}
  body.mrlee-consult-page .mrlee-form-grid .wide{grid-column:1!important}
 }
+
+/* Fix verified in browser: legacy future text used a pale hero background
+ * because its old override had lower specificity. This exact selector wins. */
+html[data-mrlee-v4][data-mrlee-theme="future"] main>.mrlee-v4-root>.mrlee-v4-hero>.mrlee-v4-hero-words{
+ background:linear-gradient(118deg,#081930 0%,#14325a 100%)!important;
+ color:#f6fbff!important
+}
+html[data-mrlee-v4][data-mrlee-theme="future"] main>.mrlee-v4-root>.mrlee-v4-hero>.mrlee-v4-hero-words :is(h1,h2){
+ color:#f6fbff!important;text-shadow:none!important
+}
+html[data-mrlee-v4][data-mrlee-theme="future"] main>.mrlee-v4-root>.mrlee-v4-hero>.mrlee-v4-hero-words p{
+ color:#c8dfef!important
+}
+html[data-mrlee-v4][data-mrlee-theme="fresh"] main>.mrlee-v4-root>.mrlee-v4-hero>.mrlee-v4-hero-words{
+ color:#173b62!important
+}
