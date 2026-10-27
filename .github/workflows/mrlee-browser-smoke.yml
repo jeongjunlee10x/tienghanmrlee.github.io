@@ -5,6 +5,11 @@ on:
     branches: [main]
     paths:
       - 'tools/browser-smoke.mjs'
+      - 'assets/mrlee-geo/**'
+      - 'assets/branding/media-quality-v3.*'
+      - 'assets/branding/site-logo.js'
+      - 'tuyen-sinh.html'
+      - 'tim-truong.html'
       - 'assets/branding/mrlee-child-polish-v1.css'
       - 'assets/mrlee-dual-ui/theme.js'
       - 'dang-ky-tu-van.html'
@@ -25,6 +30,11 @@ on:
     branches: [main]
     paths:
       - 'tools/browser-smoke.mjs'
+      - 'assets/mrlee-geo/**'
+      - 'assets/branding/media-quality-v3.*'
+      - 'assets/branding/site-logo.js'
+      - 'tuyen-sinh.html'
+      - 'tim-truong.html'
       - 'assets/branding/mrlee-child-polish-v1.css'
       - 'assets/mrlee-dual-ui/theme.js'
       - 'dang-ky-tu-van.html'

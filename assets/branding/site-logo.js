@@ -31,11 +31,16 @@
    for(const img of candidates)applyElement(img);
   }
  }
+ function loadImageQuality(){
+  if(document.querySelector('script[data-mrlee-image-quality]'))return;
+  const css=document.createElement('link');css.rel='stylesheet';css.href='assets/branding/media-quality-v3.css?v=20261027-q3';css.dataset.mrleeImageQuality='css';document.head.append(css);
+  const script=document.createElement('script');script.src='assets/branding/media-quality-v3.js?v=20261027-q3';script.defer=true;script.dataset.mrleeImageQuality='js';document.head.append(script);
+ }
  function favicon(){
   let found=false;for(const link of document.querySelectorAll('link[rel~="icon"]')){link.href=OFFICIAL;link.type='image/png';found=true;}
   if(!found){const link=document.createElement('link');link.rel='icon';link.type='image/png';link.href=OFFICIAL;document.head.appendChild(link);}
  }
- function start(){applyElement(document.body);favicon();
+ function start(){applyElement(document.body);favicon();loadImageQuality();
   const observer=new MutationObserver(changes=>{for(const change of changes){if(change.type==='attributes'){applyElement(change.target);}else for(const child of change.addedNodes)applyElement(child);}});
   observer.observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['src']});
  }

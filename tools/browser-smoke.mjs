@@ -41,6 +41,12 @@ try{
       else await p.locator('.mrlee-v5-open-detail').click();
     }
     await field.waitFor({state:'visible',timeout:10000});
+    await p.locator('#mrleeAdministrativeMap path.province').first().waitFor({timeout:17000});
+    const regions=await p.locator('#mrleeAdministrativeMap path.province').count();
+    if(regions!==17)throw Error('Administrative map must show 17 real first-level regions; found '+regions);
+    await p.locator('#mrleeAdministrativeMap path.province[data-region="gyeonggi"]').evaluate(el=>el.dispatchEvent(new MouseEvent('click',{bubbles:true})));
+    if(await p.locator('#universityRegion').inputValue()!=='gyeonggi')throw Error('Clicking official region did not filter universities');
+    await p.locator('#universityClear').evaluate(el=>el.click());
     await field.fill('Seoul');
     if(await field.inputValue()!=='Seoul')throw Error('University search input did not accept typed text');
   }},

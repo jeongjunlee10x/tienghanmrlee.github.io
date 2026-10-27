@@ -96,6 +96,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Kiểm toán kích thước ảnh toàn website
+        run: node tools/audit-image-quality.mjs
       - name: Kiểm tra bộ dữ liệu địa giới và ký túc xá
         run: node tools/check-admin-map-and-ktx.mjs
       - name: Kiểm tra trang, tệp, liên kết, mã nguồn và biểu đồ Admin

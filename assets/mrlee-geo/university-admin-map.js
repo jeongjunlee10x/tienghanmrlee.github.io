@@ -8,7 +8,7 @@ const divs={11:['Seoul','seoul',126.97,37.56],26:['Busan','busan',129.08,35.18],
 const colors=['#76c6e9','#ffa59c','#b8aaff','#98d6a8','#ffd080','#8abcec','#edb1cb','#e6bd69','#8dd0c8','#b7df91','#e8bb8c','#b5b4f2','#a6d9f0','#c2dba3','#ffca9c','#91bddc','#deb1cf'];
 function s(tag,attrs){const n=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs||{}))n.setAttribute(k,String(v));return n}
 function allCoords(g){const polys=g.type==='Polygon'?[g.coordinates]:g.coordinates;return polys.flat(2)}
-function track(geo){const all=geo.features.flatMap(f=>allCoords(f.geometry));const lo=[Math.min(...all.map(p=>p[0])),Math.min(...all.map(p=>p[1]))],hi=[Math.max(...all.map(p=>p[0])),Math.max(...all.map(p=>p[1]))];return {lo,hi}}
+function track(geo){const lo=[Infinity,Infinity],hi=[-Infinity,-Infinity];for(const f of geo.features){for(const p of allCoords(f.geometry)){if(p[0]<lo[0])lo[0]=p[0];if(p[1]<lo[1])lo[1]=p[1];if(p[0]>hi[0])hi[0]=p[0];if(p[1]>hi[1])hi[1]=p[1]}}return {lo,hi}}
 function make(geo){
  if(!geo||geo.features?.length!==17)throw Error('Expected 17 administrative regions');
  const {lo,hi}=track(geo);const cos=.80;

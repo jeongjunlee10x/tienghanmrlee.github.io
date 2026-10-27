@@ -1,0 +1,14 @@
+/* MR LEE Image Quality V3 — native pixels, stable aspect-ratio, sharp typography.
+   Never upscale, blur, duplicate, or override official logo/photograph URLs. */
+img{image-rendering:auto;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+:is(.mrlee-smart-home-card,.mrlee-v4-card,.mrlee-dorm-grid,.mrlee-university-item,.school-card) img{
+ image-rendering:auto!important;object-fit:cover;object-position:center;
+ -webkit-filter:none!important;filter:none!important
+}
+.mrlee-dorm-grid figure img{aspect-ratio:16/9;width:100%;height:auto;max-height:290px;object-fit:cover}
+:is(.mrlee-v4-hero-photo,.mrlee-smart-home-card img,.mrlee-dorm-grid img){
+ -webkit-transform:translateZ(0);transform:translateZ(0)
+}
+@media(prefers-reduced-motion:reduce){
+ :is(.mrlee-smart-home-card,.mrlee-v4-card,.mrlee-dorm-grid) img{transition:none!important;animation:none!important}
+}
