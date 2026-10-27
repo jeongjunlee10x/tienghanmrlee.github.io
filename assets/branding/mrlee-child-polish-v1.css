@@ -236,3 +236,22 @@ html[data-mrlee-v4][data-mrlee-theme="future"] main>.mrlee-v4-root>.mrlee-v4-her
 html[data-mrlee-v4][data-mrlee-theme="fresh"] main>.mrlee-v4-root>.mrlee-v4-hero>.mrlee-v4-hero-words{
  color:#173b62!important
 }
+
+/* Browser QA mobile finding: no 3-row oversized theme chooser. */
+@media(max-width:600px){
+ html[data-mrlee-v4] .mrlee-theme-switch{
+  display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;
+  align-items:center!important;justify-content:center!important;gap:5px!important;
+  width:calc(100% - 20px)!important;max-width:400px!important;
+  min-height:43px!important;height:auto!important;
+  padding:5px!important;margin:5px auto 9px!important
+ }
+ html[data-mrlee-v4] .mrlee-theme-switch>strong{display:none!important}
+ html[data-mrlee-v4] .mrlee-theme-switch>button{
+  display:inline-flex!important;flex:1 1 0!important;min-width:0!important;
+  align-items:center!important;justify-content:center!important;
+  padding:8px 4px!important;min-height:33px!important;height:auto!important;
+  font:800 10px/1.18 "Be Vietnam Pro",system-ui,sans-serif!important;
+  white-space:normal!important;text-align:center!important
+ }
+}

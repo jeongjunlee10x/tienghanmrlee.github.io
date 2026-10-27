@@ -53,7 +53,7 @@ function link(t,u,c){const a=make('a',c,t);a.href=allowedTarget(u)?u:'index.html
 function sectionTitle(title,hint){const h=make('div','mrlee-v4-section-title');h.append(make('h2','',title),make('small','',hint));return h}
 function card([title,hint,url,file],index){
  const a=link('',url,'mrlee-v4-card');a.setAttribute('aria-label',title+' — '+hint);
- const img=make('img');img.src=R+file;img.alt='';img.loading='lazy';img.decoding='async';
+ const img=make('img');img.src=R+file;img.alt='';img.loading='eager';img.decoding='async';
  img.width=600;img.height=360;img.addEventListener('error',()=>{img.src='assets/mrlee-next/scenes/'+cfg.id+'.svg';},{once:true});
  const meta=make('span','mrlee-v4-card-copy');const number=make('small','mrlee-v4-card-index',String(index+1).padStart(2,'0'));
  meta.append(number,make('strong','',title),make('small','mrlee-v4-card-caption',hint));a.append(img,meta,make('span','mrlee-v4-card-arrow','→'));return a

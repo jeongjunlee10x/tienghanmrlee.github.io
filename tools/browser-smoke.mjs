@@ -77,6 +77,9 @@ try{
      await test.check(page);
      if(["hoc-tieng-han.html","giao-tiep-theo-chu-de.html","kiem-tra-topik.html","giao-tiep-phong-van.html","van-hoa-han-quoc.html","ban-do-dai-hoc-han-quoc.html","mrlee-bai-tap-pro.html","trung-tam-hoc-vien.html"].includes(test.file)){
        await page.locator('.mrlee-v4-hero-photo').first().evaluate(i=>i.decode().catch(()=>{}));
+       await page.locator('.mrlee-v4-card img').evaluateAll(async images=>{
+         await Promise.all(images.map(img=>img.decode().catch(()=>{})));
+       });
        const v=await page.evaluate(()=>{
         const box=e=>{if(!e)return null;const b=e.getBoundingClientRect();return {x:b.x,y:b.y,right:b.right,bottom:b.bottom,width:b.width,height:b.height}};
         const h=document.querySelector('main>.mrlee-v4-root>.mrlee-v4-hero');
@@ -89,6 +92,8 @@ try{
        });
        console.log('CHILD PAGE GEOMETRY '+label+' '+JSON.stringify(v));
        if(v.img<100)throw Error('No child hero image loaded');
+       const missing=await page.locator('.mrlee-v4-card img').evaluateAll(imgs=>imgs.filter(i=>!i.naturalWidth).length);
+       if(missing)throw Error('Subpage tile images not loaded: '+missing);
        if(v.cards<3||!v.cta||v.cta.height<25)throw Error('Missing child navigation');
        if(v.width>v.viewport+5)throw Error('Horizontal overflow');
        if(device.w>=980 && (Math.abs(v.words.right-v.photo.x)>5||v.cta.right>v.photo.x+5))
