@@ -5,7 +5,7 @@
 if(window.__mrleeImageQualityV3)return;window.__mrleeImageQualityV3=true;
 const seen=new WeakSet(),observe=new MutationObserver(records=>{
   for(const rec of records)for(const node of rec.addedNodes){
-    if(node.nodeType!==1)return;
+    if(node.nodeType!==1)continue;
     if(node.tagName==='IMG')prepare(node);
     node.querySelectorAll?.('img').forEach(prepare);
   }
@@ -15,6 +15,9 @@ const decorative='img:not(.mrlee-approved-logo)';
 function prepare(img){
  if(!img||seen.has(img))return;
  seen.add(img);
+ if(img.dataset.fallbackSrc){
+  img.addEventListener('error',()=>{const fallback=img.dataset.fallbackSrc;if(!fallback)return;delete img.dataset.fallbackSrc;img.src=fallback;},{once:true});
+ }
  if(!img.hasAttribute('decoding'))img.decoding='async';
  if(img.matches('.mrlee-approved-logo')||img.closest('a.brand,.site-logo,.ts-logo,.mrlee-next-brand')){img.loading='eager';return}
  if(img.matches(critical)){

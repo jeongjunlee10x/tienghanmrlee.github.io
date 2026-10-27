@@ -39,3 +39,8 @@ html[data-mrlee-theme="future"] .mrlee-dorm-grid figcaption strong{color:#effbff
 html[data-mrlee-theme="future"] :is(.mrlee-dorm-heading p,.mrlee-dorm-mini p,.mrlee-dorm-notice,.mrlee-dorm-grid figcaption span){color:#b9d6ed}
 html[data-mrlee-theme="future"] .mrlee-dorm-heading a,html[data-mrlee-theme="future"] .mrlee-dorm-mini a{color:#79e4ff}
 @media(max-width:700px){.mrlee-dorm-showcase{margin:12px 9px;padding:14px}.mrlee-dorm-grid{grid-template-columns:1fr}.mrlee-dorm-grid img{height:205px}.mrlee-dorm-mini{margin:10px;align-items:flex-start}.mrlee-dorm-mini img{width:96px;height:104px;flex-basis:96px}.mrlee-admin-map-shell{min-height:350px}.mrlee-admin-real-map{min-height:335px}}
+
+/* Explicit photographic examples with source credits and fully legible captions */
+.mrlee-dorm-grid figcaption a{font-size:11px;color:#126db0;font-weight:800;text-decoration:underline}
+html[data-mrlee-theme="future"] .mrlee-dorm-grid figcaption a{color:#7de6ff}
+.mrlee-dorm-grid figure img[data-fallback-src]{background:#dceaf7}

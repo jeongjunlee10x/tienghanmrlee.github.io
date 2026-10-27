@@ -6,7 +6,7 @@ for(const f of geo.features){assert.ok(['Polygon','MultiPolygon'].includes(f.geo
 const html=fs.readFileSync('ban-do-dai-hoc-han-quoc.html','utf8');
 assert.ok(html.includes('id="mrleeAdministrativeMap"'));
 assert.ok(!html.includes('id="mkorea"'));
-assert.ok(html.includes('id="ky-tuc-xa"'));
+assert.ok(html.includes('id="ky-tuc-xa"'));assert.ok(html.includes('Two_persons_room_at_E-house_dorm'));assert.ok(html.includes('CC BY-SA 4.0'));
 assert.ok(html.includes('mrlee-geo/university-admin-map.js'));
 const src=fs.readFileSync('assets/mrlee-geo/university-admin-map.js','utf8');
 assert.ok(src.includes('ctprvn.geojson'));
