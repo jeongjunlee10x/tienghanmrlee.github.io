@@ -32,9 +32,15 @@ try{
     if(await contact.locator('.mrlee-contact-links > *').count()!==5)throw Error('Contact dock must expose 5 real channels');
     if(p.viewportSize().width<=700){
       const toggle=contact.locator('button.mrlee-contact-toggle');
-      await toggle.click();
+      const hit=await toggle.evaluate(el=>{
+        const b=el.getBoundingClientRect(),x=b.left+b.width/2,y=b.top+b.height/2;
+        const style=getComputedStyle(el),top=document.elementFromPoint(x,y);
+        return {x,y,width:b.width,height:b.height,display:style.display,visibility:style.visibility,pointer:style.pointerEvents,overlap:top?.outerHTML.slice(0,210)||null,viewport:[innerWidth,innerHeight]};
+      });
+      console.log('MRLEE CONTACT MOBILE DIAGNOSTIC '+JSON.stringify(hit));
+      await toggle.click({timeout:5000});
       if(!await contact.locator('.mrlee-contact-links').isVisible())throw Error('Mobile contact dock did not expand');
-      await toggle.click();
+      await toggle.click({timeout:5000});
     }else if(!await contact.locator('.mrlee-contact-links').isVisible())throw Error('Desktop contact channels are hidden');
     // Lesson/feature card photos must remain the same when selecting the other visual theme.
     const photos=p.locator('.feature-card img,.mrlee-v4-card img');
