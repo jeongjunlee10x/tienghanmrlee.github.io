@@ -293,7 +293,7 @@ html[data-mrlee-theme="future"] .auth-head h1{color:#ecfaff!important;font-weigh
     mrleeV2Notice('Đã tải dữ liệu phiếu thưởng V2.');
   }
 
-  function csvCell(s){let t=String(s??'');if(/^[\\s\\uFEFF]*[=+@-]/.test(t))t="'"+t; if(/[,\\n\\r\\\"]/.test(t))return '"'+t.replace(/"/g,'""')+'"';return t}
+  function csvCell(s){let t=String(s??'');if(/^[\s\uFEFF]*[=+@-]/.test(t))t="'"+t;if(/[,\n\r"]/.test(t))return '"'+t.replace(/"/g,'""')+'"';return t}
   function downloadCsv(filename,rows){let blob=new Blob(['\ufeff'+rows.map(row=>row.map(csvCell).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8;'});let url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)}
   $('sampleCSV').addEventListener('click',()=>downloadCsv('mau-danh-sach-hoc-vien.csv',[['full_name','email','phone','level','status','notes'],['Nguyễn Văn A','hocsinh@example.com','0900000000','Sơ cấp 1','Đang học','Ví dụ mẫu - không phải dữ liệu thật']]));
   $('exportStudentsBtn').addEventListener('click',()=>downloadCsv('mrlee-hoc-vien-'+new Date().toISOString().slice(0,10)+'.csv',[['full_name','email','phone','level','status','notes','joined_at'],...students.map(s=>[s.full_name,s.email,s.phone,s.level,s.status,s.notes,s.joined_at])]));
