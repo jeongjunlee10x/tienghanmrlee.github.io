@@ -25,7 +25,23 @@ let browser;
 try{
  browser=await chromium.launch({headless:true,args:['--no-sandbox']});
  const cases=[
-  {file:'index.html',check:async p=>{await p.locator('main').first().waitFor({timeout:10000});}},
+  {file:'index.html',check:async p=>{
+    await p.locator('main').first().waitFor({timeout:10000});
+    // Lesson/feature card photos must remain the same when selecting the other visual theme.
+    const photos=p.locator('.feature-card img,.mrlee-v4-card img');
+    if(await photos.count()){
+      const before=await photos.evaluateAll(images=>images.map(i=>i.getAttribute('src')));
+      const original=await p.evaluate(()=>document.documentElement.dataset.mrleeTheme);
+      const target=original==='future'?'fresh':'future';
+      const other=p.locator('.mrlee-theme-switch button[data-theme="'+target+'"]');
+      if(await other.count()){
+        await other.evaluate(el=>el.click());
+        const after=await photos.evaluateAll(images=>images.map(i=>i.getAttribute('src')));
+        if(JSON.stringify(before)!==JSON.stringify(after))throw Error('Theme switch replaced content card photos');
+        await p.locator('.mrlee-theme-switch button[data-theme="'+original+'"]').evaluate(el=>el.click());
+      }
+    }
+  }},
   {file:'ai-tro-ly.html',check:async p=>{
     await p.locator('#aiQuery').fill('학교');
     await p.locator('#aiSubmit').click();
@@ -47,6 +63,15 @@ try{
     await p.locator('#mrleeAdministrativeMap path.province[data-region="gyeonggi"]').evaluate(el=>el.dispatchEvent(new MouseEvent('click',{bubbles:true})));
     if(await p.locator('#universityRegion').inputValue()!=='gyeonggi')throw Error('Clicking official region did not filter universities');
     await p.locator('#universityClear').evaluate(el=>el.click());
+    // Both historic 2023 polygons map to the unified 2026 Jeonnam-Gwangju filter.
+    const merged=p.locator('#mrleeAdministrativeMap path.province[data-region="jeonnam-gwangju"]');
+    if(await merged.count()!==2)throw Error('Gwangju and Jeonnam need two mapped historical polygons');
+    for(let index=0;index<2;index++){
+      await merged.nth(index).evaluate(el=>el.dispatchEvent(new MouseEvent('click',{bubbles:true})));
+      const selected=await p.locator('#universityRegion').inputValue();
+      if(selected!=='jeonnam-gwangju')throw Error('Historic region polygon did not select Jeonnam-Gwangju: '+selected);
+      await p.locator('#universityClear').evaluate(el=>el.click());
+    }
     await field.fill('Seoul');
     if(await field.inputValue()!=='Seoul')throw Error('University search input did not accept typed text');
   }},
