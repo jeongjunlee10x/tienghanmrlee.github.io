@@ -36,11 +36,17 @@
   const css=document.createElement('link');css.rel='stylesheet';css.href='assets/branding/media-quality-v3.css?v=20261027-q3';css.dataset.mrleeImageQuality='css';document.head.append(css);
   const script=document.createElement('script');script.src='assets/branding/media-quality-v3.js?v=20261027-q3';script.defer=true;script.dataset.mrleeImageQuality='js';document.head.append(script);
  }
+ function loadContactDock(){
+  if(/(^|\\/)admin\\.html$/i.test(location.pathname))return;
+  if(document.querySelector('script[data-mrlee-contact-dock-loader]'))return;
+  const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('contact-dock.css?v=20261027-r2',current.src).href;css.dataset.mrleeContactDock='css';document.head.append(css);
+  const script=document.createElement('script');script.src=new URL('contact-dock.js?v=20261027-r2',current.src).href;script.defer=true;script.dataset.mrleeContactDockLoader='1';document.head.append(script);
+ }
  function favicon(){
   let found=false;for(const link of document.querySelectorAll('link[rel~="icon"]')){link.href=OFFICIAL;link.type='image/png';found=true;}
   if(!found){const link=document.createElement('link');link.rel='icon';link.type='image/png';link.href=OFFICIAL;document.head.appendChild(link);}
  }
- function start(){applyElement(document.body);favicon();loadImageQuality();
+ function start(){applyElement(document.body);favicon();loadImageQuality();loadContactDock();
   const observer=new MutationObserver(changes=>{for(const change of changes){if(change.type==='attributes'){applyElement(change.target);}else for(const child of change.addedNodes)applyElement(child);}});
   observer.observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['src']});
  }
