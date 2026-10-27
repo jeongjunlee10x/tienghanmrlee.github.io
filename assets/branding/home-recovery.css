@@ -325,3 +325,83 @@ html[data-mrlee-v303="reference"] .contact-rail{z-index:40!important}
   height:92px!important;min-height:0!important
  }
 }
+
+/* R2: stop old future-mode auto-grid from overriding the recovered dashboard. */
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"] main#mainContent{
+ display:flex!important;flex-direction:column!important;
+ width:min(1600px,100%)!important;height:auto!important;min-height:0!important;
+ max-height:none!important;overflow:visible!important;
+ padding:5px 16px 12px!important;gap:10px!important
+}
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"]
+ #mainContent>.hero{
+ grid-column:auto!important;grid-row:auto!important;
+ min-height:0!important;height:clamp(255px,31vh,310px)!important;
+ max-height:none!important;width:100%!important;
+ padding:18px clamp(20px,2.4vw,36px)!important;margin:0!important
+}
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"]
+ .mrlee-smart-home-grid{
+ display:grid!important;grid-template-columns:repeat(8,minmax(0,1fr))!important;
+ grid-template-rows:none!important;grid-auto-rows:154px!important;
+ gap:9px!important;width:100%!important
+}
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"]
+ .mrlee-smart-home-grid>a.mrlee-smart-home-card,
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"]
+ .mrlee-smart-home-grid>a.mrlee-smart-home-card:first-child{
+ grid-column:auto!important;grid-row:auto!important;min-height:0!important;
+ height:154px!important;max-height:154px!important
+}
+html[data-mrlee-v303="reference"][data-mrlee-smart-home="true"] #mainContent>.mrlee-smart-home-hub{
+ position:relative!important;min-height:0!important;max-height:none!important;
+ padding:0!important;overflow:visible!important
+}
+html[data-mrlee-v303="reference"] .mrlee-smart-home-grid>a.mrlee-smart-home-card>img{
+ opacity:1!important;visibility:visible!important
+}
+html[data-mrlee-v303="reference"] .mrlee-v2-site-footer{
+ display:none!important
+}
+@media(min-width:1280px){
+ html[data-mrlee-v303="reference"] .site-header .main-nav{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  flex:1 1 auto!important;min-width:360px!important
+ }
+ html[data-mrlee-v303="reference"] .site-header .main-nav>a:nth-child(n+6):not(:nth-child(7)){
+  display:none!important
+ }
+}
+@media(min-width:761px) and (max-width:1279px){
+ html[data-mrlee-v303="reference"] .site-header .main-nav{display:none!important}
+}
+@media(min-width:1280px) and (min-height:760px){
+ html[data-mrlee-v303="reference"] #mainContent>.hero{height:clamp(250px,29vh,290px)!important}
+ html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"] #mainContent>.hero{
+  height:clamp(250px,29vh,290px)!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair{
+  min-height:98px!important;height:98px!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>:is(.scholarship,.ranking){
+  height:98px!important
+ }
+}
+@media (max-width:1279px){
+ html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"] .mrlee-smart-home-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important
+ }
+}
+@media (max-width:760px){
+ html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"] #mainContent>.hero{
+  width:100%!important;height:auto!important;min-height:330px!important;
+  max-height:none!important;padding:24px 16px!important
+ }
+ html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"] .mrlee-smart-home-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  grid-auto-rows:166px!important
+ }
+ html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"] .mrlee-smart-home-grid>a.mrlee-smart-home-card{
+  height:166px!important;max-height:166px!important
+ }
+}

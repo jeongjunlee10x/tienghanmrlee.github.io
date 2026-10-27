@@ -43,7 +43,7 @@ function homepage(){
  for(const item of catalog){
   const a=$('a','mrlee-smart-home-card');a.href=item.href;
   const img=$('img');img.src=photoRoot+item.img;img.alt='';
-  img.width=640;img.height=360;img.loading='lazy';img.decoding='async';
+  img.width=640;img.height=360;img.loading='eager';img.decoding='async';
   a.append(img,$('strong','',item.title),$('small','',item.desc),$('span','mrlee-smart-arrow','›'));grid.append(a);
  }
  hub.append(grid);

@@ -61,12 +61,20 @@ try{
      await test.check(page);
      if(test.file==='index.html') {
        await page.locator('.mrlee-smart-home-grid > a.mrlee-smart-home-card').first().waitFor({timeout:10000});
+       await Promise.all([...document.querySelectorAll('.mrlee-smart-home-grid img')].map(i=>i.decode().catch(()=>{})));
        const m=await page.evaluate(()=>{
         const rect=s=>{const el=document.querySelector(s);if(!el)return null;const b=el.getBoundingClientRect();return {x:b.x,y:b.y,width:b.width,height:b.height,bottom:b.bottom,visible:getComputedStyle(el).display!=='none'}};
         return {header:rect('.site-header'),hero:rect('#mainContent>.hero'),hub:rect('.mrlee-smart-home-hub'),cards:[...document.querySelectorAll('.mrlee-smart-home-grid > a')].filter(e=>e.getBoundingClientRect().height>0).length,pair:rect('#mainContent>.mrlee-bottom-pair'),awards:rect('#mrleeScholarshipsHome'),dupe:rect('#mainContent>.feature-cards'),width:document.documentElement.scrollWidth,viewport:innerWidth};
        });
+       const layoutDetail=await page.evaluate(()=>{
+         const r=e=>{if(!e)return null;const b=e.getBoundingClientRect();return {x:Math.round(b.x),y:Math.round(b.y),bottom:Math.round(b.bottom),width:Math.round(b.width),height:Math.round(b.height),display:getComputedStyle(e).display}};
+         const grid=document.querySelector('.mrlee-smart-home-grid');
+         return {grid:r(grid),template:grid?getComputedStyle(grid).gridTemplateColumns:null,firstCard:r(grid?.firstElementChild),lastCard:r(grid?.lastElementChild),children:[...document.querySelector('#mainContent').children].map(e=>({cls:e.id||e.className,box:r(e)})),images:[...document.querySelectorAll('.mrlee-smart-home-grid img')].map(e=>({src:e.getAttribute('src'),ok:e.naturalWidth>0}))};
+       });
+       console.log('HOME DETAIL '+label+' '+JSON.stringify(layoutDetail));
        console.log('HOME LAYOUT '+label+' '+JSON.stringify(m));
        if(m.cards!==8)throw Error('Expected 8 non-duplicated dashboard cards, got '+m.cards);
+       if(layoutDetail.images.filter(i=>i.ok).length<7)throw Error('Missing card artwork: '+JSON.stringify(layoutDetail.images));
        if(!m.header || m.header.y < -2 || m.header.height < 45)throw Error('Header clipped or hidden');
        if(!m.hero || m.hero.height < 230 || m.hero.height > (device.w>760?380:750))throw Error('Hero cropped or oversized');
        if(!m.hub?.visible || !m.pair?.visible || m.pair.height < 90)throw Error('Homepage dashboard pair hidden');

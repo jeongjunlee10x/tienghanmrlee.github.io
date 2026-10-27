@@ -12,7 +12,7 @@ for(const p of pages){
  const html=fs.readFileSync(p,'utf8');
  if(!html.includes('assets/images/system/mrlee800-hero-loader.js'))errors.push(p+': missing hero loader');
  if(p==='index.html'){
-  if(!html.includes('assets/images/system/mrlee800-home-fit.css'))errors.push('Homepage has no compact stylesheet');
+  if(!html.includes('assets/branding/home-recovery.css'))errors.push('Homepage has no recovered compact stylesheet');
   for(const tag of ['id="mainContent"','class="hero"','class="feature-cards"','class="search-strip"','id="ranking"','class="journey"','id="contactDialog"','class="contact-rail"'])
    if(!html.includes(tag))errors.push('Lost homepage feature '+tag);
   if(!html.includes('logo-mrlee.png'))errors.push('Official logo was lost');
