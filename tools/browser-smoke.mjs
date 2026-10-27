@@ -35,9 +35,10 @@ try{
       const hit=await toggle.evaluate(el=>{
         const b=el.getBoundingClientRect(),x=b.left+b.width/2,y=b.top+b.height/2;
         const style=getComputedStyle(el),top=document.elementFromPoint(x,y);
-        return {x,y,width:b.width,height:b.height,display:style.display,visibility:style.visibility,pointer:style.pointerEvents,overlap:top?.outerHTML.slice(0,210)||null,viewport:[innerWidth,innerHeight]};
+        return {x,y,width:b.width,height:b.height,display:style.display,visibility:style.visibility,pointer:style.pointerEvents,clickable:top===el||el.contains(top),overlap:top?.outerHTML.slice(0,210)||null,viewport:[innerWidth,innerHeight]};
       });
       console.log('MRLEE CONTACT MOBILE DIAGNOSTIC '+JSON.stringify(hit));
+      if(!hit.clickable)throw Error('Contact toggle is blocked by another element: '+JSON.stringify(hit));
       await toggle.click({timeout:5000});
       if(!await contact.locator('.mrlee-contact-links').isVisible())throw Error('Mobile contact dock did not expand');
       await toggle.click({timeout:5000});
