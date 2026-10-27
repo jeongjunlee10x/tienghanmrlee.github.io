@@ -451,3 +451,53 @@ html[data-mrlee-v303="reference"] .mrlee-smart-home-grid>a.mrlee-smart-home-card
   height:290px!important;min-height:0!important
  }
 }
+
+/* R4: leaderboard readable in both themes; use spare tall-desktop space intentionally. */
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.ranking .rank-title,
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.ranking .rank-title>div {
+ position:relative!important;top:auto!important;
+ align-self:center!important;justify-self:stretch!important;
+ min-width:0!important;min-height:0!important;max-height:100%!important;
+ overflow:visible!important;margin:0!important;padding:0!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.ranking .rank-title h2{
+ font-size:clamp(12px,.92vw,16px)!important;
+ line-height:1.2!important;margin:0 0 3px!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>.ranking .rank-title p{
+ font-size:9px!important;line-height:1.2!important;margin:0 0 4px!important
+}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"]
+ #mainContent>.mrlee-bottom-pair>.ranking .rank-placeholder{
+ background:#152d55!important;border:1px solid #335c90!important;
+ color:#f2f7ff!important
+}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"]
+ #mainContent>.mrlee-bottom-pair>.ranking .rank-placeholder :is(b,strong,small,span){
+ color:#e4efff!important
+}
+html[data-mrlee-theme="future"][data-mrlee-v303="reference"]
+ #mainContent>.mrlee-bottom-pair>.ranking .rank-title a{
+ color:#8fe7ff!important;background:transparent!important
+}
+@media(min-width:1280px) and (min-height:860px){
+ html[data-mrlee-v303="reference"] #mainContent>.hero,
+ html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"] #mainContent>.hero{
+  height:316px!important
+ }
+ html[data-mrlee-v303="reference"] .mrlee-smart-home-grid,
+ html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"] .mrlee-smart-home-grid{
+  grid-auto-rows:175px!important
+ }
+ html[data-mrlee-v303="reference"] .mrlee-smart-home-grid>a.mrlee-smart-home-card,
+ html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"]
+ .mrlee-smart-home-grid>a.mrlee-smart-home-card{
+  height:175px!important;max-height:175px!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair{
+  min-height:112px!important;height:112px!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.mrlee-bottom-pair>:is(.scholarship,.ranking){
+  height:112px!important
+ }
+}
