@@ -56,3 +56,27 @@ jobs:
           path: artifacts/home-review/*.png
           if-no-files-found: ignore
           retention-days: 7
+
+      - name: Dong goi Phuong an B (index HTML + CSS hero da kiem thu)
+        if: success()
+        run: |
+          mkdir -p artifacts/hero-b/assets/branding
+          cp index.html artifacts/hero-b/index.html
+          cp assets/branding/home-hero-split-v2.css artifacts/hero-b/assets/branding/home-hero-split-v2.css
+          cat > artifacts/hero-b/HUONG_DAN_CAI_DAT.txt <<'END_INSTALL'
+          MR LEE - PHUONG AN B - HERO TACH NOI DUNG VA ANH
+          1. Backup file index.html trong thu muc website.
+          2. Giai nen ZIP vao thu muc goc tienghanmrlee.github.io, chon ghi de index.html.
+          3. Giu nguyen tat ca anh trong assets/images/heroes/ (2 file fresh/future da co tren GitHub).
+          4. KHONG xoa nhung file CSS/JS khac. KHONG thay anh 8 chuyen muc.
+          5. Mo website, nhan Ctrl+F5. Chon Fresh / Future de kiem tra.
+          6. Neu co sua doi local chua push, dung git status truoc khi ghi de.
+          END_INSTALL
+      - name: Tai goi ma nguon Hero B de copy de
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mrlee-hero-phuong-an-b
+          path: artifacts/hero-b/
+          retention-days: 14
+          if-no-files-found: error
