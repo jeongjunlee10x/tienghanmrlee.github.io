@@ -201,3 +201,29 @@ html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"] :i
   transition:none!important;animation:none!important
  }
 }
+
+/* R3: defeat legacy smart-shell future padding and background ghost edges.
+   The photo occupies the right pane edge-to-edge in both themes. */
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"]
+ #mainContent>.hero[data-mrlee-hero="split"]{
+  display:grid!important;grid-template-columns:minmax(0,45%) minmax(0,55%)!important;
+  grid-template-rows:minmax(0,1fr)!important;
+  padding:0!important;margin:0!important;
+  min-height:0!important;height:330px!important;max-height:340px!important;
+  width:100%!important;max-width:none!important;
+  background:#07172f!important;
+}
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"]
+ #mainContent>.hero[data-mrlee-hero="split"]>.mrlee-hero-copy-pane,
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"]
+ #mainContent>.hero[data-mrlee-hero="split"]>.mrlee-hero-photo-pane{
+  margin:0!important;transform:none!important;max-width:none!important;min-width:0!important
+}
+@media(max-width:760px){
+ html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"]
+ #mainContent>.hero[data-mrlee-hero="split"]{
+  display:flex!important;flex-direction:column!important;
+  width:100%!important;height:auto!important;min-height:0!important;
+  max-height:none!important;padding:0!important
+ }
+}

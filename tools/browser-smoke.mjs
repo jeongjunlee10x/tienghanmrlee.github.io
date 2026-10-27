@@ -87,6 +87,11 @@ try{
        const expectedArt=theme==='future'?'01-trang-chu-future.webp':'01-trang-chu-fresh.webp';
        if(!heroAudit.art?.includes(expectedArt))throw Error('Wrong theme cover: '+heroAudit.art);
        if(!heroAudit.photo || heroAudit.photo.height<120)throw Error('Hero cover invisible');
+       if(device.w>760){
+         if(Math.abs(heroAudit.hero.x+1-heroAudit.copy.x)>3)throw Error('Ghost cover exposed at left edge');
+         if(Math.abs(heroAudit.hero.right-1-heroAudit.photo.right)>3)throw Error('Ghost cover exposed at right edge');
+         if(Math.abs(heroAudit.copy.right-heroAudit.photo.x)>3)throw Error('Unexpected gap between text and photograph');
+       }
        if(heroAudit.active==='none')throw Error('Hero theme copy hidden');
        if(!heroAudit.actions || heroAudit.actions.height<25)throw Error('Hero actions invisible');
        if(device.w>760){
