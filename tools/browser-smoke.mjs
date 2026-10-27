@@ -56,7 +56,9 @@ try{
   {file:'kiem-tra-topik.html',check:async p=>{await p.locator('main>.mrlee-v4-root .mrlee-v4-hero-photo').first().waitFor({timeout:11000})}},
   {file:'giao-tiep-phong-van.html',check:async p=>{await p.locator('main>.mrlee-v4-root .mrlee-v4-hero-photo').first().waitFor({timeout:11000})}},
   {file:'van-hoa-han-quoc.html',check:async p=>{
-    await p.locator('#topics a.topic').first().waitFor({timeout:12000});
+    const opener=p.locator('.mrlee-v5-open-detail');
+    if(await opener.count())await opener.click();
+    await p.locator('#topics a.topic').first().waitFor({state:'visible',timeout:15000});
     const count=await p.locator('#topics a.topic').count();
     if(count!==22)throw Error('Culture: need 22 topics; got '+count);
     const images=p.locator('#topics a.topic img');
@@ -66,6 +68,9 @@ try{
     await p.locator('#search').fill('CPR');
     if(await p.locator('#topics a.topic').count()<1)throw Error('Culture search filter broken');
     await p.locator('#search').fill('');
+    await p.locator('#topics a.topic').first().waitFor({state:'visible'});
+    fs.mkdirSync('artifacts/culture-review',{recursive:true});
+    await p.screenshot({path:'artifacts/culture-review/culture-'+p.viewportSize().width+'-'+(await p.evaluate(()=>document.documentElement.dataset.mrleeTheme))+'.png',fullPage:true});
   }},
 
   {file:'mrlee-bai-tap-pro.html',check:async p=>{await p.locator('main>.mrlee-v4-root .mrlee-v4-hero-photo').first().waitFor({timeout:11000})}},

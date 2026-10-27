@@ -108,3 +108,12 @@ jobs:
           path: artifacts/subpage-review/*.png
           if-no-files-found: ignore
           retention-days: 7
+
+      - name: Luu anh giao dien Van hoa Han Quoc V19 (sang/toi, desktop/mobile)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mrlee-culture-v19-visual-review
+          path: artifacts/culture-review/*.png
+          if-no-files-found: ignore
+          retention-days: 7
