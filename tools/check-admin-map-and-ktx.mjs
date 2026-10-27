@@ -14,8 +14,8 @@ const logical=JSON.parse(fs.readFileSync('university-map/regions.json','utf8')).
 assert.equal(logical.length,16,'Current (2026) administrative filter must have 16 regions');
 assert.ok(logical.some(x=>x.id==='jeonnam-gwangju'));
 for(const [code,name] of [['29','Gwangju'],['46','Jeonnam']]){
-  assert.ok(new RegExp(code+':\\\\[\\\\x27'+name+'\\\\x27,\\\\x27jeonnam-gwangju\\\\x27').test(src),
-    name+' historic polygon must select the common current region');
+  const expected=code+':['+"'"+name+"','jeonnam-gwangju'";
+  assert.ok(src.includes(expected),name+' historical polygon must filter the combined current region');
 }
 assert.ok(html.includes('16 đơn vị hiện hành') && html.includes('17 vùng ranh giới nguồn 2023'));
 for(const p of ['tuyen-sinh.html','tim-truong.html'])assert.ok(fs.readFileSync(p,'utf8').includes('ký túc xá'));
