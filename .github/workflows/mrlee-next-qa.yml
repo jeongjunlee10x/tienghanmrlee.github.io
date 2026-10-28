@@ -4,6 +4,14 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - 'firestore.rules'
+      - 'mrlee-bai-tap-pro.js'
+      - 'mrlee-pro-lessons.json'
+      - 'mrlee-lesson-page.js'
+      - 'hoc-theo-bai.html'
+      - 'assets/mrlee-score-v12/**'
+      - 'scripts/mrlee-score-spark/**'
+      - 'tools/test-score-policy.cjs'
       - 'assets/mrlee-v2/**'
       - 'assets/mrlee-ai/v2/**'
       - 'assets/mrlee-ai/v3/**'
@@ -47,6 +55,14 @@ on:
   push:
     branches: [main]
     paths:
+      - 'firestore.rules'
+      - 'mrlee-bai-tap-pro.js'
+      - 'mrlee-pro-lessons.json'
+      - 'mrlee-lesson-page.js'
+      - 'hoc-theo-bai.html'
+      - 'assets/mrlee-score-v12/**'
+      - 'scripts/mrlee-score-spark/**'
+      - 'tools/test-score-policy.cjs'
       - 'assets/mrlee-next/**'
       - 'assets/mrlee-v2/**'
       - 'assets/mrlee-ai/v2/**'
