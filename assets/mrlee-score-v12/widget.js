@@ -147,7 +147,7 @@ function initUI() {
     stopH = onSnapshot(query(collection(db,`mrleeV12Ledger/${u.uid}/events`),orderBy('createdAt','desc'),limit(30)),snap=> {
       history.replaceChildren();
       if (snap.empty) history.textContent='Chưa có lần cộng điểm nào trong hệ thống V12.';
-      snap.forEach(d=>{const item=d.data(), p=document.createElement('li');p.textContent=`+${fmt(item.points)} · ${item.type} · ${item.item} (${item.week})`;history.append(p);});
+      snap.forEach(d=>{const item=d.data(), p=document.createElement('li');p.textContent=`+${fmt(item.points)} điểm · ${item.type==='workbook'?'📘 Workbook Học 1–6':item.type} · ${item.item}${item.completionBonus?` (gồm +${item.completionBonus} thưởng hoàn thành bài)`:''} · tuần ${item.week}`;history.append(p);});
     },()=>show(history,'Chưa đọc được lịch sử điểm.'));
     stopOld = onSnapshot(doc(db,`users/${u.uid}/studyPoints/wallet`),snap=>show(old,fmt(snap.data()?.balance || 0)),()=>show(old,'—'));
   }
