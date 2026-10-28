@@ -211,22 +211,24 @@ try{
          const actions=active?.querySelector('.mrlee-future-cta,.hero-buttons');
          return {theme:root.dataset.mrleeTheme,hero:rect(hero),copy:rect(copy),photo:rect(photo),actions:rect(actions),art:getComputedStyle(photo).backgroundImage,active:getComputedStyle(active).display,copyScroll:copy?.scrollHeight,copyHeight:copy?.clientHeight};
        });
-       console.log('HERO SPLIT '+label+' '+JSON.stringify(heroAudit));
+       console.log('HERO FULL-BLEED '+label+' '+JSON.stringify(heroAudit));
        const expectedArt=theme==='future'?'01-trang-chu-future.webp':'01-trang-chu-fresh.webp';
        if(!heroAudit.art?.includes(expectedArt))throw Error('Wrong theme cover: '+heroAudit.art);
        if(!heroAudit.photo || heroAudit.photo.height<120)throw Error('Hero cover invisible');
-       if(device.w>760){
-         if(Math.abs(heroAudit.hero.x+1-heroAudit.copy.x)>3)throw Error('Ghost cover exposed at left edge');
-         if(Math.abs(heroAudit.hero.right-1-heroAudit.photo.right)>3)throw Error('Ghost cover exposed at right edge');
-         if(Math.abs(heroAudit.copy.right-heroAudit.photo.x)>3)throw Error('Unexpected gap between text and photograph');
-       }
+       // New approved layout: image covers full hero and live text overlays its
+       // open left area; ensure the right-side people remain free of clickable text.
+       if(Math.abs(heroAudit.hero.x+1-heroAudit.photo.x)>3||
+          Math.abs(heroAudit.hero.right-1-heroAudit.photo.right)>3||
+          Math.abs(heroAudit.hero.height-heroAudit.photo.height)>3)
+         throw Error('Full-bleed photo does not cover entire hero: '+JSON.stringify(heroAudit));
+       if(heroAudit.copy.x<heroAudit.hero.x-3||heroAudit.copy.right>heroAudit.hero.right+3)
+         throw Error('Live hero text pane escaped scene edges');
        if(heroAudit.active==='none')throw Error('Hero theme copy hidden');
        if(!heroAudit.actions || heroAudit.actions.height<25)throw Error('Hero actions invisible');
-       if(device.w>760){
-         if(heroAudit.actions.right>heroAudit.photo.x+1)throw Error('Hero actions overlap photo');
-       }else{
-         if(heroAudit.actions.y<heroAudit.photo.bottom-1)throw Error('Mobile hero actions overlap photo');
-       }
+       if(device.w>1100 && heroAudit.actions.right>heroAudit.hero.x+heroAudit.hero.width*.76)
+         throw Error('Hero CTA buttons extend into the people zone on desktop');
+       if(heroAudit.actions.bottom>heroAudit.hero.bottom+2)
+         throw Error('Hero CTA buttons escape the photograph on mobile');
        if(heroAudit.copyScroll>heroAudit.copyHeight+5)throw Error('Hero copy clipped by its pane');
        for(const file of ['01-trang-chu-fresh.webp','01-trang-chu-future.webp']){
          const st=fs.statSync(path.join(root,'assets/images/heroes',file));
