@@ -19,7 +19,7 @@ function weekOf(d = new Date()) {
 const week = weekOf();
 const root = document.createElement('aside');
 root.id = 'mrleeV12Widget';
-root.innerHTML = `<a href="bang-diem-tuan-v12.html" aria-label="Bảng điểm toàn website">🏆 <strong id="mrleeV12WidgetScore">Bảng điểm tuần</strong></a><span id="mrleeV12Status" role="status"></span>`;
+root.innerHTML = `<a href="bang-diem-tuan-v12.html" aria-label="Bảng điểm học tập và TOPIK toàn website">🏆 <strong id="mrleeV12WidgetScore">Bảng điểm tuần</strong></a><span id="mrleeV12Status" role="status"></span>`;
 (document.body || document.documentElement).append(root);
 let user = null, db = null, stopMine = null;
 function toast(text, problem = false) {
@@ -130,7 +130,7 @@ document.addEventListener('click', event => {
 // Legacy event stays in legacy practice log. Its browser-supplied score is NOT server-verified.
 window.addEventListener('mrlee:practice-finished', () => {
   const a = $('#mrleeV12WidgetScore');
-  if (a) a.title = 'Điểm luyện tập cũ tiếp tục lưu riêng. Hệ thống V12 chỉ cộng điểm khi đáp án được chấm từ bộ đề xác thực.';
+  if (a) a.title = 'Điểm luyện tập cũ tiếp tục lưu riêng. Hệ thống V12 cộng điểm khi máy chủ chấm đáp án Workbook/Học theo bài hoặc TOPIK, không cộng từ việc chỉ mở trang.';
 });
 function initUI() {
   const dashboard = $('#mrleeV12Dashboard');
