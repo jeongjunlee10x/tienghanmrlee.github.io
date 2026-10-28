@@ -1,5 +1,5 @@
 {
-  "version": "MRLEE-SPARK-2026-10-28",
+  "version": "MRLEE-SPARK-2026-10-28-LESSON",
   "timezone": "Asia/Ho_Chi_Minh",
   "weekStarts": "Monday 00:00 Asia/Ho_Chi_Minh",
   "weekEnds": "Sunday 23:59:59 Asia/Ho_Chi_Minh",
@@ -35,6 +35,11 @@
       "label": "Điểm danh Spark / mở trang",
       "threshold": 1,
       "maxPoints": 0
+    },
+    "workbook": {
+      "label": "Workbook 6 câu (Học tiếng Hàn cấp 1–6)",
+      "threshold": 0.6,
+      "maxPoints": 6
     }
   },
   "legacy": {
@@ -51,5 +56,11 @@
     "recoveryMinimumScore": 65,
     "recoveryPoints": 15,
     "recoveryBelowBalance": 20
+  },
+  "lessonCompletion": {
+    "label": "Thưởng hoàn thành bài học (2 bộ Workbook đạt)",
+    "setsRequired": 2,
+    "bonusPoints": 3,
+    "scope": "once per uid/lesson/week; server verified from distinct passed workbook sets"
   }
 }
