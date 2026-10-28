@@ -13,10 +13,10 @@
 <p class="mrlee-rule-note">Hệ thống có <strong>hai loại điểm riêng biệt</strong>. <b>TOPIK Spark</b> được chương trình chấm đáp án theo đợt và dùng cho bảng thi đua TOPIK theo tuần; <b>ví điểm động lực cũ</b> có điểm đăng nhập, luyện nói và xác nhận hoàn thành bài, chưa được chấm đầy đủ ở máy chủ. <strong>Không cộng gộp hai ví, không dùng điểm động lực để trao thưởng tiền hoặc đánh giá chính thức.</strong></p>
 <p class="mrlee-rule-note" id="mrlee-policy-loaded" role="status">Bảng chi tiết hiển thị sẵn; hệ thống sẽ tự đồng bộ với cấu hình tính điểm.</p>
 <div class="mrlee-rule-cols">
-<section class="mrlee-rule-card"><h2>01 · Điểm TOPIK Spark — chấm theo bài</h2>
+<section class="mrlee-rule-card"><h2>01 · Điểm học tập Spark — Học 1–6 và TOPIK</h2><p><strong>Không chỉ TOPIK!</strong> Mỗi bộ Workbook của 90 bài học (6 cấp độ × 15 bài) đều được tính điểm khi học viên làm ít nhất 4/6 câu đúng. Đạt 2 bộ khác nhau trong cùng bài, nhận thêm <strong>+3 điểm hoàn thành bài</strong> một lần trong tuần.</p>
 <p>Điểm chỉ được ghi khi bài đã được tiếp nhận, có mã hợp lệ, đáp án đầy đủ đúng bộ câu hỏi và vượt ngưỡng. Tỷ lệ đúng × mức tối đa, làm tròn đến điểm nguyên gần nhất.</p>
 <table id="mrleePolicyTable"><thead><tr><th>Hoạt động</th><th>Điều kiện</th><th>Điểm mỗi bài</th></tr></thead><tbody>
-<tr><td>Quiz TOPIK theo ngày</td><td>Đúng ≥ 60%</td><td>Tối đa 12 điểm</td></tr>
+<tr><td>Workbook Học 1–6: mỗi bộ 6 câu</td><td>Đúng 4/6 (≥60%)</td><td>4–6 điểm/bộ; +3 khi đủ 2 bộ đạt trong bài</td></tr><tr><td>Quiz TOPIK theo ngày</td><td>Đúng ≥ 60%</td><td>Tối đa 12 điểm</td></tr>
 <tr><td>Nghe TOPIK theo ngày</td><td>Đúng ≥ 60%</td><td>Tối đa 20 điểm</td></tr>
 <tr><td>Thi thử TOPIK tổng hợp</td><td>Đúng ≥ 50%</td><td>Tối đa 40 điểm</td></tr>
 <tr><td>Thi thử riêng phần nghe</td><td>Đúng ≥ 60%</td><td>Tối đa 12 điểm</td></tr>
@@ -39,7 +39,7 @@
 <section class="mrlee-rule-card" style="margin-top:18px">
 <h2>03 · Tự tính thử số điểm Spark</h2>
 <div class="mrlee-policy-calculator">
-<label>Loại bài <select id="mrleePolicyType"><option value="quiz">Quiz theo ngày</option><option value="listening">Nghe theo ngày</option><option value="mock">Thi thử tổng hợp</option><option value="mock-listening">Thi thử phần nghe</option><option value="mock-reading">Thi thử phần đọc</option></select></label>
+<label>Loại bài <select id="mrleePolicyType"><option value="workbook">Workbook (6 câu)</option><option value="quiz">Quiz theo ngày</option><option value="listening">Nghe theo ngày</option><option value="mock">Thi thử tổng hợp</option><option value="mock-listening">Thi thử phần nghe</option><option value="mock-reading">Thi thử phần đọc</option></select></label>
 <label>Số câu đúng <input id="mrleePolicyCorrect" type="number" min="0" max="110" step="1" value="8"></label>
 <label>Tổng số câu <input id="mrleePolicyTotal" type="number" min="1" max="110" step="1" value="10"></label>
 </div><p class="mrlee-rule-note" id="mrleePolicyEstimate" role="status">Ví dụ: Quiz đúng 8/10 câu → 10 điểm.</p>
@@ -51,7 +51,7 @@
 <li><b>Gửi trong ngày:</b> cùng tài khoản và mã bài chỉ tạo được một yêu cầu chấm trong một ngày Việt Nam. Nếu chưa đạt, có thể luyện và gửi lại vào ngày khác; vẫn chỉ được nhận thưởng một lần/tuần.</li>
 <li><b>Tuần mới:</b> thứ Hai 00:00 đến Chủ nhật 23:59 (giờ Việt Nam). Bảng <em>điểm tuần</em> bắt đầu chu kỳ mới; điểm Spark tích lũy và lịch sử bài cũ vẫn còn.</li>
 <li><b>Chờ chấm:</b> hệ thống miễn phí GitHub Actions chạy theo lịch khoảng 30 phút/lượt (lịch thực tế có thể trễ). Trạng thái “đã gửi” hoặc “đang chấm” không có nghĩa đã được cộng điểm.</li>
-<li><b>0 điểm Spark:</b> chỉ mở trang, tải lại, nghe audio mà chưa làm bài, xem video/ảnh, tìm kiếm, điểm danh Spark, hoàn thành bài học tự báo hoặc chưa có bộ đáp án chấm máy chủ.</li>
+<li><b>Điểm học 1–6:</b> Học kiến thức, luyện nghe, ngữ pháp không cần nộp; điểm chỉ nhận khi Workbook được chấm hợp lệ. Mỗi bài có 15 bộ, đúng tối thiểu 4/6 để nhận điểm theo số câu đúng; +3 điểm khi có hai bộ khác nhau đạt yêu cầu. Không cấp điểm chỉ vì bấm xác nhận đã đọc.</li><li><b>0 điểm Spark:</b> chỉ mở trang, tải lại, nghe audio mà chưa làm bài, xem video/ảnh, tìm kiếm, điểm danh Spark, hoàn thành bài học tự báo hoặc chưa có bộ đáp án chấm máy chủ.</li>
 <li><b>Điểm đã nhập:</b> không tự sửa, xóa hoặc chuyển số dư từ ví cũ sang Spark. Không lấy bảng điểm thi đua làm điểm TOPIK chính thức hay điều kiện duy nhất để nhận học bổng, xếp lớp hoặc trao thưởng.</li>
 </ul>
 <h3>Xếp hạng và khiếu nại</h3>
