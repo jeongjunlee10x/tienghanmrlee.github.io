@@ -12,6 +12,7 @@ const suites=[
  ['Nút liên hệ và sức khỏe Admin','check-contact-admin.mjs'],
  ['Ảnh bìa toàn cảnh và chữ lồng ảnh','check-home-overlay.mjs'],
  ['Học bổng và bảng xếp hạng không bị chồng lấn','check-ranking-layout.mjs'],
+ ['Tương phản chữ TOPIK I/II trong hai giao diện','check-topik-contrast.mjs'],
  ['Hình ảnh và font trong CSS','audit-css-assets.mjs'],
  ['24 bản ghi âm TOPIK thật','audit-topik-audio.mjs'],
  ['Kho giáo trình và AI trợ lý','check-mrlee-ai.mjs'],

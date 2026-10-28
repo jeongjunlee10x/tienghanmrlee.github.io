@@ -5,6 +5,10 @@ on:
     branches: [main]
     paths:
       - 'tools/browser-smoke.mjs'
+      - 'tools/browser-topik-contrast.mjs'
+      - 'assets/branding/topik-contrast-v1.css'
+      - 'topik-*.html'
+      - 'lo-trinh-topik.html'
       - 'assets/mrlee-geo/**'
       - 'assets/branding/media-quality-v3.*'
       - 'assets/branding/site-logo.js'
@@ -33,6 +37,10 @@ on:
     branches: [main]
     paths:
       - 'tools/browser-smoke.mjs'
+      - 'tools/browser-topik-contrast.mjs'
+      - 'assets/branding/topik-contrast-v1.css'
+      - 'topik-*.html'
+      - 'lo-trinh-topik.html'
       - 'assets/mrlee-geo/**'
       - 'assets/branding/media-quality-v3.*'
       - 'assets/branding/site-logo.js'
@@ -66,6 +74,8 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Open public MR LEE pages and test offline lesson search on Fresh/Future
         run: node tools/browser-smoke.mjs
+      - name: TOPIK I/II/Ngay Viet Nghe - WCAG contrast both themes desktop and mobile
+        run: node tools/browser-topik-contrast.mjs
 
       - name: Save real Chromium homepage screenshots (both themes)
         if: always()
