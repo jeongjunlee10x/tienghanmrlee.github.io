@@ -1,0 +1,163 @@
+/* MR LEE · Hero v3: full-bleed photo with LIVE, clickable text in an empty-left-safe area.
+   Both theme-specific cover assets already exist locally. Course/module photographs untouched.
+   Must load AFTER home-hero-split-v2.css; overrides only homepage hero and is mobile safe. */
+html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"].mrlee-hero-overlay-v3,
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"] #mainContent>.hero[data-mrlee-hero="split"].mrlee-hero-overlay-v3{
+  display:block!important;position:relative!important;isolation:isolate!important;
+  width:100%!important;min-width:0!important;height:clamp(340px,27.5vw,480px)!important;
+  min-height:340px!important;max-height:480px!important;
+  box-sizing:border-box!important;overflow:hidden!important;
+  margin:0!important;padding:0!important;gap:0!important;
+  border-radius:25px!important;border:1px solid #83aedb!important;
+  background:#e9f4ff!important;box-shadow:0 18px 42px #12325a24!important;
+}
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"] #mainContent>.hero.mrlee-hero-overlay-v3,
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"] #mainContent>.hero.mrlee-hero-overlay-v3{
+  background:#05162f!important;border-color:#3192e2!important;
+  box-shadow:0 17px 42px #0008,0 0 19px #12bcff36!important;
+}
+/* A single real hero photo extends under the entire text area. No empty left block. */
+html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3>.mrlee-hero-photo-pane,
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"] #mainContent>.hero.mrlee-hero-overlay-v3>.mrlee-hero-photo-pane{
+  display:block!important;position:absolute!important;inset:0!important;
+  z-index:0!important;width:100%!important;height:100%!important;
+  min-height:0!important;min-width:0!important;max-width:none!important;
+  padding:0!important;margin:0!important;pointer-events:none!important;
+  background-color:#eaf5ff!important;
+  background-image:url("../images/heroes/01-trang-chu-fresh.webp")!important;
+  background-size:cover!important;background-position:center 48%!important;
+  background-repeat:no-repeat!important;
+}
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"] #mainContent>.hero.mrlee-hero-overlay-v3>.mrlee-hero-photo-pane,
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"] #mainContent>.hero.mrlee-hero-overlay-v3>.mrlee-hero-photo-pane{
+  background-color:#06142c!important;
+  background-image:url("../images/heroes/01-trang-chu-future.webp")!important;
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3>.mrlee-hero-photo-pane::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:linear-gradient(90deg,rgba(239,248,255,.91) 0%,rgba(240,248,255,.79) 21%,rgba(240,248,255,.44) 41%,rgba(240,248,255,.04) 65%,transparent 76%);
+}
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"] #mainContent>.hero.mrlee-hero-overlay-v3>.mrlee-hero-photo-pane::after{
+  background:linear-gradient(90deg,rgba(3,14,36,.91) 0%,rgba(4,17,41,.76) 22%,rgba(4,17,41,.41) 44%,rgba(4,17,41,.05) 66%,transparent 76%);
+}
+/* Content remains HTML: buttons actually work, text can be selected/translated,
+   and the photo never blocks tap or keyboard focus. */
+html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3>.mrlee-hero-copy-pane,
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"] #mainContent>.hero.mrlee-hero-overlay-v3>.mrlee-hero-copy-pane{
+  position:relative!important;z-index:3!important;inset:auto!important;
+  display:flex!important;flex-direction:column!important;justify-content:center!important;
+  width:min(67%,1060px)!important;max-width:100%!important;height:100%!important;
+  min-height:0!important;min-width:0!important;overflow:visible!important;
+  margin:0!important;padding:clamp(22px,3.6vw,65px)!important;
+  box-sizing:border-box!important;border:0!important;
+  background:transparent!important;box-shadow:none!important;
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3 .hero-copy,
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"] #mainContent>.hero.mrlee-hero-overlay-v3 .mrlee-future-hero-copy{
+  position:relative!important;display:flex!important;justify-content:center!important;
+  flex-direction:column!important;align-items:flex-start!important;gap:8px!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  margin:0!important;padding:0!important;transform:none!important;
+}
+html[data-mrlee-v303="reference"]:not([data-mrlee-theme="future"]) #mainContent>.hero.mrlee-hero-overlay-v3 .mrlee-future-hero-copy,
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"] #mainContent>.hero.mrlee-hero-overlay-v3 .hero-copy{display:none!important}
+html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3 .hero-copy h1{
+  font:900 clamp(31px,3.75vw,68px)/1.09 "Be Vietnam Pro",system-ui,sans-serif!important;
+  white-space:nowrap!important;text-wrap:nowrap!important;letter-spacing:-.055em!important;
+  margin:0!important;color:#133867!important;text-shadow:0 2px 12px #ffffffa9!important;
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3 .hero-copy h1 span{color:#ee176d!important}
+html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3 .hero-copy .script{
+  font:italic 700 clamp(14px,1.32vw,23px)/1.45 Georgia,serif!important;
+  color:#eb176d!important;text-shadow:0 1px 10px #fff!important;
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3 .hero-copy>p{
+  font:700 clamp(12px,1.22vw,19px)/1.6 "Be Vietnam Pro",system-ui,sans-serif!important;
+  color:#244f79!important;text-shadow:0 1px 9px #fff!important;margin:0 0 7px!important;
+}
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"] #mainContent>.hero.mrlee-hero-overlay-v3 .mrlee-future-hero-copy h1{
+  font:900 clamp(33px,3.7vw,65px)/1.07 "Be Vietnam Pro",system-ui,sans-serif!important;
+  letter-spacing:-.055em!important;white-space:normal!important;color:#fff!important;
+  margin:0!important;text-shadow:0 4px 20px #00142acc!important;
+}
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"] #mainContent>.hero.mrlee-hero-overlay-v3 .mrlee-future-hero-copy h1 em{
+  color:#a19bff!important;-webkit-text-fill-color:currentColor!important;
+}
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"] #mainContent>.hero.mrlee-hero-overlay-v3 .mrlee-future-hero-copy .mrlee-future-lead{
+  color:#f8fbff!important;font-weight:850!important;font-size:clamp(13px,1.3vw,21px)!important
+}
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"] #mainContent>.hero.mrlee-hero-overlay-v3 .mrlee-future-hero-copy p{
+  color:#e7f3ff!important;text-shadow:0 2px 12px #001126!important;
+  max-width:58ch!important;font:550 clamp(12px,1.06vw,16px)/1.55 "Be Vietnam Pro",system-ui,sans-serif!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3 .hero-buttons,
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"] #mainContent>.hero.mrlee-hero-overlay-v3 .mrlee-future-cta{
+  display:flex!important;flex-wrap:wrap!important;justify-content:flex-start!important;
+  gap:10px!important;width:100%!important;max-width:100%!important;margin:12px 0 0!important
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3 .hero-buttons :is(a,button),
+html[data-mrlee-v303="reference"][data-mrlee-theme="future"] #mainContent>.hero.mrlee-hero-overlay-v3 .mrlee-future-cta a{
+  display:inline-flex!important;position:relative!important;z-index:4!important;
+  align-items:center!important;justify-content:center!important;gap:7px!important;
+  min-height:48px!important;min-width:0!important;max-width:100%!important;width:auto!important;
+  padding:12px 18px!important;white-space:normal!important;
+  font:850 clamp(11px,.96vw,15px)/1.25 "Be Vietnam Pro",system-ui,sans-serif!important;
+  border-radius:13px!important;text-decoration:none!important;
+  box-shadow:0 5px 15px #06274626!important;cursor:pointer!important;
+}
+html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3 :is(a,button):focus-visible{
+  outline:3px solid #f7bd3a!important;outline-offset:4px!important
+}
+@media(max-width:1100px) and (min-width:761px){
+ html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3>.mrlee-hero-copy-pane{
+  width:72%!important;padding:24px 29px!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3 .hero-copy h1{font-size:clamp(31px,4vw,45px)!important}
+ html[data-mrlee-v303="reference"][data-mrlee-theme="future"] #mainContent>.hero.mrlee-hero-overlay-v3 .mrlee-future-hero-copy h1{font-size:clamp(34px,4.1vw,47px)!important}
+}
+/* Mobile: preserve scenic image with figures toward the bottom/right, while text
+   occupies the clear upper zone. Still one cover, not two visually separate panels. */
+@media(max-width:760px){
+ html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"].mrlee-hero-overlay-v3,
+ html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"] #mainContent>.hero[data-mrlee-hero="split"].mrlee-hero-overlay-v3{
+  height:auto!important;max-height:none!important;min-height:520px!important;
+  display:block!important;border-radius:17px!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3>.mrlee-hero-photo-pane,
+ html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"] #mainContent>.hero.mrlee-hero-overlay-v3>.mrlee-hero-photo-pane{
+  inset:0!important;width:100%!important;height:100%!important;
+  background-size:auto 66%!important;background-position:75% 100%!important;
+  background-repeat:no-repeat!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3>.mrlee-hero-photo-pane::after{
+  background:linear-gradient(180deg,#ecf7ff 0%,#ecf7ff 40%,#e9f4ffb8 57%,#e9f4ff0d 88%)
+ }
+ html[data-mrlee-v303="reference"][data-mrlee-theme="future"] #mainContent>.hero.mrlee-hero-overlay-v3>.mrlee-hero-photo-pane::after{
+  background:linear-gradient(180deg,#04132f 0%,#04132f 40%,#04132fd9 58%,#04132f00 87%)
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3>.mrlee-hero-copy-pane,
+ html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"] #mainContent>.hero.mrlee-hero-overlay-v3>.mrlee-hero-copy-pane{
+  width:100%!important;height:auto!important;min-height:320px!important;
+  padding:22px 17px 200px!important;align-items:flex-start!important;
+  justify-content:flex-start!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3 .hero-copy h1{
+  white-space:normal!important;text-wrap:balance!important;font-size:clamp(29px,8vw,43px)!important
+ }
+ html[data-mrlee-v303="reference"][data-mrlee-theme="future"] #mainContent>.hero.mrlee-hero-overlay-v3 .mrlee-future-hero-copy h1{
+  font-size:clamp(30px,8vw,42px)!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3 .hero-buttons,
+ html[data-mrlee-v303="reference"][data-mrlee-theme="future"] #mainContent>.hero.mrlee-hero-overlay-v3 .mrlee-future-cta{
+  gap:7px!important;margin-top:9px!important
+ }
+ html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3 .hero-buttons :is(a,button),
+ html[data-mrlee-v303="reference"][data-mrlee-theme="future"] #mainContent>.hero.mrlee-hero-overlay-v3 .mrlee-future-cta a{
+  min-height:42px!important;padding:9px 11px!important;font-size:11px!important
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ html[data-mrlee-v303="reference"] #mainContent>.hero.mrlee-hero-overlay-v3 *{
+  transition:none!important;animation:none!important
+ }
+}
