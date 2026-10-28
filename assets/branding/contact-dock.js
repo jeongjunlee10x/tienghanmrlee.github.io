@@ -13,6 +13,7 @@ function boot(){
   ['call','☎','Gọi 0376991180','tel:+84376991180'],
   ['zalo','Z','Zalo MR LEE','https://zalo.me/0376991180'],
   ['messenger','M','Messenger MR LEE (kiểm tra đúng Fanpage)','https://m.me/MRLEEKR10'],
+  ['tiktok','♪','TikTok MR LEE · @hankuc_chemi','https://www.tiktok.com/@hankuc_chemi'],
   ['email','@','Email MR LEE','mailto:tienghanmrlee@gmail.com']
  ];
  for(const [kind,icon,label,url] of config){

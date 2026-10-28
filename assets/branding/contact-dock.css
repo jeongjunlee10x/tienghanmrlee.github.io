@@ -8,6 +8,7 @@
 #mrleeContactDock .mrlee-contact-link[data-channel="call"]{background:#14865e}
 #mrleeContactDock .mrlee-contact-link[data-channel="zalo"]{background:#0868ed}
 #mrleeContactDock .mrlee-contact-link[data-channel="messenger"]{background:#7542d6}
+#mrleeContactDock .mrlee-contact-link[data-channel="tiktok"]{background:#13131a;color:#fff;text-shadow:-1px -1px #25f4ee,1px 1px #fe2c55;border-color:#f8fbff}
 #mrleeContactDock .mrlee-contact-link[data-channel="email"]{background:#d16b28}
 #mrleeContactDock .mrlee-contact-link[data-channel="kakao"]{background:#ffe03c;color:#3b2900}
 #mrleeContactDock .mrlee-contact-label{position:absolute;right:56px;white-space:nowrap;max-width:210px;overflow:hidden;text-overflow:ellipsis;pointer-events:none;padding:7px 10px;border-radius:9px;background:#102848;color:#fff;font-size:12px;line-height:1.4;font-weight:750;box-shadow:0 5px 18px #07183066;opacity:0;transform:translateX(6px);transition:opacity .15s,transform .15s}
@@ -16,6 +17,7 @@
 #mrleeContactDock .mrlee-contact-toggle:focus-visible{outline:3px solid #ffcf69;outline-offset:2px}
 #mrleeContactDock .mrlee-contact-status{display:none;max-width:230px;padding:8px 11px;border-radius:10px;background:#142e4d;color:#fff;font-size:12px;box-shadow:0 7px 18px #06172c77}
 #mrleeContactDock .mrlee-contact-status:not(:empty){display:block}
+#contactPanel .rail-item.tiktok{background:#14141d!important;color:#fff!important;text-shadow:-1px -1px #25f4ee,1px 1px #fe2c55!important}
 body.mrlee-contact-ready #contactPanel.contact-rail{display:none!important}
 @media(max-width:700px){#mrleeContactDock{bottom:max(82px,calc(env(safe-area-inset-bottom) + 70px));right:max(12px,env(safe-area-inset-right))}#mrleeContactDock .mrlee-contact-links{display:none}#mrleeContactDock[data-open="true"] .mrlee-contact-links{display:flex}#mrleeContactDock .mrlee-contact-toggle{display:inline-flex}#mrleeContactDock .mrlee-contact-link{width:44px;height:44px;font-size:16px}#mrleeContactDock .mrlee-contact-label{opacity:1;transform:none;right:52px;background:#152d4eeb;font-size:11px}#mrleeContactDock[data-open="false"] .mrlee-contact-status{max-width:170px}}
 @media(prefers-reduced-motion:reduce){#mrleeContactDock *{transition:none!important}}
