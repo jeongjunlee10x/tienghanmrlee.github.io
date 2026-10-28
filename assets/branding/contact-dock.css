@@ -8,6 +8,7 @@
 #mrleeContactDock .mrlee-contact-link[data-channel="call"]{background:#14865e}
 #mrleeContactDock .mrlee-contact-link[data-channel="zalo"]{background:#0868ed}
 #mrleeContactDock .mrlee-contact-link[data-channel="messenger"]{background:#7542d6}
+#mrleeContactDock .mrlee-contact-link[data-channel="tiktok"]{background:#13131a;color:#fff;text-shadow:-1px -1px #25f4ee,1px 1px #fe2c55;border-color:#f8fbff}
 #mrleeContactDock .mrlee-contact-link[data-channel="email"]{background:#d16b28}
 #mrleeContactDock .mrlee-contact-link[data-channel="kakao"]{background:#ffe03c;color:#3b2900}
 #mrleeContactDock .mrlee-contact-label{position:absolute;right:56px;white-space:nowrap;max-width:210px;overflow:hidden;text-overflow:ellipsis;pointer-events:none;padding:7px 10px;border-radius:9px;background:#102848;color:#fff;font-size:12px;line-height:1.4;font-weight:750;box-shadow:0 5px 18px #07183066;opacity:0;transform:translateX(6px);transition:opacity .15s,transform .15s}
