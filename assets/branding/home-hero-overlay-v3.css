@@ -4,8 +4,8 @@
 html[data-mrlee-v303="reference"] #mainContent>.hero[data-mrlee-hero="split"].mrlee-hero-overlay-v3,
 html[data-mrlee-v303="reference"][data-mrlee-theme="future"][data-mrlee-smart-home="true"] #mainContent>.hero[data-mrlee-hero="split"].mrlee-hero-overlay-v3{
   display:block!important;position:relative!important;isolation:isolate!important;
-  width:100%!important;min-width:0!important;height:clamp(340px,27.5vw,480px)!important;
-  min-height:340px!important;max-height:480px!important;
+  width:100%!important;min-width:0!important;height:clamp(330px,24.6vw,365px)!important;
+  min-height:330px!important;max-height:365px!important;
   box-sizing:border-box!important;overflow:hidden!important;
   margin:0!important;padding:0!important;gap:0!important;
   border-radius:25px!important;border:1px solid #83aedb!important;
