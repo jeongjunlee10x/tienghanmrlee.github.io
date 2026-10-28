@@ -1,6 +1,11 @@
 name: MR LEE - Trien khai Firestore Rules sau kiem thu Workbook
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'firestore.rules'
+      - '.github/workflows/mrlee-firestore-rules-release.yml'
   push:
     branches: [main]
     paths:
@@ -30,12 +35,14 @@ jobs:
       - name: Validate complete Firestore rules in isolated free emulator
         run: npx --yes firebase-tools@14.16.0 emulators:exec --only firestore --project demo-mrlee-points -- "node tools/test-score-policy.cjs"
       - name: Prepare service account safely
+        if: github.event_name != 'pull_request'
         env:
           MRLEE_FIREBASE_SERVICE_ACCOUNT: ${{ secrets.MRLEE_FIREBASE_SERVICE_ACCOUNT }}
         run: |
           umask 077
           node -e "const fs=require('node:fs');const p=JSON.parse(process.env.MRLEE_FIREBASE_SERVICE_ACCOUNT||'{}');if(p.project_id!=='tieng-han-mr-lee'||!p.private_key)throw Error('Firebase project/credentials verification failed');fs.writeFileSync(process.env.RUNNER_TEMP+'/mrlee-scoring-deploy.json',JSON.stringify(p),{mode:0o600});"
       - name: Deploy ONLY firestore.rules to Firebase Spark (no Functions, no Blaze)
+        if: github.event_name != 'pull_request'
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/mrlee-scoring-deploy.json
         run: npx --yes firebase-tools@14.16.0 deploy --only firestore:rules --project tieng-han-mr-lee --non-interactive
