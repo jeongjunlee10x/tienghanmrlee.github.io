@@ -228,7 +228,7 @@ function showLesson(){
   $('lessonContent').classList.remove('mr-new-hidden');$('lessonCards').classList.add('mr-new-hidden');
   $('lessonTip').textContent=LEVEL_TIPS[cap];renderGrammar(d);renderVocab(d);renderSpeaking(d,samples);renderWorkbook(d,units);
   $('lessonContentNote').textContent=cap<=2?'Từ vựng và ngữ pháp dựa trên văn bản giáo trình Mr Lee cung cấp; các mục đang tiếp tục được hiệu đính.':'Nội dung Trung–Cao cấp: từ trọng tâm theo chủ đề và từ mở rộng theo cấp; biên soạn độc lập theo khung 6 cấp. Ví dụ, sắc thái từ và bài tập cần giáo viên thẩm định trước khi sử dụng chính thức.';
-  $('lessonEarned').textContent='Điểm bài tập lưu trên trình duyệt; chưa cộng điểm toàn server. Nội dung bổ sung cần giáo viên rà soát trước khi dùng để đánh giá chính thức.';
+  const earned=$('lessonEarned');if(earned)earned.textContent='⭐ Bài học này có 15 bộ Workbook, mỗi bộ đạt 4–6/6 nhận 4–6 điểm Spark. Qua 2 bộ đạt khác nhau, thưởng +3 điểm hoàn thành bài trong tuần. Chỉ cộng khi máy chủ chấm và không cộng lặp.';
   $('lessonReturn').href=`hoc-theo-bai.html?cap=${cap}`;
   $('lessonOldLink').href=u.lessonUrl||'lo-trinh-1-6.html';
   const next=bai<15?{cap,bai:bai+1}:cap<6?{cap:cap+1,bai:1}:null;
