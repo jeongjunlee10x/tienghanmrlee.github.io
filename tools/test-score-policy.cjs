@@ -45,6 +45,13 @@ assert.equal(units,1350);
 const runner=fs.readFileSync('scripts/mrlee-score-spark/runner.cjs','utf8');
 const rules=fs.readFileSync('firestore.rules','utf8');
 const workClient=fs.readFileSync('mrlee-bai-tap-pro.js','utf8');
+const legacyBridge=fs.readFileSync('mrlee-learning-legacy-bridge.js','utf8');
+const workHtml=fs.readFileSync('mrlee-bai-tap-pro.html','utf8');
+execFileSync(process.execPath,['--check','mrlee-learning-legacy-bridge.js'],{stdio:'pipe'});
+assert.match(workHtml,/mrlee-learning-legacy-bridge\.js/,'Workbook must load legacy fallback');
+assert.match(legacyBridge,/claimLessonPoint\(user,lessonId\)/,'Legacy credits use protected Firestore receipt once per lesson');
+assert.match(legacyBridge,/d\.score<4/,'Only completion meeting 4\/6 receives a point');
+
 const scoreWidget=fs.readFileSync('assets/mrlee-score-v12/widget.js','utf8');
 assert.match(workClient,/type:'workbook'/,'Workbook page must send actual answers to Spark queue');
 assert.match(scoreWidget,/type==='workbook'/,'Spark queue must recognize lesson activity');
