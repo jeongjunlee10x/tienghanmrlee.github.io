@@ -4,7 +4,7 @@
  * Không lưu họ tên/ngày sinh và KHÔNG dùng điểm từ client để xếp hạng chính thức.
  */
 import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
-import { getAuth, onAuthStateChanged, reload } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
+import { getAuth, reload } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
 import { getFirestore, addDoc, collection, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
 import { firebaseConfig, isFirebaseConfigured } from './firebase-config.js';
 
@@ -28,19 +28,29 @@ const app = isFirebaseConfigured ? (getApps().length ? getApps()[0] : initialize
 const auth = app ? getAuth(app) : null;
 const db = app ? getFirestore(app) : null;
 
-// Khóa xác thực được kiểm tra lại; Rules phía server vẫn luôn quyết định quyền ghi.
-const verifiedUser = auth ? new Promise(resolve => {
-  const stop = onAuthStateChanged(auth, async user => {
-    stop();
-    if (!user) return resolve(null);
-    try {
-      await reload(user);
-      if (!auth.currentUser?.emailVerified) return resolve(null);
-      const token = await auth.currentUser.getIdTokenResult(true);
-      resolve(token.claims.email_verified === true ? auth.currentUser : null);
-    } catch (error) { console.warn('Không thể xác minh tài khoản để lưu học tập', error); resolve(null); }
-  }, error => { console.warn('Firebase Auth', error); resolve(null); });
-}) : Promise.resolve(null);
+// Đọc người dùng tại thời điểm lưu, KHÔNG cố định kết quả đăng nhập lúc mở trang.
+// Nếu người dùng đăng nhập sau khi JS tải, lần nộp bài tiếp theo vẫn lưu được.
+async function currentVerifiedUser() {
+  if (!auth) return null;
+  // Firebase Auth v12: xác nhận trạng thái đăng nhập đầu tiên đã được khôi phục.
+  await auth.authStateReady();
+  const user=auth.currentUser;
+  if (!user) return null;
+  if (!user.emailVerified) await reload(user);
+  if (!user.emailVerified) return null;
+  const token=await user.getIdTokenResult(true);
+  if (token.claims.email_verified !== true || auth.currentUser?.uid !== user.uid) return null;
+  return user;
+}
+function saveFailureMessage(error) {
+  const code=String(error?.code||'').split('/').pop().slice(0,45);
+  if (code==='permission-denied') return 'Firebase từ chối quyền lưu lịch sử luyện tập (permission-denied). Hãy kiểm tra tài khoản đã xác minh email và Firestore Rules. Bài đã làm vẫn được giữ trên thiết bị; điểm Spark được xử lý riêng.';
+  if (code==='unavailable' || code==='deadline-exceeded') return 'Không kết nối được Firestore ('+code+'). Kết quả Workbook vẫn lưu trên thiết bị; kiểm tra mạng trước khi thử đồng bộ lịch sử.';
+  if (code==='resource-exhausted') return 'Firebase đang giới hạn lượt ghi (resource-exhausted). Không nên làm bài lại liên tục; điểm Spark được xử lý riêng.';
+  if (code==='invalid-argument') return 'Firebase từ chối định dạng bài làm (invalid-argument). Cần kiểm tra nội dung và báo quản trị; kết quả ở thiết bị vẫn còn.';
+  if (error?.message==='Bạn cần đăng nhập và xác minh email để lưu điểm.') return error.message+' Kết quả Workbook đã lưu trên thiết bị; điểm Spark được xử lý riêng.';
+  return 'Không lưu được lịch sử bài tập vào Firebase'+(code?' ('+code+')':'')+'. Kết quả Workbook vẫn lưu trên thiết bị. Việc cộng điểm Spark có trạng thái riêng ở phần kết quả bài.';
+}
 
 const clean = (text, max = 110) => String(text ?? '').trim().slice(0, max);
 const recentlySaved = new Map();
@@ -56,7 +66,7 @@ async function recordEvent(kind, title, detail = '') {
   if (Date.now() - last < 20000) return;
   recentlySaved.set(key, Date.now());
   try {
-    const user = await verifiedUser;
+    const user = await currentVerifiedUser();
     if (!user) return;
     await addDoc(collection(db, 'users', user.uid, 'learningEvents'), {
       kind, page, title, detail, createdAt: serverTimestamp()
@@ -132,7 +142,7 @@ window.addEventListener('mrlee:practice-finished', async event => {
   if (!/^[a-z0-9-]+$/.test(examId) || !examTitle || !['sc1', 'sc2', 'sc3', 'sc4', 'sc5', 'sc6', 'tc1', 'general'].includes(level)) return;
   saveFeedback('Đang lưu điểm luyện tập vào tài khoản...');
   try {
-    const user = await verifiedUser;
+    const user = await currentVerifiedUser();
     if (!user) throw new Error('Bạn cần đăng nhập và xác minh email để lưu điểm.');
     await addDoc(collection(db, 'users', user.uid, 'practiceAttempts'), {
       examId, examTitle, level, score, total, durationSeconds,
@@ -144,7 +154,7 @@ window.addEventListener('mrlee:practice-finished', async event => {
       : 'Đã lưu điểm, nhưng bài làm chi tiết quá lớn nên chưa thể đồng bộ đầy đủ.');
   } catch (error) {
     console.warn('Không lưu được điểm luyện tập:', error);
-    saveFeedback('Chưa lưu được điểm lên Firebase. Hãy kiểm tra Internet, đăng nhập và Firestore Rules, rồi làm bài lại.', true);
+    saveFeedback(saveFailureMessage(error), true);
   }
 });
 
