@@ -29,7 +29,12 @@ try{
     await p.locator('main').first().waitFor({timeout:10000});
     const contact=p.locator('#mrleeContactDock');
     await contact.waitFor({state:'visible',timeout:12000});
-    if(await contact.locator('.mrlee-contact-links > *').count()!==5)throw Error('Contact dock must expose 5 real channels');
+    if(await contact.locator('.mrlee-contact-links > *').count()!==6)throw Error('Contact dock must expose 6 real channels');
+    const tik=contact.locator('a.mrlee-contact-link[data-channel="tiktok"]');
+    if(await tik.count()!==1 || await tik.getAttribute('href')!=='https://www.tiktok.com/@hankuc_chemi')
+      throw Error('Missing/incorrect TikTok @hankuc_chemi profile URL');
+    if(await tik.getAttribute('target')!=='_blank'||!(await tik.getAttribute('rel'))?.includes('noopener'))
+      throw Error('TikTok link should open safely in new tab');
     // Contact is intentionally collapsed on all devices so it never hides ranking cards.
     const toggle=contact.locator('button.mrlee-contact-toggle');
     if(!await toggle.isVisible())throw Error('Compact contact trigger not visible');
