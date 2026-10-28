@@ -57,7 +57,7 @@ function finish(){const history=read()[selected.id]||{best:0,attempts:0};const g
      if(res?.status==='queued')rewardStatus.textContent='✓ Bài đã được gửi để chấm Spark. Nếu hợp lệ, bộ này nhận theo số câu đúng (4–6 điểm); sau 2 bộ đạt trong cùng bài được thưởng thêm +3. Điểm sẽ cập nhật sau khi GitHub Actions xử lý.';
      else if(res?.status==='already')rewardStatus.textContent='ℹ Bộ bài này đã gửi hôm nay ('+String(res.state||'đã tồn tại')+'). Mỗi bộ chỉ nhận điểm một lần trong tuần.';
      else if(res?.status==='unverified'||res?.status==='not-signed-in')rewardStatus.textContent='ℹ Cần đăng nhập và xác minh email Firebase để được nhận điểm toàn hệ thống. Kết quả luyện tập đã lưu trên thiết bị.';
-     else rewardStatus.textContent='⚠ Chưa gửi được bài Spark: '+String(res?.message||'không rõ trạng thái')+'. Vui lòng thử lại sau.';
+     else {const message=String(res?.message||'không rõ trạng thái');rewardStatus.textContent=/permission|insufficient|denied|403/i.test(message)?'⚠ Spark Workbook đang chờ cập nhật quyền Firestore Rules; chưa thể ghi điểm tuần. Hệ thống vẫn thử cộng +1 điểm động lực cũ cho bài đã đạt, nếu đủ điều kiện.':'⚠ Chưa gửi được bài Spark: '+message+'. Vui lòng thử lại sau.';}
    }).catch(e=>{rewardStatus.textContent='⚠ Lỗi gửi điểm Spark: '+String(e?.message||e)});
  }
   const completed=selected;$('workRepeat').onclick=()=>start(completed);$('workReturn').onclick=()=>{$('workListPanel').scrollIntoView({behavior:'smooth'})};
