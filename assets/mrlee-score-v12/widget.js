@@ -39,6 +39,15 @@ function vnToday() {
 function activityFor(data) {
   const type = data.type;
   const level = Number(data.level||0), day = Number(data.day||0), format = String(data.format||'');
+  if(type==='workbook') {
+    const unit=Number(data.unit),lesson=Number(data.day);
+    if(!Number.isSafeInteger(level)||level<1||level>6||
+       !Number.isSafeInteger(lesson)||lesson<1||lesson>15||
+       !Number.isSafeInteger(unit)||unit<1||unit>15||
+       !Array.isArray(data.answers)||data.answers.length!==6)
+      throw Error('Mã bài hoặc 6 đáp án Workbook không hợp lệ.');
+    return {key:`workbook-${level}-${lesson}-${unit}`,level,day:lesson,format:String(unit),answers:data.answers};
+  }
   if(type==='attendance') return {key:'attendance',level:0,day:0,format:'',answers:[]};
   if(['quiz','listening'].includes(type)) {
     if(![1,2].includes(level)||!Number.isInteger(day)||day<1||day>(level===1?30:60)) throw Error('Cap/ngay hoc khong hop le');
@@ -68,8 +77,8 @@ async function queueAward(data) {
   }
 }
 async function award(data) {
-  if (!user) return toast('Vui long dang nhap de gui bai cham diem.', true);
-  if (!user.emailVerified) return toast('Can xac minh email truoc khi gui bai.', true);
+  if (!user) { toast('Vui lòng đăng nhập Firebase để ghi điểm bài học.', true);return {status:'not-signed-in'}; }
+  if (!user.emailVerified) {toast('Cần xác minh email trước khi nhận điểm.',true);return {status:'unverified'};}
   try {
     toast('Dang ghi bai cho he thong cham diem mien phi…');
     const res = await queueAward(data);
@@ -78,8 +87,12 @@ async function award(data) {
     else if (res.state === 'not-passed') toast('Bài hôm nay chưa đạt ngưỡng. Có thể luyện và gửi lại ngày khác; xem Quy tắc điểm.',true);
     else if (res.state === 'rejected') toast('Bài trước không hợp lệ; hãy kiểm tra dữ liệu hoặc liên hệ quản trị.',true);
     else if (res.state === 'pending') toast('Bai da duoc gui, dang cho he thong cham.');
-    else toast('Bai nay da duoc gui hom nay. Khong cong trung.');
-  } catch (e) { toast('Chua gui duoc bai: '+String(e.message||e.code||'Loi mang'),true); }
+    else toast('Bài đã gửi trong ngày; không cộng trùng.');
+    return res;
+  } catch (e) {
+    toast('Chưa gửi được bài: '+String(e.message||e.code||'Lỗi mạng'),true);
+    return {status:'error',message:String(e.message||e.code||'Lỗi mạng')};
+  }
 }
 window.MRLEE_SCORE_V12 = Object.freeze({ award, week });
 function selectedRows(area) {
