@@ -74,7 +74,9 @@ async function award(data) {
     toast('Dang ghi bai cho he thong cham diem mien phi…');
     const res = await queueAward(data);
     if (res.status === 'queued') toast('Da ghi nhan bai. GitHub Actions se cham va cap nhat diem theo dot (thuong 30-60 phut).');
-    else if (res.state === 'saved') toast('Bai nay da duoc cham va cong diem.');
+    else if (res.state === 'saved') toast('Đã nhận điểm Spark trong tuần; không cộng trùng.');
+    else if (res.state === 'not-passed') toast('Bài hôm nay chưa đạt ngưỡng. Có thể luyện và gửi lại ngày khác; xem Quy tắc điểm.',true);
+    else if (res.state === 'rejected') toast('Bài trước không hợp lệ; hãy kiểm tra dữ liệu hoặc liên hệ quản trị.',true);
     else if (res.state === 'pending') toast('Bai da duoc gui, dang cho he thong cham.');
     else toast('Bai nay da duoc gui hom nay. Khong cong trung.');
   } catch (e) { toast('Chua gui duoc bai: '+String(e.message||e.code||'Loi mang'),true); }
