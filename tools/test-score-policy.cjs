@@ -40,6 +40,8 @@ for(let level=1;level<=6;level++)for(let lesson=1;lesson<=15;lesson++){
  }
 }
 assert.equal(units,1350);
+const runner=fs.readFileSync('scripts/mrlee-score-spark/runner.cjs','utf8');
+const rules=fs.readFileSync('firestore.rules','utf8');
 const workClient=fs.readFileSync('mrlee-bai-tap-pro.js','utf8');
 const scoreWidget=fs.readFileSync('assets/mrlee-score-v12/widget.js','utf8');
 assert.match(workClient,/type:'workbook'/,'Workbook page must send actual answers to Spark queue');
@@ -48,8 +50,7 @@ assert.match(rules,/d.type == 'workbook'/,'Firestore security rules must permit 
 assert.match(runner,/function workbookExpected\(/,'Server must grade the real question catalog');
 assert.match(runner,/completionBonus/,'Verified two-set lesson completion bonus must be applied once');
 
-const runner=fs.readFileSync('scripts/mrlee-score-spark/runner.cjs','utf8');
-const rules=fs.readFileSync('firestore.rules','utf8');
+
 const web=fs.readFileSync('quy-tac-diem-mrlee.html','utf8');
 const client=fs.readFileSync('assets/mrlee-score-v12/widget.js','utf8');
 assert.match(runner,/policyVersion:POLICY\.version/);
