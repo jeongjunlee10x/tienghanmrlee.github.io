@@ -209,14 +209,14 @@ try{
          const active=root.dataset.mrleeTheme==='future'?hero?.querySelector('.mrlee-future-hero-copy'):hero?.querySelector('.hero-copy');
          const rect=e=>{if(!e)return null;const b=e.getBoundingClientRect();return {x:b.x,right:b.right,y:b.y,bottom:b.bottom,height:b.height,width:b.width}};
          const actions=active?.querySelector('.mrlee-future-cta,.hero-buttons');
-         return {theme:root.dataset.mrleeTheme,hero:rect(hero),copy:rect(copy),photo:rect(photo),actions:rect(actions),art:getComputedStyle(photo).backgroundImage,active:getComputedStyle(active).display,copyScroll:copy?.scrollHeight,copyHeight:copy?.clientHeight};
+         return {theme:root.dataset.mrleeTheme,hero:rect(hero),copy:rect(copy),photo:rect(photo),actions:rect(actions),heading:rect(active?.querySelector('h1')),art:getComputedStyle(photo).backgroundImage,active:getComputedStyle(active).display,copyScroll:copy?.scrollHeight,copyHeight:copy?.clientHeight};
        });
        console.log('HERO FULL-BLEED '+label+' '+JSON.stringify(heroAudit));
        const expectedArt=theme==='future'?'01-trang-chu-future.webp':'01-trang-chu-fresh.webp';
        if(!heroAudit.art?.includes(expectedArt))throw Error('Wrong theme cover: '+heroAudit.art);
        if(!heroAudit.photo || heroAudit.photo.height<120)throw Error('Hero cover invisible');
-       // New approved layout: image covers full hero and live text overlays its
-       // open left area; ensure the right-side people remain free of clickable text.
+       // Image spans the full frame. Fresh live content is on the left;
+       // Future live copy/buttons are on the right-hand skyline, away from learner's face.
        if(Math.abs(heroAudit.hero.x+1-heroAudit.photo.x)>3||
           Math.abs(heroAudit.hero.right-1-heroAudit.photo.right)>3||
           Math.abs(heroAudit.hero.height-heroAudit.photo.height)>3)
@@ -225,8 +225,15 @@ try{
          throw Error('Live hero text pane escaped scene edges');
        if(heroAudit.active==='none')throw Error('Hero theme copy hidden');
        if(!heroAudit.actions || heroAudit.actions.height<25)throw Error('Hero actions invisible');
-       if(device.w>1100 && heroAudit.actions.right>heroAudit.hero.x+heroAudit.hero.width*.76)
-         throw Error('Hero CTA buttons extend into the people zone on desktop');
+       if(device.w>1100 && theme==='fresh' && heroAudit.actions.right>heroAudit.hero.x+heroAudit.hero.width*.76)
+         throw Error('Fresh hero CTA escaped the left-hand safe zone');
+       if(device.w>1100 && theme==='future') {
+         const midpoint=heroAudit.hero.x+heroAudit.hero.width*.47;
+         if(heroAudit.copy.x<midpoint || heroAudit.heading?.x<midpoint || heroAudit.actions.x<midpoint)
+           throw Error('Future headline and CTA were not moved to right skyline: '+JSON.stringify(heroAudit));
+         if(heroAudit.heading?.right>heroAudit.hero.right+2 || heroAudit.actions.right>heroAudit.hero.right+2)
+           throw Error('Right-side future text/CTA clipped by hero edge: '+JSON.stringify(heroAudit));
+       }
        if(heroAudit.actions.bottom>heroAudit.hero.bottom+2)
          throw Error('Hero CTA buttons escape the photograph on mobile');
        if(heroAudit.copyScroll>heroAudit.copyHeight+5)throw Error('Hero copy clipped by its pane');
