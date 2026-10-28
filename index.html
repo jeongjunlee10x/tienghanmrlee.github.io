@@ -93,6 +93,7 @@ html[data-mrlee-v306="images"] #mainContent .feature-info {
 <link rel="stylesheet" href="assets/branding/mrlee-meme-brand.css?v=20261026-meme1" data-mrlee-brand="mascot">
 <link rel="stylesheet" href="assets/branding/home-recovery.css?v=20261027-r1" data-mrlee-home="recovery">
 <link rel="stylesheet" href="assets/branding/home-hero-split-v2.css?v=20261027-b2" data-mrlee-hero="split">
+<link rel="stylesheet" href="assets/branding/home-hero-overlay-v3.css?v=20261028-b1" data-mrlee-hero="overlay">
 </head>
 <body data-mrlee-version="MRLEE_MAIN_V30_3">
 <a class="skip-link" href="#mainContent">Tới nội dung chính</a>
@@ -115,12 +116,12 @@ html[data-mrlee-v306="images"] #mainContent .feature-info {
 <a id="mrlee-auth-nav-mobile" href="dang-nhap.html" aria-label="Đăng ký hoặc đăng nhập học viên">👤 Đăng ký / Đăng nhập</a>
 </nav></header>
 <main id="mainContent">
-<section aria-label="Ảnh bìa TIẾNG HÀN MR LEE" class="hero" data-mrlee-hero="split">
-  <!-- MRLEE HERO B: the text/actions pane and photo pane NEVER overlap. -->
+<section aria-label="Ảnh bìa TIẾNG HÀN MR LEE" class="hero mrlee-hero-overlay-v3" data-mrlee-hero="split">
+  <!-- MRLEE HERO V3: semantic text and working CTAs overlay the empty left side of the full scenic cover; faces stay right. -->
   <div class="mrlee-hero-copy-pane">
     <div class="hero-copy">
       <span class="script">Cùng MR LEE chạm tới ước mơ ♥</span>
-      <h1>DU HỌC<br><span>HÀN QUỐC</span></h1>
+      <h1>DU HỌC <span>HÀN QUỐC</span></h1>
       <p>Vững tiếng Hàn · Tự tin chinh phục giấc mơ du học.</p>
       <div class="hero-buttons">
         <button class="hero-cta" id="openContactHero" type="button">Đăng ký tư vấn <b aria-hidden="true">→</b></button>
@@ -140,7 +141,7 @@ html[data-mrlee-v306="images"] #mainContent .feature-info {
       </div>
     </div>
   </div>
-  <!-- Exactly one photograph is active per theme. No button overlays this area. -->
+  <!-- One full-bleed photograph per theme; live text buttons overlay only the safe scene area. -->
   <div class="mrlee-hero-photo-pane" role="img" aria-label="Ảnh bìa học tập và du học Hàn Quốc"></div>
 </section>
 <div class="search-strip"><form autocomplete="off" class="school-search" id="schoolSearchForm"><div class="field field-search"><label class="sr-only" for="schoolSearch">Tìm trường</label><input id="schoolSearch" placeholder="Tìm trường theo tên (Hàn / Anh / Việt)..." type="search"/><div class="suggestions" hidden="" id="searchSuggestions"></div></div><div class="field"><label class="sr-only" for="regionSelectMain">Tỉnh thành</label><select id="regionSelectMain"><option value="">Chọn tỉnh / thành phố</option></select></div><div class="field"><label class="sr-only" for="typeSelectMain">Loại trường</label><select id="typeSelectMain"><option value="">Chọn loại trường</option><option value="university">Đại học</option><option value="college">Cao đẳng</option></select></div><button class="search-button" type="submit">Tìm trường⌕</button></form>

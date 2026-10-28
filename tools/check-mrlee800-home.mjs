@@ -14,7 +14,7 @@ for(const p of pages){
  if(p==='index.html'){
   if(!html.includes('assets/branding/home-recovery.css'))errors.push('Homepage has no recovered compact stylesheet');
   for(const tag of ['id="mainContent"','class="hero"','class="feature-cards"','class="search-strip"','id="ranking"','class="journey"','id="contactDialog"','class="contact-rail"'])
-   if(!html.includes(tag))errors.push('Lost homepage feature '+tag);
+   if(tag==='class="hero"' ? !/class="hero(?:\s|\")/.test(html) : !html.includes(tag))errors.push('Lost homepage feature '+tag);
   if(!html.includes('logo-mrlee.png'))errors.push('Official logo was lost');
  }
 }
