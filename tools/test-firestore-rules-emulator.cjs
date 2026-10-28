@@ -52,6 +52,12 @@ require('firebase/compat/firestore');
   await assertFails(guest.collection(attemptPath).add(practice));
   await assertFails(unverified.collection('users/other_reader_987/practiceAttempts').add(practice));
   await assertFails(signed.collection(attemptPath).add({...practice,score:99}));
+  const stable=signed.collection(attemptPath).doc('retry-stable-workbook-attempt');
+  await assertSucceeds(stable.set(practice));
+  await assertFails(stable.set(practice)); // No duplicate updates; server read lets client confirm first save.
+  const saved=await assertSucceeds(stable.get());
+  if(!saved.exists)throw Error('Cannot recover stable Workbook attempt after duplicate submission');
+ 
 
   console.log('PASS Firestore emulator: compiled full rules, verified Workbook create/get, rejected guest, unverified user, updates/deletes and direct point writes; valid detailed + summary-only practice attempts accepted, invalid scores rejected.');
  }finally{await env.cleanup();}

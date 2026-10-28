@@ -3,6 +3,12 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const src=fs.readFileSync('learning-tracker.js','utf8');
+assert.match(src,/retry\.textContent = '↻ Thử lưu lại bài vừa làm'/,'Learner must be able to retry without redoing quiz');
+assert.match(src,/let attemptRef = null, attemptUid = ''/,'Attempt must reuse stable document ID across retries');
+assert.match(src,/setDoc\(attemptRef, /,'Persist retry to same Firestore doc');
+assert.match(src,/getDocFromServer\(attemptRef\)/,'Verify actual server write before retry');
+assert.doesNotMatch(src,/await addDoc\(collection\(db, 'users', user.uid, 'practiceAttempts'\)/,'History retry must not create a new random ID each time');
+ 
 const start=src.indexOf('async function currentVerifiedUser() {');
 const end=src.indexOf('\nfunction saveFailureMessage(',start);
 assert.ok(start>=0&&end>start,'Missing live Firebase auth check');
