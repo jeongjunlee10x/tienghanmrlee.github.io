@@ -22,6 +22,19 @@ html[data-mrlee-theme="fresh"] body.tv-body .tv-choice :is(span,strong,b,small),
   color:#193751!important;opacity:1!important;
 }
 html[data-mrlee-theme="fresh"] body.tv-body .tv-listen-transcript{color:#193751!important}
+/* Former fresh muted styles were only 3.8–4.4:1 on white / pale blue. */
+html[data-mrlee-theme="fresh"] body.tv-body .tv-muted,
+html[data-mrlee-theme="fresh"] body.tv-body .tv-source,
+html[data-mrlee-theme="fresh"] body.tv-body .tv-listen-note{
+  color:#455e79!important;opacity:1!important;
+}
+html[data-mrlee-theme="fresh"] body.tv-body .tv-metric span,
+html[data-mrlee-theme="fresh"] body.tv-body .tv-day small{
+  color:#47617e!important;opacity:1!important;
+}
+html[data-mrlee-theme="fresh"] body.tv-body .tv-audio .tv-muted{
+  color:#455d78!important;
+}
 html[data-mrlee-theme="future"] body.tv-body{
   color:#e9f4ff!important;background:#051329!important;
 }
