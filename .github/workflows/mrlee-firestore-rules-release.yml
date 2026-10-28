@@ -4,6 +4,8 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - 'learning-tracker.js'
+      - 'tools/test-firestore-rules-emulator.cjs'
       - 'firestore.rules'
       - '.github/workflows/mrlee-firestore-rules-release.yml'
   push:
