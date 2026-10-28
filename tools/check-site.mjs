@@ -11,6 +11,7 @@ const suites=[
  ['Đường dẫn của toàn bộ trang / cú pháp JS','audit-full-site.mjs'],
  ['Nút liên hệ và sức khỏe Admin','check-contact-admin.mjs'],
  ['Ảnh bìa toàn cảnh và chữ lồng ảnh','check-home-overlay.mjs'],
+ ['Học bổng và bảng xếp hạng không bị chồng lấn','check-ranking-layout.mjs'],
  ['Hình ảnh và font trong CSS','audit-css-assets.mjs'],
  ['24 bản ghi âm TOPIK thật','audit-topik-audio.mjs'],
  ['Kho giáo trình và AI trợ lý','check-mrlee-ai.mjs'],
