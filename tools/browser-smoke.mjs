@@ -279,6 +279,40 @@ try{
        if(overlap(scoreLayout.score,scoreLayout.strip))throw Error('Weekly score badge overlaps student cards');
        if(device.w>760&&overlap(scoreLayout.scholar,scoreLayout.rank))
          throw Error('Scholarship overlaps ranking panel');
+       // Firebase may be offline during CI, so inject mock VISUAL rank cards in
+       // the isolated browser to verify real card dimensions and arrows, then
+       // restore the original DOM. This NEVER writes data or publishes fake ranks.
+       const synthetic=await page.evaluate(()=>{
+         const strip=document.getElementById('rankSlider');
+         const saved=[...strip.childNodes],oldLeft=strip.scrollLeft;
+         strip.replaceChildren();
+         for(let i=0;i<7;i++){
+           const card=document.createElement('article');card.className='student-rank mrlee-rank-v304-card';
+           const pos=document.createElement('span');pos.className='position';pos.textContent='#'+(i+1);
+           const info=document.createElement('div');info.className='student-info';
+           const name=document.createElement('b');name.className='student-name';
+           name.textContent='Học viên MR LEE có họ và tên rất dài thử nghiệm '+(i+1);
+           const points=document.createElement('small');points.className='student-score';points.textContent='239 điểm';
+           info.append(name,points);card.append(pos,info);strip.append(card);
+         }
+         const rect=e=>{const b=e.getBoundingClientRect();return {left:b.left,right:b.right,top:b.top,bottom:b.bottom}};
+         const nav=document.querySelector('#ranking .rank-controls');
+         const cards=[...strip.children];
+         const output={
+           scrollable:strip.scrollWidth>strip.clientWidth+25,
+           cardHeight:cards[0].getBoundingClientRect().height,
+           cardOverflow:cards.some(c=>c.scrollHeight>c.clientHeight+3),
+           first:rect(cards[0]),scroll:rect(strip),nav:rect(nav),
+           cardCount:cards.length
+         };
+         strip.replaceChildren(...saved);strip.scrollLeft=oldLeft;
+         return output;
+       });
+       if(!synthetic.scrollable||synthetic.cardCount!==7||synthetic.cardHeight<70||synthetic.cardOverflow)
+         throw Error('Ranking cards fail responsive horizontal scrolling: '+JSON.stringify(synthetic));
+       if(synthetic.first.right>synthetic.nav.left+1)
+         throw Error('Student card overlaps carousel arrow buttons: '+JSON.stringify(synthetic));
+
 
        if(m.dupe?.visible)throw Error('Duplicated legacy feature row still visible');
        if(m.awards?.visible)throw Error('Oversized scholarship injection still visible');
