@@ -42,8 +42,25 @@ function finish(){const history=read()[selected.id]||{best:0,attempts:0};const g
  // Preserve ALL six prompts, choices, selections and explanations in Firebase for admin review.
  if(attemptReview.length===selected.questions.length){window.dispatchEvent(new CustomEvent('mrlee:practice-finished',{detail:{examId:'workbook-'+lv.value+'-'+les.value+'-'+selected.number,examTitle:'WORKBOOK · Cấp '+lv.value+' · Bài '+les.value+' · Bộ '+selected.number+' · '+selected.title,level:'sc'+lv.value,score:stats.correct,total:selected.questions.length,durationSeconds:Math.min(7200,Math.max(0,Math.round((Date.now()-attemptStart)/1000))),review:attemptReview.slice()}}));}
  save(selected.id,{best:Math.max(history.best,stats.correct),attempts:history.attempts+1,last:Date.now(),correct:stats.correct,wrong:stats.wrong,skipped:stats.skipped});
+ // A verified Spark claim uses six answer indices; never trust the browser score.
+ const sparkPayload={type:'workbook',level:Number(lv.value),day:Number(les.value),unit:Number(selected.number),
+   answers:attemptReview.map((q,i)=>({id:'q'+(i+1),selected:q.selectedIndex}))};
+
  $('workGame').innerHTML=`<h2>Hoàn thành bộ ${selected.number}: ${enc(selected.title)}</h2><div class="pro-stats"><div><strong>${stats.correct}/${selected.questions.length}</strong><small>Câu đúng</small></div><div><strong>${stats.wrong}</strong><small>Câu sai</small></div><div><strong>${stats.skipped}</strong><small>Bỏ qua</small></div><div><strong>${pct}%</strong><small>Đúng trên câu đã chấm</small></div></div><div class="pro-actions"><button id="workRepeat" class="pro-primary">Làm lại bộ này</button><button id="workReturn">Chọn bộ khác</button></div>`;
- const completed=selected;$('workRepeat').onclick=()=>start(completed);$('workReturn').onclick=()=>{$('workListPanel').scrollIntoView({behavior:'smooth'})};
+ const rewardStatus=document.createElement('p');rewardStatus.id='workbookSparkStatus';rewardStatus.setAttribute('role','status');rewardStatus.style.cssText='padding:12px;border-radius:12px;background:#eef7ff;color:#17446d;line-height:1.7';
+ $('workGame').append(rewardStatus);
+ if(stats.correct<4){rewardStatus.textContent='⭐ Chưa đạt ngưỡng Spark 4/6 câu. Học viên có thể luyện lại; không cộng điểm. Kết quả luyện tập vẫn được lưu.';}
+ else if(!window.MRLEE_SCORE_V12?.award){rewardStatus.textContent='⭐ Đã hoàn thành bài tập. Bộ tính điểm Spark chưa sẵn sàng, vui lòng kiểm tra kết nối và mở lại trang.';}
+ else{
+   rewardStatus.textContent='⭐ Đang gửi 6 đáp án cho hệ thống chấm điểm Spark (không cộng ngay trên trình duyệt)…';
+   window.MRLEE_SCORE_V12.award(sparkPayload).then(res=>{
+     if(res?.status==='queued')rewardStatus.textContent='✓ Bài đã được gửi để chấm Spark. Nếu hợp lệ, bộ này nhận theo số câu đúng (4–6 điểm); sau 2 bộ đạt trong cùng bài được thưởng thêm +3. Điểm sẽ cập nhật sau khi GitHub Actions xử lý.';
+     else if(res?.status==='already')rewardStatus.textContent='ℹ Bộ bài này đã gửi hôm nay ('+String(res.state||'đã tồn tại')+'). Mỗi bộ chỉ nhận điểm một lần trong tuần.';
+     else if(res?.status==='unverified'||res?.status==='not-signed-in')rewardStatus.textContent='ℹ Cần đăng nhập và xác minh email Firebase để được nhận điểm toàn hệ thống. Kết quả luyện tập đã lưu trên thiết bị.';
+     else rewardStatus.textContent='⚠ Chưa gửi được bài Spark: '+String(res?.message||'không rõ trạng thái')+'. Vui lòng thử lại sau.';
+   }).catch(e=>{rewardStatus.textContent='⚠ Lỗi gửi điểm Spark: '+String(e?.message||e)});
+ }
+  const completed=selected;$('workRepeat').onclick=()=>start(completed);$('workReturn').onclick=()=>{$('workListPanel').scrollIntoView({behavior:'smooth'})};
  // Refresh badges without interrupting result display.
  const h=read();$('workSummary').textContent=`Đã hoàn thành ${current().exercises.filter(e=>h[e.id]).length}/15 bộ.`;
  const buttons=$('workList').querySelectorAll('button');current().exercises.forEach((e,i)=>{let small=buttons[i]?.querySelector('small');if(small&&h[e.id])small.textContent=`6 câu · Điểm tốt nhất ${h[e.id].best}/6`});
