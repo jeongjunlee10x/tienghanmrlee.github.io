@@ -10,7 +10,7 @@ const root=full||el('aside','mlb-sidebar');root.id=full?'mrlee-public-ranking':'
 root.setAttribute('aria-label','Bảng xếp hạng toàn server');
 const head=el('div','mlb-head'),heading=el('div','mlb-title');
 heading.append(el('small','','TIẾNG HÀN MR LEE'),el(full?'h1':'h2','','🏆 Xếp hạng toàn server'));head.append(heading);
-const caption=el('p','mlb-sub','ĐIỂM ĐỘNG LỰC CŨ — khác bảng TOPIK Spark · Bằng điểm, cùng thứ hạng');
+const caption=el('p','mlb-sub','Điểm động lực cũ — khác bảng TOPIK Spark · Bằng điểm, cùng thứ hạng');
 const status=el('p','mlb-status','Đang kết nối bảng điểm…');status.setAttribute('role','status');
 const personal=el('p','mlb-personal','Đăng nhập để đánh dấu thứ hạng của bạn.');
 const search=el('input','mlb-input');search.type='search';search.placeholder='Tìm tên học viên…';search.setAttribute('aria-label','Tìm tên trong bảng xếp hạng toàn server');
