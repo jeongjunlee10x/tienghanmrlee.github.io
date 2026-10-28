@@ -76,6 +76,9 @@ on:
       - 'index.html'
       - 'dang-ky-tu-van.html'
       - 'quy-tac-diem-mrlee.html'
+      - 'assets/mrlee-score-v12/**'
+      - 'scripts/mrlee-score-spark/**'
+      - 'tools/test-score-policy.cjs'
       - 'tuyen-sinh.html'
       - 'tools/mrlee-next-qa.mjs'
       - 'tools/check-mrlee-v4.mjs'
@@ -143,3 +146,5 @@ jobs:
         run: node tools/check-mrlee800-home.mjs
       - name: Kiểm toán cơ chế điểm thưởng, chỉ đọc
         run: node tools/audit-mrlee-rewards.mjs
+      - name: Kiểm thử thang điểm Spark thực tế và thông báo công khai
+        run: node tools/test-score-policy.cjs
