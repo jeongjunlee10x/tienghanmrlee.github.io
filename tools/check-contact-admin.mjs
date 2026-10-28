@@ -21,7 +21,7 @@ assert.match(js,/getElementById\('mrleeContactDock'\)/,'Avoid duplicates on page
 for(const channel of ['call','zalo','messenger','tiktok','email','kakao']){
   assert.ok(js.includes(channel),'Missing channel: '+channel);
 }
-assert.match(js,/https:\/\/www\.tiktok\.com\/@hankuc_chemi/,'TikTok link must match user's official URL');
+assert.match(js,/https:\/\/www\.tiktok\.com\/@hankuc_chemi/,'TikTok link must match the provided profile URL');
 assert.match(css,/data-channel="tiktok"/,'TikTok contact must have its own icon treatment');
 assert.match(home,/href="https:\/\/www\.tiktok\.com\/@hankuc_chemi"/,'TikTok should remain available as a fallback link');
 assert.match(css,/#mrleeContactDock\[data-open="true"\]/,'Mobile expanded UI missing');
