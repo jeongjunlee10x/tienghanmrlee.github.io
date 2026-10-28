@@ -5,7 +5,7 @@
  */
 import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js';
 import { getAuth, reload } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js';
-import { getFirestore, addDoc, collection, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
+import { getFirestore, addDoc, collection, doc, setDoc, getDocFromServer, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js';
 import { firebaseConfig, isFirebaseConfigured } from './firebase-config.js';
 
 const page = location.pathname.split('/').pop().toLowerCase();
@@ -77,7 +77,7 @@ async function recordEvent(kind, title, detail = '') {
   }
 }
 
-function saveFeedback(message, isError = false) {
+function saveFeedback(message, isError = false, onRetry = null) {
   const box = document.getElementById('results') || document.getElementById('result-box') || document.getElementById('workGame') || document.getElementById('v11App') || document.getElementById('v10-room') || document.getElementById('v10-app');
   if (!box) return;
   let output = document.getElementById('mrlee-save-status');
@@ -90,6 +90,15 @@ function saveFeedback(message, isError = false) {
   }
   output.replaceChildren();
   output.textContent = message;
+  if (isError && typeof onRetry === 'function') {
+    const retry = document.createElement('button');
+    retry.type = 'button';
+    retry.textContent = '↻ Thử lưu lại bài vừa làm';
+    retry.setAttribute('aria-label', 'Thử lưu lại lịch sử bài tập vừa làm mà không cần trả lời lại');
+    retry.style.cssText = 'display:inline-block;margin:10px 0 0 8px;padding:9px 14px;border:1px solid currentColor;border-radius:10px;color:inherit;background:#fff;cursor:pointer;font:inherit;font-weight:700;';
+    retry.addEventListener('click', () => {retry.disabled = true;void onRetry();}, {once:true});
+    output.appendChild(retry);
+  }
   if (isError) {
     output.style.borderColor = '#efb6b2';
     output.style.color = '#9d2820';
@@ -140,22 +149,44 @@ window.addEventListener('mrlee:practice-finished', async event => {
   const durationSeconds = Number.isInteger(data.durationSeconds)
     ? Math.max(0, Math.min(7200, data.durationSeconds)) : 0;
   if (!/^[a-z0-9-]+$/.test(examId) || !examTitle || !['sc1', 'sc2', 'sc3', 'sc4', 'sc5', 'sc6', 'tc1', 'general'].includes(level)) return;
-  saveFeedback('Đang lưu điểm luyện tập vào tài khoản...');
-  try {
-    const user = await currentVerifiedUser();
-    if (!user) throw new Error('Bạn cần đăng nhập và xác minh email để lưu điểm.');
-    await addDoc(collection(db, 'users', user.uid, 'practiceAttempts'), {
-      examId, examTitle, level, score, total, durationSeconds,
-      source: 'client_practice', createdAt: serverTimestamp(),
-      ...(reviewJson ? {reviewJson} : {})
-    });
-    saveFeedback(reviewJson || !Array.isArray(data.review)
-      ? 'Đã lưu điểm luyện tập vào tài khoản.'
-      : 'Đã lưu điểm, nhưng bài làm chi tiết quá lớn nên chưa thể đồng bộ đầy đủ.');
-  } catch (error) {
-    console.warn('Không lưu được điểm luyện tập:', error);
-    saveFeedback(saveFailureMessage(error), true);
+  // Giữ một ID ổn định cho lượt làm này: thử lại không tạo nhiều bản ghi.
+  // Không lưu thông tin nhạy cảm trong localStorage.
+  let attemptRef = null, attemptUid = '';
+  async function saveThisAttempt() {
+    saveFeedback('Đang lưu lịch sử và bài làm chi tiết vào tài khoản...');
+    try {
+      const user = await currentVerifiedUser();
+      if (!user) throw new Error('Bạn cần đăng nhập và xác minh email để lưu điểm.');
+      if (attemptUid && attemptUid !== user.uid) throw new Error('Đã đổi tài khoản; không thể chuyển bài làm sang tài khoản khác.');
+      if (!attemptRef) {
+        attemptRef = doc(collection(db, 'users', user.uid, 'practiceAttempts'));
+        attemptUid = user.uid;
+      }
+      await setDoc(attemptRef, {
+        examId, examTitle, level, score, total, durationSeconds,
+        source: 'client_practice', createdAt: serverTimestamp(),
+        ...(reviewJson ? {reviewJson} : {})
+      });
+      saveFeedback(reviewJson || !Array.isArray(data.review)
+        ? 'Đã lưu lịch sử luyện tập và kết quả bài làm lên Firebase.'
+        : 'Đã lưu kết quả, nhưng chưa thể đồng bộ đáp án chi tiết vì dữ liệu quá lớn.');
+    } catch (error) {
+      console.warn('Không lưu được lịch sử luyện tập:', error?.code || error?.message);
+      // If the server wrote the fixed-ID attempt but acknowledgement was lost,
+      // verify the exact document remotely before suggesting any retry.
+      if (attemptRef && error?.code === 'permission-denied') {
+        try {
+          const verified = await getDocFromServer(attemptRef);
+          if (verified.exists()) {
+            saveFeedback('Đã xác nhận Firebase đã lưu bài làm này. Không cần nộp lại.');
+            return;
+          }
+        } catch (_) { /* History read may also be offline/denied. */ }
+      }
+      saveFeedback(saveFailureMessage(error), true, saveThisAttempt);
+    }
   }
+  await saveThisAttempt();
 });
 
 // Ghi nhận mở trang một lần khi truy cập; không ghi nhận thông tin nhận dạng.
