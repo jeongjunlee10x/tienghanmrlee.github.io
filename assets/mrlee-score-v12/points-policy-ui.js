@@ -25,7 +25,7 @@ async function init(){
    ['Số dư ban đầu của ví cũ',l.initial+' điểm (không phải thưởng thi TOPIK)'],
    ['Đăng nhập mới theo ngày UTC','+'+l.loginBase+' điểm; mỗi ngày tối đa 1 lần'],
    ['Mốc chuỗi ngày liên tiếp','Ngày 3: +'+l.streakBonuses['3']+'; ngày 7: +'+l.streakBonuses['7']+'; ngày 14: +'+l.streakBonuses['14']+'; ngày 30: +'+l.streakBonuses['30']+' (cộng thêm điểm cơ bản, chỉ đúng ngày đạt mốc)'],
-   ['Hoàn thành bài học / bài nói','+'+l.lessonPoint+' điểm/mã bài duy nhất; bài nói nhận khi đạt ≥ '+l.speakingMinimumScore+'%'],
+   ['Hoàn thành bài học, luyện nói hoặc Workbook đạt ít nhất 4/6 câu','+'+l.lessonPoint+' điểm/mã bài duy nhất; bài nói nhận khi đạt ≥ '+l.speakingMinimumScore+'%'],
    ['Phục hồi ví điểm','+'+l.recoveryPoints+' điểm khi số dư dưới '+l.recoveryBelowBalance+' và bài phục hồi đạt ≥ '+l.recoveryMinimumScore+'%']
   ];
   const body=old.querySelector('tbody');body.replaceChildren();for(const row of rows){let tr=document.createElement('tr');for(const value of row){let td=document.createElement('td');td.textContent=value;tr.append(td)}body.append(tr)}
