@@ -1,0 +1,51 @@
+name: MR LEE - Trien khai Firestore Rules sau kiem thu Workbook
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'firestore.rules'
+      - '.github/workflows/mrlee-firestore-rules-release.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'firestore.rules'
+      - '.github/workflows/mrlee-firestore-rules-release.yml'
+permissions:
+  contents: read
+concurrency:
+  group: mrlee-firestore-rules-release
+  cancel-in-progress: false
+jobs:
+  verify-and-release:
+    if: github.repository == 'jeongjunlee10x/tienghanmrlee.github.io'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Verify all 90 lessons, point thresholds and ledger rules (read-only)
+        run: node tools/test-score-policy.cjs
+      - name: Validate complete Firestore rules in isolated free emulator
+        run: npx --yes firebase-tools@14.16.0 emulators:exec --only firestore --project demo-mrlee-points -- "node tools/test-score-policy.cjs"
+      - name: Prepare service account safely
+        if: github.event_name != 'pull_request'
+        env:
+          MRLEE_FIREBASE_SERVICE_ACCOUNT: ${{ secrets.MRLEE_FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          umask 077
+          node -e "const fs=require('node:fs');const p=JSON.parse(process.env.MRLEE_FIREBASE_SERVICE_ACCOUNT||'{}');if(p.project_id!=='tieng-han-mr-lee'||!p.private_key)throw Error('Firebase project/credentials verification failed');fs.writeFileSync(process.env.RUNNER_TEMP+'/mrlee-scoring-deploy.json',JSON.stringify(p),{mode:0o600});"
+      - name: Deploy ONLY firestore.rules to Firebase Spark (no Functions, no Blaze)
+        if: github.event_name != 'pull_request'
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/mrlee-scoring-deploy.json
+        run: npx --yes firebase-tools@14.16.0 deploy --only firestore:rules --project tieng-han-mr-lee --non-interactive
+      - name: Secure cleanup of temporary service-account file
+        if: always()
+        run: rm -f "${{ runner.temp }}/mrlee-scoring-deploy.json"

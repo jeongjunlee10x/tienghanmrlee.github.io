@@ -545,7 +545,73 @@ service cloud.firestore {
       }
       function goodActivity() {
         let d = request.resource.data;
-        return (d.type == 'attendance' && d.activityKey == 'attendance' && d.level == 0 && d.day == 0 && d.format == '' && d.answers.size() == 0)
+        return (d.type == 'workbook' && d.level is int && d.level >= 1 && d.level <= 6
+          && d.day is int && d.day >= 1 && d.day <= 15 && d.format is string
+          && d.format.matches('^([1-9]|1[0-5])
+          || ((d.type == 'quiz' || d.type == 'listening') && (d.level == 1 || d.level == 2) && d.day >= 1 && d.day <= 60 && d.format == '' && d.answers.size() <= 20
+              && d.activityKey.matches('^(quiz|listening)-[12]-([1-9]|[1-5][0-9]|60)$'))
+          || ((d.type == 'mock' || d.type == 'mock-listening' || d.type == 'mock-reading') && (d.level == 1 || d.level == 2) && d.day == 0 && (d.format == 'PBT' || d.format == 'IBT') && d.answers.size() <= 110
+              && d.activityKey.matches('^mock(-listening|-reading)?-[12]-(PBT|IBT)$'));
+      }
+      allow get: if verified() && resource.data.uid == request.auth.uid;
+      allow list: if false;
+      allow create: if verified()
+        && request.resource.data.keys().hasAll(['uid','dayKey','activityKey','type','level','day','format','answers','status','createdAt'])
+        && request.resource.data.keys().hasOnly(['uid','dayKey','activityKey','type','level','day','format','answers','status','createdAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.dayKey is string
+        && request.resource.data.dayKey.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+        && request.resource.data.activityKey is string
+        && request.resource.data.type is string
+        && request.resource.data.level is int
+        && request.resource.data.day is int
+        && request.resource.data.format is string
+        && request.resource.data.answers is list
+        && request.resource.data.status == 'pending'
+        && request.resource.data.createdAt == request.time
+        && entry == request.auth.uid + '-' + request.resource.data.dayKey + '-' + request.resource.data.activityKey
+        && goodActivity();
+      allow update, delete: if false;
+    }
+    // MRLEE SCORE SPARK V13 - END
+
+
+  }
+}
+) && d.answers is list && d.answers.size() == 6
+          && d.activityKey.matches('^workbook-[1-6]-([1-9]|1[0-5])-([1-9]|1[0-5])
+          || ((d.type == 'quiz' || d.type == 'listening') && (d.level == 1 || d.level == 2) && d.day >= 1 && d.day <= 60 && d.format == '' && d.answers.size() <= 20
+              && d.activityKey.matches('^(quiz|listening)-[12]-([1-9]|[1-5][0-9]|60)$'))
+          || ((d.type == 'mock' || d.type == 'mock-listening' || d.type == 'mock-reading') && (d.level == 1 || d.level == 2) && d.day == 0 && (d.format == 'PBT' || d.format == 'IBT') && d.answers.size() <= 110
+              && d.activityKey.matches('^mock(-listening|-reading)?-[12]-(PBT|IBT)$'));
+      }
+      allow get: if verified() && resource.data.uid == request.auth.uid;
+      allow list: if false;
+      allow create: if verified()
+        && request.resource.data.keys().hasAll(['uid','dayKey','activityKey','type','level','day','format','answers','status','createdAt'])
+        && request.resource.data.keys().hasOnly(['uid','dayKey','activityKey','type','level','day','format','answers','status','createdAt'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.dayKey is string
+        && request.resource.data.dayKey.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+        && request.resource.data.activityKey is string
+        && request.resource.data.type is string
+        && request.resource.data.level is int
+        && request.resource.data.day is int
+        && request.resource.data.format is string
+        && request.resource.data.answers is list
+        && request.resource.data.status == 'pending'
+        && request.resource.data.createdAt == request.time
+        && entry == request.auth.uid + '-' + request.resource.data.dayKey + '-' + request.resource.data.activityKey
+        && goodActivity();
+      allow update, delete: if false;
+    }
+    // MRLEE SCORE SPARK V13 - END
+
+
+  }
+}
+))
+          || (d.type == 'attendance' && d.activityKey == 'attendance' && d.level == 0 && d.day == 0 && d.format == '' && d.answers.size() == 0)
           || ((d.type == 'quiz' || d.type == 'listening') && (d.level == 1 || d.level == 2) && d.day >= 1 && d.day <= 60 && d.format == '' && d.answers.size() <= 20
               && d.activityKey.matches('^(quiz|listening)-[12]-([1-9]|[1-5][0-9]|60)$'))
           || ((d.type == 'mock' || d.type == 'mock-listening' || d.type == 'mock-reading') && (d.level == 1 || d.level == 2) && d.day == 0 && (d.format == 'PBT' || d.format == 'IBT') && d.answers.size() <= 110

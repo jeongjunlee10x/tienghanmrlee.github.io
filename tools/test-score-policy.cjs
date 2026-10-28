@@ -3,8 +3,11 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const {score,weekOf,vnDate,POLICY}=require('../scripts/mrlee-score-spark/points-v12-core.cjs');
-assert.equal(POLICY.version,'MRLEE-SPARK-2026-10-28');
+const {execFileSync}=require('node:child_process');
+for(const file of ['scripts/mrlee-score-spark/runner.cjs','mrlee-bai-tap-pro.js','mrlee-lesson-page.js','assets/mrlee-score-v12/widget.js','assets/mrlee-score-v12/points-policy-ui.js'])execFileSync(process.execPath,['--check',file],{stdio:'pipe'});
+assert.equal(POLICY.version,'MRLEE-SPARK-2026-10-28-LESSON');
 const cases=[
+ ['workbook',3,6,0],['workbook',4,6,4],['workbook',5,6,5],['workbook',6,6,6],
  ['quiz',5,10,0],['quiz',6,10,7],['quiz',8,10,10],['quiz',10,10,12],
  ['listening',5,10,0],['listening',6,10,12],['listening',9,10,18],['listening',10,10,20],
  ['mock',24,50,0],['mock',25,50,20],['mock',50,50,40],
@@ -22,8 +25,34 @@ assert.equal(POLICY.types.listening.maxPoints,20);
 assert.equal(POLICY.types.mock.maxPoints,40);
 for(const type of ['quiz','listening','mock','mock-listening','mock-reading'])assert.ok(POLICY.types[type].threshold>0);
 assert.equal(POLICY.types.attendance.maxPoints,0);
+assert.equal(POLICY.types.workbook.maxPoints,6);
+assert.equal(POLICY.lessonCompletion.setsRequired,2);
+assert.equal(POLICY.lessonCompletion.bonusPoints,3);
+const catalog=require('../mrlee-pro-lessons.json');
+let units=0;
+for(let level=1;level<=6;level++)for(let lesson=1;lesson<=15;lesson++){
+ const entry=catalog[level+'-'+String(lesson).padStart(2,'0')];
+ assert.ok(entry,'Missing Workbook for lesson '+level+'/'+lesson);
+ assert.equal(entry.exercises?.length,15,'Each lesson has 15 independent Workbook sets');
+ for(let i=0;i<15;i++){
+  const set=entry.exercises[i];assert.equal(Number(set.number),i+1,'Unit numbering must match submitted format');
+  assert.equal(set.questions?.length,6,'Six answer items per unit are required');
+  set.questions.forEach(q=>{assert.ok(Number.isSafeInteger(q.answer)&&Array.isArray(q.options)&&q.answer>=0&&q.answer<q.options.length,'Invalid answer key in Workbook');});
+  units++;
+ }
+}
+assert.equal(units,1350);
 const runner=fs.readFileSync('scripts/mrlee-score-spark/runner.cjs','utf8');
 const rules=fs.readFileSync('firestore.rules','utf8');
+const workClient=fs.readFileSync('mrlee-bai-tap-pro.js','utf8');
+const scoreWidget=fs.readFileSync('assets/mrlee-score-v12/widget.js','utf8');
+assert.match(workClient,/type:'workbook'/,'Workbook page must send actual answers to Spark queue');
+assert.match(scoreWidget,/type==='workbook'/,'Spark queue must recognize lesson activity');
+assert.match(rules,/d.type == 'workbook'/,'Firestore security rules must permit bounded Workbook requests');
+assert.match(runner,/function workbookExpected\(/,'Server must grade the real question catalog');
+assert.match(runner,/completionBonus/,'Verified two-set lesson completion bonus must be applied once');
+
+
 const web=fs.readFileSync('quy-tac-diem-mrlee.html','utf8');
 const client=fs.readFileSync('assets/mrlee-score-v12/widget.js','utf8');
 assert.match(runner,/policyVersion:POLICY\.version/);

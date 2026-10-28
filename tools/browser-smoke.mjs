@@ -71,7 +71,7 @@ try{
     await loaded.waitFor({state:'visible',timeout:10000});
     await p.waitForFunction(()=>document.querySelector('#mrlee-policy-loaded')?.textContent?.includes('Đã đồng bộ'),null,{timeout:12000});
     const values=await p.locator('#mrleePolicyTable tbody tr').evaluateAll(rows=>rows.map(r=>r.cells[2].textContent));
-    if(values[0]!=='Tối đa 12 điểm'||values[1]!=='Tối đa 20 điểm'||values[2]!=='Tối đa 40 điểm')throw Error('Published scoring thresholds differ from live policy JSON');
+    if(values[0]!=='Tối đa 6 điểm'||values[1]!=='Tối đa 12 điểm'||values[2]!=='Tối đa 20 điểm'||values[3]!=='Tối đa 40 điểm')throw Error('Published scoring thresholds differ from live policy JSON');
     await p.locator('#mrleePolicyType').selectOption('listening');
     await p.locator('#mrleePolicyCorrect').fill('9');
     await p.locator('#mrleePolicyTotal').fill('10');

@@ -3,7 +3,7 @@
 const $=s=>document.querySelector(s);
 const scriptUrl=document.currentScript?.src||new URL('assets/mrlee-score-v12/points-policy-ui.js',location.href).href;
 const formatPercent=n=>Math.round(100*n)+'%';
-const keys=['quiz','listening','mock','mock-listening','mock-reading','attendance'];
+const keys=['workbook','quiz','listening','mock','mock-listening','mock-reading','attendance'];
 function set(element,value){if(element)element.textContent=String(value)}
 async function init(){
  let policy;
