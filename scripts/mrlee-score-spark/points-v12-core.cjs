@@ -17,13 +17,13 @@ function weekOf(date = new Date()) {
   return `${isoYear}-W${String(no).padStart(2, '0')}`;
 }
 function weekBefore(now = new Date()) { return weekOf(new Date(now.valueOf() - 7 * 86400000)); }
+const POLICY = require('../../assets/mrlee-score-v12/points-policy.json');
+// Server uses exactly the same versioned point schedule shown to learners.
 function score(type, correct, total) {
-  if (type === 'attendance') return 0;
-  const pc = total > 0 ? correct / total : 0;
-  if (type === 'quiz') return pc < .6 ? 0 : Math.min(12, Math.round(12 * pc));
-  if (type === 'listening') return pc < .6 ? 0 : Math.min(20, Math.round(20 * pc));
-  if (type === 'mock') return pc < .5 ? 0 : Math.min(40, Math.round(40 * pc));
-  if (type === 'mock-listening' || type === 'mock-reading') return pc < .6 ? 0 : Math.min(12, Math.round(12 * pc));
-  return 0;
+  const cfg=POLICY.types[type];
+  if(!cfg || !Number.isSafeInteger(correct) || !Number.isSafeInteger(total) ||
+     total<=0 || correct<0 || correct>total || cfg.maxPoints<=0)return 0;
+  const ratio=correct/total;
+  return ratio<cfg.threshold?0:Math.min(cfg.maxPoints,Math.round(cfg.maxPoints*ratio));
 }
-module.exports = { vnDate, weekOf, weekBefore, score };
+module.exports = { vnDate, weekOf, weekBefore, score, POLICY };
