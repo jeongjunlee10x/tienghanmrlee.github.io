@@ -3,7 +3,7 @@
 const crypto = require('node:crypto');
 const admin = require('firebase-admin');
 const keys = require('./v12-answer-keys.json');
-const {vnDate, weekOf, score} = require('./points-v12-core.cjs');
+const {vnDate, weekOf, score, POLICY} = require('./points-v12-core.cjs');
 const privateKey = process.env.MRLEE_FIREBASE_SERVICE_ACCOUNT;
 if (!privateKey) { console.error('Thieu GitHub Secret MRLEE_FIREBASE_SERVICE_ACCOUNT. Khong cham diem.'); process.exit(3); }
 let creds;
@@ -82,10 +82,10 @@ async function settle(ref,payload) {
     const [existing,w,a]=await Promise.all([tx.get(event),tx.get(weekly),tx.get(lifetime)]);
     if(existing.exists){tx.update(ref,{status:'already',correct:g.grade.correct,total:g.grade.total,processedAt:timestamp()});return;}
     const alias=typeof a.data()?.alias==='string' ? a.data().alias : 'Học viên '+d.uid.slice(0,6).toUpperCase();
-    tx.create(event,{week:g.week,type:g.type,item:g.item,correct:g.grade.correct,total:g.grade.total,points:g.points,source:'spark-github-actions',createdAt:timestamp()});
+    tx.create(event,{week:g.week,type:g.type,item:g.item,correct:g.grade.correct,total:g.grade.total,points:g.points,source:'spark-github-actions',policyVersion:POLICY.version,createdAt:timestamp()});
     tx.set(weekly,{uid:d.uid,alias,points:(Number(w.data()?.points)||0)+g.points,updatedAt:timestamp()},{merge:true});
     tx.set(lifetime,{uid:d.uid,alias,points:(Number(a.data()?.points)||0)+g.points,updatedAt:timestamp()},{merge:true});
-    tx.update(ref,{status:'saved',awarded:g.points,correct:g.grade.correct,total:g.grade.total,processedAt:timestamp()});
+    tx.update(ref,{status:'saved',awarded:g.points,correct:g.grade.correct,total:g.grade.total,policyVersion:POLICY.version,processedAt:timestamp()});
   });
 }
 async function buildReport(week,status) {

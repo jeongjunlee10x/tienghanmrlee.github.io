@@ -1,0 +1,55 @@
+{
+  "version": "MRLEE-SPARK-2026-10-28",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "weekStarts": "Monday 00:00 Asia/Ho_Chi_Minh",
+  "weekEnds": "Sunday 23:59:59 Asia/Ho_Chi_Minh",
+  "rounding": "nearest-integer",
+  "oneRewardPer": "uid + week + type + lesson-or-exam ID",
+  "types": {
+    "quiz": {
+      "label": "Quiz TOPIK theo ngày",
+      "threshold": 0.6,
+      "maxPoints": 12
+    },
+    "listening": {
+      "label": "Nghe TOPIK theo ngày",
+      "threshold": 0.6,
+      "maxPoints": 20
+    },
+    "mock": {
+      "label": "Thi thử TOPIK tổng hợp",
+      "threshold": 0.5,
+      "maxPoints": 40
+    },
+    "mock-listening": {
+      "label": "Thi thử riêng phần nghe",
+      "threshold": 0.6,
+      "maxPoints": 12
+    },
+    "mock-reading": {
+      "label": "Thi thử riêng phần đọc",
+      "threshold": 0.6,
+      "maxPoints": 12
+    },
+    "attendance": {
+      "label": "Điểm danh Spark / mở trang",
+      "threshold": 1,
+      "maxPoints": 0
+    }
+  },
+  "legacy": {
+    "initial": 100,
+    "loginBase": 2,
+    "streakBonuses": {
+      "3": 1,
+      "7": 3,
+      "14": 5,
+      "30": 8
+    },
+    "lessonPoint": 1,
+    "speakingMinimumScore": 60,
+    "recoveryMinimumScore": 65,
+    "recoveryPoints": 15,
+    "recoveryBelowBalance": 20
+  }
+}

@@ -17,7 +17,8 @@ const suites=[
  ['Trang chủ / Admin Smart','check-mrlee-smart.mjs'],
  ['Giao diện trang con V4','check-mrlee-v4.mjs'],
  ['Nút một màn hình V5','check-mrlee-v5.mjs'],
- ['Điểm thưởng (kiểm toán chỉ đọc)','audit-mrlee-rewards.mjs']
+ ['Điểm thưởng (kiểm toán chỉ đọc)','audit-mrlee-rewards.mjs'],
+ ['Thang điểm Spark và quy tắc công khai','test-score-policy.cjs']
 ];
 let failures=0;
 for(const [title,file] of suites){

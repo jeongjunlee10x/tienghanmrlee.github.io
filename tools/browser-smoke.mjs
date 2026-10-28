@@ -66,6 +66,18 @@ try{
     if(!publicConfig)throw Error('Admin configuration/login form is not accessible');
     if(await p.locator('#mrleeContactDock').count())throw Error('Marketing contact dock must not obscure private Admin');
   }},
+  {file:'quy-tac-diem-mrlee.html',check:async p=>{
+    const loaded=p.locator('#mrlee-policy-loaded');
+    await loaded.waitFor({state:'visible',timeout:10000});
+    await p.waitForFunction(()=>document.querySelector('#mrlee-policy-loaded')?.textContent?.includes('Đã đồng bộ'),null,{timeout:12000});
+    const values=await p.locator('#mrleePolicyTable tbody tr').evaluateAll(rows=>rows.map(r=>r.cells[2].textContent));
+    if(values[0]!=='Tối đa 12 điểm'||values[1]!=='Tối đa 20 điểm'||values[2]!=='Tối đa 40 điểm')throw Error('Published scoring thresholds differ from live policy JSON');
+    await p.locator('#mrleePolicyType').selectOption('listening');
+    await p.locator('#mrleePolicyCorrect').fill('9');
+    await p.locator('#mrleePolicyTotal').fill('10');
+    const preview=await p.locator('#mrleePolicyEstimate').textContent();
+    if(!preview.includes('18 điểm Spark'))throw Error('Score calculator gives an incorrect listening award: '+preview);
+  }},
   {file:'ai-tro-ly.html',check:async p=>{
     await p.locator('#aiQuery').fill('학교');
     await p.locator('#aiSubmit').click();
