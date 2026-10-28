@@ -3,6 +3,7 @@
 const crypto = require('node:crypto');
 const admin = require('firebase-admin');
 const keys = require('./v12-answer-keys.json');
+const workbook = require('../../mrlee-pro-lessons.json'); // The actual 90-lesson / 15-set exercise catalog.
 const {vnDate, weekOf, score, POLICY} = require('./points-v12-core.cjs');
 const privateKey = process.env.MRLEE_FIREBASE_SERVICE_ACCOUNT;
 if (!privateKey) { console.error('Thieu GitHub Secret MRLEE_FIREBASE_SERVICE_ACCOUNT. Khong cham diem.'); process.exit(3); }
@@ -38,6 +39,18 @@ function mockExpected(level,format,mode) {
   if(mode==='mock-reading') return reading.slice(0,20);
   return null;
 }
+function workbookExpected(level,lesson,setNumber) {
+  const entry=workbook[level+'-'+String(lesson).padStart(2,'0')];
+  const units=entry?.exercises;
+  const unit=Array.isArray(units)?units[setNumber-1]:null;
+  if(!unit||Number(unit.number)!==setNumber||!Array.isArray(unit.questions)||unit.questions.length!==6)
+    throw Error('Bo Workbook khong hop le');
+  return unit.questions.map((q,i)=>{
+    if(!Number.isSafeInteger(q.answer)||!Array.isArray(q.options)||q.answer<0||q.answer>=q.options.length)
+      throw Error('Dap an Workbook khong hop le');
+    return {id:'q'+(i+1),answer:q.answer,choices:q.options.length};
+  });
+}
 function analyze(data,ts) {
   const date=new Date(ts.toMillis());
   if(vnDate(date)!==data.dayKey) throw Error('Ngay gui khong khop gio may chu');
@@ -52,6 +65,17 @@ function analyze(data,ts) {
     if(!required) throw Error('Khong tim thay bo dap an cho ngay hoc');
     grade=hasValidAnswers(required,data.answers);
     item=`topik-${level}-${day}-${type}`;
+  } else if(type==='workbook') {
+    const setNumber=Number(format);
+    if(!Number.isSafeInteger(level)||level<1||level>6||
+      !Number.isSafeInteger(day)||day<1||day>15||
+      !/^(?:[1-9]|1[0-5])$/.test(String(format))||
+      !Number.isSafeInteger(setNumber)||setNumber<1||setNumber>15||
+      data.activityKey!==`workbook-${level}-${day}-${setNumber}`)
+      throw Error('Sai ma Workbook');
+    const required=workbookExpected(level,day,setNumber);
+    grade=hasValidAnswers(required,data.answers);
+    item=`lesson-${level}-${day}-workbook-${setNumber}`;
   } else if(['mock','mock-listening','mock-reading'].includes(type)) {
     if(![1,2].includes(level)||!['PBT','IBT'].includes(format)||data.activityKey!==`${type}-${level}-${format}`) throw Error('Sai ma de thi');
     const required=mockExpected(level,format,type);
@@ -60,7 +84,8 @@ function analyze(data,ts) {
     item=`topik-${level}-${format}-${type}`;
   } else throw Error('Loai bai khong ho tro');
   if(!grade) throw Error('Dap an gui len khong hop le');
-  return {week:weekOf(date),type,item,grade,points:score(type,grade.correct,grade.total)};
+  return {week:weekOf(date),type,item,grade,points:score(type,grade.correct,grade.total),
+    ...(type==='workbook'?{lessonId:`sc${level}-${String(day).padStart(2,'0')}`,setNumber:Number(format)}:{})};
 }
 async function settle(ref,payload) {
   await db.runTransaction(async tx=>{
@@ -79,13 +104,22 @@ async function settle(ref,payload) {
     const event=db.doc(`mrleeV12Ledger/${d.uid}/events/${eventId}`);
     const weekly=db.doc(`mrleeV12Weekly/${g.week}/members/${d.uid}`);
     const lifetime=db.doc(`mrleeV12AllTime/${d.uid}`);
-    const [existing,w,a]=await Promise.all([tx.get(event),tx.get(weekly),tx.get(lifetime)]);
+    const mastery=g.lessonId?db.doc(`mrleeV12LessonProgress/${g.week}/members/${d.uid}/lessons/${g.lessonId}`):null;
+    const [existing,w,a,priorMastery]=await Promise.all([tx.get(event),tx.get(weekly),tx.get(lifetime),mastery?tx.get(mastery):Promise.resolve(null)]);
     if(existing.exists){tx.update(ref,{status:'already',correct:g.grade.correct,total:g.grade.total,processedAt:timestamp()});return;}
+    const previousSets=Array.isArray(priorMastery?.data()?.passedSets)?priorMastery.data().passedSets.filter(x=>Number.isInteger(x)&&x>=1&&x<=15):[];
+    const nextSets=g.lessonId?[...new Set([...previousSets,g.setNumber])].sort((x,y)=>x-y):[];
+    const alreadyBonus=priorMastery?.data()?.bonusClaimed===true;
+    const completionBonus=g.lessonId&&!alreadyBonus&&nextSets.length>=POLICY.lessonCompletion.setsRequired?POLICY.lessonCompletion.bonusPoints:0;
+    const awardPoints=g.points+completionBonus;
     const alias=typeof a.data()?.alias==='string' ? a.data().alias : 'Học viên '+d.uid.slice(0,6).toUpperCase();
-    tx.create(event,{week:g.week,type:g.type,item:g.item,correct:g.grade.correct,total:g.grade.total,points:g.points,source:'spark-github-actions',policyVersion:POLICY.version,createdAt:timestamp()});
-    tx.set(weekly,{uid:d.uid,alias,points:(Number(w.data()?.points)||0)+g.points,updatedAt:timestamp()},{merge:true});
-    tx.set(lifetime,{uid:d.uid,alias,points:(Number(a.data()?.points)||0)+g.points,updatedAt:timestamp()},{merge:true});
-    tx.update(ref,{status:'saved',awarded:g.points,correct:g.grade.correct,total:g.grade.total,policyVersion:POLICY.version,processedAt:timestamp()});
+    tx.create(event,{week:g.week,type:g.type,item:g.item,correct:g.grade.correct,total:g.grade.total,points:awardPoints,
+      activityPoints:g.points,completionBonus,lessonId:g.lessonId||'',source:'spark-github-actions',policyVersion:POLICY.version,createdAt:timestamp()});
+    if(mastery)tx.set(mastery,{uid:d.uid,lessonId:g.lessonId,week:g.week,passedSets:nextSets,bonusClaimed:alreadyBonus||completionBonus>0,updatedAt:timestamp()},{merge:true});
+    tx.set(weekly,{uid:d.uid,alias,points:(Number(w.data()?.points)||0)+awardPoints,updatedAt:timestamp()},{merge:true});
+    tx.set(lifetime,{uid:d.uid,alias,points:(Number(a.data()?.points)||0)+awardPoints,updatedAt:timestamp()},{merge:true});
+    tx.update(ref,{status:'saved',awarded:awardPoints,activityPoints:g.points,completionBonus,
+      correct:g.grade.correct,total:g.grade.total,policyVersion:POLICY.version,processedAt:timestamp()});
   });
 }
 async function buildReport(week,status) {
