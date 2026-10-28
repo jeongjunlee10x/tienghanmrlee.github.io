@@ -12,6 +12,8 @@ on:
       - 'assets/mrlee-score-v12/**'
       - 'scripts/mrlee-score-spark/**'
       - 'tools/test-score-policy.cjs'
+      - 'learning-tracker.js'
+      - 'tools/test-learning-tracker-auth.cjs'
       - 'assets/mrlee-v2/**'
       - 'assets/mrlee-ai/v2/**'
       - 'assets/mrlee-ai/v3/**'
@@ -63,6 +65,8 @@ on:
       - 'assets/mrlee-score-v12/**'
       - 'scripts/mrlee-score-spark/**'
       - 'tools/test-score-policy.cjs'
+      - 'learning-tracker.js'
+      - 'tools/test-learning-tracker-auth.cjs'
       - 'assets/mrlee-next/**'
       - 'assets/mrlee-v2/**'
       - 'assets/mrlee-ai/v2/**'
@@ -95,6 +99,8 @@ on:
       - 'assets/mrlee-score-v12/**'
       - 'scripts/mrlee-score-spark/**'
       - 'tools/test-score-policy.cjs'
+      - 'learning-tracker.js'
+      - 'tools/test-learning-tracker-auth.cjs'
       - 'tuyen-sinh.html'
       - 'tools/mrlee-next-qa.mjs'
       - 'tools/check-mrlee-v4.mjs'
@@ -164,3 +170,5 @@ jobs:
         run: node tools/audit-mrlee-rewards.mjs
       - name: Kiểm thử thang điểm Spark thực tế và thông báo công khai
         run: node tools/test-score-policy.cjs
+      - name: Kiểm tra lưu lịch sử sau đăng nhập muộn và thông báo lỗi Firebase
+        run: node tools/test-learning-tracker-auth.cjs
