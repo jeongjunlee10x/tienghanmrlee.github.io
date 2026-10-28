@@ -1,12 +1,13 @@
 /* Single-source scoring policy display. Public JSON; no credentials or mutations. */
 (()=>{'use strict';
 const $=s=>document.querySelector(s);
+const scriptUrl=document.currentScript?.src||new URL('assets/mrlee-score-v12/points-policy-ui.js',location.href).href;
 const formatPercent=n=>Math.round(100*n)+'%';
 const keys=['quiz','listening','mock','mock-listening','mock-reading','attendance'];
 function set(element,value){if(element)element.textContent=String(value)}
 async function init(){
  let policy;
- try{const res=await fetch(new URL('points-policy.json?v=20261028-1',document.currentScript?.src||location.href),{cache:'no-cache'});if(!res.ok)throw Error('HTTP '+res.status);policy=await res.json();}
+ try{const res=await fetch(new URL('points-policy.json?v=20261028-1',scriptUrl),{cache:'no-cache'});if(!res.ok)throw Error('HTTP '+res.status);policy=await res.json();}
  catch(e){set($('#mrlee-policy-loaded'),'Chưa tải được cấu hình tự động. Bảng tóm tắt bên dưới vẫn là thông báo tham khảo.');return;}
  if(!policy?.types||!policy?.legacy||!keys.every(k=>policy.types[k]))return;
  const table=$('#mrleePolicyTable');if(table){
