@@ -32,8 +32,10 @@ jobs:
           java-version: '21'
       - name: Verify all 90 lessons, point thresholds and ledger rules (read-only)
         run: node tools/test-score-policy.cjs
-      - name: Validate complete Firestore rules in isolated free emulator
-        run: npx --yes firebase-tools@14.16.0 emulators:exec --only firestore --project demo-mrlee-points -- "node tools/test-score-policy.cjs"
+      - name: Install temporary Firestore security rules test harness
+        run: npm install --no-save --no-package-lock --ignore-scripts --no-audit --no-fund @firebase/rules-unit-testing firebase
+      - name: Compile actual Firestore rules and test authorized/unauthorized Workbook writes in emulator
+        run: npx --yes firebase-tools@14.16.0 emulators:exec --only firestore --project demo-mrlee-points -- "node tools/test-score-policy.cjs && node tools/test-firestore-rules-emulator.cjs"
       - name: Prepare service account safely
         if: github.event_name != 'pull_request'
         env:
