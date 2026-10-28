@@ -18,9 +18,12 @@ for(const file of ['assets/branding/site-logo.js','assets/branding/contact-dock.
 assert.match(logo,/loadContactDock\(\)/,'Shared logo loader must initialize contacts');
 assert.match(logo,/contact-dock\.js/);
 assert.match(js,/getElementById\('mrleeContactDock'\)/,'Avoid duplicates on pages with legacy dock');
-for(const channel of ['call','zalo','messenger','email','kakao']){
+for(const channel of ['call','zalo','messenger','tiktok','email','kakao']){
   assert.ok(js.includes(channel),'Missing channel: '+channel);
 }
+assert.match(js,/https:\/\/www\.tiktok\.com\/@hankuc_chemi/,'TikTok link must match user's official URL');
+assert.match(css,/data-channel="tiktok"/,'TikTok contact must have its own icon treatment');
+assert.match(home,/href="https:\/\/www\.tiktok\.com\/@hankuc_chemi"/,'TikTok should remain available as a fallback link');
 assert.match(css,/#mrleeContactDock\[data-open="true"\]/,'Mobile expanded UI missing');
 assert.match(css,/body\.mrlee-contact-ready #contactPanel\.contact-rail/,'Hide legacy duplicate only after new dock mounts');
 assert.ok(home.includes('id="contactPanel"'),'Original contact links remain as safe fallback');
@@ -37,4 +40,4 @@ const scripts=[...admin.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)]
   .filter(m=>!/\bsrc\s*=/.test(m[1]))
   .map(m=>m[2]).filter(s=>s.trim());
 for(let i=0;i<scripts.length;i++)new vm.Script(scripts[i],{filename:'admin-inline-'+i+'.js'});
-console.log('MR LEE CONTACT/ADMIN QA: five channels, existing fallback, Fresh/Future dock, Admin diagnostics, date/score/CSV guards, '+scripts.length+' inline scripts parsed.');
+console.log('MR LEE CONTACT/ADMIN QA: six channels including TikTok, existing fallback, Fresh/Future dock, Admin diagnostics, date/score/CSV guards, '+scripts.length+' inline scripts parsed.');
