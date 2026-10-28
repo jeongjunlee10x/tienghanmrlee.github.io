@@ -15,5 +15,9 @@ for(const link of links)assert.ok(html.includes(link),'Missing real, working her
 assert.match(css,/position:absolute!important;inset:0!important;/,'Photo must cover entire hero');
 assert.match(css,/background:transparent!important;box-shadow:none!important/,'Legacy empty panel should be removed');
 assert.match(css,/\.mrlee-hero-photo-pane::after/,'Readability gradient should not cover people');
-assert.match(css,/@media\(max-width:760px\)/,'Mobile hero should have responsive rule');
-console.log('PASS home-hero overlay: two distinct verified image covers, full-bleed photo, live clickable text, mobile-safe left overlay.');
+assert.ok(css.includes('@media(max-width:760px)'),'Mobile hero should have responsive rule');
+assert.match(css,/V4 · Approved right-side typography for FUTURE hero only/,'Right skyline variant must be isolated to Future');
+assert.match(css,/margin-left:auto!important;margin-right:0!important/,'Future copy pane must move to right');
+assert.ok(css.includes('background:linear-gradient(270deg'),'Future copy needs a right-side contrast gradient');
+assert.match(css,/justify-content:flex-end!important/,'Narrow screen buttons should align right');
+console.log('PASS home-hero overlay: two distinct verified image covers, full-bleed photo, live clickable text, Fresh left overlay + Future right skyline overlay, live accessible CTAs.');
