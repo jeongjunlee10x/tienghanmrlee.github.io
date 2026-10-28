@@ -30,6 +30,29 @@ require('firebase/compat/firestore');
   await assertFails(signed.doc(path).delete());
   await assertFails(signed.doc('mrleeV12Weekly/2026-W44/members/'+uid).set({points:9999}));
   await assertFails(guest.doc(path).get());
-  console.log('PASS Firestore emulator: compiled full rules, verified Workbook create/get, rejected guest, unverified user, updates/deletes and direct point writes.');
+
+  // Same payload emitted by learning-tracker.js after a six-question Workbook.
+  const attemptPath='users/'+uid+'/practiceAttempts';
+  const reviewJson=JSON.stringify({version:1,questions:Array.from({length:6},(_,i)=>({
+    question:'Câu số '+(i+1)+' - 안녕하세요?',
+    choices:['Chào','Tạm biệt','Cảm ơn','Xin lỗi'],
+    selectedIndex:i===0?2:0,correctIndex:0,explanation:'Đáp án tham khảo',
+    lessonNumber:1,type:'choice'
+  }))});
+  const practice={
+    examId:'workbook-1-1-1',
+    examTitle:'WORKBOOK · Cấp 1 · Bài 1 · Bộ 1 · Chào hỏi',
+    level:'sc1',score:5,total:6,durationSeconds:90,
+    source:'client_practice',createdAt:firebase.firestore.FieldValue.serverTimestamp(),
+    reviewJson
+  };
+  await assertSucceeds(signed.collection(attemptPath).add(practice));
+  const summary={...practice};delete summary.reviewJson;
+  await assertSucceeds(signed.collection(attemptPath).add(summary));
+  await assertFails(guest.collection(attemptPath).add(practice));
+  await assertFails(unverified.collection('users/other_reader_987/practiceAttempts').add(practice));
+  await assertFails(signed.collection(attemptPath).add({...practice,score:99}));
+
+  console.log('PASS Firestore emulator: compiled full rules, verified Workbook create/get, rejected guest, unverified user, updates/deletes and direct point writes; valid detailed + summary-only practice attempts accepted, invalid scores rejected.');
  }finally{await env.cleanup();}
 })().catch(e=>{console.error(e.stack||e);process.exitCode=1});

@@ -1,0 +1,35 @@
+'use strict';
+/* Verifies late Firebase login works for history saving. No credentials or writes. */
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const src=fs.readFileSync('learning-tracker.js','utf8');
+const start=src.indexOf('async function currentVerifiedUser() {');
+const end=src.indexOf('\nfunction saveFailureMessage(',start);
+assert.ok(start>=0&&end>start,'Missing live Firebase auth check');
+const fn=src.slice(start,end);
+assert.doesNotMatch(src,/const verifiedUser\s*=\s*auth\s*\?/,'Do not cache logged-out state at page load');
+let reloads=0;
+const auth={currentUser:null,authStateReady:async()=>{}};
+const get=new Function('auth','reload',fn+'\nreturn currentVerifiedUser;')(auth,async u=>{reloads++;u.emailVerified=true;});
+(async()=>{
+ assert.equal(await get(),null,'Before login no verified user');
+ const user={uid:'learner01',emailVerified:true,getIdTokenResult:async()=>({claims:{email_verified:true}})};
+ auth.currentUser=user;
+ assert.equal(await get(),user,'Late login must work without page reload');
+ auth.currentUser=null;
+ assert.equal(await get(),null,'Sign-out must invalidate current identity');
+ const pending={uid:'learner02',emailVerified:false,getIdTokenResult:async()=>({claims:{email_verified:true}})};
+ auth.currentUser=pending;
+ assert.equal(await get(),pending,'New email verification must become valid after reload');
+ assert.equal(reloads,1);
+ auth.currentUser={uid:'learner03',emailVerified:true,getIdTokenResult:async()=>({claims:{email_verified:false}})};
+ assert.equal(await get(),null,'Refuse invalid email_verified token claim');
+ const msgStart=src.indexOf('function saveFailureMessage(error) {');
+ const msgEnd=src.indexOf('\nconst clean =',msgStart);
+ assert.ok(msgStart>0&&msgEnd>msgStart,'Error classification must be present');
+ const classify=new Function(src.slice(msgStart,msgEnd)+'\nreturn saveFailureMessage;')();
+ assert.match(classify({code:'permission-denied'}),/lịch sử luyện tập/);
+ assert.match(classify({code:'unavailable'}),/kết nối/i);
+ assert.doesNotMatch(classify({code:'permission-denied'}),/làm bài lại/);
+ console.log('PASS learning tracker: late-login, sign-out, email refresh, error codes and separate Spark status');
+})().catch(e=>{console.error(e);process.exitCode=1});
