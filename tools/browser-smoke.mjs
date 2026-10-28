@@ -30,19 +30,20 @@ try{
     const contact=p.locator('#mrleeContactDock');
     await contact.waitFor({state:'visible',timeout:12000});
     if(await contact.locator('.mrlee-contact-links > *').count()!==5)throw Error('Contact dock must expose 5 real channels');
-    if(p.viewportSize().width<=700){
-      const toggle=contact.locator('button.mrlee-contact-toggle');
-      const hit=await toggle.evaluate(el=>{
-        const b=el.getBoundingClientRect(),x=b.left+b.width/2,y=b.top+b.height/2;
-        const style=getComputedStyle(el),top=document.elementFromPoint(x,y);
-        return {x,y,width:b.width,height:b.height,display:style.display,visibility:style.visibility,pointer:style.pointerEvents,clickable:top===el||el.contains(top),overlap:top?.outerHTML.slice(0,210)||null,viewport:[innerWidth,innerHeight]};
-      });
-      console.log('MRLEE CONTACT MOBILE DIAGNOSTIC '+JSON.stringify(hit));
-      if(!hit.clickable)throw Error('Contact toggle is blocked by another element: '+JSON.stringify(hit));
-      await toggle.click({timeout:5000});
-      if(!await contact.locator('.mrlee-contact-links').isVisible())throw Error('Mobile contact dock did not expand');
-      await toggle.click({timeout:5000});
-    }else if(!await contact.locator('.mrlee-contact-links').isVisible())throw Error('Desktop contact channels are hidden');
+    // Contact is intentionally collapsed on all devices so it never hides ranking cards.
+    const toggle=contact.locator('button.mrlee-contact-toggle');
+    if(!await toggle.isVisible())throw Error('Compact contact trigger not visible');
+    if(await contact.locator('.mrlee-contact-links').isVisible())throw Error('Contact links cover the homepage by default');
+    const hit=await toggle.evaluate(el=>{
+      const b=el.getBoundingClientRect(),x=b.left+b.width/2,y=b.top+b.height/2;
+      const top=document.elementFromPoint(x,y);
+      return {x,y,clickable:top===el||el.contains(top),overlap:top?.outerHTML.slice(0,180)||null};
+    });
+    if(!hit.clickable)throw Error('Contact trigger obstructed: '+JSON.stringify(hit));
+    await toggle.click({timeout:5000});
+    if(!await contact.locator('.mrlee-contact-links').isVisible())throw Error('Contact dock did not expand');
+    await toggle.click({timeout:5000});
+    if(await contact.locator('.mrlee-contact-links').isVisible())throw Error('Contact dock did not collapse');
     // Lesson/feature card photos must remain the same when selecting the other visual theme.
     const photos=p.locator('.feature-card img,.mrlee-v4-card img');
     if(await photos.count()){
@@ -246,6 +247,39 @@ try{
        if(!m.header || m.header.y < -2 || m.header.height < 45)throw Error('Header clipped or hidden');
        if(!m.hero || m.hero.height < 230 || m.hero.height > (device.w>760?380:750))throw Error('Hero cropped or oversized');
        if(!m.hub?.visible || !m.pair?.visible || m.pair.height < 90)throw Error('Homepage dashboard pair hidden');
+       // Regression for scholarship + leader-board collision reported on 28 Oct:
+       // injected Firebase ranking rows must remain in their own horizontal scroller;
+       // the weekly score belongs to the title, never floats across roster cards.
+       await page.locator('#ranking .rank-title #mrleeV12Widget').waitFor({state:'visible',timeout:15000});
+       const scoreLayout=await page.evaluate(()=>{
+         const query=x=>document.querySelector(x),rect=e=>{if(!e)return null;const b=e.getBoundingClientRect();return {x:b.x,y:b.y,right:b.right,bottom:b.bottom,width:b.width,height:b.height}};
+         const pair=query('#mainContent>.mrlee-bottom-pair'),scholar=pair?.querySelector('.scholarship'),rank=query('#ranking'),
+           title=rank?.querySelector('.rank-title'),strip=rank?.querySelector('.rank-strip-wrap'),
+           nav=rank?.querySelector('.rank-controls'),score=rank?.querySelector('#mrleeV12Widget');
+         return {pair:rect(pair),scholar:rect(scholar),rank:rect(rank),title:rect(title),
+           strip:rect(strip),nav:rect(nav),score:rect(score),
+           headerScroll:title?.scrollHeight,headerClient:title?.clientHeight,
+           rankScroll:rank?.scrollHeight,rankClient:rank?.clientHeight,
+           scoreInTitle:score?.parentElement===title,
+           contactCollapsed:getComputedStyle(query('#mrleeContactDock .mrlee-contact-links')).display==='none',
+           rankScrollWidth:query('#rankSlider')?.scrollWidth,
+           rankClientWidth:query('#rankSlider')?.clientWidth};
+       });
+       console.log('MRLEE RANK LAYOUT '+label+' '+JSON.stringify(scoreLayout));
+       if(!scoreLayout.scoreInTitle||!scoreLayout.score)throw Error('Weekly points pill still floats over leaderboard');
+       if(!scoreLayout.contactCollapsed)throw Error('Floating contact list covers leaderboard');
+       if(scoreLayout.rank.height<135||scoreLayout.scholar.height<125)
+         throw Error('Scholarship/leaderboard too short for content: '+JSON.stringify(scoreLayout));
+       if(scoreLayout.headerScroll>scoreLayout.headerClient+4)
+         throw Error('Leaderboard header text clipped: '+JSON.stringify(scoreLayout));
+       if(scoreLayout.rankScroll>scoreLayout.rankClient+5)
+         throw Error('Leaderboard card/header content vertically clipped: '+JSON.stringify(scoreLayout));
+       const overlap=(a,b)=>a&&b&&a.x<b.right-2&&a.right>b.x+2&&a.y<b.bottom-2&&a.bottom>b.y+2;
+       if(overlap(scoreLayout.strip,scoreLayout.nav))throw Error('Ranking navigation overlaps student cards');
+       if(overlap(scoreLayout.score,scoreLayout.strip))throw Error('Weekly score badge overlaps student cards');
+       if(device.w>760&&overlap(scoreLayout.scholar,scoreLayout.rank))
+         throw Error('Scholarship overlaps ranking panel');
+
        if(m.dupe?.visible)throw Error('Duplicated legacy feature row still visible');
        if(m.awards?.visible)throw Error('Oversized scholarship injection still visible');
        if(m.width > m.viewport + 4)throw Error('Horizontal overflow '+m.width+' > '+m.viewport);
