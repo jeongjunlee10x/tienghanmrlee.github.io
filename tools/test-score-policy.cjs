@@ -3,6 +3,8 @@
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const {score,weekOf,vnDate,POLICY}=require('../scripts/mrlee-score-spark/points-v12-core.cjs');
+const {execFileSync}=require('node:child_process');
+for(const file of ['scripts/mrlee-score-spark/runner.cjs','mrlee-bai-tap-pro.js','mrlee-lesson-page.js','assets/mrlee-score-v12/widget.js','assets/mrlee-score-v12/points-policy-ui.js'])execFileSync(process.execPath,['--check',file],{stdio:'pipe'});
 assert.equal(POLICY.version,'MRLEE-SPARK-2026-10-28-LESSON');
 const cases=[
  ['workbook',3,6,0],['workbook',4,6,4],['workbook',5,6,5],['workbook',6,6,6],
