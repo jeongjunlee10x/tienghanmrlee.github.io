@@ -1,0 +1,85 @@
+/* MR LEE · Interview page contrast/layout repair, 29 Oct 2026.
+   Protects interview practice from inherited Future theme pale text / white cards.
+   Never disables Firebase authentication or modifies recorded answers. */
+html[data-mrlee-theme="fresh"] body.mrlee-interview-page{
+ --paper:#f4f7fc;--ink:#172f4e;--muted:#465e78;--line:#c9daec;
+ --navy:#123b65;--white:#fff;background:#f4f7fc!important;color:#193858!important;
+}
+html[data-mrlee-theme="future"] body.mrlee-interview-page{
+ --paper:#07152b;--ink:#f2f8ff;--muted:#c4d9ea;--line:#406788;
+ --navy:#e9f5ff;--white:#0d2847;background:#07152b!important;color:#eaf5ff!important;
+}
+html[data-mrlee-theme="future"] body.mrlee-interview-page .site-header{
+ background:#091f3b!important;border-bottom:1px solid #426995!important;color:#f2f9ff!important;
+}
+html[data-mrlee-theme="future"] body.mrlee-interview-page :is(.brand,.site-nav a,.field-label,.panel-title){
+ color:#f1f8ff!important;text-shadow:none!important;opacity:1!important;
+}
+html[data-mrlee-theme="future"] body.mrlee-interview-page .site-nav a:is(:hover,[aria-current="page"]){
+ background:#204c74!important;color:#fff!important;
+}
+html[data-mrlee-theme="future"] body.mrlee-interview-page :is(.panel,.question-link){
+ background:#0e2948!important;color:#ebf6ff!important;border-color:#477199!important;
+}
+html[data-mrlee-theme="future"] body.mrlee-interview-page .question-link:hover,
+html[data-mrlee-theme="future"] body.mrlee-interview-page .question-link.active{
+ background:#204b76!important;color:#fff!important;border-color:#72cdff!important;
+}
+html[data-mrlee-theme="future"] body.mrlee-interview-page :is(.question-link .ko-mini,.big-ko,.translation,.question-link .vn-mini,.counter,.muted,.tip,.empty-list,.site-footer){
+ color:#deeeff!important;opacity:1!important;text-shadow:none!important;
+}
+html[data-mrlee-theme="future"] body.mrlee-interview-page :is(.translation,.recording-box,.empty){
+ background:#163857!important;color:#ecf6ff!important;border-color:#5680a5!important;
+}
+html[data-mrlee-theme="future"] body.mrlee-interview-page .sample{
+ background:#493525!important;border-color:#9e7045!important;color:#fff1df!important;
+}
+html[data-mrlee-theme="future"] body.mrlee-interview-page :is(.sample .big-ko,.sample .sample-vi){
+ color:#fff2df!important;
+}
+html[data-mrlee-theme="future"] body.mrlee-interview-page :is(select,input[type="search"],textarea){
+ color:#f0f9ff!important;background:#102f50!important;border-color:#6084ab!important;
+ color-scheme:dark!important;
+}
+html[data-mrlee-theme="future"] body.mrlee-interview-page :is(select,input[type="search"],textarea)::placeholder{
+ color:#c3d9ea!important;opacity:1!important;
+}
+html[data-mrlee-theme="future"] body.mrlee-interview-page .pill{
+ background:#204c6c!important;color:#e8f8ff!important;border:1px solid #578bae!important;
+}
+html[data-mrlee-theme="future"] body.mrlee-interview-page .notice{
+ background:#493823!important;color:#ffe7c8!important;border-color:#94703e!important;
+}
+html[data-mrlee-theme="future"] body.mrlee-interview-page .btn.light,
+html[data-mrlee-theme="future"] body.mrlee-interview-page .btn.outline,
+html[data-mrlee-theme="future"] body.mrlee-interview-page .btn.white{
+ background:#20466a!important;color:#f3f9ff!important;border-color:#5a85ad!important;
+}
+html[data-mrlee-theme="future"] body.mrlee-interview-page .btn:not(.orange):not(.light):not(.outline):not(.white){
+ background:#17649a!important;color:#fff!important;
+}
+html[data-mrlee-theme="future"] body.mrlee-interview-page .nav-toggle{
+ background:#204b70!important;color:#f5faff!important;
+}
+html[data-mrlee-theme="fresh"] body.mrlee-interview-page :is(.question-link .vn-mini,.muted,.tip,.counter,.site-footer){
+ color:#455f7c!important;
+}
+body.mrlee-interview-page .layout{grid-template-columns:minmax(230px,300px) minmax(0,1fr)!important}
+body.mrlee-interview-page .layout>*{min-width:0!important}
+body.mrlee-interview-page .question-link{overflow-wrap:anywhere}
+body.mrlee-interview-page #questionList{min-width:0;max-width:100%;overscroll-behavior:contain}
+body.mrlee-interview-page #questionKo{overflow-wrap:anywhere;word-break:keep-all}
+body.mrlee-interview-page .play-bar{max-width:100%}
+body.mrlee-interview-page .play-bar .btn{white-space:normal}
+body.mrlee-interview-page .recording-box audio{max-width:100%}
+@media(max-width:950px){
+ body.mrlee-interview-page .layout{grid-template-columns:minmax(0,1fr)!important}
+ body.mrlee-interview-page .question-list{max-height:250px!important}
+}
+@media(max-width:550px){
+ body.mrlee-interview-page .shell{width:calc(100% - 22px)}
+ body.mrlee-interview-page .panel{padding:14px!important}
+ body.mrlee-interview-page .filters{grid-template-columns:minmax(0,1fr)!important}
+ body.mrlee-interview-page .play-bar{gap:7px!important}
+ body.mrlee-interview-page .play-bar select{min-width:100px!important}
+}
