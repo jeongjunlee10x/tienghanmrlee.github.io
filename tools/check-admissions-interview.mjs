@@ -1,0 +1,18 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';import {execFileSync} from 'node:child_process';
+const a=fs.readFileSync('tuyen-sinh.html','utf8'),i=fs.readFileSync('on-luyen-phong-van.html','utf8');
+const js=fs.readFileSync('assets/branding/admissions-intake.js','utf8');
+const css=fs.readFileSync('assets/branding/admissions-intake.css','utf8');
+const interview=fs.readFileSync('assets/branding/interview-question-list-fix.css','utf8');
+assert.match(a,/admissions-intake\.css/);assert.match(a,/admissions-intake\.js/);
+assert.match(i,/interview-question-list-fix\.css/);
+assert.match(js,/role="dialog" aria-modal="true"/);assert.match(js,/tsPersonalRecommendations/);
+assert.match(js,/university-map\/universities\.json/);
+assert.match(js,/fillLead\(a\)/);assert.match(js,/대학원\|전문대학원/,'Graduate schools should be excluded from college recommendations');
+assert.match(js,/data-step="1"/);assert.match(js,/data-step="2"/);
+assert.doesNotMatch(js,/localStorage\.setItem/);
+assert.match(css,/@media\(max-width:740px\)/);assert.match(css,/backdrop-filter:blur/);
+assert.match(interview,/\.question-link \.ko-mini/);assert.match(interview,/\.question-link \.vn-mini/);
+assert.match(interview,/min-height:79px!important/);assert.match(interview,/height:auto!important/);
+assert.match(interview,/@media\(max-width:550px\)/);
+for(const file of ['assets/branding/admissions-intake.js','assets/mrlee-tuyen-sinh.js'])execFileSync(process.execPath,['--check',file],{stdio:'pipe'});
+console.log('PASS admission intake: 2 steps, catalog filtering, lead prefill, no personal storage; interview questions two readable lines');
