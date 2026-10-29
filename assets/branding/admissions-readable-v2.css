@@ -1,0 +1,185 @@
+/* MR LEE · Admissions readability 2026-10-29.
+   Scoped final override: an independent LIGHT consultation card within a DARK
+   admissions section for BOTH Fresh/Future. Never use global body colors for
+   text on these surfaces. No application state or user data touched. */
+html body .ts-header{
+  background:#f8fbff!important;
+  border-bottom:1px solid #d7e4f4!important;
+  color:#183b65!important;
+}
+html body .ts-header .ts-brand-copy strong{color:#103f88!important;text-shadow:none!important}
+html body .ts-header .ts-brand-copy small{color:#395e83!important;opacity:1!important}
+html body .ts-header .ts-nav a{
+  color:#1f466d!important;opacity:1!important;text-shadow:none!important;
+}
+html body .ts-header .ts-nav a:is(:hover,:focus-visible){
+  color:#034a9c!important;background:#dcecff!important;
+}
+html body .ts-header .ts-menu-toggle{
+  color:#163d67!important;background:#e5effa!important;
+}
+html body .ts-header .ts-menu-toggle span{background:#183b65!important}
+html body .ts-header .ts-btn-header{color:#fff!important;background:#095cc7!important}
+html body .ts-contact-section,
+html[data-mrlee-theme="future"] body .ts-contact-section,
+html[data-mrlee-theme="fresh"] body .ts-contact-section{
+  color:#f7fbff!important;
+  background:linear-gradient(116deg,#123e83 0%,#0b2f67 47%,#071d40 100%)!important;
+}
+html body .ts-contact-section .ts-contact-copy,
+html body .ts-contact-section .ts-contact-copy h2,
+html body .ts-contact-section .ts-contact-copy h2 :not(em){
+  color:#f7fbff!important;text-shadow:none!important;opacity:1!important;
+}
+html body .ts-contact-section .ts-contact-copy h2 em{
+  color:#ff8ebe!important;-webkit-text-fill-color:#ff8ebe!important;
+}
+html body .ts-contact-section .ts-contact-copy .ts-kicker{
+  color:#aee8ff!important;opacity:1!important;
+}
+html body .ts-contact-section .ts-contact-copy>p:not(.ts-kicker),
+html body .ts-contact-section .ts-contact-lines,
+html body .ts-contact-section .ts-contact-lines :is(p,span,small,b){
+  color:#d7eaff!important;opacity:1!important;
+}
+html body .ts-contact-section .ts-contact-pattern{
+  color:#4e7ebb26!important;opacity:1!important;pointer-events:none!important;
+}
+html body .ts-contact-section .ts-contact-channels{
+  border:1px solid #557da8!important;background:#183c6b!important;
+}
+html body .ts-contact-section .ts-contact-channels :is(h3,p,span,small,strong,b){
+  color:#e7f4ff!important;opacity:1!important;
+}
+html body .ts-contact-section .ts-form-card{
+  background:#fff!important;color:#183b61!important;
+  border:1px solid #d9e5f4!important;
+  box-shadow:0 24px 65px #020d2d52!important;
+}
+html body .ts-contact-section .ts-form-card :is(.ts-form-head h3,.ts-form-head h4){
+  color:#133d70!important;opacity:1!important;
+}
+html body .ts-contact-section .ts-form-card .ts-form-head>span{
+  color:#1455a9!important;opacity:1!important;
+}
+html body .ts-contact-section .ts-form-card .ts-form-head p{
+  color:#425e7c!important;opacity:1!important;font-weight:550!important;
+}
+html body .ts-contact-section .ts-form-card form label:not(.ts-check-consent),
+html body .ts-contact-section .ts-form-card form label:not(.ts-check-consent) :is(span,small){
+  color:#183b61!important;opacity:1!important;font-size:12px!important;
+  font-weight:750!important;
+}
+html body .ts-contact-section .ts-form-card form label b{color:#bb184d!important}
+html body .ts-contact-section .ts-form-card :is(input:not([type=checkbox]),textarea,select),
+html[data-mrlee-theme="future"] body .ts-contact-section .ts-form-card :is(input:not([type=checkbox]),textarea,select){
+  background:#f5f8fd!important;color:#17385c!important;
+  border:1px solid #9eb9d8!important;
+  -webkit-text-fill-color:#17385c!important;
+  color-scheme:light!important;caret-color:#164986!important;
+  opacity:1!important;font-size:13px!important;font-weight:600!important;
+  min-height:48px!important;
+}
+html body .ts-contact-section .ts-form-card :is(input:not([type=checkbox]),textarea,select):is(:hover,:focus-visible){
+  background:#fff!important;color:#123b67!important;
+  border-color:#116ed9!important;
+  -webkit-text-fill-color:#123b67!important;
+}
+html body .ts-contact-section .ts-form-card :is(input,textarea)::placeholder{
+  color:#4c6683!important;-webkit-text-fill-color:#4c6683!important;
+  opacity:1!important;font-weight:550!important;
+}
+html body .ts-contact-section .ts-form-card select option{
+  background:#fff!important;color:#17385c!important;
+}
+html body .ts-contact-section .ts-check-consent,
+html body .ts-contact-section .ts-check-consent span,
+html body .ts-contact-section .ts-form-privacy,
+html body .ts-contact-section #tsDeliveryInfo{
+  color:#3f5c78!important;opacity:1!important;font-weight:550!important;
+}
+html body .ts-contact-section .ts-check-consent input[type="checkbox"]{
+  accent-color:#0c62be!important;background:#fff!important;
+  width:18px!important;height:18px!important;min-height:18px!important;
+}
+html body .ts-contact-section .ts-btn-submit{
+  color:#fff!important;background:linear-gradient(105deg,#eb1769,#ef3e68)!important;
+  font-size:14px!important;font-weight:850!important;
+}
+html body .ts-contact-section .ts-lead-output{
+  background:#eef8f3!important;color:#184d41!important;border-color:#a9d7c2!important;
+}
+html body .ts-contact-section .ts-lead-output :is(h4,p,span){color:#174b3e!important}
+html body .ts-contact-section .ts-lead-output textarea{
+  color:#17385c!important;background:#fff!important;-webkit-text-fill-color:#17385c!important;
+}
+html body .ts-contact-section .ts-lead-actions :is(button,a){
+  background:#fff!important;color:#0c4b81!important;border-color:#8cbaea!important;
+}
+/* On light sections avoid Future's global light heading/text on white cards. */
+html body :is(.ts-program-card,.ts-school-panel,.ts-step,.ts-check-row,.ts-faq-list,.ts-wizard-form){
+  color:#173a60!important;
+}
+html body :is(.ts-program-card,.ts-school-panel,.ts-step,.ts-check-row,.ts-faq-list,.ts-wizard-form) :is(h2,h3,h4,strong,legend,label,summary){
+  color:#173a60!important;opacity:1!important;
+}
+html body .ts-school-panel :is(input,select){
+  color:#17385c!important;background:#f8fbff!important;
+  -webkit-text-fill-color:#17385c!important;color-scheme:light!important;
+}
+html body .ts-school-panel input::placeholder{color:#476583!important;opacity:1!important}
+html body .ts-wizard-form .ts-choices span{
+  color:#1e456e!important;opacity:1!important;
+}
+html body .ts-wizard-form .ts-choices label:has(input:checked) span{
+  color:#0750a3!important;
+}
+/* Intake modal has its own light palette even under Future theme. */
+html body .ts-intake-overlay .ts-intake-modal{
+  background:#fff!important;color:#163960!important;
+}
+html body .ts-intake-overlay .ts-intake-main :is(h3,legend,label){
+  color:#163960!important;opacity:1!important;
+}
+html body .ts-intake-overlay .ts-intake-options label{background:#f4f8ff!important}
+html body .ts-intake-overlay .ts-intake-options span{
+  color:#244c78!important;opacity:1!important;
+}
+html body .ts-intake-overlay .ts-intake-options label:has(input:checked) span{
+  color:#094c93!important;
+}
+html body .ts-intake-overlay .ts-intake-field select{
+  background:#fff!important;color:#163960!important;color-scheme:light!important;
+}
+html body .ts-intake-overlay .ts-intake-intro,
+html body .ts-intake-overlay .ts-intake-intro h2{
+  color:#fff!important;
+}
+html body .ts-intake-overlay .ts-intake-intro h2 span{
+  color:#ff99bd!important;
+}
+html body .ts-intake-overlay .ts-intake-main>p{color:#425f7e!important}
+html body .ts-intake-overlay .ts-intake-note{color:#466480!important}
+html body .ts-intake-result{
+  background:#f0f8ff!important;color:#183c62!important;
+}
+html body .ts-intake-result :is(h2,strong){color:#133d70!important}
+/* A floating duplicate pink admission CTA obscured the form's submit button.
+   Keep the actual submit button and shared contact dock; remove only duplicate. */
+html body .ts-v15-float .ts-float-cta{display:none!important}
+@media(max-width:790px){
+ html body .ts-header .ts-nav{
+  background:#fff!important;border-color:#d6e4f4!important;
+ }
+ html body .ts-header .ts-nav a{color:#173e68!important}
+ html body .ts-contact-section .ts-form-card{
+  padding:clamp(17px,4vw,28px)!important;
+ }
+ html body .ts-contact-section .ts-form-row{
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+ html body .ts-contact-section .ts-contact-copy h2{
+  font-size:clamp(30px,7.5vw,46px)!important;
+  overflow-wrap:anywhere!important;
+ }
+}
