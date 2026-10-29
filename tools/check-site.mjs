@@ -13,6 +13,7 @@ const suites=[
  ['Ảnh bìa toàn cảnh và chữ lồng ảnh','check-home-overlay.mjs'],
  ['Học bổng và bảng xếp hạng không bị chồng lấn','check-ranking-layout.mjs'],
  ['Tuyển sinh đầu vào và thẻ câu hỏi phỏng vấn','check-admissions-interview.mjs'],
+ ['Tương phản chữ form tư vấn Tuyển sinh','check-admissions-readability.mjs'],
  ['Tương phản chữ TOPIK I/II trong hai giao diện','check-topik-contrast.mjs'],
  ['Chọn giao diện một lần khi vào website, không hiện nút trùng','check-theme-entry.mjs'],
  ['Hình ảnh và font trong CSS','audit-css-assets.mjs'],
