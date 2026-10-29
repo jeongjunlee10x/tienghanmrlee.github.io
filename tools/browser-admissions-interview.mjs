@@ -28,6 +28,7 @@ try{
    await page.locator('#tsIntakeField').selectOption('engineering');
    await page.locator('#tsIntakeNext').click();
    await page.locator('#tsPersonalRecommendations').waitFor({state:'visible',timeout:18000});
+   await page.locator('#tsPersonalRecommendations .ts-intake-school').first().waitFor({state:'visible',timeout:18000});
    const a=await page.evaluate(()=>{
     const r=document.getElementById('tsPersonalRecommendations');
     return {visible:!r.hidden,cards:r.querySelectorAll('.ts-intake-school').length,program:document.getElementById('tsProgram').value,
