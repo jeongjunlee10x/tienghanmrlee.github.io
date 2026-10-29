@@ -1,7 +1,9 @@
 /* MR LEE Dual Theme — keeps URLs/content/auth identical. */
 (()=>{'use strict';
+const VISIT_KEY='MRLEE.THEME.ENTRY.V1';
 const KEY='MRLEE.THEME.V1',ROOT='assets/mrlee-dual-ui/cards/',doc=document,html=doc.documentElement;
 const path=decodeURIComponent(location.pathname.split('/').pop()||'index.html');
+const entryStyle=doc.createElement('link');entryStyle.rel='stylesheet';entryStyle.href='assets/mrlee-dual-ui/entry-picker.css?v=20261029-v1';doc.head.append(entryStyle);
 const childCss=doc.createElement('link');childCss.rel='stylesheet';childCss.href='assets/branding/mrlee-child-polish-v1.css?v=20261027-sub01';doc.head.append(childCss);
 // V2 cinematic artwork complements existing approved SVGs and keeps original branding untouched.
 const cinematicCss=doc.createElement('link');cinematicCss.rel='stylesheet';cinematicCss.href='assets/mrlee-dual-ui/cinematic-v2.css?v=20261024-2';cinematicCss.dataset.mrleeCinematic='v2';doc.head.append(cinematicCss);
@@ -74,13 +76,47 @@ function decorate(){
  const host=doc.querySelector('.section-hero .hero-text,.v10-hero,.pro-header .pro-wrap');
  if(host&&!host.querySelector('.mrlee-future-kicker')){const x=doc.createElement('span');x.className='mrlee-future-kicker';x.textContent='KOREAN LANGUAGE · GLOBAL FUTURE';host.prepend(x)}
 }
-function controls(){
- if(doc.querySelector('.mrlee-theme-switch'))return;
- const nav=doc.createElement('nav');nav.className='mrlee-theme-switch';nav.setAttribute('aria-label','Chọn giao diện MR LEE');
- nav.innerHTML='<strong>Chọn giao diện</strong><button type="button" data-theme="fresh" aria-pressed="false">☀ 1. Giao diện tươi mới</button><button type="button" data-theme="future" aria-pressed="false">✦ 2. Giao diện viễn tưởng</button>';
- nav.addEventListener('click',e=>{const b=e.target.closest('button[data-theme]');if(b)update(b.dataset.theme)});
- const head=admin?doc.querySelector('.content>.topbar'):doc.querySelector('.site-header,.site-top,header.head,.v10-header,.topbar,.pro-header,.mlb-topbar');
- if(head&&head.parentNode)head.after(nav);else doc.body.prepend(nav);
+// First landing in each browser tab: exactly one explicit choice.
+// sessionStorage survives same-tab navigation/reload, but not a new standalone tab.
+// Do not interrupt protected lessons, Firebase sign-in, or Admin with a marketing dialog.
+function entryPicker(){
+ if(admin||path!=='index.html'||doc.getElementById('mrlee-theme-entry'))return;
+ try { if(['fresh','future'].includes(sessionStorage.getItem(VISIT_KEY)))return; } catch{}
+ const dialog=doc.createElement('dialog');
+ dialog.id='mrlee-theme-entry';
+ dialog.className='mrlee-theme-entry';
+ dialog.setAttribute('aria-labelledby','mrlee-entry-heading');
+ dialog.setAttribute('aria-describedby','mrlee-entry-intro');
+ dialog.innerHTML=`
+   <div class="mrlee-entry-kicker"><span>MR LEE</span> · TIẾNG HÀN & DU HỌC HÀN QUỐC</div>
+   <h2 id="mrlee-entry-heading">Chọn giao diện để bắt đầu</h2>
+   <p id="mrlee-entry-intro">Chọn một lần cho lượt truy cập này. Các trang học, TOPIK, điểm số và tài khoản đều dùng chung ở hai giao diện.</p>
+   <div class="mrlee-entry-options" role="group" aria-label="Hai giao diện website">
+     <button type="button" class="mrlee-entry-option mrlee-entry-fresh" data-theme="fresh" aria-label="Vào giao diện Tươi mới">
+       <span class="mrlee-entry-preview" aria-hidden="true"></span>
+       <span class="mrlee-entry-option-copy"><strong>☀ Giao diện Tươi mới</strong><small>Sáng rõ · trẻ trung · dễ học</small><em>Chọn Tươi mới →</em></span>
+     </button>
+     <button type="button" class="mrlee-entry-option mrlee-entry-future" data-theme="future" aria-label="Vào giao diện Viễn tưởng">
+       <span class="mrlee-entry-preview" aria-hidden="true"></span>
+       <span class="mrlee-entry-option-copy"><strong>✦ Giao diện Viễn tưởng</strong><small>Công nghệ · tương lai · hiện đại</small><em>Chọn Viễn tưởng →</em></span>
+     </button>
+   </div>
+   <p class="mrlee-entry-note">Lựa chọn chỉ áp dụng trong tab hiện tại; mở website ở tab mới sẽ được chọn lại.</p>`;
+ dialog.addEventListener('cancel',e=>e.preventDefault()); // Choice is required once.
+ dialog.addEventListener('click',e=>{
+   const button=e.target.closest('button[data-theme]');
+   if(!button||!dialog.contains(button))return;
+   const chosen=button.dataset.theme;
+   if(chosen!=='fresh'&&chosen!=='future')return;
+   update(chosen);
+   try{sessionStorage.setItem(VISIT_KEY,chosen)}catch{}
+   dialog.close();
+   dialog.remove();
+   doc.querySelector('main a[href],main button:not(:disabled)')?.focus({preventScroll:true});
+ });
+ doc.body.append(dialog);
+ try{dialog.showModal()}catch{dialog.setAttribute('open','');}
+ dialog.querySelector('button[data-theme="fresh"]')?.focus();
 }
 function pageGallery(){
  const sets={
@@ -171,9 +207,9 @@ function primaryNav(){
   li.append(a);list.append(li);
  });
  nav.append(list);
- const switcher=doc.querySelector('.mrlee-theme-switch');
- if(switcher?.parentNode)switcher.after(nav);else doc.body.prepend(nav);
+ const head=doc.querySelector('.site-header,.site-top,header.head,.v10-header,.topbar,.pro-header,.mlb-topbar');
+ if(head?.parentNode)head.after(nav);else doc.body.prepend(nav);
 }
-function run(){controls();primaryNav();decorate();portal();update(theme)}
+function run(){primaryNav();decorate();portal();update(theme);entryPicker()}
 if(doc.readyState==='loading')doc.addEventListener('DOMContentLoaded',run,{once:true});else run();
 })();
