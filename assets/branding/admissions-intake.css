@@ -47,3 +47,22 @@ body.ts-intake-active{overflow:hidden}
 
 /* The new entrance wizard replaces the duplicate two-field form further down the page. */
 #tu-van-nhanh.ts-wizard-section{display:none!important}
+
+/* MR LEE V2 — refined onboarding presentation, no duplicate wizard. */
+.ts-intake-modal{border:1px solid #d8eaff;box-shadow:0 35px 100px #0009,0 0 0 1px #ffffff20;isolation:isolate}
+.ts-intake-intro{background:radial-gradient(circle at 13% 14%,#2378b450 0%,transparent 48%),linear-gradient(140deg,#071e4c,#0b3d83 58%,#1263b2)}
+.ts-intake-intro h2{max-width:14ch;font-weight:900;letter-spacing:-.05em;text-wrap:balance}
+.ts-intake-intro .ts-intake-mark{padding:17px 19px;max-width:max-content;border:1px solid #b2e8ff50;border-radius:16px;background:#ffffff0d;color:#c4e6ff;font-size:16px}
+.ts-intake-main{background:linear-gradient(160deg,#fff 0%,#f8fbff 100%)}
+.ts-intake-progress{display:inline-flex;align-items:center;gap:8px;background:#fff0f6;border:1px solid #ffd8e9;padding:7px 12px;border-radius:999px}
+.ts-intake-options label{border-width:2px;min-width:0;box-shadow:0 1px 0 #fff inset}
+.ts-intake-options label:hover{border-color:#5e9bd7;background:#eaf5ff}
+.ts-intake-options label:has(input:checked){box-shadow:0 4px 13px #2085d31a}
+.ts-intake-primary{border-radius:14px;box-shadow:0 9px 25px #ff266144}
+.ts-intake-note{padding:11px 12px;border-radius:10px;background:#f1f5fb;color:#435b77}
+.ts-intake-modal :is(button,input,select):focus-visible{outline:3px solid #f5a623;outline-offset:3px}
+@media(max-width:740px){
+.ts-intake-intro h2{max-width:none;font-size:clamp(22px,5.6vw,28px);line-height:1.25}
+.ts-intake-main{padding:18px 17px 22px}
+.ts-intake-modal{max-height:calc(100dvh - 16px)}
+}
