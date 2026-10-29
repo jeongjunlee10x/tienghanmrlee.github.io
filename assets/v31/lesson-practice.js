@@ -22,7 +22,7 @@ if(Number.isInteger(cap)&&Number.isInteger(bai)&&cap>=1&&cap<=6&&bai>=1&&bai<=15
   }
  }
  for(const [ko,vi] of grammar)tasks.push({kind:'write',name:'Dịch ví dụ ngữ pháp Hàn → Việt',prompt:ko,answer:vi,src:'Ví dụ ngữ pháp bài hiện tại'});
- if(!tasks.length)return;
+ if(tasks.length){
  // Round-robin across sections; no content from future lessons.
  const capped=tasks.slice(0,Math.min(180,tasks.length));
  const section=document.createElement('section');section.id='mrleeV31ExtraPractice';section.className='mrlee-v31-extra';
@@ -61,5 +61,6 @@ if(Number.isInteger(cap)&&Number.isInteger(bai)&&cap>=1&&cap<=6&&bai>=1&&bai<=15
  $('mrleeV31Reveal').addEventListener('click',()=>{if(selected[index])$('mrleeV31Feedback').textContent='Đáp án tham khảo: '+selected[index].answer});
  $('mrleeV31Next').addEventListener('click',()=>{index=index+1>=selected.length?0:index+1;show()});
  show();
+ }
  }
 }
