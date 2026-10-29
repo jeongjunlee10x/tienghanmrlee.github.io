@@ -62,7 +62,7 @@ try{
     const selectors=['.panel-title','.question-link','.question-link .vn-mini','.big-ko','.translation','.sample .sample-vi','.field-label'];
     function rgb(s){let m=String(s).match(/^rgba?\(([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:[,\s/]+([\d.]+))?\)$/);return m?[+m[1],+m[2],+m[3],m[4]===undefined?1:+m[4]]:null}
     function bg(el){const layers=[];let n=el;while(n){let c=rgb(getComputedStyle(n).backgroundColor);if(c&&c[3]>0)layers.push(c);if(c&&c[3]>=.999)break;n=n.parentElement}let out=[255,255,255];for(const c of layers.reverse())out=out.map((v,i)=>v*(1-c[3])+c[i]*c[3]);return out}
-    function lum(a){return a.map(x=>{x/=255;return x<=.04045?x/12.92:((x+.055)/1.055)**2.4}).reduce((sum,v,i)=>sum+v*[.2126,.7152,.0722][i],0)}
+    function lum(a){return a.slice(0,3).map(x=>{x/=255;return x<=.04045?x/12.92:((x+.055)/1.055)**2.4}).reduce((sum,v,i)=>sum+v*[.2126,.7152,.0722][i],0)}
     const values=[];for(const sel of selectors){const e=document.querySelector(sel);if(!e||!e.getClientRects().length)continue;const f=rgb(getComputedStyle(e).color),b=bg(e);if(!f)continue;const x=lum(f),y=lum(b);values.push({sel,ratio:+((Math.max(x,y)+.05)/(Math.min(x,y)+.05)).toFixed(2)})}
     return {theme:document.documentElement.dataset.mrleeTheme,questions:document.querySelectorAll('#questionList .question-link').length,
       korean:document.querySelector('#questionKo')?.textContent?.slice(0,40),
@@ -70,7 +70,7 @@ try{
    });
    if(report.theme!==mode||!report.korean||report.questions<5||report.width>report.innerWidth+5)
      throw Error('Interview content/layout invalid '+JSON.stringify(report));
-   const failures=report.values.filter(x=>x.ratio<4.5);
+   const failures=report.values.filter(x=>!Number.isFinite(x.ratio)||x.ratio<4.5);
    if(failures.length)throw Error('Interview contrast below 4.5:1 '+JSON.stringify(failures));
    if(errors.some(e=>/BANK|undefined|renderQuestion|SyntaxError|TypeError/.test(e)))throw Error('Interview JS runtime errors '+errors.join('; ').slice(0,240));
    console.log('PASS INTERVIEW '+tag+' '+report.questions+' Q / '+JSON.stringify(report.values));
