@@ -11,6 +11,7 @@ if(under.checked&&!guardian.checked){status('Cần có sự đồng ý của ph�
 const token=f.querySelector('[name="cf-turnstile-response"]')?.value||'';
 if(!token){status('Hãy hoàn thành xác minh Cloudflare trước khi gửi.');return}
 const data=Object.fromEntries(new FormData(f).entries());delete data['cf-turnstile-response'];
+const profile_details={};for(const [key,value] of Object.entries(data)){if(key.startsWith('dossier_')){const name=key.slice(8);if(String(value).trim())profile_details[name]=String(value).trim();delete data[key];}}data.profile_details=profile_details;
 data.consent=document.getElementById('mrleeConsultConsent').checked;data.under18=under.checked;data.guardian=guardian.checked;data.turnstileToken=token;
 submit.disabled=true;submit.textContent='Đang lưu yêu cầu...';status('Đang gửi phiếu an toàn đến hệ thống.');
 try{
