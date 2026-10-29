@@ -30,7 +30,7 @@ async function load(reset=true){
  $('mrleeLeadsStatus').textContent='Đang tải danh sách tư vấn...';
  try{
  const {data:found,error}=await db.from('mrlee_consultation_requests')
- .select('id,public_id,full_name,phone,email,program,region,message,preferred_contact,created_at,status,assigned_to,admin_note')
+ .select('id,public_id,full_name,phone,email,program,region,message,preferred_contact,created_at,status,assigned_to,admin_note,profile_details')
  .order('created_at',{ascending:false}).range(offset,offset+49);
  if(error)throw error;data.push(...found);offset+=found.length;done=found.length<50;render();
  }catch(e){$('mrleeLeadsStatus').textContent='Không thể tải: '+(e.message||String(e))}
@@ -42,6 +42,13 @@ function show(id){
  const info=$('mrleeLeadInfo');info.replaceChildren();
  const entries=[['Mã yêu cầu',current.public_id],['Tiếp nhận',new Date(current.created_at).toLocaleString('vi-VN',{timeZone:'Asia/Ho_Chi_Minh'})],['Họ tên',current.full_name],['Điện thoại',current.phone],['Email',current.email||'—'],['Chương trình',current.program],['Khu vực',current.region||'—'],['Kênh liên hệ',current.preferred_contact],['Mục tiêu',current.message||'Không ghi']];
  for(const [k,v] of entries){const row=el('p','mrlee-lead-entry');row.append(el('strong','',k+': '),d.createTextNode(String(v)));info.append(row)}
+ const detailFields={date_of_birth:'Ngày sinh',academic_level:'Bậc học',current_school:'Trường đang/đã học',graduation_year:'Năm tốt nghiệp',gpa:'Điểm trung bình',korean_level:'Trình độ tiếng Hàn',topik_score:'TOPIK',english_level:'Ngoại ngữ khác',target_major:'Ngành mong muốn',target_university:'Trường quan tâm',target_city:'Khu vực Hàn Quốc',target_intake:'Kỳ nhập học',budget:'Ngân sách dự kiến',housing:'Nhu cầu chỗ ở',scholarship:'Học bổng',study_gap:'Gián đoạn học tập',guardian_contact:'Người giám hộ',document_progress:'Tiến độ giấy tờ',residence:'Nơi cư trú',plan_note:'Ghi chú kế hoạch'};
+ const title=el('h4','', 'Thông tin định hướng hồ sơ du học (tự khai, cần xác minh)');info.append(title);
+ const profile=current.profile_details||{};
+ if(!Object.keys(profile).length)info.append(el('p','mrlee-lead-entry','Chưa cung cấp thông tin mở rộng.'));
+ for(const [key,label] of Object.entries(detailFields)){if(!profile[key])continue;
+ const row=el('p','mrlee-lead-entry');row.append(el('strong','',label+': '),d.createTextNode(String(profile[key])));info.append(row)}
+
  $('mrleeLeadStatus').value=current.status;$('mrleeLeadAssignee').value=current.assigned_to||'';$('mrleeLeadNotes').value=current.admin_note||'';$('mrleeLeadSaveStatus').textContent='';
  detail.hidden=false;$('mrleeLeadClose').focus();
 }
