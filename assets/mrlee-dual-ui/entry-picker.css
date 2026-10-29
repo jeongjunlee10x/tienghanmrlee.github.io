@@ -1,0 +1,102 @@
+/* MR LEE · one-time-at-entry two-UI chooser (29 Oct 2026).
+   Native modal has built-in focus trap/inert background. No top-of-page switchers. */
+.mrlee-theme-switch{display:none!important}
+dialog.mrlee-theme-entry{
+  position:fixed!important;inset:0!important;z-index:2147483000!important;
+  display:none;width:min(960px,calc(100vw - 36px));max-width:960px;
+  max-height:min(92dvh,880px);margin:auto;padding:clamp(20px,3vw,37px);
+  border:1px solid #b9d9ff;border-radius:26px;overflow:auto;
+  background:linear-gradient(155deg,#f9fdff 0%,#ecf6ff 53%,#e9f5ff 100%);
+  color:#12365e;box-shadow:0 38px 110px #031733ac;
+  font-family:"Be Vietnam Pro","Noto Sans KR",system-ui,sans-serif;
+  box-sizing:border-box;
+}
+dialog.mrlee-theme-entry[open]{display:block!important}
+dialog.mrlee-theme-entry::backdrop{background:rgba(1,12,36,.83);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.mrlee-theme-entry *{box-sizing:border-box}
+.mrlee-theme-entry .mrlee-entry-kicker{
+  display:flex;gap:8px;align-items:center;font-size:11px;font-weight:850;
+  letter-spacing:.10em;color:#3e688d;line-height:1.6
+}
+.mrlee-theme-entry .mrlee-entry-kicker span{color:#f51e78;font-weight:1000;font-size:15px;letter-spacing:.03em}
+.mrlee-theme-entry #mrlee-entry-heading{
+  font-size:clamp(25px,3.3vw,39px);line-height:1.24;letter-spacing:-.035em;
+  color:#12365e!important;margin:10px 0 7px;font-weight:950;text-shadow:none!important
+}
+.mrlee-theme-entry #mrlee-entry-intro{
+  color:#365e81!important;font-size:clamp(12px,1.2vw,15px);line-height:1.7;
+  max-width:71ch;margin:0 0 23px;text-shadow:none!important
+}
+.mrlee-theme-entry .mrlee-entry-options{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;
+}
+.mrlee-theme-entry .mrlee-entry-option{
+  padding:0;display:flex;flex-direction:column;gap:0;overflow:hidden;
+  width:100%;min-width:0;text-align:left;cursor:pointer;
+  color:#142f52!important;background:#fff!important;border:2px solid #bad9f2!important;
+  border-radius:19px;box-shadow:0 8px 23px #12345b1e;
+  font:inherit;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.mrlee-theme-entry .mrlee-entry-option:hover{
+  transform:translateY(-4px);border-color:#0d91e8!important;
+  box-shadow:0 19px 35px #153d672e
+}
+.mrlee-theme-entry .mrlee-entry-option:focus-visible{
+  outline:4px solid #ffab40!important;outline-offset:3px!important
+}
+.mrlee-theme-entry .mrlee-entry-option .mrlee-entry-preview{
+  height:clamp(150px,17vw,230px);display:block;flex:none;position:relative;width:100%;
+  background-color:#dceeff;background-size:cover;background-position:center;
+}
+.mrlee-theme-entry .mrlee-entry-fresh .mrlee-entry-preview{
+  background-image:linear-gradient(90deg,#e5f4ff6b,transparent 65%),url("../images/heroes/01-trang-chu-fresh.webp");
+}
+.mrlee-theme-entry .mrlee-entry-future .mrlee-entry-preview{
+  background-color:#071a37;
+  background-image:linear-gradient(90deg,#040d3140,transparent 65%),url("../images/heroes/01-trang-chu-future.webp");
+}
+.mrlee-theme-entry .mrlee-entry-option .mrlee-entry-option-copy{
+  display:flex;flex-direction:column;align-items:flex-start;gap:7px;
+  padding:19px 20px 20px;width:100%;flex:1;
+}
+.mrlee-theme-entry .mrlee-entry-option-copy strong{
+  font-size:clamp(17px,1.7vw,23px);font-weight:950;line-height:1.4;
+  color:#113b71!important
+}
+.mrlee-theme-entry .mrlee-entry-future .mrlee-entry-option-copy strong{color:#5939a8!important}
+.mrlee-theme-entry .mrlee-entry-option-copy small{
+  font-size:12px;font-weight:600;line-height:1.5;color:#4b6887!important
+}
+.mrlee-theme-entry .mrlee-entry-option-copy em{
+  display:block;min-height:41px;padding:11px 17px;
+  margin-top:7px;border-radius:11px;background:linear-gradient(115deg,#168ce4,#3865cf);
+  color:#fff!important;font-size:12px;font-weight:900;font-style:normal;
+}
+.mrlee-theme-entry .mrlee-entry-future .mrlee-entry-option-copy em{
+  background:linear-gradient(115deg,#064d95,#6543d4);
+}
+.mrlee-theme-entry .mrlee-entry-note{
+  text-align:center;color:#58728c!important;font-size:11px;line-height:1.55;
+  margin:18px 0 0
+}
+@media(max-width:650px){
+ dialog.mrlee-theme-entry{
+  width:calc(100vw - 22px);max-height:calc(100dvh - 22px);padding:18px 15px;
+  border-radius:19px
+ }
+ .mrlee-theme-entry .mrlee-entry-options{grid-template-columns:1fr;gap:12px}
+ .mrlee-theme-entry .mrlee-entry-option{flex-direction:row;align-items:stretch;min-height:130px}
+ .mrlee-theme-entry .mrlee-entry-option .mrlee-entry-preview{width:37%;height:auto;min-height:130px;background-position:70% center}
+ .mrlee-theme-entry .mrlee-entry-option .mrlee-entry-option-copy{
+  width:63%;padding:14px 12px;gap:5px;justify-content:center
+ }
+ .mrlee-theme-entry .mrlee-entry-option-copy strong{font-size:14px}
+ .mrlee-theme-entry .mrlee-entry-option-copy small{font-size:10px}
+ .mrlee-theme-entry .mrlee-entry-option-copy em{min-height:33px;padding:8px 10px;font-size:10px}
+ .mrlee-theme-entry #mrlee-entry-heading{font-size:25px}
+ .mrlee-theme-entry #mrlee-entry-intro{font-size:12px;margin-bottom:17px}
+}
+@media(prefers-reduced-motion:reduce){
+ .mrlee-theme-entry .mrlee-entry-option{transition:none!important}
+ .mrlee-theme-entry .mrlee-entry-option:hover{transform:none}
+}

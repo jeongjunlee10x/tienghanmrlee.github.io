@@ -49,20 +49,10 @@ try{
     if(!await contact.locator('.mrlee-contact-links').isVisible())throw Error('Contact dock did not expand');
     await toggle.click({timeout:5000});
     if(await contact.locator('.mrlee-contact-links').isVisible())throw Error('Contact dock did not collapse');
-    // Lesson/feature card photos must remain the same when selecting the other visual theme.
-    const photos=p.locator('.feature-card img,.mrlee-v4-card img');
-    if(await photos.count()){
-      const before=await photos.evaluateAll(images=>images.map(i=>i.getAttribute('src')));
-      const original=await p.evaluate(()=>document.documentElement.dataset.mrleeTheme);
-      const target=original==='future'?'fresh':'future';
-      const other=p.locator('.mrlee-theme-switch button[data-theme="'+target+'"]');
-      if(await other.count()){
-        await other.evaluate(el=>el.click());
-        const after=await photos.evaluateAll(images=>images.map(i=>i.getAttribute('src')));
-        if(JSON.stringify(before)!==JSON.stringify(after)){const differences=before.map((from,i)=>from===after[i]?null:{index:i,before:from,after:after[i]}).filter(Boolean);throw Error('Theme switch replaced content card photos: '+JSON.stringify(differences.slice(0,5)));}
-        await p.locator('.mrlee-theme-switch button[data-theme="'+original+'"]').evaluate(el=>el.click());
-      }
-    }
+    // A completed entry selection persists. There must be NO header switcher.
+    if(await p.locator('.mrlee-theme-switch').count())throw Error('Legacy header theme switcher reappeared');
+    if(await p.locator('#mrlee-theme-entry').count())throw Error('Entry dialog asked twice during an already-chosen tab');
+
   }},
   {file:'admin.html',check:async p=>{
     await p.locator('#authWrap').waitFor({state:'visible',timeout:15000});
@@ -146,7 +136,7 @@ try{
  for(const device of [{w:1440,h:900},{w:390,h:844}]){
   for(const theme of ['fresh','future']){
    const context=await browser.newContext({viewport:{width:device.w,height:device.h}});
-   await context.addInitScript(t=>{try{localStorage.setItem('MRLEE.THEME.V1',t)}catch{}},theme);
+   await context.addInitScript(t=>{try{localStorage.setItem('MRLEE.THEME.V1',t);sessionStorage.setItem('MRLEE.THEME.ENTRY.V1',t)}catch{}},theme);
    for(const test of cases){
     const page=await context.newPage();
     const protectedLayouts=new Set(['hoc-tieng-han.html','giao-tiep-theo-chu-de.html','giao-tiep-phong-van.html','mrlee-bai-tap-pro.html','trung-tam-hoc-vien.html']);
