@@ -88,6 +88,16 @@ async function recommendations(a){
  const heading=document.createElement('h2');heading.textContent='Lộ trình tham khảo dành cho bạn';
  const eyebrow=document.createElement('small');eyebrow.textContent='ĐỊNH HƯỚNG MR LEE · KẾT QUẢ BAN ĐẦU';
  const summary=document.createElement('p');summary.className='ts-intake-summary';summary.textContent='Mục tiêu: '+labels(goals)[a.goal]+' · '+labels(stages)[a.stage]+' · '+labels(languages)[a.language]+' · Khu vực: '+labels(areas)[a.area]+'.';
+ const guidance=document.createElement('p');guidance.className='ts-intake-summary';
+ const guidanceParts=[];
+ if(a.goal==='graduate'&&(a.stage==='highschool'||a.stage==='graduated-highschool'))
+  guidanceParts.push('Lộ trình sau đại học thường yêu cầu bằng đại học trước; nên ưu tiên tìm hiểu chương trình đại học/cao đẳng và điều kiện chuyển tiếp.');
+ else if(a.goal==='university'||a.goal==='college')guidanceParts.push('Hãy đối chiếu bằng cấp và yêu cầu tiếng Hàn của từng chương trình trước khi chọn trường.');
+ else if(a.goal==='language')guidanceParts.push('Bước đầu: kiểm tra chương trình đào tạo tiếng, lịch tuyển sinh và điều kiện đầu vào do trường công bố.');
+ else guidanceParts.push('Nên trao đổi định hướng với tư vấn viên trước khi chọn loại chương trình.');
+ if(a.language==='none'||a.language==='basic')guidanceParts.push('Hãy lập kế hoạch cải thiện tiếng Hàn; chưa thể xác nhận đủ điều kiện ngoại ngữ của bất kỳ trường nào.');
+ else guidanceParts.push('Có nền tảng tiếng Hàn là điểm khởi đầu; vẫn cần đối chiếu chứng chỉ được chấp nhận của trường.');
+ guidance.textContent=guidanceParts.join(' ');
  const notice=document.createElement('p');notice.className='ts-intake-disclaimer';
  notice.textContent='Các trường sau chỉ được chọn theo loại trường, khu vực và từ khóa ngành trong tên trường thuộc danh mục công khai của website. Dữ liệu chưa xác minh học phí, chuyên ngành đang mở, quyền cấp visa, nhận hồ sơ quốc tế hoặc điều kiện nhập học; KHÔNG phải xếp hạng trường hay xác nhận bạn đủ điều kiện.';
  const grid=document.createElement('div');grid.className='ts-intake-grid';
@@ -96,7 +106,7 @@ async function recommendations(a){
  const consult=document.createElement('a');consult.href='#dang-ky';consult.textContent='Nhận tư vấn cá nhân ↗';
  const all=document.createElement('a');all.href='ban-do-dai-hoc-han-quoc.html';all.textContent='Xem danh mục trường ↗';
  const redo=document.createElement('button');redo.type='button';redo.textContent='Điều chỉnh lựa chọn';redo.addEventListener('click',open);
- actions.append(consult,all,redo);result.replaceChildren(eyebrow,heading,summary,info,grid,notice,actions);result.hidden=false;
+ actions.append(consult,all,redo);result.replaceChildren(eyebrow,heading,summary,guidance,info,grid,notice,actions);result.hidden=false;
  try{
   const res=await fetch('university-map/universities.json',{cache:'no-store'});if(!res.ok)throw Error('HTTP '+res.status);
   const data=await res.json(),schools=Array.isArray(data.schools)?data.schools:[];
@@ -121,7 +131,7 @@ form.addEventListener('submit',async e=>{
 });
 back.addEventListener('click',()=>showStep(1));
 document.querySelectorAll('a[href="#tu-van-nhanh"],a[href="#tsPersonalRecommendations"]').forEach(a=>{
- a.addEventListener('click',e=>{if(!result.hidden)return;e.preventDefault();open()});
+ a.addEventListener('click',e=>{e.preventDefault();if(!result.hidden)result.scrollIntoView({behavior:'smooth',block:'start'});else open()});
 });
 $('tsIntakeSkip').addEventListener('click',close);
 overlay.addEventListener('keydown',e=>{
