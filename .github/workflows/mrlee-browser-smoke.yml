@@ -15,6 +15,10 @@ on:
       - 'assets/branding/media-quality-v3.*'
       - 'assets/branding/site-logo.js'
       - 'tuyen-sinh.html'
+      - 'on-luyen-phong-van.html'
+      - 'assets/branding/admissions-intake.*'
+      - 'assets/branding/interview-question-list-fix.css'
+      - 'tools/browser-admissions-interview.mjs'
       - 'tim-truong.html'
       - 'assets/branding/mrlee-child-polish-v1.css'
       - 'assets/mrlee-dual-ui/theme.js'
@@ -49,6 +53,10 @@ on:
       - 'assets/branding/media-quality-v3.*'
       - 'assets/branding/site-logo.js'
       - 'tuyen-sinh.html'
+      - 'on-luyen-phong-van.html'
+      - 'assets/branding/admissions-intake.*'
+      - 'assets/branding/interview-question-list-fix.css'
+      - 'tools/browser-admissions-interview.mjs'
       - 'tim-truong.html'
       - 'assets/branding/mrlee-child-polish-v1.css'
       - 'assets/mrlee-dual-ui/theme.js'
@@ -80,6 +88,8 @@ jobs:
         run: node tools/browser-smoke.mjs
       - name: Verify entry picker only once per tab, on mobile/desktop, with no header buttons
         run: node tools/browser-theme-entry.mjs
+      - name: Admissions pre-entry personalization and interview overflow in both themes
+        run: node tools/browser-admissions-interview.mjs
       - name: TOPIK I/II/Ngay Viet Nghe - WCAG contrast both themes desktop and mobile
         run: node tools/browser-topik-contrast.mjs
 
