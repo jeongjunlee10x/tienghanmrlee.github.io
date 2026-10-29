@@ -1,0 +1,22 @@
+name: MRLEE V31 QA
+on:
+  push:
+    branches: [mrlee-v31-visual-dossier-admin]
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/v31/**'
+      - 'assets/mrlee-next/**'
+      - 'tools/check-v31.mjs'
+      - '*.html'
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify assets, syntax, routes and dossier integration
+        run: node tools/check-v31.mjs
