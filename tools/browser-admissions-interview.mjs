@@ -58,8 +58,8 @@ try{
    const colorsOK=ui.heading==='rgb(255, 255, 255)' &&
      ui.nav==='rgb(22, 61, 112)' &&
      ui.card==='rgb(255, 255, 255)' &&
-     ui.label==='rgb(36, 70, 110)' &&
-     ui.input==='rgb(247, 250, 255)';
+     ui.label==='rgb(24, 59, 97)' &&
+     ui.input==='rgb(245, 248, 253)';
    const dockOK=!ui.dockOpen||(ui.dockOpen==='false'&&ui.dockLinks==='none'&&ui.dockToggle!=='none');
    if(!colorsOK||!dockOK||ui.scrollWidth>ui.width+5)throw Error('Admissions contrast or dock '+JSON.stringify(ui));
    await fs.promises.mkdir(path.join(root,'artifacts','subpage-review'),{recursive:true});
@@ -67,6 +67,53 @@ try{
      path:path.join(root,'artifacts','subpage-review','admissions-contact-'+theme+'-'+viewport.width+'.png'),
      animations:'disabled'
    });
+   // Real browser-computed WCAG contrast: screenshot regression, including original
+   // almost-invisible labels, typed input, navbar and dark-side hero title.
+   const colors=await page.evaluate(()=>{
+    const list=[
+      ['.ts-header .ts-nav a','#f8fbff'],
+      ['.ts-header .ts-brand-copy small','#f8fbff'],
+      ['.ts-contact-copy h2','#0b2f67'],
+      ['.ts-contact-copy .ts-kicker','#0b2f67'],
+      ['.ts-contact-copy>p:not(.ts-kicker)','#0b2f67'],
+      ['.ts-form-card .ts-form-head h3','#ffffff'],
+      ['.ts-form-card .ts-form-head p','#ffffff'],
+      ['.ts-form-card label[for=tsName]','#ffffff'],
+      ['.ts-form-card label[for=tsPhone]','#ffffff'],
+      ['.ts-form-card #tsName','#f5f8fd'],
+      ['.ts-form-card #tsPhone','#f5f8fd'],
+      ['.ts-form-card #tsProgram','#f5f8fd'],
+      ['.ts-form-card #tsMessage','#f5f8fd'],
+      ['.ts-form-card .ts-check-consent span','#ffffff'],
+      ['.ts-form-card .ts-form-privacy','#ffffff'],
+      ['.ts-intake-main h3','#ffffff'],
+      ['.ts-intake-options span','#f4f8ff']
+    ];
+    const rgb=s=>{
+      if(s.startsWith('#'))return [1,3,5].map(i=>parseInt(s.slice(i,i+2),16));
+      const m=s.match(/rgba?\(\s*(\d+)\s*,?\s*(\d+)\s*,?\s*(\d+)/);
+      if(!m)throw Error('Color not parseable: '+s);
+      return [+m[1],+m[2],+m[3]];
+    };
+    const luminance=s=>{const a=rgb(s).map(t=>t/255).map(t=>t<=.04045?t/12.92:((t+.055)/1.055)**2.4);return .2126*a[0]+.7152*a[1]+.0722*a[2]};
+    return list.map(([sel,bg])=>{
+      const el=document.querySelector(sel);if(!el)throw Error('Missing contrast element '+sel);
+      const fg=getComputedStyle(el).color;
+      const a=luminance(fg),b=luminance(bg);
+      return {selector:sel,ratio:+((Math.max(a,b)+.05)/(Math.min(a,b)+.05)).toFixed(2),fg,bg};
+    });
+   });
+   const low=colors.filter(x=>x.ratio<4.5);
+   if(low.length)throw Error('Admissions poor text contrast '+JSON.stringify(low));
+   const layout=await page.evaluate(()=>{
+      const form=document.querySelector('.ts-form-card'),title=document.querySelector('.ts-contact-copy h2'),
+       floating=document.querySelector('.ts-v15-float .ts-float-cta');
+      const fr=form?.getBoundingClientRect(),tr=title?.getBoundingClientRect();
+      return {form:!!fr,title:!!tr,titleWidth:tr?.width,submit:!!document.getElementById('tsLeadForm'),duplicateFloating:getComputedStyle(floating).display};
+   });
+   if(!layout.form||!layout.title||layout.duplicateFloating!=='none')throw Error('Admissions layout / overlay '+JSON.stringify(layout));
+   console.log('PASS ADMISSIONS COLORS '+theme+' '+viewport.width+' samples='+colors.length+' min='+Math.min(...colors.map(x=>x.ratio)).toFixed(2));
+
    console.log('PASS admissions contrast '+theme+' '+viewport.width+' '+JSON.stringify(ui));
    console.log('PASS admissions '+theme+' '+viewport.width+' '+JSON.stringify(a));
   }catch(e){failures.push('ADMISSIONS '+theme+' '+viewport.width+' '+e.message)}
