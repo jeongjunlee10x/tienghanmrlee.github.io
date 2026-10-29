@@ -1,0 +1,20 @@
+/* V31 theme-independent photo strip, separate from the full-bleed hero. */
+#mrleeV31Gallery{padding:clamp(16px,2.4vw,32px);max-width:1500px;margin:16px auto 26px;color:#15324e;box-sizing:border-box}
+.mrlee-v31-gallery-head{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:12px}
+.mrlee-v31-gallery-head h2{font-size:clamp(20px,2.1vw,28px);margin:3px 0 0;line-height:1.35;color:inherit}
+.mrlee-v31-gallery-head small{font-size:11px;letter-spacing:.13em;font-weight:900;color:#08789b}
+.mrlee-v31-gallery-head p{font-size:12px;margin:5px 0;color:#61758a;max-width:760px}
+.mrlee-v31-gallery-track{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(160px,18vw,225px);gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;padding:5px 2px 15px}
+.mrlee-v31-photo{position:relative;display:block;min-width:0;aspect-ratio:4/3;overflow:hidden;border-radius:16px;background:#dcebf6;box-shadow:0 4px 13px #091f371a;scroll-snap-align:start;text-decoration:none!important}
+.mrlee-v31-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;filter:none;image-rendering:auto;transition:transform .25s ease}
+.mrlee-v31-photo:hover img{transform:scale(1.035)}
+.mrlee-v31-photo span{position:absolute;inset:auto 0 0;color:white;font:700 12px/1.4 'Be Vietnam Pro',system-ui,sans-serif;background:linear-gradient(transparent,#031c35e8);padding:25px 12px 10px}
+html[data-mrlee-theme="future"] #mrleeV31Gallery{color:#e6f7ff}
+html[data-mrlee-theme="future"] .mrlee-v31-gallery-head p{color:#b2d3e5}
+html[data-mrlee-theme="future"] .mrlee-v31-photo{outline:1px solid #37a8ea44}
+@media(max-width:700px){#mrleeV31Gallery{padding:13px 14px}.mrlee-v31-gallery-track{grid-auto-columns:64vw}.mrlee-v31-gallery-head h2{font-size:20px}}
+@media(prefers-reduced-motion:reduce){.mrlee-v31-photo img{transition:none}}
+
+/* Prevent a horizontally scrolling gallery from determining the width of its flex/grid parent. */
+#mrleeV31Gallery{width:calc(100% - 28px)!important;max-width:min(1500px,calc(100vw - 28px))!important;min-width:0!important;overflow:hidden;flex-shrink:1}
+#mrleeV31Gallery .mrlee-v31-gallery-track{min-width:0!important;max-width:100%;width:100%;box-sizing:border-box}

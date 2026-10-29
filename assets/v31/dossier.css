@@ -1,0 +1,17 @@
+.mrlee-v31-dossier{margin:20px 0;padding:20px;border:1px solid #bdd8f1;border-radius:18px;background:linear-gradient(150deg,#f4faff,#fff);min-width:0}
+.mrlee-v31-dossier legend{font-size:19px;font-weight:850;color:#153c68;padding:0 9px}
+.mrlee-v31-dossier legend small{font-weight:500;font-size:12px}
+.mrlee-v31-dossier>p{font-size:12px;line-height:1.75;color:#485e74}
+.mrlee-v31-dossier-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.mrlee-v31-dossier-grid label{display:grid;gap:7px;font-weight:750;font-size:12px;color:#214763;min-width:0}
+.mrlee-v31-dossier-grid :is(input,select){height:43px;border:1px solid #bbcee2;background:#fff;color:#193b53;border-radius:10px;padding:9px 12px;max-width:100%;min-width:0;font:500 13px system-ui}
+.mrlee-v31-dossier-wide{grid-column:1/-1}
+.mrlee-v31-checklist{margin-top:18px;padding:14px;background:#eaf4ff;border:1px solid #c7e0f5;border-radius:13px;font-size:13px;line-height:1.8}
+.mrlee-v31-checklist summary{font-weight:800;cursor:pointer}
+.mrlee-v31-checklist ul{padding-left:22px}.mrlee-v31-checklist a{color:#075c9b}
+html[data-mrlee-theme="future"] .mrlee-v31-dossier{background:#0a2145;color:#eef7ff;border-color:#287fb0}
+html[data-mrlee-theme="future"] .mrlee-v31-dossier legend,html[data-mrlee-theme="future"] .mrlee-v31-dossier-grid label{color:#e6f7ff}
+html[data-mrlee-theme="future"] .mrlee-v31-dossier>p{color:#bcd2e3}
+html[data-mrlee-theme="future"] .mrlee-v31-checklist{background:#102f51;color:#e5f6ff;border-color:#2f76a3}
+html[data-mrlee-theme="future"] .mrlee-v31-checklist a{color:#9bdffd}
+@media(max-width:620px){.mrlee-v31-dossier{padding:12px}.mrlee-v31-dossier-grid{grid-template-columns:1fr}.mrlee-v31-dossier-wide{grid-column:auto}}

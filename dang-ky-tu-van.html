@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="assets/branding/site-logo.css?v=20261027-meme2" data-mrlee-v22="branding">
 <script defer src="assets/branding/site-logo.js?v=20261027-meme2" data-mrlee-v22="branding"></script>
 <link rel="stylesheet" href="assets/branding/mrlee-child-polish-v1.css?v=20261027-sub01">
-</head><body class="mrlee-next mrlee-consult-page">
+<link rel="stylesheet" href="assets/v31/dossier.css?v=31.0"><link rel="stylesheet" href="assets/v31/premium-gallery.css?v=31.0"><script defer src="assets/v31/premium-gallery.js?v=31.0"></script></head><body class="mrlee-next mrlee-consult-page">
 <a class="mrlee-skip" href="#main">Đến biểu mẫu tư vấn</a>
 <header class="mrlee-next-header"><a class="mrlee-next-brand" href="index.html" aria-label="Trang chủ TIẾNG HÀN MR LEE"><img src="assets/branding/logo-mrlee.png" alt="Logo mascot meme TIẾNG HÀN MR LEE" width="220" height="74"></a>
 <nav aria-label="Menu chính"><a href="index.html">Trang chủ</a><a href="hoc-tieng-han.html">Học tiếng Hàn</a><a href="giao-tiep-theo-chu-de.html">Giao tiếp</a><a href="kiem-tra-topik.html">TOPIK</a><a href="giao-tiep-phong-van.html">Phỏng vấn</a><a href="van-hoa-han-quoc.html">Văn hóa</a><a href="ban-do-dai-hoc-han-quoc.html">Bản đồ ĐH Hàn Quốc</a></nav>
@@ -32,6 +32,34 @@
 <label>Kênh mong muốn<select name="preferred_contact"><option value="phone">Điện thoại</option><option value="zalo">Zalo</option><option value="email">Email</option></select></label>
 <label class="wide">Mục tiêu / câu hỏi cần tư vấn<textarea name="message" rows="4" maxlength="1500" placeholder="Mục tiêu, thời gian dự kiến, trình độ hiện tại..."></textarea></label>
 </div>
+<fieldset class="mrlee-v31-dossier">
+<legend>Hồ sơ định hướng du học <small>– mở rộng, không bắt buộc</small></legend>
+<p>Điền những gì bạn đã biết để tư vấn viên rà soát lộ trình và lập checklist cá nhân. <b>Không nhập số hộ chiếu/CCCD, số tài khoản, bản sao giấy tờ, thông tin tài chính chi tiết tại đây.</b></p>
+<div class="mrlee-v31-dossier-grid">
+<label>Ngày sinh (để định hướng độ tuổi)<input name="dossier_date_of_birth" type="date" max="2026-10-30"></label>
+<label>Trình độ học vấn<select name="dossier_academic_level"><option value="">Chưa cung cấp</option><option>Đang học THPT</option><option>Đã tốt nghiệp THPT</option><option>Đang học cao đẳng/đại học</option><option>Đã tốt nghiệp cao đẳng/đại học</option><option>Sau đại học</option></select></label>
+<label>Trường học gần nhất<input name="dossier_current_school" maxlength="160" placeholder="Tên trường đang/đã học"></label>
+<label>Năm tốt nghiệp dự kiến/thực tế<input name="dossier_graduation_year" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" placeholder="Ví dụ: 2026"></label>
+<label>Điểm trung bình học tập<input name="dossier_gpa" maxlength="40" placeholder="Ví dụ: 8,1/10 – ghi rõ thang điểm"></label>
+<label>Trình độ tiếng Hàn<select name="dossier_korean_level"><option value="">Chưa cung cấp</option><option>Chưa học</option><option>Sơ cấp</option><option>Trung cấp</option><option>Cao cấp</option></select></label>
+<label>TOPIK đã đạt (nếu có)<input name="dossier_topik_score" maxlength="80" placeholder="TOPIK I/II, cấp, thời điểm thi"></label>
+<label>Trình độ ngoại ngữ khác<input name="dossier_english_level" maxlength="80" placeholder="IELTS/TOEFL hoặc chứng chỉ khác"></label>
+<label>Ngành học mong muốn<input name="dossier_target_major" maxlength="140"></label>
+<label>Trường muốn tìm hiểu<input name="dossier_target_university" maxlength="160"></label>
+<label>Khu vực ưu tiên tại Hàn Quốc<input name="dossier_target_city" maxlength="100" placeholder="Ví dụ: Busan, Seoul..."></label>
+<label>Kỳ nhập học mong muốn<input name="dossier_target_intake" maxlength="80" placeholder="Ví dụ: tháng 3/2027"></label>
+<label>Ngân sách dự kiến<select name="dossier_budget"><option value="">Chưa xác định</option><option>Cần tư vấn chi phí</option><option>Dưới 150 triệu VND/năm</option><option>150–250 triệu VND/năm</option><option>Trên 250 triệu VND/năm</option></select></label>
+<label>Chỗ ở quan tâm<select name="dossier_housing"><option value="">Chưa chọn</option><option>Ký túc xá</option><option>Thuê ngoài</option><option>Cần tư vấn</option></select></label>
+<label>Học bổng<select name="dossier_scholarship"><option value="">Chưa chọn</option><option>Muốn tìm hiểu điều kiện</option><option>Có chứng nhận học bổng</option><option>Không ưu tiên</option></select></label>
+<label>Khoảng thời gian gián đoạn học tập (nếu có)<input name="dossier_study_gap" maxlength="120" placeholder="Chỉ ghi thời gian tổng quát"></label>
+<label>Người giám hộ liên hệ (nếu phù hợp)<input name="dossier_guardian_contact" maxlength="150" placeholder="Tên và cách liên hệ, có sự đồng ý"></label>
+<label>Tình trạng chuẩn bị giấy tờ<select name="dossier_document_progress"><option value="">Chưa xác định</option><option>Chưa chuẩn bị</option><option>Đang thu thập</option><option>Cần rà soát</option><option>Đã có bản để đối chiếu riêng</option></select></label>
+<label class="mrlee-v31-dossier-wide">Ghi chú về kế hoạch học tập/định hướng<input name="dossier_plan_note" maxlength="300" placeholder="Thông tin cần trao đổi với tư vấn viên"></label>
+</div>
+<details class="mrlee-v31-checklist"><summary>Checklist chuẩn bị hồ sơ du học (tham khảo, không tải giấy tờ tại đây)</summary>
+<ul><li>Họ tên đúng theo giấy tờ và phương thức liên lạc hợp lệ.</li><li>Học bạ, bằng tốt nghiệp hoặc giấy chứng nhận tốt nghiệp (tùy bậc học).</li><li>Chứng chỉ tiếng Hàn/ngoại ngữ nếu chương trình yêu cầu.</li><li>Kế hoạch học tập, giới thiệu bản thân và thông tin ngành học.</li><li>Hộ chiếu và ảnh thẻ theo thông báo hồ sơ hiện hành.</li><li>Hồ sơ gia đình, giấy tờ chứng minh tài chính theo hướng dẫn chính thức.</li><li>Giấy tờ dịch thuật, công chứng/hợp pháp hóa theo yêu cầu từng trường và cơ quan có thẩm quyền.</li><li>Thư mời/giấy báo nhập học, giấy tờ visa theo thời điểm nộp.</li></ul>
+<p>Danh mục chính xác phụ thuộc trường, khóa học, cơ quan lãnh sự và ngày nộp. Đối chiếu tại <a href="https://www.studyinkorea.go.kr/" rel="noopener noreferrer" target="_blank">Study in Korea (chính phủ Hàn Quốc)</a> và <a href="https://overseas.mofa.go.kr/vn-vi/index.do" rel="noopener noreferrer" target="_blank">Cơ quan đại diện Hàn Quốc</a>.</p>
+</details></fieldset>
 <div class="mrlee-consult-consent"><label><input type="checkbox" id="mrleeUnder18"> Tôi chưa đủ 18 tuổi</label>
 <label id="mrleeGuardianRow" hidden><input type="checkbox" id="mrleeGuardian"> Phụ huynh/người giám hộ đã đồng ý cho MR LEE liên hệ.</label>
 <label><input type="checkbox" id="mrleeConsultConsent" required> <span>Tôi đồng ý để TIẾNG HÀN MR LEE sử dụng thông tin liên hệ và nội dung yêu cầu chỉ nhằm mục đích tư vấn. Tôi có thể đề nghị chỉnh sửa hoặc xóa dữ liệu bằng cách liên hệ với bộ phận phụ trách.</span></label></div>

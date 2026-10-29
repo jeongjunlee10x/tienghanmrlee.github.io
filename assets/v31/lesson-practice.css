@@ -1,0 +1,23 @@
+.mrlee-v31-extra{max-width:1250px;margin:24px auto;background:#f3f9ff;color:#193950;border:1px solid #c7ddef;border-radius:19px;padding:clamp(16px,2vw,28px);box-sizing:border-box}
+.mrlee-v31-extra-head{display:flex;justify-content:space-between;gap:14px;align-items:start}
+.mrlee-v31-extra-head h2{font-size:22px;margin:4px 0}.mrlee-v31-extra-head p{font-size:13px;line-height:1.6;max-width:760px}
+.mrlee-v31-extra-head small{color:#147d9e;letter-spacing:.1em;font-weight:850}
+.mrlee-v31-extra-head>strong{font-size:13px;white-space:nowrap;color:#075d9a;background:#e0efff;border-radius:24px;padding:8px 11px}
+.mrlee-v31-extra-controls{display:flex;align-items:center;gap:15px;justify-content:space-between;margin:14px 0;flex-wrap:wrap;font-size:13px}
+.mrlee-v31-extra-controls label{display:flex;align-items:center;gap:8px}
+.mrlee-v31-extra select,.mrlee-v31-extra input{border:1px solid #b9d1e6;border-radius:11px;padding:11px;background:#fff;color:#143d5e;max-width:100%}
+.mrlee-v31-extra-question{border-left:4px solid #1e9cce;padding:15px;background:white;border-radius:13px;min-height:110px}
+.mrlee-v31-extra-question strong{font-size:14px;color:#114f7b}
+.mrlee-v31-extra-question p{font-size:clamp(19px,2.3vw,26px);font-weight:700;margin:8px 0;word-break:break-word}
+.mrlee-v31-extra-question small{font-size:11px;color:#637e97}
+.mrlee-v31-extra-answer{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0}
+.mrlee-v31-extra-answer input{min-width:200px;flex:1}
+.mrlee-v31-extra :is(button){border:1px solid #afd4e7;border-radius:11px;background:#fff;color:#15476b;font-weight:750;padding:10px 14px;cursor:pointer}
+.mrlee-v31-extra button:hover{background:#e4f5ff}
+.mrlee-v31-extra-actions{display:flex;gap:9px;flex-wrap:wrap}
+.mrlee-v31-extra-actions button:last-child{background:#085b92;color:white}
+.mrlee-v31-extra-feedback{min-height:23px;font-weight:700;font-size:13px}
+html[data-mrlee-theme="future"] .mrlee-v31-extra{background:#0b2246;color:#e5f8ff;border-color:#2980b4}
+html[data-mrlee-theme="future"] .mrlee-v31-extra-question{background:#122e50;color:#ecf8ff}
+html[data-mrlee-theme="future"] .mrlee-v31-extra-question strong{color:#8adfff}
+@media(max-width:600px){.mrlee-v31-extra-head{flex-direction:column}.mrlee-v31-extra-head>strong{white-space:normal}}
