@@ -1,0 +1,113 @@
+/* MR LEE · Admissions welcome & school discovery · 2026-10-29.
+   Only this page; does not modify global theme chooser, Admin or course pages. */
+dialog#mrleeAdmissionsDialog{
+  position:fixed!important;inset:0!important;z-index:2147480000!important;
+  width:min(1000px,calc(100vw - 24px))!important;max-width:1000px!important;
+  max-height:min(94dvh,850px)!important;margin:auto!important;
+  padding:0!important;border:1px solid #c8d8f2!important;
+  border-radius:26px!important;overflow:auto!important;overscroll-behavior:contain;
+  background:#fff!important;color:#172f50!important;
+  box-shadow:0 35px 125px #021636b5!important;
+  font-family:"Be Vietnam Pro",system-ui,sans-serif!important;
+}
+#mrleeAdmissionsDialog::backdrop{background:rgba(1,14,35,.82);backdrop-filter:blur(9px)}
+#mrleeAdmissionsDialog *{box-sizing:border-box}
+#mrleeAdmissionsDialog .ap-shell{display:grid;grid-template-columns:minmax(255px,.85fr) minmax(0,1.15fr);min-height:530px}
+#mrleeAdmissionsDialog .ap-visual{
+  color:#fff;background:linear-gradient(153deg,#102d61dc,#061d48e8),
+    url("../images/heroes/11-tuyen-sinh-future.svg") center/cover;
+  padding:clamp(24px,3vw,41px);display:flex;flex-direction:column;justify-content:space-between;
+}
+#mrleeAdmissionsDialog .ap-brand{display:flex;align-items:center;gap:11px;font-size:11px;font-weight:850;letter-spacing:.1em;color:#b9e9ff}
+#mrleeAdmissionsDialog .ap-brand img{width:52px;height:52px;object-fit:contain}
+#mrleeAdmissionsDialog .ap-visual h2{font-size:clamp(30px,3.2vw,46px);line-height:1.18;font-weight:950;letter-spacing:-.055em;color:#fff!important;margin:34px 0 16px;text-shadow:none}
+#mrleeAdmissionsDialog .ap-visual h2 em{font-style:normal;color:#fd8dbb}
+#mrleeAdmissionsDialog .ap-visual p{color:#ddedff!important;line-height:1.7;font-size:13px;max-width:32ch}
+#mrleeAdmissionsDialog .ap-privacy{border-top:1px solid #a5d7ff40;padding-top:15px;color:#c5e6ff!important;font-size:11px;line-height:1.7}
+#mrleeAdmissionsDialog .ap-main{padding:clamp(21px,3vw,38px);background:#fff;color:#172f50}
+#mrleeAdmissionsDialog .ap-topline{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#244d79;font-size:12px;font-weight:800}
+#mrleeAdmissionsDialog .ap-topline span:first-child{color:#ed2473}
+#mrleeAdmissionsDialog .ap-progress{margin:14px 0 22px;display:flex;gap:7px}
+#mrleeAdmissionsDialog .ap-progress i{height:5px;border-radius:8px;background:#e5eefd;flex:1}
+#mrleeAdmissionsDialog[data-step="1"] .ap-progress i:first-child,
+#mrleeAdmissionsDialog[data-step="2"] .ap-progress i{background:linear-gradient(90deg,#12b7e9,#ff3988)}
+#mrleeAdmissionsDialog h3{font-size:clamp(20px,2vw,28px);line-height:1.3;color:#15345a!important;letter-spacing:-.03em;margin:0 0 7px}
+#mrleeAdmissionsDialog .ap-help{font-size:12px;color:#54708c!important;line-height:1.55;margin:0 0 17px}
+#mrleeAdmissionsDialog .ap-field{border:0;padding:0;margin:0 0 20px;min-width:0}
+#mrleeAdmissionsDialog .ap-field legend,#mrleeAdmissionsDialog .ap-select>span{
+  display:block;width:100%;font:800 13px/1.5 "Be Vietnam Pro",sans-serif;color:#173b65!important;margin-bottom:9px;
+}
+#mrleeAdmissionsDialog .ap-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+#mrleeAdmissionsDialog .ap-choice{position:relative;display:flex;cursor:pointer}
+#mrleeAdmissionsDialog .ap-choice input{position:absolute;opacity:0;inset:0;width:100%;height:100%;cursor:pointer}
+#mrleeAdmissionsDialog .ap-choice span{
+  flex:1;display:flex;align-items:center;gap:8px;min-height:49px;padding:10px 12px;
+  background:#f5f8ff!important;border:1.5px solid #d4e2f6!important;border-radius:13px;
+  color:#264766!important;font-size:12px;font-weight:750;line-height:1.4;
+}
+#mrleeAdmissionsDialog .ap-choice input:checked+span{
+  background:#eaf8ff!important;border-color:#178fcf!important;color:#084d87!important;
+  box-shadow:inset 0 0 0 1px #178fcf,0 5px 15px #258ad51c;
+}
+#mrleeAdmissionsDialog .ap-choice input:focus-visible+span{outline:3px solid #ffb02b;outline-offset:2px}
+#mrleeAdmissionsDialog .ap-stage[hidden]{display:none!important}
+#mrleeAdmissionsDialog .ap-extra{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:17px}
+#mrleeAdmissionsDialog .ap-select select{
+  width:100%;min-height:48px;border-radius:12px;border:1px solid #c3d5ec;
+  padding:10px 12px;background:#f7faff;color:#14395e;font:650 12px "Be Vietnam Pro",sans-serif;
+}
+#mrleeAdmissionsDialog .ap-note{font-size:11px;color:#55728e;line-height:1.7;margin:10px 0 15px}
+#mrleeAdmissionsDialog .ap-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+#mrleeAdmissionsDialog .ap-actions button{
+  min-height:46px;padding:11px 18px;border:0;border-radius:12px;
+  font:850 12px "Be Vietnam Pro",sans-serif;cursor:pointer;
+}
+#mrleeAdmissionsDialog .ap-next,#mrleeAdmissionsDialog .ap-finish{
+  background:linear-gradient(95deg,#f31e78,#fe5377)!important;color:#fff!important;
+  box-shadow:0 8px 20px #f6277642;flex:1;
+}
+#mrleeAdmissionsDialog .ap-back{background:#eaf2fc!important;color:#16426b!important}
+#mrleeAdmissionsDialog .ap-inline-error{color:#af143e;font-size:12px;min-height:1em;margin:0 0 8px}
+#mrleeAdmissionsDialog .ap-stage:not([hidden]){animation:mrlee-admissions-in .2s ease}
+@keyframes mrlee-admissions-in{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+#mrleeAdmissionsResults{background:#f5f9ff;color:#183655;padding:48px 0;border-top:1px solid #dce8f8}
+#mrleeAdmissionsResults[hidden]{display:none!important}
+#mrleeAdmissionsResults .ap-results-panel{border:1px solid #d9e6f6;background:#fff;border-radius:23px;padding:clamp(20px,3vw,35px);box-shadow:0 17px 40px #14355c13}
+#mrleeAdmissionsResults .ap-results-header{display:flex;justify-content:space-between;align-items:start;gap:20px;flex-wrap:wrap}
+#mrleeAdmissionsResults .ap-eyebrow{color:#ec2375;font-size:11px;letter-spacing:.08em;font-weight:850}
+#mrleeAdmissionsResults h2{color:#133b66!important;font-size:clamp(23px,2.9vw,36px);line-height:1.25;margin:8px 0}
+#mrleeAdmissionsResults .ap-summary{color:#426484!important;font-size:13px;max-width:90ch;line-height:1.7;margin:7px 0 15px}
+#mrleeAdmissionsResults .ap-retake{border:1px solid #b6d1e9;border-radius:10px;background:#edf5ff;color:#123d67;font-weight:800;padding:11px 15px;cursor:pointer}
+#mrleeAdmissionsResults .ap-school-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:17px 0}
+#mrleeAdmissionsResults .ap-school-card{border:1px solid #d9e5f2;border-radius:17px;padding:17px;min-width:0;background:#fafdff}
+#mrleeAdmissionsResults .ap-school-kind{display:inline-flex;font-size:10px;font-weight:800;padding:5px 9px;border-radius:20px;color:#075881;background:#e2f5ff}
+#mrleeAdmissionsResults .ap-school-card h3{font-size:15px!important;line-height:1.4;margin:9px 0 4px;color:#173e68!important;overflow-wrap:anywhere}
+#mrleeAdmissionsResults .ap-school-card p{color:#4e6b82;font-size:11px;line-height:1.6;margin:6px 0}
+#mrleeAdmissionsResults .ap-school-card a{font-weight:800;font-size:11px;color:#006ba9;text-decoration:underline;text-underline-offset:3px}
+#mrleeAdmissionsResults .ap-disclaimer{border-left:3px solid #ef317e;background:#fff3f8;padding:12px 15px;border-radius:10px;color:#684052;font-size:12px;line-height:1.7}
+#mrleeAdmissionsResults .ap-after{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
+#mrleeAdmissionsResults .ap-after a{border-radius:11px;background:#0a457b;color:white;padding:12px 16px;font-weight:850;font-size:12px}
+#mrleeAdmissionsResults .ap-after a:first-child{background:#f52879}
+@media(max-width:790px){
+ #mrleeAdmissionsDialog .ap-shell{display:block;min-height:0}
+ #mrleeAdmissionsDialog .ap-visual{padding:16px 21px;background:#09264e}
+ #mrleeAdmissionsDialog .ap-visual h2{font-size:23px;margin:12px 0 5px}
+ #mrleeAdmissionsDialog .ap-visual h2 em{display:inline}
+ #mrleeAdmissionsDialog .ap-visual p{display:none}
+ #mrleeAdmissionsDialog .ap-privacy{display:none}
+ #mrleeAdmissionsDialog .ap-main{padding:19px}
+ #mrleeAdmissionsResults .ap-school-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:520px){
+ dialog#mrleeAdmissionsDialog{width:calc(100vw - 14px)!important;border-radius:17px!important;max-height:96dvh!important}
+ #mrleeAdmissionsDialog .ap-choices{gap:6px}
+ #mrleeAdmissionsDialog .ap-choice span{min-height:46px;padding:8px;font-size:11px}
+ #mrleeAdmissionsDialog .ap-extra{grid-template-columns:1fr}
+ #mrleeAdmissionsDialog .ap-field{margin-bottom:13px}
+ #mrleeAdmissionsDialog .ap-visual{padding:12px 17px}
+ #mrleeAdmissionsDialog .ap-visual h2{font-size:19px;margin:5px 0}
+ #mrleeAdmissionsDialog .ap-brand{font-size:10px}
+ #mrleeAdmissionsDialog .ap-brand img{height:34px;width:34px}
+ #mrleeAdmissionsResults .ap-school-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){#mrleeAdmissionsDialog .ap-stage:not([hidden]){animation:none}}
