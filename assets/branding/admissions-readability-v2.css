@@ -15,11 +15,12 @@ html:has(.ts-contact-section) .ts-header .ts-brand-copy small { color:#4d6585; }
   background:radial-gradient(circle at 3% 13%,#1d559e 0,transparent 44%),linear-gradient(115deg,#10356e 0%,#071b3a 74%,#071833 100%);
   color:#f6fbff;
   overflow:clip;
+  padding:clamp(44px,5vw,74px) 0;
 }
 .ts-contact-section .ts-contact-grid {
   grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
   align-items:center; gap:clamp(28px,4.1vw,58px);
-  padding-block:clamp(46px,5vw,78px);
+  padding-block:0;
 }
 .ts-contact-section .ts-contact-copy { min-height:0; align-self:center; }
 .ts-section.ts-contact-section .ts-contact-copy h2 {
@@ -145,14 +146,15 @@ html:has(.ts-contact-section) #mrleeContactDock .mrlee-contact-link {
 /* Narrow viewports: stack content, no horizontal clipping, reachable CTA. */
 @media(max-width:900px){
   .ts-contact-section .ts-contact-grid {
-    grid-template-columns:minmax(0,1fr); gap:22px; padding-block:45px;
+    grid-template-columns:minmax(0,1fr); gap:22px; padding-block:0;
   }
   .ts-contact-section .ts-contact-copy { max-width:700px; }
   .ts-contact-section .ts-form-card { max-width:720px; width:100%; margin:0 auto; }
   .ts-section.ts-contact-section .ts-contact-copy h2 { font-size:clamp(34px,6vw,48px); }
 }
 @media(max-width:620px){
-  .ts-contact-section .ts-contact-grid { padding-block:32px 50px; }
+  .ts-section.ts-contact-section { padding-block:34px 46px; }
+  .ts-contact-section .ts-contact-grid { padding-block:0; }
   .ts-section.ts-contact-section .ts-contact-copy h2 { font-size:clamp(31px,8vw,41px); margin:12px 0 15px; }
   .ts-contact-section .ts-contact-lines { gap:8px; margin-top:17px; }
   .ts-contact-section .ts-contact-channels { margin-top:18px; }
