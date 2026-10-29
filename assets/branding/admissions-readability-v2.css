@@ -1,0 +1,169 @@
+/* MR LEE · Admissions readability V2 | 2026-10-29
+   Scoped to tuyen-sinh.html. Preserve forms, channel links, intake modal & themes. */
+html:has(.ts-contact-section) { scroll-padding-top:94px; }
+html:has(.ts-contact-section) .ts-header { background:rgba(255,255,255,.98); border-color:#dce6f1; }
+html:has(.ts-contact-section) .ts-header .ts-nav a {
+  color:#163d70 !important; font-size:12px; font-weight:800; letter-spacing:0;
+}
+html:has(.ts-contact-section) .ts-header .ts-nav a:is(:hover,:focus-visible) {
+  color:#075bd1 !important; text-decoration:underline; text-underline-offset:5px;
+}
+html:has(.ts-contact-section) .ts-header .ts-brand-copy small { color:#4d6585; }
+
+/* Core defect: .ts-section h2 from V15 overrode the light heading on dark. */
+.ts-section.ts-contact-section {
+  background:radial-gradient(circle at 3% 13%,#1d559e 0,transparent 44%),linear-gradient(115deg,#10356e 0%,#071b3a 74%,#071833 100%);
+  color:#f6fbff;
+  overflow:clip;
+}
+.ts-contact-section .ts-contact-grid {
+  grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+  align-items:center; gap:clamp(28px,4.1vw,58px);
+  padding-block:clamp(46px,5vw,78px);
+}
+.ts-contact-section .ts-contact-copy { min-height:0; align-self:center; }
+.ts-section.ts-contact-section .ts-contact-copy h2 {
+  color:#ffffff !important;
+  font-size:clamp(37px,3.35vw,55px);
+  line-height:1.2; letter-spacing:-.05em;
+  margin:16px 0 22px; text-shadow:0 3px 18px #00152b45;
+}
+.ts-section.ts-contact-section .ts-contact-copy h2 em {
+  color:#ff8fba !important;
+}
+.ts-section.ts-contact-section .ts-contact-copy .ts-kicker {
+  color:#c1e4ff !important; font-size:11px; letter-spacing:.2em; font-weight:900;
+}
+.ts-section.ts-contact-section .ts-contact-copy>p:not(.ts-kicker) {
+  color:#e1ecfb; font-size:13px; line-height:1.85; max-width:485px;
+}
+.ts-contact-section .ts-contact-lines {
+  color:#e6f3ff; gap:12px; margin-top:24px; font-size:11.5px; line-height:1.6;
+}
+.ts-contact-section .ts-contact-channels {
+  border:1px solid #90b5e65e; background:#ffffff0b;
+  border-radius:18px; padding:17px 20px; margin-top:25px;
+}
+.ts-contact-section .ts-contact-channels>p:first-child { color:#c4ddff; font-size:11px; }
+.ts-contact-section .ts-social-empty { color:#d9e8ff; font-size:11px; line-height:1.7; }
+.ts-contact-section .ts-contact-pattern { color:#ffffff0a; font-size:clamp(82px,9vw,140px); }
+
+/* White form remains readable even when the outer site uses "future" theme. */
+.ts-contact-section .ts-form-card {
+  background:#ffffff !important; color:#1b365b !important;
+  border:1px solid #e8eef8; border-radius:24px;
+  padding:clamp(22px,2.4vw,36px);
+  box-shadow:0 28px 70px #00102945;
+}
+.ts-contact-section .ts-form-head>span { color:#1667c7; font-size:10px; letter-spacing:.11em; }
+.ts-contact-section .ts-form-head h3 {
+  color:#133d75 !important; font-size:clamp(23px,2.25vw,29px); font-weight:900;
+  letter-spacing:-.035em; line-height:1.3; margin:7px 0 5px;
+}
+.ts-contact-section .ts-form-head p {
+  color:#536a82 !important; font-size:11.5px; line-height:1.65; margin:0 0 20px;
+}
+.ts-contact-section .ts-form-card form { gap:14px; }
+.ts-contact-section .ts-form-row { gap:14px; }
+.ts-contact-section .ts-form-card label:not(.ts-check-consent) {
+  display:flex; flex-direction:column; gap:7px;
+  color:#24466e !important; font-weight:800; font-size:12px; line-height:1.45;
+}
+.ts-contact-section .ts-form-card label b { color:#d6305d; }
+html .ts-contact-section .ts-form-card :is(input:not([type=checkbox]),select,textarea) {
+  background:#f7faff !important; border:1px solid #b9cbe0 !important;
+  border-radius:11px; color:#17365c !important; -webkit-text-fill-color:#17365c;
+  opacity:1 !important; min-height:48px; font-size:13px; font-weight:650;
+  padding:12px 13px; box-shadow:none; color-scheme:light;
+}
+html .ts-contact-section .ts-form-card :is(input:not([type=checkbox]),select,textarea)::placeholder {
+  color:#637b96 !important; opacity:1;
+}
+html .ts-contact-section .ts-form-card textarea {
+  min-height:86px; line-height:1.6; resize:vertical; font-weight:500;
+}
+html .ts-contact-section .ts-form-card :is(input:not([type=checkbox]),select,textarea):focus {
+  background:#fff !important; border-color:#2071d2 !important;
+  box-shadow:0 0 0 3px #b8d9ffab !important; outline:none;
+}
+html .ts-contact-section .ts-form-card input:-webkit-autofill,
+html .ts-contact-section .ts-form-card input:-webkit-autofill:focus {
+  -webkit-box-shadow:0 0 0 1000px #f7faff inset !important;
+  box-shadow:0 0 0 1000px #f7faff inset !important;
+  -webkit-text-fill-color:#17365c !important; caret-color:#17365c;
+}
+.ts-contact-section .ts-check-consent {
+  color:#385574 !important; font-size:11.5px; font-weight:600; line-height:1.6;
+  display:flex; gap:10px; align-items:flex-start; cursor:pointer;
+}
+.ts-contact-section .ts-check-consent input {
+  accent-color:#1468ce; width:19px; height:19px; margin-top:2px;
+}
+.ts-contact-section .ts-btn-submit {
+  min-height:53px; width:100%; background:linear-gradient(100deg,#e91c70,#fd4e76);
+  color:#fff !important; border:0; border-radius:13px;
+  font-size:13px; font-weight:900; letter-spacing:.01em;
+  box-shadow:0 12px 25px #ec367b36;
+}
+.ts-contact-section .ts-btn-submit:is(:hover,:focus-visible) {
+  background:linear-gradient(100deg,#c9105a,#eb3868); box-shadow:0 13px 27px #db266749;
+}
+.ts-contact-section .ts-form-privacy {
+  color:#587189 !important; font-size:10.5px; line-height:1.6; margin-top:1px;
+}
+.ts-contact-section .ts-lead-output {
+  color:#193e68; background:#edf6ff; border:1px solid #bbd7f5; border-radius:14px;
+  padding:16px; margin-top:20px;
+}
+.ts-contact-section .ts-lead-output :is(p,#tsCopyStatus) {
+  color:#395a7c; font-size:11.5px;
+}
+.ts-contact-section .ts-lead-output h4 { color:#16477d; }
+.ts-contact-section .ts-lead-actions :is(a,button) {
+  min-height:40px; display:inline-flex; align-items:center; justify-content:center;
+  border-radius:9px; font-size:11.5px;
+}
+
+/* One contact widget, not an extra pink sticky CTA sitting on top of the form. */
+html:has(.ts-contact-section) .ts-v15-float { display:none !important; }
+html:has(.ts-contact-section) #mrleeContactDock {
+  right:max(13px,env(safe-area-inset-right));
+  bottom:max(84px,calc(env(safe-area-inset-bottom) + 74px)); z-index:950;
+}
+html:has(.ts-contact-section) #mrleeContactDock .mrlee-contact-links { display:none !important; }
+html:has(.ts-contact-section) #mrleeContactDock[data-open="true"] .mrlee-contact-links {
+  display:flex !important; max-height:min(390px,calc(100svh - 190px));
+  overflow-y:auto; overscroll-behavior:contain; padding:5px;
+}
+html:has(.ts-contact-section) #mrleeContactDock .mrlee-contact-toggle {
+  display:inline-flex !important; background:#1057af;
+}
+html:has(.ts-contact-section) #mrleeContactDock .mrlee-contact-link {
+  width:44px; height:44px; font-size:16px;
+}
+
+/* Narrow viewports: stack content, no horizontal clipping, reachable CTA. */
+@media(max-width:900px){
+  .ts-contact-section .ts-contact-grid {
+    grid-template-columns:minmax(0,1fr); gap:22px; padding-block:45px;
+  }
+  .ts-contact-section .ts-contact-copy { max-width:700px; }
+  .ts-contact-section .ts-form-card { max-width:720px; width:100%; margin:0 auto; }
+  .ts-section.ts-contact-section .ts-contact-copy h2 { font-size:clamp(34px,6vw,48px); }
+}
+@media(max-width:620px){
+  .ts-contact-section .ts-contact-grid { padding-block:32px 50px; }
+  .ts-section.ts-contact-section .ts-contact-copy h2 { font-size:clamp(31px,8vw,41px); margin:12px 0 15px; }
+  .ts-contact-section .ts-contact-lines { gap:8px; margin-top:17px; }
+  .ts-contact-section .ts-contact-channels { margin-top:18px; }
+  .ts-contact-section .ts-form-card { padding:22px 17px; border-radius:18px; }
+  .ts-contact-section .ts-form-row { grid-template-columns:minmax(0,1fr); gap:13px; }
+  html .ts-contact-section .ts-form-card :is(input:not([type=checkbox]),select,textarea) { font-size:16px; }
+  html:has(.ts-contact-section) .ts-header .ts-nav a { font-size:13px; }
+  html:has(.ts-contact-section) #mrleeContactDock .mrlee-contact-label {
+    opacity:1; transform:none; right:52px; font-size:11px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .ts-contact-section * { scroll-behavior:auto !important; }
+}
