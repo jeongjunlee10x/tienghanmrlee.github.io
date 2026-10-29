@@ -2,6 +2,8 @@
  * Adds image density without modifying auth, hero, grade, or source datasets. */
 (()=>{'use strict';
 const page=decodeURIComponent(location.pathname.split('/').pop()||'index.html').toLowerCase();
+// Homepage already has eight image-rich navigation cards; preserve its compact first fold.
+if(page==='index.html')return;
 const lessons=['learning-hangeul','learning-roadmap','learning-listening','learning-cap-1','learning-cap-2','learning-cap-3','learning-cap-4','learning-topik'];
 const cultures=['culture','feature-8-doi-song','learning-hangeul','learning-books','learning-cap-3','learning-cap-4','learning-cap-5','learning-cap-6'];
 const admissions=['feature-1-tuyen-sinh','culture','learning-topik','learning-cap-1','learning-cap-2','learning-cap-3','learning-cap-4','learning-cap-5'];
