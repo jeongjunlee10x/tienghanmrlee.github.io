@@ -1,0 +1,16 @@
+/* Interview V2: prevent legacy/global theme buttons clipping Korean and Vietnamese lines. */
+html body .layout{grid-template-columns:minmax(310px,355px) minmax(0,1fr)!important;gap:20px!important}
+html body #questionList.question-list{display:flex!important;flex-direction:column!important;gap:10px!important;max-height:min(65vh,730px)!important;overflow-x:hidden!important;overflow-y:auto!important;scrollbar-gutter:stable!important;padding:4px 8px 8px 2px!important}
+html body #questionList>.question-link{display:flex!important;position:relative!important;flex:0 0 auto!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;gap:6px!important;width:100%!important;height:auto!important;min-height:88px!important;max-height:none!important;padding:13px 15px!important;margin:0!important;overflow:visible!important;white-space:normal!important;box-sizing:border-box!important;line-height:1.5!important;text-align:left!important;opacity:1!important;transform:none!important}
+html body #questionList>.question-link .ko-mini,html body #questionList>.question-link .vn-mini{display:block!important;position:static!important;width:100%!important;min-height:0!important;height:auto!important;max-height:none!important;margin:0!important;padding:0!important;line-height:1.5!important;white-space:normal!important;overflow-wrap:anywhere!important;text-align:left!important;text-overflow:clip!important;opacity:1!important;visibility:visible!important}
+html body #questionList>.question-link .ko-mini{font-size:15px!important;font-weight:850!important;color:#133858!important}
+html body #questionList>.question-link .vn-mini{font-size:13px!important;font-weight:700!important;color:#365575!important}
+html[data-mrlee-theme="fresh"] body #questionList>.question-link{color:#17395e!important;background:#fff!important;border:1px solid #b4c9e3!important}
+html[data-mrlee-theme="fresh"] body #questionList>.question-link.active{background:#e5f3ff!important;border:2px solid #2371be!important}
+html[data-mrlee-theme="future"] body #questionList>.question-link{color:#eef8ff!important;background:#153250!important;border:1px solid #4c789f!important}
+html[data-mrlee-theme="future"] body #questionList>.question-link.active{background:#1e4b73!important;border:2px solid #89d6ff!important}
+html[data-mrlee-theme="future"] body #questionList>.question-link .ko-mini{color:#f7fcff!important}
+html[data-mrlee-theme="future"] body #questionList>.question-link .vn-mini{color:#d2eaff!important}
+html body #questionList>.question-link:focus-visible{outline:3px solid #ffaa22!important;outline-offset:2px!important}
+@media(max-width:1000px){html body .layout{grid-template-columns:minmax(0,1fr)!important}html body #questionList.question-list{max-height:380px!important}}
+@media(max-width:600px){html body .layout{grid-template-columns:minmax(0,1fr)!important}html body #questionList.question-list{max-height:340px!important}html body #questionList>.question-link{min-height:86px!important;padding:12px 13px!important}}
