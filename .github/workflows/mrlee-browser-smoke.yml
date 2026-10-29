@@ -5,6 +5,8 @@ on:
     branches: [main]
     paths:
       - 'tools/browser-smoke.mjs'
+      - 'tools/browser-theme-entry.mjs'
+      - 'assets/mrlee-dual-ui/entry-picker.css'
       - 'tools/browser-topik-contrast.mjs'
       - 'assets/branding/topik-contrast-v1.css'
       - 'topik-*.html'
@@ -37,6 +39,8 @@ on:
     branches: [main]
     paths:
       - 'tools/browser-smoke.mjs'
+      - 'tools/browser-theme-entry.mjs'
+      - 'assets/mrlee-dual-ui/entry-picker.css'
       - 'tools/browser-topik-contrast.mjs'
       - 'assets/branding/topik-contrast-v1.css'
       - 'topik-*.html'
@@ -74,6 +78,8 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Open public MR LEE pages and test offline lesson search on Fresh/Future
         run: node tools/browser-smoke.mjs
+      - name: Verify entry picker only once per tab, on mobile/desktop, with no header buttons
+        run: node tools/browser-theme-entry.mjs
       - name: TOPIK I/II/Ngay Viet Nghe - WCAG contrast both themes desktop and mobile
         run: node tools/browser-topik-contrast.mjs
 
