@@ -14,3 +14,7 @@ html[data-mrlee-theme="future"] .mrlee-v31-gallery-head p{color:#b2d3e5}
 html[data-mrlee-theme="future"] .mrlee-v31-photo{outline:1px solid #37a8ea44}
 @media(max-width:700px){#mrleeV31Gallery{padding:13px 14px}.mrlee-v31-gallery-track{grid-auto-columns:64vw}.mrlee-v31-gallery-head h2{font-size:20px}}
 @media(prefers-reduced-motion:reduce){.mrlee-v31-photo img{transition:none}}
+
+/* Prevent a horizontally scrolling gallery from determining the width of its flex/grid parent. */
+#mrleeV31Gallery{width:calc(100% - 28px)!important;max-width:min(1500px,calc(100vw - 28px))!important;min-width:0!important;overflow:hidden;flex-shrink:1}
+#mrleeV31Gallery .mrlee-v31-gallery-track{min-width:0!important;max-width:100%;width:100%;box-sizing:border-box}
