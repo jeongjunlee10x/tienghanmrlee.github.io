@@ -58,8 +58,8 @@ try{
    const colorsOK=ui.heading==='rgb(255, 255, 255)' &&
      ui.nav==='rgb(22, 61, 112)' &&
      ui.card==='rgb(255, 255, 255)' &&
-     ui.label==='rgb(36, 70, 110)' &&
-     ui.input==='rgb(247, 250, 255)';
+     ui.label==='rgb(24, 59, 97)' &&
+     ui.input==='rgb(245, 248, 253)';
    const dockOK=!ui.dockOpen||(ui.dockOpen==='false'&&ui.dockLinks==='none'&&ui.dockToggle!=='none');
    if(!colorsOK||!dockOK||ui.scrollWidth>ui.width+5)throw Error('Admissions contrast or dock '+JSON.stringify(ui));
    await fs.promises.mkdir(path.join(root,'artifacts','subpage-review'),{recursive:true});
