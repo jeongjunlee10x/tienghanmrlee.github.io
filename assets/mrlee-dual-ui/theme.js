@@ -29,7 +29,12 @@ function asset(n){
  return 'assets/mrlee-next/scenes/learning.svg';
 }
 const photos={profile:'learning-roadmap.webp',elementary1:'learning-cap-1.webp',elementary2:'learning-cap-2.webp',intermediate1:'learning-cap-3.webp',intermediate2:'learning-cap-4.webp',advanced1:'learning-cap-5.webp',advanced2:'learning-cap-6.webp',learning:'learning-books.webp',workbook:'learning-books.webp',speaking:'learning-cap-2.webp',topik:'feature-6-thi-topik.webp',mock:'learning-topik.webp',placement:'learning-topik.webp',roadmap:'learning-roadmap.webp',history:'learning-roadmap.webp',listening:'learning-listening.webp',writing:'learning-books.webp',interview:'step-1-tu-van.webp',culture:'culture.webp',daily:'culture.webp',food:'culture.webp',life:'culture.webp',universities:'feature-2-ban-do.webp',schools:'feature-3-tim-truong.webp',home:'feature-1-tuyen-sinh.webp',admin:'learning-roadmap.webp'};
-let theme='fresh';try{theme=localStorage.getItem(KEY)==='future'?'future':'fresh'}catch{}
+let theme='fresh';
+try{
+ const selected=sessionStorage.getItem(VISIT_KEY);
+ theme=['fresh','future'].includes(selected)?selected:(localStorage.getItem(KEY)==='future'?'future':'fresh');
+}catch{try{theme=localStorage.getItem(KEY)==='future'?'future':'fresh'}catch{}}
+
 function update(v){theme=v==='future'?'future':'fresh';html.dataset.mrleeTheme=theme;try{localStorage.setItem(KEY,theme)}catch{}
  doc.querySelectorAll('.mrlee-theme-switch button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.theme===theme)));
  doc.querySelectorAll('[data-mrlee-original]').forEach(el=>{if(el.dataset.mrleeOriginal===el.dataset.mrleeFuture)return;const src=theme==='future'?el.dataset.mrleeFuture:el.dataset.mrleeOriginal;if(el.getAttribute('src')!==src)el.src=src});
