@@ -44,3 +44,6 @@ body.ts-intake-active{overflow:hidden}
 .ts-intake-result .ts-intake-buttons button{background:#edf4fc;color:#15518b}
 @media(max-width:740px){.ts-intake-overlay{padding:9px;align-items:start}.ts-intake-modal{grid-template-columns:1fr;max-height:calc(100dvh - 18px);border-radius:19px}.ts-intake-intro{min-height:0;padding:17px 22px}.ts-intake-intro h2{font-size:23px;margin:8px 0}.ts-intake-intro p{font-size:12px;margin:0}.ts-intake-intro .ts-intake-mark{display:none}.ts-intake-main{padding:20px 19px 22px}.ts-intake-main h3{font-size:19px}.ts-intake-options span{font-size:12px;padding:10px}.ts-intake-options label{min-height:49px}.ts-intake-field{margin:11px 0}}
 @media(max-width:365px){.ts-intake-options{grid-template-columns:1fr}.ts-intake-modal{max-height:calc(100dvh - 12px)}}
+
+/* The new entrance wizard replaces the duplicate two-field form further down the page. */
+#tu-van-nhanh.ts-wizard-section{display:none!important}
