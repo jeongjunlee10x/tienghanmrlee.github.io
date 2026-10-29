@@ -120,6 +120,9 @@ form.addEventListener('submit',async e=>{
  result.scrollIntoView({behavior:'smooth',block:'start'});
 });
 back.addEventListener('click',()=>showStep(1));
+document.querySelectorAll('a[href="#tu-van-nhanh"],a[href="#tsPersonalRecommendations"]').forEach(a=>{
+ a.addEventListener('click',e=>{if(!result.hidden)return;e.preventDefault();open()});
+});
 $('tsIntakeSkip').addEventListener('click',close);
 overlay.addEventListener('keydown',e=>{
  if(e.key==='Escape'){e.preventDefault();close();return}
