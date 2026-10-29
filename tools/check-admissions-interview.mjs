@@ -14,5 +14,13 @@ assert.match(css,/@media\(max-width:740px\)/);assert.match(css,/backdrop-filter:
 assert.match(interview,/\.question-link \.ko-mini/);assert.match(interview,/\.question-link \.vn-mini/);
 assert.match(interview,/min-height:79px!important/);assert.match(interview,/height:auto!important/);
 assert.match(interview,/@media\(max-width:550px\)/);
+const interview2=fs.readFileSync('assets/branding/interview-question-list-v2.css','utf8');
+assert.match(i,/interview-question-list-v2\.css/,'Latest interview fix must be loaded after legacy CSS');
+assert.match(interview2,/#questionList>\.question-link/,'Interview question cards should have stable auto height');
+assert.match(interview2,/flex:0 0 auto!important/,'Rows must not shrink inside vertical question list');
+assert.match(interview2,/min-height:88px!important/,'Korean and Vietnamese lines need a readable minimum height');
+assert.match(interview2,/html\[data-mrlee-theme="future"\]/,'Dark mode question colors are explicitly handled');
+assert.doesNotMatch(a,/assets\/branding\/admission-intake\.js/,'No second competing admission popup should load');
+
 for(const file of ['assets/branding/admissions-intake.js','assets/mrlee-tuyen-sinh.js'])execFileSync(process.execPath,['--check',file],{stdio:'pipe'});
 console.log('PASS admission intake: 2 steps, catalog filtering, lead prefill, no personal storage; interview questions two readable lines');
