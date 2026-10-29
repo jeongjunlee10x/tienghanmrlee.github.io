@@ -36,6 +36,38 @@ try{
       disclaimer:!!r.querySelector('.ts-intake-disclaimer')?.textContent.includes('KHÔNG phải')};
    });
    if(!a.visible||!a.overlay||a.cards<1||a.program!=='Đại học / Cao đẳng D-2'||a.stage!=='Đã tốt nghiệp THPT'||!a.disclaimer||a.scrollWidth>a.width+5)throw Error('Admissions flow '+JSON.stringify(a));
+   // Visual regression guards for the contact section reported on 2026-10-29.
+   await page.locator('#dang-ky').scrollIntoViewIfNeeded();
+   const ui=await page.evaluate(()=>{
+    const css=selector=>{const el=document.querySelector(selector);return el?getComputedStyle(el):null};
+    const dock=document.querySelector('#mrleeContactDock');
+    return {
+      heading:css('#contactHeading')?.color,
+      headingSection:css('.ts-contact-section')?.backgroundImage,
+      nav:css('.ts-header .ts-nav a')?.color,
+      card:css('.ts-form-card')?.backgroundColor,
+      label:css('.ts-form-card label[for="tsName"]')?.color,
+      input:css('#tsName')?.backgroundColor,
+      dockOpen:dock?.dataset.open||null,
+      dockLinks:css('#mrleeContactDock .mrlee-contact-links')?.display||null,
+      dockToggle:css('#mrleeContactDock .mrlee-contact-toggle')?.display||null,
+      width:window.innerWidth,
+      scrollWidth:document.documentElement.scrollWidth
+    };
+   });
+   const colorsOK=ui.heading==='rgb(255, 255, 255)' &&
+     ui.nav==='rgb(22, 61, 112)' &&
+     ui.card==='rgb(255, 255, 255)' &&
+     ui.label==='rgb(36, 70, 110)' &&
+     ui.input==='rgb(247, 250, 255)';
+   const dockOK=!ui.dockOpen||(ui.dockOpen==='false'&&ui.dockLinks==='none'&&ui.dockToggle!=='none');
+   if(!colorsOK||!dockOK||ui.scrollWidth>ui.width+5)throw Error('Admissions contrast or dock '+JSON.stringify(ui));
+   await fs.promises.mkdir(path.join(root,'artifacts','subpage-review'),{recursive:true});
+   await page.locator('#dang-ky').screenshot({
+     path:path.join(root,'artifacts','subpage-review','admissions-contact-'+theme+'-'+viewport.width+'.png'),
+     animations:'disabled'
+   });
+   console.log('PASS admissions contrast '+theme+' '+viewport.width+' '+JSON.stringify(ui));
    console.log('PASS admissions '+theme+' '+viewport.width+' '+JSON.stringify(a));
   }catch(e){failures.push('ADMISSIONS '+theme+' '+viewport.width+' '+e.message)}
   try{
