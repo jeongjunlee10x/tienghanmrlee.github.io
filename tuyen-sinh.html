@@ -32,8 +32,54 @@
 <!-- MRLEE_LIVE_UPDATES_V3_END -->
 <!-- MRLEE_DUAL_UI_V1 --><script>try{document.documentElement.dataset.mrleeTheme=localStorage.getItem('MRLEE.THEME.V1')==='future'?'future':'fresh'}catch(e){document.documentElement.dataset.mrleeTheme='fresh'}</script><link rel="stylesheet" href="assets/mrlee-dual-ui/theme.css?v=20261024-1"><script defer src="assets/mrlee-dual-ui/theme.js?v=20261029-entry1"></script><script defer src="assets/images/system/mrlee800-hero-loader.js?v=20261026-2"></script>
 <link rel="stylesheet" href="assets/mrlee-geo/university-admin-map.css?v=20261027-a2">
+<link rel="stylesheet" href="assets/admissions/entry.css?v=20261029-a1">
+<script defer src="assets/admissions/fit-core.js?v=20261029-a1"></script>
+<script defer src="assets/admissions/entry.js?v=20261029-a1"></script>
 </head>
 <body>
+<dialog id="mrleeAdmissionsDialog" data-step="1" aria-labelledby="apTitle" aria-describedby="apIntro">
+  <div class="ap-shell">
+    <aside class="ap-visual">
+      <div class="ap-brand"><img src="assets/branding/logo-mrlee.png" alt="MR LEE" width="52" height="52"><span>TIẾNG HÀN MR LEE · STUDY IN KOREA</span></div>
+      <div><p class="ap-overline">HƯỚNG NGHIỆP · ĐỊNH HƯỚNG DU HỌC</p><h2 id="apTitle">Bắt đầu từ<br><em>mục tiêu của bạn.</em></h2><p id="apIntro">Trả lời vài thông tin học tập để nhận lộ trình chuẩn bị và danh sách trường cao đẳng, đại học nên tìm hiểu.</p></div>
+      <p class="ap-privacy">✓ Không hỏi họ tên, số điện thoại hay giấy tờ tại bước này.<br>✓ Lựa chọn chỉ dùng trong tab trình duyệt. Không tự gửi dữ liệu lên máy chủ.<br>✓ Danh sách trường không đồng nghĩa đủ điều kiện nhập học.</p>
+    </aside>
+    <div class="ap-main">
+      <div class="ap-topline"><span id="apCounter">BƯỚC 01 / 02</span><strong id="apStepName">Hiểu mục tiêu của bạn</strong></div>
+      <div class="ap-progress" aria-hidden="true"><i></i><i></i></div>
+      <form id="mrleeAdmissionsForm" novalidate>
+        <section class="ap-stage" id="apStep1" aria-label="Chương trình và trình độ">
+          <h3>Hành trình tại Hàn Quốc</h3><p class="ap-help">Chọn 2 thông tin chính. Bạn có thể chọn “Cần định hướng” nếu chưa xác định chương trình.</p>
+          <fieldset class="ap-field"><legend>01. Bạn muốn theo học chương trình nào?</legend><div class="ap-choices">
+            <label class="ap-choice"><input type="radio" name="goal" value="language" required><span>🇰🇷 Học tiếng Hàn</span></label>
+            <label class="ap-choice"><input type="radio" name="goal" value="college"><span>🏫 Cao đẳng</span></label>
+            <label class="ap-choice"><input type="radio" name="goal" value="university"><span>🎓 Đại học</span></label>
+            <label class="ap-choice"><input type="radio" name="goal" value="graduate"><span>📚 Sau đại học</span></label>
+            <label class="ap-choice"><input type="radio" name="goal" value="undecided"><span>💬 Cần định hướng</span></label>
+          </div></fieldset>
+          <fieldset class="ap-field"><legend>02. Trình độ học vấn hiện tại?</legend><div class="ap-choices">
+            <label class="ap-choice"><input type="radio" name="stage" value="highschool" required><span>Đang học THPT</span></label>
+            <label class="ap-choice"><input type="radio" name="stage" value="graduated"><span>Đã tốt nghiệp THPT</span></label>
+            <label class="ap-choice"><input type="radio" name="stage" value="undergrad"><span>Đang học CĐ/ĐH</span></label>
+            <label class="ap-choice"><input type="radio" name="stage" value="degree"><span>Đã tốt nghiệp CĐ/ĐH</span></label>
+          </div></fieldset>
+          <p id="apError" class="ap-inline-error" role="alert"></p>
+          <div class="ap-actions"><button class="ap-next" id="apNext" type="button">Tiếp tục · 2/2 →</button></div>
+        </section>
+        <section class="ap-stage" id="apStep2" aria-label="Ưu tiên cá nhân" hidden>
+          <h3>Chọn ưu tiên của bạn</h3><p class="ap-help">Bước này giúp thu hẹp danh sách trường theo khu vực và bậc học, không tự đánh giá năng lực nhập học.</p>
+          <div class="ap-extra">
+            <label class="ap-select"><span>03. Trình độ tiếng Hàn</span><select name="korean" id="apKorean"><option value="unknown">Chưa xác định</option><option value="none">Chưa học</option><option value="beginner">Đang bắt đầu</option><option value="topik12">TOPIK 1–2</option><option value="topik34">TOPIK 3–4</option><option value="topik56">TOPIK 5–6</option></select></label>
+            <label class="ap-select"><span>04. Khu vực Hàn Quốc</span><select name="region" id="apRegion"><option value="all">Toàn Hàn Quốc</option><option value="seoul">Seoul</option><option value="busan">Busan</option><option value="gyeonggi">Gyeonggi</option><option value="incheon">Incheon</option><option value="daegu">Daegu</option><option value="daejeon">Daejeon</option><option value="jeonnam-gwangju">Jeonnam – Gwangju</option><option value="chungnam">Chungnam</option><option value="chungbuk">Chungbuk</option><option value="gangwon">Gangwon</option><option value="gyeongbuk">Gyeongbuk</option><option value="gyeongnam">Gyeongnam</option><option value="jeonbuk">Jeonbuk</option><option value="ulsan">Ulsan</option><option value="jeju">Jeju</option><option value="sejong">Sejong</option></select></label>
+          </div>
+          <label class="ap-select"><span>05. Ngành học quan tâm</span><select name="field" id="apField"><option value="undecided">Chưa xác định</option><option value="business">Kinh tế / Quản trị</option><option value="technology">Công nghệ / Kỹ thuật</option><option value="design">Thiết kế / Nghệ thuật</option><option value="health">Y tế / Sức khỏe</option><option value="language">Ngôn ngữ / Xã hội</option></select></label>
+          <p class="ap-note">Danh mục hiện tại chưa chứa dữ liệu ngành đào tạo, học phí hoặc điều kiện tuyển sinh từng trường. Các yếu tố này được ghi nhận để tư vấn viên kiểm tra sau; không dùng để khẳng định trường đào tạo đúng ngành.</p>
+          <div class="ap-actions"><button type="button" class="ap-back" id="apBack">← Quay lại</button><button type="submit" class="ap-finish" id="apFinish">Khám phá trường và lộ trình →</button></div>
+        </section>
+      </form>
+    </div>
+  </div>
+</dialog>
   <a class="ts-skip" href="#noi-dung">Chuyển đến nội dung chính</a>
   <div class="ts-announcement"><span class="ts-announcement-dot"></span> TIẾNG HÀN MR LEE <span class="ts-announcement-sep">·</span> Định hướng học tập tại Hàn Quốc <a href="#dang-ky">Tư vấn qua Messenger / Zalo <span aria-hidden="true">↗</span></a></div>
   <header class="ts-header" id="tsTop">
@@ -47,7 +93,7 @@
         <a href="#chuong-trinh">Chương trình</a>
         <a href="#chon-truong">Tìm trường</a>
         <a href="#lo-trinh">Lộ trình</a>
-        <a href="#tu-van-nhanh">Chọn lộ trình</a><a href="#hoi-dap">Hỏi đáp</a>
+        <a href="#mrleeAdmissionsResults">Chọn lộ trình</a><a href="#hoi-dap">Hỏi đáp</a>
         <a href="ban-do-dai-hoc-han-quoc.html">Bản đồ ĐH <span aria-hidden="true">↗</span></a>
       </nav>
       <a class="ts-btn ts-btn-header" href="#dang-ky">Đăng ký tư vấn <span aria-hidden="true">↗</span></a>
@@ -60,7 +106,7 @@
           <p class="ts-eyebrow"><span class="ts-eyebrow-line"></span> STUDY IN KOREA <span class="ts-eyebrow-korean">한국 유학</span></p>
           <h1 id="ts-title">Hành trình du học<br><em>Hàn Quốc</em><span class="ts-title-period">.</span><br>Khởi đầu từ đây.</h1>
           <p class="ts-hero-desc">Khám phá các lộ trình học tập, tìm trường đại học trên bản đồ và kết nối tư vấn trực tiếp cùng <strong>TIẾNG HÀN MR LEE.</strong> Rõ điều kiện, rõ các bước, không hứa hẹn kết quả ngoài thẩm quyền.</p>
-          <div class="ts-hero-buttons"><a href="dang-ky-tu-van.html" class="ts-btn ts-btn-main" title="Mở phiếu tư vấn được lưu vào Admin">Gửi yêu cầu đến Admin ↗</a><a href="#dang-ky" class="ts-btn ts-btn-main"><span class="ts-btn-icon">✦</span> Đăng ký tư vấn ngay <span aria-hidden="true">↗</span></a><a href="#tu-van-nhanh" class="ts-btn ts-btn-outline">Chọn lộ trình <span aria-hidden="true">→</span></a></div>
+          <div class="ts-hero-buttons"><a href="dang-ky-tu-van.html" class="ts-btn ts-btn-main" title="Mở phiếu tư vấn được lưu vào Admin">Gửi yêu cầu đến Admin ↗</a><a href="#dang-ky" class="ts-btn ts-btn-main"><span class="ts-btn-icon">✦</span> Đăng ký tư vấn ngay <span aria-hidden="true">↗</span></a><a href="#mrleeAdmissionsResults" class="ts-btn ts-btn-outline">Chọn lộ trình <span aria-hidden="true">→</span></a></div>
           <div class="ts-hero-highlights"><span><b>01</b> Tìm trường trực tiếp</span><span><b>02</b> Lộ trình theo mục tiêu</span><span><b>03</b> Liên hệ Messenger / Zalo</span></div>
           <div class="ts-hero-tags" aria-label="Hướng tuyển sinh"><span><span class="ts-tag-dot"></span> Học tiếng D-4-1</span><span><span class="ts-tag-dot"></span> Học lên đại học</span><span><span class="ts-tag-dot"></span> Sau đại học</span></div>
         </div>
@@ -81,9 +127,18 @@
     <div class="ts-wrap ts-v15-shortcuts" aria-label="Truy cập nhanh">
       <a href="#chuong-trinh"><span class="ts-shortcut-icon ts-shortcut-pink">가</span><span><b>Du học tiếng</b><small>Hệ D-4-1</small></span><strong>↗</strong></a>
       <a href="#chuong-trinh"><span class="ts-shortcut-icon ts-shortcut-blue">🎓</span><span><b>Đại học / Cao đẳng</b><small>Hệ D-2</small></span><strong>↗</strong></a>
-      <a href="#tu-van-nhanh"><span class="ts-shortcut-icon ts-shortcut-green">✓</span><span><b>Chọn lộ trình</b><small>Gợi ý theo mục tiêu</small></span><strong>↗</strong></a>
+      <a href="#mrleeAdmissionsResults"><span class="ts-shortcut-icon ts-shortcut-green">✓</span><span><b>Chọn lộ trình</b><small>Gợi ý theo mục tiêu</small></span><strong>↗</strong></a>
       <a href="#dang-ky"><span class="ts-shortcut-icon ts-shortcut-purple">✉</span><span><b>Nhận tư vấn</b><small>Messenger · Zalo</small></span><strong>↗</strong></a>
     </div>
+
+    <section id="mrleeAdmissionsResults" aria-labelledby="apResultsHeading" hidden>
+      <div class="ts-wrap ap-results-panel">
+        <div class="ap-results-header"><div><span class="ap-eyebrow">GỢI Ý THEO LỰA CHỌN CỦA BẠN · KHÔNG PHẢI KẾT QUẢ XÉT TUYỂN</span><h2 id="apResultsHeading">Các trường nên tìm hiểu</h2></div><button type="button" class="ap-retake" id="apRetake">↻ Chọn lại mục tiêu</button></div>
+        <p id="apSummary" class="ap-summary"></p><div class="ap-school-grid" id="apSchools" aria-live="polite"></div>
+        <p class="ap-disclaimer">Thông tin được lọc từ danh mục trường của website. Mức độ phù hợp ở đây chỉ xét <strong>bậc học và khu vực</strong>; chưa xác minh ngành học, chương trình học tiếng, học phí, tình trạng tuyển sinh, yêu cầu TOPIK hay khả năng được cấp visa. Danh mục gốc có thể còn phân loại sai và trường thay đổi trạng thái. Hãy kiểm tra trang chính thức của trường trước khi quyết định.</p>
+        <div class="ap-after"><a href="#dang-ky">Đăng ký tư vấn hồ sơ ↗</a><a href="ban-do-dai-hoc-han-quoc.html">Xem bản đồ trường ↗</a></div>
+      </div>
+    </section>
 
     <section class="ts-section ts-programs" id="chuong-trinh" aria-labelledby="programHeading">
       <div class="ts-wrap">
@@ -119,24 +174,6 @@
         </div>
       </div>
     </section>
-
-    <section class="ts-section ts-wizard-section" id="tu-van-nhanh" aria-labelledby="wizardHeading"><div class="ts-wrap">
-      <div class="ts-wizard-shell"><div class="ts-wizard-intro"><p class="ts-kicker">CÔNG CỤ CHỌN HƯỚNG HỌC TẬP</p><h2 id="wizardHeading">Mục tiêu của bạn.<br><span>Lộ trình riêng cho bạn.</span></h2><p>Chọn 2 thông tin cơ bản để nhận gợi ý bước chuẩn bị tiếp theo. Đây là gợi ý tham khảo, chưa phải kết luận đủ điều kiện tuyển sinh.</p><div class="ts-wizard-art" aria-hidden="true">✦ <span>한국 유학</span></div></div>
-      <form id="tsWizard" class="ts-wizard-form"><div class="ts-wizard-header"><span>BƯỚC 01 / 02</span><b>Định hướng ban đầu</b></div>
-        <fieldset><legend>1. Bạn quan tâm chương trình nào?</legend><div class="ts-choices">
-        <label><input type="radio" name="goal" value="Học tiếng D-4-1" required><span>🇰🇷 Học tiếng</span></label>
-        <label><input type="radio" name="goal" value="Đại học / Cao đẳng D-2"><span>🎓 Đại học</span></label>
-        <label><input type="radio" name="goal" value="Sau đại học D-2"><span>✧ Sau đại học</span></label>
-        <label><input type="radio" name="goal" value="Chưa xác định"><span>💬 Cần tư vấn</span></label></div></fieldset>
-        <fieldset><legend>2. Bạn đang ở giai đoạn nào?</legend><div class="ts-choices">
-        <label><input type="radio" name="stage" value="Đang học THPT" required><span>Đang học THPT</span></label>
-        <label><input type="radio" name="stage" value="Đã tốt nghiệp THPT"><span>Tốt nghiệp THPT</span></label>
-        <label><input type="radio" name="stage" value="Đang học CĐ/ĐH"><span>Đang học CĐ/ĐH</span></label>
-        <label><input type="radio" name="stage" value="Đã tốt nghiệp CĐ/ĐH"><span>Đã tốt nghiệp CĐ/ĐH</span></label></div></fieldset>
-        <button type="submit" class="ts-btn ts-btn-main ts-wizard-submit">Xem gợi ý của tôi <span aria-hidden="true">→</span></button>
-        <div class="ts-wizard-result" id="tsWizardResult" hidden role="status"><b id="tsWizardResultTitle"></b><p id="tsWizardResultText"></p><a id="tsWizardRegister" href="#dang-ky">Chuyển sang phiếu tư vấn ↗</a></div>
-      </form></div>
-    </div></section>
 
     <section class="ts-section mrlee-dorm-showcase" id="ky-tuc-xa" aria-label="Minh họa ký túc xá Hàn Quốc"><div class="ts-wrap"><div class="mrlee-dorm-heading"><div><span class="mrlee-dorm-kicker">KOREAN CAMPUS LIFE</span><h2>Đời sống ký túc xá tại Hàn Quốc</h2><p>Hình minh họa giúp bạn hình dung khuôn viên và sinh hoạt ký túc xá. Trang thiết bị, phòng ở và chi phí phụ thuộc vào từng trường.</p></div><a href="ban-do-dai-hoc-han-quoc.html#ky-tuc-xa">Xem thêm ↗</a></div><div class="mrlee-dorm-grid"><figure><img src="assets/v306/images/feature-7-ky-tuc-xa.webp" alt="Minh họa khu ký túc xá sinh viên" loading="lazy" decoding="async"><figcaption><strong>Khuôn viên ký túc xá</strong></figcaption></figure><figure><img src="assets/mrlee-ai/v3/03_giao_tiep/topic-dorm.webp" alt="Minh họa giao tiếp và sinh hoạt ký túc xá" loading="lazy" decoding="async"><figcaption><strong>Sinh hoạt và nội quy phòng ở</strong></figcaption></figure></div><p class="mrlee-dorm-notice">Ảnh minh họa, không gắn với trường cụ thể.</p></div></section>
     <section class="ts-section ts-steps-section" id="lo-trinh" aria-labelledby="stepsHeading"><div class="ts-wrap">
