@@ -60,7 +60,7 @@ try{
     ];
     const rgb=s=>{
       if(s.startsWith('#'))return [1,3,5].map(i=>parseInt(s.slice(i,i+2),16));
-      const m=s.match(/rgba?\\(\\s*(\\d+)\\s*,?\\s*(\\d+)\\s*,?\\s*(\\d+)/);
+      const m=s.match(/rgba?\(\s*(\d+)\s*,?\s*(\d+)\s*,?\s*(\d+)/);
       if(!m)throw Error('Color not parseable: '+s);
       return [+m[1],+m[2],+m[3]];
     };
