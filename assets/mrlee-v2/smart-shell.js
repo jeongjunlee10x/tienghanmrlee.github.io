@@ -18,7 +18,7 @@ const catalog=[
 const $=(tag,cls,text)=>{const el=d.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el};
 // Short homepage no longer has the anchor targets shown in legacy top navigation.
 // Restore original anchors as soon as user selects Fresh or opens the full page.
-const reroutes={'#ranking':'bang-xep-hang.html','#schoolSearch':'ban-do-dai-hoc-han-quoc.html','#contactPanel':'dang-ky-tu-van.html'};
+const reroutes={'#ranking':'bang-xep-hang.html','#schoolSearch':'ban-do-dai-hoc-han-quoc.html'};
 function smartNavLinks(){
  if(page!=='index.html')return;
  const compact=root.dataset.mrleeSmartExpanded!=='true';
