@@ -28,7 +28,7 @@ const defs={
  'van-hoa-han-quoc.html':{
  id:'culture',eyebrow:'KOREAN CULTURE · LIFE · TRADITION',title:'VĂN HÓA HÀN QUỐC',lead:'Khám phá con người và cuộc sống xứ kim chi',description:'Từ phong tục, lễ hội, ẩm thực tới trường học, giao thông và kỹ năng sống thiết yếu ở Hàn Quốc.',
  image:'feature-7-ky-tuc-xa.webp',cta:['Khám phá 22 chủ đề','#topicSection'],secondary:['Bản đồ khám phá','ban-do-han-quoc.html'],section:'Khám phá văn hóa và kỹ năng sống',hint:'Các bài thực tế và hướng dẫn hiện có ở bên dưới',
- cards:[['Ẩm thực','Văn hóa ăn uống Hàn Quốc','#topicSection','culture.webp'],['Lễ hội','Phong tục và truyền thống','#topicSection','feature-1-tuyen-sinh.webp'],['Đời sống','Sinh hoạt và giao thông','#topicSection','step-4-xuat-canh.webp'],['Kỹ năng sống','Sơ cứu, giấy tờ và hỗ trợ','#topicSection','step-5-ho-tro.webp']],
+ cards:[['Ẩm thực','Văn hóa ăn uống Hàn Quốc','van-hoa-bai-hoc.html?chu-de=am-thuc','culture.webp'],['Lễ hội','Phong tục và truyền thống','van-hoa-bai-hoc.html?chu-de=le-hoi','feature-1-tuyen-sinh.webp'],['Đời sống','Sinh hoạt và giao thông','van-hoa-bai-hoc.html?chu-de=doi-song','step-4-xuat-canh.webp'],['Kỹ năng sống','Sơ cứu, giấy tờ và hỗ trợ','van-hoa-bai-hoc.html?chu-de=so-cap-cuu','step-5-ho-tro.webp']],
  tools:[['Bài văn hóa','van-hoa-bai-hoc.html','feature-4-ho-so-visa.webp'],['Bản đồ du lịch','ban-do-han-quoc.html','feature-2-ban-do.webp'],['Giao tiếp đời sống','giao-tiep-theo-chu-de.html','learning-cap-2.webp']]},
  'ban-do-dai-hoc-han-quoc.html':{
  id:'universities',eyebrow:'KOREA UNIVERSITIES · DISCOVER',title:'BẢN ĐỒ CÁC TRƯỜNG ĐẠI HỌC HÀN QUỐC',lead:'Tìm trường theo tên, khu vực và loại hình',description:'Khám phá thông tin từng trường qua danh mục và bản đồ. Vị trí và tuyển sinh cần được đối chiếu nguồn chính thức.',
@@ -68,9 +68,11 @@ function doBoot(){
  const actions=make('div','mrlee-v4-actions');actions.append(link(cfg.cta[0]+' →',cfg.cta[1],'mrlee-v4-button'),link(cfg.secondary[0]+' ↗',cfg.secondary[1],'mrlee-v4-button mrlee-v4-button-secondary'));words.append(actions);hero.append(words);
  shell.append(hero);
  const directory=make('section','mrlee-v4-directory');directory.append(sectionTitle(cfg.section,cfg.hint));
- const grid=make('nav','mrlee-v4-directory-grid');grid.setAttribute('aria-label','Chuyên mục '+cfg.title);cfg.cards.forEach((c,i)=>grid.append(card(c,i)));directory.append(grid);shell.append(directory);
+ const grid=make('nav','mrlee-v4-directory-grid');grid.setAttribute('aria-label','Chuyên mục '+cfg.title);const distinctCards=cfg.cards.filter((c,i,all)=>all.findIndex(x=>x[2]===c[2])===i);
+ distinctCards.forEach((c,i)=>grid.append(card(c,i)));directory.append(grid);shell.append(directory);
  const tools=make('nav','mrlee-v4-tools');tools.setAttribute('aria-label','Lối tắt học tập');
- cfg.tools.forEach(([text,url,image])=>{const a=link('',url,'mrlee-v4-tool');const img=make('img');img.src=R+image;img.alt='';img.loading='lazy';img.width=240;img.height=150;a.append(img,make('span','',text),make('span','mrlee-v4-tool-arrow','↗'));tools.append(a)});shell.append(tools);
+ const uniqueTools=cfg.tools.filter((item,i,all)=>all.findIndex(x=>x[1]===item[1])===i);
+ uniqueTools.forEach(([text,url,image])=>{const a=link('',url,'mrlee-v4-tool');const img=make('img');img.src=R+image;img.alt='';img.loading='lazy';img.width=240;img.height=150;a.append(img,make('span','',text),make('span','mrlee-v4-tool-arrow','↗'));tools.append(a)});shell.append(tools);
  // Native forms, maps, grading tools, account dashboards remain below.
  const live=make('div','mrlee-v4-live-intro');live.append(make('strong','','CÔNG CỤ ĐANG HOẠT ĐỘNG'),make('span','','Dữ liệu, bộ lọc và bài tập thật được giữ nguyên bên dưới.'));
  shell.append(live);
