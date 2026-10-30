@@ -1,0 +1,27 @@
+/* MR LEE CULTURE V20 — crisp 2K artwork in culture listing and five-image lesson views */
+html[data-mrlee-v23="culture"] #topics a.topic{
+  min-width:0;isolation:isolate;contain:layout style;
+}
+html[data-mrlee-v23="culture"] #topics a.topic>img{
+  height:clamp(205px,18vw,265px)!important;
+  image-rendering:auto!important;object-fit:cover!important;object-position:50% 45%!important;
+  filter:none!important;transform:none!important;image-orientation:from-image;
+}
+html[data-mrlee-v23="culture"] #topics a.topic .topicText{
+  min-height:0!important;
+}
+html[data-mrlee-theme="future"] #topics a.topic :is(.openLink,.topicCategory,.mr172AiTag,.cultureV16TopicTag){
+  color:#a6e9ff!important
+}
+html[data-mrlee-theme="future"] #topics a.topic .mrleeCultureTag{
+  color:#07334f!important;background:#d7f4ff!important;border-color:#95d7f1!important
+}
+html[data-mrlee-theme="future"] #topics a.topic .topicText p{color:#d6e5f2!important}
+html[data-mrlee-theme="future"] #topics a.topic .openLink{border-top-color:#5b89ae!important}
+#cultureImagesV19 .mrleeCultureFigure img{width:100%!important;max-height:none!important;image-rendering:auto!important}
+#cultureImagesV19 figcaption span{font-size:13px!important;line-height:1.65!important}
+#cultureImagesV19 figcaption b{font-size:12px!important;letter-spacing:.035em}
+@media(max-width:740px){html[data-mrlee-v23="culture"] #topics a.topic>img{height:190px!important}}
+@media(prefers-reduced-data:reduce){
+  #cultureImagesV19 .mrleeCultureFigure:not(:first-child) img{content-visibility:auto}
+}
