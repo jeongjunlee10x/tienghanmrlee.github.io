@@ -33,7 +33,7 @@ function load(img,id,k){
 }
 function covers(){
  const grid=$('#topics');if(!grid)return;
- $('#topics a.topic').forEach((card,position)=>{
+ $$('#topics a.topic').forEach((card,position)=>{
   let id=null;try{id=new URL(card.href,location.href).searchParams.get('chu-de')}catch{}
   if(!safe(id))return;
   const img=$('img',card);if(!img)return;
