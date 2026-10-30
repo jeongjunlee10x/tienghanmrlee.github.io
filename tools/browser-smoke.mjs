@@ -120,7 +120,7 @@ try{
     if(count!==22)throw Error('Culture: need 22 topics; got '+count);
     const images=p.locator('#topics a.topic img');
     await images.evaluateAll(async all=>{for(const im of all){im.loading='eager';await im.decode().catch(()=>{})}});
-    const bad=await images.evaluateAll(all=>all.filter(im=>im.naturalWidth<2000||!im.currentSrc.includes('/culture-v20-hd/')).map(im=>({src:im.currentSrc,w:im.naturalWidth})));
+    const bad=await images.evaluateAll(all=>all.filter(im=>im.naturalWidth<2000||(!im.currentSrc.includes('/culture-v20-hd/')&&!im.currentSrc.includes('/culture-v21-new/'))).map(im=>({src:im.currentSrc,w:im.naturalWidth})));
     if(bad.length)throw Error('Culture HD topic images are not full size: '+JSON.stringify(bad.slice(0,4)));
     const mustReplace=new Set(['le-hoi','am-thuc','doi-song','so-cap-cuu','goi-cuu-ho','lac-duong','mat-vi','tau-dien-ngam','xe-buyt','benh-vien','hoa-hoan','mat-dien-thoai','an-toan-giao-thong']);
     const wrong=await p.locator('#topics a.topic').evaluateAll((cards,slugs)=>cards.map(card=>{
