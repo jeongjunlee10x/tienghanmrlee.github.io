@@ -88,20 +88,9 @@ function admin(){
   $('h2','','Quản trị thông minh, dữ liệu rõ ràng'),
   $('p','','Học viên · Bài làm · Luyện tập · Kiểm tra đầu vào · Tư vấn'));
  const link=$('a','mrlee-smart-admin-link','Mở giao diện học viên ↗');link.href='index.html';link.target='_blank';link.rel='noopener';hero.append(link);
- const controls=$('nav','mrlee-smart-admin-actions');controls.setAttribute('aria-label','Thao tác Admin nhanh');
- const actions=[['＋ Thêm học viên','students','newStudent'],['▤ Xem bài làm','all-attempts'],['✉ Yêu cầu tư vấn','consultations'],['✓ Kiểm tra đầu vào','placements']];
- for(const [name,key,buttonId] of actions){
-  const button=$('button','',name);button.type='button';
-  button.addEventListener('click',()=>{
-   const target=d.querySelector('#app .side-menu [data-nav="'+key+'"]')||
-      d.querySelector('#app .side-menu [data-nav="'+(key==='all-attempts'?'scores':key==='placements'?'scores':'overview')+'"]');
-   if(target){target.click();if(buttonId)requestAnimationFrame(()=>{const add=d.getElementById(buttonId);if(add&&!add.disabled)add.click()});}
-  });
-  controls.append(button);
- }
- const chart=overview.querySelector('.mrlee-admin-analytics');
- if(chart)chart.before(hero,controls);
- else overview.prepend(hero,controls);
+ // The sidebar already exposes all administrator sections. A second shortcut
+ // toolbar repeated four existing actions; retain the heading, not fake new controls.
+ overview.prepend(hero);
  fixAdminNav();
 }
 function start(){
