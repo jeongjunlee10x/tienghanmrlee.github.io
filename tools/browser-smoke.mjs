@@ -119,9 +119,12 @@ try{
     const count=await p.locator('#topics a.topic').count();
     if(count!==22)throw Error('Culture: need 22 topics; got '+count);
     const images=p.locator('#topics a.topic img');
-    await images.evaluateAll(async all=>await Promise.all(all.map(im=>im.decode().catch(()=>{}))));
-    const bad=await images.evaluateAll(all=>all.filter(im=>im.naturalWidth<800).map(im=>({src:im.src,w:im.naturalWidth})));
+    await images.evaluateAll(async all=>{for(const im of all){im.loading='eager';await im.decode().catch(()=>{})}});
+    const bad=await images.evaluateAll(all=>all.filter(im=>im.naturalWidth<2000||!im.currentSrc.includes('/culture-v20-hd/')).map(im=>({src:im.currentSrc,w:im.naturalWidth})));
     if(bad.length)throw Error('Culture HD topic images are not full size: '+JSON.stringify(bad.slice(0,4)));
+    // Lesson route requires actual learner authentication; verify its five-image engine in static QA, not by bypassing auth.
+    const lessonSource=fs.readFileSync(path.join(root,'van-hoa-bai-hoc.html'),'utf8');
+    if(!lessonSource.includes('mrlee-culture-v20-captions.js'))throw Error('Culture lesson V20 captions not mounted');
     await p.locator('#search').fill('CPR');
     if(await p.locator('#topics a.topic').count()<1)throw Error('Culture search filter broken');
     await p.locator('#search').fill('');
