@@ -47,6 +47,22 @@ const defs={
  tools:[['Tiếp tục học','hoc-tieng-han.html','learning-cap-1.webp'],['Luyện TOPIK','kiem-tra-topik.html','learning-cap-5.webp'],['Đăng nhập','dang-nhap.html','feature-5-hoc-tieng-han.webp']]}
 };
 const cfg=defs[page];if(!cfg)return;
+// Only one destination launcher per actual target. Keep the first meaningful card.
+// Repeated #topicSection/#workLevel targets were decorative duplicates, not independent lessons.
+function uniqueTargets(items,used=new Set()){
+ return items.filter(item=>{
+  const href=item[2]||item[1],key=href.startsWith('#')?href:href.split('?')[0]+(href.includes('?')?'?'+href.split('?')[1]:'');
+  if(used.has(key))return false;
+  used.add(key);return true;
+ });
+}
+cfg.cards=uniqueTargets(cfg.cards);
+cfg.tools=uniqueTargets(cfg.tools.map(([title,url,image])=>[title,'',url,image])).map(([title,,url,image])=>[title,url,image]);
+const uniqueActions=new Set();
+const dedupActions=[cfg.cta,cfg.secondary].filter(([label,url])=>{
+ if(uniqueActions.has(url))return false;uniqueActions.add(url);return true;
+});
+
 const allowedTarget=s=>s.startsWith('#')?/^#[A-Za-z][\w-]*$/.test(s):/^[a-z0-9-]+\.html(?:\?[^"'<>]*)?$/.test(s);
 const make=(tag,cls,txt)=>{const o=d.createElement(tag);if(cls)o.className=cls;if(txt!==undefined)o.textContent=txt;return o};
 function link(t,u,c){const a=make('a',c,t);a.href=allowedTarget(u)?u:'index.html';return a}
@@ -65,7 +81,7 @@ function doBoot(){
  art.decoding='async';art.width=1280;art.height=720;art.addEventListener('error',()=>{art.src='assets/mrlee-next/scenes/'+cfg.id+'.svg'},{once:true});hero.append(art);
  const words=make('div','mrlee-v4-hero-words');words.append(make('small','mrlee-v4-eyebrow',cfg.eyebrow));
  words.append(make('h1','',cfg.title),make('h2','',cfg.lead),make('p','',cfg.description));
- const actions=make('div','mrlee-v4-actions');actions.append(link(cfg.cta[0]+' →',cfg.cta[1],'mrlee-v4-button'),link(cfg.secondary[0]+' ↗',cfg.secondary[1],'mrlee-v4-button mrlee-v4-button-secondary'));words.append(actions);hero.append(words);
+ const actions=make('div','mrlee-v4-actions');dedupActions.forEach(([label,url],i)=>actions.append(link(label+(i?' ↗':' →'),url,'mrlee-v4-button'+(i?' mrlee-v4-button-secondary':''))));words.append(actions);hero.append(words);
  shell.append(hero);
  const directory=make('section','mrlee-v4-directory');directory.append(sectionTitle(cfg.section,cfg.hint));
  const grid=make('nav','mrlee-v4-directory-grid');grid.setAttribute('aria-label','Chuyên mục '+cfg.title);cfg.cards.forEach((c,i)=>grid.append(card(c,i)));directory.append(grid);shell.append(directory);
