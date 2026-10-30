@@ -11,14 +11,16 @@ if(TOPICS.length!==22){console.error('[MR LEE CULTURE V19] Expected 22 topics, g
 const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const DIR='images/culture-v20-hd/';
+const V21='images/culture-v21-new/';
+const REPLACED=new Set(['le-hoi','am-thuc','doi-song','so-cap-cuu','goi-cuu-ho','lac-duong','mat-vi','tau-dien-ngam','xe-buyt','benh-vien','hoa-hoan','mat-dien-thoai','an-toan-giao-thong']);
 const ORIGINAL='images/culture-v18-hd/';
 const CAPTIONS=window.MRLEE_CULTURE_V20_CAPTIONS||{};
 const FALLBACK='images/culture-v13/';
 const ID=new URLSearchParams(location.search).get('chu-de')||TOPICS[0];
 const safe=id=>TOPICS.includes(id)?id:null;
-const asset=(id,index)=>DIR+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=20.0';
+const asset=(id,index)=>(REPLACED.has(id)?V21:DIR)+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=21.1';
 const backup=id=>FALLBACK+encodeURIComponent(id)+'.svg?v=20.0';
-const backupOriginal=(id,k)=>ORIGINAL+encodeURIComponent(id)+'/'+String(k).padStart(2,'0')+'.webp?v=20.0';
+const backupOriginal=(id,k)=>DIR+encodeURIComponent(id)+'/'+String(k).padStart(2,'0')+'.webp?v=21.1';
 const write=(parent,tag,klass,content)=>{const el=document.createElement(tag);if(klass)el.className=klass;if(content!==undefined)el.textContent=content;parent.append(el);return el};
 const safety=new Set(['so-cap-cuu','goi-cuu-ho','hoa-hoan','benh-vien','an-toan-giao-thong']);
 function load(img,id,k){
@@ -26,7 +28,7 @@ function load(img,id,k){
  const url=asset(id,k),alt='Ảnh AI minh họa '+k+'/5 — '+MEDIA[id].title;
  img.onerror=null;img.hidden=false;img.removeAttribute('style');
  img.loading=k===1?'eager':'lazy';img.decoding='async';
- img.alt=alt;img.dataset.mrleeCultureHd='20';
+ img.alt=alt;img.dataset.mrleeCultureHd='21';
  const fail=()=>{img.removeEventListener('error',fail);img.src=backupOriginal(id,k);img.alt='Minh họa AI gốc — '+MEDIA[id].title;img.addEventListener('error',()=>{img.src=backup(id);img.alt='Đồ họa dự phòng — '+MEDIA[id].title;img.classList.add('mrleeCultureVector')},{once:true});};
  img.addEventListener('error',fail,{once:true});
  if(img.getAttribute('src')!==url)img.src=url;
@@ -37,16 +39,16 @@ function covers(){
   let id=null;try{id=new URL(card.href,location.href).searchParams.get('chu-de')}catch{}
   if(!safe(id))return;
   const img=$('img',card);if(!img)return;
-  if(img.dataset.mrleeCultureHd==='20'&&img.getAttribute('src')===asset(id,1))return;
+  if(img.dataset.mrleeCultureHd==='21'&&img.getAttribute('src')===asset(id,1))return;
   load(img,id,1);
   img.loading=position<3?'eager':'lazy';
   img.fetchPriority=position<3?'high':'low';
   img.width=2040;img.height=1360;
   const old=$('.mr172AiTag',card);
   const countChip=$('.cultureV16TopicTag',card);
-  if(countChip)countChip.textContent='🖼 5 ảnh HD cải tiến';
-  if(old)old.textContent='Minh họa AI · HD V20';
-  else if(!$('.mrleeCultureTag',card))write($('.topicText',card)||card,'span','mrleeCultureTag','Minh họa AI · HD V20');
+  if(countChip)countChip.textContent='🖼 5 ảnh đồ họa mới';
+  if(old)old.textContent='Minh họa mới · V21';
+  else if(!$('.mrleeCultureTag',card))write($('.topicText',card)||card,'span','mrleeCultureTag','Minh họa mới · V21');
  });
 }
 function hub(){
@@ -86,7 +88,7 @@ function lesson(){
  if(!section){
   section=document.createElement('section');section.id='cultureImagesV19';section.className='lessonBlock mrleeCulture19';
   write(section,'h2','','II. Bộ ảnh minh họa chất lượng cao');
-  write(section,'p','mrleeCultureLead','5 ảnh AI WebP được hiệu chỉnh độ sắc nét từ bộ nguồn riêng của website. Mỗi ảnh có ghi chú học tập; không xem hình là bằng chứng thực tế hoặc hướng dẫn cứu hộ.');
+  write(section,'p','mrleeCultureLead','5 hình minh họa theo chủ đề: nhóm được phản ánh đã có bố cục và hình ảnh mới V21; các chủ đề khác vẫn dùng V20. Hình AI/đồ họa không phải ảnh tư liệu hay quy trình cấp cứu.');
   const gallery=write(section,'div','mrleeCultureGrid');
   for(let i=1;i<=5;i++){
    const fig=write(gallery,'figure','mrleeCultureFigure');
@@ -111,6 +113,6 @@ function lesson(){
   a.href='#cultureImagesV19';a.textContent='5 ảnh minh họa HD';
  }
 }
-function start(){hub();lesson();console.info('[MR LEE Culture V20] Ready: 22 topics / 110 remastered HD WebP + verified fallback + 110 study captions')}
+function start(){hub();lesson();console.info('[MR LEE Culture V20] Ready: 22 topics / 65 redesigned V21 artworks in 13 reported topics + V20 for other topics')}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
