@@ -16,7 +16,10 @@ const pages={
 'van-hoa-han-quoc.html':cultures,'ban-do-dai-hoc-han-quoc.html':admissions,
 'mrlee-bai-tap-pro.html':lessons,'bang-xep-hang.html':lessons
 };
-if(!pages[page])return;
+// On V4 pages every primary action already has an illustrated tile;
+// an additional horizontal image-link gallery is redundant.
+const v4Pages=new Set(['hoc-tieng-han.html','giao-tiep-theo-chu-de.html','kiem-tra-topik.html','giao-tiep-phong-van.html','van-hoa-han-quoc.html','ban-do-dai-hoc-han-quoc.html','trung-tam-hoc-vien.html','mrlee-bai-tap-pro.html']);
+if(!pages[page]||v4Pages.has(page))return;
 const titles={'learning-hangeul':'Bảng chữ cái Hangeul','learning-roadmap':'Lộ trình học tiếng Hàn','learning-listening':'Luyện kỹ năng nghe','learning-topik':'Luyện thi TOPIK','learning-books':'Tài liệu học tập','culture':'Khám phá văn hóa','feature-8-doi-song':'Sinh hoạt tại Hàn Quốc','feature-1-tuyen-sinh':'Định hướng du học',
 'learning-cap-1':'Sơ cấp 1','learning-cap-2':'Sơ cấp 2','learning-cap-3':'Trung cấp 1','learning-cap-4':'Trung cấp 2','learning-cap-5':'Cao cấp 1','learning-cap-6':'Cao cấp 2'};
 const urls={'learning-hangeul':'bang-chu-cai-tieng-han.html','learning-roadmap':'hoc-tieng-han.html','learning-listening':'hoc-theo-bai.html?cap=1&bai=1','learning-topik':'kiem-tra-topik.html','learning-books':'bo-sach.html','culture':'van-hoa-han-quoc.html','feature-8-doi-song':'van-hoa-han-quoc.html','feature-1-tuyen-sinh':'tuyen-sinh.html'};

@@ -25,8 +25,8 @@ assert.match(js,/https:\/\/www\.tiktok\.com\/@hankuc_chemi/,'TikTok link must ma
 assert.match(css,/data-channel="tiktok"/,'TikTok contact must have its own icon treatment');
 assert.match(home,/href="https:\/\/www\.tiktok\.com\/@hankuc_chemi"/,'TikTok should remain available as a fallback link');
 assert.match(css,/#mrleeContactDock\[data-open="true"\]/,'Mobile expanded UI missing');
-assert.match(css,/body\.mrlee-contact-ready #contactPanel\.contact-rail/,'Hide legacy duplicate only after new dock mounts');
-assert.ok(home.includes('id="contactPanel"'),'Original contact links remain as safe fallback');
+assert.match(css,/#mrleeContactDock/,'Single six-channel contact dock must remain styled');
+assert.ok(!home.includes('id="contactPanel"')&&home.includes('id="contactDialog"'), 'Keep contact form but remove redundant floating contact rail');
 assert.match(admin,/id="mrleeAdminHealth"/,'Admin must show account-scoped diagnostics');
 assert.match(admin,/function renderAdminHealth\(\)/);
 assert.match(admin,/id="mrleeRewardHealth"/,'Reward V2 deploy status must be visible');
@@ -40,4 +40,4 @@ const scripts=[...admin.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)]
   .filter(m=>!/\bsrc\s*=/.test(m[1]))
   .map(m=>m[2]).filter(s=>s.trim());
 for(let i=0;i<scripts.length;i++)new vm.Script(scripts[i],{filename:'admin-inline-'+i+'.js'});
-console.log('MR LEE CONTACT/ADMIN QA: six channels including TikTok, existing fallback, Fresh/Future dock, Admin diagnostics, date/score/CSV guards, '+scripts.length+' inline scripts parsed.');
+console.log('MR LEE CONTACT/ADMIN QA: six channels including TikTok, contact form without second rail, Fresh/Future dock, Admin diagnostics, date/score/CSV guards, '+scripts.length+' inline scripts parsed.');

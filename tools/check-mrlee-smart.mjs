@@ -22,7 +22,13 @@ if(!css.includes('grid-template-columns:minmax(218px,238px)')||!css.includes('wo
 if(!css.includes('url("../v303/hero-glasses.webp")'))problems.push('Visible hero-cover image missing');
 if(!fs.existsSync(path.join(root,'assets/v303/hero-glasses.webp')))problems.push('Actual hero-cover file does not exist');
 if(!css.includes('#page-overview>.kpis')||!css.includes('#page-overview>.grid-2'))problems.push('Repeated admin analytics not hidden');
-if(!js.includes('mrleeSmartExpanded')||!js.includes('Thêm học viên'))problems.push('Progressive navigation/quick action missing');
+// V32 intentionally removes the second Admin shortcut toolbar. The existing
+// authenticated side menu is canonical; don't demand a redundant "Add student" button.
+const adminHtml=fs.readFileSync(path.join(root,'admin.html'),'utf8');
+if(!js.includes('mrleeSmartExpanded')||!js.includes('overview.prepend(hero)')||
+   !adminHtml.includes('data-nav="students"')||!adminHtml.includes('data-nav="scores"'))
+  problems.push('Progressive navigation or canonical Admin sidebar missing');
+if(js.includes("mrlee-smart-admin-actions');controls"))problems.push('Redundant Admin shortcut toolbar came back');
 if(js.includes('innerHTML')||js.includes('service_role'))problems.push('Unsafe HTML or key use in V3 JS');
 console.log('MR LEE SMART V3: visual assets, home menu, Admin layout, logo, JS syntax');
 if(problems.length){problems.forEach(x=>console.error('FAIL '+x));process.exitCode=1}

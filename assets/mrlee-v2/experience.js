@@ -7,7 +7,10 @@ const d=document,html=d.documentElement;
 const page=decodeURIComponent(location.pathname.split('/').pop()||'index.html');
 // Standalone pages do not load the global theme controller; share the same safe AI loader.
 const aiLoader=d.createElement('script');aiLoader.defer=true;aiLoader.src='assets/mrlee-ai/v1/loader.js?v=20261025-r3';d.head.append(aiLoader);
-if(page==='admin.html')return;
+// Primary V4 shell (or the smart homepage) already provides these navigation CTAs.
+// Do not render the older second hero/navigation/footer on those routes.
+const consolidatedPages=new Set(['index.html','hoc-tieng-han.html','giao-tiep-theo-chu-de.html','kiem-tra-topik.html','giao-tiep-phong-van.html','van-hoa-han-quoc.html','ban-do-dai-hoc-han-quoc.html','trung-tam-hoc-vien.html','mrlee-bai-tap-pro.html']);
+if(page==='admin.html'||consolidatedPages.has(page))return;
 const appPages={
  'index.html':['Một hành trình học tiếng Hàn có định hướng','Từ bảng chữ cái, từ vựng và ngữ pháp đến giao tiếp, TOPIK và du học. Chọn mục tiêu phù hợp, theo dõi hành trình của bạn từng ngày.','Bắt đầu học','hoc-tieng-han.html','Kiểm tra đầu vào','kiem-tra-dau-vao.html','home','6 cấp độ học · Luyện thi TOPIK I/II'],
  'hoc-tieng-han.html':['Học tiếng Hàn từ nền tảng đến nâng cao','Khám phá lộ trình sáu cấp độ, học từ vựng, ngữ pháp, phát âm và luyện tập theo bài. Nội dung học được sắp xếp theo trình độ.','Xem lộ trình 6 cấp','hoc-theo-bai.html','Mở WORKBOOK','mrlee-bai-tap-pro.html','learning','Từ vựng · Ngữ pháp · Nghe · Nói'],

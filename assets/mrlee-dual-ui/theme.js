@@ -16,6 +16,9 @@ const experienceScript=doc.createElement('script');experienceScript.src='assets/
 // AI media loader checks real binary availability before enhancing pages (including Admin).
 const aiLoader=doc.createElement('script');aiLoader.src='assets/mrlee-ai/v1/loader.js?v=20261025-r3';aiLoader.defer=true;doc.head.append(aiLoader);
 const admin=path==='admin.html';
+// These pages already have a native menu or a single V4 image-based dashboard.
+// Do not inject a second six-link navigation strip or another portal of duplicates.
+const cleanShellPages=new Set(['index.html','hoc-tieng-han.html','giao-tiep-theo-chu-de.html','kiem-tra-topik.html','giao-tiep-phong-van.html','van-hoa-han-quoc.html','ban-do-dai-hoc-han-quoc.html','trung-tam-hoc-vien.html','mrlee-bai-tap-pro.html']);
 const sceneNames=['learning','speaking','topik','interview','culture','universities','home','admin'];
 function which(t){t=String(t).toLowerCase();if(/mrlee-bai-tap-pro|workbook/.test(t))return 'workbook';if(/trung-tam-hoc-vien|ho-so-hoc-vien/.test(t))return 'profile';if(/admin|xep-hang|ranking/.test(t))return 'admin';if(/van-hoa|culture|du-lich|kham-pha/.test(t))return 'culture';if(/phong-van/.test(t))return 'interview';if(/ban-do|dai-hoc|truong/.test(t))return 'universities';if(/giao-tiep|hoi-thoai|noi/.test(t))return 'speaking';if(/topik|kiem-tra|luyen-de|thi|nghe/.test(t))return 'topik';if(/hoc-|bai-tap|workbook|hoc-vien/.test(t))return 'learning';return 'home'}
 function asset(n){
@@ -157,7 +160,7 @@ function pageGallery(){
 
 function portal(){
  const allowed=new Set(['index.html','hoc-tieng-han.html','giao-tiep-theo-chu-de.html','kiem-tra-topik.html','giao-tiep-phong-van.html','van-hoa-han-quoc.html','ban-do-dai-hoc-han-quoc.html','trung-tam-hoc-vien.html','mrlee-bai-tap-pro.html']);
- if(admin||!allowed.has(path)||doc.querySelector('.mrlee-next-portal'))return;
+ if(admin||cleanShellPages.has(path)||!allowed.has(path)||doc.querySelector('.mrlee-next-portal'))return;
  const groups={
  home:[['Học tiếng Hàn','hoc-tieng-han.html','learning'],['Giao tiếp','giao-tiep-theo-chu-de.html','speaking'],['TOPIK','kiem-tra-topik.html','topik'],['Phỏng vấn','giao-tiep-phong-van.html','interview'],['Văn hóa Hàn Quốc','van-hoa-han-quoc.html','culture'],['Bản đồ trường đại học','ban-do-dai-hoc-han-quoc.html','universities'],['WORKBOOK','mrlee-bai-tap-pro.html','workbook'],['Hồ sơ học viên','trung-tam-hoc-vien.html','profile'],['Đăng ký tư vấn','dang-ky-tu-van.html','consultation']],
  learning:[['Sơ cấp 1','hoc-theo-bai.html?cap=1','learning'],['Sơ cấp 2','hoc-theo-bai.html?cap=2','learning'],['Trung cấp 1','hoc-theo-bai.html?cap=3','learning'],['Trung cấp 2','hoc-theo-bai.html?cap=4','learning'],['Cao cấp 1','hoc-theo-bai.html?cap=5','learning'],['Cao cấp 2','hoc-theo-bai.html?cap=6','learning'],['WORKBOOK','mrlee-bai-tap-pro.html','workbook']],
@@ -192,7 +195,7 @@ function portal(){
 
 function primaryNav(){
  const supported=new Set(['index.html','hoc-tieng-han.html','giao-tiep-theo-chu-de.html','kiem-tra-topik.html','giao-tiep-phong-van.html','van-hoa-han-quoc.html','ban-do-dai-hoc-han-quoc.html','trung-tam-hoc-vien.html','mrlee-bai-tap-pro.html']);
- if(admin||!supported.has(path)||doc.querySelector('.mrlee-v2-primary-nav'))return;
+ if(admin||cleanShellPages.has(path)||!supported.has(path)||doc.querySelector('.mrlee-v2-primary-nav'))return;
  const links=[
   ['Học tiếng Hàn','hoc-tieng-han.html','learning'],
   ['Giao tiếp','giao-tiep-theo-chu-de.html','speaking'],

@@ -326,6 +326,31 @@ try{
        fs.mkdirSync('artifacts/home-review',{recursive:true});
        await page.screenshot({path:'artifacts/home-review/'+device.w+'x'+device.h+'-'+theme+'.png',fullPage:true});
      }
+     // V32: validate that one canonical navigation system remains per page.
+     const actionAudit=await page.evaluate(()=>{
+       const route=location.pathname.split('/').pop()||'index.html';
+       const root=document.querySelector('.mrlee-v4-root');
+       const staleSelectors=['.mrlee-next-portal','.mrlee-v2-primary-nav','.mrlee-cinematic-gallery','.mrlee-v2-context','.v23-editorial','#mrleeV31Gallery'];
+       const oldLayers=root?staleSelectors.filter(q=>document.querySelector(q)):[];
+       const urls=(selector)=>[...document.querySelectorAll(selector)].map(a=>new URL(a.getAttribute('href'),location.href).href);
+       const feature=urls('#mainContent>.feature-cards>.feature-card');
+       const category=urls('.mrlee-v4-directory-grid .mrlee-v4-card');
+       return {route,oldLayers,v4Duplicates:category.length-new Set(category).size,
+         featureCount:feature.length,featureDuplicates:feature.length-new Set(feature).size,
+         repeatedRail:!!document.querySelector('.contact-rail'),
+         repeatedQuickLinks:!!document.querySelector('.quick-links'),
+         repeatedFuture:!!document.querySelector('.mrlee-future-modules'),
+         repeatedAdmin:!!document.querySelector('.mrlee-smart-admin-actions'),
+         authNav:!!document.querySelector('#mrlee-auth2-actions'),
+         mobileNav:!!document.querySelector('#mobileNav')};
+     });
+     if(actionAudit.oldLayers.length||actionAudit.v4Duplicates)throw Error('Redundant child navigation/actions: '+JSON.stringify(actionAudit));
+     if(actionAudit.route==='index.html'){
+       if(actionAudit.featureCount!==8||actionAudit.featureDuplicates)throw Error('Home 8 unique categories lost: '+JSON.stringify(actionAudit));
+       if(actionAudit.repeatedRail||actionAudit.repeatedQuickLinks||actionAudit.repeatedFuture)throw Error('Duplicated home controls remain: '+JSON.stringify(actionAudit));
+       if(!actionAudit.authNav||!actionAudit.mobileNav)throw Error('Account or mobile navigation removed');
+     }
+     if(actionAudit.route==='admin.html'&&actionAudit.repeatedAdmin)throw Error('Duplicate admin toolbar remains');
      const title=await page.title();if(!title.trim())throw Error('Empty HTML title');
      if(pageErrors.length){notices.push(label+' pageerror: '+pageErrors.slice(0,3).join(' | '))}
      seen.add(label);
