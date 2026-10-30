@@ -1,0 +1,595 @@
+{
+  "version": "21.0",
+  "topics": 13,
+  "images": 65,
+  "width": 2040,
+  "height": 1360,
+  "note": "Entirely different layouts from V20. Life skills are symbolic illustrations, not emergency procedures.",
+  "entries": [
+    {
+      "topic": "le-hoi",
+      "index": 1,
+      "source": "editorial-new-v21",
+      "file": "images/culture-v21-new/le-hoi/01.webp",
+      "sha256": "5cf26527faf2c59a247ecad23c5db3957064518801fc118116561b6ec827e8b5",
+      "bytes": 357956,
+      "caption": "Truyền thống Seollal"
+    },
+    {
+      "topic": "le-hoi",
+      "index": 2,
+      "source": "editorial-new-v21",
+      "file": "images/culture-v21-new/le-hoi/02.webp",
+      "sha256": "667946690ee5b6c5430594b89476b180da12861861adadd5e4a68f4c63e26788",
+      "bytes": 360136,
+      "caption": "Bữa ăn Chuseok"
+    },
+    {
+      "topic": "le-hoi",
+      "index": 3,
+      "source": "editorial-new-v21",
+      "file": "images/culture-v21-new/le-hoi/03.webp",
+      "sha256": "1dea9b1a15d4e53ad53b5f5ea46a15debee07fc1ea1528ecace9be23074271c8",
+      "bytes": 305772,
+      "caption": "Không gian hanbok"
+    },
+    {
+      "topic": "le-hoi",
+      "index": 4,
+      "source": "editorial-new-v21",
+      "file": "images/culture-v21-new/le-hoi/04.webp",
+      "sha256": "cf2096129424743150c4536f468cefd6881f6cca71adf1b3fec0462ecc4a864d",
+      "bytes": 357218,
+      "caption": "Gia đình sum họp"
+    },
+    {
+      "topic": "le-hoi",
+      "index": 5,
+      "source": "editorial-new-v21",
+      "file": "images/culture-v21-new/le-hoi/05.webp",
+      "sha256": "f91047e0297661a1557c573daf8f1f7d000115fcf0732b9bbdda102f44df8fbb",
+      "bytes": 361724,
+      "caption": "Văn hóa ngày lễ"
+    },
+    {
+      "topic": "am-thuc",
+      "index": 1,
+      "source": "editorial-new-v21",
+      "file": "images/culture-v21-new/am-thuc/01.webp",
+      "sha256": "9dc52c501ced2f6c95ab8925c0b1437692160b8f362c0e817109e76b7d29fac4",
+      "bytes": 391036,
+      "caption": "Cơm trộn bibimbap"
+    },
+    {
+      "topic": "am-thuc",
+      "index": 2,
+      "source": "editorial-new-v21",
+      "file": "images/culture-v21-new/am-thuc/02.webp",
+      "sha256": "eee5fa5e20c31999808e588cb0941169c3fdfcff828c3acee96941b74495970a",
+      "bytes": 458354,
+      "caption": "Kimchi và banchan"
+    },
+    {
+      "topic": "am-thuc",
+      "index": 3,
+      "source": "editorial-new-v21",
+      "file": "images/culture-v21-new/am-thuc/03.webp",
+      "sha256": "f2b50f365da9597f06a8a98deca6c0bcd2cb0e556e7f9f872ae889c92b17f5c4",
+      "bytes": 334722,
+      "caption": "Ẩm thực đường phố"
+    },
+    {
+      "topic": "am-thuc",
+      "index": 4,
+      "source": "editorial-new-v21",
+      "file": "images/culture-v21-new/am-thuc/04.webp",
+      "sha256": "a29be97a757d82cf774720f1ee6306271654197133c98ff81b64a36da69b8647",
+      "bytes": 406646,
+      "caption": "Bữa ăn thịt nướng"
+    },
+    {
+      "topic": "am-thuc",
+      "index": 5,
+      "source": "editorial-new-v21",
+      "file": "images/culture-v21-new/am-thuc/05.webp",
+      "sha256": "815752fe07dd40c1bef5e2bbef83f69ac91e701f29625449cec82200fa73f69f",
+      "bytes": 528954,
+      "caption": "Khám phá món Hàn"
+    },
+    {
+      "topic": "doi-song",
+      "index": 1,
+      "source": "editorial-new-v21",
+      "file": "images/culture-v21-new/doi-song/01.webp",
+      "sha256": "6df7265853fb18559ddffd0d604a6e1e14af1f1c015fbd36920d0d41c2c476b2",
+      "bytes": 292760,
+      "caption": "Mua sắm ở Hàn Quốc"
+    },
+    {
+      "topic": "doi-song",
+      "index": 2,
+      "source": "editorial-new-v21",
+      "file": "images/culture-v21-new/doi-song/02.webp",
+      "sha256": "17863c1786f7e5ac1ff9e61a235242019b2e4db7eb5ade1313c7fe505631041f",
+      "bytes": 301050,
+      "caption": "Dạo phố và giao tiếp"
+    },
+    {
+      "topic": "doi-song",
+      "index": 3,
+      "source": "editorial-new-v21",
+      "file": "images/culture-v21-new/doi-song/03.webp",
+      "sha256": "b443450c99e68800aa913592709abb5ce52aa89c918ae359d0626d03eeee3771",
+      "bytes": 309496,
+      "caption": "Sinh hoạt mỗi ngày"
+    },
+    {
+      "topic": "doi-song",
+      "index": 4,
+      "source": "editorial-new-v21",
+      "file": "images/culture-v21-new/doi-song/04.webp",
+      "sha256": "9bf4adb407fb803ed81da01358ebc4768002662fb0cd1e0efa90edfb1f69d3e7",
+      "bytes": 290288,
+      "caption": "Khám phá khu dân cư"
+    },
+    {
+      "topic": "doi-song",
+      "index": 5,
+      "source": "editorial-new-v21",
+      "file": "images/culture-v21-new/doi-song/05.webp",
+      "sha256": "1e869bc7e056ff7c116adfb7578947bdb755d3f7d36484db6d3617c2b58a9b29",
+      "bytes": 289488,
+      "caption": "Môi trường sống"
+    },
+    {
+      "topic": "so-cap-cuu",
+      "index": 1,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/so-cap-cuu/01.webp",
+      "sha256": "9793ef68ae395aa3fe45fc32cfb86e54a12e347dc52df4593c755a2c67714d19",
+      "bytes": 78228,
+      "caption": "Nhận biết khẩn cấp"
+    },
+    {
+      "topic": "so-cap-cuu",
+      "index": 2,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/so-cap-cuu/02.webp",
+      "sha256": "b5978a1f443f6bd57b07058f4d293c1a0cec55f7fddb70ac13db6174f67de43c",
+      "bytes": 71460,
+      "caption": "Gọi 119"
+    },
+    {
+      "topic": "so-cap-cuu",
+      "index": 3,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/so-cap-cuu/03.webp",
+      "sha256": "645e8366d091fed0a32b49f3dcd1f0f7fb585482f0c2139834cc9ab2783bbdb1",
+      "bytes": 79376,
+      "caption": "Tìm AED và người hỗ trợ"
+    },
+    {
+      "topic": "so-cap-cuu",
+      "index": 4,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/so-cap-cuu/04.webp",
+      "sha256": "560b40f32558da0294f033e4d2974574fff66e72a4b61ac5a74edac93b173afa",
+      "bytes": 76030,
+      "caption": "Báo vị trí an toàn"
+    },
+    {
+      "topic": "so-cap-cuu",
+      "index": 5,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/so-cap-cuu/05.webp",
+      "sha256": "bddb9fd7fa7b517cd005947d26f1be0fd59d1e1d2f57838cace61901ded3e317",
+      "bytes": 77042,
+      "caption": "Học cùng chuyên gia"
+    },
+    {
+      "topic": "goi-cuu-ho",
+      "index": 1,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/goi-cuu-ho/01.webp",
+      "sha256": "cf69f3766a6f06d617ca39c1367748829a87a5fa2e8c3e28117958412e79a943",
+      "bytes": 62042,
+      "caption": "Lưu số 119"
+    },
+    {
+      "topic": "goi-cuu-ho",
+      "index": 2,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/goi-cuu-ho/02.webp",
+      "sha256": "7c6f15093793072ed8d5ac3b0671de57a1669b59ab2aa3ec8ba04996ddbdaa16",
+      "bytes": 60872,
+      "caption": "Lưu số 112"
+    },
+    {
+      "topic": "goi-cuu-ho",
+      "index": 3,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/goi-cuu-ho/03.webp",
+      "sha256": "351f8436855c53e64a666ee094098de8d7f51c0054f279fc1e2a1e2929232ce8",
+      "bytes": 62234,
+      "caption": "Mô tả vị trí"
+    },
+    {
+      "topic": "goi-cuu-ho",
+      "index": 4,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/goi-cuu-ho/04.webp",
+      "sha256": "e6ee628997bc1bcb25145127d3231274e108a34d8250067003926e13efd04453",
+      "bytes": 66950,
+      "caption": "Trao đổi với tổng đài"
+    },
+    {
+      "topic": "goi-cuu-ho",
+      "index": 5,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/goi-cuu-ho/05.webp",
+      "sha256": "f427155a057b98ca4ea5884f7b70e3e49b7e936b8d1508bbd97b9d470d77a0cf",
+      "bytes": 64866,
+      "caption": "Chờ cứu hộ an toàn"
+    },
+    {
+      "topic": "lac-duong",
+      "index": 1,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/lac-duong/01.webp",
+      "sha256": "f1158e65b4b252ec68b4855fe7d16809295a894e04115b5b30677db8f0218b3c",
+      "bytes": 66042,
+      "caption": "Dừng nơi an toàn"
+    },
+    {
+      "topic": "lac-duong",
+      "index": 2,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/lac-duong/02.webp",
+      "sha256": "227c5c79d2746b7e5f6b49d15b29b77c9a465f8fed78cff65fe7147ef256957a",
+      "bytes": 66018,
+      "caption": "Đọc tên địa điểm"
+    },
+    {
+      "topic": "lac-duong",
+      "index": 3,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/lac-duong/03.webp",
+      "sha256": "8cf8cf36efa3a184c3f9ec3325de07b11faf37d776af5be204dcd7d0fc6c0fcd",
+      "bytes": 64684,
+      "caption": "Dùng bản đồ"
+    },
+    {
+      "topic": "lac-duong",
+      "index": 4,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/lac-duong/04.webp",
+      "sha256": "5277e2851e403e316765f280545eb461a0cd0b68e68b07fdd65ec3912cee3eac",
+      "bytes": 67444,
+      "caption": "Hỏi quầy thông tin"
+    },
+    {
+      "topic": "lac-duong",
+      "index": 5,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/lac-duong/05.webp",
+      "sha256": "f32118d2be5b58d0fe86cd91a30d5ae4412ca8e666f46242c4d9c92e96ef26b9",
+      "bytes": 70952,
+      "caption": "Liên hệ người tin cậy"
+    },
+    {
+      "topic": "mat-vi",
+      "index": 1,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/mat-vi/01.webp",
+      "sha256": "8b77ba1d20a37a6f1d597b60d4138a93b0379165d8fe0f86c36fa1c93fdd9c07",
+      "bytes": 61180,
+      "caption": "Nhận diện giấy tờ mất"
+    },
+    {
+      "topic": "mat-vi",
+      "index": 2,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/mat-vi/02.webp",
+      "sha256": "d64c0a4cd075c2e995a5c6b29b56f40f7cdae13aa18010bf958f11aae7533891",
+      "bytes": 59986,
+      "caption": "Khóa thẻ ngân hàng"
+    },
+    {
+      "topic": "mat-vi",
+      "index": 3,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/mat-vi/03.webp",
+      "sha256": "6644b65669026dab5ac7ba600b65ddef6f55fbb0f0519564c94a364c55e2fb8c",
+      "bytes": 58732,
+      "caption": "Trình báo phù hợp"
+    },
+    {
+      "topic": "mat-vi",
+      "index": 4,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/mat-vi/04.webp",
+      "sha256": "e1921701dfa54a5e14bfa654ac04410bbbcf5d16b2fc8e24ab4ed310329ae7c8",
+      "bytes": 58232,
+      "caption": "Liên hệ cơ quan"
+    },
+    {
+      "topic": "mat-vi",
+      "index": 5,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/mat-vi/05.webp",
+      "sha256": "7e655f01f15046eb475afb50b023988d797f73d25cb0e0173ae23d51fb5f12df",
+      "bytes": 58214,
+      "caption": "Bảo vệ dữ liệu"
+    },
+    {
+      "topic": "tau-dien-ngam",
+      "index": 1,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/tau-dien-ngam/01.webp",
+      "sha256": "6b4c8db4b28fb388cc1a6fbd1eb16a0490b543fc22582eb43292c85340df1e9c",
+      "bytes": 67544,
+      "caption": "Tìm ga đi"
+    },
+    {
+      "topic": "tau-dien-ngam",
+      "index": 2,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/tau-dien-ngam/02.webp",
+      "sha256": "473b69c6585713bf11a116c4bca616affe050324cc7f8cbcf8997e6d5ef6c0e3",
+      "bytes": 70222,
+      "caption": "Chọn hướng tàu"
+    },
+    {
+      "topic": "tau-dien-ngam",
+      "index": 3,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/tau-dien-ngam/03.webp",
+      "sha256": "ffe6b9157e8e84c86e0d9451548bb4ef365f3413e69445bb3c290c5a6ffc28d1",
+      "bytes": 70256,
+      "caption": "Chuyển tuyến"
+    },
+    {
+      "topic": "tau-dien-ngam",
+      "index": 4,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/tau-dien-ngam/04.webp",
+      "sha256": "f39644b4f5de4e7015c0adfec2c244fbdca5a93dc6ae37143b9368d8d157cd3e",
+      "bytes": 69368,
+      "caption": "Lối ra đúng"
+    },
+    {
+      "topic": "tau-dien-ngam",
+      "index": 5,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/tau-dien-ngam/05.webp",
+      "sha256": "f06a29c0a6fe37b2061a93c75ab9dc9808634d652cddee8033e755343c8ced9b",
+      "bytes": 70700,
+      "caption": "Nhân viên nhà ga"
+    },
+    {
+      "topic": "xe-buyt",
+      "index": 1,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/xe-buyt/01.webp",
+      "sha256": "d047e1cef59f056dda7e23280fe3e703e16ce9998161cddd85ba8afc7f6163b7",
+      "bytes": 63200,
+      "caption": "Xem số tuyến"
+    },
+    {
+      "topic": "xe-buyt",
+      "index": 2,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/xe-buyt/02.webp",
+      "sha256": "557e915b107b7dbcfce60f7f66f488f7f0431bcb7b1179aaab4cd9c40c4de835",
+      "bytes": 61922,
+      "caption": "Chọn đúng chiều"
+    },
+    {
+      "topic": "xe-buyt",
+      "index": 3,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/xe-buyt/03.webp",
+      "sha256": "eee5a2e5356687b65ae91d076af66035e5ef4d5c7d0956c9a844f23c434e0be9",
+      "bytes": 60632,
+      "caption": "Thanh toán vé"
+    },
+    {
+      "topic": "xe-buyt",
+      "index": 4,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/xe-buyt/04.webp",
+      "sha256": "bd204d4632ae0a3ac726e335f4b7728ce9325b84412d769d539976aff20492e6",
+      "bytes": 61912,
+      "caption": "Ưu tiên an toàn"
+    },
+    {
+      "topic": "xe-buyt",
+      "index": 5,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/xe-buyt/05.webp",
+      "sha256": "f5ebd346b3c54b18ae1eb6d2f9774fc120534c898236f6f0e3e14965def00c86",
+      "bytes": 64194,
+      "caption": "Kiểm tra chuyển tuyến"
+    },
+    {
+      "topic": "benh-vien",
+      "index": 1,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/benh-vien/01.webp",
+      "sha256": "5067188cb56315ca3a8ab2f41d282b7aea1bbb94299673270a2267b8f3840600",
+      "bytes": 68946,
+      "caption": "Chọn cơ sở y tế"
+    },
+    {
+      "topic": "benh-vien",
+      "index": 2,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/benh-vien/02.webp",
+      "sha256": "8c930cce883d9c11d9fa1ad7e048f764d3a4b298e5bb350bc4f0b2c76e37d4fc",
+      "bytes": 68546,
+      "caption": "Đăng ký lịch khám"
+    },
+    {
+      "topic": "benh-vien",
+      "index": 3,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/benh-vien/03.webp",
+      "sha256": "37cb5a3d816df3da0bd904ab4cb3ee51a22b6c21b23bbe68e80ecbc447e8ad61",
+      "bytes": 69406,
+      "caption": "Mô tả triệu chứng"
+    },
+    {
+      "topic": "benh-vien",
+      "index": 4,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/benh-vien/04.webp",
+      "sha256": "62b301abdf4066913b105c3c0b7b4676371122100f3fdf6e894d3359053ce4b6",
+      "bytes": 69538,
+      "caption": "Hỏi cách dùng thuốc"
+    },
+    {
+      "topic": "benh-vien",
+      "index": 5,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/benh-vien/05.webp",
+      "sha256": "8260da01a788db01849638d4a88388020fc563f099a7c1f06779af944814b030",
+      "bytes": 68966,
+      "caption": "Gọi 119 khi cấp cứu"
+    },
+    {
+      "topic": "hoa-hoan",
+      "index": 1,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/hoa-hoan/01.webp",
+      "sha256": "9107e46c77665fb0a52ade7749ccdaefe389a603dc0b2bece88f0e34dc6e9360",
+      "bytes": 76596,
+      "caption": "Nhận biết báo cháy"
+    },
+    {
+      "topic": "hoa-hoan",
+      "index": 2,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/hoa-hoan/02.webp",
+      "sha256": "5be364503221cce3673f887924b837672f65eff2419f7469f34f69173478856c",
+      "bytes": 74258,
+      "caption": "Tìm lối thoát hiểm"
+    },
+    {
+      "topic": "hoa-hoan",
+      "index": 3,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/hoa-hoan/03.webp",
+      "sha256": "288b2d426d326e29382062fd429e9d34506a7a60634d71c0c8f005151b47a0a0",
+      "bytes": 77966,
+      "caption": "Không dùng thang máy"
+    },
+    {
+      "topic": "hoa-hoan",
+      "index": 4,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/hoa-hoan/04.webp",
+      "sha256": "1fd1823010bd381c24bd7a9812854f94711a68e8d04bc45b43845cf742b169eb",
+      "bytes": 70856,
+      "caption": "Gọi 119"
+    },
+    {
+      "topic": "hoa-hoan",
+      "index": 5,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/hoa-hoan/05.webp",
+      "sha256": "ccf77f7cd5710106033220d4d16a76852873a199d3a03dfd0ec66a02be269ec3",
+      "bytes": 73778,
+      "caption": "Không quay lại"
+    },
+    {
+      "topic": "mat-dien-thoai",
+      "index": 1,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/mat-dien-thoai/01.webp",
+      "sha256": "59534383a9fd2757ef524bd625af884624bc5b73699c90e15c1476319baf6045",
+      "bytes": 61654,
+      "caption": "Tìm thiết bị"
+    },
+    {
+      "topic": "mat-dien-thoai",
+      "index": 2,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/mat-dien-thoai/02.webp",
+      "sha256": "b8de50e35bf001f981ba1db5e654cce0ea2a754126a5cb4363cd8a8573e8ed62",
+      "bytes": 62554,
+      "caption": "Khóa tài khoản"
+    },
+    {
+      "topic": "mat-dien-thoai",
+      "index": 3,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/mat-dien-thoai/03.webp",
+      "sha256": "bef244645008f5cb557972df8e8fd477009132e0d3b39c2697b687328a308c8e",
+      "bytes": 60930,
+      "caption": "Khóa SIM"
+    },
+    {
+      "topic": "mat-dien-thoai",
+      "index": 4,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/mat-dien-thoai/04.webp",
+      "sha256": "6c751292e8c5743161029bc085c307190a976c832161072464b9ad133246b0ee",
+      "bytes": 62844,
+      "caption": "Cảnh giác OTP"
+    },
+    {
+      "topic": "mat-dien-thoai",
+      "index": 5,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/mat-dien-thoai/05.webp",
+      "sha256": "40f9f57f8bdd50084e09fafaba724af72e94dcf9d452093769b4c1cbb3b71a79",
+      "bytes": 61912,
+      "caption": "Báo mất an toàn"
+    },
+    {
+      "topic": "an-toan-giao-thong",
+      "index": 1,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/an-toan-giao-thong/01.webp",
+      "sha256": "00266376ac409acea56e838dc324e2eb54f49f295c95b5d83ee6081a96f5b0b9",
+      "bytes": 63720,
+      "caption": "Vạch qua đường"
+    },
+    {
+      "topic": "an-toan-giao-thong",
+      "index": 2,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/an-toan-giao-thong/02.webp",
+      "sha256": "fd73690d581bbb9d45d9dcda40cd9667cc6819cc93e0f31a3e3a417becfadcf0",
+      "bytes": 63034,
+      "caption": "Quan sát tín hiệu"
+    },
+    {
+      "topic": "an-toan-giao-thong",
+      "index": 3,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/an-toan-giao-thong/03.webp",
+      "sha256": "be89b272419a5c64bfcd3b24cbe37277e558e849da9d088b0d00bc4e67dbfbc2",
+      "bytes": 65526,
+      "caption": "Tập trung đi bộ"
+    },
+    {
+      "topic": "an-toan-giao-thong",
+      "index": 4,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/an-toan-giao-thong/04.webp",
+      "sha256": "2d065c332a67bfe057dd237725f926a1dd013bf3a6334e9fedd64302cf3a99fd",
+      "bytes": 62812,
+      "caption": "Đội mũ bảo hộ"
+    },
+    {
+      "topic": "an-toan-giao-thong",
+      "index": 5,
+      "source": "original-vector-infographic-v21",
+      "file": "images/culture-v21-new/an-toan-giao-thong/05.webp",
+      "sha256": "d1d11b5239ad65909350c9608389d3994be9f131cabbabc8a504ec26e30409c7",
+      "bytes": 63540,
+      "caption": "Gọi cứu trợ khi cần"
+    }
+  ]
+}
