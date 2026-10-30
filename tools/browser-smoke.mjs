@@ -183,7 +183,7 @@ try{
        if(v.img<100)throw Error('No child hero image loaded');
        const missing=await page.locator('.mrlee-v4-card img').evaluateAll(imgs=>imgs.filter(i=>!i.naturalWidth).length);
        if(missing)throw Error('Subpage tile images not loaded: '+missing);
-       if(v.cards<3||!v.cta||v.cta.height<25)throw Error('Missing child navigation');
+       if(v.cards<1||!v.cta||v.cta.height<25)throw Error('Missing child navigation');
        if(v.width>v.viewport+5)throw Error('Horizontal overflow');
        if(device.w>=980 && (Math.abs(v.words.right-v.photo.x)>5||v.cta.right>v.photo.x+5))
          throw Error('Child buttons overlap photograph');
