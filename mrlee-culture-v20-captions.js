@@ -1,4 +1,6 @@
-/* MR LEE CULTURE V20 — 110 distinct, human-reviewed lesson study captions.\n * Captions are teaching cues, NOT claims that an AI image is photographic evidence. */\nwindow.MRLEE_CULTURE_V20_CAPTIONS={
+/* MR LEE CULTURE V20 — 110 distinct, human-reviewed lesson study captions.
+ * Captions are teaching cues, NOT claims that an AI image is photographic evidence. */
+window.MRLEE_CULTURE_V20_CAPTIONS={
   "le-hoi": [
     "Seollal: tìm hiểu tục chúc Tết và sự sum họp của gia đình Hàn Quốc.",
     "Chuseok: nhận biết những hoạt động gắn với mùa thu hoạch.",
@@ -153,4 +155,4 @@
     "Khi đi xe đạp, sử dụng thiết bị bảo hộ theo quy định.",
     "Trong tai nạn: bảo đảm an toàn hiện trường và gọi số khẩn cấp phù hợp."
   ]
-};\n
+};
