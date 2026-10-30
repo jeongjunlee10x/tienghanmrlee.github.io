@@ -13,7 +13,7 @@ const defs={
  'giao-tiep-theo-chu-de.html':{
  id:'speaking',eyebrow:'REAL KOREAN · EVERYDAY COMMUNICATION',title:'GIAO TIẾP TIẾNG HÀN',lead:'Hội thoại theo tình huống đời sống thực tế',description:'Luyện mẫu câu, nghe phát âm, ghi nhớ bằng thẻ và tự tin giao tiếp trong sinh hoạt, trường học, công việc.',
  image:'learning-cap-2.webp',cta:['Chọn chủ đề giao tiếp','#topicMenu'],secondary:['Luyện hội thoại','hoi-thoai-tap-noi.html'],section:'Luyện giao tiếp theo chủ đề',hint:'Mở bài học và chọn chủ đề ngay bên dưới',
- cards:[['Chào hỏi','Giới thiệu và kết bạn','#topicMenu','learning-cap-1.webp'],['Nhà hàng','Gọi món và trò chuyện','#topicMenu','culture.webp'],['Mua sắm','Hỏi giá và thanh toán','#topicMenu','feature-3-tim-truong.webp'],['Giao tiếp trường học','Học tập và lớp học','#topicMenu','learning-cap-3.webp']],
+ cards:[['Chọn chủ đề','Chào hỏi, nhà hàng, mua sắm, trường học','#topicMenu','learning-cap-1.webp'],['Nhà hàng','Gọi món và trò chuyện','#topicMenu','culture.webp'],['Mua sắm','Hỏi giá và thanh toán','#topicMenu','feature-3-tim-truong.webp'],['Giao tiếp trường học','Học tập và lớp học','#topicMenu','learning-cap-3.webp']],
  tools:[['Hội thoại mẫu','hoi-thoai-tap-noi.html','step-1-tu-van.webp'],['Luyện nghe','nghe-toan-bo.html','learning-listening.webp'],['Phỏng vấn','giao-tiep-phong-van.html','step-2-ho-so.webp'],['Luyện TOPIK','kiem-tra-topik.html','feature-6-thi-topik.webp']]},
  'kiem-tra-topik.html':{
  id:'topik',eyebrow:'TOPIK I · TOPIK II · PBT · IBT',title:'TOPIK MR LEE',lead:'Ôn thi bài bản, luyện đề theo năng lực',description:'Khám phá các dạng đề, luyện kỹ năng và theo dõi tiến độ bài thi từ kết quả thực tế của bạn.',
@@ -23,7 +23,7 @@ const defs={
  'giao-tiep-phong-van.html':{
  id:'interview',eyebrow:'KOREAN INTERVIEW · STUDY ABROAD',title:'PHỎNG VẤN TIẾNG HÀN',lead:'Tự tin trước mọi câu hỏi',description:'Luyện tự giới thiệu, lý do chọn trường, kế hoạch học tập, mục tiêu tương lai và tình huống phỏng vấn.',
  image:'step-5-ho-tro.webp',cta:['Luyện phỏng vấn','on-luyen-phong-van.html'],secondary:['Hội thoại mẫu','hoi-thoai-tap-noi.html'],section:'Chủ đề phỏng vấn nổi bật',hint:'Tình huống thực tế theo đúng nhu cầu',
- cards:[['Tự giới thiệu','Giới thiệu bản thân','on-luyen-phong-van.html','step-1-tu-van.webp'],['Phỏng vấn du học','Lý do và kế hoạch học tập','on-luyen-phong-van.html','step-2-ho-so.webp'],['Phỏng vấn công việc','Tác phong và kinh nghiệm','giao-tiep-theo-chu-de.html','learning-cap-5.webp'],['Câu hỏi tình huống','Luyện phản xạ','luyen-noi-nang-cao.html','learning-cap-3.webp']],
+ cards:[['Luyện phỏng vấn','Tự giới thiệu và câu hỏi du học','on-luyen-phong-van.html','step-1-tu-van.webp'],['Phỏng vấn du học','Lý do và kế hoạch học tập','on-luyen-phong-van.html','step-2-ho-so.webp'],['Phỏng vấn công việc','Tác phong và kinh nghiệm','giao-tiep-theo-chu-de.html','learning-cap-5.webp'],['Câu hỏi tình huống','Luyện phản xạ','luyen-noi-nang-cao.html','learning-cap-3.webp']],
  tools:[['Tập nói và ghi âm','hoi-thoai-tap-noi.html','learning-listening.webp'],['WORKBOOK','mrlee-bai-tap-pro.html','learning-books.webp'],['Đăng ký tư vấn','dang-ky-tu-van.html','feature-1-tuyen-sinh.webp']]},
  'van-hoa-han-quoc.html':{
  id:'culture',eyebrow:'KOREAN CULTURE · LIFE · TRADITION',title:'VĂN HÓA HÀN QUỐC',lead:'Khám phá con người và cuộc sống xứ kim chi',description:'Từ phong tục, lễ hội, ẩm thực tới trường học, giao thông và kỹ năng sống thiết yếu ở Hàn Quốc.',
@@ -38,7 +38,7 @@ const defs={
  'mrlee-bai-tap-pro.html':{
  id:'workbook',eyebrow:'WORKBOOK · PRACTICE · PROGRESS',title:'BÀI TẬP WORKBOOK',lead:'Thực hành theo cấp độ và từng bài học',description:'Chọn trình độ, bài học và bộ WORKBOOK phù hợp; hệ thống lưu kết quả theo các cơ chế hiện có.',
  image:'learning-books.webp',cta:['Chọn cấp độ và bài học','#workLevel'],secondary:['Học theo bài','hoc-theo-bai.html'],section:'Danh mục luyện tập',hint:'Chọn cấp độ ngay dưới đây để mở 15 bộ bài tập thực tế',
- cards:[['Từ vựng','Ghi nhớ theo ngữ cảnh','#workLevel','learning-cap-1.webp'],['Ngữ pháp','Thực hành cấu trúc câu','#workLevel','learning-hangeul.webp'],['Điền trợ từ','Chọn thành phần phù hợp','#workLevel','learning-cap-2.webp'],['Sắp xếp câu','Hình thành câu tiếng Hàn','#workLevel','step-2-ho-so.webp'],['Đọc hiểu','Luyện phân tích văn bản','#workLevel','learning-cap-5.webp'],['Dịch câu','Việt – Hàn theo từng bài','#workLevel','learning-cap-3.webp'],['Luyện nghe','Nghe và trả lời','#workLevel','learning-listening.webp']],
+ cards:[['Chọn bài tập','Từ vựng, ngữ pháp, đọc, nghe','#workLevel','learning-cap-1.webp'],['Ngữ pháp','Thực hành cấu trúc câu','#workLevel','learning-hangeul.webp'],['Điền trợ từ','Chọn thành phần phù hợp','#workLevel','learning-cap-2.webp'],['Sắp xếp câu','Hình thành câu tiếng Hàn','#workLevel','step-2-ho-so.webp'],['Đọc hiểu','Luyện phân tích văn bản','#workLevel','learning-cap-5.webp'],['Dịch câu','Việt – Hàn theo từng bài','#workLevel','learning-cap-3.webp'],['Luyện nghe','Nghe và trả lời','#workLevel','learning-listening.webp']],
  tools:[['Xem 15 bộ bài tập','#workListPanel','step-1-tu-van.webp'],['Lộ trình học','hoc-tieng-han.html','learning-roadmap.webp'],['Lịch sử luyện tập','lich-su-hoc-tap.html','feature-6-thi-topik.webp']]},
  'trung-tam-hoc-vien.html':{
  id:'profile',eyebrow:'MY MR LEE · LEARNING JOURNEY',title:'HỒ SƠ HỌC VIÊN',lead:'Theo dõi tiến độ và kết quả học tập',description:'Tài khoản học viên, kết quả luyện tập, nhật ký hoạt động và thứ hạng được hiển thị từ hồ sơ thực của bạn.',
@@ -69,7 +69,9 @@ function doBoot(){
  shell.append(hero);
  const directory=make('section','mrlee-v4-directory');directory.append(sectionTitle(cfg.section,cfg.hint));
  const grid=make('nav','mrlee-v4-directory-grid');grid.setAttribute('aria-label','Chuyên mục '+cfg.title);const distinctCards=cfg.cards.filter((c,i,all)=>all.findIndex(x=>x[2]===c[2])===i);
- distinctCards.forEach((c,i)=>grid.append(card(c,i)));directory.append(grid);shell.append(directory);
+ distinctCards.forEach((c,i)=>grid.append(card(c,i)));
+ // Keep a one- or two-action grid readable after eliminating duplicate destinations.
+ grid.style.gridTemplateColumns=distinctCards.length===1?'minmax(0,min(420px,100%))':'repeat('+Math.min(distinctCards.length,6)+',minmax(0,1fr))';directory.append(grid);shell.append(directory);
  const tools=make('nav','mrlee-v4-tools');tools.setAttribute('aria-label','Lối tắt học tập');
  const uniqueTools=cfg.tools.filter((item,i,all)=>all.findIndex(x=>x[1]===item[1])===i);
  uniqueTools.forEach(([text,url,image])=>{const a=link('',url,'mrlee-v4-tool');const img=make('img');img.src=R+image;img.alt='';img.loading='lazy';img.width=240;img.height=150;a.append(img,make('span','',text),make('span','mrlee-v4-tool-arrow','↗'));tools.append(a)});shell.append(tools);
