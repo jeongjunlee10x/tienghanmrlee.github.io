@@ -33,12 +33,15 @@ function load(img,id,k){
 }
 function covers(){
  const grid=$('#topics');if(!grid)return;
- $$('#topics a.topic').forEach(card=>{
+ $('#topics a.topic').forEach((card,position)=>{
   let id=null;try{id=new URL(card.href,location.href).searchParams.get('chu-de')}catch{}
   if(!safe(id))return;
   const img=$('img',card);if(!img)return;
   if(img.dataset.mrleeCultureHd==='20'&&img.getAttribute('src')===asset(id,1))return;
   load(img,id,1);
+  img.loading=position<3?'eager':'lazy';
+  img.fetchPriority=position<3?'high':'low';
+  img.width=2040;img.height=1360;
   const old=$('.mr172AiTag',card);
   const countChip=$('.cultureV16TopicTag',card);
   if(countChip)countChip.textContent='🖼 5 ảnh HD cải tiến';
