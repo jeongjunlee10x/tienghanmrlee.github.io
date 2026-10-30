@@ -263,3 +263,8 @@ html[data-mrlee-v4] :is(#topicMenu,#phraseGrid,#universitySearch,#workLevel,#wor
 @media(prefers-reduced-motion:reduce){
  html[data-mrlee-v4] .mrlee-v4-card{transition:none!important}
 }
+
+/* V32: when repeated destinations collapse to one or two actions, retain readable cards. */
+html[data-mrlee-v4] .mrlee-v4-directory-grid:has(> .mrlee-v4-card:only-child){grid-template-columns:minmax(0,min(420px,100%))!important}
+html[data-mrlee-v4] .mrlee-v4-directory-grid:has(> .mrlee-v4-card:nth-child(2):last-child){grid-template-columns:repeat(2,minmax(0,1fr))!important}
+@media(max-width:600px){html[data-mrlee-v4] .mrlee-v4-directory-grid:has(> .mrlee-v4-card:nth-child(2):last-child){grid-template-columns:repeat(2,minmax(0,1fr))!important}}
