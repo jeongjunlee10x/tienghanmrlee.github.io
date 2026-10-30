@@ -1,0 +1,18 @@
+/* V21: non-blurry editorial covers; prioritize actual unique content over raw pixel counts. */
+html[data-mrlee-v23="culture"] #topics a.topic{min-width:0;overflow:hidden;isolation:isolate}
+html[data-mrlee-v23="culture"] #topics a.topic>img{
+ display:block!important;width:100%!important;height:clamp(205px,18vw,260px)!important;
+ object-fit:cover!important;object-position:center!important;
+ filter:none!important;-webkit-filter:none!important;
+ image-rendering:auto!important;opacity:1!important;transform:none!important;
+}
+html[data-mrlee-v23="culture"] #topics a.topic .topicText{min-width:0!important}
+html[data-mrlee-v23="culture"] #cultureImagesV19 .mrleeCultureFigure img{
+ width:100%!important;image-rendering:auto!important;filter:none!important;
+}
+html[data-mrlee-theme="future"] #topics a.topic .topicText :is(p,small){color:#c9e7f9!important}
+html[data-mrlee-theme="future"] #topics a.topic .mrleeCultureTag{
+ color:#012d48!important;background:#b8edff!important;border-color:#73b9d9!important
+}
+@media(max-width:700px){html[data-mrlee-v23="culture"] #topics a.topic>img{height:185px!important}}
+@media(max-width:440px){html[data-mrlee-v23="culture"] #topics a.topic>img{height:210px!important}}
