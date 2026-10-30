@@ -30,7 +30,11 @@
     ['Kiểm tra đầu vào','Đánh giá trình độ','kiem-tra-dau-vao.html','korean-graduate.webp']
   ]
  };
- const items=hubs[page];if(!items)return;
+ const items=hubs[page];
+// V4 image cards already cover these routes. Keep the editorial gallery on
+// book/library pages that do not have the V4 launcher.
+const shellPages=new Set(['hoc-tieng-han.html','van-hoa-han-quoc.html','kiem-tra-topik.html']);
+if(!items||shellPages.has(page))return;
  function enhance(){
   if(document.querySelector('[data-v23-gallery]'))return;
   const main=document.querySelector('main');if(!main)return;
