@@ -1,0 +1,38 @@
+name: MRLEE Culture 22 topics HD remaster and QA
+on:
+  push:
+    branches:
+      - mrlee-v20-culture-22topics-hd
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout original website media
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install image processing tools
+        run: python -m pip install --disable-pip-version-check 'Pillow==11.3.0'
+      - name: Generate all 110 improved culture WebP masters
+        run: python tools/culture-v20-master.py
+      - name: Validate 22 subjects, unique images and references
+        run: node tools/check-culture-v20.mjs
+      - name: Commit original master images from verified build
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add images/culture-v20-hd assets/culture/culture-v20-manifest.json
+          if git diff --cached --quiet; then
+            echo 'No image changes'
+          else
+            git commit -m 'assets(culture-v20): 110 verified upgraded WebP images for 22 themes'
+            git push origin HEAD:mrlee-v20-culture-22topics-hd
+          fi
