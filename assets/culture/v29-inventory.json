@@ -1,0 +1,97 @@
+{
+  "version": "29.0",
+  "batch": 8,
+  "stage": "awaiting_binary_assets",
+  "resolution": {
+    "width": 1536,
+    "height": 1024
+  },
+  "image_type": "AI-generated photorealistic reconstructions; not documentary photography",
+  "count": 10,
+  "topics": {
+    "lac-duong": 5,
+    "mat-vi": 5
+  },
+  "images": [
+    {
+      "topic": "lac-duong",
+      "index": 1,
+      "file": "images/culture-v29-photo/lac-duong/01.webp",
+      "caption": "Hỏi người dân chỉ đường tại cửa ga Gangnam",
+      "bytes": 218920,
+      "sha256": "71fb5a74634538ebd9482c684fc69e517c22f3b8d7a48fe5a2db3dba56f0619b"
+    },
+    {
+      "topic": "lac-duong",
+      "index": 2,
+      "file": "images/culture-v29-photo/lac-duong/02.webp",
+      "caption": "Hỏi nhân viên ga tàu về bản đồ tuyến",
+      "bytes": 195164,
+      "sha256": "06d2e6bc9f64a025731d4b76d91f35834f82dbaeaefba102e7b7720fd156c6fa"
+    },
+    {
+      "topic": "lac-duong",
+      "index": 3,
+      "file": "images/culture-v29-photo/lac-duong/03.webp",
+      "caption": "Đọc bản đồ và tên đường trong thành phố",
+      "bytes": 291726,
+      "sha256": "8ee2d11ac03d0ba609fc09d36e169fbd682a97b23d204996ca58a452a34e2832"
+    },
+    {
+      "topic": "lac-duong",
+      "index": 4,
+      "file": "images/culture-v29-photo/lac-duong/04.webp",
+      "caption": "Kiểm tra tuyến xe buýt và điểm dừng",
+      "bytes": 198144,
+      "sha256": "53989fb78791b5514f7dae8ac0f6ad137f7985b591e9f66fcfdbedbe7cf28dac"
+    },
+    {
+      "topic": "lac-duong",
+      "index": 5,
+      "file": "images/culture-v29-photo/lac-duong/05.webp",
+      "caption": "Nhờ bộ phận hỗ trợ nhà ga tìm vị trí",
+      "bytes": 150200,
+      "sha256": "0acc11bb67a1946a08df625ec18b3c368236483134768f86a9e219f91472e740"
+    },
+    {
+      "topic": "mat-vi",
+      "index": 1,
+      "file": "images/culture-v29-photo/mat-vi/01.webp",
+      "caption": "Kiểm tra đồ dùng khi phát hiện mất ví",
+      "bytes": 150282,
+      "sha256": "be2c7e24d0d428cc0919607b43231ec78622c169d7426cd71831b429ef649448"
+    },
+    {
+      "topic": "mat-vi",
+      "index": 2,
+      "file": "images/culture-v29-photo/mat-vi/02.webp",
+      "caption": "Nhờ cảnh sát hỗ trợ trình báo mất tài sản",
+      "bytes": 126802,
+      "sha256": "63191db81145f46cb277125682de417d698dee172343ab26b9281f5c76fa2b10"
+    },
+    {
+      "topic": "mat-vi",
+      "index": 3,
+      "file": "images/culture-v29-photo/mat-vi/03.webp",
+      "caption": "Đến quầy đồ thất lạc để nhận lại ví",
+      "bytes": 123646,
+      "sha256": "b88788206349bb4744b5a92a4670065392fbccd87b20eb78cd1ef40a89cf8fbf"
+    },
+    {
+      "topic": "mat-vi",
+      "index": 4,
+      "file": "images/culture-v29-photo/mat-vi/04.webp",
+      "caption": "Khóa thẻ và chuẩn bị hồ sơ thay thế",
+      "bytes": 148298,
+      "sha256": "adec9277db22df282af829fef437b5e77d3bcf8ca52fbf4c3abb2c48a6441af5"
+    },
+    {
+      "topic": "mat-vi",
+      "index": 5,
+      "file": "images/culture-v29-photo/mat-vi/05.webp",
+      "caption": "Nhờ phòng hỗ trợ du học sinh hướng dẫn",
+      "bytes": 138024,
+      "sha256": "99155577209840ad5473c13778912e7b8522da5f4bba092b12e96d24d7adf017"
+    }
+  ]
+}

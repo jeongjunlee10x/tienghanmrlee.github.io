@@ -1,0 +1,24 @@
+name: MR LEE Culture photo publishing gate
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/culture/v29-inventory.json'
+      - 'assets/culture/v30-shotlist.json'
+      - 'mrlee-culture-v29-captions.js'
+      - 'tools/check-culture-photo-gate.mjs'
+      - 'images/culture-v29-photo/**'
+      - 'images/culture-v30-photo/**'
+      - 'mrlee-culture-hd-v19.js'
+  workflow_dispatch:
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify images and do not release partial or missing photo batches
+        run: node tools/check-culture-photo-gate.mjs

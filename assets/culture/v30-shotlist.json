@@ -1,0 +1,145 @@
+{
+  "version": "30.0",
+  "batch": 9,
+  "stage": "awaiting_20_standalone_photos",
+  "count": 20,
+  "topics": {
+    "tau-dien-ngam": 5,
+    "xe-buyt": 5,
+    "benh-vien": 5,
+    "hoa-hoan": 5
+  },
+  "image_requirements": {
+    "width_min": 1536,
+    "height_min": 1024,
+    "format": "WebP",
+    "original_ai_scene": true,
+    "individual_file": true,
+    "collage_forbidden": true,
+    "text_overlay_forbidden": true,
+    "no_duplicate_photos": true,
+    "accurate_korean_signs_not_guaranteed": true
+  },
+  "images": [
+    {
+      "topic": "tau-dien-ngam",
+      "index": 1,
+      "file": "images/culture-v30-photo/tau-dien-ngam/01.webp",
+      "caption": "Quét thẻ tại cổng soát vé tàu điện"
+    },
+    {
+      "topic": "tau-dien-ngam",
+      "index": 2,
+      "file": "images/culture-v30-photo/tau-dien-ngam/02.webp",
+      "caption": "Kiểm tra sơ đồ tuyến trước khi đi"
+    },
+    {
+      "topic": "tau-dien-ngam",
+      "index": 3,
+      "file": "images/culture-v30-photo/tau-dien-ngam/03.webp",
+      "caption": "Chờ tàu đúng vạch an toàn"
+    },
+    {
+      "topic": "tau-dien-ngam",
+      "index": 4,
+      "file": "images/culture-v30-photo/tau-dien-ngam/04.webp",
+      "caption": "Lên tàu sau khi người khác xuống"
+    },
+    {
+      "topic": "tau-dien-ngam",
+      "index": 5,
+      "file": "images/culture-v30-photo/tau-dien-ngam/05.webp",
+      "caption": "Chuyển tuyến theo biển chỉ dẫn"
+    },
+    {
+      "topic": "xe-buyt",
+      "index": 1,
+      "file": "images/culture-v30-photo/xe-buyt/01.webp",
+      "caption": "Kiểm tra điểm dừng xe buýt"
+    },
+    {
+      "topic": "xe-buyt",
+      "index": 2,
+      "file": "images/culture-v30-photo/xe-buyt/02.webp",
+      "caption": "Lên đúng tuyến xe buýt"
+    },
+    {
+      "topic": "xe-buyt",
+      "index": 3,
+      "file": "images/culture-v30-photo/xe-buyt/03.webp",
+      "caption": "Quét thẻ giao thông khi lên xe"
+    },
+    {
+      "topic": "xe-buyt",
+      "index": 4,
+      "file": "images/culture-v30-photo/xe-buyt/04.webp",
+      "caption": "Bấm nút yêu cầu dừng trước trạm"
+    },
+    {
+      "topic": "xe-buyt",
+      "index": 5,
+      "file": "images/culture-v30-photo/xe-buyt/05.webp",
+      "caption": "Quét thẻ khi xuống và chuyển tuyến"
+    },
+    {
+      "topic": "benh-vien",
+      "index": 1,
+      "file": "images/culture-v30-photo/benh-vien/01.webp",
+      "caption": "Tìm cơ sở khám chữa bệnh phù hợp"
+    },
+    {
+      "topic": "benh-vien",
+      "index": 2,
+      "file": "images/culture-v30-photo/benh-vien/02.webp",
+      "caption": "Đăng ký khám tại quầy tiếp nhận"
+    },
+    {
+      "topic": "benh-vien",
+      "index": 3,
+      "file": "images/culture-v30-photo/benh-vien/03.webp",
+      "caption": "Trao đổi triệu chứng với bác sĩ"
+    },
+    {
+      "topic": "benh-vien",
+      "index": 4,
+      "file": "images/culture-v30-photo/benh-vien/04.webp",
+      "caption": "Mua thuốc tại nhà thuốc"
+    },
+    {
+      "topic": "benh-vien",
+      "index": 5,
+      "file": "images/culture-v30-photo/benh-vien/05.webp",
+      "caption": "Đọc hướng dẫn và hỏi dược sĩ về thuốc"
+    },
+    {
+      "topic": "hoa-hoan",
+      "index": 1,
+      "file": "images/culture-v30-photo/hoa-hoan/01.webp",
+      "caption": "Nhận biết lối thoát hiểm gần nhất"
+    },
+    {
+      "topic": "hoa-hoan",
+      "index": 2,
+      "file": "images/culture-v30-photo/hoa-hoan/02.webp",
+      "caption": "Làm quen với sơ đồ thoát hiểm trong tòa nhà"
+    },
+    {
+      "topic": "hoa-hoan",
+      "index": 3,
+      "file": "images/culture-v30-photo/hoa-hoan/03.webp",
+      "caption": "Quan sát biển báo và chỉ dẫn an toàn"
+    },
+    {
+      "topic": "hoa-hoan",
+      "index": 4,
+      "file": "images/culture-v30-photo/hoa-hoan/04.webp",
+      "caption": "Thực hành buổi hướng dẫn phòng cháy"
+    },
+    {
+      "topic": "hoa-hoan",
+      "index": 5,
+      "file": "images/culture-v30-photo/hoa-hoan/05.webp",
+      "caption": "Tập hợp tại khu vực an toàn theo hướng dẫn"
+    }
+  ]
+}
