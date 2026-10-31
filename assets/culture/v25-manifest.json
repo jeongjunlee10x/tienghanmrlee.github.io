@@ -1,0 +1,198 @@
+{
+  "version": "25.0",
+  "batch": 4,
+  "total": 10,
+  "topics": {
+    "du-lich": 5,
+    "kpop": 5
+  },
+  "disclaimer": "AI conceptual illustrations, not documentary photos. Ten cropped scenes from two AI-generated montages, feather blended on a blurred extended background. Final export is 1536x1024, but fine visual detail derives from original ~300x506 scene crops, not 1536px native images. Fictional entertainers.",
+  "labels": {
+    "du-lich": [
+      "Cung điện Hàn Quốc vào mùa hoa anh đào",
+      "Ngôi đền bên biển ở Busan",
+      "Toàn cảnh đô thị Seoul và tháp cao tầng",
+      "Dạo bộ tại khu phố nhà hanok",
+      "Khám phá núi Hàn Quốc vào mùa thu"
+    ],
+    "kpop": [
+      "Nhóm nhạc nam trình diễn trên sân khấu",
+      "Nhóm nhạc nữ trình diễn K-pop",
+      "Buổi ghi hình trong trường quay giải trí",
+      "Văn hóa người hâm mộ âm nhạc tại Seoul",
+      "Phố mua sắm đồ lưu niệm K-pop"
+    ]
+  },
+  "images": [
+    {
+      "topic": "du-lich",
+      "index": 1,
+      "file": "images/culture-v25-ai/du-lich/01.webp",
+      "caption": "Cung điện Hàn Quốc vào mùa hoa anh đào",
+      "alt": "Minh họa AI cung điện truyền thống và khách mặc hanbok",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 191270,
+      "sha256": "5e424e682ab3ee78011847d7e776444c447a8d9ba1104b8ff63f87e1916edaf2",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        301,
+        506
+      ],
+      "background": "blurred-extended-scene"
+    },
+    {
+      "topic": "du-lich",
+      "index": 2,
+      "file": "images/culture-v25-ai/du-lich/02.webp",
+      "caption": "Ngôi đền bên biển ở Busan",
+      "alt": "Minh họa AI tham quan kiến trúc tâm linh ven biển",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 221118,
+      "sha256": "c40bfcbdee218395f21052917b80938e31dfe0f7ae3d7e218b2d0ef7234034ca",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        301,
+        506
+      ],
+      "background": "blurred-extended-scene"
+    },
+    {
+      "topic": "du-lich",
+      "index": 3,
+      "file": "images/culture-v25-ai/du-lich/03.webp",
+      "caption": "Toàn cảnh đô thị Seoul và tháp cao tầng",
+      "alt": "Minh họa AI khung cảnh Seoul lúc hoàng hôn",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 153952,
+      "sha256": "296a0ad007a0a606abee4a72f790edc2c5bb2bdaae3ccc6017e2593fe7112abb",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        302,
+        506
+      ],
+      "background": "blurred-extended-scene"
+    },
+    {
+      "topic": "du-lich",
+      "index": 4,
+      "file": "images/culture-v25-ai/du-lich/04.webp",
+      "caption": "Dạo bộ tại khu phố nhà hanok",
+      "alt": "Minh họa AI con đường trong khu phố kiến trúc truyền thống",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 195218,
+      "sha256": "80a34e64654ab04239b0ce5df90b7de676d62370bd25881bad21244ce76f0eb3",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        301,
+        506
+      ],
+      "background": "blurred-extended-scene"
+    },
+    {
+      "topic": "du-lich",
+      "index": 5,
+      "file": "images/culture-v25-ai/du-lich/05.webp",
+      "caption": "Khám phá núi Hàn Quốc vào mùa thu",
+      "alt": "Minh họa AI cáp treo và núi rừng mùa thu",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 215530,
+      "sha256": "cde652174a2e14ced3de53c23d21193564eb875c17beca28cc20bd1d640ad582",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        301,
+        506
+      ],
+      "background": "blurred-extended-scene"
+    },
+    {
+      "topic": "kpop",
+      "index": 1,
+      "file": "images/culture-v25-ai/kpop/01.webp",
+      "caption": "Nhóm nhạc nam trình diễn trên sân khấu",
+      "alt": "Nhân vật biểu diễn AI hư cấu, không phải nghệ sĩ thật",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 138796,
+      "sha256": "36b8c16135c879a08edbb35f6ca9b7bebb256d2a372cd1f5808de4dcd2e64972",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        301,
+        506
+      ],
+      "background": "blurred-extended-scene"
+    },
+    {
+      "topic": "kpop",
+      "index": 2,
+      "file": "images/culture-v25-ai/kpop/02.webp",
+      "caption": "Nhóm nhạc nữ trình diễn K-pop",
+      "alt": "Nhân vật biểu diễn AI hư cấu dưới ánh đèn sân khấu",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 148662,
+      "sha256": "09a400cf6044e96ced950fb8979ad2a7e2ef9123e8f23b3d1b46921d14978cb6",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        301,
+        506
+      ],
+      "background": "blurred-extended-scene"
+    },
+    {
+      "topic": "kpop",
+      "index": 3,
+      "file": "images/culture-v25-ai/kpop/03.webp",
+      "caption": "Buổi ghi hình trong trường quay giải trí",
+      "alt": "Nhân vật và trường quay AI hư cấu",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 109656,
+      "sha256": "48e4be623113345ea47a340b00479ebe478d9df4633fa16eade9df26d4e621d9",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        302,
+        506
+      ],
+      "background": "blurred-extended-scene"
+    },
+    {
+      "topic": "kpop",
+      "index": 4,
+      "file": "images/culture-v25-ai/kpop/04.webp",
+      "caption": "Văn hóa người hâm mộ âm nhạc tại Seoul",
+      "alt": "Minh họa AI khu phố giải trí đông vui",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 153250,
+      "sha256": "771abdfecfbb6802a84923865c78baf2bc4cb58b94a457a8e05843a102f891eb",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        301,
+        506
+      ],
+      "background": "blurred-extended-scene"
+    },
+    {
+      "topic": "kpop",
+      "index": 5,
+      "file": "images/culture-v25-ai/kpop/05.webp",
+      "caption": "Phố mua sắm đồ lưu niệm K-pop",
+      "alt": "Minh họa AI hoạt động giải trí và mua sắm",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 190764,
+      "sha256": "220fa9b3f72d878bc6cbdfb395919bba6628e5a34fd33335a4c29e9b16a48663",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        301,
+        506
+      ],
+      "background": "blurred-extended-scene"
+    }
+  ]
+}

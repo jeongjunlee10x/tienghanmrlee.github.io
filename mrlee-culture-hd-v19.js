@@ -14,6 +14,8 @@ const DIR='images/culture-v20-hd/';
 const V21='images/culture-v21-new/';
 const V23='images/culture-v23-ai/';
 const V24='images/culture-v24-ai/';
+const V25='images/culture-v25-ai/';
+const NEW_V25=new Set(['du-lich','kpop']);
 const NEW_V24=new Set(['phe-lich-su','giao-duc']);
 const NEW_V23=new Set(['le-hoi','am-thuc','truyen-thong','doi-song']);
 const REPLACED=new Set(['le-hoi','am-thuc','doi-song','so-cap-cuu','goi-cuu-ho','lac-duong','mat-vi','tau-dien-ngam','xe-buyt','benh-vien','hoa-hoan','mat-dien-thoai','an-toan-giao-thong']);
@@ -21,10 +23,11 @@ const ORIGINAL='images/culture-v18-hd/';
 const CAPTIONS=window.MRLEE_CULTURE_V20_CAPTIONS||{};
 const V23_CAPTIONS=window.MRLEE_CULTURE_V23_CAPTIONS||{};
 const V24_CAPTIONS=window.MRLEE_CULTURE_V24_CAPTIONS||{};
+const V25_CAPTIONS=window.MRLEE_CULTURE_V25_CAPTIONS||{};
 const FALLBACK='images/culture-v13/';
 const ID=new URLSearchParams(location.search).get('chu-de')||TOPICS[0];
 const safe=id=>TOPICS.includes(id)?id:null;
-const asset=(id,index)=>(NEW_V24.has(id)?V24:(NEW_V23.has(id)?V23:(REPLACED.has(id)?V21:DIR)))+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v='+(NEW_V24.has(id)?'24.0':(NEW_V23.has(id)?'23.0':'21.1'));
+const asset=(id,index)=>(NEW_V25.has(id)?V25:(NEW_V24.has(id)?V24:(NEW_V23.has(id)?V23:(REPLACED.has(id)?V21:DIR))))+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v='+(NEW_V25.has(id)?'25.0':(NEW_V24.has(id)?'24.0':(NEW_V23.has(id)?'23.0':'21.1')));
 const backup=id=>FALLBACK+encodeURIComponent(id)+'.svg?v=20.0';
 const backupOriginal=(id,k)=>(REPLACED.has(id)?V21:DIR)+encodeURIComponent(id)+'/'+String(k).padStart(2,'0')+'.webp?v=21.1';
 const write=(parent,tag,klass,content)=>{const el=document.createElement(tag);if(klass)el.className=klass;if(content!==undefined)el.textContent=content;parent.append(el);return el};
@@ -105,7 +108,7 @@ function lesson(){
    image.addEventListener('click',show);image.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();show()}});
    const cap=write(fig,'figcaption','');
    write(cap,'b','','Ảnh minh họa '+String(i).padStart(2,'0')+' / 05');
-   write(cap,'span','',V24_CAPTIONS[ID]?.[i-1]||V23_CAPTIONS[ID]?.[i-1]||CAPTIONS[ID]?.[i-1]||t.title);if(t.ko)write(cap,'small','',t.ko);
+   write(cap,'span','',V25_CAPTIONS[ID]?.[i-1]||V24_CAPTIONS[ID]?.[i-1]||V23_CAPTIONS[ID]?.[i-1]||CAPTIONS[ID]?.[i-1]||t.title);if(t.ko)write(cap,'small','',t.ko);
   }
   const caution=safety.has(ID)?
    'Chú ý: AI có thể minh họa sai tư thế hoặc thiết bị an toàn. Hãy dựa vào hướng dẫn cơ quan chức năng; gọi 119/112 khi cần.':
