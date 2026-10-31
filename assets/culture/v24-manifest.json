@@ -1,0 +1,137 @@
+{
+  "version": "24.0",
+  "topics": {
+    "phe-lich-su": 5,
+    "giao-duc": 5
+  },
+  "total": 10,
+  "disclaimer": "AI conceptual illustrations. Eight frames were isolated from generated montage; background extensions are blurred. Two source images have native independent 1448×1086 content. The export size is not native new detail.",
+  "images": [
+    {
+      "topic": "phe-lich-su",
+      "index": 1,
+      "file": "images/culture-v24-ai/phe-lich-su/01.webp",
+      "caption": "Nghi thức cúi chào trong giao tiếp",
+      "source": "original-single-image",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 269938,
+      "sha256": "37bb595f2d6960c8792605f2d876484daa34e083f82e3310df96f726864c1f50"
+    },
+    {
+      "topic": "phe-lich-su",
+      "index": 2,
+      "file": "images/culture-v24-ai/phe-lich-su/02.webp",
+      "caption": "Lịch sự trong phục vụ và dùng bữa",
+      "source": "isolated-scene-from-AI-generated-montage",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 106954,
+      "sha256": "accc124f8f340f4fc9237c337bc61d17ebc4cca1857f8e5dbe89dc116cdbc69b"
+    },
+    {
+      "topic": "phe-lich-su",
+      "index": 3,
+      "file": "images/culture-v24-ai/phe-lich-su/03.webp",
+      "caption": "Trao quà cho người lớn tuổi bằng hai tay",
+      "source": "isolated-scene-from-AI-generated-montage",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 98010,
+      "sha256": "688987106c312ef9e389fbfc623b4c59fa09b676db42eacf9ca34021aa0759b9"
+    },
+    {
+      "topic": "phe-lich-su",
+      "index": 4,
+      "file": "images/culture-v24-ai/phe-lich-su/04.webp",
+      "caption": "Nhường ghế cho người cần ưu tiên",
+      "source": "isolated-scene-from-AI-generated-montage",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 118656,
+      "sha256": "a03c7de0432e97aeef96aa3e0ea3908856642e33de76cc14abcb85045a5c73c5"
+    },
+    {
+      "topic": "phe-lich-su",
+      "index": 5,
+      "file": "images/culture-v24-ai/phe-lich-su/05.webp",
+      "caption": "Trao nhận đồ vật bằng hai tay",
+      "source": "isolated-scene-from-AI-generated-montage",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 80556,
+      "sha256": "969160f273a20766ad9a5afdeafe2a779d56742956b778037f33c620da560f57"
+    },
+    {
+      "topic": "giao-duc",
+      "index": 1,
+      "file": "images/culture-v24-ai/giao-duc/01.webp",
+      "caption": "Sinh viên và khuôn viên trường đại học",
+      "source": "original-single-image",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 389160,
+      "sha256": "3f72644988720bf4e3b91d03bce41c0dce2af7204a041a19c2bc3f33c9619c68"
+    },
+    {
+      "topic": "giao-duc",
+      "index": 2,
+      "file": "images/culture-v24-ai/giao-duc/02.webp",
+      "caption": "Học tập và trao đổi trong lớp",
+      "source": "isolated-scene-from-AI-generated-montage",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 77270,
+      "sha256": "2e4423828c403eefc92fdf094a0ef7df46f0fc1167ea1ef02d5dbb920fd9b2bb"
+    },
+    {
+      "topic": "giao-duc",
+      "index": 3,
+      "file": "images/culture-v24-ai/giao-duc/03.webp",
+      "caption": "Tự học và nghiên cứu ở thư viện",
+      "source": "isolated-scene-from-AI-generated-montage",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 107236,
+      "sha256": "7101c83e05ecfbd54aecd45f803fb26d1e8eeade25e0f83f92a0b638a280161a"
+    },
+    {
+      "topic": "giao-duc",
+      "index": 4,
+      "file": "images/culture-v24-ai/giao-duc/04.webp",
+      "caption": "Sinh hoạt tại ký túc xá",
+      "source": "isolated-scene-from-AI-generated-montage",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 109190,
+      "sha256": "888a8790f3950e3359e4dac1422075828cd511f2fa28c71100ec5a8e69c54f24"
+    },
+    {
+      "topic": "giao-duc",
+      "index": 5,
+      "file": "images/culture-v24-ai/giao-duc/05.webp",
+      "caption": "Tư vấn tuyển sinh và định hướng chương trình",
+      "source": "isolated-scene-from-AI-generated-montage",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 113040,
+      "sha256": "f86ed8aabb8b319fdbe898f4746adcce1ba8b63bdada042a5ccedf42f487f811"
+    }
+  ],
+  "labels": {
+    "phe-lich-su": [
+      "Nghi thức cúi chào trong giao tiếp",
+      "Lịch sự trong phục vụ và dùng bữa",
+      "Trao quà cho người lớn tuổi bằng hai tay",
+      "Nhường ghế cho người cần ưu tiên",
+      "Trao nhận đồ vật bằng hai tay"
+    ],
+    "giao-duc": [
+      "Sinh viên và khuôn viên trường đại học",
+      "Học tập và trao đổi trong lớp",
+      "Tự học và nghiên cứu ở thư viện",
+      "Sinh hoạt tại ký túc xá",
+      "Tư vấn tuyển sinh và định hướng chương trình"
+    ]
+  }
+}
