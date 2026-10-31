@@ -1,7 +1,7 @@
 {
   "version": "29.0",
   "batch": 8,
-  "stage": "awaiting_binary_assets",
+  "stage": "photos_committed_and_live_routes_enabled",
   "resolution": {
     "width": 1536,
     "height": 1024
@@ -93,5 +93,6 @@
       "bytes": 138024,
       "sha256": "99155577209840ad5473c13778912e7b8522da5f4bba092b12e96d24d7adf017"
     }
-  ]
+  ],
+  "disclosure_vi": "10 ảnh WebP do AI tạo, tái hiện tình huống để học tập; không phải ảnh tư liệu hay bản đồ/biển báo được xác minh. Phải kiểm tra lại mọi chi tiết giao thông, thủ tục với nguồn chính thức."
 }

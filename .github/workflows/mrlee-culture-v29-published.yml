@@ -1,0 +1,26 @@
+name: MR LEE Culture V29 — photorealistic image QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'images/culture-v29-photo/**'
+      - 'assets/culture/v29-inventory.json'
+      - 'mrlee-culture-hd-v19.js'
+      - 'mrlee-culture-v29-captions.js'
+      - 'tools/check-culture-v29-published.mjs'
+      - 'van-hoa-bai-hoc.html'
+      - 'van-hoa-han-quoc.html'
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tools/check-culture-v29-published.mjs
+      - run: node tools/check-culture-photo-gate.mjs
+      - run: node tools/check-culture-v27.mjs
+      - run: node tools/check-culture-v28.mjs
