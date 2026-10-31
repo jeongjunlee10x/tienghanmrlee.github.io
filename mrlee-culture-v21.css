@@ -16,3 +16,47 @@ html[data-mrlee-theme="future"] #topics a.topic .mrleeCultureTag{
 }
 @media(max-width:700px){html[data-mrlee-v23="culture"] #topics a.topic>img{height:185px!important}}
 @media(max-width:440px){html[data-mrlee-v23="culture"] #topics a.topic>img{height:210px!important}}
+
+
+/* Culture contrast fix, 01 Nov 2026. Every one of the 22 lessons shares
+   these classes. Light cards must not inherit pale Future-theme foregrounds.
+   The separate dark V19 image gallery and safety notices remain untouched. */
+html[data-mrlee-v23="culture"][data-mrlee-v25="culture-story"] .lessonLayout
+ .lessonBlock:not(#cultureImagesV19),
+html[data-mrlee-v23="culture"][data-mrlee-v25="culture-story"] .lessonLayout .sidePanel{
+ background:#fff!important;color:#223e58!important;color-scheme:light;
+ --navy:#173a5d;--ink:#223e58;--muted:#4b637a;
+}
+html[data-mrlee-v23="culture"][data-mrlee-v25="culture-story"] .lessonLayout
+ .lessonBlock:not(#cultureImagesV19) :is(h2,h3,h4),
+html[data-mrlee-v23="culture"][data-mrlee-v25="culture-story"] .lessonLayout .sidePanel h3{
+ color:#173a5d!important;text-shadow:none!important;
+}
+html[data-mrlee-v23="culture"][data-mrlee-v25="culture-story"] .lessonLayout
+ .lessonBlock:not(#cultureImagesV19) :is(p,li),
+html[data-mrlee-v23="culture"][data-mrlee-v25="culture-story"] .lessonLayout
+ .sidePanel :is(#progressText,p){
+ color:#29465e!important;text-shadow:none!important;
+}
+html[data-mrlee-v23="culture"][data-mrlee-v25="culture-story"] .lessonLayout
+ .lessonBlock:not(#cultureImagesV19) .step :is(b,span),
+html[data-mrlee-v23="culture"][data-mrlee-v25="culture-story"] .lessonLayout
+ .lessonBlock:not(#cultureImagesV19) .line :is(strong,span){
+ color:#264965!important;text-shadow:none!important;
+}
+html[data-mrlee-v23="culture"][data-mrlee-v25="culture-story"] .lessonLayout
+ .sidePanel a{color:#075b84!important;font-size:14px!important;text-shadow:none!important}
+html[data-mrlee-v23="culture"][data-mrlee-v25="culture-story"] .lessonLayout
+ .sidePanel .call strong{color:#a52d21!important}
+html[data-mrlee-v23="culture"][data-mrlee-v25="culture-story"] .lessonLayout
+ .sidePanel .call small{color:#405a70!important}
+html[data-mrlee-v23="culture"][data-mrlee-v25="culture-story"] .lessonLayout
+ .lessonBlock:not(#cultureImagesV19) :is(p,li){
+ font-size:clamp(15px,1.1vw,17px)!important;line-height:1.8!important;
+}
+html[data-mrlee-v23="culture"][data-mrlee-v25="culture-story"] .lessonLayout
+ .lessonBlock:not(#cultureImagesV19) h2{
+ font-size:clamp(20px,1.8vw,26px)!important;line-height:1.45!important;
+}
+html[data-mrlee-v23="culture"][data-mrlee-v25="culture-story"] .lessonLayout
+ .sidePanel h3{font-size:17px!important;line-height:1.5!important}

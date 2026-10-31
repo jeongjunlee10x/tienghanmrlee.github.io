@@ -147,6 +147,38 @@ try{
     if(await p.locator('#topics a.topic').count()<1)throw Error('Culture search filter broken');
     await p.locator('#search').fill('');
     await p.locator('#topics a.topic').first().waitFor({state:'visible'});
+
+    // Contrast regression for all 22 lesson pages. Use a structural probe on
+    // the public Culture hub so no learner login or private data is required.
+    const contrastAudit=await p.evaluate(()=>{
+      const test=document.createElement('div');test.className='lessonLayout';
+      test.style.cssText='position:absolute;top:-20000px;left:0;width:920px';
+      test.innerHTML='<div class="blocks"><section class="lessonBlock" id="read">'+
+        '<h2>Hiểu rõ chủ đề và văn hóa ứng xử</h2>'+
+        '<p>Đọc rõ từng câu hướng dẫn trên nền trắng.</p>'+
+        '<div class="step"><b>Bước thực hiện</b><span>Giải thích tình huống</span></div>'+
+        '</section></div><aside class="side"><div class="sidePanel">'+
+        '<h3>Tiến độ học</h3><div id="progressText">3/22 chủ đề</div>'+
+        '<a href="#read">Kiến thức chi tiết</a></div></aside>';
+      document.querySelector('main').append(test);
+      const lum=str=>{
+        const rgb=(str.match(/[\\d.]+/g)||[]).slice(0,3).map(Number).map(v=>{
+          v/=255;return v<=.04045?v/12.92:Math.pow((v+.055)/1.055,2.4);
+        });return rgb.length===3?(.2126*rgb[0]+.7152*rgb[1]+.0722*rgb[2]):NaN;
+      };
+      const selectors=['#read','#read h2','#read p','#read .step b',
+        '#read .step span','.sidePanel','.sidePanel h3','#progressText','.sidePanel a'];
+      const result=selectors.map(sel=>{
+        const el=test.querySelector(sel),color=getComputedStyle(el).color;
+        const panel=el.closest('.lessonBlock,.sidePanel')||el;
+        const background=getComputedStyle(panel).backgroundColor;
+        const l1=lum(color),l2=lum(background);
+        return {sel,color,background,ratio:(Math.max(l1,l2)+.05)/(Math.min(l1,l2)+.05)};
+      });
+      test.remove();return result;
+    });
+    if(contrastAudit.some(x=>!Number.isFinite(x.ratio)||x.ratio<4.5))
+      throw Error('Culture lesson WCAG contrast failure: '+JSON.stringify(contrastAudit));
     fs.mkdirSync('artifacts/culture-review',{recursive:true});
     await p.screenshot({path:'artifacts/culture-review/culture-'+p.viewportSize().width+'-'+(await p.evaluate(()=>document.documentElement.dataset.mrleeTheme))+'.png',fullPage:true});
   }},
