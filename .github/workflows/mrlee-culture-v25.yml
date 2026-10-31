@@ -1,0 +1,25 @@
+name: MR LEE Culture V25 — verify independent travel and K-pop scenes
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'images/culture-v25-ai/**'
+      - 'assets/culture/v25-manifest.json'
+      - 'mrlee-culture-v25-captions.js'
+      - 'mrlee-culture-hd-v19.js'
+      - 'tools/check-culture-v25.mjs'
+      - 'tools/browser-smoke.mjs'
+      - 'van-hoa-han-quoc.html'
+      - 'van-hoa-bai-hoc.html'
+  workflow_dispatch:
+jobs:
+  images:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify WebP assets, checksum, image sources and lesson mount
+        run: node tools/check-culture-v25.mjs
