@@ -85,7 +85,7 @@ function hub(){
  const header=$('.heroVisual');
  if(header){
   const keys=['le-hoi','am-thuc','tau-dien-ngam','so-cap-cuu'];
-  $('img',header).slice(0,4).forEach((img,i)=>load(img,keys[i],keys[i]==='le-hoi'?2:1));
+  $$('img',header).slice(0,4).forEach((img,i)=>load(img,keys[i],keys[i]==='le-hoi'?2:1));
  }
  let queued=false;
  new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;covers()})})
