@@ -122,12 +122,24 @@ try{
     await images.evaluateAll(async all=>{for(const im of all){im.loading='eager';await im.decode().catch(()=>{})}});
     const bad=await images.evaluateAll(all=>all.filter(im=>{const url=im.currentSrc;const newShot=url.includes('/culture-v23-ai/')||url.includes('/culture-v24-ai/')||url.includes('/culture-v25-ai/')||url.includes('/culture-v26-ai/')||url.includes('/culture-v27-art/')||url.includes('/culture-v28-safe/')||url.includes('/culture-v29-photo/');const oldShot=url.includes('/culture-v20-hd/')||url.includes('/culture-v21-new/');return (!newShot&&!oldShot)||im.naturalWidth<(newShot?1500:2000)}).map(im=>({src:im.currentSrc,w:im.naturalWidth})));
     if(bad.length)throw Error('Culture HD topic images are not full size: '+JSON.stringify(bad.slice(0,4)));
-    const mustReplace=new Set(['le-hoi','am-thuc','truyen-thong','doi-song','phe-lich-su','giao-duc','du-lich','kpop','cong-so','tro-choi','lich-su','hien-dai','so-cap-cuu','goi-cuu-ho','lac-duong','mat-vi','tau-dien-ngam','xe-buyt','benh-vien','hoa-hoan','mat-dien-thoai','an-toan-giao-thong']);
-    const wrong=await p.locator('#topics a.topic').evaluateAll((cards,slugs)=>cards.map(card=>{
+    // Assert exact media batch per topic, including vector safety art and V29 photography.
+    const expected={
+      'le-hoi':'culture-v23-ai','am-thuc':'culture-v23-ai','truyen-thong':'culture-v23-ai','doi-song':'culture-v23-ai',
+      'phe-lich-su':'culture-v24-ai','giao-duc':'culture-v24-ai',
+      'du-lich':'culture-v25-ai','kpop':'culture-v25-ai',
+      'cong-so':'culture-v26-ai','tro-choi':'culture-v26-ai',
+      'lich-su':'culture-v27-art','hien-dai':'culture-v27-art',
+      'so-cap-cuu':'culture-v28-safe','goi-cuu-ho':'culture-v28-safe',
+      'lac-duong':'culture-v29-photo','mat-vi':'culture-v29-photo',
+      'tau-dien-ngam':'culture-v21-new','xe-buyt':'culture-v21-new',
+      'benh-vien':'culture-v21-new','hoa-hoan':'culture-v21-new',
+      'mat-dien-thoai':'culture-v21-new','an-toan-giao-thong':'culture-v21-new'
+    };
+    const wrong=await p.locator('#topics a.topic').evaluateAll((cards,dirs)=>cards.map(card=>{
       const id=new URL(card.href).searchParams.get('chu-de');
       return {id,src:card.querySelector('img')?.currentSrc||''};
-    }).filter(item=>slugs.includes(item.id)&&!(new Set(['lich-su','hien-dai']).has(item.id)?item.src.includes('/culture-v27-art/'):(new Set(['cong-so','tro-choi']).has(item.id)?item.src.includes('/culture-v26-ai/'):(new Set(['du-lich','kpop']).has(item.id)?item.src.includes('/culture-v25-ai/'):(new Set(['phe-lich-su','giao-duc']).has(item.id)?item.src.includes('/culture-v24-ai/'):(new Set(['le-hoi','am-thuc','truyen-thong','doi-song']).has(item.id)?item.src.includes('/culture-v23-ai/'):item.src.includes('/culture-v21-new/'))))))),[...mustReplace]);
-    if(wrong.length)throw Error('Old images still used for V21 target topics: '+JSON.stringify(wrong));
+    }).filter(item=>dirs[item.id]&&!item.src.includes('/'+dirs[item.id]+'/')),expected);
+    if(wrong.length)throw Error('Wrong live culture image batch: '+JSON.stringify(wrong));
     // Lesson route requires actual learner authentication; verify its five-image engine in static QA, not by bypassing auth.
     const lessonSource=fs.readFileSync(path.join(root,'van-hoa-bai-hoc.html'),'utf8');
     if(!lessonSource.includes('mrlee-culture-v20-captions.js'))throw Error('Culture lesson V20 captions not mounted');
