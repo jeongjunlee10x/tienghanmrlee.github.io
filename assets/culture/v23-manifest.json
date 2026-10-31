@@ -1,0 +1,263 @@
+{
+  "version": "23.0",
+  "total": 20,
+  "topics": {
+    "le-hoi": 5,
+    "am-thuc": 5,
+    "truyen-thong": 5,
+    "doi-song": 5
+  },
+  "labels": {
+    "le-hoi": [
+      "Gia đình tham gia lễ hội mùa thu",
+      "Biểu diễn trang phục hanbok tại cung điện",
+      "Gia đình quây quần chuẩn bị món ăn lễ hội",
+      "Trò chơi dân gian Yutnori",
+      "Không khí sum họp ngày Tết truyền thống"
+    ],
+    "am-thuc": [
+      "Bibimbap và các món ăn kèm banchan",
+      "Tteokbokki, gimbap và ẩm thực đường phố",
+      "Văn hóa thịt nướng Hàn Quốc",
+      "Bữa cơm gia đình với món canh nóng",
+      "Trà, bánh và món tráng miệng Hàn Quốc"
+    ],
+    "truyen-thong": [
+      "Trang phục truyền thống Hanbok",
+      "Gia đình chuẩn bị trang phục cho ngày lễ",
+      "Nghề may và trang trí Hanbok",
+      "Nghi thức trà và phép lịch sự truyền thống",
+      "Minh họa trang phục cưới cổ truyền"
+    ],
+    "doi-song": [
+      "Đời sống học sinh trong đô thị Seoul",
+      "Mua sắm tại chợ truyền thống",
+      "Học tập và trò chuyện tại quán cà phê",
+      "Đi dạo cùng gia đình trong khu phố Hanok",
+      "Bữa cơm và sinh hoạt gia đình"
+    ]
+  },
+  "disclaimer": "AI-generated illustrations, not documentary photos. Original images from user-approved batches 1 and 2.",
+  "images": [
+    {
+      "topic": "le-hoi",
+      "index": 1,
+      "file": "images/culture-v23-ai/le-hoi/01.webp",
+      "source_filename": "gia_đình_hàn_quốc_đón_lễ_hội_mùa_thu.png",
+      "caption": "Gia đình tham gia lễ hội mùa thu",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 367954,
+      "sha256": "5a199fdc64973c6ac8b35ad4b3a8ba2da99d9d05085ebe200a0eb5a85e1a421b"
+    },
+    {
+      "topic": "le-hoi",
+      "index": 2,
+      "file": "images/culture-v23-ai/le-hoi/02.webp",
+      "source_filename": "lễ_hội_hanbok_rực_rỡ_trong_cung_điện_hàn_quốc.png",
+      "caption": "Biểu diễn trang phục hanbok tại cung điện",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 421360,
+      "sha256": "ce52c3ee7579fc4447a7f4028eedf7e7d33ca7ae6344f6ce315f4bdd5852a91d"
+    },
+    {
+      "topic": "le-hoi",
+      "index": 3,
+      "file": "images/culture-v23-ai/le-hoi/03.webp",
+      "source_filename": "sum_họp_gia_đình_làm_bánh_songpyeon.png",
+      "caption": "Gia đình quây quần chuẩn bị món ăn lễ hội",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 405620,
+      "sha256": "c693811467b5487463b22b4b477fd25dbd748cc9bcc0180d4602d672a89e3158"
+    },
+    {
+      "topic": "le-hoi",
+      "index": 4,
+      "file": "images/culture-v23-ai/le-hoi/04.webp",
+      "source_filename": "lễ_hội_hàn_quốc_chơi_yut_giữa_mùa_thu.png",
+      "caption": "Trò chơi dân gian Yutnori",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 384928,
+      "sha256": "a33709cc7a1fe0b91675a6f1e64c3c43047c016d2f77f38710878730c28a5a74"
+    },
+    {
+      "topic": "le-hoi",
+      "index": 5,
+      "file": "images/culture-v23-ai/le-hoi/05.webp",
+      "source_filename": "khoảnh_khắc_gia_đình_đón_tết_trong_hanok.png",
+      "caption": "Không khí sum họp ngày Tết truyền thống",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 421822,
+      "sha256": "e904a807067461a97522bfbd62a11c97520d4763bb896db4683f2c8660be7c73"
+    },
+    {
+      "topic": "am-thuc",
+      "index": 1,
+      "file": "images/culture-v23-ai/am-thuc/01.webp",
+      "source_filename": "bữa_hàn_truyền_thống_giữa_hanok_ấm_áp.png",
+      "caption": "Bibimbap và các món ăn kèm banchan",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 410038,
+      "sha256": "0e71258d004f40c4d7e83e56217c7c7e8b84a87a7b9f119ebd2990cb9e713a18"
+    },
+    {
+      "topic": "am-thuc",
+      "index": 2,
+      "file": "images/culture-v23-ai/am-thuc/02.webp",
+      "source_filename": "chợ_đêm_hanok_với_ẩm_thực_đường_phố_hàn_quốc.png",
+      "caption": "Tteokbokki, gimbap và ẩm thực đường phố",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 437868,
+      "sha256": "8649f0c6edf408cb4b229ea54c9e3b9144a4fc7f008ca9f2e274fbb292519bcb"
+    },
+    {
+      "topic": "am-thuc",
+      "index": 3,
+      "file": "images/culture-v23-ai/am-thuc/03.webp",
+      "source_filename": "tiệc_nướng_hàn_quốc_ấm_cúng_ngoài_hiên.png",
+      "caption": "Văn hóa thịt nướng Hàn Quốc",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 444854,
+      "sha256": "698886c7c6d17592027d5724d06c07f614332b339f5cfbacb9bcbd082954d593"
+    },
+    {
+      "topic": "am-thuc",
+      "index": 4,
+      "file": "images/culture-v23-ai/am-thuc/04.webp",
+      "source_filename": "bàn_tiệc_hàn_quốc_ấm_cúng_mùa_thu.png",
+      "caption": "Bữa cơm gia đình với món canh nóng",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 432920,
+      "sha256": "caa1bbe02b21d50aaadc94753afd8c533bf5e8c66ca517c716eaea750985c26d"
+    },
+    {
+      "topic": "am-thuc",
+      "index": 5,
+      "file": "images/culture-v23-ai/am-thuc/05.webp",
+      "source_filename": "bàn_tráng_miệng_mùa_xuân_trong_hanok_hàn_quốc.png",
+      "caption": "Trà, bánh và món tráng miệng Hàn Quốc",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 385746,
+      "sha256": "f290777f16f30f97135cfbd3228589dcfb25f805e34f5b8a91af200fdeb28219"
+    },
+    {
+      "topic": "truyen-thong",
+      "index": 1,
+      "file": "images/culture-v23-ai/truyen-thong/01.webp",
+      "source_filename": "nàng_thơ_hanbok_giữa_cung_điện_mùa_xuân.png",
+      "caption": "Trang phục truyền thống Hanbok",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 376230,
+      "sha256": "b8d2f83f9d82882e2a54144d721d431e55821136d569d9911997a3675e49c2d0"
+    },
+    {
+      "topic": "truyen-thong",
+      "index": 2,
+      "file": "images/culture-v23-ai/truyen-thong/02.webp",
+      "source_filename": "gia_đình_hàn_quốc_chuẩn_bị_hanbok_mùa_thu.png",
+      "caption": "Gia đình chuẩn bị trang phục cho ngày lễ",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 414558,
+      "sha256": "ece2a239b9143aa7e6d802b67970d75bcb6e971e7e517d67850c8bf01ac9d1e9"
+    },
+    {
+      "topic": "truyen-thong",
+      "index": 3,
+      "file": "images/culture-v23-ai/truyen-thong/03.webp",
+      "source_filename": "xưởng_may_hanbok_dưới_nắng_vàng.png",
+      "caption": "Nghề may và trang trí Hanbok",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 400928,
+      "sha256": "1635d90e1305dc5e5f9c7d33a7ff1894bb13aa4b91ee0334fab34d3d0a8cbfbf"
+    },
+    {
+      "topic": "truyen-thong",
+      "index": 4,
+      "file": "images/culture-v23-ai/truyen-thong/04.webp",
+      "source_filename": "nghi_lễ_trà_hanbok_giữa_mùa_thu_hàn_quốc.png",
+      "caption": "Nghi thức trà và phép lịch sự truyền thống",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 367024,
+      "sha256": "7fe0c0dbac09f29e9673c14db9f86042c0aa18e42b9e4db2dda16fc2dc8ad5a9"
+    },
+    {
+      "topic": "truyen-thong",
+      "index": 5,
+      "file": "images/culture-v23-ai/truyen-thong/05.webp",
+      "source_filename": "lễ_cưới_hoàng_gia_hàn_quốc_rực_rỡ.png",
+      "caption": "Minh họa trang phục cưới cổ truyền",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 409792,
+      "sha256": "3c46258fada37a9dd3dd16769a2f92f46c92cd0e62bdfd6b7ea66ac75dad5596"
+    },
+    {
+      "topic": "doi-song",
+      "index": 1,
+      "file": "images/culture-v23-ai/doi-song/01.webp",
+      "source_filename": "học_sinh_seoul_băng_qua_phố_mùa_thu.png",
+      "caption": "Đời sống học sinh trong đô thị Seoul",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 369236,
+      "sha256": "bb43bf2dfd7c849189cfca6d6b2cc27a7d613746f728fe65a258d34c2ca2db1b"
+    },
+    {
+      "topic": "doi-song",
+      "index": 2,
+      "file": "images/culture-v23-ai/doi-song/02.webp",
+      "source_filename": "chợ_truyền_thống_hàn_quốc_mùa_thu.png",
+      "caption": "Mua sắm tại chợ truyền thống",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 368318,
+      "sha256": "e74c38a6e8af7aecef09553da6e134d695ab6f7954342edd6c9964935b76f70d"
+    },
+    {
+      "topic": "doi-song",
+      "index": 3,
+      "file": "images/culture-v23-ai/doi-song/03.webp",
+      "source_filename": "nhóm_bạn_học_tập_trong_quán_cà_phê_mùa_thu.png",
+      "caption": "Học tập và trò chuyện tại quán cà phê",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 373822,
+      "sha256": "fc384f881e4b68e78cffb8f198bf5a87f2e33d9347fb4f1f9bb79f350997a30a"
+    },
+    {
+      "topic": "doi-song",
+      "index": 4,
+      "file": "images/culture-v23-ai/doi-song/04.webp",
+      "source_filename": "gia_đình_dạo_phố_hanok_lúc_hoàng_hôn.png",
+      "caption": "Đi dạo cùng gia đình trong khu phố Hanok",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 460260,
+      "sha256": "ccf0a4d7ecfbf502f72c09ac867fd2ff55729db4ca75ab7af02a32d2e9b0470e"
+    },
+    {
+      "topic": "doi-song",
+      "index": 5,
+      "file": "images/culture-v23-ai/doi-song/05.webp",
+      "source_filename": "bữa_cơm_hàn_quốc_ấm_áp_bên_gia_đình.png",
+      "caption": "Bữa cơm và sinh hoạt gia đình",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 287922,
+      "sha256": "dd5445877f2dd21f483024d72410bf489f2267efc848dac743c2b01925aa55bb"
+    }
+  ]
+}
