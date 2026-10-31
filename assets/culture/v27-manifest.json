@@ -1,0 +1,168 @@
+{
+  "version": "27.0",
+  "batch": 6,
+  "total": 10,
+  "topics": {
+    "lich-su": 5,
+    "hien-dai": 5
+  },
+  "disclaimer": "Ten original vector scenes (not photographs and not photorealistic AI); geometry is native to 1536x1024 exports. Symbolic stylizations are not visual evidence of exact historical buildings or technical procedures.",
+  "labels": {
+    "lich-su": [
+      "Triều điện và kiến trúc cung đình thời Joseon",
+      "Mũ miện vàng và hiện vật của vương quốc Silla",
+      "Khu phố hanok và kiến trúc gỗ truyền thống",
+      "Di sản thư pháp và văn hóa học thuật truyền thống",
+      "Chùa, tháp đá và di sản kiến trúc cổ Hàn Quốc"
+    ],
+    "hien-dai": [
+      "Seoul hiện đại và đô thị bên sông Hàn",
+      "Giao thông tốc độ cao và hệ thống đường sắt",
+      "Công nghệ bán dẫn và nghiên cứu kỹ thuật",
+      "Dịch vụ số và giao thông đô thị thông minh",
+      "Giới trẻ, sáng tạo và đời sống Hàn Quốc hiện đại"
+    ]
+  },
+  "images": [
+    {
+      "topic": "lich-su",
+      "index": 1,
+      "file": "images/culture-v27-art/lich-su/01.webp",
+      "caption": "Triều điện và kiến trúc cung đình thời Joseon",
+      "alt": "Minh họa nghệ thuật cung điện Hàn Quốc, không phải hình chụp lịch sử",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 55454,
+      "sha256": "04b4988d9dbbc40db78c3d9fa281fa09966d3fb9c6f5a1d19ff5a99363a66fb6",
+      "source": "original-procedural-SVG-illustration",
+      "author": "MR LEE generated vector scene",
+      "disclosure": "New sharp vector art, NOT documentary photo, NOT AI-generated photorealistic image"
+    },
+    {
+      "topic": "lich-su",
+      "index": 2,
+      "file": "images/culture-v27-art/lich-su/02.webp",
+      "caption": "Mũ miện vàng và hiện vật của vương quốc Silla",
+      "alt": "Hình minh họa hiện vật cổ trong phòng trưng bày bảo tàng",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 38118,
+      "sha256": "b8cba8d56423e3a58c24c61eafbc150313234e64f7cbee942d50bcda2940c76d",
+      "source": "original-procedural-SVG-illustration",
+      "author": "MR LEE generated vector scene",
+      "disclosure": "New sharp vector art, NOT documentary photo, NOT AI-generated photorealistic image"
+    },
+    {
+      "topic": "lich-su",
+      "index": 3,
+      "file": "images/culture-v27-art/lich-su/03.webp",
+      "caption": "Khu phố hanok và kiến trúc gỗ truyền thống",
+      "alt": "Minh họa đường phố nhà hanok trong không gian lịch sử",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 70158,
+      "sha256": "9127586a8282d8a6b166620980c9e4b9249f32df09a65ace703c2d465c432649",
+      "source": "original-procedural-SVG-illustration",
+      "author": "MR LEE generated vector scene",
+      "disclosure": "New sharp vector art, NOT documentary photo, NOT AI-generated photorealistic image"
+    },
+    {
+      "topic": "lich-su",
+      "index": 4,
+      "file": "images/culture-v27-art/lich-su/04.webp",
+      "caption": "Di sản thư pháp và văn hóa học thuật truyền thống",
+      "alt": "Minh họa bút lông, mực và thư tịch cổ trên bàn gỗ",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 34952,
+      "sha256": "c3755a5d5635821fb874f89b4b7e2f94ef84ef3b27716893486fd703f1773fbe",
+      "source": "original-procedural-SVG-illustration",
+      "author": "MR LEE generated vector scene",
+      "disclosure": "New sharp vector art, NOT documentary photo, NOT AI-generated photorealistic image"
+    },
+    {
+      "topic": "lich-su",
+      "index": 5,
+      "file": "images/culture-v27-art/lich-su/05.webp",
+      "caption": "Chùa, tháp đá và di sản kiến trúc cổ Hàn Quốc",
+      "alt": "Minh họa tháp đá và chùa cổ, không nhằm xác định di tích cụ thể",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 47070,
+      "sha256": "99183a484b41b292ce692a41f5409138b9308f133800398e636e972bd878ae0c",
+      "source": "original-procedural-SVG-illustration",
+      "author": "MR LEE generated vector scene",
+      "disclosure": "New sharp vector art, NOT documentary photo, NOT AI-generated photorealistic image"
+    },
+    {
+      "topic": "hien-dai",
+      "index": 1,
+      "file": "images/culture-v27-art/hien-dai/01.webp",
+      "caption": "Seoul hiện đại và đô thị bên sông Hàn",
+      "alt": "Minh họa thành phố Seoul hiện đại ở thời điểm hoàng hôn",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 67716,
+      "sha256": "b49c5cc224888e5d2b0519e0119a26723ee72a669ecf9ff522e11ed6b48e043e",
+      "source": "original-procedural-SVG-illustration",
+      "author": "MR LEE generated vector scene",
+      "disclosure": "New sharp vector art, NOT documentary photo, NOT AI-generated photorealistic image"
+    },
+    {
+      "topic": "hien-dai",
+      "index": 2,
+      "file": "images/culture-v27-art/hien-dai/02.webp",
+      "caption": "Giao thông tốc độ cao và hệ thống đường sắt",
+      "alt": "Minh họa đoàn tàu cao tốc trong nhà ga Hàn Quốc",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 33596,
+      "sha256": "7e4ee798fe5f6600004d9f6f7433190444c922212d8fa8c07dfc85a15614ce9f",
+      "source": "original-procedural-SVG-illustration",
+      "author": "MR LEE generated vector scene",
+      "disclosure": "New sharp vector art, NOT documentary photo, NOT AI-generated photorealistic image"
+    },
+    {
+      "topic": "hien-dai",
+      "index": 3,
+      "file": "images/culture-v27-art/hien-dai/03.webp",
+      "caption": "Công nghệ bán dẫn và nghiên cứu kỹ thuật",
+      "alt": "Minh họa không gian nghiên cứu và sản xuất công nghệ",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 60716,
+      "sha256": "1c24cb9636a76af87e9e388247498a127bd83fb36519164ad941fbe45db653d6",
+      "source": "original-procedural-SVG-illustration",
+      "author": "MR LEE generated vector scene",
+      "disclosure": "New sharp vector art, NOT documentary photo, NOT AI-generated photorealistic image"
+    },
+    {
+      "topic": "hien-dai",
+      "index": 4,
+      "file": "images/culture-v27-art/hien-dai/04.webp",
+      "caption": "Dịch vụ số và giao thông đô thị thông minh",
+      "alt": "Minh họa thanh toán số và đi lại tại đô thị Hàn Quốc",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 44770,
+      "sha256": "f23cb6d448cd10b6c6799187fa2cd17c406d5818195e6ad16a15658458cb3ca2",
+      "source": "original-procedural-SVG-illustration",
+      "author": "MR LEE generated vector scene",
+      "disclosure": "New sharp vector art, NOT documentary photo, NOT AI-generated photorealistic image"
+    },
+    {
+      "topic": "hien-dai",
+      "index": 5,
+      "file": "images/culture-v27-art/hien-dai/05.webp",
+      "caption": "Giới trẻ, sáng tạo và đời sống Hàn Quốc hiện đại",
+      "alt": "Minh họa thanh niên làm dự án sáng tạo trong không gian cộng đồng",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 38494,
+      "sha256": "0f4d112ee48954d378c91abbfe9adb6cab5445c99701c9672345c8ea29dc8594",
+      "source": "original-procedural-SVG-illustration",
+      "author": "MR LEE generated vector scene",
+      "disclosure": "New sharp vector art, NOT documentary photo, NOT AI-generated photorealistic image"
+    }
+  ]
+}
