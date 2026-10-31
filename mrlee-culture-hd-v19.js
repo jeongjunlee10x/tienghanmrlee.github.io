@@ -17,6 +17,7 @@ const NEW_V23=new Set(['le-hoi','am-thuc','truyen-thong','doi-song']);
 const REPLACED=new Set(['le-hoi','am-thuc','doi-song','so-cap-cuu','goi-cuu-ho','lac-duong','mat-vi','tau-dien-ngam','xe-buyt','benh-vien','hoa-hoan','mat-dien-thoai','an-toan-giao-thong']);
 const ORIGINAL='images/culture-v18-hd/';
 const CAPTIONS=window.MRLEE_CULTURE_V20_CAPTIONS||{};
+const V23_CAPTIONS=window.MRLEE_CULTURE_V23_CAPTIONS||{};
 const FALLBACK='images/culture-v13/';
 const ID=new URLSearchParams(location.search).get('chu-de')||TOPICS[0];
 const safe=id=>TOPICS.includes(id)?id:null;
@@ -101,7 +102,7 @@ function lesson(){
    image.addEventListener('click',show);image.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();show()}});
    const cap=write(fig,'figcaption','');
    write(cap,'b','','Ảnh minh họa '+String(i).padStart(2,'0')+' / 05');
-   write(cap,'span','',CAPTIONS[ID]?.[i-1]||t.title);if(t.ko)write(cap,'small','',t.ko);
+   write(cap,'span','',V23_CAPTIONS[ID]?.[i-1]||CAPTIONS[ID]?.[i-1]||t.title);if(t.ko)write(cap,'small','',t.ko);
   }
   const caution=safety.has(ID)?
    'Chú ý: AI có thể minh họa sai tư thế hoặc thiết bị an toàn. Hãy dựa vào hướng dẫn cơ quan chức năng; gọi 119/112 khi cần.':
