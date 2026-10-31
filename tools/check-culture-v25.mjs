@@ -38,7 +38,7 @@ assert(engine.includes('V25_CAPTIONS[ID]?.[i-1]'));
 for(const p of ['van-hoa-han-quoc.html','van-hoa-bai-hoc.html']){
  const html=fs.readFileSync(p,'utf8');
  assert(html.includes('mrlee-culture-v25-captions.js'),'V25 caption script not mounted '+p);
- assert(/mrlee-culture-hd-v19\.js\?v=20261031-v2[56]/.test(html),'Incorrect version '+p);
+ assert(/mrlee-culture-hd-v19\.js\?v=20261031-v2[567]/.test(html),'Incorrect version '+p);
 }
 for(const f of ['mrlee-culture-hd-v19.js','mrlee-culture-v25-captions.js','tools/browser-smoke.mjs']){
  const p=spawnSync(process.execPath,['--check',f],{encoding:'utf8'});
