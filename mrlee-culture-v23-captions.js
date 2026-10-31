@@ -1,11 +1,11 @@
 /* Culture V23 — original AI images, exact educational captions. */
 window.MRLEE_CULTURE_V23_CAPTIONS={
   "le-hoi": [
-    "Gia đình tham gia lễ hội mùa thu",
-    "Biểu diễn trang phục hanbok tại cung điện",
-    "Gia đình quây quần chuẩn bị món ăn lễ hội",
-    "Trò chơi dân gian Yutnori",
-    "Không khí sum họp ngày Tết truyền thống"
+    "Gia đình mặc hanbok thưởng thức bánh gạo và hoa quả trong không gian cung điện mùa thu",
+    "Biểu diễn múa hanbok và nhạc cụ dân gian tại khuôn viên cung điện Hàn Quốc",
+    "Cả gia đình làm bánh gạo songpyeon và chuẩn bị mâm cỗ dịp Chuseok",
+    "Gia đình cùng trẻ nhỏ trải nghiệm trò chơi dân gian Yutnori (윷놀이)",
+    "Gia đình đoàn tụ, trao quà và thưởng thức món ăn trong ngày lễ truyền thống"
   ],
   "am-thuc": [
     "Bibimbap và các món ăn kèm banchan",

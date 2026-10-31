@@ -61,11 +61,11 @@ function covers(){
   let id=null;try{id=new URL(card.href,location.href).searchParams.get('chu-de')}catch{}
   if(!safe(id))return;
   const img=$('img',card);if(!img)return;
-  if(img.dataset.mrleeCultureHd==='27'&&img.getAttribute('src')===asset(id,1))return;
-  load(img,id,1);
+  if(img.dataset.mrleeCultureHd==='27'&&img.getAttribute('src')===asset(id,id==='le-hoi'?2:1))return;
+  load(img,id,id==='le-hoi'?2:1);
   img.loading=position<3?'eager':'lazy';
   img.fetchPriority=position<3?'high':'low';
-  img.width=(NEW_V29.has(id)||NEW_V28.has(id)||NEW_V27.has(id))?1536:2040;img.height=(NEW_V29.has(id)||NEW_V28.has(id)||NEW_V27.has(id))?1024:1360;
+  img.width=(NEW_V29.has(id)||NEW_V28.has(id)||NEW_V27.has(id)||NEW_V23.has(id))?1536:2040;img.height=(NEW_V29.has(id)||NEW_V28.has(id)||NEW_V27.has(id)||NEW_V23.has(id))?1024:1360;
   const old=$('.mr172AiTag',card);
   const countChip=$('.cultureV16TopicTag',card);
   if(countChip)countChip.textContent='🖼 5 ảnh minh họa';
@@ -85,7 +85,7 @@ function hub(){
  const header=$('.heroVisual');
  if(header){
   const keys=['le-hoi','am-thuc','tau-dien-ngam','so-cap-cuu'];
-  $$('img',header).slice(0,4).forEach((img,i)=>load(img,keys[i],1));
+  $('img',header).slice(0,4).forEach((img,i)=>load(img,keys[i],keys[i]==='le-hoi'?2:1));
  }
  let queued=false;
  new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;covers()})})
