@@ -1,0 +1,21 @@
+name: Culture V30 staged photo integrity
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'images/culture-v30-preview/**'
+      - 'assets/culture/v30-shotlist.json'
+      - 'assets/culture/v31-shotlist.json'
+      - 'tools/check-culture-v30-staged.mjs'
+  workflow_dispatch:
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tools/check-culture-v30-staged.mjs
+      - run: node tools/check-culture-photo-gate.mjs

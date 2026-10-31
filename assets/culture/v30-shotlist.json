@@ -1,7 +1,7 @@
 {
   "version": "30.0",
   "batch": 9,
-  "stage": "awaiting_20_standalone_photos",
+  "stage": "in_production_1_valid_photo_staged_of_20_not_live",
   "count": 20,
   "topics": {
     "tau-dien-ngam": 5,
@@ -141,5 +141,14 @@
       "file": "images/culture-v30-photo/hoa-hoan/05.webp",
       "caption": "Tập hợp tại khu vực an toàn theo hướng dẫn"
     }
-  ]
+  ],
+  "preview": {
+    "path": "images/culture-v30-preview/tau-dien-ngam/01.webp",
+    "sha256": "e1c761e84d2f6599d0b7c0ae2a34f54802b77eb85381ab35c70373fd8ed667fd",
+    "width": 1536,
+    "height": 1024,
+    "bytes": 236550,
+    "caption": "Chạm thẻ giao thông tại cổng soát vé tàu điện ngầm",
+    "description": "Một ảnh AI tạo riêng, phong cách ảnh chụp; không phải ảnh tư liệu thực tế; bảng hiệu chỉ mang tính minh họa."
+  }
 }

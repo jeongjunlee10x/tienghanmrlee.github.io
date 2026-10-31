@@ -1,0 +1,82 @@
+{
+  "version": "31.0",
+  "batch": 10,
+  "stage": "awaiting_10_individual_ai_photos",
+  "count": 10,
+  "topics": {
+    "mat-dien-thoai": 5,
+    "an-toan-giao-thong": 5
+  },
+  "image_requirements": {
+    "width_min": 1536,
+    "height_min": 1024,
+    "format": "WebP",
+    "single_photorealistic_scene_per_file": true,
+    "collage_prohibited": true,
+    "no_upscaling_of_collage_tiles": true,
+    "distinct_scenes": true,
+    "no_official_procedure_fabrication": true
+  },
+  "images": [
+    {
+      "topic": "mat-dien-thoai",
+      "index": 1,
+      "caption": "Phát hiện điện thoại bị thất lạc và kiểm tra vị trí lần cuối",
+      "file": "images/culture-v31-photo/mat-dien-thoai/01.webp"
+    },
+    {
+      "topic": "mat-dien-thoai",
+      "index": 2,
+      "caption": "Sử dụng tính năng định vị thiết bị trên tài khoản của mình",
+      "file": "images/culture-v31-photo/mat-dien-thoai/02.webp"
+    },
+    {
+      "topic": "mat-dien-thoai",
+      "index": 3,
+      "caption": "Khóa thiết bị từ xa bằng phương thức bảo mật",
+      "file": "images/culture-v31-photo/mat-dien-thoai/03.webp"
+    },
+    {
+      "topic": "mat-dien-thoai",
+      "index": 4,
+      "caption": "Liên hệ nhà mạng để bảo vệ SIM và tài khoản",
+      "file": "images/culture-v31-photo/mat-dien-thoai/04.webp"
+    },
+    {
+      "topic": "mat-dien-thoai",
+      "index": 5,
+      "caption": "Được hỗ trợ bảo mật tại quầy dịch vụ điện thoại",
+      "file": "images/culture-v31-photo/mat-dien-thoai/05.webp"
+    },
+    {
+      "topic": "an-toan-giao-thong",
+      "index": 1,
+      "caption": "Chờ tín hiệu người đi bộ trước vạch qua đường",
+      "file": "images/culture-v31-photo/an-toan-giao-thong/01.webp"
+    },
+    {
+      "topic": "an-toan-giao-thong",
+      "index": 2,
+      "caption": "Quan sát phương tiện trước khi qua đường",
+      "file": "images/culture-v31-photo/an-toan-giao-thong/02.webp"
+    },
+    {
+      "topic": "an-toan-giao-thong",
+      "index": 3,
+      "caption": "Đi bộ đúng phần đường dành cho người đi bộ",
+      "file": "images/culture-v31-photo/an-toan-giao-thong/03.webp"
+    },
+    {
+      "topic": "an-toan-giao-thong",
+      "index": 4,
+      "caption": "Giữ tầm nhìn và trang phục dễ thấy khi đi bộ ban đêm",
+      "file": "images/culture-v31-photo/an-toan-giao-thong/04.webp"
+    },
+    {
+      "topic": "an-toan-giao-thong",
+      "index": 5,
+      "caption": "Đi bộ an toàn trong thời tiết mưa hoặc tuyết",
+      "file": "images/culture-v31-photo/an-toan-giao-thong/05.webp"
+    }
+  ]
+}
