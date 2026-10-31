@@ -54,7 +54,7 @@ html[data-mrlee-v4] .mrlee-v4-hero-words{
  display:flex;flex-direction:column;align-items:flex-start;
 }
 html[data-mrlee-v4] .mrlee-v4-eyebrow{
- font-size:clamp(9px,.8vw,12px);font-weight:900;line-height:1.5;
+ font-size:clamp(13px,1vw,14px);font-weight:900;line-height:1.5;
  letter-spacing:.22em;color:#76eaff!important;
 }
 html[data-mrlee-v4] .mrlee-v4-hero-words h1{
@@ -68,7 +68,7 @@ html[data-mrlee-v4] .mrlee-v4-hero-words h2{
  margin:3px 0 8px!important;color:#e5f4ff!important;
 }
 html[data-mrlee-v4] .mrlee-v4-hero-words p{
- color:#d8e9f8!important;font-size:clamp(12px,1.05vw,15px)!important;
+ color:#d8e9f8!important;font-size:clamp(15px,1.15vw,17px)!important;
  line-height:1.72!important;max-width:59ch!important;margin:2px 0 12px!important;
 }
 html[data-mrlee-v4] .mrlee-v4-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
@@ -77,7 +77,7 @@ html[data-mrlee-v4] .mrlee-v4-button{
  padding:10px 20px;min-height:45px;
  border:1px solid #8beaff;border-radius:11px;
  background:linear-gradient(105deg,#52eaff,#5397fc);
- color:#04162e!important;font-size:12px;font-weight:900;line-height:1.5;
+ color:#04162e!important;font-size:14px;font-weight:900;line-height:1.5;
  text-decoration:none;box-shadow:0 6px 21px #14beff68;
 }
 html[data-mrlee-v4] .mrlee-v4-button-secondary{
@@ -100,7 +100,7 @@ html[data-mrlee-v4] .mrlee-v4-section-title h2{
  color:var(--v4-ink)!important;margin:0!important;letter-spacing:-.015em;
 }
 html[data-mrlee-v4] .mrlee-v4-section-title small{
- color:var(--v4-hint)!important;font:600 11px/1.5 "Be Vietnam Pro",system-ui,sans-serif;
+ color:var(--v4-hint)!important;font:600 14px/1.5 "Be Vietnam Pro",system-ui,sans-serif;
 }
 html[data-mrlee-v4] .mrlee-v4-directory-grid{
  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;
@@ -142,10 +142,10 @@ html[data-mrlee-v4] .mrlee-v4-card-index{
  color:#55eeff!important;
 }
 html[data-mrlee-v4] .mrlee-v4-card-copy strong{
- color:#f5faff!important;font:850 clamp(12px,.99vw,15px)/1.35 "Be Vietnam Pro",sans-serif;
+ color:#f5faff!important;font:850 clamp(15px,1.2vw,18px)/1.35 "Be Vietnam Pro",sans-serif;
 }
 html[data-mrlee-v4] .mrlee-v4-card-caption{
- color:#c9e1f3!important;font-size:10px;line-height:1.5;
+ color:#c9e1f3!important;font-size:14px;line-height:1.5;
  padding-right:9px;max-width:27ch;
 }
 html[data-mrlee-v4] .mrlee-v4-card-arrow{
@@ -171,7 +171,7 @@ html[data-mrlee-v4] .mrlee-v4-tool{
  border:1px solid var(--v4-frame);border-radius:12px;
  background:var(--v4-glass);
  color:var(--v4-ink)!important;text-decoration:none!important;
- font-size:12px;font-weight:800;padding:11px 15px;
+ font-size:14px;font-weight:800;padding:11px 15px;
 }
 html[data-mrlee-v4] .mrlee-v4-tool img{
  height:100%;width:35%;position:absolute;inset:0 0 0 auto;
@@ -184,9 +184,9 @@ html[data-mrlee-v4] .mrlee-v4-live-intro{
  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
  padding:12px 18px;margin:14px 0;
  border:1px solid var(--v4-frame);border-radius:12px;
- color:var(--v4-ink);background:var(--v4-glass);font-size:12px;
+ color:var(--v4-ink);background:var(--v4-glass);font-size:14px;
 }
-html[data-mrlee-v4] .mrlee-v4-live-intro span{color:var(--v4-hint);font-size:11px}
+html[data-mrlee-v4] .mrlee-v4-live-intro span{color:var(--v4-hint);font-size:14px}
 html[data-mrlee-v4] .mrlee-v4-old-hero{display:none!important}
 /* Old automatic galleries/portals caused repeated menus and excess scroll. Keep native apps. */
 html[data-mrlee-v4] :is(.mrlee-next-portal,.mrlee-cinematic-gallery,.mrlee-v2-context,
@@ -249,14 +249,14 @@ html[data-mrlee-v4] :is(#topicMenu,#phraseGrid,#universitySearch,#workLevel,#wor
  html[data-mrlee-v4] .mrlee-v4-hero-words{width:100%}
  html[data-mrlee-v4] .mrlee-v4-hero-words h1{font-size:clamp(27px,7vw,42px)!important}
  html[data-mrlee-v4] .mrlee-v4-hero-words h2{font-size:14px!important}
- html[data-mrlee-v4] .mrlee-v4-hero-words p{font-size:12px!important}
+ html[data-mrlee-v4] .mrlee-v4-hero-words p{font-size:14px!important}
  html[data-mrlee-v4] .mrlee-v4-actions{width:100%}
  html[data-mrlee-v4] .mrlee-v4-button{flex:1;min-width:120px;padding:10px!important}
  html[data-mrlee-v4] .mrlee-v4-directory{padding:11px;border-radius:14px}
  html[data-mrlee-v4] .mrlee-v4-directory-grid{gap:8px}
  html[data-mrlee-v4] .mrlee-v4-card{min-height:165px}
  html[data-mrlee-v4] .mrlee-v4-card-copy{padding:11px}
- html[data-mrlee-v4] .mrlee-v4-card-caption{font-size:10px}
+ html[data-mrlee-v4] .mrlee-v4-card-caption{font-size:14px}
  html[data-mrlee-v4] .mrlee-v4-tools{grid-template-columns:1fr 1fr!important}
  html[data-mrlee-v4] .mrlee-v4-tool{padding:11px;min-height:76px}
 }

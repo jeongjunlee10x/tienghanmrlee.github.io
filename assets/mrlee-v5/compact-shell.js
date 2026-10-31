@@ -12,7 +12,7 @@ function canCompact(){
  const top=shell.getBoundingClientRect().top+window.scrollY;
  const available=Math.floor(viewportH-top-12);
  // Do not hide body scroll if screen is too small for usable targets.
- if(viewportW<980||viewportH<650||available<475)return false;
+ if(viewportW<1180||viewportH<780||available<670)return false;
  root.style.setProperty('--v5-height',Math.min(available,820)+'px');
  shell.style.setProperty('--v5-card-count',String(shell.querySelectorAll('.mrlee-v4-card').length));
  shell.style.setProperty('--v5-tool-count',String(shell.querySelectorAll('.mrlee-v4-tool').length));

@@ -28,7 +28,7 @@ const defs={
  'van-hoa-han-quoc.html':{
  id:'culture',eyebrow:'KOREAN CULTURE · LIFE · TRADITION',title:'VĂN HÓA HÀN QUỐC',lead:'Khám phá con người và cuộc sống xứ kim chi',description:'Từ phong tục, lễ hội, ẩm thực tới trường học, giao thông và kỹ năng sống thiết yếu ở Hàn Quốc.',
  image:'feature-7-ky-tuc-xa.webp',cta:['Khám phá 22 chủ đề','#topicSection'],secondary:['Bản đồ khám phá','ban-do-han-quoc.html'],section:'Khám phá văn hóa và kỹ năng sống',hint:'Các bài thực tế và hướng dẫn hiện có ở bên dưới',
- cards:[['Ẩm thực','Văn hóa ăn uống Hàn Quốc','#topicSection','culture.webp'],['Lễ hội','Phong tục và truyền thống','#topicSection','feature-1-tuyen-sinh.webp'],['Đời sống','Sinh hoạt và giao thông','#topicSection','step-4-xuat-canh.webp'],['Kỹ năng sống','Sơ cứu, giấy tờ và hỗ trợ','#topicSection','step-5-ho-tro.webp']],
+ cards:[['Ẩm thực','Văn hóa ăn uống Hàn Quốc','van-hoa-bai-hoc.html?chu-de=am-thuc','culture.webp'],['Lễ hội','Phong tục và truyền thống','van-hoa-bai-hoc.html?chu-de=le-hoi','feature-1-tuyen-sinh.webp'],['Đời sống','Sinh hoạt và giao thông','van-hoa-bai-hoc.html?chu-de=doi-song','step-4-xuat-canh.webp'],['Kỹ năng sống','Sơ cứu, giấy tờ và hỗ trợ','van-hoa-bai-hoc.html?chu-de=so-cap-cuu','step-5-ho-tro.webp']],
  tools:[['Bài văn hóa','van-hoa-bai-hoc.html','feature-4-ho-so-visa.webp'],['Bản đồ du lịch','ban-do-han-quoc.html','feature-2-ban-do.webp'],['Giao tiếp đời sống','giao-tiep-theo-chu-de.html','learning-cap-2.webp']]},
  'ban-do-dai-hoc-han-quoc.html':{
  id:'universities',eyebrow:'KOREA UNIVERSITIES · DISCOVER',title:'BẢN ĐỒ CÁC TRƯỜNG ĐẠI HỌC HÀN QUỐC',lead:'Tìm trường theo tên, khu vực và loại hình',description:'Khám phá thông tin từng trường qua danh mục và bản đồ. Vị trí và tuyển sinh cần được đối chiếu nguồn chính thức.',
@@ -46,6 +46,33 @@ const defs={
  cards:[['Kết quả luyện tập','Điểm và lịch sử đã lưu','#attemptRows','learning-cap-3.webp'],['Tiến độ học tập','Nhật ký hoạt động','#eventRows','learning-cap-4.webp'],['WORKBOOK','Làm bài tập theo bài','mrlee-bai-tap-pro.html','learning-books.webp'],['Bảng xếp hạng','So sánh điểm động lực','bang-xep-hang.html','feature-6-thi-topik.webp']],
  tools:[['Tiếp tục học','hoc-tieng-han.html','learning-cap-1.webp'],['Luyện TOPIK','kiem-tra-topik.html','learning-cap-5.webp'],['Đăng nhập','dang-nhap.html','feature-5-hoc-tieng-han.webp']]}
 };
+
+/* V32: route each page card to existing thematic photographic assets. */
+const V32_DIR='assets/mrlee-ai/v3/';
+const V32_HERO={learning:'02_hoc_tieng_han',speaking:'03_giao_tiep',topik:'04_topik',interview:'05_phong_van',culture:'06_van_hoa',universities:'07_ban_do_dai_hoc',workbook:'08_workbook',profile:'09_ho_so_hoc_vien'};
+const V32_CARD={
+ learning:Array.from({length:6},(_,i)=>'02_hoc_tieng_han/level-'+String(i+1).padStart(2,'0')+'.webp'),
+ speaking:['03_giao_tiep/topic-dorm.webp'],
+ topik:['04_topik/topic-skills.webp','04_topik/practice-tests.webp','04_topik/practice-tests.webp','04_topik/hero-fresh.webp','09_ho_so_hoc_vien/topik.webp'],
+ interview:['05_phong_van/hero-fresh.webp','05_phong_van/hero-future.webp','03_giao_tiep/topic-office.webp','03_giao_tiep/topic-dorm.webp'],
+ culture:['images/culture-v23-ai/am-thuc/01.webp','images/culture-v23-ai/le-hoi/01.webp','images/culture-v23-ai/doi-song/01.webp','images/culture-v28-safe/so-cap-cuu/01.svg'],
+ universities:['07_ban_do_dai_hoc/campus-busan.webp','01_trang_chu/feature-university-map.webp','03_giao_tiep/topic-dorm.webp','01_trang_chu/feature-admission.webp'],
+ workbook:['08_workbook/category-vocabulary.webp'],
+ profile:['09_ho_so_hoc_vien/topik.webp','09_ho_so_hoc_vien/hero-fresh.webp','08_workbook/category-reading.webp','01_trang_chu/feature-leaderboard.webp']
+};
+const V32_TOOL={
+ learning:['02_hoc_tieng_han/tool-vocabulary.webp','02_hoc_tieng_han/tool-listening.webp','02_hoc_tieng_han/tool-speaking.webp','02_hoc_tieng_han/tool-grammar.webp','02_hoc_tieng_han/tool-workbook.webp','02_hoc_tieng_han/tool-lesson-exercises.webp'],
+ speaking:['03_giao_tiep/topic-restaurant.webp','03_giao_tiep/topic-travel.webp','03_giao_tiep/topic-office.webp','04_topik/topic-skills.webp'],
+ topik:['02_hoc_tieng_han/tool-vocabulary.webp','02_hoc_tieng_han/tool-listening.webp','08_workbook/category-reading.webp'],
+ interview:['02_hoc_tieng_han/tool-speaking.webp','08_workbook/category-grammar.webp','01_trang_chu/feature-admission.webp'],
+ culture:['images/culture-v23-ai/truyen-thong/01.webp','01_trang_chu/feature-university-map.webp','03_giao_tiep/topic-dorm.webp'],
+ universities:['01_trang_chu/feature-admission.webp','02_hoc_tieng_han/level-01.webp','04_topik/topic-skills.webp'],
+ workbook:['08_workbook/category-grammar.webp','02_hoc_tieng_han/level-01.webp','09_ho_so_hoc_vien/topik.webp'],
+ profile:['02_hoc_tieng_han/level-01.webp','04_topik/practice-tests.webp','01_trang_chu/feature-admission.webp']
+};
+function v32Photo(kind,index,fallback){const candidate=(kind==='card'?V32_CARD:V32_TOOL)[cfg.id]?.[index];return candidate?(candidate.startsWith('images/')?candidate:V32_DIR+candidate):R+fallback;}
+function v32Hero(theme){return V32_DIR+V32_HERO[cfg.id]+'/hero-'+(theme==='future'?'future':'fresh')+'.webp';}
+
 const cfg=defs[page];if(!cfg)return;
 // Only one destination launcher per actual target. Keep the first meaningful card.
 // Repeated #topicSection/#workLevel targets were decorative duplicates, not independent lessons.
@@ -69,7 +96,7 @@ function link(t,u,c){const a=make('a',c,t);a.href=allowedTarget(u)?u:'index.html
 function sectionTitle(title,hint){const h=make('div','mrlee-v4-section-title');h.append(make('h2','',title),make('small','',hint));return h}
 function card([title,hint,url,file],index){
  const a=link('',url,'mrlee-v4-card');a.setAttribute('aria-label',title+' — '+hint);
- const img=make('img');img.src=R+file;img.alt='';img.loading='eager';img.decoding='async';
+ const img=make('img');img.src=v32Photo('card',index,file);img.alt='';img.loading=index<3?'eager':'lazy';img.decoding='async';
  img.width=600;img.height=360;img.addEventListener('error',()=>{img.src='assets/mrlee-next/scenes/'+cfg.id+'.svg';},{once:true});
  const meta=make('span','mrlee-v4-card-copy');const number=make('small','mrlee-v4-card-index',String(index+1).padStart(2,'0'));
  meta.append(number,make('strong','',title),make('small','mrlee-v4-card-caption',hint));a.append(img,meta,make('span','mrlee-v4-card-arrow','→'));return a
@@ -77,7 +104,7 @@ function card([title,hint,url,file],index){
 function doBoot(){
  const main=d.querySelector('main');if(!main||main.querySelector('.mrlee-v4-root'))return;
  const shell=make('div','mrlee-v4-root');shell.dataset.section=cfg.id;const hero=make('section','mrlee-v4-hero');
- const art=make('img','mrlee-v4-hero-photo');art.src=R+cfg.image;art.alt='';art.fetchPriority='high';
+ const art=make('img','mrlee-v4-hero-photo');art.dataset.mrleeOriginal=v32Hero('fresh');art.dataset.mrleeFuture=v32Hero('future');art.src=v32Hero(html.dataset.mrleeTheme);art.alt='';art.fetchPriority='high';
  art.decoding='async';art.width=1280;art.height=720;art.addEventListener('error',()=>{art.src='assets/mrlee-next/scenes/'+cfg.id+'.svg'},{once:true});hero.append(art);
  const words=make('div','mrlee-v4-hero-words');words.append(make('small','mrlee-v4-eyebrow',cfg.eyebrow));
  words.append(make('h1','',cfg.title),make('h2','',cfg.lead),make('p','',cfg.description));
@@ -86,7 +113,7 @@ function doBoot(){
  const directory=make('section','mrlee-v4-directory');directory.append(sectionTitle(cfg.section,cfg.hint));
  const grid=make('nav','mrlee-v4-directory-grid');grid.setAttribute('aria-label','Chuyên mục '+cfg.title);cfg.cards.forEach((c,i)=>grid.append(card(c,i)));directory.append(grid);shell.append(directory);
  const tools=make('nav','mrlee-v4-tools');tools.setAttribute('aria-label','Lối tắt học tập');
- cfg.tools.forEach(([text,url,image])=>{const a=link('',url,'mrlee-v4-tool');const img=make('img');img.src=R+image;img.alt='';img.loading='lazy';img.width=240;img.height=150;a.append(img,make('span','',text),make('span','mrlee-v4-tool-arrow','↗'));tools.append(a)});shell.append(tools);
+ cfg.tools.forEach(([text,url,image],index)=>{const a=link('',url,'mrlee-v4-tool');const img=make('img');img.src=v32Photo('tool',index,image);img.alt='';img.loading='lazy';img.width=240;img.height=150;a.append(img,make('span','',text),make('span','mrlee-v4-tool-arrow','↗'));tools.append(a)});shell.append(tools);
  // Native forms, maps, grading tools, account dashboards remain below.
  const live=make('div','mrlee-v4-live-intro');live.append(make('strong','','CÔNG CỤ ĐANG HOẠT ĐỘNG'),make('span','','Dữ liệu, bộ lọc và bài tập thật được giữ nguyên bên dưới.'));
  shell.append(live);
