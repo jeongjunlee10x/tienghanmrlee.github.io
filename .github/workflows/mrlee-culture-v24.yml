@@ -1,0 +1,24 @@
+name: MR LEE Culture V24 — verify independent illustrations
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'images/culture-v24-ai/**'
+      - 'assets/culture/v24-manifest.json'
+      - 'mrlee-culture-v24-captions.js'
+      - 'mrlee-culture-hd-v19.js'
+      - 'tools/check-culture-v24.mjs'
+      - 'tools/browser-smoke.mjs'
+      - 'van-hoa-han-quoc.html'
+      - 'van-hoa-bai-hoc.html'
+  workflow_dispatch:
+jobs:
+  images:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tools/check-culture-v24.mjs
