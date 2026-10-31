@@ -8,11 +8,11 @@ window.MRLEE_CULTURE_V23_CAPTIONS={
     "Gia đình đoàn tụ, trao quà và thưởng thức món ăn trong ngày lễ truyền thống"
   ],
   "am-thuc": [
-    "Bibimbap và các món ăn kèm banchan",
-    "Tteokbokki, gimbap và ẩm thực đường phố",
-    "Văn hóa thịt nướng Hàn Quốc",
-    "Bữa cơm gia đình với món canh nóng",
-    "Trà, bánh và món tráng miệng Hàn Quốc"
+    "Bibimbap (비빔밥): cơm trộn với rau, trứng và các món ăn kèm banchan (반찬) trong mâm cơm kiểu Hàn.",
+    "Ẩm thực đường phố: tteokbokki (떡볶이), gimbap (김밥) và không khí quầy hàng tại chợ đêm Hàn Quốc.",
+    "Văn hóa thịt nướng: samgyeopsal (삼겹살) nướng tại bàn, dùng cùng rau cuốn và tương ssamjang (쌈장).",
+    "Bữa cơm gia đình Hàn Quốc: cơm, canh nóng, kimchi và các món ăn kèm được chia sẻ trên bàn ăn.",
+    "Văn hóa trà và món ngọt: trà Hàn Quốc cùng bánh truyền thống trong không gian tiếp khách ấm cúng."
   ],
   "truyen-thong": [
     "Trang phục truyền thống Hanbok",
