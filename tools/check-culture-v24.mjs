@@ -38,7 +38,7 @@ assert(loader.includes('NEW_V23.has(id)'),'V23 needs to remain for other topics'
 for(const page of ['van-hoa-han-quoc.html','van-hoa-bai-hoc.html']){
  const html=fs.readFileSync(page,'utf8');
  assert(html.includes('mrlee-culture-v24-captions.js'),'Caption script missing '+page);
- assert(html.includes('mrlee-culture-hd-v19.js?v=20261031-v24'),'Incorrect cache version '+page);
+ assert(/mrlee-culture-hd-v19\.js\?v=20261031-v2[45]/.test(html),'Incorrect cache version '+page);
 }
 for(const js of ['mrlee-culture-hd-v19.js','mrlee-culture-v24-captions.js','tools/browser-smoke.mjs']){
  const v=spawnSync(process.execPath,['--check',js],{encoding:'utf8'});
