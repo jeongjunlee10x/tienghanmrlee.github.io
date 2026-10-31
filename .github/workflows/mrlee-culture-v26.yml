@@ -1,0 +1,25 @@
+name: MR LEE Culture V26 — Verify office and sports pictures
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'images/culture-v26-ai/**'
+      - 'assets/culture/v26-manifest.json'
+      - 'mrlee-culture-v26-captions.js'
+      - 'mrlee-culture-hd-v19.js'
+      - 'tools/check-culture-v26.mjs'
+      - 'tools/browser-smoke.mjs'
+      - 'van-hoa-han-quoc.html'
+      - 'van-hoa-bai-hoc.html'
+  workflow_dispatch:
+jobs:
+  images:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify 10 WebP assets and integrity manifest
+        run: node tools/check-culture-v26.mjs
