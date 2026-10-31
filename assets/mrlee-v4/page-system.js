@@ -4,6 +4,32 @@
 (()=>{'use strict';
 const d=document,html=d.documentElement,page=decodeURIComponent(location.pathname.split('/').pop()||'index.html');
 const R='assets/v306/images/';
+/* V32: route each page card to existing thematic photographic assets. */
+const V32_DIR='assets/mrlee-ai/v3/';
+const V32_HERO={learning:'02_hoc_tieng_han',speaking:'03_giao_tiep',topik:'04_topik',interview:'05_phong_van',culture:'06_van_hoa',universities:'07_ban_do_dai_hoc',workbook:'08_workbook',profile:'09_ho_so_hoc_vien'};
+const V32_CARD={
+ learning:Array.from({length:6},(_,i)=>'02_hoc_tieng_han/level-'+String(i+1).padStart(2,'0')+'.webp'),
+ speaking:['03_giao_tiep/topic-dorm.webp'],
+ topik:['04_topik/topic-skills.webp','04_topik/practice-tests.webp','04_topik/practice-tests.webp','04_topik/hero-fresh.webp','09_ho_so_hoc_vien/topik.webp'],
+ interview:['05_phong_van/hero-fresh.webp','05_phong_van/hero-future.webp','03_giao_tiep/topic-office.webp','03_giao_tiep/topic-dorm.webp'],
+ culture:['images/culture-v23-ai/am-thuc/01.webp','images/culture-v23-ai/le-hoi/01.webp','images/culture-v23-ai/doi-song/01.webp','images/culture-v28-safe/so-cap-cuu/01.svg'],
+ universities:['07_ban_do_dai_hoc/campus-busan.webp','01_trang_chu/feature-university-map.webp','03_giao_tiep/topic-dorm.webp','01_trang_chu/feature-admission.webp'],
+ workbook:['08_workbook/category-vocabulary.webp'],
+ profile:['09_ho_so_hoc_vien/topik.webp','09_ho_so_hoc_vien/hero-fresh.webp','08_workbook/category-reading.webp','01_trang_chu/feature-leaderboard.webp']
+};
+const V32_TOOL={
+ learning:['02_hoc_tieng_han/tool-vocabulary.webp','02_hoc_tieng_han/tool-listening.webp','02_hoc_tieng_han/tool-speaking.webp','02_hoc_tieng_han/tool-grammar.webp','02_hoc_tieng_han/tool-workbook.webp','02_hoc_tieng_han/tool-lesson-exercises.webp'],
+ speaking:['03_giao_tiep/topic-restaurant.webp','03_giao_tiep/topic-travel.webp','03_giao_tiep/topic-office.webp','04_topik/topic-skills.webp'],
+ topik:['02_hoc_tieng_han/tool-vocabulary.webp','02_hoc_tieng_han/tool-listening.webp','08_workbook/category-reading.webp'],
+ interview:['02_hoc_tieng_han/tool-speaking.webp','08_workbook/category-grammar.webp','01_trang_chu/feature-admission.webp'],
+ culture:['images/culture-v23-ai/truyen-thong/01.webp','01_trang_chu/feature-university-map.webp','03_giao_tiep/topic-dorm.webp'],
+ universities:['01_trang_chu/feature-admission.webp','02_hoc_tieng_han/level-01.webp','04_topik/topic-skills.webp'],
+ workbook:['08_workbook/category-grammar.webp','02_hoc_tieng_han/level-01.webp','09_ho_so_hoc_vien/topik.webp'],
+ profile:['02_hoc_tieng_han/level-01.webp','04_topik/practice-tests.webp','01_trang_chu/feature-admission.webp']
+};
+function v32Photo(kind,index,fallback){const candidate=(kind==='card'?V32_CARD:V32_TOOL)[cfg.id]?.[index];return candidate?(candidate.startsWith('images/')?candidate:V32_DIR+candidate):R+fallback;}
+function v32Hero(theme){return V32_DIR+V32_HERO[cfg.id]+'/hero-'+(theme==='future'?'future':'fresh')+'.webp';}
+
 const defs={
  'hoc-tieng-han.html':{
  id:'learning',eyebrow:'KOREAN LANGUAGE · GLOBAL FUTURE',title:'HỌC TIẾNG HÀN',lead:'Lộ trình từ Sơ cấp đến Cao cấp',description:'Học bài bản theo trình độ, ôn từ vựng và ngữ pháp, luyện nghe – nói và thực hành WORKBOOK theo bài.',
@@ -46,33 +72,6 @@ const defs={
  cards:[['Kết quả luyện tập','Điểm và lịch sử đã lưu','#attemptRows','learning-cap-3.webp'],['Tiến độ học tập','Nhật ký hoạt động','#eventRows','learning-cap-4.webp'],['WORKBOOK','Làm bài tập theo bài','mrlee-bai-tap-pro.html','learning-books.webp'],['Bảng xếp hạng','So sánh điểm động lực','bang-xep-hang.html','feature-6-thi-topik.webp']],
  tools:[['Tiếp tục học','hoc-tieng-han.html','learning-cap-1.webp'],['Luyện TOPIK','kiem-tra-topik.html','learning-cap-5.webp'],['Đăng nhập','dang-nhap.html','feature-5-hoc-tieng-han.webp']]}
 };
-
-/* V32: route each page card to existing thematic photographic assets. */
-const V32_DIR='assets/mrlee-ai/v3/';
-const V32_HERO={learning:'02_hoc_tieng_han',speaking:'03_giao_tiep',topik:'04_topik',interview:'05_phong_van',culture:'06_van_hoa',universities:'07_ban_do_dai_hoc',workbook:'08_workbook',profile:'09_ho_so_hoc_vien'};
-const V32_CARD={
- learning:Array.from({length:6},(_,i)=>'02_hoc_tieng_han/level-'+String(i+1).padStart(2,'0')+'.webp'),
- speaking:['03_giao_tiep/topic-dorm.webp'],
- topik:['04_topik/topic-skills.webp','04_topik/practice-tests.webp','04_topik/practice-tests.webp','04_topik/hero-fresh.webp','09_ho_so_hoc_vien/topik.webp'],
- interview:['05_phong_van/hero-fresh.webp','05_phong_van/hero-future.webp','03_giao_tiep/topic-office.webp','03_giao_tiep/topic-dorm.webp'],
- culture:['images/culture-v23-ai/am-thuc/01.webp','images/culture-v23-ai/le-hoi/01.webp','images/culture-v23-ai/doi-song/01.webp','images/culture-v28-safe/so-cap-cuu/01.svg'],
- universities:['07_ban_do_dai_hoc/campus-busan.webp','01_trang_chu/feature-university-map.webp','03_giao_tiep/topic-dorm.webp','01_trang_chu/feature-admission.webp'],
- workbook:['08_workbook/category-vocabulary.webp'],
- profile:['09_ho_so_hoc_vien/topik.webp','09_ho_so_hoc_vien/hero-fresh.webp','08_workbook/category-reading.webp','01_trang_chu/feature-leaderboard.webp']
-};
-const V32_TOOL={
- learning:['02_hoc_tieng_han/tool-vocabulary.webp','02_hoc_tieng_han/tool-listening.webp','02_hoc_tieng_han/tool-speaking.webp','02_hoc_tieng_han/tool-grammar.webp','02_hoc_tieng_han/tool-workbook.webp','02_hoc_tieng_han/tool-lesson-exercises.webp'],
- speaking:['03_giao_tiep/topic-restaurant.webp','03_giao_tiep/topic-travel.webp','03_giao_tiep/topic-office.webp','04_topik/topic-skills.webp'],
- topik:['02_hoc_tieng_han/tool-vocabulary.webp','02_hoc_tieng_han/tool-listening.webp','08_workbook/category-reading.webp'],
- interview:['02_hoc_tieng_han/tool-speaking.webp','08_workbook/category-grammar.webp','01_trang_chu/feature-admission.webp'],
- culture:['images/culture-v23-ai/truyen-thong/01.webp','01_trang_chu/feature-university-map.webp','03_giao_tiep/topic-dorm.webp'],
- universities:['01_trang_chu/feature-admission.webp','02_hoc_tieng_han/level-01.webp','04_topik/topic-skills.webp'],
- workbook:['08_workbook/category-grammar.webp','02_hoc_tieng_han/level-01.webp','09_ho_so_hoc_vien/topik.webp'],
- profile:['02_hoc_tieng_han/level-01.webp','04_topik/practice-tests.webp','01_trang_chu/feature-admission.webp']
-};
-function v32Photo(kind,index,fallback){const candidate=(kind==='card'?V32_CARD:V32_TOOL)[cfg.id]?.[index];return candidate?(candidate.startsWith('images/')?candidate:V32_DIR+candidate):R+fallback;}
-function v32Hero(theme){return V32_DIR+V32_HERO[cfg.id]+'/hero-'+(theme==='future'?'future':'fresh')+'.webp';}
-
 const cfg=defs[page];if(!cfg)return;
 // Only one destination launcher per actual target. Keep the first meaningful card.
 // Repeated #topicSection/#workLevel targets were decorative duplicates, not independent lessons.
