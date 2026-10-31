@@ -12,15 +12,17 @@ const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const DIR='images/culture-v20-hd/';
 const V21='images/culture-v21-new/';
+const V23='images/culture-v23-ai/';
+const NEW_V23=new Set(['le-hoi','am-thuc','truyen-thong','doi-song']);
 const REPLACED=new Set(['le-hoi','am-thuc','doi-song','so-cap-cuu','goi-cuu-ho','lac-duong','mat-vi','tau-dien-ngam','xe-buyt','benh-vien','hoa-hoan','mat-dien-thoai','an-toan-giao-thong']);
 const ORIGINAL='images/culture-v18-hd/';
 const CAPTIONS=window.MRLEE_CULTURE_V20_CAPTIONS||{};
 const FALLBACK='images/culture-v13/';
 const ID=new URLSearchParams(location.search).get('chu-de')||TOPICS[0];
 const safe=id=>TOPICS.includes(id)?id:null;
-const asset=(id,index)=>(REPLACED.has(id)?V21:DIR)+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=21.1';
+const asset=(id,index)=>(NEW_V23.has(id)?V23:(REPLACED.has(id)?V21:DIR))+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v='+(NEW_V23.has(id)?'23.0':'21.1');
 const backup=id=>FALLBACK+encodeURIComponent(id)+'.svg?v=20.0';
-const backupOriginal=(id,k)=>DIR+encodeURIComponent(id)+'/'+String(k).padStart(2,'0')+'.webp?v=21.1';
+const backupOriginal=(id,k)=>(REPLACED.has(id)?V21:DIR)+encodeURIComponent(id)+'/'+String(k).padStart(2,'0')+'.webp?v=21.1';
 const write=(parent,tag,klass,content)=>{const el=document.createElement(tag);if(klass)el.className=klass;if(content!==undefined)el.textContent=content;parent.append(el);return el};
 const safety=new Set(['so-cap-cuu','goi-cuu-ho','hoa-hoan','benh-vien','an-toan-giao-thong']);
 function load(img,id,k){
@@ -28,7 +30,7 @@ function load(img,id,k){
  const url=asset(id,k),alt='Ảnh AI minh họa '+k+'/5 — '+MEDIA[id].title;
  img.onerror=null;img.hidden=false;img.removeAttribute('style');
  img.loading=k===1?'eager':'lazy';img.decoding='async';
- img.alt=alt;img.dataset.mrleeCultureHd='21';
+ img.alt=alt;img.dataset.mrleeCultureHd='23';
  const fail=()=>{img.removeEventListener('error',fail);img.src=backupOriginal(id,k);img.alt='Minh họa AI gốc — '+MEDIA[id].title;img.addEventListener('error',()=>{img.src=backup(id);img.alt='Đồ họa dự phòng — '+MEDIA[id].title;img.classList.add('mrleeCultureVector')},{once:true});};
  img.addEventListener('error',fail,{once:true});
  if(img.getAttribute('src')!==url)img.src=url;
@@ -39,16 +41,16 @@ function covers(){
   let id=null;try{id=new URL(card.href,location.href).searchParams.get('chu-de')}catch{}
   if(!safe(id))return;
   const img=$('img',card);if(!img)return;
-  if(img.dataset.mrleeCultureHd==='21'&&img.getAttribute('src')===asset(id,1))return;
+  if(img.dataset.mrleeCultureHd==='23'&&img.getAttribute('src')===asset(id,1))return;
   load(img,id,1);
   img.loading=position<3?'eager':'lazy';
   img.fetchPriority=position<3?'high':'low';
   img.width=2040;img.height=1360;
   const old=$('.mr172AiTag',card);
   const countChip=$('.cultureV16TopicTag',card);
-  if(countChip)countChip.textContent='🖼 5 ảnh đồ họa mới';
-  if(old)old.textContent='Minh họa mới · V21';
-  else if(!$('.mrleeCultureTag',card))write($('.topicText',card)||card,'span','mrleeCultureTag','Minh họa mới · V21');
+  if(countChip)countChip.textContent='🖼 5 ảnh minh họa';
+  if(old)old.textContent='Minh họa AI · theo chủ đề';
+  else if(!$('.mrleeCultureTag',card))write($('.topicText',card)||card,'span','mrleeCultureTag','Minh họa AI · theo chủ đề');
  });
 }
 function hub(){
