@@ -1,0 +1,24 @@
+name: MR LEE Culture V28 safety art QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'images/culture-v28-safe/**'
+      - 'assets/culture/v28-manifest.json'
+      - 'mrlee-culture-v28-captions.js'
+      - 'mrlee-culture-hd-v19.js'
+      - 'van-hoa-han-quoc.html'
+      - 'van-hoa-bai-hoc.html'
+      - 'tools/check-culture-v28.mjs'
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tools/check-culture-v28.mjs
+      - run: node tools/check-culture-v27.mjs

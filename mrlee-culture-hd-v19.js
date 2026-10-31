@@ -17,6 +17,8 @@ const V24='images/culture-v24-ai/';
 const V25='images/culture-v25-ai/';
 const V26='images/culture-v26-ai/';
 const V27='images/culture-v27-art/';
+const V28='images/culture-v28-safe/';
+const NEW_V28=new Set(['so-cap-cuu','goi-cuu-ho']);
 const NEW_V27=new Set(['lich-su','hien-dai']);
 const NEW_V26=new Set(['cong-so','tro-choi']);
 const NEW_V25=new Set(['du-lich','kpop']);
@@ -30,21 +32,23 @@ const V24_CAPTIONS=window.MRLEE_CULTURE_V24_CAPTIONS||{};
 const V25_CAPTIONS=window.MRLEE_CULTURE_V25_CAPTIONS||{};
 const V26_CAPTIONS=window.MRLEE_CULTURE_V26_CAPTIONS||{};
 const V27_CAPTIONS=window.MRLEE_CULTURE_V27_CAPTIONS||{};
+const V28_CAPTIONS=window.MRLEE_CULTURE_V28_CAPTIONS||{};
 const FALLBACK='images/culture-v13/';
 const ID=new URLSearchParams(location.search).get('chu-de')||TOPICS[0];
 const safe=id=>TOPICS.includes(id)?id:null;
-const asset=(id,index)=>(NEW_V27.has(id)?V27:(NEW_V26.has(id)?V26:(NEW_V25.has(id)?V25:(NEW_V24.has(id)?V24:(NEW_V23.has(id)?V23:(REPLACED.has(id)?V21:DIR)))))) + encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v='+(NEW_V27.has(id)?'27.0':(NEW_V26.has(id)?'26.0':(NEW_V25.has(id)?'25.0':(NEW_V24.has(id)?'24.0':(NEW_V23.has(id)?'23.0':'21.1')))));
+const legacyAsset=(id,index)=>(NEW_V27.has(id)?V27:(NEW_V26.has(id)?V26:(NEW_V25.has(id)?V25:(NEW_V24.has(id)?V24:(NEW_V23.has(id)?V23:(REPLACED.has(id)?V21:DIR)))))) + encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v='+(NEW_V27.has(id)?'27.0':(NEW_V26.has(id)?'26.0':(NEW_V25.has(id)?'25.0':(NEW_V24.has(id)?'24.0':(NEW_V23.has(id)?'23.0':'21.1')))));
+const asset=(id,index)=>NEW_V28.has(id)?V28+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.svg?v=28.0':legacyAsset(id,index);
 const backup=id=>FALLBACK+encodeURIComponent(id)+'.svg?v=20.0';
 const backupOriginal=(id,k)=>(REPLACED.has(id)?V21:DIR)+encodeURIComponent(id)+'/'+String(k).padStart(2,'0')+'.webp?v=21.1';
 const write=(parent,tag,klass,content)=>{const el=document.createElement(tag);if(klass)el.className=klass;if(content!==undefined)el.textContent=content;parent.append(el);return el};
 const safety=new Set(['so-cap-cuu','goi-cuu-ho','hoa-hoan','benh-vien','an-toan-giao-thong']);
 function load(img,id,k){
  if(!img||!safe(id))return;
- const url=asset(id,k),alt=(NEW_V27.has(id)?'Đồ họa vector minh họa ':'Ảnh AI minh họa ')+k+'/5 — '+MEDIA[id].title;
+ const url=asset(id,k),alt=(NEW_V28.has(id)?'Đồ họa giáo dục an toàn ':NEW_V27.has(id)?'Đồ họa vector minh họa ':'Ảnh AI minh họa ')+k+'/5 — '+MEDIA[id].title;
  img.onerror=null;img.hidden=false;img.removeAttribute('style');
  img.loading=k===1?'eager':'lazy';img.decoding='async';
  img.alt=alt;img.dataset.mrleeCultureHd='27';
- const fail=()=>{img.removeEventListener('error',fail);img.src=backupOriginal(id,k);img.alt='Minh họa AI gốc — '+MEDIA[id].title;img.addEventListener('error',()=>{img.src=backup(id);img.alt='Đồ họa dự phòng — '+MEDIA[id].title;img.classList.add('mrleeCultureVector')},{once:true});};
+ const fail=()=>{img.removeEventListener('error',fail);img.src=backupOriginal(id,k);img.alt='Minh họa dự phòng — '+MEDIA[id].title;img.addEventListener('error',()=>{img.src=backup(id);img.alt='Đồ họa dự phòng — '+MEDIA[id].title;img.classList.add('mrleeCultureVector')},{once:true});};
  img.addEventListener('error',fail,{once:true});
  if(img.getAttribute('src')!==url)img.src=url;
 }
@@ -58,12 +62,12 @@ function covers(){
   load(img,id,1);
   img.loading=position<3?'eager':'lazy';
   img.fetchPriority=position<3?'high':'low';
-  img.width=NEW_V27.has(id)?1536:2040;img.height=NEW_V27.has(id)?1024:1360;
+  img.width=(NEW_V28.has(id)||NEW_V27.has(id))?1536:2040;img.height=(NEW_V28.has(id)||NEW_V27.has(id))?1024:1360;
   const old=$('.mr172AiTag',card);
   const countChip=$('.cultureV16TopicTag',card);
   if(countChip)countChip.textContent='🖼 5 ảnh minh họa';
-  if(old)old.textContent=NEW_V27.has(id)?'Đồ họa vector · rõ nét':'Minh họa AI · theo chủ đề';
-  else if(!$('.mrleeCultureTag',card))write($('.topicText',card)||card,'span','mrleeCultureTag',NEW_V27.has(id)?'Đồ họa vector · rõ nét':'Minh họa AI · theo chủ đề');
+  if(old)old.textContent=(NEW_V28.has(id)||NEW_V27.has(id))?'Đồ họa vector · rõ nét':'Minh họa AI · theo chủ đề';
+  else if(!$('.mrleeCultureTag',card))write($('.topicText',card)||card,'span','mrleeCultureTag',(NEW_V28.has(id)||NEW_V27.has(id))?'Đồ họa vector · rõ nét':'Minh họa AI · theo chủ đề');
  });
 }
 function hub(){
@@ -103,7 +107,7 @@ function lesson(){
  if(!section){
   section=document.createElement('section');section.id='cultureImagesV19';section.className='lessonBlock mrleeCulture19';
   write(section,'h2','','II. Bộ ảnh minh họa chất lượng cao');
-  write(section,'p','mrleeCultureLead','5 hình minh họa theo chủ đề: nhóm được phản ánh đã có bố cục và hình ảnh mới V21; các chủ đề khác vẫn dùng V20. Hình AI/đồ họa không phải ảnh tư liệu hay quy trình cấp cứu.');
+  write(section,'p','mrleeCultureLead','Mỗi chủ đề gồm 5 hình minh họa rõ nét; các nhóm được cập nhật theo từng đợt. Hình AI hoặc vector không phải ảnh tư liệu, và không thể thay thế đào tạo sơ cứu chuyên môn.');
   const gallery=write(section,'div','mrleeCultureGrid');
   for(let i=1;i<=5;i++){
    const fig=write(gallery,'figure','mrleeCultureFigure');
@@ -114,10 +118,10 @@ function lesson(){
    image.addEventListener('click',show);image.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();show()}});
    const cap=write(fig,'figcaption','');
    write(cap,'b','','Ảnh minh họa '+String(i).padStart(2,'0')+' / 05');
-   write(cap,'span','',V27_CAPTIONS[ID]?.[i-1]||V26_CAPTIONS[ID]?.[i-1]||V25_CAPTIONS[ID]?.[i-1]||V24_CAPTIONS[ID]?.[i-1]||V23_CAPTIONS[ID]?.[i-1]||CAPTIONS[ID]?.[i-1]||t.title);if(t.ko)write(cap,'small','',t.ko);
+   write(cap,'span','',V28_CAPTIONS[ID]?.[i-1]||V27_CAPTIONS[ID]?.[i-1]||V26_CAPTIONS[ID]?.[i-1]||V25_CAPTIONS[ID]?.[i-1]||V24_CAPTIONS[ID]?.[i-1]||V23_CAPTIONS[ID]?.[i-1]||CAPTIONS[ID]?.[i-1]||t.title);if(t.ko)write(cap,'small','',t.ko);
   }
   const caution=safety.has(ID)?
-   'Chú ý: AI có thể minh họa sai tư thế hoặc thiết bị an toàn. Hãy dựa vào hướng dẫn cơ quan chức năng; gọi 119/112 khi cần.':
+   'Lưu ý: hình vẽ chỉ phục vụ nhận biết tình huống, không hướng dẫn thao tác sơ cứu. Trong trường hợp khẩn cấp ở Hàn Quốc, gọi 119 (cứu hỏa/cấp cứu) hoặc 112 (cảnh sát).':
    'Hình do AI tạo, nhằm hỗ trợ học tập; không xác nhận địa điểm, sự kiện hoặc tập quán của mọi gia đình Hàn Quốc.';
   write(section,'p','mrleeCultureNotice',caution);
   const anchor=$('#read')||$('#how')||parent.firstElementChild;

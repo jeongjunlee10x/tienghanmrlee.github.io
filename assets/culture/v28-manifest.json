@@ -1,0 +1,119 @@
+{
+  "version": "28.0",
+  "batch": 7,
+  "total": 10,
+  "format": "SVG",
+  "resolution": "1536 x 1024 viewBox, vector-native",
+  "source": "original-ai-directed-programmatic-vector-illustrations",
+  "disclosure": "These images are original stylized vector illustrations, not photorealistic AI pictures, not documentary photos, and not step-by-step medical instructions.",
+  "topics": {
+    "so-cap-cuu": 5,
+    "goi-cuu-ho": 5
+  },
+  "emergencySources": [
+    "https://www.mois.go.kr/frt/sub/a06/b10/emergencycall/screen.do",
+    "https://english.visitkorea.or.kr/svc/contents/contentsView.do?menuSn=177&page=4&sContsTtl=&sort=regDt&vcontsId=248145"
+  ],
+  "images": [
+    {
+      "topic": "so-cap-cuu",
+      "index": 1,
+      "title": "Lớp thực hành CPR với mô hình đào tạo",
+      "sub": "Nhận biết lớp tập huấn và học theo hướng dẫn chuyên gia",
+      "path": "images/culture-v28-safe/so-cap-cuu/01.svg",
+      "width": 1536,
+      "height": 1024,
+      "bytesUtf8": 8628
+    },
+    {
+      "topic": "so-cap-cuu",
+      "index": 2,
+      "title": "Thiết bị AED trong môi trường học tập",
+      "sub": "Tìm hiểu vị trí thiết bị và quy trình tập huấn",
+      "path": "images/culture-v28-safe/so-cap-cuu/02.svg",
+      "width": 1536,
+      "height": 1024,
+      "bytesUtf8": 8629
+    },
+    {
+      "topic": "so-cap-cuu",
+      "index": 3,
+      "title": "Bộ đồ dùng sơ cứu cơ bản",
+      "sub": "Chuẩn bị túi dụng cụ và học cách nhận biết vật dụng",
+      "path": "images/culture-v28-safe/so-cap-cuu/03.svg",
+      "width": 1536,
+      "height": 1024,
+      "bytesUtf8": 7407
+    },
+    {
+      "topic": "so-cap-cuu",
+      "index": 4,
+      "title": "Buổi hướng dẫn an toàn tại lớp",
+      "sub": "Học cách bình tĩnh, tìm hỗ trợ và ghi nhớ số cần gọi",
+      "path": "images/culture-v28-safe/so-cap-cuu/04.svg",
+      "width": 1536,
+      "height": 1024,
+      "bytesUtf8": 8726
+    },
+    {
+      "topic": "so-cap-cuu",
+      "index": 5,
+      "title": "Các bước chuẩn bị giúp đỡ an toàn",
+      "sub": "Quan sát tình huống, liên hệ hỗ trợ và học kỹ năng chuẩn",
+      "path": "images/culture-v28-safe/so-cap-cuu/05.svg",
+      "width": 1536,
+      "height": 1024,
+      "bytesUtf8": 9722
+    },
+    {
+      "topic": "goi-cuu-ho",
+      "index": 1,
+      "title": "Gọi 119 khi cần cứu hỏa hoặc cấp cứu",
+      "sub": "Số khẩn cấp 119 tại Hàn Quốc",
+      "path": "images/culture-v28-safe/goi-cuu-ho/01.svg",
+      "width": 1536,
+      "height": 1024,
+      "bytesUtf8": 7097
+    },
+    {
+      "topic": "goi-cuu-ho",
+      "index": 2,
+      "title": "Gọi 112 để liên hệ cảnh sát Hàn Quốc",
+      "sub": "Số khẩn cấp 112 của lực lượng cảnh sát",
+      "path": "images/culture-v28-safe/goi-cuu-ho/02.svg",
+      "width": 1536,
+      "height": 1024,
+      "bytesUtf8": 7071
+    },
+    {
+      "topic": "goi-cuu-ho",
+      "index": 3,
+      "title": "Nói rõ vị trí khi liên hệ cứu hộ",
+      "sub": "Đọc tên đường, tòa nhà hoặc địa điểm gần nhất",
+      "path": "images/culture-v28-safe/goi-cuu-ho/03.svg",
+      "width": 1536,
+      "height": 1024,
+      "bytesUtf8": 6712
+    },
+    {
+      "topic": "goi-cuu-ho",
+      "index": 4,
+      "title": "Nhân viên trực tổng đài hỗ trợ",
+      "sub": "Bình tĩnh trình bày sự việc và nghe hướng dẫn",
+      "path": "images/culture-v28-safe/goi-cuu-ho/04.svg",
+      "width": 1536,
+      "height": 1024,
+      "bytesUtf8": 8512
+    },
+    {
+      "topic": "goi-cuu-ho",
+      "index": 5,
+      "title": "Đội ngũ hỗ trợ và xe cứu hộ",
+      "sub": "Nhận diện nhân viên hỗ trợ chuyên trách ở Hàn Quốc",
+      "path": "images/culture-v28-safe/goi-cuu-ho/05.svg",
+      "width": 1536,
+      "height": 1024,
+      "bytesUtf8": 8725
+    }
+  ]
+}
