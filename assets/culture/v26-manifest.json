@@ -1,0 +1,198 @@
+{
+  "version": "26.0",
+  "batch": 5,
+  "total": 10,
+  "topics": {
+    "cong-so": 5,
+    "tro-choi": 5
+  },
+  "disclaimer": "AI conceptual illustrations, not real photographs. Ten cells isolated from one AI-generated 2x5 montage and feather blended on a blurred extended background. Final exports 1536x1024 but source scene width is approximately 300px, not native 1536px detail. Fictional people and sports.",
+  "labels": {
+    "cong-so": [
+      "Chào hỏi đồng nghiệp tại văn phòng",
+      "Họp nhóm và trình bày kết quả công việc",
+      "Sử dụng máy tính và soạn email công việc",
+      "An toàn lao động và phối hợp trong nhà máy",
+      "Người quản lý hướng dẫn nhân viên mới"
+    ],
+    "tro-choi": [
+      "Chơi Yutnori trong trang phục hanbok",
+      "Biểu diễn Taekwondo tại nhà thi đấu",
+      "Thi đấu bóng đá trên sân cỏ",
+      "Đi bộ đường dài và khám phá thiên nhiên",
+      "Trượt tuyết tại khu nghỉ dưỡng mùa đông"
+    ]
+  },
+  "images": [
+    {
+      "topic": "cong-so",
+      "index": 1,
+      "file": "images/culture-v26-ai/cong-so/01.webp",
+      "caption": "Chào hỏi đồng nghiệp tại văn phòng",
+      "alt": "Korean office greeting; AI generated characters",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 74212,
+      "sha256": "6b7945048bccd3e4624e1062141597d35415f71027b7ced47a950a5cb1664f28",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        302,
+        468
+      ],
+      "background": "blurred-extended-scene"
+    },
+    {
+      "topic": "cong-so",
+      "index": 2,
+      "file": "images/culture-v26-ai/cong-so/02.webp",
+      "caption": "Họp nhóm và trình bày kết quả công việc",
+      "alt": "Korean teamwork in a modern office",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 78834,
+      "sha256": "cc6c6500e189140c46aa3c678e230d65a4156e2c7e997383df5129d976d0d737",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        303,
+        468
+      ],
+      "background": "blurred-extended-scene"
+    },
+    {
+      "topic": "cong-so",
+      "index": 3,
+      "file": "images/culture-v26-ai/cong-so/03.webp",
+      "caption": "Sử dụng máy tính và soạn email công việc",
+      "alt": "Employee working on laptop",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 68374,
+      "sha256": "427d9912695c2580a9ada6518a793251da8ba4509bec6dc1fdf8ddb76a7581bb",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        299,
+        468
+      ],
+      "background": "blurred-extended-scene"
+    },
+    {
+      "topic": "cong-so",
+      "index": 4,
+      "file": "images/culture-v26-ai/cong-so/04.webp",
+      "caption": "An toàn lao động và phối hợp trong nhà máy",
+      "alt": "Workers in safety gear discuss work",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 87030,
+      "sha256": "21bc23fe184bc6ca22f4d60587eeb35f65daaaa67156c33665c6e50dfb22822d",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        303,
+        468
+      ],
+      "background": "blurred-extended-scene"
+    },
+    {
+      "topic": "cong-so",
+      "index": 5,
+      "file": "images/culture-v26-ai/cong-so/05.webp",
+      "caption": "Người quản lý hướng dẫn nhân viên mới",
+      "alt": "Mentoring conversation in office",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 76270,
+      "sha256": "fc5f76c0eae3baab3b2cd6382d2ce72cc7c6186a2811ed675d68f31f21fd56eb",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        301,
+        468
+      ],
+      "background": "blurred-extended-scene"
+    },
+    {
+      "topic": "tro-choi",
+      "index": 1,
+      "file": "images/culture-v26-ai/tro-choi/01.webp",
+      "caption": "Chơi Yutnori trong trang phục hanbok",
+      "alt": "People playing yutnori in hanbok",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 148618,
+      "sha256": "0619639c1ae0e2db7459aece354c40769e5ab425b19be2c1d200558daea987a2",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        302,
+        538
+      ],
+      "background": "blurred-extended-scene"
+    },
+    {
+      "topic": "tro-choi",
+      "index": 2,
+      "file": "images/culture-v26-ai/tro-choi/02.webp",
+      "caption": "Biểu diễn Taekwondo tại nhà thi đấu",
+      "alt": "Taekwondo sporting demonstration",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 79584,
+      "sha256": "2807a1224a39bd3a47295624946c2b8f1df28684c292faa962922e3581b615e3",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        303,
+        538
+      ],
+      "background": "blurred-extended-scene"
+    },
+    {
+      "topic": "tro-choi",
+      "index": 3,
+      "file": "images/culture-v26-ai/tro-choi/03.webp",
+      "caption": "Thi đấu bóng đá trên sân cỏ",
+      "alt": "Football match, fictional players",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 106030,
+      "sha256": "424d108efd03d912d5e48a4c363d53d12e07be10ae4d76ebc4b738d84ebf0612",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        299,
+        538
+      ],
+      "background": "blurred-extended-scene"
+    },
+    {
+      "topic": "tro-choi",
+      "index": 4,
+      "file": "images/culture-v26-ai/tro-choi/04.webp",
+      "caption": "Đi bộ đường dài và khám phá thiên nhiên",
+      "alt": "Hiking as outdoor recreation",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 166682,
+      "sha256": "2cead42e97f7b3d5407012e3161ca3d6d028440289ae512ba6ca79db128c0181",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        303,
+        538
+      ],
+      "background": "blurred-extended-scene"
+    },
+    {
+      "topic": "tro-choi",
+      "index": 5,
+      "file": "images/culture-v26-ai/tro-choi/05.webp",
+      "caption": "Trượt tuyết tại khu nghỉ dưỡng mùa đông",
+      "alt": "Recreational winter snowboarding",
+      "width": 1536,
+      "height": 1024,
+      "bytes": 108322,
+      "sha256": "e593af3de5dd0d98cecf10f9845a8f8db0d4786681f8889900dd12266d14407d",
+      "source": "isolated-scene-from-AI-montage",
+      "native_scene_size": [
+        301,
+        538
+      ],
+      "background": "blurred-extended-scene"
+    }
+  ]
+}
