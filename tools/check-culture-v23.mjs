@@ -46,6 +46,6 @@ assert(engine.includes('V23_CAPTIONS[ID]?.[i-1]'),'New captions not used');
 for(const page of ['van-hoa-han-quoc.html','van-hoa-bai-hoc.html']){
  const html=fs.readFileSync(page,'utf8');
  assert(html.includes('mrlee-culture-v23-captions.js'),'Captions script missing: '+page);
- assert(html.includes('mrlee-culture-hd-v19.js?v=20261031-v23'),'Cache version missing: '+page);
+ assert(/mrlee-culture-hd-v19\.js\?v=20261031-v2[34]/.test(html),'Culture engine cache version missing: '+page);
 }
 console.log('PASS: 4 topics, 20 images, 1536x1024 WebP, unique SHA-256, image mapping, captions and syntax.');
