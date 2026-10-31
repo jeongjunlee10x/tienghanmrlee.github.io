@@ -10,7 +10,7 @@ const V32_HERO={learning:'02_hoc_tieng_han',speaking:'03_giao_tiep',topik:'04_to
 const V32_CARD={
  learning:Array.from({length:6},(_,i)=>'02_hoc_tieng_han/level-'+String(i+1).padStart(2,'0')+'.webp'),
  speaking:['03_giao_tiep/topic-dorm.webp'],
- topik:['04_topik/topic-skills.webp','04_topik/practice-tests.webp','04_topik/practice-tests.webp','04_topik/hero-fresh.webp','09_ho_so_hoc_vien/topik.webp'],
+ topik:['04_topik/topic-skills.webp','04_topik/practice-tests.webp','04_topik/hero-future.webp','04_topik/hero-fresh.webp','09_ho_so_hoc_vien/topik.webp'],
  interview:['05_phong_van/hero-fresh.webp','05_phong_van/hero-future.webp','03_giao_tiep/topic-office.webp','03_giao_tiep/topic-dorm.webp'],
  culture:['images/culture-v23-ai/am-thuc/01.webp','images/culture-v23-ai/le-hoi/01.webp','images/culture-v23-ai/doi-song/01.webp','images/culture-v28-safe/so-cap-cuu/01.svg'],
  universities:['07_ban_do_dai_hoc/campus-busan.webp','01_trang_chu/feature-university-map.webp','03_giao_tiep/topic-dorm.webp','01_trang_chu/feature-admission.webp'],
