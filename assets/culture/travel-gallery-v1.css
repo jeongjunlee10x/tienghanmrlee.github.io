@@ -31,5 +31,5 @@ html[data-mrlee-theme="future"] #cultureImagesV19Topic7 .mrleeCultureNotice{back
 @media(max-width:700px){#cultureImagesV19Topic7 .mrleeCultureGrid{grid-template-columns:minmax(0,1fr)!important}#cultureImagesV19Topic7 .mrleeCultureFigure:first-child{grid-column:auto!important}}
 
 #cultureImagesV19Topic7 .mrleeTravelCredit{display:block;font-size:11px;line-height:1.55;opacity:.92;color:#3c627e;margin-top:7px}
-#cultureImagesV19Topic7 .mrleeTravelCredit a{color:inherit;text-decoration:underline;font-weight:700}
+#cultureImagesV19Topic7 .mrleeTravelCredit a{display:inline!important;line-height:inherit!important;background:none!important;color:inherit;text-decoration:underline;font-weight:700}
 html[data-mrlee-theme="future"] #cultureImagesV19Topic7 .mrleeTravelCredit{color:#c2e1f5}
