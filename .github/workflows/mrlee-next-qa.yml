@@ -166,7 +166,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Kiểm tra Git gọn: không ZIP/installer ở root, giữ nguyên tài nguyên học và trang chủ
+      - name: "Kiểm tra Git gọn: không ZIP/installer ở root, giữ nguyên tài nguyên học và trang chủ"
         run: node tools/audit-repo-hygiene.mjs
       - name: Kiểm toán kích thước ảnh toàn website
         run: node tools/audit-image-quality.mjs
