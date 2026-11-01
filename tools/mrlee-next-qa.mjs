@@ -48,9 +48,17 @@ if(admin.includes('Tiếng HÃ n'))errors.push('ADMIN TITLE MOJIBAKE');
 const ctxScript=exists('assets/mrlee-v2/experience.js')?fs.readFileSync('assets/mrlee-v2/experience.js','utf8'):'';
 for(const x of ['index.html','hoc-tieng-han.html','giao-tiep-theo-chu-de.html','kiem-tra-topik.html','mrlee-bai-tap-pro.html','giao-tiep-phong-van.html','van-hoa-han-quoc.html','ban-do-dai-hoc-han-quoc.html','trung-tam-hoc-vien.html','dang-ky-tu-van.html'])if(!ctxScript.includes("'"+x+"'"))errors.push('V2 EXPERIENCE ROUTE: '+x);
 for(const x of ['assets/mrlee-v2/experience.css','assets/mrlee-v2/experience.js'])if(!theme.includes(x))errors.push('THEME NOT WIRED: '+x);
+// The university map has its own V3 layout and deliberately no longer
+// loads the legacy experience.js menu injector. The consultation form
+// remains on its original standalone layout until redesigned.
 for(const p of ['ban-do-dai-hoc-han-quoc.html','dang-ky-tu-van.html']){
  const html=exists(p)?fs.readFileSync(p,'utf8'):'';
- for(const x of ['assets/mrlee-v2/experience.css','assets/mrlee-v2/experience.js','assets/mrlee-v2/primary-nav.css'])if(!html.includes(x))errors.push('STANDALONE DESIGN MISSING: '+p+' -> '+x);
+ const required=p==='ban-do-dai-hoc-han-quoc.html'
+  ? ['assets/mrlee-ui2027/workspaces-v3.css','assets/mrlee-ui2027/workspaces-v3.js','assets/mrlee-next/university-map.js','assets/mrlee-geo/university-admin-map.js']
+  : ['assets/mrlee-v2/experience.css','assets/mrlee-v2/experience.js','assets/mrlee-v2/primary-nav.css'];
+ for(const x of required)if(!html.includes(x))errors.push('STANDALONE DESIGN MISSING: '+p+' -> '+x);
+ if(p==='ban-do-dai-hoc-han-quoc.html' && html.includes('assets/mrlee-v2/experience.js'))
+  errors.push('MAP STILL LOADS DUPLICATE LEGACY MENU');
 }
 const consultJs=exists('assets/mrlee-next/consultation.js')?fs.readFileSync('assets/mrlee-next/consultation.js','utf8'):'';
 if(!consultJs.includes('server-issued reference'))errors.push('CONSULT RECEIPT MISSING');
