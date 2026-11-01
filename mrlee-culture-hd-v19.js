@@ -23,6 +23,8 @@ const V35='images/culture-v35-photo/';
 const V36='images/culture-v36-photo/';
 const V37='images/culture-v37-photo/';
 const V38='images/culture-v38-photo/';
+const V44='images/culture-v44-photo/';
+const NEW_V44=new Set(['an-toan-giao-thong']);
 const V43='images/culture-v43-photo/';
 const NEW_V43=new Set(['mat-dien-thoai']);
 const V42='images/culture-v42-photo/';
@@ -66,7 +68,7 @@ const FALLBACK='images/culture-v13/';
 const ID=new URLSearchParams(location.search).get('chu-de')||TOPICS[0];
 const safe=id=>TOPICS.includes(id)?id:null;
 const legacyAsset=(id,index)=>(NEW_V27.has(id)?V27:(NEW_V26.has(id)?V26:(NEW_V25.has(id)?V25:(NEW_V24.has(id)?V24:(NEW_V23.has(id)?V23:(REPLACED.has(id)?V21:DIR)))))) + encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v='+(NEW_V27.has(id)?'27.0':(NEW_V26.has(id)?'26.0':(NEW_V25.has(id)?'25.0':(NEW_V24.has(id)?'24.0':(NEW_V23.has(id)?'23.0':'21.1')))));
-const asset=(id,index)=>NEW_V43.has(id)?V43+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=43.0':NEW_V42.has(id)?V42+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=42.0':NEW_V41.has(id)?V41+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=41.0':NEW_V40.has(id)?V40+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=40.0':NEW_V39.has(id)?V39+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=39.0':NEW_V38.has(id)?V38+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=38.0':NEW_V37.has(id)?V37+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=37.1':NEW_V36.has(id)?V36+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=36.0':NEW_V35.has(id)?V35+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=35.0':NEW_V34.has(id)?V34+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=34.0':NEW_V33.has(id)?V33+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=33.0':NEW_V32.has(id)?V32+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=32.0':NEW_V31.has(id)?V31+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=31.0':NEW_V29.has(id)?V29+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=29.0':NEW_V28.has(id)?V28+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.svg?v=28.0':legacyAsset(id,index);
+const asset=(id,index)=>NEW_V44.has(id)?V44+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=44.0':NEW_V43.has(id)?V43+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=43.0':NEW_V42.has(id)?V42+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=42.0':NEW_V41.has(id)?V41+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=41.0':NEW_V40.has(id)?V40+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=40.0':NEW_V39.has(id)?V39+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=39.0':NEW_V38.has(id)?V38+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=38.0':NEW_V37.has(id)?V37+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=37.1':NEW_V36.has(id)?V36+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=36.0':NEW_V35.has(id)?V35+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=35.0':NEW_V34.has(id)?V34+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=34.0':NEW_V33.has(id)?V33+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=33.0':NEW_V32.has(id)?V32+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=32.0':NEW_V31.has(id)?V31+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=31.0':NEW_V29.has(id)?V29+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=29.0':NEW_V28.has(id)?V28+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.svg?v=28.0':legacyAsset(id,index);
 const backup=id=>FALLBACK+encodeURIComponent(id)+'.svg?v=20.0';
 const backupOriginal=(id,k)=>(REPLACED.has(id)?V21:DIR)+encodeURIComponent(id)+'/'+String(k).padStart(2,'0')+'.webp?v=21.1';
 const write=(parent,tag,klass,content)=>{const el=document.createElement(tag);if(klass)el.className=klass;if(content!==undefined)el.textContent=content;parent.append(el);return el};
@@ -76,7 +78,7 @@ function load(img,id,k){
  const url=asset(id,k),sceneCaption=((id==='so-cap-cuu'||id==='goi-cuu-ho')?V28_CAPTIONS[id]?.[k-1]:(id==='lich-su'||id==='hien-dai')?V27_CAPTIONS[id]?.[k-1]:(id==='cong-so'||id==='tro-choi')?V26_CAPTIONS[id]?.[k-1]:(id==='du-lich'||id==='kpop')?V25_CAPTIONS[id]?.[k-1]:(id==='phe-lich-su'||id==='giao-duc')?V24_CAPTIONS[id]?.[k-1]:(id==='am-thuc'||id==='truyen-thong'||id==='doi-song')?V23_CAPTIONS[id]?.[k-1]:null),alt=sceneCaption?(NEW_V38.has(id)?'Ảnh chụp dịch vụ khẩn cấp ':NEW_V37.has(id)?'Ảnh chụp buổi tập huấn CPR ':'Ảnh AI theo chủ đề ')+k+'/5: '+sceneCaption:(NEW_V29.has(id)?'Ảnh AI tái hiện chân thực ':NEW_V28.has(id)?'Đồ họa giáo dục an toàn ':NEW_V27.has(id)?'Đồ họa vector minh họa ':'Ảnh AI minh họa ')+k+'/5 — '+MEDIA[id].title;
  img.onerror=null;img.hidden=false;img.removeAttribute('style');
  img.loading=k===1?'eager':'lazy';img.decoding='async';
- img.alt=alt;img.dataset.mrleeCultureHd='27';
+ img.alt=NEW_V44.has(id)?'Ảnh chụp thật tại Hàn Quốc '+k+'/5 — '+MEDIA[id].title:alt;img.dataset.mrleeCultureHd='27';
  const fail=()=>{img.removeEventListener('error',fail);img.src=backupOriginal(id,k);img.alt='Minh họa dự phòng — '+MEDIA[id].title;img.addEventListener('error',()=>{img.src=backup(id);img.alt='Đồ họa dự phòng — '+MEDIA[id].title;img.classList.add('mrleeCultureVector')},{once:true});};
  img.addEventListener('error',fail,{once:true});
  if(img.getAttribute('src')!==url)img.src=url;
@@ -91,11 +93,11 @@ function covers(){
   load(img,id,id==='le-hoi'?2:1);
   img.loading=position<3?'eager':'lazy';
   img.fetchPriority=position<3?'high':'low';
-  img.width=(NEW_V39.has(id)||NEW_V29.has(id)||NEW_V28.has(id)||NEW_V27.has(id)||NEW_V23.has(id))?1536:2040;img.height=(NEW_V39.has(id)||NEW_V29.has(id)||NEW_V28.has(id)||NEW_V27.has(id)||NEW_V23.has(id))?1024:1360;
+  img.width=(NEW_V44.has(id)||NEW_V39.has(id)||NEW_V29.has(id)||NEW_V28.has(id)||NEW_V27.has(id)||NEW_V23.has(id))?1536:2040;img.height=(NEW_V39.has(id)||NEW_V29.has(id)||NEW_V28.has(id)||NEW_V27.has(id)||NEW_V23.has(id))?1024:1360;
   const old=$('.mr172AiTag',card);
   const countChip=$('.cultureV16TopicTag',card);
   if(countChip)countChip.textContent='🖼 5 ảnh minh họa';
-  if(old)old.textContent=NEW_V29.has(id)?'Ảnh AI chân thực · theo tình huống':(NEW_V28.has(id)||NEW_V27.has(id))?'Đồ họa vector · rõ nét':'Minh họa AI · theo chủ đề';
+  if(old)old.textContent=NEW_V44.has(id)?'Ảnh chụp thực tế · có nguồn giấy phép':NEW_V29.has(id)?'Ảnh AI chân thực · theo tình huống':(NEW_V28.has(id)||NEW_V27.has(id))?'Đồ họa vector · rõ nét':'Minh họa AI · theo chủ đề';
   else if(!$('.mrleeCultureTag',card))write($('.topicText',card)||card,'span','mrleeCultureTag',NEW_V29.has(id)?'Ảnh AI chân thực · theo tình huống':(NEW_V28.has(id)||NEW_V27.has(id))?'Đồ họa vector · rõ nét':'Minh họa AI · theo chủ đề');
  });
 }
@@ -133,12 +135,12 @@ function lesson(){
  for(const id of ['cultureImagesV16','cultureImagesV17','cultureImagesV172','mrleeAiPhotos','realPhotos'])document.getElementById(id)?.remove();
  const legacy=$('#image');if(legacy)legacy.hidden=true;
  // Topic-specific, pre-rendered HTML galleries for topics 03–14: leave these intact.
- const staticGallery=ID==='truyen-thong'?$('#cultureImagesV19Topic3'):ID==='doi-song'?$('#cultureImagesV19Topic4'):ID==='phe-lich-su'?$('#cultureImagesV19Topic5'):ID==='giao-duc'?$('#cultureImagesV19Topic6'):ID==='du-lich'?$('#cultureImagesV19Topic7'):ID==='kpop'?$('#cultureImagesV19Topic8'):ID==='cong-so'?$('#cultureImagesV19Topic9'):ID==='tro-choi'?$('#cultureImagesV19Topic10'):ID==='lich-su'?$('#cultureImagesV19Topic11'):ID==='hien-dai'?$('#cultureImagesV19Topic12'):ID==='so-cap-cuu'?$('#cultureImagesV19Topic13'):ID==='goi-cuu-ho'?$('#cultureImagesV19Topic14'):ID==='lac-duong'?$('#cultureImagesV19Topic15'):ID==='mat-vi'?$('#cultureImagesV19Topic16'):ID==='tau-dien-ngam'?$('#cultureImagesV19Topic17'):ID==='xe-buyt'?$('#cultureImagesV19Topic18'):ID==='benh-vien'?$('#cultureImagesV19Topic19'):ID==='hoa-hoan'?$('#cultureImagesV19Topic20'):ID==='mat-dien-thoai'?$('#cultureImagesV19Topic21'):null;
+ const staticGallery=ID==='truyen-thong'?$('#cultureImagesV19Topic3'):ID==='doi-song'?$('#cultureImagesV19Topic4'):ID==='phe-lich-su'?$('#cultureImagesV19Topic5'):ID==='giao-duc'?$('#cultureImagesV19Topic6'):ID==='du-lich'?$('#cultureImagesV19Topic7'):ID==='kpop'?$('#cultureImagesV19Topic8'):ID==='cong-so'?$('#cultureImagesV19Topic9'):ID==='tro-choi'?$('#cultureImagesV19Topic10'):ID==='lich-su'?$('#cultureImagesV19Topic11'):ID==='hien-dai'?$('#cultureImagesV19Topic12'):ID==='so-cap-cuu'?$('#cultureImagesV19Topic13'):ID==='goi-cuu-ho'?$('#cultureImagesV19Topic14'):ID==='lac-duong'?$('#cultureImagesV19Topic15'):ID==='mat-vi'?$('#cultureImagesV19Topic16'):ID==='tau-dien-ngam'?$('#cultureImagesV19Topic17'):ID==='xe-buyt'?$('#cultureImagesV19Topic18'):ID==='benh-vien'?$('#cultureImagesV19Topic19'):ID==='hoa-hoan'?$('#cultureImagesV19Topic20'):ID==='mat-dien-thoai'?$('#cultureImagesV19Topic21'):ID==='an-toan-giao-thong'?$('#cultureImagesV19Topic22'):null;
  if(staticGallery){
   $('#cultureImagesV19.mrleeFoodStatic')?.remove();
   const hero=$('#topicHero img');if(hero)load(hero,ID,1);
   for(const a of $$('.sidePanel a[href="#image"],.sidePanel a[href="#cultureImagesV16"],.sidePanel a[href="#cultureImagesV17"]')){
-   a.href='#'+staticGallery.id;a.textContent=(ID==='xe-buyt'||ID==='benh-vien'||ID==='hoa-hoan'||ID==='mat-dien-thoai')?'5 ảnh chụp thực tế HD':'5 ảnh minh họa HD';
+   a.href='#'+staticGallery.id;a.textContent=(ID==='xe-buyt'||ID==='benh-vien'||ID==='hoa-hoan'||ID==='mat-dien-thoai'||ID==='an-toan-giao-thong')?'5 ảnh chụp thực tế HD':'5 ảnh minh họa HD';
   }
   return;
  }
