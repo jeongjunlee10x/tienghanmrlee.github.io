@@ -54,6 +54,10 @@ on:
       - 'admin.html'
       - 'tools/mrlee-next-qa.mjs'
       - 'tools/check-mrlee-smart.mjs'
+      - 'tools/check-site.mjs'
+      - 'tools/check-home-overlay.mjs'
+      - 'tools/check-ranking-layout.mjs'
+      - 'tools/check-theme-entry.mjs'
       - 'tools/check-mrlee-v4.mjs'
       - 'tools/check-mrlee-v5.mjs'
       - 'tools/check-mrlee-ai-v2-direct.mjs'
@@ -61,6 +65,10 @@ on:
       - 'tools/PUSH_ASSETS_MRLEE_V3.ps1'
       - 'tools/audit-full-site.mjs'
       - 'tools/check-mrlee-smart.mjs'
+      - 'tools/check-site.mjs'
+      - 'tools/check-home-overlay.mjs'
+      - 'tools/check-ranking-layout.mjs'
+      - 'tools/check-theme-entry.mjs'
       - '.github/workflows/mrlee-next-qa.yml'
   push:
     branches: [main]
