@@ -10,7 +10,8 @@ const routes=[
   ['hoc-tieng-han.html','learning',6],
   ['giao-tiep-phong-van.html','talk',4],
   ['kiem-tra-topik.html','topik',5],
-  ['mrlee-bai-tap-pro.html','workbook',0]
+  ['mrlee-bai-tap-pro.html','workbook',0],
+  ['van-hoa-han-quoc.html','culture',22]
 ];
 for(const [file,kind,count] of routes){
  for(const theme of ['fresh','future']){
@@ -26,7 +27,20 @@ for(const [file,kind,count] of routes){
    }));
    const page=await context.newPage();
    await page.goto('http://127.0.0.1:8765/'+file,{waitUntil:'domcontentloaded',timeout:60000});
-   if(kind==='workbook'){
+   if(kind==='culture'){
+    const visual=page.locator('.mr27-culture-visual');
+    await visual.waitFor({state:'visible',timeout:20000});
+    await page.waitForFunction(()=>document.querySelectorAll('#topics a.topic').length===22,null,{timeout:30000});
+    const all=await page.locator('#topics a.topic').count();
+    assert.equal(all,22,'Culture list lost topics');
+    await page.locator('[data-filter="life"]').click();
+    await page.waitForFunction(()=>document.querySelectorAll('#topics a.topic').length===10);
+    await page.locator('[data-filter="culture"]').click();
+    await page.waitForFunction(()=>document.querySelectorAll('#topics a.topic').length===12);
+    await page.locator('[data-filter="all"]').click();
+    await page.waitForFunction(()=>document.querySelectorAll('#topics a.topic').length===22);
+    await page.locator('main.wrap > .hero').screenshot({path:'artifacts/subv2-'+kind+'-'+theme+'-'+viewport+'.png'});
+   }else if(kind==='workbook'){
     const intro=page.locator('.mrlee27-workintro');
     await intro.waitFor({state:'visible',timeout:20000});
     assert(await page.locator('#workLevel').isVisible(),'Workbook level input');
