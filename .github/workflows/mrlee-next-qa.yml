@@ -53,6 +53,11 @@ on:
       - 'tools/check-brand-consistency.mjs'
       - 'admin.html'
       - 'tools/mrlee-next-qa.mjs'
+      - 'tools/audit-repo-hygiene.mjs'
+      - 'README.md'
+      - '.gitignore'
+      - 'docs/GIT_REPO_STRUCTURE_2026-11-02.md'
+      - 'archive/**'
       - 'tools/check-mrlee-smart.mjs'
       - 'tools/check-site.mjs'
       - 'tools/check-home-overlay.mjs'
@@ -122,6 +127,11 @@ on:
       - 'tools/test-learning-tracker-auth.cjs'
       - 'tuyen-sinh.html'
       - 'tools/mrlee-next-qa.mjs'
+      - 'tools/audit-repo-hygiene.mjs'
+      - 'README.md'
+      - '.gitignore'
+      - 'docs/GIT_REPO_STRUCTURE_2026-11-02.md'
+      - 'archive/**'
       - 'tools/check-mrlee-v4.mjs'
       - 'tools/check-mrlee-v5.mjs'
       - 'tools/check-mrlee-ai-v2-direct.mjs'
@@ -156,6 +166,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Kiểm tra Git gọn: không ZIP/installer ở root, giữ nguyên tài nguyên học và trang chủ
+        run: node tools/audit-repo-hygiene.mjs
       - name: Kiểm toán kích thước ảnh toàn website
         run: node tools/audit-image-quality.mjs
       - name: Kiểm tra bộ dữ liệu địa giới và ký túc xá
