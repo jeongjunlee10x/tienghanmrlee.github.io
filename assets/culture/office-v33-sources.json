@@ -1,0 +1,64 @@
+{
+  "version": "33.0",
+  "topic": "cong-so",
+  "type": "documentary-photographs",
+  "note": "Actual events are not generic corporate office meetings; descriptions reflect real contexts; education explanation can refer to broader work skills without misrepresenting photographed activity.",
+  "processing": "Landscape 3:2 from actual originals, 1536x1024 WebP, no enlarged portrait montage, preserve credits",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Trao đổi và lắng nghe tại văn phòng Wikimedia Korea",
+      "filename": "Wikimedia Sharing Session in Wikimedia Korea Office 07.jpg",
+      "author": "Qhairy",
+      "licence": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Wikimedia_Sharing_Session_in_Wikimedia_Korea_Office_07.jpg",
+      "original_width": 4000,
+      "original_height": 3000
+    },
+    {
+      "index": 2,
+      "title": "Họp phối hợp giữa các cơ quan tại Hàn Quốc",
+      "filename": "Meeting to Review Safety Systems of the MAFRA and its Affiliated Organizations (25101002).jpg",
+      "author": "Ministry of Agriculture, Food and Rural Affairs (MAFRA)",
+      "licence": "Korea Open Government License Type 1 (KOGL 1)",
+      "licence_url": "https://www.kogl.or.kr/info/licenseType1.do",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Meeting_to_Review_Safety_Systems_of_the_MAFRA_and_its_Affiliated_Organizations_(25101002).jpg",
+      "original_width": 2222,
+      "original_height": 1426
+    },
+    {
+      "index": 3,
+      "title": "Buổi chia sẻ kiến thức tại văn phòng ở Seoul",
+      "filename": "Wikimedia Sharing Session in Wikimedia Korea Office 18.jpg",
+      "author": "Qhairy",
+      "licence": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Wikimedia_Sharing_Session_in_Wikimedia_Korea_Office_18.jpg",
+      "original_width": 4000,
+      "original_height": 3000
+    },
+    {
+      "index": 4,
+      "title": "Kiểm tra an toàn lao động tại một công trình ở Hàn Quốc",
+      "filename": "Army engineers promote hot weather safety in South Korea (8605831).jpg",
+      "author": "Rachel Napolitan / U.S. Army",
+      "licence": "Public domain (U.S. federal government work)",
+      "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Military-Army",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Army_engineers_promote_hot_weather_safety_in_South_Korea_(8605831).jpg",
+      "original_width": 3030,
+      "original_height": 2022
+    },
+    {
+      "index": 5,
+      "title": "Trao đổi kinh nghiệm tại không gian làm việc ở Seoul",
+      "filename": "Wikimedia Sharing Session in Wikimedia Korea Office 03.jpg",
+      "author": "Qhairy",
+      "licence": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Wikimedia_Sharing_Session_in_Wikimedia_Korea_Office_03.jpg",
+      "original_width": 4000,
+      "original_height": 3000
+    }
+  ]
+}

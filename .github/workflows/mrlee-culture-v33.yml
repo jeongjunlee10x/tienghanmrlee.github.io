@@ -1,0 +1,37 @@
+name: MR LEE Culture V33 — build licensed workplace landscapes
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/culture/office-v33-sources.json'
+      - 'tools/build-culture-office-v33.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: culture-v33-office-photo-publish
+  cancel-in-progress: false
+jobs:
+  photos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install image processor
+        run: python -m pip install pillow==11.3.0
+      - name: Fetch and validate all five licensed source photographs
+        run: python tools/build-culture-office-v33.py
+      - name: Commit original 3-to-2 images and verified attribution manifest
+        run: |
+          git config user.name "mrlee-photo-qa[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add images/culture-v33-photo/cong-so/ assets/culture/office-v33-published.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Culture V33: install five Korean workplace photos with credits"
+            git push origin HEAD:main
+          fi
