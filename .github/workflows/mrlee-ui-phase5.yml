@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'index.html'
+      - 'assets/images/heroes/01-trang-chu-*.webp'
       - 'hoc-tieng-han.html'
       - 'kiem-tra-topik.html'
       - 'van-hoa-han-quoc.html'
