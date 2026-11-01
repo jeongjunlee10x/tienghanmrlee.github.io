@@ -28,3 +28,20 @@ MRLEE-SPARK-BXH/
 preview/
 SAO-LUU_TRUOC_NANG_CAP_*/
 MRLEE-SAO-LUU-CAP-NHAT-*/
+
+# Kết quả kiểm thử/browser và bản backup sinh ra ở máy làm việc
+artifacts/
+**/artifacts/
+test-results/
+playwright-report/
+.playwright/
+.cache/
+coverage/
+*.zip
+*.7z
+*.rar
+*.old
+*.orig
+*.rej
+# Không đưa các bản trích xuất snapshot cũ mới vào thư mục gốc
+MRLEE_BACKUP_*/
