@@ -1,5 +1,14 @@
 name: MR LEE Culture V25 — verify independent travel and K-pop scenes
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'van-hoa-bai-hoc.html'
+      - 'mrlee-culture-hd-v19.js'
+      - 'mrlee-culture-v13-data.js'
+      - 'mrlee-culture-v25-captions.js'
+      - 'assets/culture/travel-gallery-v1.css'
+      - 'tools/check-culture-topic7.mjs'
   pull_request:
     branches: [main]
     paths:
@@ -23,3 +32,5 @@ jobs:
           node-version: '22'
       - name: Verify WebP assets, checksum, image sources and lesson mount
         run: node tools/check-culture-v25.mjs
+      - name: Verify topic 07 static gallery image integrity and previous lessons
+        run: node tools/check-culture-topic7.mjs

@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+const html=fs.readFileSync('van-hoa-bai-hoc.html','utf8');
+const engine=fs.readFileSync('mrlee-culture-hd-v19.js','utf8');
+const data=fs.readFileSync('mrlee-culture-v13-data.js','utf8');
+const caps=fs.readFileSync('mrlee-culture-v25-captions.js','utf8');
+const css=fs.readFileSync('assets/culture/travel-gallery-v1.css','utf8');
+const manifest=JSON.parse(fs.readFileSync('assets/culture/v25-manifest.json','utf8'));
+const imgs=[...html.matchAll(/src="(images\/culture-v25-ai\/du-lich\/(\d\d)\.webp)\?v=20261101-topic07"/g)];
+assert.equal(imgs.length,5);
+assert.deepEqual(imgs.map(x=>x[2]),['01','02','03','04','05']);
+assert(html.includes('id="cultureImagesV19Topic7"'));
+assert(html.includes("dataset.mrleeTravelGallery='1'"));
+assert(css.includes('html:not([data-mrlee-travel-gallery="1"])'));
+assert(css.includes('object-fit:contain!important'));
+assert(engine.includes("ID==='du-lich'?$('#cultureImagesV19Topic7')"));
+assert(data.includes('"image":"images/culture-v25-ai/du-lich/01.webp"'));
+assert(caps.includes('"du-lich": ['));
+const seen=new Set();
+for(let i=0;i<5;i++){
+ const file=manifest.images.find(x=>x.topic==='du-lich'&&x.index===i+1);
+ assert(file);assert.equal(file.file,imgs[i][1]);assert.equal(file.width,1536);assert.equal(file.height,1024);
+ assert.deepEqual(file.native_scene_size.slice(0,2).length,2);
+ const bytes=fs.readFileSync(file.file);assert.equal(bytes.toString('ascii',0,4),'RIFF');assert.equal(bytes.toString('ascii',8,12),'WEBP');
+ assert.equal(bytes.length,file.bytes);
+ const hash=crypto.createHash('sha256').update(bytes).digest('hex');
+ assert.equal(hash,file.sha256);assert(!seen.has(hash));seen.add(hash);
+}
+for(const id of ['cultureImagesV19','cultureImagesV19Topic3','cultureImagesV19Topic4','cultureImagesV19Topic5','cultureImagesV19Topic6'])assert(html.includes('id="'+id+'"'));
+console.log('PASS topic07: five separate WebP scenes, static HTML gallery, SHA-256 and no earlier-topic regressions');
