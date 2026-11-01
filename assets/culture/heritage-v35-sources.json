@@ -1,0 +1,64 @@
+{
+  "version": "35.0",
+  "topic": "lich-su",
+  "type": "real-licensed-photography",
+  "why": "Three imagegen tries gave text-overlay montages, not acceptable 5 separate horizontal photorealistic AI images; do not mislabel these real photos as AI",
+  "processing": "center crop to horizontal 3:2, 1536x1024 from actual originals, no blur padding, no upscaling, source and license attribution under each photo",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Đài thiên văn Cheomseongdae – Di sản Silla",
+      "filename": "Cheomseongdae in 2018.jpg",
+      "author": "Christophe95",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Cheomseongdae_in_2018.jpg",
+      "original_width": 4032,
+      "original_height": 3024
+    },
+    {
+      "index": 2,
+      "title": "Chùa Bulguksa tại Gyeongju",
+      "filename": "Bulguksa temple entrance gate stairs flower bed and blue sky in Gyeongju South Korea.jpg",
+      "author": "Basile Morin",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Bulguksa_temple_entrance_gate_stairs_flower_bed_and_blue_sky_in_Gyeongju_South_Korea.jpg",
+      "original_width": 6536,
+      "original_height": 3676
+    },
+    {
+      "index": 3,
+      "title": "Bản Hunminjeongeum Haerye – di sản chữ Hangeul",
+      "filename": "훈민정음 해례본 (1).jpg",
+      "author": "Jocelyndurrey",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:%ED%9B%88%EB%AF%BC%EC%A0%95%EC%9D%8C_%ED%95%B4%EB%A1%80%EB%B3%B8_(1).jpg",
+      "original_width": 5312,
+      "original_height": 2988
+    },
+    {
+      "index": 4,
+      "title": "Pháo đài Hwaseong tại Suwon",
+      "filename": "Hwaseong Fortress, Suwon, Gyeonggi-do, Republic of Korea.jpg",
+      "author": "Lance Vanlewen",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Hwaseong_Fortress,_Suwon,_Gyeonggi-do,_Republic_of_Korea.jpg",
+      "original_width": 4096,
+      "original_height": 3072
+    },
+    {
+      "index": 5,
+      "title": "Làng cổ Hahoe tại Andong",
+      "filename": "Hahoe Folk Village, Andong 2018-08-31-04.jpg",
+      "author": "De-Shao Liu (Terry850324)",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Hahoe_Folk_Village,_Andong_2018-08-31-04.jpg",
+      "original_width": 4608,
+      "original_height": 2592
+    }
+  ]
+}
