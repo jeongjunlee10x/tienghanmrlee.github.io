@@ -1,0 +1,36 @@
+name: MR LEE Culture V31 — fetch licensed landscape travel photos
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/build-culture-travel-v31.py'
+      - 'assets/culture/travel-v31-sources.json'
+permissions:
+  contents: write
+concurrency:
+  group: culture-v31-photo-provision
+  cancel-in-progress: false
+jobs:
+  photos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pillow==11.3.0
+      - name: Generate 5 genuine wide-angle 1536x1024 landscape photos
+        run: python tools/build-culture-travel-v31.py
+      - name: Commit verified photo files and credit manifest
+        run: |
+          git config user.name "mrlee-photo-qa[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add images/culture-v31-photo/du-lich/ assets/culture/travel-v31-published.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Culture V31: install five verified horizontal landscape photos and source credits"
+            git push origin HEAD:main
+          fi

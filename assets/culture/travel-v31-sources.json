@@ -1,0 +1,64 @@
+{
+  "version": "31.0",
+  "topic": "du-lich",
+  "type": "real-photography",
+  "transform": "center-crop 3:2 and resample to 1536x1024; no blurry padding; no upscaling",
+  "licence_note": "Each image remains under its own original licence. Cropped and resized for educational layout. Credit each author and link original Wikimedia Commons file and licence.",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Cung điện Gyeongbokgung",
+      "filename": "경복궁 전경.jpg",
+      "author": "이상곤",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:%EA%B2%BD%EB%B3%B5%EA%B6%81_%EC%A0%84%EA%B2%BD.jpg",
+      "original_width": 6000,
+      "original_height": 4000
+    },
+    {
+      "index": 2,
+      "title": "Chùa Haedong Yonggungsa tại Busan",
+      "filename": "Busan Haedong Yonggung Temple.jpg",
+      "author": "bertconcepts",
+      "licence": "CC BY 2.0",
+      "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Busan_Haedong_Yonggung_Temple.jpg",
+      "original_width": 3888,
+      "original_height": 2592
+    },
+    {
+      "index": 3,
+      "title": "Toàn cảnh Seoul từ núi Namsan",
+      "filename": "Seoul city skyline at night from Namsan Mountain (49175035266).jpg",
+      "author": "Matt Kieffer",
+      "licence": "CC BY-SA 2.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Seoul_city_skyline_at_night_from_Namsan_Mountain_(49175035266).jpg",
+      "original_width": 6000,
+      "original_height": 4000
+    },
+    {
+      "index": 4,
+      "title": "Khu phố Hanok Bukchon",
+      "filename": "Bukchon Hanok Village Mar 2025 01.jpg",
+      "author": "Epicgenius",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Bukchon_Hanok_Village_Mar_2025_01.jpg",
+      "original_width": 4080,
+      "original_height": 3060
+    },
+    {
+      "index": 5,
+      "title": "Núi Seoraksan mùa thu",
+      "filename": "Seoraksan in the Fall 1- 설악산 단풍.jpg",
+      "author": "Joycekim77",
+      "licence": "CC BY-SA 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Seoraksan_in_the_Fall_1-_%EC%84%A4%EC%95%85%EC%82%B0_%EB%8B%A8%ED%92%8D.jpg",
+      "original_width": 2048,
+      "original_height": 1365
+    }
+  ]
+}
