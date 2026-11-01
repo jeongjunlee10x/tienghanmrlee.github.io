@@ -7,6 +7,8 @@ on:
       - 'hoc-tieng-han.html'
       - 'kiem-tra-topik.html'
       - 'van-hoa-han-quoc.html'
+      - 'van-hoa-bai-hoc.html'
+      - 'mrlee-culture-v13-data.js'
       - 'ban-do-dai-hoc-han-quoc.html'
       - 'tuyen-sinh.html'
       - 'mrlee-bai-tap-pro.html'
