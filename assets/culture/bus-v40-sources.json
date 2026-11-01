@@ -1,0 +1,68 @@
+{
+  "version": "40.0",
+  "topic": "xe-buyt",
+  "type": "licensed-documentary-photos",
+  "processing": "Downsample and center-crop from real original images, 1536x1024; give attribution/license, distribute adaptations under corresponding CC BY-SA license",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Trạm xe buýt tại Gangnam-daero, Seoul",
+      "filename": "Gangnam Station Bus Stop.jpg",
+      "author": "Minseong Kim",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Gangnam_Station_Bus_Stop.jpg",
+      "original_width": 3456,
+      "original_height": 2304,
+      "context_note": "Trạm xe buýt Gangnam-daero tại Gangnam, ảnh chụp năm 2012; bố trí thực tế có thể thay đổi."
+    },
+    {
+      "index": 2,
+      "title": "Bảng thông tin xe buýt tại trạm ở Seoul",
+      "filename": "Bus Info in the Bus Stop.jpg",
+      "author": "Wikiwater2020",
+      "licence": "CC BY-SA 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Bus_Info_in_the_Bus_Stop.jpg",
+      "original_width": 4032,
+      "original_height": 3024,
+      "context_note": "Bảng thông tin hành trình xe buýt tại điểm dừng Seoul, ảnh năm 2021."
+    },
+    {
+      "index": 3,
+      "title": "Xe buýt xanh tuyến 720 ở Seoul",
+      "filename": "Seoul Blue Bus.jpg",
+      "author": "Wikiwater2020",
+      "licence": "CC BY-SA 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Seoul_Blue_Bus.jpg",
+      "original_width": 2909,
+      "original_height": 2183,
+      "context_note": "Xe buýt xanh Seoul tuyến 720 chụp năm 2019; tuyến có thể thay đổi."
+    },
+    {
+      "index": 4,
+      "title": "Không gian bên trong xe buýt Seoul",
+      "filename": "Seoul bus.jpg",
+      "author": "Sgroey",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Seoul_bus.jpg",
+      "original_width": 4032,
+      "original_height": 3024,
+      "context_note": "Hình chụp bên trong xe buýt ở Seoul năm 2024; không nhất thiết thể hiện máy chạm thẻ."
+    },
+    {
+      "index": 5,
+      "title": "Điểm trung chuyển xe buýt gần ga Guro Digital Complex",
+      "filename": "20220109 구로디지털단지역환승센터.jpg",
+      "author": "Striker9498",
+      "licence": "CC BY-SA 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:20220109_%EA%B5%AC%EB%A1%9C%EB%94%94%EC%A7%80%ED%84%B8%EB%8B%A8%EC%A7%80%EC%97%AD%ED%99%98%EC%8A%B9%EC%84%BC%ED%84%B0.jpg",
+      "original_width": 4608,
+      "original_height": 3456,
+      "context_note": "Trung tâm trung chuyển Guro Digital Complex năm 2022; địa điểm có thể thay đổi tổ chức tuyến."
+    }
+  ]
+}
