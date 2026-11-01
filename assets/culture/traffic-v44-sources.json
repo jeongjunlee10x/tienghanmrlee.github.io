@@ -1,0 +1,68 @@
+{
+  "version": "44.0",
+  "topic": "an-toan-giao-thong",
+  "type": "five authentic Korean Wikimedia photographs; no AI images",
+  "processing": "Crop/downsample originals to 1536x1024 WebP (3:2) with full source attribution, CC licence and no upscaling",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Qua đường đúng vạch dành cho người đi bộ tại Seoul",
+      "filename": "Pedestrian crossing in Seoul, KOREA.jpg",
+      "author": "AhmedAlElq",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Pedestrian_crossing_in_Seoul,_KOREA.jpg",
+      "original_width": 3648,
+      "original_height": 2736,
+      "context_note": "Actual pedestrian crossing in Seoul (Itaewon), 2019. Photograph illustrates crossing infrastructure; it does not depict a staged safety lesson."
+    },
+    {
+      "index": 2,
+      "title": "Đèn đỏ dành cho người đi bộ, tín hiệu LED trên mặt đường tại Seoul",
+      "filename": "002 Pedestrian crossing embedded floor light - red light for pedestrians in Seoul, South Korea.jpg",
+      "author": "Marek Slusarczyk",
+      "licence": "CC BY 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by/3.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:002_Pedestrian_crossing_embedded_floor_light_-_red_light_for_pedestrians_in_Seoul,_South_Korea.jpg",
+      "original_width": 2160,
+      "original_height": 1620,
+      "context_note": "Real in-ground red pedestrian light on Seoul pavement, from 2023/2025 Commons history; supplemental signal, not a substitute for checking main traffic lights."
+    },
+    {
+      "index": 3,
+      "title": "Biển báo khu vực trường học (어린이보호구역) tại Ansan",
+      "filename": "Singiljungang-ro 3-gil School Zone 20240719 (02).jpg",
+      "author": "LandAndTree",
+      "licence": "CC0 1.0",
+      "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Singiljungang-ro_3-gil_School_Zone_20240719_(02).jpg",
+      "original_width": 6000,
+      "original_height": 3368,
+      "context_note": "School-zone road sign photographed in Ansan, Gyeonggi-do, 19 July 2024; demonstrates local road designation, not necessarily all safety features."
+    },
+    {
+      "index": 4,
+      "title": "Đường phố Bokji-ro ở Siheung: quan sát phương tiện trước khi sang đường",
+      "filename": "경기도 시흥시 복지로.jpg",
+      "author": "Narubaru7",
+      "licence": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:경기도_시흥시_복지로.jpg",
+      "original_width": 4032,
+      "original_height": 3024,
+      "context_note": "Real road photograph in Siheung-si, Gyeonggi-do, on 9 December 2025; contextual safety illustration, no claim of a particular incident."
+    },
+    {
+      "index": 5,
+      "title": "Trạm xe buýt Jeonpo Samgeori ở Busan: đứng chờ an toàn",
+      "filename": "Bus stop Jeonpo Samgeori.jpg",
+      "author": "Christian Bolz",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Bus_stop_Jeonpo_Samgeori.jpg",
+      "original_width": 4032,
+      "original_height": 1816,
+      "context_note": "Real bus stop in Busan photographed 1 August 2022. Illustrates waiting area; boarding precautions are explanatory, not shown as an event."
+    }
+  ]
+}
