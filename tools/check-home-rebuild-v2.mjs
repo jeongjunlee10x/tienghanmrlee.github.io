@@ -24,8 +24,8 @@ for(const c of cards){
  assert.equal(bytes.toString('ascii',8,12),'WEBP',c[3]);
 }
 for(const f of [
- 'assets/v306/images/feature-1-tuyen-sinh.webp',
- 'assets/v306/images/feature-7-ky-tuc-xa.webp'
+ 'assets/images/heroes/01-trang-chu-fresh.webp',
+ 'assets/images/heroes/01-trang-chu-future.webp'
 ])assert(fs.existsSync(f),'missing distinct hero '+f);
 for(const s of [
  'html[data-mrlee-redesign="v2"]',
