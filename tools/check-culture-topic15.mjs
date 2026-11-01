@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import {spawnSync} from 'node:child_process';
+const html=fs.readFileSync('van-hoa-bai-hoc.html','utf8');
+const engine=fs.readFileSync('mrlee-culture-hd-v19.js','utf8');
+const css=fs.readFileSync('assets/culture/lost-gallery-v1.css','utf8');
+const inv=JSON.parse(fs.readFileSync('assets/culture/v29-inventory.json','utf8'));
+const items=inv.images.filter(x=>x.topic==='lac-duong');
+assert.equal(items.length,5);
+assert(html.includes('id="cultureImagesV19Topic15"'));
+assert(html.includes("dataset.mrleeLostGallery='1'"));
+assert(html.includes('assets/culture/lost-gallery-v1.css'));
+assert(engine.includes("ID==='lac-duong'?$('#cultureImagesV19Topic15')"));
+assert(css.includes('html:not([data-mrlee-lost-gallery="1"])'));
+assert(css.includes('object-fit:cover!important'));
+assert(html.includes('Đây là ảnh tạo bằng AI, không phải ảnh chụp'));
+const src=[...html.matchAll(/src="(images\\/culture-v29-photo\\/lac-duong\\/(\\d\\d)\\.webp)\\?v=20261101-topic15-ai29"/g)];
+assert.deepEqual(src.map(x=>x[2]),['01','02','03','04','05']);
+const seen=new Set();
+for(let i=0;i<5;i++){
+ const p=items[i];assert.equal(p.index,i+1);assert.equal(p.file,src[i][1]);
+ const bin=fs.readFileSync(p.file);
+ assert.equal(bin.toString('ascii',0,4),'RIFF');assert.equal(bin.toString('ascii',8,12),'WEBP');
+ assert.equal(bin.length,p.bytes);
+ const sha=crypto.createHash('sha256').update(bin).digest('hex');
+ assert.equal(sha,p.sha256);assert(!seen.has(sha));seen.add(sha);
+}
+for(let i=3;i<=14;i++)assert(html.includes('id="cultureImagesV19Topic'+i+'"'));
+const r=spawnSync(process.execPath,['--check','mrlee-culture-hd-v19.js'],{encoding:'utf8'});
+assert.equal(r.status,0,r.stderr);
+console.log('PASS Topic 15: five unique original V29 AI landscapes, gallery display, Vietnamese/Korean captions, 14 prior topics preserved');

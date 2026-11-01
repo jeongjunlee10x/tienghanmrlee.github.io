@@ -1,0 +1,28 @@
+/* Topic 15: landscape AI images (pre-existing V29 originals, no upscaling). */
+html:not([data-mrlee-lost-gallery="1"]) #cultureImagesV19Topic15.mrleeLostStatic{display:none!important}
+html[data-mrlee-lost-gallery="1"] #cultureImagesV19Topic15.mrleeLostStatic{display:block!important;visibility:visible!important;opacity:1!important;max-width:100%;margin:22px 0!important;padding:clamp(14px,2vw,24px)!important;border:1px solid #d6e5f1;border-radius:18px;background:#fff;box-shadow:0 7px 28px #17385815}
+#cultureImagesV19Topic15 h2{color:#153d63;font-size:clamp(19px,1.7vw,25px);line-height:1.4;margin:0 0 9px}
+#cultureImagesV19Topic15 .mrleeCultureLead{font-size:14px;line-height:1.65;color:#4b6b86;margin:0 0 16px}
+#cultureImagesV19Topic15 .mrleeLostSteps{display:flex;gap:9px;flex-wrap:wrap;margin:0 0 17px}
+#cultureImagesV19Topic15 .mrleeLostSteps span{border:1px solid #d1e3f1;padding:7px 11px;border-radius:999px;background:#eef7ff;color:#1d5877;font-size:12px;font-weight:750;line-height:1.4}
+#cultureImagesV19Topic15 .mrleeCultureGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+#cultureImagesV19Topic15 .mrleeCultureFigure{margin:0;min-width:0;border:1px solid #d7e5f3;border-radius:15px;overflow:hidden;background:#fff;box-shadow:0 5px 17px #12345415}
+#cultureImagesV19Topic15 .mrleeCultureFigure:first-child{grid-column:1/-1}
+#cultureImagesV19Topic15 .mrleeCultureFigure a{display:block;line-height:0;background:#edf4f9}
+#cultureImagesV19Topic15 .mrleeCultureFigure img{display:block!important;width:100%!important;max-width:100%!important;height:auto!important;aspect-ratio:3/2!important;object-fit:cover!important;object-position:center!important;filter:none!important;transform:none!important;image-rendering:auto!important;opacity:1!important;visibility:visible!important}
+#cultureImagesV19Topic15 figcaption{display:flex;flex-direction:column;gap:7px;padding:12px 14px 15px;line-height:1.65}
+#cultureImagesV19Topic15 figcaption b{color:#163c60;font-size:14px}
+#cultureImagesV19Topic15 figcaption span{color:#4b6b86;font-size:13px}
+#cultureImagesV19Topic15 .mrleeLostKo{padding-top:8px;border-top:1px solid #dae7ef}
+#cultureImagesV19Topic15 .mrleeLostKo strong{color:#14668f}
+#cultureImagesV19Topic15 .mrleeCultureNotice{padding:12px 13px;border-left:3px solid #168fae;background:#edf6fb;color:#355976;font-size:12px;line-height:1.7}
+#cultureImagesV19Topic15 .mrleeLostStatus{color:#176681;font-size:13px;font-weight:750}
+#cultureImagesV19Topic15 .mrleeLostError{color:#af2d3b!important}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic15{background:#102b4c;border-color:#285d81}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic15 h2,html[data-mrlee-theme="future"] #cultureImagesV19Topic15 figcaption b{color:#f2fbff}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic15 .mrleeCultureLead,html[data-mrlee-theme="future"] #cultureImagesV19Topic15 figcaption span{color:#c1daed}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic15 .mrleeCultureFigure{background:#123251;border-color:#2b5e89}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic15 .mrleeLostSteps span{background:#123f59;border-color:#275f7f;color:#e2f5ff}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic15 .mrleeLostKo strong{color:#90d7ff}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic15 .mrleeCultureNotice{background:#123550;color:#d8ebfa}
+@media(max-width:700px){#cultureImagesV19Topic15 .mrleeCultureGrid{grid-template-columns:minmax(0,1fr)!important}#cultureImagesV19Topic15 .mrleeCultureFigure:first-child{grid-column:auto!important}}
