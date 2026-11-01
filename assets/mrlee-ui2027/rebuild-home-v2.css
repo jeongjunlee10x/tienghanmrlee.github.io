@@ -149,7 +149,7 @@ html[data-mrlee-redesign="v2"][data-mrlee-theme="future"] #mrleeNewHome{
  color:var(--card-ink)!important;text-shadow:none!important;
 }
 #mrleeNewHome .mr27-tile small{
- font-size:11px!important;font-weight:600!important;line-height:1.45!important;
+ font-size:12px!important;font-weight:650!important;line-height:1.5!important;
  color:var(--card-sub)!important;text-shadow:none!important;
 }
 #mrleeNewHome .mr27-tile-arrow{
@@ -247,7 +247,7 @@ html[data-mrlee-redesign="v2"] #mainContent{min-height:0!important;height:auto!i
  #mrleeNewHome .mr27-tile{padding:14px 12px;border-radius:14px}
  #mrleeNewHome .mr27-tile-copy{max-width:82%}
  #mrleeNewHome .mr27-tile strong{font-size:15px!important}
- #mrleeNewHome .mr27-tile small{font-size:10px!important}
+ #mrleeNewHome .mr27-tile small{font-size:12px!important}
  #mrleeNewHome .mr27-tile>img{width:74%!important}
  #mrleeNewHome .mr27-bottom{align-items:stretch}
  #mrleeNewHome .mr27-bottom-links{width:100%}
