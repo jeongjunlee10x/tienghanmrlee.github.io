@@ -49,7 +49,7 @@ for(const [mode,width,height] of [['desktop',1440,900],['tablet',768,1024],['mob
   assert.equal(new Set(result.hrefs).size,8,mode+' unique targets');
   assert(result.imagesComplete,mode+' images');
   assert(result.heroPhotos.length===1,mode+' hero only one visible');
-  assert(result.heroPhotos[0].includes(theme==='future'?'feature-7-ky-tuc-xa.webp':'feature-1-tuyen-sinh.webp'),mode+' artwork');
+  assert(result.heroPhotos[0].includes(theme==='future'?'01-trang-chu-future.webp':'01-trang-chu-fresh.webp'),mode+' artwork');
   assert(result.oldHeroHidden,mode+' legacy hero remained');
   assert(result.width<=result.windowWidth+1,mode+' home overflows viewport');
   assert(result.docWidth<=result.windowWidth+2,mode+' horizontal page overflow');
