@@ -1,5 +1,15 @@
 name: MR LEE Culture V26 — Verify office and sports pictures
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'van-hoa-bai-hoc.html'
+      - 'mrlee-culture-hd-v19.js'
+      - 'mrlee-culture-v13-data.js'
+      - 'mrlee-culture-v26-captions.js'
+      - 'assets/culture/office-gallery-v1.css'
+      - 'assets/culture/office-v33-published.json'
+      - 'tools/check-culture-topic9.mjs'
   pull_request:
     branches: [main]
     paths:
@@ -23,3 +33,5 @@ jobs:
           node-version: '22'
       - name: Verify 10 WebP assets and integrity manifest
         run: node tools/check-culture-v26.mjs
+      - name: Verify topic 09 horizontal workplace photos, credits and gallery integrity
+        run: node tools/check-culture-topic9.mjs
