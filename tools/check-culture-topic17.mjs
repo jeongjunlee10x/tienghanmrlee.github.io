@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';import crypto from 'node:crypto';import {spawnSync} from 'node:child_process';
+const html=fs.readFileSync('van-hoa-bai-hoc.html','utf8'),engine=fs.readFileSync('mrlee-culture-hd-v19.js','utf8'),css=fs.readFileSync('assets/culture/subway-gallery-v1.css','utf8'),data=fs.readFileSync('mrlee-culture-v13-data.js','utf8');
+const items=JSON.parse(fs.readFileSync('assets/culture/subway-v39-sources.json','utf8')).photos;
+assert.equal(items.length,5);assert.equal((html.match(/id="cultureImagesV19Topic17"/g)||[]).length,1);
+assert(html.includes("dataset.mrleeSubwayGallery='1'"));assert(engine.includes("ID==='tau-dien-ngam'?($('#")==false);assert(engine.includes("ID==='tau-dien-ngam'?$('#cultureImagesV19Topic17')"));
+assert(engine.includes('NEW_V39.has(id)?V39'));assert(data.includes('"image":"images/culture-v39-photo/tau-dien-ngam/01.webp"'));
+assert(css.includes('object-fit:cover!important'));const rx=new RegExp('src="(images/culture-v39-photo/tau-dien-ngam/([0-9][0-9])[.]webp)[?]v=20261101-topic17-v39"','g');const images=[...html.matchAll(rx)];assert.deepEqual(images.map(x=>x[2]),['01','02','03','04','05']);
+for(const p of items){assert(html.includes(p.source_page));assert(html.includes(p.licence_url));assert(html.includes('Tác giả: '+p.author))}
+for(let n=3;n<=16;n++)assert(html.includes('id="cultureImagesV19Topic'+n+'"'));
+const v=spawnSync(process.execPath,['--check','mrlee-culture-hd-v19.js'],{encoding:'utf8'});assert.equal(v.status,0,v.stderr);
+const file='assets/culture/subway-v39-published.json';if(fs.existsSync(file)){const pub=JSON.parse(fs.readFileSync(file,'utf8'));assert.equal(pub.photos.length,5);const hashes=new Set();for(let i=0;i<5;i++){const p=pub.photos[i],b=fs.readFileSync(p.file);assert.equal(p.file,images[i][1]);assert.equal(b.toString('ascii',0,4),'RIFF');assert.equal(b.toString('ascii',8,12),'WEBP');assert.equal(p.width,1536);assert.equal(p.height,1024);assert.equal(b.length,p.bytes);assert.equal(crypto.createHash('sha256').update(b).digest('hex'),p.sha256);assert(!hashes.has(p.sha256));hashes.add(p.sha256)}console.log('PASS: five unique real licensed 1536x1024 subway photos')}else console.log('STAGED: topic17 valid; awaiting photo publisher');

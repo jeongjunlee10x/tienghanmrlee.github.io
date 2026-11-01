@@ -1,0 +1,68 @@
+{
+  "version": "39.0",
+  "topic": "tau-dien-ngam",
+  "type": "real-photos-with-verified-licences",
+  "processing": "Downsample 5 original photographs to 1536x1024 landscape; keep full credit, disclose cropping, license derivative under same license when SA",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Cửa số 1 ga Myeongdong, tuyến số 4 tại Seoul",
+      "filename": "Seoul-metro-424-Myeongdong-station-entrance-01-20181124-082338.jpg",
+      "author": "LERK",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Seoul-metro-424-Myeongdong-station-entrance-01-20181124-082338.jpg",
+      "original_width": 4000,
+      "original_height": 2250,
+      "context_note": "Cửa số 1 ga Myeongdong, tuyến số 4 tại Seoul"
+    },
+    {
+      "index": 2,
+      "title": "Máy bán vé và nạp thẻ tại ga Soraepogu, Incheon",
+      "filename": "Ticket Vending and Card Reload Machine - Seoul Metropolitan Subway 20240713.jpg",
+      "author": "LandAndTree",
+      "licence": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Ticket_Vending_and_Card_Reload_Machine_-_Seoul_Metropolitan_Subway_20240713.jpg",
+      "original_width": 4000,
+      "original_height": 3000,
+      "context_note": "Máy bán vé và nạp thẻ tại ga Soraepogu, Incheon"
+    },
+    {
+      "index": 3,
+      "title": "Cổng soát vé tại ga Myeongdong",
+      "filename": "Seoul-metro-424-Myeongdong-station-gate-20181124-081950.jpg",
+      "author": "LERK",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Seoul-metro-424-Myeongdong-station-gate-20181124-081950.jpg",
+      "original_width": 4000,
+      "original_height": 2250,
+      "context_note": "Cổng soát vé tại ga Myeongdong"
+    },
+    {
+      "index": 4,
+      "title": "Sân ga Sinyongsan, tuyến số 4 tại Seoul",
+      "filename": "Seoul-metro-429-Sinyongsan-station-platform-20191022-153114.jpg",
+      "author": "LERK",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Seoul-metro-429-Sinyongsan-station-platform-20191022-153114.jpg",
+      "original_width": 4000,
+      "original_height": 2250,
+      "context_note": "Sân ga Sinyongsan, tuyến số 4 tại Seoul"
+    },
+    {
+      "index": 5,
+      "title": "Không gian bên trong toa tàu điện ngầm Seoul",
+      "filename": "20240910 서울교통공사 4000호대 457편성 전동차 내부.jpg",
+      "author": "Striker9498",
+      "licence": "CC0 1.0",
+      "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:20240910_%EC%84%9C%EC%9A%B8%EA%B5%90%ED%86%B5%EA%B3%B5%EC%82%AC_4000%ED%98%B8%EB%8C%80_457%ED%8E%B8%EC%84%B1_%EC%A0%84%EB%8F%99%EC%B0%A8_%EB%82%B4%EB%B6%80.jpg",
+      "original_width": 4000,
+      "original_height": 3000,
+      "context_note": "Không gian bên trong toa tàu điện ngầm Seoul"
+    }
+  ]
+}

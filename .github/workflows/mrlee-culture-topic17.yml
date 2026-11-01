@@ -1,0 +1,22 @@
+name: MR LEE Culture Topic 17 — Subway gallery QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'van-hoa-bai-hoc.html'
+      - 'mrlee-culture-hd-v19.js'
+      - 'mrlee-culture-v13-data.js'
+      - 'assets/culture/subway-gallery-v1.css'
+      - 'assets/culture/subway-v39-*.json'
+      - 'tools/check-culture-topic17.mjs'
+      - 'images/culture-v39-photo/tau-dien-ngam/**'
+  workflow_dispatch:
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tools/check-culture-topic17.mjs
