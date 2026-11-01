@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'images/culture-v28-safe/**'
+      - 'images/culture-v37-photo/**'
       - 'assets/culture/v28-manifest.json'
       - 'mrlee-culture-v28-captions.js'
       - 'mrlee-culture-hd-v19.js'
