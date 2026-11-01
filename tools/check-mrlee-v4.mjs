@@ -7,7 +7,9 @@ import {spawnSync} from 'node:child_process';
 const root=process.cwd(),errors=[];
 const exists=p=>fs.existsSync(path.join(root,p));
 const read=p=>exists(p)?fs.readFileSync(path.join(root,p),'utf8'):'';
-const pages=['hoc-tieng-han.html','giao-tiep-theo-chu-de.html','kiem-tra-topik.html','giao-tiep-phong-van.html','van-hoa-han-quoc.html','ban-do-dai-hoc-han-quoc.html','mrlee-bai-tap-pro.html','trung-tam-hoc-vien.html'];
+// Only the unconverted conversation-topic page still uses the V4 HTML builder.
+// The seven other pages are validated against their native V2/V3 layouts.
+const pages=['giao-tiep-theo-chu-de.html'];
 const source=read('assets/mrlee-v4/page-system.js');
 const css=read('assets/mrlee-v4/page-system.css');
 const jscheck=spawnSync(process.execPath,['--check','assets/mrlee-v4/page-system.js'],{encoding:'utf8'});
@@ -55,4 +57,4 @@ for(const clause of ['html[data-mrlee-theme="fresh"][data-mrlee-v4]','html[data-
 if(!source.includes('main.prepend(shell)')||!source.includes("d.createElement")||source.includes('service_role'))errors.push('BAD BOOT OR UNSAFE SECRET');
 if(!read('index.html').includes('assets/branding/logo-mrlee.png')||!read('admin.html').includes('assets/branding/logo-mrlee.png'))errors.push('OFFICIAL LOGO INVALID');
 if(errors.length){errors.forEach(e=>console.error('FAIL '+e));process.exitCode=1}
-else console.log('PASS MR LEE V4: 8 pages, real '+assetIndex.size+' WebP images, no within-page image duplicates, verified routes and both theme palettes.');
+else console.log('PASS MR LEE V4: remaining legacy conversation page, real '+assetIndex.size+' WebP images, no within-page image duplicates, verified routes and both theme palettes.');
