@@ -1,0 +1,21 @@
+name: MR LEE Culture Topic 19 - medical photo gallery QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'van-hoa-bai-hoc.html'
+      - 'mrlee-culture-hd-v19.js'
+      - 'mrlee-culture-v13-data.js'
+      - 'assets/culture/medical-gallery-v1.css'
+      - 'assets/culture/medical-v41-published.json'
+      - 'tools/check-culture-topic19.mjs'
+  workflow_dispatch:
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tools/check-culture-topic19.mjs
