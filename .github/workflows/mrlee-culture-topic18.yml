@@ -1,0 +1,21 @@
+name: MR LEE Culture Topic 18 - Bus gallery QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'van-hoa-bai-hoc.html'
+      - 'mrlee-culture-hd-v19.js'
+      - 'mrlee-culture-v13-data.js'
+      - 'assets/culture/bus-gallery-v1.css'
+      - 'assets/culture/bus-v40-published.json'
+      - 'tools/check-culture-topic18.mjs'
+  workflow_dispatch:
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tools/check-culture-topic18.mjs
