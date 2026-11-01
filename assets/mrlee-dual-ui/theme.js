@@ -91,7 +91,8 @@ function decorate(){
 // Do not interrupt protected lessons, Firebase sign-in, or Admin with a marketing dialog.
 function entryPicker(){
  if(admin||path!=='index.html'||doc.getElementById('mrlee-theme-entry'))return;
- try { if(['fresh','future'].includes(sessionStorage.getItem(VISIT_KEY)))return; } catch{}
+ const explicitSelection=new URLSearchParams(location.search).get('select-theme')==='1';
+ if(!explicitSelection){try { if(['fresh','future'].includes(sessionStorage.getItem(VISIT_KEY)))return; } catch{}}
  const dialog=doc.createElement('dialog');
  dialog.id='mrlee-theme-entry';
  dialog.className='mrlee-theme-entry';
@@ -120,6 +121,7 @@ function entryPicker(){
    if(chosen!=='fresh'&&chosen!=='future')return;
    update(chosen);
    try{sessionStorage.setItem(VISIT_KEY,chosen)}catch{}
+   if(explicitSelection){try{const u=new URL(location.href);u.searchParams.delete('select-theme');history.replaceState(history.state,'',u.pathname+u.search+u.hash)}catch{}}
    dialog.close();
    dialog.remove();
    doc.querySelector('main a[href],main button:not(:disabled)')?.focus({preventScroll:true});
