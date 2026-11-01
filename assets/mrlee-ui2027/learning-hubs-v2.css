@@ -346,3 +346,14 @@ html[data-mrlee-theme="future"][data-mrlee-hub-v2="workbook"] main.pro-wrap .pro
 @media(max-width:350px){
  html[data-mrlee-hub-v2="workbook"] main.pro-wrap .pro-work-list{grid-template-columns:1fr}
 }
+
+/* Balance the four speaking cards in two full editorial rows on desktop. */
+@media(min-width:961px){
+ html[data-mrlee-hub-v2="talk"] .mrlee27-subhub .mr27-item:nth-child(3),
+ html[data-mrlee-hub-v2="talk"] .mrlee27-subhub .mr27-item:nth-child(4){grid-column:span 6}
+}
+@media(max-width:680px) and (min-width:351px){
+ html[data-mrlee-hub-v2="talk"] .mrlee27-subhub .mr27-item:first-child{
+  grid-column:span 1!important;min-height:166px!important
+ }
+}
