@@ -62,3 +62,17 @@ for(const p of ['assets/mrlee-ui2027/learning-hubs-v2.js']){
  assert.equal(v.status,0,p+' syntax '+v.stderr);
 }
 console.log('PASS: Workbook scores, controls, auth, 15 exercise sets; shared V2 CSS/JS syntax.');
+
+const culture=fs.readFileSync('van-hoa-han-quoc.html','utf8');
+const cultureCss=fs.readFileSync('assets/mrlee-ui2027/culture-landing-v2.css','utf8');
+assert(culture.includes('data-mrlee-culture-v2="1"'));
+assert(culture.includes('assets/mrlee-ui2027/culture-landing-v2.css'));
+assert(culture.includes('mr27-culture-visual'));
+assert(culture.includes('id="topics"')&&culture.includes('data-filter="culture"')&&culture.includes('data-filter="life"'));
+assert(culture.includes('mrlee-culture-v13.js')&&culture.includes('mrlee-culture-hd-v19.js'),'preserve 22-topic runtime and images');
+assert(!culture.includes('3 ảnh minh họa AI'),'outdated photo count');
+assert(cultureCss.includes('html[data-mrlee-culture-v2="1"] #topics.cards'));
+assert(cultureCss.includes('@media(max-width:500px)'));
+assert(fs.existsSync('assets/v306/images/culture.webp'),'culture banner asset must exist');
+console.log('PASS: culture landing split hero; topic search/filter, 22-topic runtime preserved; outdated AI-count corrected.');
+
