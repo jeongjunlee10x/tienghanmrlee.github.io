@@ -1,11 +1,11 @@
-/* MR LEE Culture V28: 10 original, safe illustrated SVG scenes; educational graphics, not medical instructions or documentary photos. */
+/* V28 captions: topic 13 updated to genuine documentary training photos; topic 14 remains educational SVG; illustrations do not replace official emergency instruction. */
 window.MRLEE_CULTURE_V28_CAPTIONS={
   "so-cap-cuu": [
-    "Lớp thực hành CPR với mô hình đào tạo — Nhận biết lớp tập huấn và học theo hướng dẫn chuyên gia.",
-    "Thiết bị AED trong môi trường học tập — Tìm hiểu vị trí thiết bị và quy trình tập huấn.",
-    "Bộ đồ dùng sơ cứu cơ bản — Chuẩn bị túi dụng cụ và học cách nhận biết vật dụng.",
-    "Buổi hướng dẫn an toàn tại lớp — Học cách bình tĩnh, tìm hỗ trợ và ghi nhớ số cần gọi.",
-    "Các bước chuẩn bị giúp đỡ an toàn — Quan sát tình huống, liên hệ hỗ trợ và học kỹ năng chuẩn."
+    "심폐소생술 훈련 — Học viên thực hành trên hình nhân trong khóa sơ cứu. Động tác ngoài đời cần học từ người hướng dẫn có chứng nhận, không sao chép tư thế chỉ qua ảnh.",
+    "자동심장충격기(AED) — Giảng viên giới thiệu thiết bị tại khóa huấn luyện. Khi cấp cứu thực tế, bật AED và làm theo chỉ dẫn của máy và tổng đài.",
+    "응급처치 키트 — Hình ảnh một túi dụng cụ sơ cứu. Học viên nên biết cách nhận diện vật dụng, kiểm tra hạn dùng và dùng đúng mục đích đã được hướng dẫn.",
+    "응급처치 교육 — Lớp huấn luyện CPR/AED do Hội Chữ thập đỏ tổ chức tại Đức, giúp phân biệt học thực hành có giám sát với minh họa trên mạng.",
+    "AED 실습 — Học viên luyện sử dụng AED trên mô hình. Trong thực tế hãy theo hình chỉ vị trí điện cực trên chính thiết bị, tránh chạm người bệnh khi máy phân tích."
   ],
   "goi-cuu-ho": [
     "Gọi 119 khi cần cứu hỏa hoặc cấp cứu — Số khẩn cấp 119 tại Hàn Quốc.",

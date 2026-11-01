@@ -10,6 +10,10 @@ on:
       - 'van-hoa-han-quoc.html'
       - 'van-hoa-bai-hoc.html'
       - 'tools/check-culture-v28.mjs'
+      - 'assets/culture/cpr-gallery-v1.css'
+      - 'assets/culture/cpr-v37-published.json'
+      - 'tools/check-culture-topic13.mjs'
+      - 'mrlee-culture-v13-data.js'
   workflow_dispatch:
 jobs:
   verify:
@@ -22,3 +26,4 @@ jobs:
           node-version: '22'
       - run: node tools/check-culture-v28.mjs
       - run: node tools/check-culture-v27.mjs
+      - run: node tools/check-culture-topic13.mjs

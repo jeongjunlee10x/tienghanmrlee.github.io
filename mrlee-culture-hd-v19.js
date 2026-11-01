@@ -21,6 +21,8 @@ const V33='images/culture-v33-photo/';
 const V34='images/culture-v34-photo/';
 const V35='images/culture-v35-photo/';
 const V36='images/culture-v36-photo/';
+const V37='images/culture-v37-photo/';
+const NEW_V37=new Set(['so-cap-cuu']);
 const NEW_V36=new Set(['hien-dai']);
 const NEW_V35=new Set(['lich-su']);
 const NEW_V34=new Set(['tro-choi']);
@@ -52,14 +54,14 @@ const FALLBACK='images/culture-v13/';
 const ID=new URLSearchParams(location.search).get('chu-de')||TOPICS[0];
 const safe=id=>TOPICS.includes(id)?id:null;
 const legacyAsset=(id,index)=>(NEW_V27.has(id)?V27:(NEW_V26.has(id)?V26:(NEW_V25.has(id)?V25:(NEW_V24.has(id)?V24:(NEW_V23.has(id)?V23:(REPLACED.has(id)?V21:DIR)))))) + encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v='+(NEW_V27.has(id)?'27.0':(NEW_V26.has(id)?'26.0':(NEW_V25.has(id)?'25.0':(NEW_V24.has(id)?'24.0':(NEW_V23.has(id)?'23.0':'21.1')))));
-const asset=(id,index)=>NEW_V36.has(id)?V36+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=36.0':NEW_V35.has(id)?V35+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=35.0':NEW_V34.has(id)?V34+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=34.0':NEW_V33.has(id)?V33+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=33.0':NEW_V32.has(id)?V32+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=32.0':NEW_V31.has(id)?V31+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=31.0':NEW_V29.has(id)?V29+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=29.0':NEW_V28.has(id)?V28+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.svg?v=28.0':legacyAsset(id,index);
+const asset=(id,index)=>NEW_V37.has(id)?V37+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=37.0':NEW_V36.has(id)?V36+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=36.0':NEW_V35.has(id)?V35+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=35.0':NEW_V34.has(id)?V34+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=34.0':NEW_V33.has(id)?V33+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=33.0':NEW_V32.has(id)?V32+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=32.0':NEW_V31.has(id)?V31+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=31.0':NEW_V29.has(id)?V29+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.webp?v=29.0':NEW_V28.has(id)?V28+encodeURIComponent(id)+'/'+String(index).padStart(2,'0')+'.svg?v=28.0':legacyAsset(id,index);
 const backup=id=>FALLBACK+encodeURIComponent(id)+'.svg?v=20.0';
 const backupOriginal=(id,k)=>(REPLACED.has(id)?V21:DIR)+encodeURIComponent(id)+'/'+String(k).padStart(2,'0')+'.webp?v=21.1';
 const write=(parent,tag,klass,content)=>{const el=document.createElement(tag);if(klass)el.className=klass;if(content!==undefined)el.textContent=content;parent.append(el);return el};
 const safety=new Set(['so-cap-cuu','goi-cuu-ho','hoa-hoan','benh-vien','an-toan-giao-thong']);
 function load(img,id,k){
  if(!img||!safe(id))return;
- const url=asset(id,k),sceneCaption=((id==='lich-su'||id==='hien-dai')?V27_CAPTIONS[id]?.[k-1]:(id==='cong-so'||id==='tro-choi')?V26_CAPTIONS[id]?.[k-1]:(id==='du-lich'||id==='kpop')?V25_CAPTIONS[id]?.[k-1]:(id==='phe-lich-su'||id==='giao-duc')?V24_CAPTIONS[id]?.[k-1]:(id==='am-thuc'||id==='truyen-thong'||id==='doi-song')?V23_CAPTIONS[id]?.[k-1]:null),alt=sceneCaption?'Ảnh AI theo chủ đề '+k+'/5: '+sceneCaption:(NEW_V29.has(id)?'Ảnh AI tái hiện chân thực ':NEW_V28.has(id)?'Đồ họa giáo dục an toàn ':NEW_V27.has(id)?'Đồ họa vector minh họa ':'Ảnh AI minh họa ')+k+'/5 — '+MEDIA[id].title;
+ const url=asset(id,k),sceneCaption=(id==='so-cap-cuu'?V28_CAPTIONS[id]?.[k-1]:(id==='lich-su'||id==='hien-dai')?V27_CAPTIONS[id]?.[k-1]:(id==='cong-so'||id==='tro-choi')?V26_CAPTIONS[id]?.[k-1]:(id==='du-lich'||id==='kpop')?V25_CAPTIONS[id]?.[k-1]:(id==='phe-lich-su'||id==='giao-duc')?V24_CAPTIONS[id]?.[k-1]:(id==='am-thuc'||id==='truyen-thong'||id==='doi-song')?V23_CAPTIONS[id]?.[k-1]:null),alt=sceneCaption?(NEW_V37.has(id)?'Ảnh chụp buổi tập huấn CPR ':'Ảnh AI theo chủ đề ')+k+'/5: '+sceneCaption:(NEW_V29.has(id)?'Ảnh AI tái hiện chân thực ':NEW_V28.has(id)?'Đồ họa giáo dục an toàn ':NEW_V27.has(id)?'Đồ họa vector minh họa ':'Ảnh AI minh họa ')+k+'/5 — '+MEDIA[id].title;
  img.onerror=null;img.hidden=false;img.removeAttribute('style');
  img.loading=k===1?'eager':'lazy';img.decoding='async';
  img.alt=alt;img.dataset.mrleeCultureHd='27';
@@ -118,8 +120,8 @@ function lesson(){
  const parent=$('#lessonContent'),t=MEDIA[ID];if(!parent||!t)return;
  for(const id of ['cultureImagesV16','cultureImagesV17','cultureImagesV172','mrleeAiPhotos','realPhotos'])document.getElementById(id)?.remove();
  const legacy=$('#image');if(legacy)legacy.hidden=true;
- // Topic-specific, pre-rendered HTML galleries for topics 03–12: leave these intact.
- const staticGallery=ID==='truyen-thong'?$('#cultureImagesV19Topic3'):ID==='doi-song'?$('#cultureImagesV19Topic4'):ID==='phe-lich-su'?$('#cultureImagesV19Topic5'):ID==='giao-duc'?$('#cultureImagesV19Topic6'):ID==='du-lich'?$('#cultureImagesV19Topic7'):ID==='kpop'?$('#cultureImagesV19Topic8'):ID==='cong-so'?$('#cultureImagesV19Topic9'):ID==='tro-choi'?$('#cultureImagesV19Topic10'):ID==='lich-su'?$('#cultureImagesV19Topic11'):ID==='hien-dai'?$('#cultureImagesV19Topic12'):null;
+ // Topic-specific, pre-rendered HTML galleries for topics 03–13: leave these intact.
+ const staticGallery=ID==='truyen-thong'?$('#cultureImagesV19Topic3'):ID==='doi-song'?$('#cultureImagesV19Topic4'):ID==='phe-lich-su'?$('#cultureImagesV19Topic5'):ID==='giao-duc'?$('#cultureImagesV19Topic6'):ID==='du-lich'?$('#cultureImagesV19Topic7'):ID==='kpop'?$('#cultureImagesV19Topic8'):ID==='cong-so'?$('#cultureImagesV19Topic9'):ID==='tro-choi'?$('#cultureImagesV19Topic10'):ID==='lich-su'?$('#cultureImagesV19Topic11'):ID==='hien-dai'?$('#cultureImagesV19Topic12'):ID==='so-cap-cuu'?$('#cultureImagesV19Topic13'):null;
  if(staticGallery){
   $('#cultureImagesV19.mrleeFoodStatic')?.remove();
   const hero=$('#topicHero img');if(hero)load(hero,ID,1);
@@ -154,7 +156,7 @@ function lesson(){
   const anchor=$('#read')||$('#how')||parent.firstElementChild;
   if(anchor)anchor.insertAdjacentElement('beforebegin',section);else parent.append(section);
  }
- const hero=$('#topicHero img');if(hero)load(hero,ID,(ID==='am-thuc'||ID==='truyen-thong'||ID==='doi-song'||ID==='phe-lich-su'||ID==='giao-duc'||ID==='du-lich'||ID==='kpop'||ID==='cong-so'||ID==='tro-choi'||ID==='lich-su'||ID==='hien-dai')?1:2);
+ const hero=$('#topicHero img');if(hero)load(hero,ID,(ID==='am-thuc'||ID==='truyen-thong'||ID==='doi-song'||ID==='phe-lich-su'||ID==='giao-duc'||ID==='du-lich'||ID==='kpop'||ID==='cong-so'||ID==='tro-choi'||ID==='lich-su'||ID==='hien-dai'||ID==='so-cap-cuu')?1:2);
  for(const a of $$('.sidePanel a[href="#image"],.sidePanel a[href="#cultureImagesV16"],.sidePanel a[href="#cultureImagesV17"],.sidePanel a[href="#cultureImagesV172"]')){
   a.href='#cultureImagesV19';a.textContent='5 ảnh minh họa HD';
  }
