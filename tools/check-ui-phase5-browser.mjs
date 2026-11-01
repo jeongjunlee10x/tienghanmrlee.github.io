@@ -43,6 +43,14 @@ try{
      await page.locator(test.box).waitFor({state:'visible',timeout:30000});
      if(test.kind==='culture'){
       await page.waitForFunction(()=>document.querySelectorAll('#topics a.topic').length===22,null,{timeout:30000});
+      await page.locator('#topics a.topic img').evaluateAll(imgs=>imgs.forEach(i=>i.loading='eager'));
+      await page.waitForFunction(()=>{
+       const imgs=[...document.querySelectorAll('#topics a.topic img')];
+       return imgs.length===22&&imgs.every(i=>i.complete&&i.naturalWidth>0);
+      },null,{timeout:30000});
+      const images=await page.locator('#topics a.topic img').evaluateAll(imgs=>imgs.map(i=>({src:i.currentSrc||i.src,width:i.naturalWidth})));
+      assert.equal(new Set(images.map(i=>i.src.split('?')[0])).size,22,'Culture 22 cover images must be distinct');
+      assert(images.every(i=>i.width>=600),'Culture has a broken/low-resolution thumbnail');
      }
      if(test.cards){
       assert.equal(await page.locator(test.cards).count(),test.count,test.file+' navigation');
@@ -62,7 +70,7 @@ try{
        return {x:box.x,y:box.y,width:box.width,height:box.height,right:box.right,bottom:box.bottom,display:style.display,visibility:style.visibility};
       };
       const media=document.querySelector(test.media);
-      const images=media?[...media.querySelectorAll('img')].filter(i=>getComputedStyle(i).display!=='none'):[];
+      const images=media?(media.tagName==='IMG'?[media]:[...media.querySelectorAll('img')]).filter(i=>getComputedStyle(i).display!=='none'):[];
       return {
        theme:document.documentElement.dataset.mrleeTheme,
        viewport:innerWidth,documentWidth:document.documentElement.scrollWidth,
