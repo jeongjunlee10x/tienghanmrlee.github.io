@@ -173,7 +173,8 @@ html[data-mrlee-phase3="student"] :is(.stats .stat,.panel){
 }
 html[data-mrlee-phase3="student"] .stats .stat strong{color:var(--p3-ink)!important}
 html[data-mrlee-phase3="student"] .panel h2{color:var(--p3-ink)!important;letter-spacing:-.03em}
-html[data-mrlee-phase3="student"] .ml-home-tools{display:none!important} /* links moved into the new accessible navigation */
+/* Preserve original AI/audio tools; they serve a different purpose than four primary links. */
+html[data-mrlee-phase3="student"] .ml-home-tools{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px!important;margin:0 0 20px!important}
 /* Admin: authenticated overview only; existing Supabase sign-in + RLS + charts are untouched */
 html[data-mrlee-phase3="admin"] #app .main-pad{max-width:none!important;padding:clamp(15px,2.2vw,28px)!important}
 html[data-mrlee-phase3="admin"] #app .sidebar{background:#102e52!important}
@@ -243,3 +244,29 @@ html[data-mrlee-phase3="admin"] #app .topbar h2{font-family:var(--p3-font)!impor
  html[data-mrlee-phase3="admin"] #app .mrlee27-admin-buttons{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){html[data-mrlee-phase3] *{scroll-behavior:auto!important}}
+
+/* Legacy V4/V5 launch panels must not replace the functional Phase 3 pages. */
+html[data-mrlee-phase3="map"] main > .mrlee-v4-root,
+html[data-mrlee-phase3="student"] main > .mrlee-v4-root,
+html[data-mrlee-phase3="map"] .mrlee-v2-primary-nav,
+html[data-mrlee-phase3="student"] .mrlee-v2-primary-nav{display:none!important}
+html[data-mrlee-phase3="map"],html[data-mrlee-phase3="map"] body,
+html[data-mrlee-phase3="student"],html[data-mrlee-phase3="student"] body{
+ overflow-y:auto!important;max-height:none!important
+}
+html[data-mrlee-phase3="map"][data-mrlee-v4][data-mrlee-v4-folded="true"]
+ main > .mrlee-v4-root ~ .mrlee27-map-intro{display:grid!important}
+html[data-mrlee-phase3="student"][data-mrlee-v4][data-mrlee-v4-folded="true"]
+ main > .mrlee-v4-root ~ :is(.intro,.stats,.columns,.ml-home-tools,.mrlee27-student-links){display:grid!important}
+/* The new admissions steps replace the redundant four generic shortcuts. */
+html[data-mrlee-phase3="admission"] .ts-v15-shortcuts{display:none!important}
+html[data-mrlee-phase3="admission"][data-mrlee-theme="future"] .ts-hero-copy .ts-btn-outline{color:var(--p3-ink)!important}
+/* Private-account status and filters remain visible and operable. */
+html[data-mrlee-phase3="student"] :is(.controls select,.controls button){min-height:44px!important}
+html[data-mrlee-phase3="student"][data-mrlee-theme="future"] .ml-home-tool{
+ background:var(--p3-surface)!important;color:var(--p3-ink)!important;border-color:var(--p3-border)!important
+}
+html[data-mrlee-phase3="student"][data-mrlee-theme="future"] .ml-home-tool :is(strong,small){color:var(--p3-ink)!important}
+@media(max-width:900px){
+ html[data-mrlee-phase3="student"] .ml-home-tools{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
