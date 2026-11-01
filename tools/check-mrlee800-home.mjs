@@ -1,29 +1,50 @@
-// MR LEE 800 static test: do not mistake planned art for generated artwork.
-// Preserve navigation, ranking, forms, login and responsive scrolling.
+/* MR LEE 2027 — verify the *current* homepage and rebuilt subpage heroes.
+ * Replaces the superseded MR LEE 800 auto-hero loader requirement.
+ * Does not touch login, rewards, interviews or admin data.
+ */
+import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {spawnSync} from 'node:child_process';
-const errors=[];
-const pages=['index.html','hoc-tieng-han.html','giao-tiep-theo-chu-de.html','kiem-tra-topik.html','mrlee-topik-pro.html','giao-tiep-phong-van.html','van-hoa-han-quoc.html','ban-do-dai-hoc-han-quoc.html','mrlee-bai-tap-pro.html','trung-tam-hoc-vien.html','admin.html'];
-const css=fs.readFileSync('assets/images/system/mrlee800-home-fit.css','utf8');
-const js=fs.readFileSync('assets/images/system/mrlee800-hero-loader.js','utf8');
-const syntax=spawnSync(process.execPath,['--check','assets/images/system/mrlee800-hero-loader.js'],{encoding:'utf8'});
-if(syntax.status!==0)errors.push('Invalid hero loader: '+syntax.stderr);
-for(const p of pages){
- const html=fs.readFileSync(p,'utf8');
- if(!html.includes('assets/images/system/mrlee800-hero-loader.js'))errors.push(p+': missing hero loader');
- if(p==='index.html'){
-  if(!html.includes('assets/branding/home-recovery.css'))errors.push('Homepage has no recovered compact stylesheet');
-  for(const tag of ['id="mainContent"','class="hero"','class="feature-cards"','class="search-strip"','id="ranking"','class="journey"','id="contactDialog"','class="contact-rail"'])
-   if(tag==='class="hero"' ? !/class="hero(?:\s|\")/.test(html) : !html.includes(tag))errors.push('Lost homepage feature '+tag);
-  if(!html.includes('logo-mrlee.png'))errors.push('Official logo was lost');
- }
+const read=p=>fs.readFileSync(p,'utf8');
+const modern=[
+ ['index.html','data-mrlee-redesign="v2"'],
+ ['hoc-tieng-han.html','data-mrlee-hub-v2="learning"'],
+ ['kiem-tra-topik.html','data-mrlee-hub-v2="topik"'],
+ ['giao-tiep-phong-van.html','data-mrlee-hub-v2="talk"'],
+ ['van-hoa-han-quoc.html','data-mrlee-culture-v2="1"'],
+ ['ban-do-dai-hoc-han-quoc.html','data-mrlee-phase3="map"'],
+ ['mrlee-bai-tap-pro.html','data-mrlee-hub-v2="workbook"'],
+ ['trung-tam-hoc-vien.html','data-mrlee-phase3="student"'],
+ ['admin.html','data-mrlee-phase3="admin"']
+];
+for(const [file,flag] of modern){
+ const h=read(file);
+ assert(h.includes(flag),'Current layout absent '+file);
+ assert(!h.includes('assets/images/system/mrlee800-hero-loader.js'),
+  'Legacy hero injector reappeared '+file);
 }
-for(const val of ['(min-width:1180px)','(min-height:700px)','(max-width:1179px)','(max-height:699px)','grid-row:1!important','grid-row:2!important','grid-row:3!important','grid-row:4!important','minmax(0','overflow:visible!important']){
- if(!css.includes(val))errors.push('Missing layout/responsive guard '+val);
+const home=read('index.html');
+const css=read('assets/mrlee-ui2027/rebuild-home-v2.css');
+const homeJS=read('assets/mrlee-ui2027/rebuild-home-v2.js');
+assert.equal((home.match(/class="mr27-tile"/g)||[]).length,8,'Home must have eight modules');
+assert(home.includes('id="mrlee27Expand"')&&home.includes('id="mrlee27ThemeChange"'),'Progressive navigation or theme chooser absent');
+assert(home.includes('id="ranking"')&&home.includes('id="contactDialog"'),'Legacy live ranking or consultation modal lost');
+for(const img of [
+ 'assets/images/heroes/01-trang-chu-fresh.webp',
+ 'assets/images/heroes/01-trang-chu-future.webp'
+]){
+ assert(home.includes('src="'+img+'"'),'Unique home photo missing from page: '+img);
+ const bin=fs.readFileSync(img);
+ assert(bin.length>20000 && bin.toString('ascii',0,4)==='RIFF' && bin.toString('ascii',8,12)==='WEBP',
+  'Image is too small/corrupt '+img);
 }
-for(const val of ['new Image()','img.naturalWidth>=1100','img.onerror=','data-mrlee-theme','assets/images/heroes/','classList.add']){
- if(!js.includes(val))errors.push('Image safety check missing: '+val);
-}
-errors.forEach(x=>console.error('FAIL '+x));
-console.log('MR LEE 800: '+pages.length+' pages wired. Home desktop one viewport, small/mobile scroll. Artwork included by ZIP, not falsely counted in repo.');
-if(errors.length)process.exit(1);
+for(const token of [
+ 'data-mrlee-theme="future"','grid-template-columns','@media(max-width:650px)',
+ '@media(max-width:900px)','prefers-reduced-motion'
+])assert(css.includes(token),'New home layout missing '+token);
+assert(!home.includes('assets/branding/home-hero-overlay-v3.css'),'Superseded old hero CSS loaded');
+assert(!home.includes('assets/branding/home-hero-split-v2.css'),'Superseded old split CSS loaded');
+const syntax=spawnSync(process.execPath,['--check','assets/mrlee-ui2027/rebuild-home-v2.js'],{encoding:'utf8'});
+assert.equal(syntax.status,0,syntax.stderr);
+assert(homeJS.includes('mrleeSmartExpanded'),'User expansion control missing');
+console.log('PASS MR LEE 2027: 9 clean modern pages, 2 real theme hero images, mobile-safe homepage, native ranking and consultation preserved.');
