@@ -261,3 +261,10 @@ html[data-mrlee-redesign="v2"] #mainContent{min-height:0!important;height:auto!i
 @media(prefers-reduced-motion:reduce){
  #mrleeNewHome :is(a,button){transition:none!important}
 }
+/* Switch actual hero assets by the user's selected UI, not by browser color scheme. */
+html[data-mrlee-redesign="v2"] #mrleeNewHome .mr27-art-future{display:none!important}
+html[data-mrlee-redesign="v2"][data-mrlee-theme="future"] #mrleeNewHome .mr27-art-future{display:block!important}
+html[data-mrlee-redesign="v2"][data-mrlee-theme="future"] #mrleeNewHome .mr27-art-fresh{display:none!important}
+html[data-mrlee-redesign="v2"]:not([data-mrlee-theme="future"]) #mrleeNewHome .mr27-art-fresh{display:block!important}
+#mrleeNewHome .mr27-missing-photo{background-image:linear-gradient(140deg,#113963,#0a294d)!important}
+#mrleeNewHome .mr27-tile.mr27-missing-photo{background:var(--card-bg)!important}
