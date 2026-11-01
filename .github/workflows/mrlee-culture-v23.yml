@@ -9,6 +9,8 @@ on:
       - 'mrlee-culture-hd-v19.js'
       - 'mrlee-culture-v13-data.js'
       - 'assets/culture/tradition-gallery-v1.css'
+      - 'assets/culture/daily-life-gallery-v1.css'
+      - 'tools/check-culture-topic4.mjs'
       - 'tools/check-culture-topic3.mjs'
       - 'van-hoa-bai-hoc.html'
   pull_request:
@@ -35,3 +37,5 @@ jobs:
       - run: node tools/check-culture-v23.mjs
       - name: Verify topic 03 five distinct WebP image binaries and static HTML
         run: node tools/check-culture-topic3.mjs
+      - name: Check topic 04 static images and SHA-256 integrity
+        run: node tools/check-culture-topic4.mjs

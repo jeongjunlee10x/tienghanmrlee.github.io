@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+const html=fs.readFileSync('van-hoa-bai-hoc.html','utf8');
+const engine=fs.readFileSync('mrlee-culture-hd-v19.js','utf8');
+const data=fs.readFileSync('mrlee-culture-v13-data.js','utf8');
+const css=fs.readFileSync('assets/culture/daily-life-gallery-v1.css','utf8');
+const captions=fs.readFileSync('mrlee-culture-v23-captions.js','utf8');
+const manifest=JSON.parse(fs.readFileSync('assets/culture/v23-manifest.json','utf8'));
+const sources=[...html.matchAll(/src="(images\/culture-v23-ai\/doi-song\/(\d\d)\.webp)\?v=20261101-topic04-final"/g)];
+assert.deepEqual(sources.map(x=>x[2]),['01','02','03','04','05']);
+assert(html.includes('id="cultureImagesV19Topic4"'));
+assert(html.includes("dataset.mrleeDailyGallery='1'"));
+assert(css.includes('html:not([data-mrlee-daily-gallery="1"])'));
+assert(engine.includes("ID==='doi-song'?$('#cultureImagesV19Topic4')"));
+assert(engine.includes("for(const a of $$('.sidePanel"));
+assert(data.includes('"image":"images/culture-v23-ai/doi-song/01.webp"'));
+assert(captions.includes('"doi-song": ['));
+const checksums=new Set();
+for(let i=0;i<5;i++){
+ const image=manifest.images.find(x=>x.topic==='doi-song'&&x.index===i+1);
+ assert(image);assert.equal(sources[i][1],image.file);
+ assert.equal(image.width,1536);assert.equal(image.height,1024);
+ const bytes=fs.readFileSync(image.file);
+ assert.equal(bytes.toString('ascii',0,4),'RIFF');
+ assert.equal(bytes.toString('ascii',8,12),'WEBP');
+ assert.equal(bytes.length,image.bytes);
+ assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),image.sha256);
+ assert(!checksums.has(image.sha256));checksums.add(image.sha256);
+}
+console.log('PASS topic04: five independent assets, SHA-256, HTML/CSS, cover, captions and script.');
