@@ -7,7 +7,7 @@ const css=fs.readFileSync('assets/mrlee-ui2027/rebuild-home-v2.css','utf8');
 const js=fs.readFileSync('assets/mrlee-ui2027/rebuild-home-v2.js','utf8');
 assert(html.includes('data-mrlee-redesign="v2"'),'V2 root switch not present');
 assert.equal((html.match(/id="mrleeNewHome"/g)||[]).length,1);
-assert(html.includes('rebuild-home-v2.css?v=20261101-rebuild2'));
+assert(html.includes('rebuild-home-v2.css?v=20261102-p5'));
 assert(html.includes('rebuild-home-v2.js?v=20261101-rebuild2'));
 const root=html.match(/<section id="mrleeNewHome"[\s\S]*?<\/section>/)?.[0];
 assert(root,'new design missing');
