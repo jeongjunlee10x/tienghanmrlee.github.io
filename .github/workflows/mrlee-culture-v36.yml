@@ -1,0 +1,37 @@
+name: MR LEE Culture V36 — build modern Korea landscape images
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/culture/modern-v36-sources.json'
+      - 'tools/build-culture-modern-v36.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: culture-v36-modern-photo-build
+  cancel-in-progress: false
+jobs:
+  photos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Pillow
+        run: python -m pip install pillow==11.3.0
+      - name: Fetch original licensed images and generate 5 independent horizontal WebPs
+        run: python tools/build-culture-modern-v36.py
+      - name: Commit completed image pack and verification manifest
+        run: |
+          git config user.name "mrlee-photo-qa[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add images/culture-v36-photo/hien-dai/ assets/culture/modern-v36-published.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Culture V36: publish five modern Korea landscape photos and provenance"
+            git push origin HEAD:main
+          fi

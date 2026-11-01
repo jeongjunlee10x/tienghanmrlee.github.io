@@ -1,0 +1,65 @@
+{
+  "version": "36.0",
+  "topic": "hien-dai",
+  "type": "real-licensed-documentary-photography",
+  "user_requested": "Try AI; image generation failed single landscape without typography, so use clear local real photography, never mislabel as generated AI",
+  "processing": "1536x1024 3:2 horizontal from original pixels, no upscaling, no blur panels",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Seoul và sông Hàn về đêm",
+      "filename": "Seoul night skyline 2018.jpg",
+      "author": "Takipoint123",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Seoul_night_skyline_2018.jpg",
+      "original_width": 4032,
+      "original_height": 3024,
+      "editor_note": "Photograph retouched to remove glare, author disclosed Google AI photo editing"
+    },
+    {
+      "index": 2,
+      "title": "Tàu cao tốc KTX-Cheongryong",
+      "filename": "KTX-청룡 단독 편성.jpg",
+      "author": "블루라인",
+      "licence": "CC BY 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by/3.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:KTX-%EC%B2%AD%EB%A3%A1_%EB%8B%A8%EB%8F%85_%ED%8E%B8%EC%84%B1.jpg",
+      "original_width": 4000,
+      "original_height": 3000
+    },
+    {
+      "index": 3,
+      "title": "Nhà máy bán dẫn HANMI ở Hàn Quốc",
+      "filename": "HANMI Semiconductor Factory 1(2026).png",
+      "author": "타사자라",
+      "licence": "CC0 1.0",
+      "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:HANMI_Semiconductor_Factory_1(2026).png",
+      "original_width": 2414,
+      "original_height": 1301
+    },
+    {
+      "index": 4,
+      "title": "Ga tàu điện Digital Media City ở Seoul",
+      "filename": "Seoul-metro-618-Digital-media-city-station-platform-20191022-092532.jpg",
+      "author": "LERK",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Seoul-metro-618-Digital-media-city-station-platform-20191022-092532.jpg",
+      "original_width": 4000,
+      "original_height": 2250
+    },
+    {
+      "index": 5,
+      "title": "Triển lãm xu hướng cà phê COEX Seoul",
+      "filename": "COEX cafe show 2022.jpg",
+      "author": "kallerna",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:COEX_cafe_show_2022.jpg",
+      "original_width": 5020,
+      "original_height": 3360
+    }
+  ]
+}
