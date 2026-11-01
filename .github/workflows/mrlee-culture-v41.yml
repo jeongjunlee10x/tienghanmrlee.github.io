@@ -1,0 +1,36 @@
+name: MR LEE Culture V41 - licensed Korean medical service photos
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/culture/medical-v41-sources.json'
+      - 'tools/build-culture-medical-v41.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: culture-v41-medical-build
+  cancel-in-progress: false
+jobs:
+  photos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pillow==11.3.0
+      - name: Download original photos and prepare five 1536x1024 landscapes
+        run: python tools/build-culture-medical-v41.py
+      - name: Publish five photos with licence and SHA-256 metadata
+        run: |
+          git config user.name "mrlee-photo-qa[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add images/culture-v41-photo/benh-vien/ assets/culture/medical-v41-published.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Culture V41: publish five credited Korean medical-service photos"
+            git push origin HEAD:main
+          fi
