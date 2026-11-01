@@ -1,0 +1,36 @@
+name: MR LEE Culture V42 - licensed Korean fire safety photos
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/culture/fire-v42-sources.json'
+      - 'tools/build-culture-fire-v42.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: culture-v42-fire-build
+  cancel-in-progress: false
+jobs:
+  photos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pillow==11.3.0
+      - name: Source original CC images and render five 3-to-2 landscape WebP photos
+        run: python tools/build-culture-fire-v42.py
+      - name: Publish 5 licensed images and source manifest
+        run: |
+          git config user.name "mrlee-photo-qa[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add images/culture-v42-photo/hoa-hoan/ assets/culture/fire-v42-published.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Culture V42: publish five licensed Korean fire safety landscape photographs"
+            git push origin HEAD:main
+          fi

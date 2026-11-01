@@ -1,0 +1,68 @@
+{
+  "version": "42.0",
+  "topic": "hoa-hoan",
+  "type": "verified-Wikimedia-real-Korean-fire-safety-photos",
+  "processing": "Center-crop original photographed scene to 3:2, downsample to 1536x1024 WebP; record credit and original license; no upscale",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Nút báo cháy bằng tay tại một tòa nhà Hàn Quốc",
+      "filename": "Siemens MCL-R1A Manual Call Point.png",
+      "author": "A1518",
+      "licence": "CC0 1.0",
+      "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Siemens_MCL-R1A_Manual_Call_Point.png",
+      "original_width": 3488,
+      "original_height": 3364,
+      "context_note": "Manual fire alarm call point photographed in South Korea on 23 Nov 2025; call-point models vary by building. Device alone is not an exit."
+    },
+    {
+      "index": 2,
+      "title": "Hướng dẫn sử dụng bình chữa cháy trong hoạt động cộng đồng tại Seoul",
+      "filename": "2013년 서울특별시 노원소방서 서장 장인수.jpg",
+      "author": "Choi Kwang-mo",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:2013%EB%85%84_%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C_%EB%85%B8%EC%9B%90%EC%86%8C%EB%B0%A9%EC%84%9C_%EC%84%9C%EC%9E%A5_%EC%9E%A5%EC%9D%B8%EC%88%98.jpg",
+      "original_width": 3068,
+      "original_height": 2024,
+      "context_note": "Nowon fire chief showing a resident fire-extinguisher usage at 2013 outreach; trained adults only, prioritize evacuation."
+    },
+    {
+      "index": 3,
+      "title": "Diễn tập chữa cháy tại Đại học Pai Chai, Daejeon",
+      "filename": "070712FireDrill Nambu Daejeon SKorea 01.jpg",
+      "author": "Nudimmud",
+      "licence": "CC BY-SA 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:070712FireDrill_Nambu_Daejeon_SKorea_01.jpg",
+      "original_width": 1600,
+      "original_height": 1200,
+      "context_note": "Public building fire drill photographed at Pai Chai University, Daejeon, 2007; a drill, not live incident."
+    },
+    {
+      "index": 4,
+      "title": "Diễn tập chữa cháy tại đài truyền hình Gangneung",
+      "filename": "2011년 5월 12일 MBC강원영동 강릉방송국 소방훈련 합동소방훈련(MBC).jpg",
+      "author": "Choi Kwang-mo",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:2011%EB%85%84_5%EC%9B%94_12%EC%9D%BC_MBC%EA%B0%95%EC%9B%90%EC%98%81%EB%8F%99_%EA%B0%95%EB%A6%89%EB%B0%A9%EC%86%A1%EA%B5%AD_%EC%86%8C%EB%B0%A9%ED%9B%88%EB%A0%A8_%ED%95%A9%EB%8F%99%EC%86%8C%EB%B0%A9%ED%9B%88%EB%A0%A8(MBC).jpg",
+      "original_width": 1920,
+      "original_height": 1080,
+      "context_note": "Fire brigade drill at MBC Gangneung broadcasting station, May 2011."
+    },
+    {
+      "index": 5,
+      "title": "Lính cứu hỏa tập huấn tại khu dân cư Seoul",
+      "filename": "2015년 2월 11일 서울특별시 소방공무원 김하름 등.jpg",
+      "author": "Choi Kwang-mo",
+      "licence": "CC0 1.0",
+      "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:2015%EB%85%84_2%EC%9B%94_11%EC%9D%BC_%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C_%EC%86%8C%EB%B0%A9%EA%B3%B5%EB%AC%B4%EC%9B%90_%EA%B9%80%ED%95%98%EB%A6%84_%EB%93%B1.jpg",
+      "original_width": 5472,
+      "original_height": 3648,
+      "context_note": "Seocho firefighters train at Eungbong Village, Seoul, Feb 2015; depicts professional personnel, not residents."
+    }
+  ]
+}
