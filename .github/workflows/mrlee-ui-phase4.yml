@@ -1,0 +1,31 @@
+name: MR LEE UI 2027 - Phase 4 Static Regression
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'hoc-tieng-han.html'
+      - 'giao-tiep-phong-van.html'
+      - 'kiem-tra-topik.html'
+      - 'van-hoa-han-quoc.html'
+      - 'ban-do-dai-hoc-han-quoc.html'
+      - 'trung-tam-hoc-vien.html'
+      - 'tuyen-sinh.html'
+      - 'admin.html'
+      - 'assets/mrlee-dual-ui/theme.js'
+      - 'tools/check-ui-phase4.mjs'
+      - '.github/workflows/mrlee-ui-phase4.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate routes, assets and non-invasive theme compatibility
+        run: node tools/check-ui-phase4.mjs
