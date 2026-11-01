@@ -34,7 +34,9 @@ assert.equal((home.match(/class="mr27-tile"/g)||[]).length,8,'Homepage must keep
 for(const img of ['assets/images/heroes/01-trang-chu-fresh.webp','assets/images/heroes/01-trang-chu-future.webp'])
  assert(has(img)&&home.includes('src="'+img+'"'),'Independent Fresh/Future hero missing: '+img);
 for(const folder of ['MRLEE_AUDIO','MRLEE_PRO_AUDIO']){
- assert(has(folder)&&fs.readdirSync(folder).length>1000,'Active learning audio accidentally moved '+folder);
+ const catalog=has(folder)?fs.readdirSync(folder,{recursive:true}):[];
+ const mp3=catalog.filter(name=>/\.mp3$/i.test(name)).length;
+ assert(mp3>1000,'Active learning audio catalog missing: '+folder+' (MP3='+mp3+')');
 }
 const talk=read('giao-tiep-theo-chu-de.html');
 for(const runtime of ['assets/mrlee-v4/page-system.js','assets/mrlee-v5/compact-shell.js'])
