@@ -1,0 +1,111 @@
+{
+  "version": "31.0",
+  "topic": "du-lich",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Cung điện Gyeongbokgung",
+      "filename": "경복궁 전경.jpg",
+      "author": "이상곤",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:%EA%B2%BD%EB%B3%B5%EA%B6%81_%EC%A0%84%EA%B2%BD.jpg",
+      "original_width": 6000,
+      "original_height": 4000,
+      "file": "images/culture-v31-photo/du-lich/01.webp",
+      "bytes": 303238,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "e145090d9849c4f719f6e9bde4ce71181e036ad5d0471ac0f9f0b9815858d300",
+      "source_dimensions": [
+        6000,
+        4000
+      ],
+      "credit_required": true
+    },
+    {
+      "index": 2,
+      "title": "Chùa Haedong Yonggungsa tại Busan",
+      "filename": "Busan Haedong Yonggung Temple.jpg",
+      "author": "bertconcepts",
+      "licence": "CC BY 2.0",
+      "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Busan_Haedong_Yonggung_Temple.jpg",
+      "original_width": 3888,
+      "original_height": 2592,
+      "file": "images/culture-v31-photo/du-lich/02.webp",
+      "bytes": 266646,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "6348b527b8fc1fc9e0e0d580334976c235dba99d99644882955dc44e8628d4cc",
+      "source_dimensions": [
+        3888,
+        2592
+      ],
+      "credit_required": true
+    },
+    {
+      "index": 3,
+      "title": "Toàn cảnh Seoul từ núi Namsan",
+      "filename": "Seoul city skyline at night from Namsan Mountain (49175035266).jpg",
+      "author": "Matt Kieffer",
+      "licence": "CC BY-SA 2.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Seoul_city_skyline_at_night_from_Namsan_Mountain_(49175035266).jpg",
+      "original_width": 6000,
+      "original_height": 4000,
+      "file": "images/culture-v31-photo/du-lich/03.webp",
+      "bytes": 477410,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "8e73e83a4d5a47c1f2473d6af41d667159d8462b3b50dc5a8e6ed5436fc5482f",
+      "source_dimensions": [
+        6000,
+        4000
+      ],
+      "credit_required": true
+    },
+    {
+      "index": 4,
+      "title": "Khu phố Hanok Bukchon",
+      "filename": "Bukchon Hanok Village Mar 2025 01.jpg",
+      "author": "Epicgenius",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Bukchon_Hanok_Village_Mar_2025_01.jpg",
+      "original_width": 4080,
+      "original_height": 3060,
+      "file": "images/culture-v31-photo/du-lich/04.webp",
+      "bytes": 434144,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "a59a378ac5c21770118919f7264bc96a8881e3a2e9bbea846e1c299f13371e32",
+      "source_dimensions": [
+        4080,
+        3060
+      ],
+      "credit_required": true
+    },
+    {
+      "index": 5,
+      "title": "Núi Seoraksan mùa thu",
+      "filename": "Seoraksan in the Fall 1- 설악산 단풍.jpg",
+      "author": "Joycekim77",
+      "licence": "CC BY-SA 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Seoraksan_in_the_Fall_1-_%EC%84%A4%EC%95%85%EC%82%B0_%EB%8B%A8%ED%92%8D.jpg",
+      "original_width": 2048,
+      "original_height": 1365,
+      "file": "images/culture-v31-photo/du-lich/05.webp",
+      "bytes": 552684,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "2b42838672cb72681d1d56de6688033317c1e424f70c2e5ceab452559adb4dc8",
+      "source_dimensions": [
+        2048,
+        1365
+      ],
+      "credit_required": true
+    }
+  ]
+}
