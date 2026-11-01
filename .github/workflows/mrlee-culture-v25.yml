@@ -8,6 +8,9 @@ on:
       - 'mrlee-culture-v13-data.js'
       - 'mrlee-culture-v25-captions.js'
       - 'assets/culture/travel-gallery-v1.css'
+      - 'assets/culture/kpop-gallery-v1.css'
+      - 'assets/culture/kpop-v32-published.json'
+      - 'tools/check-culture-topic8.mjs'
       - 'tools/check-culture-topic7.mjs'
   pull_request:
     branches: [main]
@@ -34,3 +37,5 @@ jobs:
         run: node tools/check-culture-v25.mjs
       - name: Verify topic 07 static gallery image integrity and previous lessons
         run: node tools/check-culture-topic7.mjs
+      - name: Verify topic 08 true landscape K-pop photography, licenses and checksums
+        run: node tools/check-culture-topic8.mjs

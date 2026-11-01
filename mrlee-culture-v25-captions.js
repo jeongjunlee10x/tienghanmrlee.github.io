@@ -8,10 +8,10 @@ window.MRLEE_CULTURE_V25_CAPTIONS={
     "Ảnh chụp HD: Núi Seoraksan mùa thu — tác giả Joycekim77"
   ],
   "kpop": [
-    "Nhóm nhạc nam trình diễn trên sân khấu",
-    "Nhóm nhạc nữ trình diễn K-pop",
-    "Buổi ghi hình trong trường quay giải trí",
-    "Văn hóa người hâm mộ âm nhạc tại Seoul",
-    "Phố mua sắm đồ lưu niệm K-pop"
+    "라이브 공연 — Nhóm nam biểu diễn K-pop trên sân khấu tại Los Angeles năm 2018. Sân khấu trực tiếp kết hợp vũ đạo, âm nhạc và ánh sáng.",
+    "여성 그룹 공연 — Nhóm nữ Brown Eyed Girls biểu diễn tại Hà Nội năm 2012, minh họa sức lan tỏa quốc tế của K-pop.",
+    "방송 스튜디오 — Phòng thu của đài KBS 2Radio tại Seoul; giải thích vai trò của radio và các chương trình phát sóng trong ngành giải trí.",
+    "케이팝 팬 문화 — Không gian hội chợ KCON Jeju năm 2015, nơi người tham gia khám phá văn hóa âm nhạc Hàn Quốc.",
+    "공식 상품과 팬덤 — Người hâm mộ xếp hàng mua vật phẩm lưu niệm tại buổi hòa nhạc BTS ở Los Angeles năm 2021."
   ]
 };
