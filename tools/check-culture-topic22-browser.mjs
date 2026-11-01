@@ -4,7 +4,14 @@ import {chromium} from 'playwright';
 const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
 fs.mkdirSync('artifacts',{recursive:true});
 for (const [mode,width,height] of [['desktop',1440,900],['mobile',390,844]]) {
- const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});
+ // Visual fixture ONLY. Production auth-guard.js is not changed.
+ // Topic pages intentionally redirect unauthenticated students to sign-in.
+ const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:1});
+ await context.route('**/auth-guard.js',route=>route.fulfill({
+  status:200,contentType:'text/javascript',
+  body:"document.documentElement.dataset.mrleeAuth='verified';document.getElementById('mrlee-auth-hide')?.remove();"
+ }));
+ const page=await context.newPage();
  await page.goto('http://127.0.0.1:8765/van-hoa-bai-hoc.html?chu-de=an-toan-giao-thong',{waitUntil:'domcontentloaded',timeout:30000});
  await page.waitForSelector('#cultureImagesV19Topic22 .mrleeCultureFigure',{state:'visible',timeout:25000});
  await page.evaluate(()=>document.querySelectorAll('#cultureImagesV19Topic22 img').forEach(img=>{img.loading='eager'}));
@@ -30,6 +37,6 @@ for (const [mode,width,height] of [['desktop',1440,900],['mobile',390,844]]) {
  assert(x.width<=x.windowWidth+1,mode+' gallery width overflow '+JSON.stringify(x));
  await page.locator('#cultureImagesV19Topic22').screenshot({path:'artifacts/topic22-'+mode+'.png'});
  console.log('PASS Topic22 Chrome '+mode,JSON.stringify(x));
- await page.close();
+ await context.close();
 }
 await browser.close();
