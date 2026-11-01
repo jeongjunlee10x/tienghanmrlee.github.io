@@ -25,6 +25,13 @@ for(const cfg of routes){
       status:200,contentType:'text/javascript',
       body:'document.documentElement.dataset.mrleeAuth="verified";'
     }));
+    // A visual fixture cannot read any real Firebase profile. Keep layout
+    // visible while asserting only the presence of original data controls.
+    for(const pattern of ['**/mrlee-student.js','**/mrlee-avatar.js','**/mrlee-daily-boot.js**']){
+      await context.route(pattern,route=>route.fulfill({
+        status:200,contentType:'text/javascript',body:'/* visual-only test fixture */'
+      }));
+    }
    }
    const page=await context.newPage();
    await page.goto('http://127.0.0.1:8765/'+cfg.path,{waitUntil:'domcontentloaded',timeout:60000});
