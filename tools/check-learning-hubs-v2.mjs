@@ -15,6 +15,7 @@ assert(css.includes('data-mrlee-hub-expanded="true"'));
 assert(css.includes('@media(max-width:680px)'));
 assert(css.includes('.mr27-subhero')&&css.includes('.mr27-cards'));
 assert(js.includes('MRLEE.THEME.ENTRY.V1')&&js.includes('root.dataset.mrleeHubExpanded'));
+assert(js.includes("root.dataset.mrleeV4Folded='false'"),'old V5 fold must not hide new UI');
 for (const [file,topic,cardCount,legacy] of config){
   const html=fs.readFileSync(file,'utf8');
   assert(html.includes('data-mrlee-hub-v2="'+topic+'"'),file+' root');
@@ -57,7 +58,7 @@ for(const id of ['workLevel','workLesson','workProfile','workSummary','workList'
 assert(work.includes('mrlee-bai-tap-pro.js'),'Workbook native quiz runtime preserved');
 assert(work.includes('auth-guard.js'),'Workbook auth gate preserved');
 assert(work.includes('mrlee-score-v12/widget.js'),'Workbook score integration preserved');
-for(const p of ['assets/mrlee-ui2027/learning-hubs-v2.js']){
+for(const p of ['assets/mrlee-ui2027/learning-hubs-v2.js','assets/mrlee-ui2027/culture-landing-v2.js']){
  const v=spawnSync(process.execPath,['--check',p],{encoding:'utf8'});
  assert.equal(v.status,0,p+' syntax '+v.stderr);
 }
@@ -65,8 +66,11 @@ console.log('PASS: Workbook scores, controls, auth, 15 exercise sets; shared V2 
 
 const culture=fs.readFileSync('van-hoa-han-quoc.html','utf8');
 const cultureCss=fs.readFileSync('assets/mrlee-ui2027/culture-landing-v2.css','utf8');
+const cultureScript=fs.readFileSync('assets/mrlee-ui2027/culture-landing-v2.js','utf8');
 assert(culture.includes('data-mrlee-culture-v2="1"'));
 assert(culture.includes('assets/mrlee-ui2027/culture-landing-v2.css'));
+assert(culture.includes('assets/mrlee-ui2027/culture-landing-v2.js'));
+assert(cultureScript.includes("root.dataset.mrleeV4Folded='false'"));
 assert(culture.includes('mr27-culture-visual'));
 assert(culture.includes('id="topics"')&&culture.includes('data-filter="culture"')&&culture.includes('data-filter="life"'));
 assert(culture.includes('mrlee-culture-v13.js')&&culture.includes('mrlee-culture-hd-v19.js'),'preserve 22-topic runtime and images');
