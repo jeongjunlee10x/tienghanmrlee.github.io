@@ -1,0 +1,111 @@
+{
+  "version": "33.0",
+  "topic": "cong-so",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Trao đổi và lắng nghe tại văn phòng Wikimedia Korea",
+      "filename": "Wikimedia Sharing Session in Wikimedia Korea Office 07.jpg",
+      "author": "Qhairy",
+      "licence": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Wikimedia_Sharing_Session_in_Wikimedia_Korea_Office_07.jpg",
+      "original_width": 4000,
+      "original_height": 3000,
+      "file": "images/culture-v33-photo/cong-so/01.webp",
+      "bytes": 203714,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "5f35b27ecae2aa3baa9459dd684ee299c72a251fa55bba5013e4fbf895604e3b",
+      "source_dimensions": [
+        4000,
+        3000
+      ],
+      "credit_required": true
+    },
+    {
+      "index": 2,
+      "title": "Họp phối hợp giữa các cơ quan tại Hàn Quốc",
+      "filename": "Meeting to Review Safety Systems of the MAFRA and its Affiliated Organizations (25101002).jpg",
+      "author": "Ministry of Agriculture, Food and Rural Affairs (MAFRA)",
+      "licence": "Korea Open Government License Type 1 (KOGL 1)",
+      "licence_url": "https://www.kogl.or.kr/info/licenseType1.do",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Meeting_to_Review_Safety_Systems_of_the_MAFRA_and_its_Affiliated_Organizations_(25101002).jpg",
+      "original_width": 2222,
+      "original_height": 1426,
+      "file": "images/culture-v33-photo/cong-so/02.webp",
+      "bytes": 174132,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "3f7cdf2ab77671959f2b1f6c533a1ac2995825337c9f57a3e99d2ed68c3bfc40",
+      "source_dimensions": [
+        2222,
+        1426
+      ],
+      "credit_required": true
+    },
+    {
+      "index": 3,
+      "title": "Buổi chia sẻ kiến thức tại văn phòng ở Seoul",
+      "filename": "Wikimedia Sharing Session in Wikimedia Korea Office 18.jpg",
+      "author": "Qhairy",
+      "licence": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Wikimedia_Sharing_Session_in_Wikimedia_Korea_Office_18.jpg",
+      "original_width": 4000,
+      "original_height": 3000,
+      "file": "images/culture-v33-photo/cong-so/03.webp",
+      "bytes": 107538,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "459e20993b1a61c86bc0057fcba85095ec4ed68838d2439228f2905eb2595304",
+      "source_dimensions": [
+        4000,
+        3000
+      ],
+      "credit_required": true
+    },
+    {
+      "index": 4,
+      "title": "Kiểm tra an toàn lao động tại một công trình ở Hàn Quốc",
+      "filename": "Army engineers promote hot weather safety in South Korea (8605831).jpg",
+      "author": "Rachel Napolitan / U.S. Army",
+      "licence": "Public domain (U.S. federal government work)",
+      "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Military-Army",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Army_engineers_promote_hot_weather_safety_in_South_Korea_(8605831).jpg",
+      "original_width": 3030,
+      "original_height": 2022,
+      "file": "images/culture-v33-photo/cong-so/04.webp",
+      "bytes": 242218,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "586716b5b0bb79cdb4f25eb06870b6d91cc6c6cbf0985b35baec730c84a25524",
+      "source_dimensions": [
+        3030,
+        2022
+      ],
+      "credit_required": true
+    },
+    {
+      "index": 5,
+      "title": "Trao đổi kinh nghiệm tại không gian làm việc ở Seoul",
+      "filename": "Wikimedia Sharing Session in Wikimedia Korea Office 03.jpg",
+      "author": "Qhairy",
+      "licence": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Wikimedia_Sharing_Session_in_Wikimedia_Korea_Office_03.jpg",
+      "original_width": 4000,
+      "original_height": 3000,
+      "file": "images/culture-v33-photo/cong-so/05.webp",
+      "bytes": 177076,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "4ecd761df44e6c8216bc6435b67143832fe4fa461fb49666692dd13112bc4f1b",
+      "source_dimensions": [
+        4000,
+        3000
+      ],
+      "credit_required": true
+    }
+  ]
+}
