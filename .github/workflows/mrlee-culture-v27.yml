@@ -8,6 +8,9 @@ on:
       - 'mrlee-culture-v13-data.js'
       - 'mrlee-culture-v27-captions.js'
       - 'assets/culture/heritage-gallery-v1.css'
+      - 'assets/culture/modern-gallery-v1.css'
+      - 'assets/culture/modern-v36-published.json'
+      - 'tools/check-culture-topic12.mjs'
       - 'assets/culture/heritage-v35-published.json'
       - 'tools/check-culture-topic11.mjs'
   pull_request:
@@ -35,3 +38,5 @@ jobs:
         run: node tools/check-culture-v27.mjs
       - name: Validate topic 11 landscape photo sources and SHA-256 checksums
         run: node tools/check-culture-topic11.mjs
+      - name: Verify topic 12 modern Korea photos, credits and WebP integrity
+        run: node tools/check-culture-topic12.mjs
