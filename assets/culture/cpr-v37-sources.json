@@ -1,0 +1,69 @@
+{
+  "version": "37.0",
+  "topic": "so-cap-cuu",
+  "purpose": "Five illustrative documentary scenes, not medical instructional diagrams. Users should learn CPR from official guidelines and certified training, not infer precise maneuvers from photographs.",
+  "region": "Photos taken outside South Korea; the lesson itself concerns emergency response while in Korea.",
+  "processing": "Crop landscape 3:2 from large original photographs to 1536x1024 WebP, without enlargement or blurred borders.",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Thực hành ép tim trên mô hình trong khóa sơ cứu",
+      "filename": "USMC-100923-M-1645M-018.jpg",
+      "author": "Cpl. Justin M. Martinez / U.S. Marine Corps",
+      "licence": "Public Domain (U.S. Government)",
+      "licence_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:USMC-100923-M-1645M-018.jpg",
+      "original_width": 3000,
+      "original_height": 2001,
+      "context_note": "Marine practicing CPR on a training mannequin at Camp Lejeune, USA (2010)."
+    },
+    {
+      "index": 2,
+      "title": "Giới thiệu AED trong khóa huấn luyện BLS",
+      "filename": "Basic Life Support Course Helps Guantanamo Bay Sailors Respond to Emergencies with Confidence (8895965).jpg",
+      "author": "Emily McCamy / U.S. Navy",
+      "licence": "Public Domain (U.S. Government)",
+      "licence_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Basic_Life_Support_Course_Helps_Guantanamo_Bay_Sailors_Respond_to_Emergencies_with_Confidence_(8895965).jpg",
+      "original_width": 5712,
+      "original_height": 4284,
+      "context_note": "U.S. Navy medic demonstrates an AED during Red Cross training in Cuba (2025)."
+    },
+    {
+      "index": 3,
+      "title": "Hộp dụng cụ sơ cấp cứu",
+      "filename": "First aid kit.jpg",
+      "author": "Santeri Viinamäki",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:First_aid_kit.jpg",
+      "original_width": 4000,
+      "original_height": 3000,
+      "context_note": "Photo of a first-aid kit; its contents may differ from recommended local kits."
+    },
+    {
+      "index": 4,
+      "title": "Giảng viên tổ chức khóa sơ cấp cứu và CPR",
+      "filename": "American Red Cross gives life-saving training to base personnel (9505908).jpg",
+      "author": "Senior Airman Jared Lovett / U.S. Air Force",
+      "licence": "Public Domain (U.S. Government)",
+      "licence_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:American_Red_Cross_gives_life-saving_training_to_base_personnel_(9505908).jpg",
+      "original_width": 5000,
+      "original_height": 3327,
+      "context_note": "Red Cross first aid/CPR/AED training at Ramstein Air Base, Germany (Jan 2026)."
+    },
+    {
+      "index": 5,
+      "title": "Hướng dẫn đặt miếng dán AED trên mô hình",
+      "filename": "Life-saving skills- 86 MDG offers CPR, AED certs (6076571).jpg",
+      "author": "Senior Airman Elizabeth Baker / U.S. Air Force",
+      "licence": "Public Domain (U.S. Government)",
+      "licence_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Life-saving_skills-_86_MDG_offers_CPR,_AED_certs_(6076571).jpg",
+      "original_width": 3596,
+      "original_height": 2661,
+      "context_note": "AED electrode-pad placement during adult CPR training on a mannequin (2020); always follow device prompts."
+    }
+  ]
+}
