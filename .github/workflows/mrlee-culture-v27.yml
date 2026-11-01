@@ -1,5 +1,15 @@
 name: MR LEE Culture V27 — heritage and modern art QA
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'van-hoa-bai-hoc.html'
+      - 'mrlee-culture-hd-v19.js'
+      - 'mrlee-culture-v13-data.js'
+      - 'mrlee-culture-v27-captions.js'
+      - 'assets/culture/heritage-gallery-v1.css'
+      - 'assets/culture/heritage-v35-published.json'
+      - 'tools/check-culture-topic11.mjs'
   pull_request:
     branches: [main]
     paths:
@@ -23,3 +33,5 @@ jobs:
           node-version: '22'
       - name: Validate artwork integrity, provenance and page integration
         run: node tools/check-culture-v27.mjs
+      - name: Validate topic 11 landscape photo sources and SHA-256 checksums
+        run: node tools/check-culture-topic11.mjs
