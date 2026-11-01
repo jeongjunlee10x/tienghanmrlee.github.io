@@ -9,6 +9,7 @@ const rebuilt=[
  ['hoc-tieng-han.html','learning',6],
  ['giao-tiep-phong-van.html','talk',4],
  ['kiem-tra-topik.html','topik',5],
+ ['mrlee-bai-tap-pro.html','workbook',0],
  ['van-hoa-han-quoc.html','culture',0],
  ['ban-do-dai-hoc-han-quoc.html','map',0],
  ['trung-tam-hoc-vien.html','student',0]
@@ -33,6 +34,12 @@ for(const [filename,kind,cards] of rebuilt){
  if(kind==='learning'||kind==='talk'||kind==='topik'){
   assert.equal((s.match(/class="mr27-item"/g)||[]).length,cards,filename+' V2 navigation count');
   assert(s.includes('assets/mrlee-ui2027/learning-hubs-v2.css'),filename+' missing new stylesheet');
+ }
+ if(kind==='workbook'){
+  for(const id of ['workLevel','workLesson','workProfile','workSummary','workList','workGame'])
+   assert(s.includes('id="'+id+'"'),'Workbook runtime control '+id);
+  assert(s.includes('src="auth-guard.js"'),'Workbook must require sign-in');
+  assert(s.includes('assets/mrlee-ui2027/learning-hubs-v2.css'),'Workbook V2 stylesheet');
  }
  if(kind==='culture'){
   assert(s.includes('id="topics"'),filename+' 22-topic list');
@@ -88,4 +95,4 @@ for(const p of jsFiles){
  const result=spawnSync(process.execPath,['--check',p],{encoding:'utf8'});
  assert.equal(result.status,0,'Bad JS syntax '+p+' '+result.stderr);
 }
-console.log('PASS phase4: 6 clean subpages, no V4/V5 injectors, 8 updated theme-cache routes, 8 home cards, native admin/map/auth preserved, 5 JS syntax checks.');
+console.log('PASS phase4: 7 clean subpages, no V4/V5 injectors, 9 updated theme-cache routes, 8 home cards, native admin/map/workbook/auth preserved, 5 JS syntax checks.');
