@@ -111,3 +111,18 @@ html[data-mrlee-culture-v2="1"] #topics a.topic .topicText h3{
  html[data-mrlee-culture-v2="1"] #topics.cards{grid-template-columns:minmax(0,1fr)!important}
  html[data-mrlee-culture-v2="1"] #topics a.topic>img{height:200px!important;max-height:200px!important}
 }
+
+/* Preserve the actual 22 topic filters; suppress only duplicated V4/V5 launch panels. */
+html[data-mrlee-culture-v2="1"] :is(
+ main > .mrlee-v4-root,.mrlee-v2-primary-nav,.mrlee-next-portal,.mrlee-v2-context
+){display:none!important}
+html[data-mrlee-culture-v2="1"],
+html[data-mrlee-culture-v2="1"] body{
+ overflow-y:auto!important;max-height:none!important;
+}
+html[data-mrlee-culture-v2="1"][data-mrlee-v4][data-mrlee-v4-folded="true"]
+ main > .mrlee-v4-root ~ :is(.crumb,.stats,#topicSection,.disclaimer){
+ display:block!important;
+}
+html[data-mrlee-culture-v2="1"][data-mrlee-v4][data-mrlee-v4-folded="true"]
+ main > .mrlee-v4-root ~ .hero{display:grid!important}
