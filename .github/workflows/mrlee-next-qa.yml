@@ -53,6 +53,7 @@ on:
       - 'tools/check-brand-consistency.mjs'
       - 'admin.html'
       - 'tools/mrlee-next-qa.mjs'
+      - 'tools/check-mrlee-smart.mjs'
       - 'tools/check-mrlee-v4.mjs'
       - 'tools/check-mrlee-v5.mjs'
       - 'tools/check-mrlee-ai-v2-direct.mjs'
@@ -155,7 +156,7 @@ jobs:
         run: node tools/mrlee-next-qa.mjs
       - name: Kiểm tra logo mascot trên tất cả các trang thực tế
         run: node tools/check-brand-consistency.mjs
-      - name: Kiểm tra Smart V3 — ảnh, menu, logo, Admin
+      - name: Kiểm tra giao diện hiện hành V2/V3 — trang chủ, bài học và Admin
         run: node tools/check-mrlee-smart.mjs
       - name: Kiểm tra 110 ảnh văn hóa thực, kích thước và 22 chủ đề
         run: node tools/check-culture-hd-v19.mjs
