@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+const html=fs.readFileSync('van-hoa-bai-hoc.html','utf8');
+const controller=fs.readFileSync('mrlee-culture-hd-v19.js','utf8');
+const v13=fs.readFileSync('mrlee-culture-v13-data.js','utf8');
+const caps=fs.readFileSync('mrlee-culture-v23-captions.js','utf8');
+const css=fs.readFileSync('assets/culture/tradition-gallery-v1.css','utf8');
+const m=JSON.parse(fs.readFileSync('assets/culture/v23-manifest.json','utf8'));
+const rs=[...html.matchAll(/src="(images\/culture-v23-ai\/truyen-thong\/(\d\d)\.webp)\?v=20261101-topic03-a"/g)];
+assert.equal(rs.length,5);
+assert.deepEqual(rs.map(v=>v[2]),['01','02','03','04','05']);
+assert(html.includes('id="cultureImagesV19Topic3"'));
+assert(html.includes('dataset.mrleeTraditionGallery'));
+assert(css.includes('html:not([data-mrlee-tradition-gallery="1"])'));
+assert(controller.includes("ID==='truyen-thong' && $('#cultureImagesV19Topic3')"));
+assert(v13.includes('"image":"images/culture-v23-ai/truyen-thong/01.webp"'));
+assert(caps.includes('"truyen-thong": ['));
+for(let i=0;i<5;i++){
+ const a=m.images.find(t=>t.topic==='truyen-thong'&&t.index===i+1);
+ assert(a);assert.equal(a.file,rs[i][1]);
+ assert.equal(a.width,1536);assert.equal(a.height,1024);
+ const bin=fs.readFileSync(a.file);
+ assert.equal(bin.toString('ascii',0,4),'RIFF');
+ assert.equal(bin.toString('ascii',8,12),'WEBP');
+ assert.equal(bin.length,a.bytes);
+ assert.equal(crypto.createHash('sha256').update(bin).digest('hex'),a.sha256);
+}
+assert.equal(new Set(m.images.filter(t=>t.topic==='truyen-thong').map(t=>t.sha256)).size,5);
+console.log('PASS: Topic 03 — 5 different AI WebP files; HTML, CSS, captions and base cover correctly wired.');

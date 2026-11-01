@@ -15,11 +15,11 @@ window.MRLEE_CULTURE_V23_CAPTIONS={
     "Văn hóa trà và món ngọt: trà Hàn Quốc cùng bánh truyền thống trong không gian tiếp khách ấm cúng."
   ],
   "truyen-thong": [
-    "Trang phục truyền thống Hanbok",
-    "Gia đình chuẩn bị trang phục cho ngày lễ",
-    "Nghề may và trang trí Hanbok",
-    "Nghi thức trà và phép lịch sự truyền thống",
-    "Minh họa trang phục cưới cổ truyền"
+    "Hanbok (한복) với áo jeogori và váy chima trong không gian cung điện Hàn Quốc.",
+    "Gia đình lựa chọn Hanbok trước ngày lễ — tìm hiểu sự khác biệt giữa trang phục lễ hội và trang phục hằng ngày.",
+    "Xưởng may Hanbok — các công đoạn lựa vải, đo cắt, may và hoàn thiện trang phục truyền thống.",
+    "Nghi thức uống trà và ứng xử lịch sự — cách đưa nhận đồ bằng hai tay trong hoàn cảnh trang trọng.",
+    "Trang phục cưới truyền thống Hàn Quốc — cảnh AI tái hiện, không phải bằng chứng lịch sử."
   ],
   "doi-song": [
     "Đời sống học sinh trong đô thị Seoul",

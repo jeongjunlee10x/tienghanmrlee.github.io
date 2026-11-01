@@ -47,7 +47,7 @@ const write=(parent,tag,klass,content)=>{const el=document.createElement(tag);if
 const safety=new Set(['so-cap-cuu','goi-cuu-ho','hoa-hoan','benh-vien','an-toan-giao-thong']);
 function load(img,id,k){
  if(!img||!safe(id))return;
- const url=asset(id,k),sceneCaption=id==='am-thuc'?V23_CAPTIONS[id]?.[k-1]:null,alt=sceneCaption?'Ảnh AI ẩm thực Hàn Quốc '+k+'/5: '+sceneCaption:(NEW_V29.has(id)?'Ảnh AI tái hiện chân thực ':NEW_V28.has(id)?'Đồ họa giáo dục an toàn ':NEW_V27.has(id)?'Đồ họa vector minh họa ':'Ảnh AI minh họa ')+k+'/5 — '+MEDIA[id].title;
+ const url=asset(id,k),sceneCaption=(id==='am-thuc'||id==='truyen-thong')?V23_CAPTIONS[id]?.[k-1]:null,alt=sceneCaption?'Ảnh AI theo chủ đề '+k+'/5: '+sceneCaption:(NEW_V29.has(id)?'Ảnh AI tái hiện chân thực ':NEW_V28.has(id)?'Đồ họa giáo dục an toàn ':NEW_V27.has(id)?'Đồ họa vector minh họa ':'Ảnh AI minh họa ')+k+'/5 — '+MEDIA[id].title;
  img.onerror=null;img.hidden=false;img.removeAttribute('style');
  img.loading=k===1?'eager':'lazy';img.decoding='async';
  img.alt=alt;img.dataset.mrleeCultureHd='27';
@@ -106,6 +106,15 @@ function lesson(){
  const parent=$('#lessonContent'),t=MEDIA[ID];if(!parent||!t)return;
  for(const id of ['cultureImagesV16','cultureImagesV17','cultureImagesV172','mrleeAiPhotos','realPhotos'])document.getElementById(id)?.remove();
  const legacy=$('#image');if(legacy)legacy.hidden=true;
+ // Topic 3 is delivered as a real HTML gallery, visible without this JS renderer.
+ if(ID==='truyen-thong' && $('#cultureImagesV19Topic3')){
+   $('#cultureImagesV19.mrleeFoodStatic')?.remove();
+   const hero=$('#topicHero img');if(hero)load(hero,ID,1);
+   for(const a of $('.sidePanel a[href="#image"],.sidePanel a[href="#cultureImagesV16"],.sidePanel a[href="#cultureImagesV17"]')){
+     a.href='#cultureImagesV19Topic3';a.textContent='5 ảnh Hanbok minh họa';
+   }
+   return;
+ }
  let section=$('#cultureImagesV19');
  // Static food gallery is only for am-thuc; remove it before rendering any other topic.
  if(section?.classList.contains('mrleeFoodStatic') && ID!=='am-thuc'){section.remove();section=null;}
@@ -132,7 +141,7 @@ function lesson(){
   const anchor=$('#read')||$('#how')||parent.firstElementChild;
   if(anchor)anchor.insertAdjacentElement('beforebegin',section);else parent.append(section);
  }
- const hero=$('#topicHero img');if(hero)load(hero,ID,ID==='am-thuc'?1:2);
+ const hero=$('#topicHero img');if(hero)load(hero,ID,(ID==='am-thuc'||ID==='truyen-thong')?1:2);
  for(const a of $$('.sidePanel a[href="#image"],.sidePanel a[href="#cultureImagesV16"],.sidePanel a[href="#cultureImagesV17"],.sidePanel a[href="#cultureImagesV172"]')){
   a.href='#cultureImagesV19';a.textContent='5 ảnh minh họa HD';
  }
