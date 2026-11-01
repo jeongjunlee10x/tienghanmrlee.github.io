@@ -357,3 +357,10 @@ html[data-mrlee-theme="future"][data-mrlee-hub-v2="workbook"] main.pro-wrap .pro
   grid-column:span 1!important;min-height:166px!important
  }
 }
+
+/* Last-resort compatibility with the pre-existing V5 fold injected before breadcrumbs.
+   The V2 hub remains visible even if the older JS executes after ours. */
+html[data-mrlee-v4][data-mrlee-v4-folded="true"][data-mrlee-hub-v2]
+ main > .mrlee-v4-root ~ .mrlee27-subhub{display:block!important}
+html[data-mrlee-hub-v2] body{overflow-y:auto!important;max-height:none!important}
+html[data-mrlee-hub-v2]{overflow-y:auto!important}
