@@ -13,7 +13,7 @@ assert.deepEqual(rs.map(v=>v[2]),['01','02','03','04','05']);
 assert(html.includes('id="cultureImagesV19Topic3"'));
 assert(html.includes('dataset.mrleeTraditionGallery'));
 assert(css.includes('html:not([data-mrlee-tradition-gallery="1"])'));
-assert(controller.includes("ID==='truyen-thong' && $('#cultureImagesV19Topic3')"));
+assert(controller.includes("ID==='truyen-thong'?$('#cultureImagesV19Topic3')"));
 assert(v13.includes('"image":"images/culture-v23-ai/truyen-thong/01.webp"'));
 assert(caps.includes('"truyen-thong": ['));
 for(let i=0;i<5;i++){
