@@ -1,0 +1,111 @@
+{
+  "version": "32.0",
+  "topic": "kpop",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Nhóm nam BTS biểu diễn trên sân khấu",
+      "filename": "BTS performing \"DNA\" during Love Yourself tour in Los Angeles, 8 September 2018 01.jpg",
+      "author": "I DARE U JK",
+      "licence": "CC BY 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by/3.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:BTS_performing_%22DNA%22_during_Love_Yourself_tour_in_Los_Angeles,_8_September_2018_01.jpg",
+      "original_width": 3512,
+      "original_height": 2160,
+      "file": "images/culture-v32-photo/kpop/01.webp",
+      "bytes": 286142,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "f4ef8baf8f52a8f68be2f9065bc524dea2b2ca23cfef53d38daecca51d6dba80",
+      "source_dimensions": [
+        3512,
+        2160
+      ],
+      "credit_required": true
+    },
+    {
+      "index": 2,
+      "title": "Nhóm nữ Brown Eyed Girls biểu diễn tại Hà Nội",
+      "filename": "Korean Pop Group Brown Eyed Girls perform at MTV EXIT concert in Hanoi (7276363626).jpg",
+      "author": "USAID Vietnam",
+      "licence": "Public domain (U.S. Government work)",
+      "licence_url": "https://commons.wikimedia.org/wiki/Commons:Copyright_rules_by_territory/United_States#Works_of_the_United_States_federal_government",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Korean_Pop_Group_Brown_Eyed_Girls_perform_at_MTV_EXIT_concert_in_Hanoi_(7276363626).jpg",
+      "original_width": 2033,
+      "original_height": 1203,
+      "file": "images/culture-v32-photo/kpop/02.webp",
+      "bytes": 141172,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "64fc1b9a018b04ab1e6be26bd6dee183349a1f688675f0d9f8c5347d410e4898",
+      "source_dimensions": [
+        2033,
+        1203
+      ],
+      "credit_required": true
+    },
+    {
+      "index": 3,
+      "title": "Phòng thu phát sóng KBS 2Radio tại Seoul",
+      "filename": "KBS 2Radio studio-Seoul.jpg",
+      "author": "Sim1992",
+      "licence": "CC BY-SA 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:KBS_2Radio_studio-Seoul.jpg",
+      "original_width": 1600,
+      "original_height": 1200,
+      "file": "images/culture-v32-photo/kpop/03.webp",
+      "bytes": 237576,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "7258adac6c7ab361c745d77c83b37f58fef3273c0da4d79609c85275b8d41d6f",
+      "source_dimensions": [
+        1600,
+        1200
+      ],
+      "credit_required": true
+    },
+    {
+      "index": 4,
+      "title": "Không gian hội chợ KCON tại Jeju",
+      "filename": "KCON JEJU 2015 Convention 3.jpg",
+      "author": "Bonnielou2013",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:KCON_JEJU_2015_Convention_3.jpg",
+      "original_width": 5312,
+      "original_height": 2988,
+      "file": "images/culture-v32-photo/kpop/04.webp",
+      "bytes": 250570,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "82ca576f6334c3fb67c51dc621b0231c688cebb4d73a45226e88dae39718fb21",
+      "source_dimensions": [
+        5312,
+        2988
+      ],
+      "credit_required": true
+    },
+    {
+      "index": 5,
+      "title": "Người hâm mộ xếp hàng mua vật phẩm BTS",
+      "filename": "Queueing for BTS merch, SoFi Stadium-1.jpg",
+      "author": "Ganbaruby",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Queueing_for_BTS_merch,_SoFi_Stadium-1.jpg",
+      "original_width": 5724,
+      "original_height": 3816,
+      "file": "images/culture-v32-photo/kpop/05.webp",
+      "bytes": 489060,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "5ef67a36b8eb7264b473597fcc96372957ec633b509642053e12e79466fbf4ce",
+      "source_dimensions": [
+        5724,
+        3816
+      ],
+      "credit_required": true
+    }
+  ]
+}
