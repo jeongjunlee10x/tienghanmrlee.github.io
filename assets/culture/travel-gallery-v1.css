@@ -1,4 +1,4 @@
-/* Culture topic 07: HTML-native gallery, preserve original AI composition (no zoom/crop). */
+/* Culture topic 07: five original landscape photographs, 3:2 1536x1024; proper credits. */
 html:not([data-mrlee-travel-gallery="1"]) #cultureImagesV19Topic7.mrleeTravelStatic{display:none!important}
 html[data-mrlee-travel-gallery="1"] #cultureImagesV19Topic7.mrleeTravelStatic{
  display:block!important;position:relative!important;visibility:visible!important;opacity:1!important;
@@ -13,7 +13,7 @@ html[data-mrlee-travel-gallery="1"] #cultureImagesV19Topic7.mrleeTravelStatic{
 #cultureImagesV19Topic7 .mrleeCultureFigure a{display:block;line-height:0;background:#edf4f9}
 #cultureImagesV19Topic7 .mrleeCultureFigure img{
  display:block!important;width:100%!important;max-width:100%!important;height:auto!important;
- aspect-ratio:3/2!important;object-fit:contain!important;object-position:center!important;
+ aspect-ratio:3/2!important;object-fit:cover!important;object-position:center!important;
  visibility:visible!important;opacity:1!important;filter:none!important;transform:none!important;
  image-rendering:auto!important
 }
@@ -29,3 +29,7 @@ html[data-mrlee-theme="future"] #cultureImagesV19Topic7 .mrleeCultureLead,html[d
 html[data-mrlee-theme="future"] #cultureImagesV19Topic7 .mrleeCultureFigure{background:#123251;border-color:#2b5e89}
 html[data-mrlee-theme="future"] #cultureImagesV19Topic7 .mrleeCultureNotice{background:#123550;color:#d8ebfa}
 @media(max-width:700px){#cultureImagesV19Topic7 .mrleeCultureGrid{grid-template-columns:minmax(0,1fr)!important}#cultureImagesV19Topic7 .mrleeCultureFigure:first-child{grid-column:auto!important}}
+
+#cultureImagesV19Topic7 .mrleeTravelCredit{display:block;font-size:11px;line-height:1.55;opacity:.92;color:#3c627e;margin-top:7px}
+#cultureImagesV19Topic7 .mrleeTravelCredit a{color:inherit;text-decoration:underline;font-weight:700}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic7 .mrleeTravelCredit{color:#c2e1f5}
