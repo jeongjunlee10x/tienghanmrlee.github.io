@@ -1,0 +1,40 @@
+name: MR LEE Home Rebuild V2 - Chromium verification
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'assets/mrlee-ui2027/rebuild-home-v2.css'
+      - 'assets/mrlee-ui2027/rebuild-home-v2.js'
+      - 'tools/check-home-rebuild-v2*.mjs'
+      - '.github/workflows/mrlee-home-rebuild-v2.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify all routes and images
+        run: node tools/check-home-rebuild-v2.mjs
+      - name: Install Chromium test dependencies
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install chromium --with-deps
+      - name: Verify rendering of Fresh/Future on desktop, tablet and phone
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/mrlee-home-v2.log 2>&1 &
+          sleep 2
+          node tools/check-home-rebuild-v2-browser.mjs
+      - name: Save six browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mrlee-home-v2-screenshots
+          path: artifacts/mrlee-home-v2-*.png
+          if-no-files-found: ignore
