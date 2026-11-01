@@ -1,0 +1,35 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import {spawnSync} from 'node:child_process';
+const html=fs.readFileSync('van-hoa-bai-hoc.html','utf8'),engine=fs.readFileSync('mrlee-culture-hd-v19.js','utf8'),data=fs.readFileSync('mrlee-culture-v13-data.js','utf8'),css=fs.readFileSync('assets/culture/fire-gallery-v1.css','utf8');
+const items=JSON.parse(fs.readFileSync('assets/culture/fire-v42-published.json','utf8')).photos;
+assert.equal(items.length,5);
+assert.equal((html.match(/id="cultureImagesV19Topic20"/g)||[]).length,1);
+assert(html.includes("dataset.mrleeFireGallery='1'"));
+assert(css.includes('html:not([data-mrlee-fire-gallery="1"])'));
+assert(css.includes('object-fit:cover!important'));
+assert(engine.includes("ID==='hoa-hoan'?$('#cultureImagesV19Topic20')"));
+assert(engine.includes('NEW_V42.has(id)?V42'));
+assert(data.includes('"image":"images/culture-v42-photo/hoa-hoan/01.webp"'));
+const imgs=[...html.matchAll(new RegExp('src="(images/culture-v42-photo/hoa-hoan/([0-9][0-9])[.]webp)[?]v=20261101-topic20-v42"','g'))];
+assert.deepEqual(imgs.map(x=>x[2]),['01','02','03','04','05']);
+const hashes=new Set();
+for(let i=0;i<5;i++){
+ const p=items[i],b=fs.readFileSync(p.file);
+ assert.equal(p.index,i+1);assert.equal(p.file,imgs[i][1]);
+ assert.equal(b.toString('ascii',0,4),'RIFF');assert.equal(b.toString('ascii',8,12),'WEBP');
+ assert.equal(p.width,1536);assert.equal(p.height,1024);assert.equal(b.length,p.bytes);
+ assert.equal(crypto.createHash('sha256').update(b).digest('hex'),p.sha256);
+ assert(!hashes.has(p.sha256));hashes.add(p.sha256);
+ assert(html.includes('Tác giả: '+p.author)&&html.includes(p.source_page)&&html.includes(p.licence_url));
+}
+for(let i=3;i<=19;i++)assert(html.includes('id="cultureImagesV19Topic'+i+'"'));
+assert(html.includes('Không có khói hoặc lửa xâm nhập phòng'));
+assert(html.includes('không cố vượt qua khói'));
+assert(html.includes('Không được sử dụng thang máy'));
+assert(html.includes('https://www.korea.kr/news/policyNewsView.do?newsId=148963898'));
+assert(html.includes('119 · CỨU HỎA VÀ CẤP CỨU HÀN QUỐC'));
+const check=spawnSync(process.execPath,['--check','mrlee-culture-hd-v19.js'],{encoding:'utf8'});
+assert.equal(check.status,0,check.stderr);
+console.log('PASS Topic20: 5 distinct 1536x1024 credited fire-safety photographs SHA256, scenario-based official guidance, bilingual lessons and topics 3-19 preserved');
