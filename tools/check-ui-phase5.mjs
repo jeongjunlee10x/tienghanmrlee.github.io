@@ -33,6 +33,21 @@ for(const [path,flag,expectedCards,cardClass] of pages){
 }
 for(const id of ['mrleeNewHome','mrlee27Expand','mrlee27ThemeChange'])
  assert(read('index.html').includes('id="'+id+'"'),'Home interaction missing '+id);
+const cultureData=read('mrlee-culture-v13-data.js');
+const covers=[...cultureData.matchAll(/"image":"([^"]+)"/g)].map(x=>x[1]);
+assert.equal(covers.length,22,'Culture must expose 22 independent cover images');
+assert.equal(new Set(covers).size,22,'Culture covers may not repeat across topics');
+for(const src of covers){
+ assert(src.endsWith('.webp'),'Outdated SVG/other topic cover: '+src);
+ assert(fs.existsSync(src),'Missing culture topic cover: '+src);
+ const binary=fs.readFileSync(src);
+ assert(binary.length>=10000,'Unexpectedly tiny cover: '+src);
+ assert.equal(binary.toString('ascii',0,4),'RIFF','Invalid cover RIFF: '+src);
+ assert.equal(binary.toString('ascii',8,12),'WEBP','Invalid WebP cover: '+src);
+}
+for(const page of ['van-hoa-han-quoc.html','van-hoa-bai-hoc.html'])
+ assert(read(page).includes('mrlee-culture-v13-data.js?v=20261102-covers'),'New cover cache version missing: '+page);
+console.log('SOURCE PASS Culture: 22 different actual WebP images, valid binaries, no SVG covers.');
 const work=read('mrlee-bai-tap-pro.html');
 for(const id of ['workLevel','workLesson','workProfile','workList','workGame','workSummary'])
  assert(work.includes('id="'+id+'"'),'Workbook selection/score missing '+id);
