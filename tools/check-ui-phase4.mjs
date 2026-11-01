@@ -54,6 +54,9 @@ for(const [filename,kind,cards] of rebuilt){
 const homepage=read('index.html');
 assert(homepage.includes(themeVersion),'Homepage cache version');
 assert(homepage.includes('id="mrleeNewHome"'),'Homepage V2 present');
+assert(!homepage.includes('assets/mrlee-v2/smart-shell.js'),'Obsolete Smart Hub V1 JavaScript still loaded');
+assert(!homepage.includes('assets/mrlee-v2/smart-shell.css'),'Obsolete Smart Hub V1 CSS still loaded');
+assert(!homepage.includes('assets/mrlee-ui2027/smart-home-v1.css'),'Obsolete V1 style still loaded');
 assert.equal((homepage.match(/class="mr27-tile"/g)||[]).length,8,'Homepage exactly 8 cards');
 const admissions=read('tuyen-sinh.html'),admin=read('admin.html');
 for(const s of [admissions,admin])assert(s.includes(themeVersion),'Non-hub theme cache refresh');
