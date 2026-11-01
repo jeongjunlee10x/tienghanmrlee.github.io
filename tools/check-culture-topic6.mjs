@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+const html=fs.readFileSync('van-hoa-bai-hoc.html','utf8');
+const engine=fs.readFileSync('mrlee-culture-hd-v19.js','utf8');
+const base=fs.readFileSync('mrlee-culture-v13-data.js','utf8');
+const captions=fs.readFileSync('mrlee-culture-v24-captions.js','utf8');
+const css=fs.readFileSync('assets/culture/education-gallery-v1.css','utf8');
+const manifest=JSON.parse(fs.readFileSync('assets/culture/v24-manifest.json','utf8'));
+const imgs=[...html.matchAll(/src="(images\/culture-v24-ai\/giao-duc\/(\d\d)\.webp)\?v=20261101-topic06"/g)];
+assert.equal(imgs.length,5);
+assert.deepEqual(imgs.map(x=>x[2]),['01','02','03','04','05']);
+assert(html.includes('id="cultureImagesV19Topic6"'));
+assert(html.includes("dataset.mrleeEducationGallery='1'"));
+assert(html.includes('assets/culture/education-gallery-v1.css'));
+assert(css.includes('html:not([data-mrlee-education-gallery="1"])'));
+assert(engine.includes("ID==='giao-duc'?$('#cultureImagesV19Topic6')"));
+assert(base.includes('"image":"images/culture-v24-ai/giao-duc/01.webp"'));
+assert(captions.includes('대학교 캠퍼스'));
+const hashes=new Set();
+for(let i=0;i<5;i++){
+ const entry=manifest.images.find(x=>x.topic==='giao-duc'&&x.index===i+1);
+ assert(entry);assert.equal(entry.file,imgs[i][1]);assert.equal(entry.width,1536);assert.equal(entry.height,1024);
+ const b=fs.readFileSync(entry.file);
+ assert.equal(b.toString('ascii',0,4),'RIFF');
+ assert.equal(b.toString('ascii',8,12),'WEBP');
+ assert.equal(b.length,entry.bytes);
+ const checksum=crypto.createHash('sha256').update(b).digest('hex');
+ assert.equal(checksum,entry.sha256);assert(!hashes.has(checksum));hashes.add(checksum);
+}
+for(const id of ['cultureImagesV19','cultureImagesV19Topic3','cultureImagesV19Topic4','cultureImagesV19Topic5'])assert(html.includes('id="'+id+'"'));
+console.log('PASS Topic06: five original listed WebP images with distinct hash, static display, accessible content, preserved galleries.');

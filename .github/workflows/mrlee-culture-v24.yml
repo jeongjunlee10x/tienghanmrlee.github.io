@@ -8,6 +8,8 @@ on:
       - 'mrlee-culture-v13-data.js'
       - 'mrlee-culture-v24-captions.js'
       - 'assets/culture/etiquette-gallery-v1.css'
+      - 'assets/culture/education-gallery-v1.css'
+      - 'tools/check-culture-topic6.mjs'
       - 'tools/check-culture-topic5.mjs'
   pull_request:
     branches: [main]
@@ -32,3 +34,4 @@ jobs:
           node-version: '22'
       - run: node tools/check-culture-v24.mjs
       - run: node tools/check-culture-topic5.mjs
+      - run: node tools/check-culture-topic6.mjs

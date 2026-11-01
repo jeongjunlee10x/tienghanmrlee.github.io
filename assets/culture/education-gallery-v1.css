@@ -1,0 +1,29 @@
+/* Topic 06: real HTML-embedded five-photo gallery, independent of dynamic JS renderer. */
+html:not([data-mrlee-education-gallery="1"]) #cultureImagesV19Topic6.mrleeEducationStatic{display:none!important}
+html[data-mrlee-education-gallery="1"] #cultureImagesV19Topic6.mrleeEducationStatic{
+ display:block!important;visibility:visible!important;opacity:1!important;position:relative!important;
+ margin:22px 0!important;padding:clamp(14px,2vw,25px)!important;max-width:100%;
+ border:1px solid #d5e4f2;border-radius:19px;background:#fff;box-shadow:0 8px 27px #142f4c1b
+}
+#cultureImagesV19Topic6 h2{font-size:clamp(19px,1.6vw,25px);color:#123d68;line-height:1.4;margin:0 0 9px}
+#cultureImagesV19Topic6 .mrleeCultureLead{margin:0 0 16px;color:#4c6b87;font-size:14px;line-height:1.65}
+#cultureImagesV19Topic6 .mrleeCultureGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+#cultureImagesV19Topic6 .mrleeCultureFigure{margin:0;min-width:0;overflow:hidden;border-radius:15px;background:#fff;border:1px solid #d4e4f2;box-shadow:0 5px 18px #153f5814}
+#cultureImagesV19Topic6 .mrleeCultureFigure:first-child{grid-column:1/-1}
+#cultureImagesV19Topic6 .mrleeCultureFigure a{display:block;text-decoration:none}
+#cultureImagesV19Topic6 .mrleeCultureFigure img{
+ display:block!important;width:100%!important;max-width:100%!important;height:auto!important;aspect-ratio:3/2!important;
+ visibility:visible!important;opacity:1!important;object-fit:cover!important;object-position:center!important;filter:none!important;transform:none!important
+}
+#cultureImagesV19Topic6 figcaption{display:flex;flex-direction:column;gap:5px;padding:12px 14px 15px}
+#cultureImagesV19Topic6 figcaption b{font-size:14px;line-height:1.5;color:#153b63}
+#cultureImagesV19Topic6 figcaption span{font-size:13px;line-height:1.65;color:#4e6e8a}
+#cultureImagesV19Topic6 .mrleeEducationStatus{font-weight:700;font-size:13px;color:#155e80}
+#cultureImagesV19Topic6 .mrleeEducationError{color:#b52837!important}
+#cultureImagesV19Topic6 .mrleeCultureNotice{padding:12px 13px;border-left:3px solid #178eb7;background:#ebf4fc;color:#315b7a;font-size:12px;line-height:1.6}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic6.mrleeEducationStatic{background:#102b49;border-color:#2b648b}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic6 h2,html[data-mrlee-theme="future"] #cultureImagesV19Topic6 figcaption b{color:#f2f9ff}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic6 .mrleeCultureLead,html[data-mrlee-theme="future"] #cultureImagesV19Topic6 figcaption span{color:#c0dbed}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic6 .mrleeCultureFigure{background:#102d4b;border-color:#2f6389}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic6 .mrleeCultureNotice{background:#143958;color:#d4ecf9}
+@media(max-width:700px){#cultureImagesV19Topic6 .mrleeCultureGrid{grid-template-columns:minmax(0,1fr)!important}#cultureImagesV19Topic6 .mrleeCultureFigure:first-child{grid-column:auto!important}}

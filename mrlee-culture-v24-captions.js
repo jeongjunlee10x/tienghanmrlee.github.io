@@ -8,10 +8,10 @@ window.MRLEE_CULTURE_V24_CAPTIONS={
     "Nhận đồ bằng hai tay (두 손으로 받기) — thể hiện thái độ kính trọng."
   ],
   "giao-duc": [
-    "Sinh viên và khuôn viên trường đại học",
-    "Học tập và trao đổi trong lớp",
-    "Tự học và nghiên cứu ở thư viện",
-    "Sinh hoạt tại ký túc xá",
-    "Tư vấn tuyển sinh và định hướng chương trình"
+    "Khuôn viên đại học (대학교 캠퍼스) — không gian học tập và đời sống sinh viên.",
+    "Học tập và thảo luận trong lớp (수업과 토론) — trao đổi ý kiến và tham gia học tập.",
+    "Tự học trong thư viện (도서관에서 공부하기) — tìm tài liệu và nghiên cứu.",
+    "Sinh hoạt tại ký túc xá (기숙사 생활) — không gian ở và quy định sinh hoạt chung.",
+    "Tư vấn tuyển sinh (입학 상담) — định hướng ngành học, chi phí và hồ sơ du học."
   ]
 };
