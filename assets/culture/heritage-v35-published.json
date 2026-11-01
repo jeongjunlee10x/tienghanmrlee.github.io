@@ -1,0 +1,111 @@
+{
+  "version": "35.0",
+  "topic": "lich-su",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Đài thiên văn Cheomseongdae – Di sản Silla",
+      "filename": "Cheomseongdae in 2018.jpg",
+      "author": "Christophe95",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Cheomseongdae_in_2018.jpg",
+      "original_width": 4032,
+      "original_height": 3024,
+      "file": "images/culture-v35-photo/lich-su/01.webp",
+      "bytes": 309638,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "3fb5f30b089402a67cca48b7ea9cfd931ace5503e9f1bf3a936e10b04ec8e646",
+      "source_dimensions": [
+        4032,
+        3024
+      ],
+      "credit_required": true
+    },
+    {
+      "index": 2,
+      "title": "Chùa Bulguksa tại Gyeongju",
+      "filename": "Bulguksa temple entrance gate stairs flower bed and blue sky in Gyeongju South Korea.jpg",
+      "author": "Basile Morin",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Bulguksa_temple_entrance_gate_stairs_flower_bed_and_blue_sky_in_Gyeongju_South_Korea.jpg",
+      "original_width": 6536,
+      "original_height": 3676,
+      "file": "images/culture-v35-photo/lich-su/02.webp",
+      "bytes": 527222,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "da32cfab8acd5cf8f1c86c4d4bb099bde0888403ef1b66804663d3fa2b3a0957",
+      "source_dimensions": [
+        6536,
+        3676
+      ],
+      "credit_required": true
+    },
+    {
+      "index": 3,
+      "title": "Bản Hunminjeongeum Haerye – di sản chữ Hangeul",
+      "filename": "훈민정음 해례본 (1).jpg",
+      "author": "Jocelyndurrey",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:%ED%9B%88%EB%AF%BC%EC%A0%95%EC%9D%8C_%ED%95%B4%EB%A1%80%EB%B3%B8_(1).jpg",
+      "original_width": 5312,
+      "original_height": 2988,
+      "file": "images/culture-v35-photo/lich-su/03.webp",
+      "bytes": 362132,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "332e11f5fa7ccfe7456c348143bd66bcded95de1cd2fb16f7b6c201db6cd290b",
+      "source_dimensions": [
+        5312,
+        2988
+      ],
+      "credit_required": true
+    },
+    {
+      "index": 4,
+      "title": "Pháo đài Hwaseong tại Suwon",
+      "filename": "Hwaseong Fortress, Suwon, Gyeonggi-do, Republic of Korea.jpg",
+      "author": "Lance Vanlewen",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Hwaseong_Fortress,_Suwon,_Gyeonggi-do,_Republic_of_Korea.jpg",
+      "original_width": 4096,
+      "original_height": 3072,
+      "file": "images/culture-v35-photo/lich-su/04.webp",
+      "bytes": 474964,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "f944a5aaf96dd5b23909e034dfea66c158c45c012add917ad75b0dc5985e8f86",
+      "source_dimensions": [
+        4096,
+        3072
+      ],
+      "credit_required": true
+    },
+    {
+      "index": 5,
+      "title": "Làng cổ Hahoe tại Andong",
+      "filename": "Hahoe Folk Village, Andong 2018-08-31-04.jpg",
+      "author": "De-Shao Liu (Terry850324)",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Hahoe_Folk_Village,_Andong_2018-08-31-04.jpg",
+      "original_width": 4608,
+      "original_height": 2592,
+      "file": "images/culture-v35-photo/lich-su/05.webp",
+      "bytes": 377712,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "cd92c5f8f322b79617b2d06a26633f0ff9bc07bfed3e9b7abf87195105d1c600",
+      "source_dimensions": [
+        4608,
+        2592
+      ],
+      "credit_required": true
+    }
+  ]
+}
