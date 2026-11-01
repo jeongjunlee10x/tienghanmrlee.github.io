@@ -5,6 +5,7 @@ on:
     paths:
       - 'index.html'
       - 'assets/mrlee-v2/smart-shell.js'
+      - 'assets/mrlee-dual-ui/theme.js'
       - 'assets/mrlee-ui2027/**'
       - 'tools/check-smart-ui2027*.mjs'
       - '.github/workflows/mrlee-smart-ui2027.yml'
