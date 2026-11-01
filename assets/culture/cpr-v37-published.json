@@ -4,23 +4,23 @@
   "photos": [
     {
       "index": 1,
-      "title": "Thực hành ép tim trên mô hình trong khóa sơ cứu",
-      "filename": "USMC-100923-M-1645M-018.jpg",
-      "author": "Cpl. Justin M. Martinez / U.S. Marine Corps",
+      "title": "Thực hành CPR trên hình nhân tại khóa Chữ thập đỏ",
+      "filename": "American Red Cross gives life-saving training to base personnel (9505911).jpg",
+      "author": "Senior Airman Jared Lovett / U.S. Air Force",
       "licence": "Public Domain (U.S. Government)",
       "licence_url": "https://creativecommons.org/publicdomain/mark/1.0/",
-      "source_page": "https://commons.wikimedia.org/wiki/File:USMC-100923-M-1645M-018.jpg",
-      "original_width": 3000,
-      "original_height": 2001,
-      "context_note": "Marine practicing CPR on a training mannequin at Camp Lejeune, USA (2010).",
+      "source_page": "https://commons.wikimedia.org/wiki/File:American_Red_Cross_gives_life-saving_training_to_base_personnel_(9505911).jpg",
+      "original_width": 5000,
+      "original_height": 3445,
+      "context_note": "Two adults practice CPR compressions on a standard life-saving mannequin during American Red Cross training at Ramstein Air Base, Germany, Jan 2026.",
       "file": "images/culture-v37-photo/so-cap-cuu/01.webp",
-      "bytes": 105018,
+      "bytes": 217024,
       "width": 1536,
       "height": 1024,
-      "sha256": "bb0be32f1ba72437794f1568e8a6f694428884a20b78dcb0d755d3b1abce9342",
+      "sha256": "2905060d5ca018bdc212df3e12f6af073ad6f20c8010c16d505470c222b95475",
       "source_dimensions": [
-        3000,
-        2001
+        5000,
+        3445
       ],
       "credit_required": true
     },
