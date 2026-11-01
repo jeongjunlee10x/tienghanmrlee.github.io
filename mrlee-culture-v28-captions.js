@@ -1,4 +1,4 @@
-/* V28 captions: topic 13 updated to genuine documentary training photos; topic 14 remains educational SVG; illustrations do not replace official emergency instruction. */
+/* V28 captions: topics 13–14 use credited documentary photographs, not AI; images are illustrative and emergency guidance is from official sources. */
 window.MRLEE_CULTURE_V28_CAPTIONS={
   "so-cap-cuu": [
     "심폐소생술 훈련 — Học viên thực hành trên hình nhân trong khóa sơ cứu. Động tác ngoài đời cần học từ người hướng dẫn có chứng nhận, không sao chép tư thế chỉ qua ảnh.",
@@ -8,10 +8,10 @@ window.MRLEE_CULTURE_V28_CAPTIONS={
     "AED 실습 — Học viên luyện sử dụng AED trên mô hình. Trong thực tế hãy theo hình chỉ vị trí điện cực trên chính thiết bị, tránh chạm người bệnh khi máy phân tích."
   ],
   "goi-cuu-ho": [
-    "Gọi 119 khi cần cứu hỏa hoặc cấp cứu — Số khẩn cấp 119 tại Hàn Quốc.",
-    "Gọi 112 để liên hệ cảnh sát Hàn Quốc — Số khẩn cấp 112 của lực lượng cảnh sát.",
-    "Nói rõ vị trí khi liên hệ cứu hộ — Đọc tên đường, tòa nhà hoặc địa điểm gần nhất.",
-    "Nhân viên trực tổng đài hỗ trợ — Bình tĩnh trình bày sự việc và nghe hướng dẫn.",
-    "Đội ngũ hỗ trợ và xe cứu hộ — Nhận diện nhân viên hỗ trợ chuyên trách ở Hàn Quốc."
+    "119 신고 — Xe cứu thương thực tế tại Trung tâm an toàn 119 Dunnae, Hàn Quốc. Gọi 119 khi có cấp cứu y tế, hỏa hoạn hoặc cần cứu nạn.",
+    "경찰 신고 112 — Xe tuần tra thực tế của cảnh sát Hàn Quốc. Gọi 112 khi gặp trộm cắp, bạo lực, đe dọa hoặc sự việc cần cảnh sát hỗ trợ.",
+    "현재 위치 설명 — Lối ra số 3 ga Seoul National University (서울대입구역 3번 출구). Khi gọi cứu hộ, nói rõ tên ga, số lối ra và địa chỉ gần nhất.",
+    "긴급 전화 응대 — Nhân viên tổng đài tại một cơ sở hải quân Mỹ ở Tây Ban Nha. Ảnh minh họa chức năng nghe, tiếp nhận và điều phối cuộc gọi; không phải tổng đài 119 của Hàn Quốc.",
+    "119안전센터 — Trung tâm an toàn Seongsu tại Seoul (성수119안전센터), nơi lực lượng cứu hỏa/cứu nạn làm việc. Đây là ảnh tòa nhà, không phải cảnh cứu hộ đang diễn ra."
   ]
 };
