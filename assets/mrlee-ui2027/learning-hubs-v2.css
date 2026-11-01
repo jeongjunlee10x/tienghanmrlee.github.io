@@ -128,7 +128,7 @@ html[data-mrlee-theme="future"] .mrlee27-subhub .mr27-cta a:first-child{color:#0
  opacity:.95!important;filter:none!important;border:0!important;border-radius:0!important;
 }
 .mrlee27-subhub .mr27-item .mr27-index{
- color:color-mix(in srgb,var(--ink),transparent 30%);font:850 10px/1.4 var(--h-font);
+ color:color-mix(in srgb,var(--ink),transparent 30%);font:850 11px/1.4 var(--h-font);
  letter-spacing:.11em;
 }
 .mrlee27-subhub .mr27-item .mr27-meta{
@@ -140,7 +140,7 @@ html[data-mrlee-theme="future"] .mrlee27-subhub .mr27-cta a:first-child{color:#0
  text-shadow:none!important;padding:0!important;white-space:normal!important
 }
 .mrlee27-subhub .mr27-item small{
- font:600 11px/1.5 var(--h-font)!important;color:var(--ink)!important;
+ font:650 12px/1.5 var(--h-font)!important;color:var(--ink)!important;
  background:none!important;box-shadow:none!important;padding:0!important
 }
 .mrlee27-subhub .mr27-item .mr27-arrow{
@@ -266,8 +266,8 @@ html[data-mrlee-hub-v2="workbook"] .mrlee27-workintro{
  .mrlee27-subhub .mr27-item:first-child{grid-column:span 2!important;min-height:160px!important}
  .mrlee27-subhub .mr27-item .mr27-meta{max-width:94%}
  .mrlee27-subhub .mr27-item img{width:70%!important}
- .mrlee27-subhub .mr27-item strong{font-size:14px!important}
- .mrlee27-subhub .mr27-item small{font-size:10px!important}
+ .mrlee27-subhub .mr27-item strong{font-size:15px!important}
+ .mrlee27-subhub .mr27-item small{font-size:12px!important}
  .mrlee27-subhub .mr27-footer{align-items:stretch}
  .mrlee27-subhub .mr27-shortcuts{width:100%}
  .mrlee27-subhub .mr27-toggle{width:100%}
