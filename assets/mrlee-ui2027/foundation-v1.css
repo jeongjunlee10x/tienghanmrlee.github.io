@@ -1,0 +1,49 @@
+/* MR LEE SMART UI 2027 · Shared visual tokens, intentionally non-invasive.
+   This foundation never touches lesson data, authentication, Admin permissions
+   or layout-specific rules. Fresh/Future use the same component scale. */
+:root {
+ --mrlee27-font:"Be Vietnam Pro","Noto Sans KR",system-ui,sans-serif;
+ --mrlee27-radius-sm:10px;
+ --mrlee27-radius-md:15px;
+ --mrlee27-radius-lg:22px;
+ --mrlee27-elevation:0 10px 26px rgba(8,39,71,.10);
+ --mrlee27-touch:44px;
+}
+html[data-mrlee-theme="fresh"]{
+ --mrlee27-bg:#f5f9fe;--mrlee27-surface:#fff;
+ --mrlee27-ink:#173857;--mrlee27-muted:#526c83;
+ --mrlee27-stroke:#d7e6f3;--mrlee27-accent:#146cc9;
+ --mrlee27-focus:#f6a43a;
+}
+html[data-mrlee-theme="future"]{
+ --mrlee27-bg:#06142c;--mrlee27-surface:#0d2748;
+ --mrlee27-ink:#eaf7ff;--mrlee27-muted:#bdd6ea;
+ --mrlee27-stroke:#34678f;--mrlee27-accent:#57dfff;
+ --mrlee27-focus:#ffcc77;
+}
+html[data-mrlee-theme]{
+ font-synthesis:none;
+ text-rendering:optimizeLegibility;
+}
+html[data-mrlee-theme] :where(.site-header,.head,.main-nav,.nav,.mrlee-v2-primary-nav,.mrlee-next-portal){
+ font-family:var(--mrlee27-font);
+}
+html[data-mrlee-theme] :where(a,button,input,select,textarea,[role="button"]):focus-visible{
+ outline:3px solid var(--mrlee27-focus)!important;
+ outline-offset:3px;
+}
+html[data-mrlee-theme] :where(img){
+ image-rendering:auto;
+}
+@media(prefers-reduced-motion:reduce){
+ html[data-mrlee-theme] :where(a,button,[role="button"]){
+  scroll-behavior:auto!important;transition-duration:.01ms!important;
+ }
+}
+/* Accessible keyboard skip link in both themes. */
+html[data-mrlee-theme] .skip-link:focus-visible{
+ position:fixed!important;top:8px!important;left:8px!important;
+ z-index:2147480000!important;
+}
+/* Avoid globally fixed-height screens: mobile may scroll normally. */
+html[data-mrlee-theme] body{max-width:100%;overflow-x:clip}
