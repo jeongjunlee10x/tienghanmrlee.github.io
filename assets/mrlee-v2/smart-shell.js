@@ -50,9 +50,8 @@ function homepage(){
  hub.append(grid);
  const actions=$('div','mrlee-smart-hub-extra');
  const routes=[
-  ['WORKBOOK · Bài tập theo bài','mrlee-bai-tap-pro.html'],
   ['Kiểm tra đầu vào','kiem-tra-dau-vao.html'],
-    ['Bảng xếp hạng','bang-xep-hang.html']
+  ['Bảng xếp hạng','bang-xep-hang.html']
  ];
  for(const [label,url] of routes){const a=$('a','',label);a.href=url;actions.append(a)}
  const themeButton=$('button','','Đổi giao diện');
