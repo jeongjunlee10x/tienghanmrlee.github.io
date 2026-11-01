@@ -222,6 +222,16 @@ function primaryNav(){
  const head=doc.querySelector('.site-header,.site-top,header.head,.v10-header,.topbar,.pro-header,.mlb-topbar');
  if(head?.parentNode)head.after(nav);else doc.body.prepend(nav);
 }
-function run(){primaryNav();decorate();portal();update(theme);entryPicker()}
+function run(){
+ const modern=html.matches('[data-mrlee-redesign="v2"],[data-mrlee-hub-v2],[data-mrlee-culture-v2],[data-mrlee-phase3]');
+ if(modern){
+  // The new pages supply their own verified navigation and photographs.
+  // Avoid injecting a second primary menu, portal, or decorative cards.
+  update(theme);
+  entryPicker();
+  return;
+ }
+ primaryNav();decorate();portal();update(theme);entryPicker();
+}
 if(doc.readyState==='loading')doc.addEventListener('DOMContentLoaded',run,{once:true});else run();
 })();
