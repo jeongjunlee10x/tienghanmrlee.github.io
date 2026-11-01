@@ -1,0 +1,121 @@
+{
+  "version": "44.0",
+  "topic": "an-toan-giao-thong",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Qua đường đúng vạch dành cho người đi bộ tại Seoul",
+      "filename": "Pedestrian crossing in Seoul, KOREA.jpg",
+      "author": "AhmedAlElq",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Pedestrian_crossing_in_Seoul,_KOREA.jpg",
+      "original_width": 3648,
+      "original_height": 2736,
+      "context_note": "Actual pedestrian crossing in Seoul (Itaewon), 2019. Photograph illustrates crossing infrastructure; it does not depict a staged safety lesson.",
+      "file": "images/culture-v44-photo/an-toan-giao-thong/01.webp",
+      "bytes": 284634,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "a5ca3233228c682c3c88303afa485615a5dc2c3d775a210df7c169faf3bb44ed",
+      "source_dimensions": [
+        3648,
+        2736
+      ],
+      "modified": "Original cropped to 3:2 and downsampled to 1536x1024 WebP",
+      "credit_required": true
+    },
+    {
+      "index": 2,
+      "title": "Đèn đỏ dành cho người đi bộ, tín hiệu LED trên mặt đường tại Seoul",
+      "filename": "002 Pedestrian crossing embedded floor light - red light for pedestrians in Seoul, South Korea.jpg",
+      "author": "Marek Slusarczyk",
+      "licence": "CC BY 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by/3.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:002_Pedestrian_crossing_embedded_floor_light_-_red_light_for_pedestrians_in_Seoul,_South_Korea.jpg",
+      "original_width": 2160,
+      "original_height": 1620,
+      "context_note": "Real in-ground red pedestrian light on Seoul pavement, from 2023/2025 Commons history; supplemental signal, not a substitute for checking main traffic lights.",
+      "file": "images/culture-v44-photo/an-toan-giao-thong/02.webp",
+      "bytes": 323966,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "b1a625f087248ed99fe91826c77b583014c00dbea9451dab6bcc3ff095cf0c47",
+      "source_dimensions": [
+        2160,
+        1620
+      ],
+      "modified": "Original cropped to 3:2 and downsampled to 1536x1024 WebP",
+      "credit_required": true
+    },
+    {
+      "index": 3,
+      "title": "Biển báo khu vực trường học (어린이보호구역) tại Ansan",
+      "filename": "Singiljungang-ro 3-gil School Zone 20240719 (02).jpg",
+      "author": "LandAndTree",
+      "licence": "CC0 1.0",
+      "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Singiljungang-ro_3-gil_School_Zone_20240719_(02).jpg",
+      "original_width": 6000,
+      "original_height": 3368,
+      "context_note": "School-zone road sign photographed in Ansan, Gyeonggi-do, 19 July 2024; demonstrates local road designation, not necessarily all safety features.",
+      "file": "images/culture-v44-photo/an-toan-giao-thong/03.webp",
+      "bytes": 264280,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "0e414a82fd43ae87592cab1d76d4b2682557d75acc593ba4443b0062c0080991",
+      "source_dimensions": [
+        6000,
+        3368
+      ],
+      "modified": "Original cropped to 3:2 and downsampled to 1536x1024 WebP",
+      "credit_required": true
+    },
+    {
+      "index": 4,
+      "title": "Đường phố Bokji-ro ở Siheung: quan sát phương tiện trước khi sang đường",
+      "filename": "경기도 시흥시 복지로.jpg",
+      "author": "Narubaru7",
+      "licence": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:경기도_시흥시_복지로.jpg",
+      "original_width": 4032,
+      "original_height": 3024,
+      "context_note": "Real road photograph in Siheung-si, Gyeonggi-do, on 9 December 2025; contextual safety illustration, no claim of a particular incident.",
+      "file": "images/culture-v44-photo/an-toan-giao-thong/04.webp",
+      "bytes": 539190,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "a12d621ff9ca124677fb89834dc83c485da0637b50610d209942e74f6c9d7ea8",
+      "source_dimensions": [
+        4032,
+        3024
+      ],
+      "modified": "Original cropped to 3:2 and downsampled to 1536x1024 WebP",
+      "credit_required": true
+    },
+    {
+      "index": 5,
+      "title": "Trạm xe buýt Jeonpo Samgeori ở Busan: đứng chờ an toàn",
+      "filename": "Bus stop Jeonpo Samgeori.jpg",
+      "author": "Christian Bolz",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Bus_stop_Jeonpo_Samgeori.jpg",
+      "original_width": 4032,
+      "original_height": 1816,
+      "context_note": "Real bus stop in Busan photographed 1 August 2022. Illustrates waiting area; boarding precautions are explanatory, not shown as an event.",
+      "file": "images/culture-v44-photo/an-toan-giao-thong/05.webp",
+      "bytes": 567042,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "20b300a26beaf2d465222d5fd16c6be445310a2a019db8dfedac3e91274ddd9f",
+      "source_dimensions": [
+        4032,
+        1816
+      ],
+      "modified": "Original cropped to 3:2 and downsampled to 1536x1024 WebP",
+      "credit_required": true
+    }
+  ]
+}
