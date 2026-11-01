@@ -107,6 +107,8 @@ function lesson(){
  for(const id of ['cultureImagesV16','cultureImagesV17','cultureImagesV172','mrleeAiPhotos','realPhotos'])document.getElementById(id)?.remove();
  const legacy=$('#image');if(legacy)legacy.hidden=true;
  let section=$('#cultureImagesV19');
+ // Static food gallery is only for am-thuc; remove it before rendering any other topic.
+ if(section?.classList.contains('mrleeFoodStatic') && ID!=='am-thuc'){section.remove();section=null;}
  if(!section){
   section=document.createElement('section');section.id='cultureImagesV19';section.className='lessonBlock mrleeCulture19';
   write(section,'h2','','II. Bộ ảnh minh họa chất lượng cao');
