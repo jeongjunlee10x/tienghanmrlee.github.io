@@ -1,0 +1,13 @@
+/* Culture topic 02: static first-render gallery, independent of all gallery JavaScript */
+html:not([data-mrlee-food-gallery="1"]) #cultureImagesV19.mrleeFoodStatic{display:none!important}
+html[data-mrlee-food-gallery="1"] #cultureImagesV19.mrleeFoodStatic{display:block!important;position:relative!important;max-width:100%;margin:22px 0!important}
+#cultureImagesV19.mrleeFoodStatic .mrleeCultureFigure a{display:block;text-decoration:none}
+#cultureImagesV19.mrleeFoodStatic .mrleeCultureFigure img,
+#cultureImagesV19.mrleeFoodStatic .mrleeCultureFigure:first-child img{
+ display:block!important;max-width:100%!important;width:100%!important;height:auto!important;aspect-ratio:3/2!important;object-fit:cover!important;visibility:visible!important;opacity:1!important;
+}
+#cultureImagesV19.mrleeFoodStatic figcaption{background:inherit}
+#cultureImagesV19.mrleeFoodStatic .mrleeFoodStatus{font-size:12px;font-weight:700;margin:12px 0 0;color:#1c5c78}
+#cultureImagesV19.mrleeFoodStatic .mrleeFoodError{color:#af2e31!important}
+html[data-mrlee-theme="future"] #cultureImagesV19.mrleeFoodStatic .mrleeFoodStatus{color:#a9e8fc}
+@media(max-width:700px){#cultureImagesV19.mrleeFoodStatic .mrleeCultureGrid{grid-template-columns:1fr!important}}

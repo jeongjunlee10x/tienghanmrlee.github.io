@@ -130,7 +130,7 @@ function lesson(){
   const anchor=$('#read')||$('#how')||parent.firstElementChild;
   if(anchor)anchor.insertAdjacentElement('beforebegin',section);else parent.append(section);
  }
- const hero=$('#topicHero img');if(hero)load(hero,ID,2);
+ const hero=$('#topicHero img');if(hero)load(hero,ID,ID==='am-thuc'?1:2);
  for(const a of $$('.sidePanel a[href="#image"],.sidePanel a[href="#cultureImagesV16"],.sidePanel a[href="#cultureImagesV17"],.sidePanel a[href="#cultureImagesV172"]')){
   a.href='#cultureImagesV19';a.textContent='5 ảnh minh họa HD';
  }
