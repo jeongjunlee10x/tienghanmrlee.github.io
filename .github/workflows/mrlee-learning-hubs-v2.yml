@@ -9,6 +9,7 @@ on:
       - 'mrlee-bai-tap-pro.html'
       - 'van-hoa-han-quoc.html'
       - 'assets/mrlee-ui2027/culture-landing-v2.css'
+      - 'assets/mrlee-ui2027/culture-landing-v2.js'
       - 'assets/mrlee-ui2027/learning-hubs-v2.css'
       - 'assets/mrlee-ui2027/learning-hubs-v2.js'
       - 'tools/check-learning-hubs-v2*.mjs'
