@@ -283,3 +283,59 @@ html[data-mrlee-phase3="map"] .mrlee27-theme-change:hover{border-color:var(--p3-
 @media(max-width:760px){
  html[data-mrlee-phase3="map"] .mrlee27-theme-change{min-height:40px;font-size:11px!important}
 }
+
+
+/* Phase 7: verified Chromium regression — map mobile photo was overlapping copy.
+   Use a strict vertically stacked flex hero instead of an inherited grid,
+   and reset old media/transform styles coming from the legacy university CSS. */
+@media (max-width:760px) {
+ html[data-mrlee-phase3="map"] main.mrlee-next-main > .mrlee-next-hero.mrlee27-map-intro {
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:flex-start!important;
+  grid-template-columns:none!important;
+  grid-template-rows:none!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  overflow:hidden!important;
+ }
+ html[data-mrlee-phase3="map"] .mrlee-next-hero.mrlee27-map-intro > .mrlee-next-hero-copy {
+  display:flex!important;
+  flex:0 0 auto!important;
+  order:0!important;
+  position:relative!important;
+  inset:auto!important;
+  transform:none!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:24px 20px!important;
+  background:var(--p3-surface)!important;
+ }
+ html[data-mrlee-phase3="map"] .mrlee-next-hero.mrlee27-map-intro > .mrlee27-map-photo {
+  display:block!important;
+  flex:0 0 210px!important;
+  order:1!important;
+  position:relative!important;
+  inset:auto!important;
+  transform:none!important;
+  width:100%!important;
+  height:210px!important;
+  min-height:210px!important;
+  max-height:210px!important;
+  margin:0!important;
+  padding:0!important;
+ }
+ html[data-mrlee-phase3="map"] .mrlee-next-hero.mrlee27-map-intro .mrlee27-map-photo img {
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+ }
+}
