@@ -7,6 +7,7 @@ for (const [mode,width,height] of [['desktop',1440,900],['mobile',390,844]]) {
  const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});
  await page.goto('http://127.0.0.1:8765/van-hoa-bai-hoc.html?chu-de=an-toan-giao-thong',{waitUntil:'domcontentloaded',timeout:30000});
  await page.waitForSelector('#cultureImagesV19Topic22 .mrleeCultureFigure',{state:'visible',timeout:25000});
+ await page.evaluate(()=>document.querySelectorAll('#cultureImagesV19Topic22 img').forEach(img=>{img.loading='eager'}));
  await page.waitForFunction(()=>{const images=[...document.querySelectorAll('#cultureImagesV19Topic22 img')];return images.length===5&&images.every(i=>i.complete&&i.naturalWidth>=1536&&i.naturalHeight>=1024)},null,{timeout:30000});
  const x=await page.evaluate(()=>{
    const gallery=document.querySelector('#cultureImagesV19Topic22');
