@@ -7,7 +7,7 @@ const base=fs.readFileSync('mrlee-culture-v13-data.js','utf8');
 const css=fs.readFileSync('assets/culture/travel-gallery-v1.css','utf8');
 const manifest=JSON.parse(fs.readFileSync('assets/culture/travel-v31-published.json','utf8'));
 assert.equal(manifest.photos.length,5);
-const refs=[...html.matchAll(/src="(images\/culture-v31-photo\/du-lich\/(\d\d)\.webp)\?v=20261101-topic07-hd31"/g)];
+const refs=[...html.matchAll(/src="(images\/culture-v31-photo\/du-lich\/(\d\d)\.webp)\?v=20261101-topic07-hd31b"/g)];
 assert.deepEqual(refs.map(x=>x[2]),['01','02','03','04','05']);
 assert(html.includes('id="cultureImagesV19Topic7"'));
 assert(html.includes("dataset.mrleeTravelGallery='1'"));

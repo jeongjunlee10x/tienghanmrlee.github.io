@@ -4,7 +4,7 @@ window.MRLEE_CULTURE_V25_CAPTIONS={
     "Ảnh chụp HD: Cung điện Gyeongbokgung — tác giả 이상곤",
     "Ảnh chụp HD: Chùa Haedong Yonggungsa tại Busan — tác giả bertconcepts",
     "Ảnh chụp HD: Toàn cảnh Seoul từ núi Namsan — tác giả Matt Kieffer",
-    "Ảnh chụp HD: Khu phố Hanok Bukchon — tác giả Epicgenius",
+    "Ảnh chụp HD: Lối đi giữa các ngôi nhà Hanok tại Bukchon — tác giả Trainholic",
     "Ảnh chụp HD: Núi Seoraksan mùa thu — tác giả Joycekim77"
   ],
   "kpop": [
