@@ -1,0 +1,35 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import {spawnSync} from 'node:child_process';
+const html=fs.readFileSync('van-hoa-bai-hoc.html','utf8'),js=fs.readFileSync('mrlee-culture-hd-v19.js','utf8'),css=fs.readFileSync('assets/culture/phone-gallery-v1.css','utf8'),data=fs.readFileSync('mrlee-culture-v13-data.js','utf8');
+const images=JSON.parse(fs.readFileSync('assets/culture/phone-v43-published.json','utf8')).photos;
+assert.equal(images.length,5);
+assert.equal((html.match(/id="cultureImagesV19Topic21"/g)||[]).length,1);
+assert(html.includes("dataset.mrleePhoneGallery='1'"));
+assert(css.includes('html:not([data-mrlee-phone-gallery="1"])'));
+assert(css.includes('object-fit:cover!important'));
+assert(js.includes("ID==='mat-dien-thoai'?$('#cultureImagesV19Topic21')"));
+assert(js.includes('NEW_V43.has(id)?V43'));
+assert(data.includes('"image":"images/culture-v43-photo/mat-dien-thoai/01.webp"'));
+const regex=new RegExp('src="(images/culture-v43-photo/mat-dien-thoai/([0-9][0-9])[.]webp)[?]v=20261101-topic21-v43"','g');
+const found=[...html.matchAll(regex)];
+assert.deepEqual(found.map(p=>p[2]),['01','02','03','04','05']);
+const unique=new Set();
+for(let i=0;i<5;i++){
+ const entry=images[i],binary=fs.readFileSync(entry.file);
+ assert.equal(entry.index,i+1);assert.equal(entry.file,found[i][1]);
+ assert.equal(binary.toString('ascii',0,4),'RIFF');assert.equal(binary.toString('ascii',8,12),'WEBP');
+ assert.equal(entry.width,1536);assert.equal(entry.height,1024);assert.equal(binary.length,entry.bytes);
+ assert.equal(crypto.createHash('sha256').update(binary).digest('hex'),entry.sha256);
+ assert(!unique.has(entry.sha256));unique.add(entry.sha256);
+ assert(html.includes('Tác giả: '+entry.author));
+ assert(html.includes(entry.source_page));assert(html.includes(entry.licence_url));
+}
+for(let n=3;n<=20;n++)assert(html.includes('id="cultureImagesV19Topic'+n+'"'));
+for(const url of ['https://support.apple.com/en-us/101593','https://support.google.com/android/answer/6160491?hl=en','https://lost112.go.kr/index.do'])assert(html.includes(url));
+assert(html.includes('Không tự đến địa chỉ đáng ngờ')&&html.includes('Không đưa mã OTP'));
+assert(html.includes('ảnh 02–04 là tư liệu minh họa phổ thông'));
+const syntax=spawnSync(process.execPath,['--check','mrlee-culture-hd-v19.js'],{encoding:'utf8'});
+assert.equal(syntax.status,0,syntax.stderr);
+console.log('PASS Topic21: 5 distinct source-attributed 1536x1024 phone/security photographs, SHA256, Apple/Google/Korea references, bilingual captions and prior galleries 3-20');
