@@ -1,0 +1,64 @@
+{
+  "version": "34.0",
+  "topic": "tro-choi",
+  "type": "documentary_photographs",
+  "purpose": "Teaching Korean traditional games and sports without low-resolution enlarged portrait strips",
+  "processing": "Landscape crop 3:2 to 1536x1024 WebP from native-original images, no upscaling, blur padding or overlays",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Bàn chơi và các thanh Yut truyền thống",
+      "filename": "Yut Game Board and Yut Sticks (1).jpg",
+      "author": "고려",
+      "licence": "CC BY 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Yut_Game_Board_and_Yut_Sticks_(1).jpg",
+      "original_width": 9248,
+      "original_height": 6936
+    },
+    {
+      "index": 2,
+      "title": "Biểu diễn Taekwondo tại Camp Humphreys, Hàn Quốc",
+      "filename": "KATUSA Friendship Week Taekwondo Demonstration (9096342).jpg",
+      "author": "Sgt. Steven Sheldon / U.S. Army",
+      "licence": "Public domain (U.S. federal government work)",
+      "licence_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Military-Army",
+      "source_page": "https://commons.wikimedia.org/wiki/File:KATUSA_Friendship_Week_Taekwondo_Demonstration_(9096342).jpg",
+      "original_width": 3979,
+      "original_height": 2653
+    },
+    {
+      "index": 3,
+      "title": "Chung kết bóng đá Asian Cup 2015",
+      "filename": "2015 Asian Cup Final.jpg",
+      "author": "Simon_sees",
+      "licence": "CC BY 2.0",
+      "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:2015_Asian_Cup_Final.jpg",
+      "original_width": 2592,
+      "original_height": 1936
+    },
+    {
+      "index": 4,
+      "title": "Đi bộ và leo núi tại Bukhansan",
+      "filename": "Hiking at Bukhansan National Park.jpg",
+      "author": "Christian Bolz",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Hiking_at_Bukhansan_National_Park.jpg",
+      "original_width": 4158,
+      "original_height": 2505
+    },
+    {
+      "index": 5,
+      "title": "Khu trượt tuyết Yongpyeong mùa đông",
+      "filename": "YongpyeongSki.jpg",
+      "author": "Dittwjfsdgkvkdjg",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:YongpyeongSki.jpg",
+      "original_width": 4624,
+      "original_height": 2600
+    }
+  ]
+}

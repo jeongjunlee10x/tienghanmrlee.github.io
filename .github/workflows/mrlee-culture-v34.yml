@@ -1,0 +1,37 @@
+name: MR LEE Culture V34 — build licensed sports and games images
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/culture/sports-v34-sources.json'
+      - 'tools/build-culture-sports-v34.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: culture-v34-sports-photo-build
+  cancel-in-progress: false
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install image processor
+        run: python -m pip install pillow==11.3.0
+      - name: Download and validate 5 source photos
+        run: python tools/build-culture-sports-v34.py
+      - name: Commit all 5 landscape assets and source details
+        run: |
+          git config user.name "mrlee-photo-qa[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add images/culture-v34-photo/tro-choi/ assets/culture/sports-v34-published.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Culture V34: install five Korean sports and games photos with attribution"
+            git push origin HEAD:main
+          fi
