@@ -1,0 +1,37 @@
+name: MR LEE Culture V32 — create licensed K-pop landscape images
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/culture/kpop-v32-sources.json'
+      - 'tools/build-culture-kpop-v32.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: culture-v32-kpop-publisher
+  cancel-in-progress: false
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Pillow
+        run: python -m pip install pillow==11.3.0
+      - name: Verify original sources and produce 5 distinct K-pop landscape WebPs
+        run: python tools/build-culture-kpop-v32.py
+      - name: Publish all five new images and license manifest atomically
+        run: |
+          git config user.name "mrlee-photo-qa[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add images/culture-v32-photo/kpop/ assets/culture/kpop-v32-published.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Culture V32: install five K-pop landscape images with source attributions"
+            git push origin HEAD:main
+          fi

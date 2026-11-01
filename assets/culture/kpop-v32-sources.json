@@ -1,0 +1,64 @@
+{
+  "version": "32.0",
+  "topic": "kpop",
+  "type": "real-licensed-photography",
+  "display": "5 distinct horizontal scenes, 3:2, with unmodified license attribution",
+  "processing": "center crop to landscape 1536x1024 from original pixels, no upscaling or blurred side padding",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Nhóm nam BTS biểu diễn trên sân khấu",
+      "filename": "BTS performing \"DNA\" during Love Yourself tour in Los Angeles, 8 September 2018 01.jpg",
+      "author": "I DARE U JK",
+      "licence": "CC BY 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by/3.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:BTS_performing_%22DNA%22_during_Love_Yourself_tour_in_Los_Angeles,_8_September_2018_01.jpg",
+      "original_width": 3512,
+      "original_height": 2160
+    },
+    {
+      "index": 2,
+      "title": "Nhóm nữ Brown Eyed Girls biểu diễn tại Hà Nội",
+      "filename": "Korean Pop Group Brown Eyed Girls perform at MTV EXIT concert in Hanoi (7276363626).jpg",
+      "author": "USAID Vietnam",
+      "licence": "Public domain (U.S. Government work)",
+      "licence_url": "https://commons.wikimedia.org/wiki/Commons:Copyright_rules_by_territory/United_States#Works_of_the_United_States_federal_government",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Korean_Pop_Group_Brown_Eyed_Girls_perform_at_MTV_EXIT_concert_in_Hanoi_(7276363626).jpg",
+      "original_width": 2033,
+      "original_height": 1203
+    },
+    {
+      "index": 3,
+      "title": "Phòng thu phát sóng KBS 2Radio tại Seoul",
+      "filename": "KBS 2Radio studio-Seoul.jpg",
+      "author": "Sim1992",
+      "licence": "CC BY-SA 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:KBS_2Radio_studio-Seoul.jpg",
+      "original_width": 1600,
+      "original_height": 1200
+    },
+    {
+      "index": 4,
+      "title": "Không khí khán giả KCON tại Jeju",
+      "filename": "KCON JEJU 2015 led bracelet.jpg",
+      "author": "Bonnielou2013",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:KCON_JEJU_2015_led_bracelet.jpg",
+      "original_width": 5312,
+      "original_height": 2988
+    },
+    {
+      "index": 5,
+      "title": "Người hâm mộ xếp hàng mua vật phẩm BTS",
+      "filename": "Queueing for BTS merch, SoFi Stadium-1.jpg",
+      "author": "Ganbaruby",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Queueing_for_BTS_merch,_SoFi_Stadium-1.jpg",
+      "original_width": 5724,
+      "original_height": 3816
+    }
+  ]
+}
