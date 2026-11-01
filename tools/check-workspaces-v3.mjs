@@ -13,7 +13,7 @@ const js=read('assets/mrlee-ui2027/workspaces-v3.js');
 for(const [path,kind] of pages){
  const s=read(path);
  assert(s.includes('data-mrlee-phase3="'+kind+'"'),path+' phase attr');
- assert(s.includes('assets/mrlee-ui2027/workspaces-v3.css?v=20261101-p3'),path+' stylesheet');
+ assert(s.includes('assets/mrlee-ui2027/workspaces-v3.css?v=20261102-p7'),path+' stylesheet');
  assert(s.includes('assets/mrlee-ui2027/workspaces-v3.js?v=20261101-p3'),path+' js');
  assert(s.includes('assets/branding/logo-mrlee.png'),path+' original logo');
  assert(css.includes('data-mrlee-phase3="'+kind+'"'),'missing '+kind+' CSS');
