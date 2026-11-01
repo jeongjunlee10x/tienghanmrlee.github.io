@@ -1,0 +1,121 @@
+{
+  "version": "41.0",
+  "topic": "benh-vien",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Lối vào Bệnh viện Severance tại Seoul",
+      "filename": "세브란스 병원 본관 입구 - Entrance to the main building of Severance Hospital.jpg",
+      "author": "RyuMinjoo",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:%EC%84%B8%EB%B8%8C%EB%9E%80%EC%8A%A4_%EB%B3%91%EC%9B%90_%EB%B3%B8%EA%B4%80_%EC%9E%85%EA%B5%AC_-_Entrance_to_the_main_building_of_Severance_Hospital.jpg",
+      "original_width": 5184,
+      "original_height": 3888,
+      "context_note": "Severance Hospital main building entrance; information desk inside, photographed January 2026.",
+      "file": "images/culture-v41-photo/benh-vien/01.webp",
+      "bytes": 232782,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "1038c88889819fe4045913b438cce0faaee4f5e78ea4320cec5c2285050144bd",
+      "source_dimensions": [
+        5184,
+        3888
+      ],
+      "modified": "cropped to 3:2 and downscaled; WebP conversion",
+      "credit_required": true
+    },
+    {
+      "index": 2,
+      "title": "Sảnh Bệnh viện Đại học Quốc gia Seoul",
+      "filename": "Night view at Seoul National University Hospital lobby.jpg",
+      "author": "U2em",
+      "licence": "CC BY-SA 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Night_view_at_Seoul_National_University_Hospital_lobby.jpg",
+      "original_width": 2592,
+      "original_height": 1944,
+      "context_note": "Night-time lobby of Seoul National University Hospital in 2014; not a current live visitor guide.",
+      "file": "images/culture-v41-photo/benh-vien/02.webp",
+      "bytes": 222656,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "1dd445496402d67d959332f545303e6ed5c6e731a6e90f819210c5d72d827a07",
+      "source_dimensions": [
+        2592,
+        1944
+      ],
+      "modified": "cropped to 3:2 and downscaled; WebP conversion",
+      "credit_required": true
+    },
+    {
+      "index": 3,
+      "title": "Máy đo huyết áp tự động tại bệnh viện Seoul",
+      "filename": "Automatic Blood Pressure Meter and Nursing Information Computer at SNU Hospital ward.jpg",
+      "author": "U2em",
+      "licence": "CC BY-SA 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Automatic_Blood_Pressure_Meter_and_Nursing_Information_Computer_at_SNU_Hospital_ward.jpg",
+      "original_width": 2592,
+      "original_height": 1944,
+      "context_note": "Blood-pressure measuring machine and nurse workstation at Seoul National University Hospital, August 2014; NOT physician examining a patient.",
+      "file": "images/culture-v41-photo/benh-vien/03.webp",
+      "bytes": 145012,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "9f15b9e3cf7bbff5d7afbf1180a8a83c0a7015e058bbf88a9289797e75d59e22",
+      "source_dimensions": [
+        2592,
+        1944
+      ],
+      "modified": "cropped to 3:2 and downscaled; WebP conversion",
+      "credit_required": true
+    },
+    {
+      "index": 4,
+      "title": "Nhà thuốc tại Hoengseong, Hàn Quốc",
+      "filename": "2020-03-26 15.32.45 pharmacy in Hoengseong.jpg",
+      "author": "Choi Kwang-mo",
+      "licence": "CC0 1.0",
+      "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:2020-03-26_15.32.45_pharmacy_in_Hoengseong.jpg",
+      "original_width": 4032,
+      "original_height": 3024,
+      "context_note": "Actual civilian pharmacy in Hoengseong, Korea, photographed March 2020; shop service hours could have changed.",
+      "file": "images/culture-v41-photo/benh-vien/04.webp",
+      "bytes": 295704,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "0134b950eae0650447982a009f81b7f7726edb2d633dad3e9b8cc2b4e05dc43b",
+      "source_dimensions": [
+        4032,
+        3024
+      ],
+      "modified": "cropped to 3:2 and downscaled; WebP conversion",
+      "credit_required": true
+    },
+    {
+      "index": 5,
+      "title": "Dán nhãn thuốc theo đơn tại đơn vị quân y Mỹ ở Osan, Hàn Quốc",
+      "filename": "Mustang of the Week- MSgt Marcus Hollins (9868794).jpg",
+      "author": "U.S. Air Force / Staff Sgt. Sarah Williams",
+      "licence": "Public domain — U.S. federal government work",
+      "licence_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Mustang_of_the_Week-_MSgt_Marcus_Hollins_(9868794).jpg",
+      "original_width": 5528,
+      "original_height": 3949,
+      "context_note": "Military pharmacist labels a medication at Osan Air Base, Korea, August 2026; a U.S. military facility, NOT a typical South Korean civilian pharmacy.",
+      "file": "images/culture-v41-photo/benh-vien/05.webp",
+      "bytes": 199304,
+      "width": 1536,
+      "height": 1024,
+      "sha256": "99ca4da0b5496f825e071c39823718b07b99bfd6ef53c780bcdb4bc98ff9bdcd",
+      "source_dimensions": [
+        5528,
+        3949
+      ],
+      "modified": "cropped to 3:2 and downscaled; WebP conversion",
+      "credit_required": true
+    }
+  ]
+}
