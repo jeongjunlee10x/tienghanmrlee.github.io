@@ -268,3 +268,12 @@ html[data-mrlee-redesign="v2"][data-mrlee-theme="future"] #mrleeNewHome .mr27-ar
 html[data-mrlee-redesign="v2"]:not([data-mrlee-theme="future"]) #mrleeNewHome .mr27-art-fresh{display:block!important}
 #mrleeNewHome .mr27-missing-photo{background-image:linear-gradient(140deg,#113963,#0a294d)!important}
 #mrleeNewHome .mr27-tile.mr27-missing-photo{background:var(--card-bg)!important}
+
+/* The previous floating contact rail overlapped the final row in the supplied screenshot.
+   Header consultation CTA and dedicated consultation page remain available. */
+html[data-mrlee-redesign="v2"] .contact-rail{display:none!important}
+/* Keep the rebuilt cards text-first. Legacy banner/overlay pseudo-elements are not reused. */
+#mrleeNewHome .mr27-tile-copy :is(strong,small){
+ display:block!important;background:none!important;padding:0!important;
+ box-shadow:none!important;border:0!important;white-space:normal!important;
+}
