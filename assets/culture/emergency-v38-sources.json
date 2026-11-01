@@ -1,0 +1,74 @@
+{
+  "version": "38.0",
+  "topic": "goi-cuu-ho",
+  "type": "source-attributed-real-photos",
+  "disclaimer": "Real images are contextual scenes, not screenshots of a live emergency or documentary evidence that all five scenes occurred in Korea. Photo 4 was taken in Spain.",
+  "critical_numbers": {
+    "112": "Korea police",
+    "119": "Korea ambulance, fire, rescue",
+    "1330": "Korea travel hotline, not an emergency substitute"
+  },
+  "processing": "1536x1024 landscape 3:2, downsample originals, no montage/padding/upscaling",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Xe cấp cứu 119 tại trung tâm Dunnae, Hàn Quốc",
+      "filename": "2020-04-23 14.21.38 둔내119안전센터 119구급차 외부.jpg",
+      "author": "Choi Kwang-mo",
+      "licence": "CC0 1.0",
+      "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:2020-04-23_14.21.38_%EB%91%94%EB%82%B4119%EC%95%88%EC%A0%84%EC%84%BC%ED%84%B0_119%EA%B5%AC%EA%B8%89%EC%B0%A8_%EC%99%B8%EB%B6%80.jpg",
+      "original_width": 4032,
+      "original_height": 3024,
+      "context_note": "Real Korea 119 ambulance, Dunnae Safety Center (2020)."
+    },
+    {
+      "index": 2,
+      "title": "Xe tuần tra cảnh sát Hàn Quốc",
+      "filename": "KNPA Hyundai Sonata -2.jpg",
+      "author": "Squadron",
+      "licence": "CC0 1.0",
+      "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:KNPA_Hyundai_Sonata_-2.jpg",
+      "original_width": 3984,
+      "original_height": 2656,
+      "context_note": "South Korean police vehicle, photo from 2016; vehicles and markings may change."
+    },
+    {
+      "index": 3,
+      "title": "Lối ra số 3 ga Seoul National University, Seoul",
+      "filename": "20250627 관악로 서울대입구역 3번출구.jpg",
+      "author": "Striker9498",
+      "licence": "CC0 1.0",
+      "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:20250627_%EA%B4%80%EC%95%85%EB%A1%9C_%EC%84%9C%EC%9A%B8%EB%8C%80%EC%9E%85%EA%B5%AC%EC%97%AD_3%EB%B2%88%EC%B6%9C%EA%B5%AC.jpg",
+      "original_width": 4000,
+      "original_height": 2250,
+      "context_note": "Gwanak-ro and Seoul National University Station Exit 3 (2025), example of a verifiable location landmark in a 119/112 call."
+    },
+    {
+      "index": 4,
+      "title": "Nhân viên trực tổng đài điều phối khẩn cấp (ảnh minh họa Tây Ban Nha)",
+      "filename": "NAVSTA Rota’s Emergency Dispatch (5237478).jpg",
+      "author": "Petty Officer 1st Class Benjamin A. Lewis / U.S. Navy",
+      "licence": "Public domain (U.S. federal government work)",
+      "licence_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:NAVSTA_Rota%E2%80%99s_Emergency_Dispatch_(5237478).jpg",
+      "original_width": 3000,
+      "original_height": 2143,
+      "context_note": "Emergency dispatcher at U.S. Naval Station Rota, Spain (2019). Not a Korean dispatch center."
+    },
+    {
+      "index": 5,
+      "title": "Trung tâm an toàn 119 Seongsu tại Seoul",
+      "filename": "성수119안전센터.jpg",
+      "author": "KSH1015",
+      "licence": "CC BY-SA 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:%EC%84%B1%EC%88%98119%EC%95%88%EC%A0%84%EC%84%BC%ED%84%B0.jpg",
+      "original_width": 4000,
+      "original_height": 3000,
+      "context_note": "Seongsu 119 Safety Center, Seoul, 2024; depicts a facility, not a rescue in progress."
+    }
+  ]
+}
