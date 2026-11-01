@@ -22,10 +22,10 @@ window.MRLEE_CULTURE_V23_CAPTIONS={
     "Trang phục cưới truyền thống Hàn Quốc — cảnh AI tái hiện, không phải bằng chứng lịch sử."
   ],
   "doi-song": [
-    "Đời sống học sinh trong đô thị Seoul",
-    "Mua sắm tại chợ truyền thống",
-    "Học tập và trò chuyện tại quán cà phê",
-    "Đi dạo cùng gia đình trong khu phố Hanok",
-    "Bữa cơm và sinh hoạt gia đình"
+    "학생의 일상 — Học sinh di chuyển trên phố Seoul và chú ý tín hiệu dành cho người đi bộ.",
+    "전통시장 — Mua sắm thực phẩm, đồ dùng và luyện hỏi giá ở chợ truyền thống.",
+    "카페 문화 — Bạn bè học tập và trò chuyện tại quán cà phê.",
+    "한옥마을 — Gia đình đi dạo và khám phá kiến trúc nhà truyền thống Hanok.",
+    "가족의 일상 — Sinh hoạt gia đình, cùng ăn cơm và trò chuyện."
   ]
 };
