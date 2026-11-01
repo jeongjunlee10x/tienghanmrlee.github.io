@@ -15,7 +15,7 @@ assert(engine.includes("ID==='lac-duong'?$('#cultureImagesV19Topic15')"));
 assert(css.includes('html:not([data-mrlee-lost-gallery="1"])'));
 assert(css.includes('object-fit:cover!important'));
 assert(html.includes('Đây là ảnh tạo bằng AI, không phải ảnh chụp'));
-const src=[...html.matchAll(/src="(images\\/culture-v29-photo\\/lac-duong\\/(\\d\\d)\\.webp)\\?v=20261101-topic15-ai29"/g)];
+const src=[...html.matchAll(new RegExp('src="(images/culture-v29-photo/lac-duong/([0-9][0-9])[.]webp)[?]v=20261101-topic15-ai29"','g'))];
 assert.deepEqual(src.map(x=>x[2]),['01','02','03','04','05']);
 const seen=new Set();
 for(let i=0;i<5;i++){
