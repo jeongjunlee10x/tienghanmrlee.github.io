@@ -8,6 +8,9 @@ on:
       - 'mrlee-culture-v13-data.js'
       - 'mrlee-culture-v26-captions.js'
       - 'assets/culture/office-gallery-v1.css'
+      - 'assets/culture/sports-gallery-v1.css'
+      - 'assets/culture/sports-v34-published.json'
+      - 'tools/check-culture-topic10.mjs'
       - 'assets/culture/office-v33-published.json'
       - 'tools/check-culture-topic9.mjs'
   pull_request:
@@ -35,3 +38,5 @@ jobs:
         run: node tools/check-culture-v26.mjs
       - name: Verify topic 09 horizontal workplace photos, credits and gallery integrity
         run: node tools/check-culture-topic9.mjs
+      - name: Verify topic 10 HD sports photography and license attribution
+        run: node tools/check-culture-topic10.mjs

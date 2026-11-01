@@ -1,0 +1,35 @@
+/* Culture topic 10: five original landscape photographs, 3:2 1536x1024; proper credits. */
+html:not([data-mrlee-sports-gallery="1"]) #cultureImagesV19Topic10.mrleeSportsStatic{display:none!important}
+html[data-mrlee-sports-gallery="1"] #cultureImagesV19Topic10.mrleeSportsStatic{
+ display:block!important;position:relative!important;visibility:visible!important;opacity:1!important;
+ width:100%;max-width:100%;margin:21px 0!important;padding:clamp(14px,2vw,24px)!important;
+ border:1px solid #d6e5f1;border-radius:18px;background:#fff;box-shadow:0 7px 28px #17385815
+}
+#cultureImagesV19Topic10 h2{color:#153e65;font-size:clamp(19px,1.6vw,25px);line-height:1.4;margin:0 0 8px}
+#cultureImagesV19Topic10 .mrleeCultureLead{font-size:14px;color:#4b6b86;line-height:1.65;margin:0 0 15px}
+#cultureImagesV19Topic10 .mrleeCultureGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+#cultureImagesV19Topic10 .mrleeCultureFigure{margin:0;min-width:0;border-radius:15px;border:1px solid #d7e5f3;overflow:hidden;background:#fff;box-shadow:0 5px 17px #12345415}
+#cultureImagesV19Topic10 .mrleeCultureFigure:first-child{grid-column:1/-1}
+#cultureImagesV19Topic10 .mrleeCultureFigure a{display:block;line-height:0;background:#edf4f9}
+#cultureImagesV19Topic10 .mrleeCultureFigure img{
+ display:block!important;width:100%!important;max-width:100%!important;height:auto!important;
+ aspect-ratio:3/2!important;object-fit:cover!important;object-position:center!important;
+ visibility:visible!important;opacity:1!important;filter:none!important;transform:none!important;
+ image-rendering:auto!important
+}
+#cultureImagesV19Topic10 figcaption{display:flex;flex-direction:column;gap:5px;padding:12px 14px 15px}
+#cultureImagesV19Topic10 figcaption b{color:#153d63;font-size:14px;line-height:1.5}
+#cultureImagesV19Topic10 figcaption span{color:#4f6d86;font-size:13px;line-height:1.6}
+#cultureImagesV19Topic10 .mrleeSportsStatus{color:#18617e;font-size:13px;font-weight:750}
+#cultureImagesV19Topic10 .mrleeSportsError{color:#ac2c39!important}
+#cultureImagesV19Topic10 .mrleeCultureNotice{background:#eef6fb;color:#385b75;padding:11px 13px;font-size:12px;line-height:1.65;border-left:3px solid #178fb6}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic10.mrleeSportsStatic{background:#102b4c;border-color:#285d81}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic10 h2,html[data-mrlee-theme="future"] #cultureImagesV19Topic10 figcaption b{color:#f2fbff}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic10 .mrleeCultureLead,html[data-mrlee-theme="future"] #cultureImagesV19Topic10 figcaption span{color:#c1daed}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic10 .mrleeCultureFigure{background:#123251;border-color:#2b5e89}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic10 .mrleeCultureNotice{background:#123550;color:#d8ebfa}
+@media(max-width:700px){#cultureImagesV19Topic10 .mrleeCultureGrid{grid-template-columns:minmax(0,1fr)!important}#cultureImagesV19Topic10 .mrleeCultureFigure:first-child{grid-column:auto!important}}
+
+#cultureImagesV19Topic10 .mrleeSportsCredit{display:block;font-size:11px;line-height:1.55;opacity:.92;color:#3c627e;margin-top:7px}
+#cultureImagesV19Topic10 .mrleeSportsCredit a{display:inline!important;line-height:inherit!important;background:none!important;color:inherit;text-decoration:underline;font-weight:700}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic10 .mrleeSportsCredit{color:#c2e1f5}
