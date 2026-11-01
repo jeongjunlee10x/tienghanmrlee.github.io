@@ -8,7 +8,7 @@ const cover=fs.readFileSync('mrlee-culture-v13-data.js','utf8');
 const c=fs.readFileSync('mrlee-culture-v28-captions.js','utf8');
 const css=fs.readFileSync('assets/culture/cpr-gallery-v1.css','utf8');
 const manifest=JSON.parse(fs.readFileSync('assets/culture/cpr-v37-published.json','utf8'));
-const refs=[...html.matchAll(/src="(images\/culture-v37-photo\/so-cap-cuu\/(\d\d)\.webp)\?v=20261101-topic13-hd37"/g)];
+const refs=[...html.matchAll(/src="(images\/culture-v37-photo\/so-cap-cuu\/(\d\d)\.webp)\?v=20261101-topic13-hd37b"/g)];
 assert.deepEqual(refs.map(x=>x[2]),['01','02','03','04','05']);
 assert(html.includes('id="cultureImagesV19Topic13"'));
 assert(html.includes("dataset.mrleeCprGallery='1'"));
