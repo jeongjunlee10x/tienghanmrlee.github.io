@@ -20,6 +20,8 @@ const pages=[
 for(const [path,flag,expectedCards,cardClass] of pages){
  const html=read(path);
  assert(html.includes(flag),'Missing current UI: '+path);
+ assert(!html.includes('assets/images/system/mrlee800-hero-loader.js'),
+  'Obsolete auto hero script still runs on redesigned '+path);
  assert.equal((html.match(new RegExp('class="'+cardClass+'"','g'))||[]).length,expectedCards,'Wrong navigation count: '+path);
  for(const old of ['assets/mrlee-v4/page-system.js','assets/mrlee-v5/compact-shell.js','assets/mrlee-v2/smart-shell.js'])
   assert(!html.includes(old),'Obsolete UI injection still active: '+path+' / '+old);
@@ -31,6 +33,17 @@ for(const [path,flag,expectedCards,cardClass] of pages){
  }
  console.log('SOURCE PASS '+path+' / static assets '+resources.length);
 }
+const homeHTML=read('index.html');
+for(const cover of ['assets/images/heroes/01-trang-chu-fresh.webp','assets/images/heroes/01-trang-chu-future.webp']){
+ assert(fs.existsSync(cover),'Missing original theme hero '+cover);
+ assert(homeHTML.includes('src="'+cover+'"'),'Homepage hero must use original theme cover '+cover);
+ const buf=fs.readFileSync(cover);
+ assert(buf.length>20000,'Hero unexpectedly small '+cover);
+ assert.equal(buf.toString('ascii',0,4),'RIFF','Wrong image format '+cover);
+ assert.equal(buf.toString('ascii',8,12),'WEBP','Invalid image file '+cover);
+}
+for(const unused of ['home-hero-overlay-v3.css','home-hero-split-v2.css','assets/v31/premium-gallery.js'])
+ assert(!homeHTML.includes(unused),'Rebuilt homepage still loads obsolete '+unused);
 for(const id of ['mrleeNewHome','mrlee27Expand','mrlee27ThemeChange'])
  assert(read('index.html').includes('id="'+id+'"'),'Home interaction missing '+id);
 const cultureData=read('mrlee-culture-v13-data.js');
