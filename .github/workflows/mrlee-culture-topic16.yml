@@ -1,0 +1,20 @@
+name: MR LEE Culture Topic 16 — wallet and documents gallery QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'van-hoa-bai-hoc.html'
+      - 'mrlee-culture-hd-v19.js'
+      - 'assets/culture/wallet-gallery-v1.css'
+      - 'tools/check-culture-topic16.mjs'
+      - 'images/culture-v29-photo/mat-vi/**'
+  workflow_dispatch:
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tools/check-culture-topic16.mjs

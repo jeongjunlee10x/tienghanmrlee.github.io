@@ -1,0 +1,37 @@
+/* MR LEE Culture / Topic 16: images from V29, original 3:2 landscape assets */
+html:not([data-mrlee-wallet-gallery="1"]) #cultureImagesV19Topic16.mrleeWalletStatic{display:none!important}
+html[data-mrlee-wallet-gallery="1"] #cultureImagesV19Topic16.mrleeWalletStatic{display:block!important;visibility:visible!important;opacity:1!important;max-width:100%;margin:22px 0!important;padding:clamp(14px,2vw,24px)!important;border:1px solid #d5e5ee;border-radius:18px;background:#fff;box-shadow:0 7px 28px #17385815}
+#cultureImagesV19Topic16 h2{color:#153d63;font-size:clamp(19px,1.7vw,25px);line-height:1.4;margin:0 0 10px}
+#cultureImagesV19Topic16 .mrleeCultureLead{color:#4b6b86;line-height:1.65;font-size:14px;margin:0 0 16px}
+#cultureImagesV19Topic16 .mrleeWalletQuick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 18px}
+#cultureImagesV19Topic16 .mrleeWalletQuick>div{display:flex;flex-direction:column;gap:5px;padding:12px;border-radius:12px;background:#f0f7ff;border:1px solid #d4e6f1}
+#cultureImagesV19Topic16 .mrleeWalletQuick b{color:#173e62;font-size:13px}
+#cultureImagesV19Topic16 .mrleeWalletQuick span{color:#50718a;font-size:12px;line-height:1.55}
+#cultureImagesV19Topic16 .mrleeCultureGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+#cultureImagesV19Topic16 .mrleeCultureFigure{margin:0;min-width:0;border:1px solid #d7e5f3;border-radius:15px;overflow:hidden;background:#fff;box-shadow:0 5px 17px #12345415}
+#cultureImagesV19Topic16 .mrleeCultureFigure:first-child{grid-column:1/-1}
+#cultureImagesV19Topic16 .mrleeCultureFigure a{display:block;line-height:0;background:#edf4f9}
+#cultureImagesV19Topic16 .mrleeCultureFigure img{display:block!important;width:100%!important;max-width:100%!important;height:auto!important;aspect-ratio:3/2!important;object-fit:cover!important;object-position:center!important;filter:none!important;transform:none!important;image-rendering:auto!important;opacity:1!important;visibility:visible!important}
+#cultureImagesV19Topic16 figcaption{display:flex;flex-direction:column;gap:7px;padding:12px 14px 15px;line-height:1.65}
+#cultureImagesV19Topic16 figcaption b{font-size:14px;color:#163c60}
+#cultureImagesV19Topic16 figcaption span{font-size:13px;color:#4b6b86}
+#cultureImagesV19Topic16 .mrleeWalletKo{padding-top:7px;border-top:1px solid #dae7ef}
+#cultureImagesV19Topic16 .mrleeWalletKo strong{color:#14668f}
+#cultureImagesV19Topic16 .mrleeWalletInfo{border:1px solid #d6e5f0;border-radius:14px;background:#f7fbff;padding:clamp(12px,2vw,20px);margin:18px 0}
+#cultureImagesV19Topic16 .mrleeWalletInfo h3{font-size:16px;color:#163f63;margin:8px 0}
+#cultureImagesV19Topic16 .mrleeWalletInfo p{color:#3f617e;font-size:13px;line-height:1.75}
+#cultureImagesV19Topic16 .mrleeWalletRefs{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+#cultureImagesV19Topic16 .mrleeWalletRefs a{display:inline-block;line-height:1.5;padding:9px 11px;border-radius:10px;background:#e9f2fa;border:1px solid #c9dfed;color:#164c72;text-decoration:underline;font-size:12px;font-weight:700}
+#cultureImagesV19Topic16 .mrleeWalletStatus{color:#176681;font-size:13px;font-weight:750}
+#cultureImagesV19Topic16 .mrleeWalletError{color:#af2d3b!important}
+#cultureImagesV19Topic16 .mrleeCultureNotice{padding:12px 13px;border-left:3px solid #168fae;background:#edf6fb;color:#355976;font-size:12px;line-height:1.7}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic16{background:#102b4c;border-color:#285d81}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic16 h2,html[data-mrlee-theme="future"] #cultureImagesV19Topic16 figcaption b,html[data-mrlee-theme="future"] #cultureImagesV19Topic16 .mrleeWalletInfo h3{color:#f2fbff}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic16 .mrleeCultureLead,html[data-mrlee-theme="future"] #cultureImagesV19Topic16 figcaption span,html[data-mrlee-theme="future"] #cultureImagesV19Topic16 .mrleeWalletInfo p{color:#c1daed}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic16 .mrleeCultureFigure,html[data-mrlee-theme="future"] #cultureImagesV19Topic16 .mrleeWalletInfo{background:#123251;border-color:#2b5e89}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic16 .mrleeWalletQuick>div,html[data-mrlee-theme="future"] #cultureImagesV19Topic16 .mrleeWalletRefs a{background:#123f59;border-color:#275f7f;color:#e2f5ff}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic16 .mrleeWalletQuick b{color:#e2f5ff}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic16 .mrleeWalletQuick span{color:#c1daed}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic16 .mrleeWalletKo strong{color:#90d7ff}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic16 .mrleeCultureNotice{background:#123550;color:#d8ebfa}
+@media(max-width:700px){#cultureImagesV19Topic16 .mrleeCultureGrid,#cultureImagesV19Topic16 .mrleeWalletQuick{grid-template-columns:minmax(0,1fr)!important}#cultureImagesV19Topic16 .mrleeCultureFigure:first-child{grid-column:auto!important}}

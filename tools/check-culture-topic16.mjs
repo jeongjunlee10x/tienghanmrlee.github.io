@@ -1,0 +1,34 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import {spawnSync} from 'node:child_process';
+const html=fs.readFileSync('van-hoa-bai-hoc.html','utf8');
+const engine=fs.readFileSync('mrlee-culture-hd-v19.js','utf8');
+const css=fs.readFileSync('assets/culture/wallet-gallery-v1.css','utf8');
+const inventory=JSON.parse(fs.readFileSync('assets/culture/v29-inventory.json','utf8'));
+const photos=inventory.images.filter(x=>x.topic==='mat-vi').sort((a,b)=>a.index-b.index);
+assert.equal(photos.length,5);
+assert.equal((html.match(/id="cultureImagesV19Topic16"/g)||[]).length,1);
+assert(html.includes("dataset.mrleeWalletGallery='1'"));
+assert(html.includes('assets/culture/wallet-gallery-v1.css'));
+assert(engine.includes("ID==='mat-vi'?$('#cultureImagesV19Topic16')"));
+assert(css.includes('html:not([data-mrlee-wallet-gallery="1"])'));
+assert(css.includes('object-fit:cover!important'));
+const imgRE=new RegExp('src="(images/culture-v29-photo/mat-vi/([0-9][0-9])[.]webp)[?]v=20261101-topic16-ai29"','g');
+const found=[...html.matchAll(imgRE)];
+assert.deepEqual(found.map(x=>x[2]),['01','02','03','04','05']);
+const seen=new Set();
+for(let i=0;i<5;i++){
+ const p=photos[i],bin=fs.readFileSync(p.file);
+ assert.equal(p.file,found[i][1]);assert.equal(p.index,i+1);
+ assert.equal(bin.toString('ascii',0,4),'RIFF');assert.equal(bin.toString('ascii',8,12),'WEBP');
+ assert.equal(bin.length,p.bytes);
+ const hash=crypto.createHash('sha256').update(bin).digest('hex');
+ assert.equal(hash,p.sha256);assert(!seen.has(hash));seen.add(hash);
+}
+for(let n=3;n<=15;n++)assert(html.includes('id="cultureImagesV19Topic'+n+'"'));
+for(const url of ['https://www.lost112.go.kr/','https://vietnamembassy-seoul.org/thu-tuc-lanh-su/','https://www.hikorea.go.kr/'])assert(html.includes(url));
+assert(html.includes('Không đăng ảnh hộ chiếu'));
+const syntax=spawnSync(process.execPath,['--check','mrlee-culture-hd-v19.js'],{encoding:'utf8'});
+assert.equal(syntax.status,0,syntax.stderr);
+console.log('PASS Topic16: five original unique V29 AI landscapes, linked Korean phrases, safe passport/card steps, topic 3–15 preserved');

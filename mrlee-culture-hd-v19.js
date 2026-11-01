@@ -123,7 +123,7 @@ function lesson(){
  for(const id of ['cultureImagesV16','cultureImagesV17','cultureImagesV172','mrleeAiPhotos','realPhotos'])document.getElementById(id)?.remove();
  const legacy=$('#image');if(legacy)legacy.hidden=true;
  // Topic-specific, pre-rendered HTML galleries for topics 03–14: leave these intact.
- const staticGallery=ID==='truyen-thong'?$('#cultureImagesV19Topic3'):ID==='doi-song'?$('#cultureImagesV19Topic4'):ID==='phe-lich-su'?$('#cultureImagesV19Topic5'):ID==='giao-duc'?$('#cultureImagesV19Topic6'):ID==='du-lich'?$('#cultureImagesV19Topic7'):ID==='kpop'?$('#cultureImagesV19Topic8'):ID==='cong-so'?$('#cultureImagesV19Topic9'):ID==='tro-choi'?$('#cultureImagesV19Topic10'):ID==='lich-su'?$('#cultureImagesV19Topic11'):ID==='hien-dai'?$('#cultureImagesV19Topic12'):ID==='so-cap-cuu'?$('#cultureImagesV19Topic13'):ID==='goi-cuu-ho'?$('#cultureImagesV19Topic14'):ID==='lac-duong'?$('#cultureImagesV19Topic15'):null;
+ const staticGallery=ID==='truyen-thong'?$('#cultureImagesV19Topic3'):ID==='doi-song'?$('#cultureImagesV19Topic4'):ID==='phe-lich-su'?$('#cultureImagesV19Topic5'):ID==='giao-duc'?$('#cultureImagesV19Topic6'):ID==='du-lich'?$('#cultureImagesV19Topic7'):ID==='kpop'?$('#cultureImagesV19Topic8'):ID==='cong-so'?$('#cultureImagesV19Topic9'):ID==='tro-choi'?$('#cultureImagesV19Topic10'):ID==='lich-su'?$('#cultureImagesV19Topic11'):ID==='hien-dai'?$('#cultureImagesV19Topic12'):ID==='so-cap-cuu'?$('#cultureImagesV19Topic13'):ID==='goi-cuu-ho'?$('#cultureImagesV19Topic14'):ID==='lac-duong'?$('#cultureImagesV19Topic15'):ID==='mat-vi'?$('#cultureImagesV19Topic16'):null;
  if(staticGallery){
   $('#cultureImagesV19.mrleeFoodStatic')?.remove();
   const hero=$('#topicHero img');if(hero)load(hero,ID,1);
