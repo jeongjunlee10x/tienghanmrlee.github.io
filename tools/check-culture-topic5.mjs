@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+const html=fs.readFileSync('van-hoa-bai-hoc.html','utf8');
+const controller=fs.readFileSync('mrlee-culture-hd-v19.js','utf8');
+const data=fs.readFileSync('mrlee-culture-v13-data.js','utf8');
+const captions=fs.readFileSync('mrlee-culture-v24-captions.js','utf8');
+const css=fs.readFileSync('assets/culture/etiquette-gallery-v1.css','utf8');
+const manifest=JSON.parse(fs.readFileSync('assets/culture/v24-manifest.json','utf8'));
+const found=[...html.matchAll(/src="(images\/culture-v24-ai\/phe-lich-su\/(\d\d)\.webp)\?v=20261101-topic05"/g)];
+assert.equal(found.length,5);
+assert.deepEqual(found.map(x=>x[2]),['01','02','03','04','05']);
+assert(html.includes('id="cultureImagesV19Topic5"'));
+assert(html.includes("dataset.mrleeEtiquetteGallery='1'"));
+assert(css.includes('html:not([data-mrlee-etiquette-gallery="1"])'));
+assert(controller.includes("ID==='phe-lich-su'?$('#cultureImagesV19Topic5')"));
+assert(data.includes('"image":"images/culture-v24-ai/phe-lich-su/01.webp"'));
+assert(captions.includes('"phe-lich-su": ['));
+const digests=new Set();
+for(const [i,entry] of found.entries()){
+ const expected=manifest.images.find(x=>x.topic==='phe-lich-su'&&x.index===i+1);
+ assert(expected);assert.equal(expected.file,entry[1]);assert.equal(expected.width,1536);assert.equal(expected.height,1024);
+ const buffer=fs.readFileSync(expected.file);
+ assert.equal(buffer.toString('ascii',0,4),'RIFF');assert.equal(buffer.toString('ascii',8,12),'WEBP');
+ assert.equal(buffer.length,expected.bytes);
+ const sha=crypto.createHash('sha256').update(buffer).digest('hex');
+ assert.equal(sha,expected.sha256);assert(!digests.has(sha));digests.add(sha);
+}
+for(const id of ['cultureImagesV19','cultureImagesV19Topic3','cultureImagesV19Topic4'])assert(html.includes('id="'+id+'"'));
+console.log('PASS Topic05: 5 unique WebP images, integrity, static gallery, captions and preserved earlier topics');

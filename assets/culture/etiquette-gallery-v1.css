@@ -1,0 +1,29 @@
+/* Topic 05 – explicit static images to avoid dynamic gallery script failure. */
+html:not([data-mrlee-etiquette-gallery="1"]) #cultureImagesV19Topic5.mrleeEtiquetteStatic{display:none!important}
+html[data-mrlee-etiquette-gallery="1"] #cultureImagesV19Topic5.mrleeEtiquetteStatic{
+ display:block!important;position:relative!important;visibility:visible!important;opacity:1!important;
+ max-width:100%;margin:22px 0!important;padding:clamp(14px,2vw,24px)!important;
+ border-radius:19px;background:#fff;border:1px solid #d5e5f1;box-shadow:0 8px 28px #14385918
+}
+#cultureImagesV19Topic5 h2{font-size:clamp(19px,1.6vw,25px);color:#143b62;line-height:1.4;margin:0 0 9px}
+#cultureImagesV19Topic5 .mrleeCultureLead{margin:0 0 16px;color:#4e6e8c;line-height:1.65;font-size:14px}
+#cultureImagesV19Topic5 .mrleeCultureGrid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+#cultureImagesV19Topic5 .mrleeCultureFigure{margin:0;min-width:0;overflow:hidden;background:#fff;border:1px solid #d4e3f0;border-radius:15px;box-shadow:0 5px 16px #163a5914}
+#cultureImagesV19Topic5 .mrleeCultureFigure:first-child{grid-column:1/-1}
+#cultureImagesV19Topic5 .mrleeCultureFigure a{display:block;text-decoration:none}
+#cultureImagesV19Topic5 .mrleeCultureFigure img{
+ display:block!important;width:100%!important;max-width:100%!important;height:auto!important;aspect-ratio:3/2!important;
+ object-fit:cover!important;object-position:center!important;visibility:visible!important;opacity:1!important;filter:none!important;transform:none!important
+}
+#cultureImagesV19Topic5 figcaption{display:flex;flex-direction:column;gap:5px;padding:12px 14px 15px}
+#cultureImagesV19Topic5 figcaption b{color:#143c64;font-size:14px;line-height:1.5}
+#cultureImagesV19Topic5 figcaption span{color:#4f6e89;font-size:13px;line-height:1.65}
+#cultureImagesV19Topic5 .mrleeEtiquetteStatus{font-size:13px;font-weight:700;color:#145e81}
+#cultureImagesV19Topic5 .mrleeEtiquetteError{color:#b12d38!important}
+#cultureImagesV19Topic5 .mrleeCultureNotice{padding:12px;border-left:3px solid #168eb5;background:#eaf5fc;color:#335c7b;font-size:12px;line-height:1.65}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic5.mrleeEtiquetteStatic{background:#10294c;border-color:#275c86}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic5 h2,html[data-mrlee-theme="future"] #cultureImagesV19Topic5 figcaption b{color:#f1f9ff}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic5 .mrleeCultureLead,html[data-mrlee-theme="future"] #cultureImagesV19Topic5 figcaption span{color:#c2dff2}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic5 .mrleeCultureFigure{background:#123454;border-color:#32648c}
+html[data-mrlee-theme="future"] #cultureImagesV19Topic5 .mrleeCultureNotice{background:#113855;color:#d3ecfc}
+@media(max-width:700px){#cultureImagesV19Topic5 .mrleeCultureGrid{grid-template-columns:minmax(0,1fr)!important}#cultureImagesV19Topic5 .mrleeCultureFigure:first-child{grid-column:auto!important}}

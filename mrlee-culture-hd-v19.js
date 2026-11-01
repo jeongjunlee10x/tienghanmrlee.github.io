@@ -47,7 +47,7 @@ const write=(parent,tag,klass,content)=>{const el=document.createElement(tag);if
 const safety=new Set(['so-cap-cuu','goi-cuu-ho','hoa-hoan','benh-vien','an-toan-giao-thong']);
 function load(img,id,k){
  if(!img||!safe(id))return;
- const url=asset(id,k),sceneCaption=(id==='am-thuc'||id==='truyen-thong'||id==='doi-song')?V23_CAPTIONS[id]?.[k-1]:null,alt=sceneCaption?'Ảnh AI theo chủ đề '+k+'/5: '+sceneCaption:(NEW_V29.has(id)?'Ảnh AI tái hiện chân thực ':NEW_V28.has(id)?'Đồ họa giáo dục an toàn ':NEW_V27.has(id)?'Đồ họa vector minh họa ':'Ảnh AI minh họa ')+k+'/5 — '+MEDIA[id].title;
+ const url=asset(id,k),sceneCaption=(id==='phe-lich-su'?V24_CAPTIONS[id]?.[k-1]:(id==='am-thuc'||id==='truyen-thong'||id==='doi-song')?V23_CAPTIONS[id]?.[k-1]:null),alt=sceneCaption?'Ảnh AI theo chủ đề '+k+'/5: '+sceneCaption:(NEW_V29.has(id)?'Ảnh AI tái hiện chân thực ':NEW_V28.has(id)?'Đồ họa giáo dục an toàn ':NEW_V27.has(id)?'Đồ họa vector minh họa ':'Ảnh AI minh họa ')+k+'/5 — '+MEDIA[id].title;
  img.onerror=null;img.hidden=false;img.removeAttribute('style');
  img.loading=k===1?'eager':'lazy';img.decoding='async';
  img.alt=alt;img.dataset.mrleeCultureHd='27';
@@ -106,8 +106,8 @@ function lesson(){
  const parent=$('#lessonContent'),t=MEDIA[ID];if(!parent||!t)return;
  for(const id of ['cultureImagesV16','cultureImagesV17','cultureImagesV172','mrleeAiPhotos','realPhotos'])document.getElementById(id)?.remove();
  const legacy=$('#image');if(legacy)legacy.hidden=true;
- // Topic-specific, pre-rendered HTML galleries: leave these intact.
- const staticGallery=ID==='truyen-thong'?$('#cultureImagesV19Topic3'):ID==='doi-song'?$('#cultureImagesV19Topic4'):null;
+ // Topic-specific, pre-rendered HTML galleries for topics 03–05: leave these intact.
+ const staticGallery=ID==='truyen-thong'?$('#cultureImagesV19Topic3'):ID==='doi-song'?$('#cultureImagesV19Topic4'):ID==='phe-lich-su'?$('#cultureImagesV19Topic5'):null;
  if(staticGallery){
   $('#cultureImagesV19.mrleeFoodStatic')?.remove();
   const hero=$('#topicHero img');if(hero)load(hero,ID,1);
@@ -142,7 +142,7 @@ function lesson(){
   const anchor=$('#read')||$('#how')||parent.firstElementChild;
   if(anchor)anchor.insertAdjacentElement('beforebegin',section);else parent.append(section);
  }
- const hero=$('#topicHero img');if(hero)load(hero,ID,(ID==='am-thuc'||ID==='truyen-thong'||ID==='doi-song')?1:2);
+ const hero=$('#topicHero img');if(hero)load(hero,ID,(ID==='am-thuc'||ID==='truyen-thong'||ID==='doi-song'||ID==='phe-lich-su')?1:2);
  for(const a of $$('.sidePanel a[href="#image"],.sidePanel a[href="#cultureImagesV16"],.sidePanel a[href="#cultureImagesV17"],.sidePanel a[href="#cultureImagesV172"]')){
   a.href='#cultureImagesV19';a.textContent='5 ảnh minh họa HD';
  }
