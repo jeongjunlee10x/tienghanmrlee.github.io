@@ -1,0 +1,42 @@
+name: MR LEE 2027 Phase 3 - Map Admissions Student Admin QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ban-do-dai-hoc-han-quoc.html'
+      - 'tuyen-sinh.html'
+      - 'trung-tam-hoc-vien.html'
+      - 'admin.html'
+      - 'assets/mrlee-ui2027/workspaces-v3.css'
+      - 'assets/mrlee-ui2027/workspaces-v3.js'
+      - 'tools/check-workspaces-v3*.mjs'
+      - '.github/workflows/mrlee-workspaces-v3.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify public and private DOM invariants
+        run: node tools/check-workspaces-v3.mjs
+      - name: Install Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install chromium --with-deps
+      - name: Screenshot desktop/mobile in two themes (visual-only for account pages)
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/mrlee-workspaces.log 2>&1 &
+          sleep 2
+          node tools/check-workspaces-v3-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mrlee-phase3-screenshots
+          path: artifacts/mrlee-phase3-*.png
+          if-no-files-found: ignore
