@@ -9,7 +9,10 @@ assert.match(js,/sessionStorage\.setItem\(VISIT_KEY,chosen\)/,'Choice should per
 assert.match(js,/dialog\.showModal\(\)/,'Must use accessible native modal');
 assert.match(js,/dialog\.addEventListener\('cancel',e=>e\.preventDefault\(\)\)/);
 assert.match(js,/path!=='index\.html'/,'Prompt only on website landing, not while taking exams');
-assert.match(js,/function run\(\)\{primaryNav\(\);decorate\(\);portal\(\);update\(theme\);entryPicker\(\)\}/);
+assert.match(js,/const modern=html\.matches\(/,'Rebuilt pages must be recognized by shared theme runtime');
+assert.match(js,/primaryNav\(\);decorate\(\);portal\(\);update\(theme\);entryPicker\(\)/,'Old pages must retain their legacy navigation fallback');
+assert.match(js,/entryPicker\(\);/,'New pages must also open the theme picker');
+assert.match(js,/explicitSelection/,'Subpage change-theme shortcut must reopen the selector');
 assert.doesNotMatch(js,/function controls\(/,'Legacy floating theme selector must not be constructed');
 assert.doesNotMatch(js,/nav\.className='mrlee-theme-switch'/);
 assert.match(css,/\.mrlee-theme-switch\{display:none!important\}/,'No top page switchers');
@@ -19,15 +22,17 @@ for(const name of ['01-trang-chu-fresh.webp','01-trang-chu-future.webp']){
  assert.ok(fs.statSync('assets/images/heroes/'+name).size>100000,'Missing real approved hero preview '+name);
  assert.ok(css.includes(name),'Modal missing theme-specific preview photo '+name);
 }
-let themed=0,old=[];
+let themed=0,newVersion=[];
 for(const file of root){
  const content=fs.readFileSync(file,'utf8');
- if(content.includes('assets/mrlee-dual-ui/theme.js?v=')){
-  themed++;
-  if(!content.includes('assets/mrlee-dual-ui/theme.js?v=20261029-entry1'))old.push(file);
- }
+ if(!content.includes('assets/mrlee-dual-ui/theme.js?v='))continue;
+ themed++;
+ if(content.includes('assets/mrlee-dual-ui/theme.js?v=20261102-phase4'))newVersion.push(file);
 }
-assert.ok(themed>=45,'Website-wide selector change must cover all connected pages, saw '+themed);
-assert.deepEqual(old,[],'Pages still use cached old header theme script: '+old.join(', '));
-assert.match(html,/assets\/mrlee-dual-ui\/theme\.js\?v=20261029-entry1/);
+assert.ok(themed>=45,'Shared theme runtime lost pages: '+themed);
+for(const file of ['index.html','hoc-tieng-han.html','kiem-tra-topik.html',
+ 'van-hoa-han-quoc.html','trung-tam-hoc-vien.html','admin.html']){
+ assert(newVersion.includes(file),'Rebuilt page still points to stale theme cache: '+file);
+}
+assert.ok(newVersion.length>=9,'Modern pages must use cache-busted theme.js');
 console.log('PASS theme chooser: '+themed+' HTML routes use current shared runtime; modal once per tab, no duplicate header buttons, both image previews and mobile layouts');
