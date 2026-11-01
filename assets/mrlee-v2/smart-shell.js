@@ -6,14 +6,14 @@ const d=document,root=d.documentElement;
 const page=decodeURIComponent(location.pathname.split('/').pop()||'index.html');
 const photoRoot='assets/v306/images/';
 const catalog=[
- {title:'Tuyển sinh',desc:'Du học và định hướng',href:'tuyen-sinh.html',img:'feature-1-tuyen-sinh.webp'},
- {title:'Học tiếng Hàn',desc:'6 cấp độ · Học theo bài',href:'hoc-tieng-han.html',img:'feature-5-hoc-tieng-han.webp'},
- {title:'Giao tiếp',desc:'Hội thoại và phản xạ',href:'giao-tiep-theo-chu-de.html',img:'learning-cap-2.webp'},
+ {title:'Học tiếng Hàn',desc:'6 cấp độ · 90 bài học',href:'hoc-tieng-han.html',img:'feature-5-hoc-tieng-han.webp'},
+ {title:'Giao tiếp',desc:'Hội thoại · Phản xạ',href:'giao-tiep-theo-chu-de.html',img:'learning-listening.webp'},
  {title:'TOPIK',desc:'Luyện thi I · II',href:'kiem-tra-topik.html',img:'feature-6-thi-topik.webp'},
- {title:'Phỏng vấn',desc:'Tự tin trả lời',href:'giao-tiep-phong-van.html',img:'step-1-tu-van.webp'},
- {title:'Văn hóa Hàn Quốc',desc:'Đời sống và kỹ năng',href:'van-hoa-han-quoc.html',img:'culture.webp'},
- {title:'Bản đồ đại học',desc:'Tra cứu trường Hàn Quốc',href:'ban-do-dai-hoc-han-quoc.html',img:'feature-2-ban-do.webp'},
- {title:'Hồ sơ học viên',desc:'Xem hành trình học tập',href:'trung-tam-hoc-vien.html',img:'learning-roadmap.webp'}
+ {title:'WORKBOOK',desc:'Luyện tập theo từng bài',href:'mrlee-bai-tap-pro.html?cap=1&bai=1',img:'learning-books.webp'},
+ {title:'Phỏng vấn',desc:'Phỏng vấn du học Hàn',href:'on-luyen-phong-van.html',img:'step-1-tu-van.webp'},
+ {title:'Bản đồ đại học',desc:'Tìm trường tại Hàn Quốc',href:'ban-do-dai-hoc-han-quoc.html',img:'feature-2-ban-do.webp'},
+ {title:'Văn hóa Hàn Quốc',desc:'22 chủ đề · Kỹ năng sống',href:'van-hoa-han-quoc.html',img:'culture.webp'},
+ {title:'Hồ sơ học viên',desc:'Tiến độ · Kết quả học',href:'trung-tam-hoc-vien.html',img:'learning-roadmap.webp'}
 ];
 const $=(tag,cls,text)=>{const el=d.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el};
 // Short homepage no longer has the anchor targets shown in legacy top navigation.
@@ -36,14 +36,15 @@ function homepage(){
  hub.id='mrleeSmartHub';
  hub.setAttribute('aria-label','Điều hướng nhanh toàn bộ website MR LEE');
  const head=$('div','mrlee-smart-hub-heading');
- head.append($('strong','','KHÁM PHÁ MR LEE · 8 CHUYÊN MỤC'));
- head.append($('p','','8 chuyên mục chính · Chọn để đi thẳng tới nội dung'));
+ head.append($('strong','','HỌC TẬP THÔNG MINH · 8 CHUYÊN MỤC'));
+ head.append($('p','','Chọn nội dung cần học — không phải cuộn qua các nút lặp lại'));
  hub.append(head);
  const grid=$('nav','mrlee-smart-home-grid');grid.setAttribute('aria-label','Các chuyên mục chính MR LEE');
- for(const item of catalog){
+ for(const [index,item] of catalog.entries()){
   const a=$('a','mrlee-smart-home-card');a.href=item.href;
   const img=$('img');img.src=photoRoot+item.img;img.alt='';
-  img.width=640;img.height=360;img.loading='eager';img.decoding='async';
+  img.width=640;img.height=360;img.loading=index<4?'eager':'lazy';img.decoding='async';
+  img.addEventListener('error',()=>{img.remove();a.classList.add('mrlee-card-image-fallback')},{once:true});
   a.append(img,$('strong','',item.title),$('small','',item.desc),$('span','mrlee-smart-arrow','›'));grid.append(a);
  }
  hub.append(grid);
@@ -51,11 +52,19 @@ function homepage(){
  const routes=[
   ['WORKBOOK · Bài tập theo bài','mrlee-bai-tap-pro.html'],
   ['Kiểm tra đầu vào','kiem-tra-dau-vao.html'],
-  ['Tư vấn du học','dang-ky-tu-van.html'],
-  ['Bảng xếp hạng','bang-xep-hang.html']
+    ['Bảng xếp hạng','bang-xep-hang.html']
  ];
  for(const [label,url] of routes){const a=$('a','',label);a.href=url;actions.append(a)}
- const toggle=$('button','','Xem toàn bộ nội dung ↓');toggle.type='button';
+ const themeButton=$('button','','Đổi giao diện');
+ themeButton.id='mrleeChangeTheme';
+ themeButton.type='button';
+ themeButton.setAttribute('aria-label','Mở lại cửa sổ chọn giao diện Tươi mới hoặc Viễn tưởng');
+ themeButton.addEventListener('click',()=>{
+  try{sessionStorage.removeItem('MRLEE.THEME.ENTRY.V1')}catch{}
+  location.reload();
+ });
+ actions.append(themeButton);
+ const toggle=$('button','','Xem toàn bộ nội dung ↓');toggle.type='button';toggle.id='mrleeSmartToggle';
  toggle.setAttribute('aria-controls','mrleeFutureStart');
  toggle.setAttribute('aria-expanded','false');
  toggle.addEventListener('click',()=>{
