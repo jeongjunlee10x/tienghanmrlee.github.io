@@ -1,0 +1,35 @@
+name: MR LEE Culture V43 - licensed lost phone security photographs
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/culture/phone-v43-sources.json'
+      - 'tools/build-culture-phone-v43.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: culture-v43-phone-build
+  cancel-in-progress: false
+jobs:
+  photos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pillow==11.3.0
+      - run: python tools/build-culture-phone-v43.py
+      - name: Publish five credited landscape phone-safety photos
+        run: |
+          git config user.name "mrlee-photo-qa[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add images/culture-v43-photo/mat-dien-thoai/ assets/culture/phone-v43-published.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Culture V43: publish five licensed phone-loss landscape photos"
+            git push origin HEAD:main
+          fi

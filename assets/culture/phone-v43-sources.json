@@ -1,0 +1,68 @@
+{
+  "version": "43.0",
+  "topic": "mat-dien-thoai",
+  "type": "Wikimedia-real-photography-with-Korean-and-non-Korean-scene-disclosures",
+  "processing": "Downsample/crop original licensed images to landscape 1536x1024 WebP with full attribution, CC terms and no upscale.",
+  "photos": [
+    {
+      "index": 1,
+      "title": "Sân ga Chungjeongno tuyến 5 ở Seoul — nơi nên kiểm tra nếu để quên điện thoại trên tàu",
+      "filename": "Seoul-metro-531-Chungjeongno-station-platform-20180915-132214.jpg",
+      "author": "LERK",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Seoul-metro-531-Chungjeongno-station-platform-20180915-132214.jpg",
+      "original_width": 4000,
+      "original_height": 2250,
+      "context_note": "Actual Chungjeongno Station platform in Seoul, 2018. No lost phone shown; location-specific illustration of checking last travel stops."
+    },
+    {
+      "index": 2,
+      "title": "Sử dụng máy tính và thiết bị khác để tìm/khóa điện thoại",
+      "filename": "Person works on laptop while holding smartphone in living room.jpg",
+      "author": "Shixart1985",
+      "licence": "CC BY 2.0",
+      "licence_url": "https://creativecommons.org/licenses/by/2.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Person_works_on_laptop_while_holding_smartphone_in_living_room.jpg",
+      "original_width": 6048,
+      "original_height": 4032,
+      "context_note": "Generic device-use illustration, NOT a Korean photo and NOT a real phone recovery or Find Hub screen."
+    },
+    {
+      "index": 3,
+      "title": "Hình minh họa khóa và bảo vệ dữ liệu điện thoại",
+      "filename": "Locked smartphone with chain.jpg",
+      "author": "Santeri Viinamäki",
+      "licence": "CC BY-SA 4.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Locked_smartphone_with_chain.jpg",
+      "original_width": 4235,
+      "original_height": 3190,
+      "context_note": "Generic symbolic photograph of a smartphone with chain; not a real software security-lock screen or a Korean scene."
+    },
+    {
+      "index": 4,
+      "title": "Thẻ SIM nano và khay SIM của điện thoại",
+      "filename": "Nano SIM card and tray.jpg",
+      "author": "BwDraco",
+      "licence": "CC BY-SA 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Nano_SIM_card_and_tray.jpg",
+      "original_width": 6016,
+      "original_height": 4000,
+      "context_note": "Generic close-up of a nano-SIM and tray, illustrating what to ask carrier to suspend; not a Korean telecom service."
+    },
+    {
+      "index": 5,
+      "title": "Tòa nhà Sở cảnh sát Suseo ở Seoul",
+      "filename": "Seoul Suseo Police Station.JPG",
+      "author": "hyolee2",
+      "licence": "CC BY-SA 3.0",
+      "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "source_page": "https://commons.wikimedia.org/wiki/File:Seoul_Suseo_Police_Station.JPG",
+      "original_width": 3264,
+      "original_height": 2448,
+      "context_note": "Seoul Suseo Police Station, 2015, illustrates local police office for suspected theft; not the lost phone location nor a reported incident."
+    }
+  ]
+}
