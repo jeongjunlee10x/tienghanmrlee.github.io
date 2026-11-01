@@ -3,6 +3,9 @@
 const root=document.documentElement;
 if(!root.dataset.mrleeHubV2)return;
 const init=()=>{
+ // Legacy compact-shell V5 hides every sibling after its own dynamically prepended shell.
+ // Disable only that presentation fold here; our scoped V2 CSS controls native content.
+ if(root.dataset.mrleeV4){root.dataset.mrleeV4Folded='false';root.dataset.mrleeV4Compact='false';}
  const hub=document.querySelector('.mrlee27-subhub');
  const expand=document.getElementById('mrlee27HubExpand');
  const setExpanded=()=>{
@@ -13,6 +16,7 @@ const init=()=>{
  };
  expand?.addEventListener('click',()=>{
   root.dataset.mrleeHubExpanded=String(root.dataset.mrleeHubExpanded!=='true');
+  if(root.dataset.mrleeV4)root.dataset.mrleeV4Folded='false';
   setExpanded();
   if(root.dataset.mrleeHubExpanded!=='true'&&hub){
     hub.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
