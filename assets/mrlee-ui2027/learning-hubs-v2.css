@@ -559,3 +559,21 @@ html[data-mrlee-hub-v2] .mrlee27-subhub .mr27-subphoto img{
   height:190px!important;min-height:190px!important;
  }
 }
+
+
+/* Learning hero: move copy upward without shrinking the content area. */
+@media(min-width:761px){
+ html[data-mrlee-hub-v2="learning"] .mrlee27-subhub .mr27-copy{
+  justify-content:flex-start!important;
+  padding:clamp(34px,4vw,60px) clamp(28px,3.2vw,52px) 38px!important;
+ }
+ html[data-mrlee-hub-v2="learning"] .mrlee27-subhub .mr27-subhero{
+  min-height:440px!important;
+ }
+}
+@media(max-width:760px){
+ html[data-mrlee-hub-v2="learning"] .mrlee27-subhub .mr27-copy{
+  justify-content:flex-start!important;
+  padding:25px 20px 27px!important;
+ }
+}
