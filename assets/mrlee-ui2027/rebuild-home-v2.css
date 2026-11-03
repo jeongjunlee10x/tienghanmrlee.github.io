@@ -13,7 +13,7 @@ html[data-mrlee-redesign="v2"] #mrleeNewHome{
  --mr27-accent:#2159d3;--mr27-border:#d5e2f2;--mr27-hero:#e8f1ff;
  display:block!important;position:relative;isolation:isolate;
  max-width:none!important;min-height:0!important;
- width:100%;margin:0!important;padding:17px 18px 34px!important;
+ width:100%;margin:0!important;padding:10px 14px 18px!important;
  color:var(--mr27-ink)!important;background:var(--mr27-page)!important;
  font-family:var(--mr27-font)!important;box-sizing:border-box!important;
 }
@@ -27,20 +27,20 @@ html[data-mrlee-redesign="v2"][data-mrlee-theme="future"] #mrleeNewHome{
 #mrleeNewHome :is(a,button){font-family:var(--mr27-font)!important}
 #mrleeNewHome :is(a,button):focus-visible{outline:3px solid #ffae44!important;outline-offset:3px!important}
 #mrleeNewHome .mr27-overline{
- display:flex;align-items:center;gap:8px;margin:0 0 11px;
+ display:flex;align-items:center;gap:8px;margin:0 0 7px;
  font-size:11px;font-weight:800;letter-spacing:.15em;color:var(--mr27-muted);
 }
 #mrleeNewHome .mr27-overline:before{content:"";width:23px;height:2px;border-radius:2px;background:var(--mr27-accent)}
 /* Hero: content LEFT + distinct full-height photograph RIGHT, unlike old full bleed. */
 #mrleeNewHome .mr27-hero{
  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
- min-height:305px;max-height:360px;overflow:hidden;position:relative;
+ min-height:0;max-height:none;height:auto;grid-template-rows:auto;overflow:hidden;position:relative;
  border-radius:25px;border:1px solid var(--mr27-border);
  background:var(--mr27-hero);box-shadow:0 18px 46px rgba(10,33,71,.10);
 }
 #mrleeNewHome .mr27-hero-copy{
- display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
- gap:14px;padding:clamp(24px,3.2vw,48px) clamp(24px,3.4vw,53px);
+ display:flex;flex-direction:column;justify-content:flex-start;align-items:flex-start;
+ gap:9px;padding:clamp(23px,2.4vw,32px) clamp(24px,3.2vw,46px);
  position:relative;z-index:2;min-width:0;background:transparent;
 }
 #mrleeNewHome .mr27-eyebrow{
@@ -63,7 +63,7 @@ html[data-mrlee-redesign="v2"][data-mrlee-theme="future"] #mrleeNewHome{
  margin:0!important;max-width:54ch;font:500 clamp(13px,1.05vw,16px)/1.75 var(--mr27-font)!important;
  color:var(--mr27-muted)!important;text-shadow:none!important;
 }
-#mrleeNewHome .mr27-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:4px}
+#mrleeNewHome .mr27-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:3px}
 #mrleeNewHome .mr27-actions a{
  display:inline-flex;align-items:center;justify-content:center;gap:9px;
  padding:12px 17px;min-height:45px;border-radius:12px;
@@ -94,8 +94,8 @@ html[data-mrlee-redesign="v2"][data-mrlee-theme="future"] #mrleeNewHome{
  font-size:11px;font-weight:800;letter-spacing:.04em;
 }
 #mrleeNewHome .mr27-stats{
- display:flex;gap:8px;align-items:center;flex-wrap:wrap;
- margin:12px 0 16px;
+ display:none!important;gap:8px;align-items:center;flex-wrap:wrap;
+ margin:0;
 }
 #mrleeNewHome .mr27-stats span{
  display:inline-flex;gap:7px;align-items:center;min-height:32px;padding:7px 11px;
@@ -106,7 +106,7 @@ html[data-mrlee-redesign="v2"][data-mrlee-theme="future"] #mrleeNewHome{
 /* The dashboard uses a 3+5 editorial mosaic, not 4x2 uniform photo overlays. */
 #mrleeNewHome .mr27-section-title{
  display:flex;justify-content:space-between;align-items:baseline;gap:16px;
- margin:4px 0 12px;
+ margin:11px 0 9px;
 }
 #mrleeNewHome .mr27-section-title h2{
  margin:0!important;padding:0!important;line-height:1.3!important;
@@ -117,12 +117,12 @@ html[data-mrlee-redesign="v2"][data-mrlee-theme="future"] #mrleeNewHome{
  font-size:12px;line-height:1.5;font-weight:600;color:var(--mr27-muted)!important;
  margin:0!important;text-align:right;
 }
-#mrleeNewHome .mr27-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px}
+#mrleeNewHome .mr27-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:9px}
 #mrleeNewHome .mr27-tile{
  --card-bg:#e9f3fe;--card-ink:#15335b;--card-sub:#4b6b88;
  position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;
  justify-content:space-between;align-items:flex-start;min-width:0;
- min-height:142px;padding:18px 19px;border-radius:18px;
+ min-height:132px;padding:13px 15px;border-radius:16px;
  background:var(--card-bg)!important;border:1px solid rgba(113,150,183,.24)!important;
  text-decoration:none!important;color:var(--card-ink)!important;
  box-shadow:0 6px 20px rgba(15,41,71,.06);
@@ -166,8 +166,8 @@ html[data-mrlee-redesign="v2"][data-mrlee-theme="future"] #mrleeNewHome{
 #mrleeNewHome .mr27-tile[data-key="culture"]{grid-column:span 3;--card-bg:#fff2d9;--card-ink:#81602a;--card-sub:#8d7147}
 #mrleeNewHome .mr27-tile[data-key="profile"]{grid-column:span 2;--card-bg:#e3e9ff;--card-ink:#455897;--card-sub:#6372a4}
 #mrleeNewHome .mr27-bottom{
- display:flex;align-items:center;justify-content:space-between;gap:12px;
- margin:12px 0 0;flex-wrap:wrap;
+ display:flex;align-items:center;justify-content:space-between;gap:9px;
+ margin:9px 0 0;flex-wrap:wrap;
 }
 #mrleeNewHome .mr27-bottom-links{display:flex;flex-wrap:wrap;gap:8px}
 #mrleeNewHome .mr27-bottom a,#mrleeNewHome .mr27-bottom button{
@@ -276,4 +276,47 @@ html[data-mrlee-redesign="v2"] .contact-rail{display:none!important}
 #mrleeNewHome .mr27-tile-copy :is(strong,small){
  display:block!important;background:none!important;padding:0!important;
  box-shadow:none!important;border:0!important;white-space:normal!important;
+}
+
+
+/* Navigation density V9: eight equally weighted routes in the approved learning order.
+   Desktop: 4 x 2. Tablet: 2 x 4. Phone: 2 x 4; narrow phones 1 x 8.
+   Deliberate breathing space is kept; duplicate statistic strip is omitted. */
+@media(min-width:1101px){
+ #mrleeNewHome .mr27-tile[data-key]{
+  grid-column:span 3!important;min-height:132px!important;
+ }
+}
+@media(min-width:651px) and (max-width:1100px){
+ #mrleeNewHome .mr27-tile[data-key]{
+  grid-column:span 6!important;min-height:126px!important;
+ }
+ #mrleeNewHome .mr27-hero{
+  min-height:0!important;max-height:none!important;
+ }
+}
+@media(max-width:650px){
+ html[data-mrlee-redesign="v2"] #mrleeNewHome{
+  padding:9px 10px 15px!important;
+ }
+ #mrleeNewHome .mr27-hero{
+  max-height:none!important;min-height:0!important;
+  grid-template-rows:auto 160px!important;
+ }
+ #mrleeNewHome .mr27-hero-copy{
+  justify-content:flex-start!important;padding:19px 17px!important;gap:8px!important;
+ }
+ #mrleeNewHome .mr27-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;
+ }
+ #mrleeNewHome .mr27-tile[data-key]{
+  grid-column:span 1!important;min-height:135px!important;
+  padding:12px!important;
+ }
+ #mrleeNewHome .mr27-tile-copy{max-width:87%!important}
+ #mrleeNewHome .mr27-bottom{gap:7px!important}
+}
+@media(max-width:360px){
+ #mrleeNewHome .mr27-grid{grid-template-columns:minmax(0,1fr)!important}
+ #mrleeNewHome .mr27-tile[data-key]{grid-column:span 1!important;min-height:108px!important}
 }
