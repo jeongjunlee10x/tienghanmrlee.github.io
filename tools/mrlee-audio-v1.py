@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 AUDIO = ROOT / "MRLEE_AUDIO"
 VOICES = {"male": "ko-KR-InJoonNeural", "female": "ko-KR-SunHiNeural"}
 ROLE = re.compile(r"^\s*(남자|여자|남성|여성)\s*[:：]\s*")
-INLINE_ROLE = re.compile(r"(?:^|\n)\s*(남자|여자|남성|여성)\s*[:：]\s*")
+INLINE_ROLE = re.compile(r"(?<!\S)(남자|여자|남성|여성)\s*[:：]\s*")
 KOREAN = re.compile(r"[가-힣]")
 BAD_SPEECH = re.compile(r"(^|\s)(남자|여자)\s*[:：]")
 NUMBER = re.compile(r"listening-(\d{3})", re.I)
@@ -43,7 +43,7 @@ def parse_turns(raw, default_male=False):
     """Keep all explicit speakers even in multi-turn dialogue."""
     turns = []
     speaker = "male" if default_male else "female"
-    chunks = re.split(r"(?=(?:^|\n)\s*(?:남자|여자|남성|여성)\s*[:：])", raw.strip())
+    chunks = re.split(r"(?=(?<!\S)(?:남자|여자|남성|여성)\s*[:：])", raw.strip())
     for chunk in chunks:
         if not chunk.strip():
             continue
