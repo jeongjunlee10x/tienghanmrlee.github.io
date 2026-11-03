@@ -93,17 +93,7 @@ html[data-mrlee-redesign="v2"][data-mrlee-theme="future"] #mrleeNewHome{
  color:#fff;background:rgba(10,29,55,.65);backdrop-filter:blur(8px);
  font-size:11px;font-weight:800;letter-spacing:.04em;
 }
-#mrleeNewHome .mr27-stats{
- display:none!important;gap:8px;align-items:center;flex-wrap:wrap;
- margin:0;
-}
-#mrleeNewHome .mr27-stats span{
- display:inline-flex;gap:7px;align-items:center;min-height:32px;padding:7px 11px;
- border:1px solid var(--mr27-border);background:var(--mr27-hero);
- border-radius:100px;color:var(--mr27-muted);font-size:11px;line-height:1.35;font-weight:700;
-}
-#mrleeNewHome .mr27-stats b{color:var(--mr27-ink);font-size:12px}
-/* The dashboard uses a 3+5 editorial mosaic, not 4x2 uniform photo overlays. */
+/* The dashboard uses one balanced 4 x 2 navigation grid on desktop. */
 #mrleeNewHome .mr27-section-title{
  display:flex;justify-content:space-between;align-items:baseline;gap:16px;
  margin:11px 0 9px;
@@ -196,10 +186,6 @@ html[data-mrlee-theme="future"] #mrleeNewHome .mr27-actions a{
 html[data-mrlee-theme="future"] #mrleeNewHome .mr27-actions a:first-child{
  background:linear-gradient(120deg,#21cbe6,#6181f2);border-color:transparent;color:#05152f;
 }
-html[data-mrlee-theme="future"] #mrleeNewHome .mr27-stats span{
- background:#102542;border-color:#315274;
-}
-html[data-mrlee-theme="future"] #mrleeNewHome .mr27-stats b{color:#eaf7ff}
 /* Header adjusted to new 2027 typography without changing its auth controls. */
 html[data-mrlee-redesign="v2"] .site-header .main-nav a{
  font:750 clamp(12px,.85vw,14px)/1.45 var(--mr27-font)!important;
@@ -235,8 +221,6 @@ html[data-mrlee-redesign="v2"] #mainContent{min-height:0!important;height:auto!i
  #mrleeNewHome .mr27-actions a{font-size:12px;min-height:44px;padding:10px 12px}
  #mrleeNewHome .mr27-hero-media img{object-position:50% 43%}
  #mrleeNewHome .mr27-media-note{bottom:10px;left:11px;font-size:10px;padding:7px 10px}
- #mrleeNewHome .mr27-stats{gap:6px;margin:10px 0 15px}
- #mrleeNewHome .mr27-stats span{font-size:10px;padding:6px 9px;min-height:30px}
  #mrleeNewHome .mr27-section-title{flex-direction:column;align-items:flex-start;gap:4px}
  #mrleeNewHome .mr27-section-title h2{font-size:21px!important}
  #mrleeNewHome .mr27-section-title p{text-align:left;font-size:11px}
