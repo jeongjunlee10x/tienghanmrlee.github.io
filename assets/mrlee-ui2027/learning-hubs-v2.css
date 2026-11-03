@@ -517,3 +517,45 @@ html[data-mrlee-hub-v2="workbook"] main.pro-wrap > .mrlee27-workintro > img{
   display:none!important;
  }
 }
+
+
+/* Final intrinsic-height correction: the text column defines hero height.
+   The photograph fills its grid cell without setting a fixed row height. */
+html[data-mrlee-hub-v2="learning"] .mrlee27-subhub .mr27-subhero,
+html[data-mrlee-hub-v2="topik"] .mrlee27-subhub .mr27-subhero,
+html[data-mrlee-hub-v2="talk"] .mrlee27-subhub .mr27-subhero{
+ display:grid!important;
+ grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)!important;
+ grid-template-rows:auto!important;
+ height:auto!important;min-height:0!important;max-height:none!important;
+ overflow:visible!important;
+}
+html[data-mrlee-hub-v2="learning"] .mrlee27-subhub .mr27-copy,
+html[data-mrlee-hub-v2="topik"] .mrlee27-subhub .mr27-copy,
+html[data-mrlee-hub-v2="talk"] .mrlee27-subhub .mr27-copy{
+ height:auto!important;min-height:0!important;max-height:none!important;
+ padding:clamp(24px,3vw,42px)!important;
+ align-self:stretch!important;justify-content:center!important;
+ overflow:visible!important;
+}
+html[data-mrlee-hub-v2] .mrlee27-subhub .mr27-subphoto{
+ align-self:stretch!important;min-height:0!important;
+ overflow:hidden!important;border-radius:0 24px 24px 0;
+}
+html[data-mrlee-hub-v2] .mrlee27-subhub .mr27-subphoto img{
+ height:100%!important;min-height:0!important;max-height:none!important;
+}
+@media(max-width:760px){
+ html[data-mrlee-hub-v2="learning"] .mrlee27-subhub .mr27-subhero,
+ html[data-mrlee-hub-v2="topik"] .mrlee27-subhub .mr27-subhero,
+ html[data-mrlee-hub-v2="talk"] .mrlee27-subhub .mr27-subhero{
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto 190px!important;
+ }
+ html[data-mrlee-hub-v2] .mrlee27-subhub .mr27-subphoto{
+  border-radius:0 0 24px 24px;
+ }
+ html[data-mrlee-hub-v2] .mrlee27-subhub .mr27-subphoto img{
+  height:190px!important;min-height:190px!important;
+ }
+}
