@@ -44,6 +44,15 @@ for(const [file,kind,count] of routes){
    }else if(kind==='workbook'){
     const intro=page.locator('.mrlee27-workintro');
     await intro.waitFor({state:'visible',timeout:20000});
+    const fit=await intro.evaluate(node=>{
+      const copy=node.querySelector('.mr27-worktext');
+      const desc=copy?.querySelector('p');
+      if(!copy||!desc)return {ok:false,reason:'missing text'};
+      const outer=node.getBoundingClientRect(),inner=desc.getBoundingClientRect();
+      return {ok:inner.bottom<=outer.bottom+1 && inner.right<=outer.right+1,
+        outerBottom:outer.bottom, textBottom:inner.bottom, containerHeight:outer.height};
+    });
+    assert(fit.ok,'Workbook introduction clips description '+JSON.stringify(fit));
     assert(await page.locator('#workLevel').isVisible(),'Workbook level input');
     assert(await page.locator('#workLesson').count(),'Workbook lesson selector');
     assert(await page.locator('#workList').count(),'Workbook exercises list');
