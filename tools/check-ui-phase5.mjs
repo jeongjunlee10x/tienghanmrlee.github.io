@@ -91,7 +91,7 @@ const officialLogoCSS=read('assets/branding/site-logo.css');
 const memeCSS=read('assets/branding/mrlee-meme-brand.css');
 assert(officialLogoCSS.includes('drop-shadow')&&memeCSS.includes('drop-shadow'),
  'Original-color logo glow is missing');
-assert(homeHTML.includes('rebuild-home-v2.css?v=20261103-nav-density-v9'));
+assert(homeHTML.includes('rebuild-home-v2.css?v=20261103-nav-density-v10'));
 const v9Pages={
  'hoc-tieng-han.html':'learning-hubs-v2.css?v=20261103-density-v9',
  'giao-tiep-phong-van.html':'learning-hubs-v2.css?v=20261103-density-v9',
@@ -122,6 +122,16 @@ assert(deepCss.includes('data-mrlee-v24="courses"')&&
  deepCss.includes('data-mrlee-v25="conversation"')&&
  deepCss.includes('data-mrlee-v25="culture-story"'),
  'Deep page rules must be scoped, not globally override page contents');
-console.log('SOURCE PASS UI V9: 16 pages linked, original-color logo glow, ordered cards, scoped compact layout.');
+const dockCSS=read('assets/branding/contact-dock.css');
+const brandJS=read('assets/branding/site-logo.js');
+assert(dockCSS.includes('#mrleeContactDock[data-open="true"] .mrlee-contact-links{display:grid}'),
+ 'Contact drawer must be collapsed by default and open as a grid');
+assert(brandJS.includes('contact-dock.css?v=20261103-compact-v1'),
+ 'Shared logo loader must deploy new contact dock stylesheet');
+for(const page of ['index.html',...Object.keys(v9Pages),...innerPages]){
+ assert(read(page).includes('site-logo.js?v=20261103-dock-v1'),
+  'Contact drawer cache version is stale: '+page);
+}
+console.log('SOURCE PASS UI V10: 16 pages linked, original-color glow, compact contact drawer and ordered cards.');
 
 console.log('SOURCE PASS phase5: 10 layouts, no V1/V4/V5 injectors, protected routes, Admin, 5 JS syntax checks.');
