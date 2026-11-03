@@ -67,7 +67,7 @@ def preferred_male(row):
     if ROLE.match((row.get("text") or "").strip()):
         return False
     if row["file"].startswith(("01_HOC_TIENG_HAN/", "02_", "04_")):
-        match = re.search(r"(?:^|/)[a-zA-Z](\\d{3,5})_", row["file"])
+        match = re.search(r"(?:^|/)[a-zA-Z](\d{3,5})_", row["file"])
         if match:
             return int(match.group(1)) % 2 == 0
     return False
@@ -198,7 +198,7 @@ async def run_build(args):
     print(f"Selected {len(rows)} files; apply={args.apply}; exam_repeat={not args.no_exam_repeat}")
     if not args.apply:
         for row in rows[:8]:
-            print(row["file"], parse_turns(row.get("text") or "", bool_male(row.get("male"))))
+            print(row["file"], parse_turns(row.get("text") or "", preferred_male(row)))
         print("DRY RUN: no audio files changed. Add --apply to regenerate.")
         return
     if not args.confirm_replace:
