@@ -27,6 +27,7 @@ for(const [file,kind,count] of routes){
    }));
    const page=await context.newPage();
    await page.goto('http://127.0.0.1:8765/'+file,{waitUntil:'domcontentloaded',timeout:60000});
+   await page.evaluate(()=>document.fonts.ready); // measure after Korean/Vietnamese web fonts settle
    if(kind==='culture'){
     const visual=page.locator('#topicSection .sectionHeading');
     await visual.waitFor({state:'visible',timeout:20000});
