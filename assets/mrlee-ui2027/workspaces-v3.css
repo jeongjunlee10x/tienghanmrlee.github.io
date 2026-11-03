@@ -10,13 +10,13 @@ html[data-mrlee-phase3] :is(.mrlee27-map-intro,.mrlee27-map-quick,.mrlee27-admis
 html[data-mrlee-phase3="map"] main.mrlee-next-main{width:min(1500px,calc(100% - 28px))!important;max-width:none!important;margin-inline:auto!important}
 html[data-mrlee-phase3="map"] .mrlee-next-hero.mrlee27-map-intro{
  display:grid!important;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)!important;align-items:stretch!important;
- gap:0!important;min-height:310px!important;border-radius:25px!important;overflow:hidden!important;
+ gap:0!important;min-height:0!important;height:auto!important;border-radius:22px!important;overflow:hidden!important;
  background:var(--p3-surface)!important;border:1px solid var(--p3-border)!important;box-shadow:0 13px 33px #092b4920!important;
  padding:0!important;margin:15px 0 12px!important;isolation:isolate;
 }
 html[data-mrlee-phase3="map"] .mrlee27-map-intro .mrlee-next-hero-copy{
- padding:clamp(22px,3.2vw,48px)!important;display:flex!important;flex-direction:column!important;
- align-items:flex-start!important;justify-content:center!important;gap:10px!important;width:100%!important;
+ padding:clamp(20px,2.4vw,34px)!important;display:flex!important;flex-direction:column!important;
+ align-items:flex-start!important;justify-content:flex-start!important;gap:9px!important;width:100%!important;
  min-width:0!important;position:relative!important;z-index:2!important;text-align:left!important;
 }
 html[data-mrlee-phase3="map"] .mrlee27-map-intro .mrlee-next-hero-copy h1{
@@ -50,11 +50,11 @@ html[data-mrlee-phase3="map"] .mrlee27-map-photo span{
 }
 html[data-mrlee-phase3="map"] .mrlee27-map-quick{
  display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
- gap:10px!important;margin:0 0 17px!important;
+ gap:8px!important;margin:0 0 11px!important;
 }
 html[data-mrlee-phase3="map"] .mrlee27-map-quick a{
- display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px;
- padding:14px 17px;border:1px solid var(--p3-border);border-radius:14px;
+ display:flex;align-items:center;justify-content:space-between;gap:9px;min-height:48px;
+ padding:10px 13px;border:1px solid var(--p3-border);border-radius:12px;
  background:var(--p3-surface);color:var(--p3-ink)!important;text-decoration:none!important;
  font:800 12px/1.4 var(--p3-font);box-shadow:0 4px 16px #06294414;
 }
@@ -64,18 +64,18 @@ html[data-mrlee-phase3="map"] :is(.mrlee-map-shell,.mrlee-university-results,.mr
 html[data-mrlee-phase3="map"] :is(.mrlee-map-shell,.mrlee-university-results) h2{letter-spacing:-.025em!important}
 /* Admissions: editorial spotlight with a deliberate path to the existing intake popup and form */
 html[data-mrlee-phase3="admission"] .ts-hero{
- padding:18px 0!important;min-height:0!important;background:var(--p3-wash)!important;
+ padding:8px 0!important;min-height:0!important;background:var(--p3-wash)!important;
 }
 html[data-mrlee-phase3="admission"] .ts-hero-grid{
  display:grid!important;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr)!important;
- min-height:390px!important;gap:0!important;max-width:1440px!important;
+ min-height:0!important;height:auto!important;gap:0!important;max-width:1440px!important;
  border:1px solid var(--p3-border)!important;border-radius:24px!important;overflow:hidden!important;
  background:var(--p3-surface)!important;box-shadow:0 14px 33px #092b4822!important;
 }
 html[data-mrlee-phase3="admission"] .ts-hero-copy{
  display:flex!important;flex-direction:column!important;align-items:flex-start!important;
- justify-content:center!important;gap:12px!important;
- min-width:0!important;margin:0!important;padding:clamp(27px,3.4vw,52px)!important;
+ justify-content:flex-start!important;gap:9px!important;
+ min-width:0!important;margin:0!important;padding:clamp(22px,2.5vw,36px)!important;
  background:var(--p3-surface)!important;position:relative!important;z-index:3!important;
 }
 html[data-mrlee-phase3="admission"] .ts-hero-copy h1{
@@ -99,7 +99,7 @@ html[data-mrlee-phase3="admission"] .ts-hero-buttons .ts-btn{
 }
 html[data-mrlee-phase3="admission"] .ts-hero-highlights,.ts-hero-tags{display:none!important}
 html[data-mrlee-phase3="admission"] .ts-hero-visual{
- display:block!important;position:relative!important;width:100%!important;min-height:390px!important;
+ display:block!important;position:relative!important;width:100%!important;min-height:0!important;
  background:#173c64!important;overflow:hidden!important;padding:0!important;
 }
 html[data-mrlee-phase3="admission"] .ts-cover-photo{
@@ -120,12 +120,12 @@ html[data-mrlee-phase3="admission"] .ts-cover-caption{
 }
 html[data-mrlee-phase3="admission"] .ts-hero-bottom{display:none!important}
 html[data-mrlee-phase3="admission"] .mrlee27-admission-steps{
- display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;
- width:min(1440px,calc(100% - 28px));margin:0 auto 16px;
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;
+ width:min(1440px,calc(100% - 28px));margin:0 auto 12px;
 }
 html[data-mrlee-phase3="admission"] .mrlee27-admission-steps a{
- display:flex;flex-direction:column;gap:7px;min-height:105px;
- padding:18px;border:1px solid var(--p3-border);border-radius:15px;
+ display:flex;flex-direction:column;gap:6px;min-height:88px;
+ padding:13px;border:1px solid var(--p3-border);border-radius:13px;
  background:var(--p3-surface);text-decoration:none!important;color:var(--p3-ink)!important;
  box-shadow:0 6px 18px #0a34531a;
 }
@@ -139,19 +139,19 @@ html[data-mrlee-phase3="admission"] .mrlee27-admission-steps span{
 html[data-mrlee-phase3="student"] main.main{width:min(1430px,calc(100% - 26px))!important;max-width:none!important}
 html[data-mrlee-phase3="student"] main.main>.intro{
  display:grid!important;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr)!important;
- grid-auto-flow:row!important;gap:20px!important;align-items:center!important;
- padding:24px!important;min-height:240px!important;
+ grid-auto-flow:row!important;gap:13px!important;align-items:center!important;
+ padding:18px!important;min-height:195px!important;
  border:1px solid var(--p3-border)!important;border-radius:22px!important;
  background:var(--p3-surface)!important;box-shadow:0 10px 28px #0b355519!important;
 }
 html[data-mrlee-phase3="student"] main.main>.intro>div:not(.mrlee27-student-photo):not(.mrlee-avatar-dashboard){min-width:0}
 html[data-mrlee-phase3="student"] .mrlee27-student-photo{
  grid-column:2;grid-row:1 / span 3;position:relative;
- height:100%;min-height:210px;border-radius:17px;overflow:hidden;
+ height:100%;min-height:195px;border-radius:15px;overflow:hidden;
  background:#173b60;
 }
 html[data-mrlee-phase3="student"] .mrlee27-student-photo img{
- display:block!important;width:100%!important;height:100%!important;min-height:210px;
+ display:block!important;width:100%!important;height:100%!important;min-height:195px;
  object-fit:cover!important;filter:none!important
 }
 html[data-mrlee-phase3="student"] .mrlee27-student-photo span{
@@ -160,9 +160,9 @@ html[data-mrlee-phase3="student"] .mrlee27-student-photo span{
 }
 html[data-mrlee-phase3="student"] .intro h1{color:var(--p3-ink)!important;font:900 clamp(28px,2.8vw,44px)/1.2 var(--p3-font)!important;letter-spacing:-.04em!important}
 html[data-mrlee-phase3="student"] .intro .muted{color:var(--p3-muted)!important;overflow-wrap:anywhere}
-html[data-mrlee-phase3="student"] .mrlee27-student-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0!important}
+html[data-mrlee-phase3="student"] .mrlee27-student-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:9px 0!important}
 html[data-mrlee-phase3="student"] .mrlee27-student-links a{
- display:flex;align-items:center;justify-content:space-between;gap:7px;min-height:60px;
+ display:flex;align-items:center;justify-content:space-between;gap:7px;min-height:49px;
  background:var(--p3-surface);border:1px solid var(--p3-border);border-radius:12px;
  padding:13px;color:var(--p3-ink)!important;text-decoration:none!important;
  font:800 12px/1.4 var(--p3-font)
@@ -174,7 +174,7 @@ html[data-mrlee-phase3="student"] :is(.stats .stat,.panel){
 html[data-mrlee-phase3="student"] .stats .stat strong{color:var(--p3-ink)!important}
 html[data-mrlee-phase3="student"] .panel h2{color:var(--p3-ink)!important;letter-spacing:-.03em}
 /* Preserve original AI/audio tools; they serve a different purpose than four primary links. */
-html[data-mrlee-phase3="student"] .ml-home-tools{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px!important;margin:0 0 20px!important}
+html[data-mrlee-phase3="student"] .ml-home-tools{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px!important;margin:0 0 12px!important}
 /* Admin: authenticated overview only; existing Supabase sign-in + RLS + charts are untouched */
 html[data-mrlee-phase3="admin"] #app .main-pad{max-width:none!important;padding:clamp(15px,2.2vw,28px)!important}
 html[data-mrlee-phase3="admin"] #app .sidebar{background:#102e52!important}
@@ -187,8 +187,8 @@ html[data-mrlee-phase3="admin"] #app .mrlee-smart-admin-hero,
 html[data-mrlee-phase3="admin"] #app .mrlee-smart-admin-actions{display:none!important}
 html[data-mrlee-phase3="admin"] #app .mrlee27-admin-focus{
  display:grid!important;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
- gap:22px;align-items:center;min-height:190px;
- margin:0 0 18px;padding:25px 28px;
+ gap:14px;align-items:center;min-height:0;
+ margin:0 0 11px;padding:18px 20px;
  border-radius:19px;border:1px solid var(--p3-border);
  background:var(--p3-surface);color:var(--p3-ink);
  box-shadow:0 12px 28px #081f3815
@@ -204,7 +204,7 @@ html[data-mrlee-phase3="admin"] #app .mrlee27-admin-focus p{
  color:var(--p3-muted)!important;margin:0;font:500 12px/1.65 var(--p3-font)
 }
 html[data-mrlee-phase3="admin"] #app .mrlee27-admin-buttons{
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px
 }
 html[data-mrlee-phase3="admin"] #app .mrlee27-admin-buttons button{
  min-height:52px;padding:10px 13px;background:var(--p3-wash)!important;color:var(--p3-ink)!important;
