@@ -7,13 +7,15 @@ const css=fs.readFileSync('assets/mrlee-ui2027/rebuild-home-v2.css','utf8');
 const js=fs.readFileSync('assets/mrlee-ui2027/rebuild-home-v2.js','utf8');
 assert(html.includes('data-mrlee-redesign="v2"'),'V2 root switch not present');
 assert.equal((html.match(/id="mrleeNewHome"/g)||[]).length,1);
-assert(html.includes('rebuild-home-v2.css?v=20261102-p5'));
+assert(html.includes('rebuild-home-v2.css?v=20261103-nav-density-v9'));
 assert(html.includes('rebuild-home-v2.js?v=20261101-rebuild2'));
 const root=html.match(/<section id="mrleeNewHome"[\s\S]*?<\/section>/)?.[0];
 assert(root,'new design missing');
 const cards=[...root.matchAll(/<a class="mr27-tile" data-key="([^"]+)" href="([^"]+)"[^>]*>[\s\S]*?<img src="([^"]+)"/g)];
 assert.equal(cards.length,8,'8 genuine new tiles');
 assert.equal(new Set(cards.map(x=>x[1])).size,8,'unique module types');
+assert.deepEqual(cards.map(c=>c[1]),['learn','talk','topik','workbook','interview','map','culture','profile'],'8 routes must follow user journey');
+assert(!root.includes('📍 Tìm trường tại Hàn Quốc'),'duplicate map navigation still visible');
 assert.equal(new Set(cards.map(x=>x[2].split('?')[0])).size,8,'unique routes');
 assert.equal(new Set(cards.map(x=>x[3])).size,8,'unique card art');
 for(const c of cards){
