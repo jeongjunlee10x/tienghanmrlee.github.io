@@ -53,6 +53,19 @@ try{
       assert(images.every(i=>i.width>=600),'Culture has a broken/low-resolution thumbnail');
       assert.equal(await page.locator('.v23-editorial, main.wrap > .hero, main.wrap > .stats').count(),0,'Culture redundant panels still visible');
      }
+     if(['learning','topik'].includes(test.kind)){
+      const visibleContent=await page.locator(test.box).evaluate(hero=>{
+       const host=hero.getBoundingClientRect();
+       const targets=[...hero.querySelectorAll('.mr27-copy h1,.mr27-copy p,.mr27-cta a')];
+       return targets.map(el=>{const rect=el.getBoundingClientRect();return {
+        label:el.textContent.trim().slice(0,60),
+        fits:rect.top>=host.top-2&&rect.bottom<=host.bottom+2&&rect.right<=host.right+2,
+        bottom:Math.round(rect.bottom),heroBottom:Math.round(host.bottom)
+       }});
+      });
+      assert(visibleContent.length>0&&visibleContent.every(x=>x.fits),
+       'Clipped learning/TOPIK hero text or CTA: '+test.file+' '+JSON.stringify(visibleContent));
+     }
      if(test.cards){
       assert.equal(await page.locator(test.cards).count(),test.count,test.file+' navigation');
      }
