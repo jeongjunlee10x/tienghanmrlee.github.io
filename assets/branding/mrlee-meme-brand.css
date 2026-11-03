@@ -15,7 +15,7 @@ header .site-logo img.mrlee-approved-logo {
   aspect-ratio:auto!important;
   background:transparent!important;
   padding:0!important;
-  filter:none!important;
+  filter:drop-shadow(0 0 1px rgba(255,255,255,.95)) drop-shadow(0 0 4px rgba(255,255,255,.75)) drop-shadow(0 0 8px rgba(102,220,255,.32))!important;
   transform:none!important;
 }
 html[data-mrlee-v303="reference"] .site-header a.brand {
@@ -45,7 +45,7 @@ html[data-mrlee-theme="future"] #app .sidebrand img.mrlee-admin-official-logo {
   flex:0 0 auto!important;
   border:0!important;
   background:transparent!important;
-  filter:none!important;
+  filter:drop-shadow(0 0 1px rgba(255,255,255,.95)) drop-shadow(0 0 4px rgba(255,255,255,.75)) drop-shadow(0 0 8px rgba(102,220,255,.32))!important;
   transform:none!important;
 }
 .auth-head, #app .sidebrand {
