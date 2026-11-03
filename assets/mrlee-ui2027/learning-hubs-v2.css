@@ -36,11 +36,13 @@ html[data-mrlee-hub-v2] .mrlee27-subhub{
 }
 .mrlee27-subhub .mr27-subhero{
  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
- min-height:305px;max-height:365px;border:1px solid var(--h-edge);
+ grid-template-rows:minmax(305px,auto);
+ min-height:305px;height:auto;max-height:none;border:1px solid var(--h-edge);
  border-radius:25px;background:var(--h-panel);overflow:hidden;position:relative;
  box-shadow:0 15px 32px #14365614;
 }
 .mrlee27-subhub .mr27-copy{
+ min-height:0;overflow:visible;
  padding:clamp(25px,3.3vw,52px);display:flex;flex-direction:column;
  align-items:flex-start;justify-content:center;gap:11px;min-width:0;position:relative;z-index:2;
 }
@@ -434,7 +436,7 @@ html[data-mrlee-hub-v2="talk"] .mrlee27-subhub{
  margin-top:8px!important;
 }
 html[data-mrlee-hub-v2="talk"] .mr27-subhero{
- min-height:200px!important;max-height:255px!important;
+ min-height:220px!important;max-height:none!important;height:auto!important;
 }
 html[data-mrlee-hub-v2="talk"] .mr27-copy{
  padding:clamp(18px,2.4vw,30px)!important;gap:7px!important;
