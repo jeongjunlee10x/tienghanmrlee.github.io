@@ -10,3 +10,23 @@ a[data-mrlee-official-brand] { display:inline-flex; align-items:center; gap:9px;
    Preserve its original aspect ratio in all pages loading site-logo.css. */
 img.mrlee-approved-logo{width:auto!important;height:clamp(46px,5vw,62px)!important;max-height:62px!important;object-fit:contain!important;aspect-ratio:auto!important;}
 a[data-mrlee-official-brand]{min-width:0!important;}
+
+
+/* 2026-11-03: outline-glow on the ORIGINAL meme lettering.
+   Drop shadows act only on the transparent PNG silhouette, never recolor pixels. */
+img.mrlee-approved-logo,
+a.brand > img[src*="logo-mrlee"],
+.mrlee27-brandline > img[src*="logo-mrlee"]{
+ filter:drop-shadow(0 0 1px rgba(255,255,255,.98))
+        drop-shadow(0 0 4px rgba(255,255,255,.8))
+        drop-shadow(0 0 8px rgba(97,216,255,.36))!important;
+ image-rendering:auto!important;
+}
+[data-mrlee-official-brand] :is(.brand-name,.brand-title,.site-brand-name),
+.mrlee27-brandline > span{
+ -webkit-text-stroke:.35px rgba(255,255,255,.58);
+ text-shadow:0 0 2px rgba(255,255,255,.76),0 0 9px rgba(90,207,255,.37);
+}
+@media(prefers-reduced-motion:reduce){
+ img.mrlee-approved-logo{transition:none!important}
+}
