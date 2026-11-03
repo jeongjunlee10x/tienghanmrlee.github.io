@@ -84,6 +84,9 @@ const orderedKeys=[...homeHTML.matchAll(/<a class="mr27-tile" data-key="([^"]+)"
 assert.deepEqual(orderedKeys,['learn','talk','topik','workbook','interview','map','culture','profile'],
  'Homepage must follow the learning journey and show eight unique routes');
 assert(!homeHTML.includes('📍 Tìm trường tại Hàn Quốc'),'Homepage has a duplicate map action');
+assert(!homeHTML.includes('class="mr27-stats"'),'Redundant home statistics still in HTML');
+assert.equal((homeHTML.match(/class="mr27-index">0[1-8]/g)||[]).length,8,
+ 'Eight navigation labels must retain their original CSS class and correct numbering');
 const officialLogoCSS=read('assets/branding/site-logo.css');
 const memeCSS=read('assets/branding/mrlee-meme-brand.css');
 assert(officialLogoCSS.includes('drop-shadow')&&memeCSS.includes('drop-shadow'),
