@@ -28,7 +28,7 @@ for(const [file,kind,count] of routes){
    const page=await context.newPage();
    await page.goto('http://127.0.0.1:8765/'+file,{waitUntil:'domcontentloaded',timeout:60000});
    if(kind==='culture'){
-    const visual=page.locator('.mr27-culture-visual');
+    const visual=page.locator('#topicSection .sectionHeading');
     await visual.waitFor({state:'visible',timeout:20000});
     await page.waitForFunction(()=>document.querySelectorAll('#topics a.topic').length===22,null,{timeout:30000});
     const all=await page.locator('#topics a.topic').count();
@@ -39,7 +39,8 @@ for(const [file,kind,count] of routes){
     await page.waitForFunction(()=>document.querySelectorAll('#topics a.topic').length===12);
     await page.locator('[data-filter="all"]').click();
     await page.waitForFunction(()=>document.querySelectorAll('#topics a.topic').length===22);
-    await page.locator('main.wrap > .hero').screenshot({path:'artifacts/subv2-'+kind+'-'+theme+'-'+viewport+'.png'});
+    assert.equal(await page.locator('.v23-editorial, main.wrap > .hero, main.wrap > .stats').count(),0,'Culture should not include redundant top panels');
+    await page.locator('#topicSection').screenshot({path:'artifacts/subv2-'+kind+'-'+theme+'-'+viewport+'.png'});
    }else if(kind==='workbook'){
     const intro=page.locator('.mrlee27-workintro');
     await intro.waitFor({state:'visible',timeout:20000});
