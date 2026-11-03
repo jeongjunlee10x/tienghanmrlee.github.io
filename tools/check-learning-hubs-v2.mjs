@@ -71,12 +71,15 @@ assert(culture.includes('data-mrlee-culture-v2="1"'));
 assert(culture.includes('assets/mrlee-ui2027/culture-landing-v2.css'));
 assert(culture.includes('assets/mrlee-ui2027/culture-landing-v2.js'));
 assert(cultureScript.includes("root.dataset.mrleeV4Folded='false'"));
-assert(culture.includes('mr27-culture-visual'));
+assert(!culture.includes('mr27-culture-visual'),'remove oversized culture hero');
+assert(!culture.includes('<div class="stats">'),'remove redundant culture counters');
+assert(!culture.includes('assets/v23/enhance.js'),'remove duplicate navigation gallery');
+assert(culture.includes('<h1>Văn hóa Hàn Quốc và kỹ năng sống</h1>'),'compact culture heading');
 assert(culture.includes('id="topics"')&&culture.includes('data-filter="culture"')&&culture.includes('data-filter="life"'));
 assert(culture.includes('mrlee-culture-v13.js')&&culture.includes('mrlee-culture-hd-v19.js'),'preserve 22-topic runtime and images');
 assert(!culture.includes('3 ảnh minh họa AI'),'outdated photo count');
 assert(cultureCss.includes('html[data-mrlee-culture-v2="1"] #topics.cards'));
 assert(cultureCss.includes('@media(max-width:500px)'));
-assert(fs.existsSync('assets/v306/images/culture.webp'),'culture banner asset must exist');
-console.log('PASS: culture landing split hero; topic search/filter, 22-topic runtime preserved; outdated AI-count corrected.');
+assert(culture.includes('id="search"'),'culture search preserved');
+console.log('PASS: compact culture catalog; topic search/filter, 22-topic runtime preserved; redundant hero removed.');
 
