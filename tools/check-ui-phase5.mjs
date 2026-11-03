@@ -78,4 +78,47 @@ for(const file of jsFiles){
  const r=spawnSync(process.execPath,['--check',file],{encoding:'utf8'});
  assert.equal(r.status,0,'Syntax error '+file+': '+r.stderr);
 }
+
+/* Brand glow and compact navigation audit (V9): source contract, not live rendering. */
+const orderedKeys=[...homeHTML.matchAll(/<a class="mr27-tile" data-key="([^"]+)"/g)].map(m=>m[1]);
+assert.deepEqual(orderedKeys,['learn','talk','topik','workbook','interview','map','culture','profile'],
+ 'Homepage must follow the learning journey and show eight unique routes');
+assert(!homeHTML.includes('📍 Tìm trường tại Hàn Quốc'),'Homepage has a duplicate map action');
+const officialLogoCSS=read('assets/branding/site-logo.css');
+const memeCSS=read('assets/branding/mrlee-meme-brand.css');
+assert(officialLogoCSS.includes('drop-shadow')&&memeCSS.includes('drop-shadow'),
+ 'Original-color logo glow is missing');
+assert(homeHTML.includes('rebuild-home-v2.css?v=20261103-nav-density-v9'));
+const v9Pages={
+ 'hoc-tieng-han.html':'learning-hubs-v2.css?v=20261103-density-v9',
+ 'giao-tiep-phong-van.html':'learning-hubs-v2.css?v=20261103-density-v9',
+ 'kiem-tra-topik.html':'learning-hubs-v2.css?v=20261103-density-v9',
+ 'mrlee-bai-tap-pro.html':'learning-hubs-v2.css?v=20261103-density-v9',
+ 'van-hoa-han-quoc.html':'culture-landing-v2.css?v=20261103-density-v9',
+ 'ban-do-dai-hoc-han-quoc.html':'workspaces-v3.css?v=20261103-density-v9',
+ 'tuyen-sinh.html':'workspaces-v3.css?v=20261103-density-v9',
+ 'trung-tam-hoc-vien.html':'workspaces-v3.css?v=20261103-density-v9',
+ 'admin.html':'workspaces-v3.css?v=20261103-density-v9'
+};
+for(const [page,cssVer] of Object.entries(v9Pages)){
+ const html=read(page);
+ assert(html.includes(cssVer),'Old layout version on '+page);
+ assert(html.includes('site-logo.css?v=20261103-glow-v1'),'Old logo version on '+page);
+}
+const innerPages=['hoc-theo-bai.html','giao-tiep-theo-chu-de.html','lo-trinh-topik.html',
+ 'on-luyen-phong-van.html','van-hoa-bai-hoc.html','bo-sach.html'];
+const innerStyle='assets/branding/inner-layout-density-v1.css?v=20261103-density-v1';
+assert(fs.existsSync(innerStyle.split('?')[0]),'Inner-page density CSS missing');
+for(const page of innerPages){
+ const html=read(page);
+ assert(html.includes(innerStyle),'Compact inner-page CSS missing on '+page);
+ assert(html.includes('site-logo.css?v=20261103-glow-v1'),'Logo outline CSS missing on '+page);
+}
+const deepCss=read('assets/branding/inner-layout-density-v1.css');
+assert(deepCss.includes('data-mrlee-v24="courses"')&&
+ deepCss.includes('data-mrlee-v25="conversation"')&&
+ deepCss.includes('data-mrlee-v25="culture-story"'),
+ 'Deep page rules must be scoped, not globally override page contents');
+console.log('SOURCE PASS UI V9: 16 pages linked, original-color logo glow, ordered cards, scoped compact layout.');
+
 console.log('SOURCE PASS phase5: 10 layouts, no V1/V4/V5 injectors, protected routes, Admin, 5 JS syntax checks.');
