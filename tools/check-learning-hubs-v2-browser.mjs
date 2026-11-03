@@ -15,7 +15,7 @@ const routes=[
 ];
 for(const [file,kind,count] of routes){
  for(const theme of ['fresh','future']){
-  for(const [viewport,width,height] of [['desktop',1365,900],['mobile',390,844]]){
+  for(const [viewport,width,height] of [['desktop',1440,900],['tablet',768,1000],['mobile',390,844],['narrow',320,720]]){
    const context=await browser.newContext({viewport:{width,height},deviceScaleFactor:1});
    await context.addInitScript(choice=>{
     try{localStorage.setItem('MRLEE.THEME.V1',choice);
@@ -53,6 +53,9 @@ for(const [file,kind,count] of routes){
         outerBottom:outer.bottom, textBottom:inner.bottom, containerHeight:outer.height};
     });
     assert(fit.ok,'Workbook introduction clips description '+JSON.stringify(fit));
+    const headerHeight=await page.locator('.pro-header').evaluate(node=>node.getBoundingClientRect().height);
+    assert(headerHeight<260,'Workbook first header wastes vertical space '+viewport+' '+headerHeight);
+
     assert(await page.locator('#workLevel').isVisible(),'Workbook level input');
     assert(await page.locator('#workLesson').count(),'Workbook lesson selector');
     assert(await page.locator('#workList').count(),'Workbook exercises list');
@@ -80,6 +83,37 @@ for(const [file,kind,count] of routes){
        oldHidden:!old||getComputedStyle(old).display==='none'
       };
     });
+    // A banner passes only when every visible text fragment and CTA fits.
+    // The photo must fill its cell but not define a taller grid row.
+    const hero=await page.locator('.mr27-subhero').evaluate(node=>{
+     const outer=node.getBoundingClientRect();
+     const copy=node.querySelector('.mr27-copy');
+     const photo=node.querySelector('.mr27-subphoto');
+     const copyBox=copy.getBoundingClientRect();
+     const photoBox=photo.getBoundingClientRect();
+     const items=[...copy.querySelectorAll('.mr27-eyebrow,h1,p,.mr27-cta a')].map(el=>{
+      const box=el.getBoundingClientRect();
+      return {name:el.textContent.trim().slice(0,35),
+       fits:box.left>=outer.left-2&&box.right<=outer.right+2&&
+        box.top>=outer.top-2&&box.bottom<=outer.bottom+2,
+       y:Math.round(box.y),bottom:Math.round(box.bottom)};
+     });
+     return {height:Math.round(outer.height),width:Math.round(outer.width),
+      topGap:Math.round(items[0]?.y-outer.y),items,
+      copyFits:copyBox.bottom<=outer.bottom+2,
+      photoFits:photoBox.bottom<=outer.bottom+2,
+      photoPosition:getComputedStyle(photo.querySelector('img')).position,
+      heroOverflow:getComputedStyle(node).overflow};
+    });
+    assert(hero.items.length>0&&hero.items.every(x=>x.fits),
+      file+' clipped heading, description or action '+viewport+' '+theme+' '+JSON.stringify(hero));
+    assert(hero.copyFits&&hero.photoFits,
+      file+' grid child escapes hero '+viewport+' '+theme+' '+JSON.stringify(hero));
+    assert.equal(hero.photoPosition,'absolute',file+' photo participates in grid sizing');
+    if(width>=960){
+     assert(hero.topGap<85,file+' excessive empty space above headline '+JSON.stringify(hero));
+     assert(hero.height<440,file+' unnecessarily tall desktop banner '+JSON.stringify(hero));
+    }
     assert.equal(state.cardCount,count,file+' cards');
     assert.equal(state.theme,theme,file+' theme');
     assert(state.photosLoaded,file+' broken photos');
