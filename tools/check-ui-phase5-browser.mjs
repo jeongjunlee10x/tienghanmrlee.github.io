@@ -11,7 +11,7 @@ const cases=[
  {file:'index.html',kind:'home',box:'#mrleeNewHome .mr27-hero',copy:'.mr27-hero-copy',media:'.mr27-hero-media',cards:'.mr27-tile',count:8},
  {file:'hoc-tieng-han.html',kind:'learning',box:'.mr27-subhero',copy:'.mr27-copy',media:'.mr27-subphoto',cards:'.mr27-item',count:6,protected:true},
  {file:'kiem-tra-topik.html',kind:'topik',box:'.mr27-subhero',copy:'.mr27-copy',media:'.mr27-subphoto',cards:'.mr27-item',count:5},
- {file:'van-hoa-han-quoc.html',kind:'culture',box:'main.wrap > .hero',copy:'main.wrap > .hero > div:first-child',media:'.mr27-culture-visual',cards:'#topics a.topic',count:22},
+ {file:'van-hoa-han-quoc.html',kind:'culture',box:'#topicSection',copy:'#topicSection .sectionHeading',cards:'#topics a.topic',count:22},
  {file:'ban-do-dai-hoc-han-quoc.html',kind:'map',box:'.mrlee27-map-intro',copy:'.mrlee-next-hero-copy',media:'.mrlee27-map-photo'},
  {file:'tuyen-sinh.html',kind:'admission',box:'.ts-hero-grid',copy:'.ts-hero-copy',media:'.ts-hero-visual'},
  {file:'mrlee-bai-tap-pro.html',kind:'workbook',box:'.mrlee27-workintro',copy:'.mr27-worktext',media:'.mrlee27-workintro > img',protected:true},
@@ -51,6 +51,7 @@ try{
       const images=await page.locator('#topics a.topic img').evaluateAll(imgs=>imgs.map(i=>({src:i.currentSrc||i.src,width:i.naturalWidth})));
       assert.equal(new Set(images.map(i=>i.src.split('?')[0])).size,22,'Culture 22 cover images must be distinct');
       assert(images.every(i=>i.width>=600),'Culture has a broken/low-resolution thumbnail');
+      assert.equal(await page.locator('.v23-editorial, main.wrap > .hero, main.wrap > .stats').count(),0,'Culture redundant panels still visible');
      }
      if(test.cards){
       assert.equal(await page.locator(test.cards).count(),test.count,test.file+' navigation');
@@ -84,6 +85,9 @@ try{
      assert(geometry.box.width<=geometry.viewport+2,'Layout horizontal overflow '+test.file+' '+JSON.stringify(geometry));
      if(test.kind==='admin'){
       assert(geometry.appHidden===true,'Admin private dashboard visible without login');
+     }else if(test.kind==='culture'){
+      assert(geometry.copy,'Missing compact culture title');
+      assert(geometry.documentWidth<=geometry.viewport+2,'Culture horizontal overflow '+size);
      }else{
       assert(geometry.copy&&geometry.media,'Missing hero columns '+test.file);
       if(width>=900){
