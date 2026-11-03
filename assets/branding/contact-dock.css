@@ -2,8 +2,9 @@
 /* MR LEE contact dock · site-wide floating access; mobile-safe and keyboard accessible. */
 #mrleeContactDock{position:fixed;right:max(12px,env(safe-area-inset-right));bottom:max(84px,calc(env(safe-area-inset-bottom) + 72px));z-index:950;display:flex;align-items:flex-end;flex-direction:column;gap:8px;max-width:calc(100vw - 24px);font-family:system-ui,"Be Vietnam Pro",Arial,sans-serif;pointer-events:none}
 #mrleeContactDock :is(a,button){pointer-events:auto;box-sizing:border-box;font-family:inherit}
-#mrleeContactDock .mrlee-contact-links{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
-#mrleeContactDock .mrlee-contact-link{position:relative;display:flex;align-items:center;justify-content:center;width:48px;height:48px;border:2px solid #fff;border-radius:50%;color:#fff;text-decoration:none;box-shadow:0 6px 22px #081d4299;font-size:18px;font-weight:850;background:#2563eb;cursor:pointer;transition:transform .18s,box-shadow .18s}
+#mrleeContactDock .mrlee-contact-links{display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;width:min(360px,calc(100vw - 24px));padding:10px;border:1px solid #ffffff66;border-radius:15px;background:#0c2947f2;box-shadow:0 10px 30px #081d4266}
+#mrleeContactDock[data-open="true"] .mrlee-contact-links{display:grid}
+#mrleeContactDock .mrlee-contact-link{position:relative;display:flex;align-items:center;justify-content:center;width:100%;height:44px;min-height:44px;padding:7px 9px;gap:6px;border:1px solid #ffffffad;border-radius:10px;color:#fff;text-decoration:none;box-shadow:0 6px 22px #081d4299;font-size:16px;font-weight:850;background:#2563eb;cursor:pointer;transition:transform .18s,box-shadow .18s}
 #mrleeContactDock .mrlee-contact-link:hover,#mrleeContactDock .mrlee-contact-link:focus-visible{transform:translateX(-3px);box-shadow:0 8px 27px #081d42c9;outline:3px solid #ffcf69;outline-offset:2px}
 #mrleeContactDock .mrlee-contact-link[data-channel="call"]{background:#14865e}
 #mrleeContactDock .mrlee-contact-link[data-channel="zalo"]{background:#0868ed}
@@ -11,13 +12,21 @@
 #mrleeContactDock .mrlee-contact-link[data-channel="tiktok"]{background:#13131a;color:#fff;text-shadow:-1px -1px #25f4ee,1px 1px #fe2c55;border-color:#f8fbff}
 #mrleeContactDock .mrlee-contact-link[data-channel="email"]{background:#d16b28}
 #mrleeContactDock .mrlee-contact-link[data-channel="kakao"]{background:#ffe03c;color:#3b2900}
-#mrleeContactDock .mrlee-contact-label{position:absolute;right:56px;white-space:nowrap;max-width:210px;overflow:hidden;text-overflow:ellipsis;pointer-events:none;padding:7px 10px;border-radius:9px;background:#102848;color:#fff;font-size:12px;line-height:1.4;font-weight:750;box-shadow:0 5px 18px #07183066;opacity:0;transform:translateX(6px);transition:opacity .15s,transform .15s}
+#mrleeContactDock .mrlee-contact-label{position:static;white-space:nowrap;min-width:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;pointer-events:none;padding:0;border:0;border-radius:0;background:transparent;color:#fff;font-size:10px;line-height:1.4;font-weight:750;box-shadow:none;opacity:1;transform:none;transition:none}
 #mrleeContactDock .mrlee-contact-link:is(:hover,:focus-visible) .mrlee-contact-label{opacity:1;transform:none}
-#mrleeContactDock .mrlee-contact-toggle{display:none;align-items:center;gap:8px;min-height:46px;padding:10px 13px;border:2px solid #fff;background:#0a447c;border-radius:99px;box-shadow:0 7px 22px #0b1f4c7c;color:#fff;font-size:13px;font-weight:800;cursor:pointer}
+#mrleeContactDock .mrlee-contact-toggle{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:10px 13px;border:2px solid #fff;background:#0a447c;border-radius:99px;box-shadow:0 7px 22px #0b1f4c7c;color:#fff;font-size:13px;font-weight:800;cursor:pointer}
 #mrleeContactDock .mrlee-contact-toggle:focus-visible{outline:3px solid #ffcf69;outline-offset:2px}
 #mrleeContactDock .mrlee-contact-status{display:none;max-width:230px;padding:8px 11px;border-radius:10px;background:#142e4d;color:#fff;font-size:12px;box-shadow:0 7px 18px #06172c77}
 #mrleeContactDock .mrlee-contact-status:not(:empty){display:block}
 #contactPanel .rail-item.tiktok{background:#14141d!important;color:#fff!important;text-shadow:-1px -1px #25f4ee,1px 1px #fe2c55!important}
 body.mrlee-contact-ready #contactPanel.contact-rail{display:none!important}
-@media(max-width:700px){#mrleeContactDock{bottom:max(82px,calc(env(safe-area-inset-bottom) + 70px));right:max(12px,env(safe-area-inset-right))}#mrleeContactDock .mrlee-contact-links{display:none}#mrleeContactDock[data-open="true"] .mrlee-contact-links{display:flex}#mrleeContactDock .mrlee-contact-toggle{display:inline-flex}#mrleeContactDock .mrlee-contact-link{width:44px;height:44px;font-size:16px}#mrleeContactDock .mrlee-contact-label{opacity:1;transform:none;right:52px;background:#152d4eeb;font-size:11px}#mrleeContactDock[data-open="false"] .mrlee-contact-status{max-width:170px}}
+@media(max-width:700px){
+ #mrleeContactDock{bottom:max(82px,calc(env(safe-area-inset-bottom) + 70px));right:max(12px,env(safe-area-inset-right))}
+ #mrleeContactDock .mrlee-contact-links{display:none;grid-template-columns:repeat(2,minmax(0,1fr));width:min(340px,calc(100vw - 24px))}
+ #mrleeContactDock[data-open="true"] .mrlee-contact-links{display:grid}
+ #mrleeContactDock .mrlee-contact-toggle{display:inline-flex}
+ #mrleeContactDock .mrlee-contact-link{height:44px;min-height:44px;font-size:15px}
+ #mrleeContactDock .mrlee-contact-label{position:static;opacity:1;transform:none;background:transparent;font-size:10px}
+ #mrleeContactDock[data-open="false"] .mrlee-contact-status{max-width:170px}
+}
 @media(prefers-reduced-motion:reduce){#mrleeContactDock *{transition:none!important}}
