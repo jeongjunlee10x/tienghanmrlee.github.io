@@ -426,3 +426,61 @@ html[data-mrlee-hub-v2="workbook"] main.pro-wrap > .mrlee27-workintro > img {
   height:155px!important;
  }
 }
+
+
+/* 2026-11-03: compact task-first headers on Talk and Workbook.
+   Preserve functional cards, lesson selectors, scoring and theme variants. */
+html[data-mrlee-hub-v2="talk"] .mrlee27-subhub{
+ margin-top:8px!important;
+}
+html[data-mrlee-hub-v2="talk"] .mr27-subhero{
+ min-height:200px!important;max-height:255px!important;
+}
+html[data-mrlee-hub-v2="talk"] .mr27-copy{
+ padding:clamp(18px,2.4vw,30px)!important;gap:7px!important;
+}
+html[data-mrlee-hub-v2="talk"] .mr27-copy h1{
+ font-size:clamp(28px,2.8vw,40px)!important;
+}
+html[data-mrlee-hub-v2="talk"] .mr27-head{
+ margin-top:15px!important;
+}
+html[data-mrlee-hub-v2="workbook"] .pro-header .pro-wrap{
+ padding-top:12px!important;padding-bottom:8px!important;
+}
+html[data-mrlee-hub-v2="workbook"] .pro-header h1{
+ margin:3px 0 6px!important;
+}
+html[data-mrlee-hub-v2="workbook"] .mrlee27-workintro{
+ grid-template-columns:minmax(0,1fr) 220px!important;
+ min-height:115px!important;max-height:150px!important;
+ margin:9px auto 13px!important;
+}
+html[data-mrlee-hub-v2="workbook"] .mrlee27-workintro .mr27-worktext{
+ padding:13px clamp(15px,2vw,24px)!important;gap:4px!important;
+}
+html[data-mrlee-hub-v2="workbook"] .mrlee27-workintro .mr27-worktext h2{
+ font-size:clamp(18px,1.8vw,25px)!important;
+}
+html[data-mrlee-hub-v2="workbook"] .mrlee27-workintro .mr27-worktext p{
+ line-height:1.48!important;
+}
+html[data-mrlee-hub-v2="workbook"] .mrlee27-workintro img{
+ min-height:115px!important;max-height:150px!important;
+}
+@media(max-width:760px){
+ html[data-mrlee-hub-v2="talk"] .mr27-subhero{
+  grid-template-columns:1fr!important;grid-template-rows:auto 155px!important;
+  min-height:0!important;max-height:none!important;
+ }
+ html[data-mrlee-hub-v2="talk"] .mr27-subphoto{
+  min-height:155px!important;max-height:155px!important;
+ }
+ html[data-mrlee-hub-v2="workbook"] .mrlee27-workintro{
+  grid-template-columns:1fr!important;grid-template-rows:auto!important;
+  max-height:none!important;
+ }
+ html[data-mrlee-hub-v2="workbook"] .mrlee27-workintro img{
+  display:none!important;
+ }
+}
