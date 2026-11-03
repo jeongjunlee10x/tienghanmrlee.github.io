@@ -60,6 +60,19 @@ def bool_male(value):
     return str(value).strip().lower() in ("true", "1", "yes", "male", "nam")
 
 
+def preferred_male(row):
+    """Use metadata for TOPIK; alternate neutral lesson items to cover both voices."""
+    if bool_male(row.get("male")):
+        return True
+    if ROLE.match((row.get("text") or "").strip()):
+        return False
+    if row["file"].startswith(("01_HOC_TIENG_HAN/", "02_", "04_")):
+        match = re.search(r"(?:^|/)[a-zA-Z](\\d{3,5})_", row["file"])
+        if match:
+            return int(match.group(1)) % 2 == 0
+    return False
+
+
 def is_exam(row):
     return row["file"].startswith("03_TOPIK/") and bool(NUMBER.search(row["file"]))
 
@@ -93,7 +106,7 @@ def audit(section):
         else:
             count["missing_or_small"] += 1
         raw = (row.get("text") or "").strip()
-        turns = parse_turns(raw, bool_male(row.get("male")))
+        turns = parse_turns(raw, preferred_male(row))
         if not turns or any(not KOREAN.search(t) for _, t in turns):
             count["invalid_text"] += 1
             issues.append(f'{row["file"]}: no Korean text')
@@ -139,7 +152,7 @@ def concat(inputs, output, gap_seconds):
 
 
 async def build_one(row, apply, repeat_exam):
-    turns = parse_turns(row.get("text") or "", bool_male(row.get("male")))
+    turns = parse_turns(row.get("text") or "", preferred_male(row))
     if not turns or any(not KOREAN.search(t) for _, t in turns):
         raise ValueError("Missing Korean dialogue")
     if not apply:
