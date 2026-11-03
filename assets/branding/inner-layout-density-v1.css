@@ -1,0 +1,107 @@
+/* MR LEE: shared compact spacing for native deep-content pages.
+   Intent: save non-functional whitespace, keep every lesson/control/reader intact.
+   Only page-specific data attributes apply; no global hiding or fixed text heights. */
+
+/* Six-level lesson browser and lesson practice. */
+html[data-mrlee-v24="courses"] main.mr-new-shell{
+ padding-top:8px!important;padding-bottom:24px!important;
+}
+html[data-mrlee-v24="courses"] main.mr-new-shell .breadcrumbs{
+ margin:4px 0 8px!important;
+}
+html[data-mrlee-v24="courses"] .section-hero{
+ height:auto!important;min-height:0!important;max-height:none!important;
+ padding:19px clamp(18px,2.4vw,32px)!important;margin:6px 0 11px!important;
+}
+html[data-mrlee-v24="courses"] .section-hero .hero-text{
+ min-height:0!important;max-height:none!important;
+}
+html[data-mrlee-v24="courses"] .mr-new-panel{
+ padding:clamp(14px,1.8vw,20px)!important;
+ margin-bottom:11px!important;min-height:0!important;
+}
+html[data-mrlee-v24="courses"] .mr-new-panel > h2{
+ margin-top:0!important;margin-bottom:9px!important;
+}
+html[data-mrlee-v24="courses"] :is(.mr-new-controls,#lessonGrid){
+ gap:9px!important;
+}
+html[data-mrlee-v24="courses"] :is(.mr-new-btn,#levelButtons button){
+ min-height:44px;
+}
+
+/* Conversation and interview pages use the same native shell. */
+html[data-mrlee-v25="conversation"] .shell{
+ padding-top:14px!important;padding-bottom:28px!important;
+}
+html[data-mrlee-v25="conversation"] .page-hero{
+ min-height:0!important;height:auto!important;max-height:none!important;
+ padding:21px clamp(18px,2.4vw,30px)!important;margin-bottom:11px!important;
+}
+html[data-mrlee-v25="conversation"] .panel{
+ padding:clamp(13px,1.6vw,19px)!important;
+}
+html[data-mrlee-v25="conversation"] .layout{
+ gap:11px!important;
+}
+html[data-mrlee-v25="conversation"] .row{
+ gap:8px!important;
+}
+html[data-mrlee-v25="conversation"] .panel-title{
+ margin-bottom:9px!important;
+}
+html[data-mrlee-v25="conversation"] :is(button.btn,a.btn){
+ min-height:44px;
+}
+
+/* TOPIK day-by-day page: keep one strong CTA, app and examination tools. */
+html[data-mrlee-v24="topik-hub"] .tv-shell{
+ padding-top:11px!important;padding-bottom:26px!important;
+}
+html[data-mrlee-v24="topik-hub"] .tv-hero{
+ min-height:0!important;height:auto!important;max-height:none!important;
+ padding:19px clamp(18px,2.4vw,30px)!important;margin:4px 0 11px!important;
+}
+html[data-mrlee-v24="topik-hub"] #topikApp .tv-panel{
+ margin:9px 0!important;
+}
+
+/* Six-book library: fixed spacing, responsive catalog, all book actions retained. */
+html[data-mrlee-v24="books"] .books-hero{
+ height:auto!important;min-height:0!important;max-height:none!important;
+ padding:clamp(22px,3vw,38px) 18px!important;
+}
+html[data-mrlee-v24="books"] .books-hero h1{margin:9px 0 7px!important}
+html[data-mrlee-v24="books"] .books-section{
+ padding-top:18px!important;padding-bottom:29px!important;
+}
+html[data-mrlee-v24="books"] .books-intro{margin-bottom:13px!important}
+html[data-mrlee-v24="books"] .books-grid{gap:11px!important}
+html[data-mrlee-v24="books"] .book-cover{
+ padding:19px 16px!important;min-height:140px!important;
+}
+html[data-mrlee-v24="books"] .book-body{padding:17px!important}
+html[data-mrlee-v24="books"] .book-body p{margin-bottom:12px!important}
+html[data-mrlee-v24="books"] .book-open{min-height:44px!important}
+html[data-mrlee-v24="books"] .books-note{
+ margin-top:13px!important;padding:12px 16px!important;
+}
+
+/* Culture lesson pages: compact headings and photo grids only; no hidden media. */
+html[data-mrlee-v25="culture-story"] main.wrap{padding-top:6px!important}
+html[data-mrlee-v25="culture-story"] .crumb{margin:5px 0 8px!important}
+html[data-mrlee-v25="culture-story"] .lessonHero{
+ min-height:0!important;height:auto!important;max-height:none!important;
+ padding:clamp(15px,2vw,25px)!important;margin:6px 0 12px!important;
+}
+html[data-mrlee-v25="culture-story"] .lessonBlock{
+ margin:10px 0!important;padding:clamp(13px,1.7vw,21px)!important;
+}
+html[data-mrlee-v25="culture-story"] .mrleeCultureGrid{gap:10px!important}
+
+@media(max-width:640px){
+ html[data-mrlee-v24="courses"] .section-hero{padding:17px!important}
+ html[data-mrlee-v25="conversation"] .shell{padding-top:9px!important}
+ html[data-mrlee-v24="books"] .books-grid{grid-template-columns:minmax(0,1fr)!important}
+ html[data-mrlee-v25="culture-story"] .lessonHero{padding:15px!important}
+}
