@@ -47,7 +47,7 @@ for(const [mode,width,height] of [['desktop',1440,900],['tablet',768,1024],['mob
       heroCTAClipped:[...home.querySelectorAll('.mr27-hero-copy :is(h1,p,.mr27-actions a)')]
        .some(el=>el.getBoundingClientRect().bottom>home.querySelector('.mr27-hero').getBoundingClientRect().bottom+2),
       heroToGridGap:Math.round(home.querySelector('.mr27-section-title').getBoundingClientRect().top-home.querySelector('.mr27-hero').getBoundingClientRect().bottom),
-      duplicateStatsHidden:getComputedStyle(home.querySelector('.mr27-stats')).display==='none',
+      duplicateStatsAbsent:!home.querySelector('.mr27-stats'),
       brandGlow:getComputedStyle(document.querySelector('.site-header .brand img')).filter
     };
   });
@@ -64,7 +64,7 @@ for(const [mode,width,height] of [['desktop',1440,900],['tablet',768,1024],['mob
   assert(result.buttons.every(Boolean),mode+' buttons');
   assert.deepEqual(result.orderedRoutes,['learn','talk','topik','workbook','interview','map','culture','profile'],mode+' route order');
   assert(!result.heroCTAClipped,mode+' hero text or CTA clipped');
-  assert(result.duplicateStatsHidden,mode+' duplicate statistics still consume height');
+  assert(result.duplicateStatsAbsent,mode+' duplicate statistic strip should be removed');
   assert(result.heroToGridGap>=-2&&result.heroToGridGap<=64,mode+' excessive hero-to-actions gap '+result.heroToGridGap);
   assert(result.brandGlow&&result.brandGlow!=='none',mode+' original logo outline not applied');
   const cardsPerRow=mode==='desktop'?4:2;
