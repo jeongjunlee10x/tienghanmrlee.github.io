@@ -66,7 +66,7 @@ html[data-mrlee-culture-v2="1"] .mr27-culture-label{
  background:#062b4fb8;border:1px solid #ffffff57;
  font:750 11px/1.5 "Be Vietnam Pro",system-ui,sans-serif;
 }
-html[data-mrlee-culture-v2="1"] #topicSection .sectionHeading h2{
+html[data-mrlee-culture-v2="1"] #topicSection .sectionHeading :is(h1,h2){
  font:900 clamp(21px,2vw,29px)/1.35 "Be Vietnam Pro",system-ui,sans-serif!important;
  color:var(--cv-ink)!important;letter-spacing:-.03em!important;
 }
@@ -126,3 +126,51 @@ html[data-mrlee-culture-v2="1"][data-mrlee-v4][data-mrlee-v4-folded="true"]
 }
 html[data-mrlee-culture-v2="1"][data-mrlee-v4][data-mrlee-v4-folded="true"]
  main > .mrlee-v4-root ~ .hero{display:grid!important}
+
+/* V3 compact landing: show the course catalog first, not repeated hero/navigation. */
+html[data-mrlee-culture-v2="1"] main.wrap > .crumb{
+ margin:12px 0 4px!important;font-size:12px!important;
+}
+html[data-mrlee-culture-v2="1"] #topicSection{
+ margin:8px 0 22px!important;scroll-margin-top:80px;
+}
+html[data-mrlee-culture-v2="1"] #topicSection .sectionHeading{
+ margin:0 0 14px!important;padding:18px clamp(16px,2.3vw,28px)!important;
+ border:1px solid #b9d3e6!important;border-radius:17px!important;
+ background:linear-gradient(115deg,#e9f6fc,#f7fbff)!important;
+}
+html[data-mrlee-culture-v2="1"][data-mrlee-theme="future"] #topicSection .sectionHeading{
+ background:linear-gradient(115deg,#0e2c4b,#081d37)!important;
+ border-color:#315e80!important;
+}
+html[data-mrlee-culture-v2="1"] #topicSection .sectionHeading :is(h1,h2){
+ margin:0 0 6px!important;font-size:clamp(24px,2.4vw,36px)!important;
+ line-height:1.26!important;
+}
+html[data-mrlee-culture-v2="1"] #topicSection .sectionHeading p{
+ max-width:850px!important;margin:0!important;
+}
+html[data-mrlee-culture-v2="1"] #topicSection .tools{
+ margin:0 0 14px!important;padding:10px!important;
+ display:flex!important;align-items:center!important;flex-wrap:wrap!important;
+}
+html[data-mrlee-culture-v2="1"] #topicSection #search{
+ flex:1 1 280px;min-width:0;min-height:44px;
+}
+html[data-mrlee-culture-v2="1"] #topicSection .filter{
+ min-height:42px;
+}
+html[data-mrlee-culture-v2="1"] .v23-editorial{
+ display:none!important;
+}
+@media(max-width:600px){
+ html[data-mrlee-culture-v2="1"] #topicSection .sectionHeading{
+  padding:15px!important;
+ }
+ html[data-mrlee-culture-v2="1"] #topicSection .tools{
+  gap:6px!important;
+ }
+ html[data-mrlee-culture-v2="1"] #topicSection .filter{
+  flex:1 1 auto;font-size:12px!important;
+ }
+}
