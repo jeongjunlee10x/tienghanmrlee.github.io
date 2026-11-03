@@ -1,0 +1,30 @@
+name: MR LEE Audio Dual-Voice QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/mrlee-audio-v1.py'
+      - 'tools/test-mrlee-audio-v1.py'
+      - '.github/workflows/mrlee-audio-qa.yml'
+  pull_request:
+    paths:
+      - 'tools/mrlee-audio-v1.py'
+      - 'tools/test-mrlee-audio-v1.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audio-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax check
+        run: python -m py_compile tools/mrlee-audio-v1.py
+      - name: Role and voice regression checks
+        run: python tools/test-mrlee-audio-v1.py
+      - name: Preview first TOPIK source tracks (read only)
+        run: python tools/mrlee-audio-v1.py build --section 03_TOPIK --limit 8
