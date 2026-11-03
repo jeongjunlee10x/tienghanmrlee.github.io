@@ -19,7 +19,7 @@ assert(js.includes("root.dataset.mrleeV4Folded='false'"),'old V5 fold must not h
 for (const [file,topic,cardCount,legacy] of config){
   const html=fs.readFileSync(file,'utf8');
   assert(html.includes('data-mrlee-hub-v2="'+topic+'"'),file+' root');
-  assert(html.includes('assets/mrlee-ui2027/learning-hubs-v2.css?v=20261102-p'));
+  assert(html.includes('assets/mrlee-ui2027/learning-hubs-v2.css?v=20261103-density-v9'));
   assert(html.includes('assets/mrlee-ui2027/learning-hubs-v2.js?v=20261101-subv2'));
   assert(html.includes('class="'+legacy+'"'),file+' original accessible panel preserved');
   assert(html.includes('assets/mrlee-dual-ui/theme.js'),file+' dual theme preserved');
