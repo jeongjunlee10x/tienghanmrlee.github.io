@@ -10,6 +10,7 @@ fs.mkdirSync('artifacts/phase5',{recursive:true});
 const cases=[
  {file:'index.html',kind:'home',box:'#mrleeNewHome .mr27-hero',copy:'.mr27-hero-copy',media:'.mr27-hero-media',cards:'.mr27-tile',count:8},
  {file:'hoc-tieng-han.html',kind:'learning',box:'.mr27-subhero',copy:'.mr27-copy',media:'.mr27-subphoto',cards:'.mr27-item',count:6,protected:true},
+ {file:'hoc-theo-bai.html',kind:'lessons',box:'#mrleeLessonDirectory',copy:'.mr-lesson-directory-head',cards:'#lessonGrid .mr-new-card',count:15,protected:true},
  {file:'kiem-tra-topik.html',kind:'topik',box:'.mr27-subhero',copy:'.mr27-copy',media:'.mr27-subphoto',cards:'.mr27-item',count:5},
  {file:'van-hoa-han-quoc.html',kind:'culture',box:'#topicSection',copy:'#topicSection .sectionHeading',cards:'#topics a.topic',count:22},
  {file:'ban-do-dai-hoc-han-quoc.html',kind:'map',box:'.mrlee27-map-intro',copy:'.mrlee-next-hero-copy',media:'.mrlee27-map-photo'},
@@ -41,6 +42,30 @@ try{
     try{
      await page.goto('http://127.0.0.1:8765/'+test.file,{waitUntil:'domcontentloaded',timeout:60000});
      await page.locator(test.box).waitFor({state:'visible',timeout:30000});
+     if(test.kind==='lessons'){
+      await page.waitForFunction(()=>document.querySelectorAll('#lessonGrid .mr-new-card').length===15,null,{timeout:30000});
+      const first=await page.evaluate(()=>{
+       const node=document.querySelector('#lessonGrid .mr-new-card');
+       const nav=document.querySelector('.site-top');
+       const cards=[...document.querySelectorAll('#lessonGrid .mr-new-card')];
+       return {
+        firstTop:node?.getBoundingClientRect().top,
+        navBottom:nav?.getBoundingClientRect().bottom,
+        rows:cards.map(c=>Math.round(c.getBoundingClientRect().y)),
+        redundant:document.querySelectorAll('.mrlee-v2-primary-nav,.mrlee-v2-context,.mrlee-next-portal,.section-hero,.breadcrumbs').length,
+        routes:cards.map(c=>c.getAttribute('href')),
+        columns:getComputedStyle(document.querySelector('#lessonGrid')).gridTemplateColumns.split(' ').length,
+        horizontalOverflow:document.documentElement.scrollWidth>innerWidth+3
+       };
+      });
+      assert.equal(first.redundant,0,'Redundant marketing/nav panels still precede lesson list');
+      assert(!first.horizontalOverflow,'Lesson directory overflows horizontally '+size);
+      assert(first.firstTop-first.navBottom<(width>=1000?280:450),'Lesson list is not first on screen '+JSON.stringify(first));
+      assert.equal(first.columns,width>=1160?5:2,'Unexpected '+size+' grid columns');
+      assert.equal(new Set(first.routes).size,15,'Duplicate lesson routes');
+      assert(first.routes.every((u,i)=>u==='hoc-theo-bai.html?cap=1&bai='+(i+1)),
+       'Missing ordered native lesson routes '+JSON.stringify(first.routes));
+     }
      if(test.kind==='culture'){
       await page.waitForFunction(()=>document.querySelectorAll('#topics a.topic').length===22,null,{timeout:30000});
       await page.locator('#topics a.topic img').evaluateAll(imgs=>imgs.forEach(i=>i.loading='eager'));
@@ -101,6 +126,9 @@ try{
      }else if(test.kind==='culture'){
       assert(geometry.copy,'Missing compact culture title');
       assert(geometry.documentWidth<=geometry.viewport+2,'Culture horizontal overflow '+size);
+     }else if(test.kind==='lessons'){
+      assert(geometry.copy,'Lesson directory title/level selector missing');
+      assert(geometry.documentWidth<=geometry.viewport+2,'Lesson grid overflow '+size);
      }else{
       assert(geometry.copy&&geometry.media,'Missing hero columns '+test.file);
       if(width>=900){
