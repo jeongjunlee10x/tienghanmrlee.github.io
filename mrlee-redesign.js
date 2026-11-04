@@ -95,6 +95,7 @@
     const footer=q('footer');if(footer&&footer.parentNode)footer.before(band);else document.body.appendChild(band);
   }
   function createDock(){
+    if(q('#mrleeContactNative'))return; // Native six-channel contact is already in HTML.
     // One six-channel dock is managed by assets/branding/site-logo.js.
     // Keep legacy three-channel fallback only if the official loader is absent.
     if(document.querySelector('script[src*="assets/branding/site-logo.js"]'))return;
