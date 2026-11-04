@@ -12,7 +12,7 @@
  function stop(){try{speechSynthesis.cancel()}catch{}speaking=false}
  window.MRLEE_AUDIO_PLUS={speak,stop,getRate:()=>rate};
  function enhanceAudio(root=document){const audios=root.querySelectorAll?root.querySelectorAll('audio[controls]'):[];
-  for(const audio of audios){if(audio.dataset.mlAudioUpgraded)continue;audio.dataset.mlAudioUpgraded='1';if(!audio.hasAttribute('preload'))audio.preload='none';audio.setAttribute('playsinline','');
+  for(const audio of audios){if(audio.closest('[data-no-audio-plus]')||audio.dataset.mlAudioUpgraded)continue;audio.dataset.mlAudioUpgraded='1';if(!audio.hasAttribute('preload'))audio.preload='none';audio.setAttribute('playsinline','');
    const host=mk('div','ml-audio-bar');host.setAttribute('aria-label','Tùy chọn nghe');const l=mk('label','','Tốc độ '),s=mk('select');s.setAttribute('aria-label','Tốc độ phát MP3');
    for(const [value,label] of [['.5','0,5×'],['.7','0,7×'],['.75','0,75×'],['.85','0,85×'],['1','1×'],['1.15','1,15×'],['1.25','1,25×'],['1.5','1,5×']]){const opt=mk('option','',label);opt.value=value;if(Number(value)===rate)opt.selected=true;s.append(opt)}
    s.addEventListener('change',()=>{rate=Number(s.value);try{localStorage.setItem('mrlee-audio-rate',String(rate))}catch{}audio.playbackRate=rate});l.append(s);
