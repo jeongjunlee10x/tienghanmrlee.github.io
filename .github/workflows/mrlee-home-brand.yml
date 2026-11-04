@@ -1,0 +1,41 @@
+name: MR LEE - Homepage logo title QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'assets/branding/home-header-brand-v1.css'
+      - 'tools/check-home-header-brand-browser.mjs'
+      - '.github/workflows/mrlee-home-brand.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mrlee-home-brand-qa
+  cancel-in-progress: true
+jobs:
+  branding:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium
+        run: |
+          npm install --no-save --no-audit --no-fund --package-lock=false playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Check header brand title and meme image in both themes
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/mrlee-home-brand-server.log 2>&1 &
+          sleep 2
+          node tools/check-home-header-brand-browser.mjs
+      - name: Upload logo screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mrlee-home-brand
+          path: artifacts/home-brand/*.png
+          retention-days: 14
+          if-no-files-found: ignore
