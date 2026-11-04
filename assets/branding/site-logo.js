@@ -37,11 +37,21 @@
   const script=document.createElement('script');script.src='assets/branding/media-quality-v3.js?v=20261027-q3';script.defer=true;script.dataset.mrleeImageQuality='js';document.head.append(script);
  }
  function loadContactDock(){
-  if(document.getElementById('mrleeContactNative'))return; // Native contact details always visible without JavaScript.
   if(location.pathname.toLowerCase().endsWith('/admin.html'))return;
-  if(document.querySelector('script[data-mrlee-contact-dock-loader]'))return;
-  const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('contact-dock.css?v=20261104-rescue-v4',current.src).href;css.dataset.mrleeContactDock='css';document.head.append(css);
-  const script=document.createElement('script');script.src=new URL('contact-dock.js?v=20261104-rescue-v4',current.src).href;script.defer=true;script.dataset.mrleeContactDockLoader='1';document.head.append(script);
+  // Native details/summary exists in HTML on main pages and is generated here on
+  // other public pages. It is visible and toggleable without any second JS bundle.
+  if(!document.getElementById('mrleeContactNative')){
+   document.body.insertAdjacentHTML('beforeend',"<!-- MR LEE contact V5: native HTML, visible even if contact JavaScript does not load. -->\n<details id=\"mrleeContactNative\" aria-label=\"Liên hệ nhanh MR LEE\" style=\"position:fixed!important;right:14px!important;bottom:96px!important;z-index:10020!important;display:block!important;visibility:visible!important;opacity:1!important\">\n <summary style=\"display:list-item;min-height:46px;background:#094a86;color:#fff;border:2px solid #fff;border-radius:999px;padding:12px 15px;font-weight:850;cursor:pointer\"><span class=\"mrlee-native-open-label\">☎ Liên hệ</span><span class=\"mrlee-native-close-label\">− Thu gọn liên hệ</span></summary>\n <nav class=\"mrlee-native-links\" aria-label=\"Sáu kênh liên hệ MR LEE\">\n  <a data-channel=\"call\" href=\"tel:+84376991180\">☎ Gọi 0376 991 180</a>\n  <a data-channel=\"zalo\" href=\"https://zalo.me/0376991180\" target=\"_blank\" rel=\"noopener noreferrer\">Z · Zalo MR LEE</a>\n  <a data-channel=\"messenger\" href=\"https://m.me/MRLEEKR10\" target=\"_blank\" rel=\"noopener noreferrer\">M · Messenger MR LEE</a>\n  <a data-channel=\"tiktok\" href=\"https://www.tiktok.com/@hankuc_chemi\" target=\"_blank\" rel=\"noopener noreferrer\">♪ TikTok @hankuc_chemi</a>\n  <a data-channel=\"email\" href=\"mailto:tienghanmrlee@gmail.com\">@ Email MR LEE</a>\n  <button data-channel=\"kakao\" type=\"button\" onclick=\"if(navigator.clipboard){navigator.clipboard.writeText('ycleeee').then(()=>{this.textContent='KakaoTalk: đã sao chép ycleeee'}).catch(()=>{this.textContent='KakaoTalk: ycleeee'})}\">K · KakaoTalk: ycleeee</button>\n </nav>\n</details>\n<!-- /MR LEE contact V5 -->");
+  }
+  if(!document.querySelector('link[data-mrlee-contact-native]')){
+   const css=document.createElement('link');
+   css.rel='stylesheet';
+   css.href=new URL('contact-native-v5.css?v=20261104-native-v5',current.src).href;
+   css.dataset.mrleeContactNative='v5';
+   document.head.appendChild(css);
+  }
+  // Retire only the old floating dock; the native menu holds every original channel.
+  document.getElementById('mrleeContactDock')?.remove();
  }
  function favicon(){
   let found=false;for(const link of document.querySelectorAll('link[rel~="icon"]')){link.href=OFFICIAL;link.type='image/png';found=true;}
