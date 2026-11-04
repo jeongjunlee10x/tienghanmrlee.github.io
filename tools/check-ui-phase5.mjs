@@ -126,8 +126,15 @@ const dockCSS=read('assets/branding/contact-dock.css');
 const brandJS=read('assets/branding/site-logo.js');
 assert(dockCSS.includes('.mrlee-contact-links{display:flex;flex-direction:column'),
  'Six floating contact buttons must be visible on desktop');
-assert(dockCSS.includes('.mrlee-contact-toggle{display:none;'),
- 'Original desktop contact rail should not collapse into one button');
+assert(dockCSS.includes('.mrlee-contact-toggle{display:inline-flex;'),
+ 'Thu gọn liên hệ button must be visible on desktop');
+assert(dockCSS.includes('[data-open="false"] .mrlee-contact-links{display:none!important}'),
+ 'Collapsing must hide only links and preserve the reopen control');
+const dockJS=read('assets/branding/contact-dock.js');
+assert(dockJS.includes('Thu gọn liên hệ')&&dockJS.includes('Mở liên hệ'),
+ 'The contact toggle must switch between collapse and reopen labels');
+assert(dockJS.includes("matchMedia('(min-width:701px)').matches"),
+ 'Six contact buttons must be expanded initially on desktop');
 assert(read('assets/branding/contact-dock.js').includes("['call'") &&
  read('assets/branding/contact-dock.js').includes("['zalo'") &&
  read('assets/branding/contact-dock.js').includes("['messenger'") &&
@@ -135,13 +142,13 @@ assert(read('assets/branding/contact-dock.js').includes("['call'") &&
  read('assets/branding/contact-dock.js').includes("['email'") &&
  read('assets/branding/contact-dock.js').includes("kakao.dataset.channel='kakao'"),
  'Every original contact channel must remain available');
-assert(brandJS.includes('contact-dock.css?v=20261104-restore-six-v2'),
+assert(brandJS.includes('contact-dock.css?v=20261104-toggle-v3'),
  'Shared logo loader must deploy new contact dock stylesheet');
 for(const page of ['index.html',...Object.keys(v9Pages),...innerPages]){
- assert(read(page).includes('site-logo.js?v=20261104-restore-six-v2'),
+ assert(read(page).includes('site-logo.js?v=20261104-toggle-v3'),
   'Contact drawer cache version is stale: '+page);
 }
-console.log('SOURCE PASS UI V10: 16 pages linked, original-color glow, six visible contact channels and ordered cards.');
+console.log('SOURCE PASS UI V10: 16 pages linked, original-color glow, six preserved contact channels with collapse toggle and ordered cards.');
 
 console.log('SOURCE PASS phase5: 10 layouts, no V1/V4/V5 injectors, protected routes, Admin, 5 JS syntax checks.');
 
