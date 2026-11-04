@@ -46,7 +46,7 @@ function boot(){
   if(open&&focusFirst)links.querySelector('a')?.focus();
  }
  setOpen(initiallyOpen);
- toggle.addEventListener('click',()=>setOpen(root.dataset.open!=='true));
+ toggle.addEventListener('click',()=>setOpen(root.dataset.open!=='true'));
  root.append(status,links,toggle);doc.body.append(root);
  doc.body.classList.add('mrlee-contact-ready'); // Legacy homepage rail remains if script fails.
  doc.querySelectorAll('a[href="#contactPanel"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();setOpen(true,true)}));
