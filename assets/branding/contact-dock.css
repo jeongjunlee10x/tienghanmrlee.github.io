@@ -13,8 +13,18 @@
 #mrleeContactDock .mrlee-contact-link[data-channel="kakao"]{background:#ffe03c;color:#3b2900}
 #mrleeContactDock .mrlee-contact-label{position:absolute;right:56px;white-space:nowrap;max-width:210px;overflow:hidden;text-overflow:ellipsis;pointer-events:none;padding:7px 10px;border-radius:9px;background:#102848;color:#fff;font-size:12px;line-height:1.4;font-weight:750;box-shadow:0 5px 18px #07183066;opacity:0;transform:translateX(6px);transition:opacity .15s,transform .15s}
 #mrleeContactDock .mrlee-contact-link:is(:hover,:focus-visible) .mrlee-contact-label{opacity:1;transform:none}
-#mrleeContactDock .mrlee-contact-toggle{display:none;align-items:center;gap:8px;min-height:46px;padding:10px 13px;border:2px solid #fff;background:#0a447c;border-radius:99px;box-shadow:0 7px 22px #0b1f4c7c;color:#fff;font-size:13px;font-weight:800;cursor:pointer}
+#mrleeContactDock .mrlee-contact-toggle{display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:10px 13px;border:2px solid #fff;background:#0a447c;border-radius:99px;box-shadow:0 7px 22px #0b1f4c7c;color:#fff;font-size:13px;font-weight:800;cursor:pointer}
 #mrleeContactDock .mrlee-contact-toggle:focus-visible{outline:3px solid #ffcf69;outline-offset:2px}
+/* Keep all six original channels. Only hide their wrapper after user clicks Thu gọn.
+   Desktop opens expanded; mobile starts compact, controlled by JS. */
+#mrleeContactDock[data-open="false"] .mrlee-contact-links{display:none!important}
+#mrleeContactDock[data-open="true"] .mrlee-contact-links{display:flex}
+#mrleeContactDock .mrlee-contact-toggle{
+ white-space:nowrap;min-width:128px;justify-content:center;
+ transition:background .18s ease,box-shadow .18s ease;
+}
+#mrleeContactDock .mrlee-contact-toggle:hover{background:#0e5b9d}
+
 #mrleeContactDock .mrlee-contact-status{display:none;max-width:230px;padding:8px 11px;border-radius:10px;background:#142e4d;color:#fff;font-size:12px;box-shadow:0 7px 18px #06172c77}
 #mrleeContactDock .mrlee-contact-status:not(:empty){display:block}
 #contactPanel .rail-item.tiktok{background:#14141d!important;color:#fff!important;text-shadow:-1px -1px #25f4ee,1px 1px #fe2c55!important}
