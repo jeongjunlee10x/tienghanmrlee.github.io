@@ -63,7 +63,7 @@ html[data-mrlee-redesign="v2"] .site-header .header-inner > a.brand:focus-visibl
   height:54px!important;
  }
  html[data-mrlee-redesign="v2"] .site-header .header-inner > a.brand > .mrlee-header-brand-name{
-  font-size:clamp(12px,1.9vw,15px)!important;
+  font-size:clamp(13px,2vw,15px)!important;
  }
 }
 @media(max-width:440px){
