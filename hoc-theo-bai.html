@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="assets/mrlee-dual-ui/theme.css?v=20261024-1">
 <script defer src="assets/mrlee-dual-ui/theme.js?v=20261029-entry1"></script>
 <link rel="stylesheet" href="assets/branding/inner-layout-density-v1.css?v=20261103-density-v1">
+<link rel="stylesheet" href="assets/branding/contact-native-v5.css?v=20261104-native-v5" data-mrlee-contact-native="v5">
 </head><body>
 <header class="site-top"><div class="wrap site-top-inner"><a class="site-logo" href="index.html"><img src="assets/branding/logo-mrlee.png" alt="Logo tiếng Hàn Mr Lee" style="width:43px;height:43px;object-fit:contain;vertical-align:middle;margin-right:7px"> TIẾNG HÀN MR LEE</a><nav class="top-links"><a href="index.html">Trang chủ</a><a class="active" href="hoc-tieng-han.html">Học tiếng Hàn</a><a href="giao-tiep-phong-van.html">Luyện giao tiếp</a><a href="kiem-tra-topik.html">Kiểm tra & TOPIK</a><a href="van-hoa-han-quoc.html">Văn hóa Hàn Quốc</a></nav></div></header>
 <main class="mr-new-shell"><nav class="breadcrumbs"><a href="index.html">Trang chủ</a> / <a href="hoc-tieng-han.html">Học tiếng Hàn</a> / <span id="crumb">Bài học theo cấp</span></nav>
@@ -36,4 +37,18 @@
 <div class="mr-new-controls"><a class="mr-new-btn" id="lessonReturn" href="hoc-theo-bai.html">← Danh sách bài</a><a class="mr-new-btn primary" id="lessonNextLesson" href="hoc-theo-bai.html">Bài tiếp theo →</a></div>
 </div></main><footer class="mrlee-footer">© 2026 Tiếng Hàn Mr Lee · <a href="hoc-tieng-han.html">Học tiếng Hàn</a></footer><script type="module" src="mrlee-lesson-page.js?v=mrlee6-v6"></script><script defer src="mrlee-listening-plus.js?v=20261015"></script>
 <script type="module" src="auth-guard.js"></script>
-<link rel="stylesheet" href="assets/v31/lesson-practice.css?v=31.0"><script type="module" src="assets/v31/lesson-practice.js?v=31.0"></script><link rel="stylesheet" href="assets/v31/premium-gallery.css?v=31.0"><script defer src="assets/v31/premium-gallery.js?v=31.0"></script></body></html>
+<link rel="stylesheet" href="assets/v31/lesson-practice.css?v=31.0"><script type="module" src="assets/v31/lesson-practice.js?v=31.0"></script><link rel="stylesheet" href="assets/v31/premium-gallery.css?v=31.0"><script defer src="assets/v31/premium-gallery.js?v=31.0"></script>
+<!-- MR LEE contact V5: native HTML, visible even if contact JavaScript does not load. -->
+<details id="mrleeContactNative" aria-label="Liên hệ nhanh MR LEE" style="position:fixed!important;right:14px!important;bottom:96px!important;z-index:10020!important;display:block!important;visibility:visible!important;opacity:1!important">
+ <summary style="display:list-item;min-height:46px;background:#094a86;color:#fff;border:2px solid #fff;border-radius:999px;padding:12px 15px;font-weight:850;cursor:pointer"><span class="mrlee-native-open-label">☎ Liên hệ</span><span class="mrlee-native-close-label">− Thu gọn liên hệ</span></summary>
+ <nav class="mrlee-native-links" aria-label="Sáu kênh liên hệ MR LEE">
+  <a data-channel="call" href="tel:+84376991180">☎ Gọi 0376 991 180</a>
+  <a data-channel="zalo" href="https://zalo.me/0376991180" target="_blank" rel="noopener noreferrer">Z · Zalo MR LEE</a>
+  <a data-channel="messenger" href="https://m.me/MRLEEKR10" target="_blank" rel="noopener noreferrer">M · Messenger MR LEE</a>
+  <a data-channel="tiktok" href="https://www.tiktok.com/@hankuc_chemi" target="_blank" rel="noopener noreferrer">♪ TikTok @hankuc_chemi</a>
+  <a data-channel="email" href="mailto:tienghanmrlee@gmail.com">@ Email MR LEE</a>
+  <button data-channel="kakao" type="button" onclick="if(navigator.clipboard){navigator.clipboard.writeText('ycleeee').then(()=>{this.textContent='KakaoTalk: đã sao chép ycleeee'}).catch(()=>{this.textContent='KakaoTalk: ycleeee'})}">K · KakaoTalk: ycleeee</button>
+ </nav>
+</details>
+<!-- /MR LEE contact V5 -->
+</body></html>
