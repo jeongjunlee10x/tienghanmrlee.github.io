@@ -8,25 +8,22 @@ import vm from 'node:vm';
 import {execFileSync} from 'node:child_process';
 const read=p=>fs.readFileSync(p,'utf8');
 const logo=read('assets/branding/site-logo.js');
-const js=read('assets/branding/contact-dock.js');
-const css=read('assets/branding/contact-dock.css');
+const css=read('assets/branding/contact-native-v5.css');
 const home=read('index.html');
 const admin=read('admin.html');
-for(const file of ['assets/branding/site-logo.js','assets/branding/contact-dock.js']){
-  execFileSync(process.execPath,['--check',file],{stdio:'pipe'});
-}
+execFileSync(process.execPath,['--check','assets/branding/site-logo.js'],{stdio:'pipe'});
 assert.match(logo,/loadContactDock\(\)/,'Shared logo loader must initialize contacts');
-assert.match(logo,/contact-dock\.js/);
-assert.match(js,/getElementById\('mrleeContactDock'\)/,'Avoid duplicates on pages with legacy dock');
+assert.match(logo,/contact-native-v5\.css/,'Use the native contact menu stylesheet');
+assert.match(logo,/mrleeContactNative/,'Other pages must receive the native contact menu');
+assert.match(css,/#mrleeContactNative>summary/,'The contact trigger must be visible');
+assert.match(home,/id="mrleeContactNative"/,'The homepage must have a native contact trigger before scripts run');
+assert.match(home,/href="https:\/\/www\.tiktok\.com\/@hankuc_chemi"/,
+ 'TikTok should remain in the contact menu');
 for(const channel of ['call','zalo','messenger','tiktok','email','kakao']){
-  assert.ok(js.includes(channel),'Missing channel: '+channel);
+ assert.ok(home.includes('data-channel="'+channel+'"'),'Missing contact channel '+channel);
 }
-assert.match(js,/https:\/\/www\.tiktok\.com\/@hankuc_chemi/,'TikTok link must match the provided profile URL');
-assert.match(css,/data-channel="tiktok"/,'TikTok contact must have its own icon treatment');
-assert.match(home,/href="https:\/\/www\.tiktok\.com\/@hankuc_chemi"/,'TikTok should remain available as a fallback link');
-assert.match(css,/#mrleeContactDock\[data-open="true"\]/,'Mobile expanded UI missing');
-assert.match(css,/body\.mrlee-contact-ready #contactPanel\.contact-rail/,'Hide legacy duplicate only after new dock mounts');
-assert.ok(home.includes('id="contactPanel"'),'Original contact links remain as safe fallback');
+assert.match(css,/#mrleeContactNative:not\(\[open\]\)/,'Collapsed native details menu missing');
+assert.ok(home.includes('id="contactPanel"'),'Original contact links remain a safe fallback');
 assert.match(admin,/id="mrleeAdminHealth"/,'Admin must show account-scoped diagnostics');
 assert.match(admin,/function renderAdminHealth\(\)/);
 assert.match(admin,/id="mrleeRewardHealth"/,'Reward V2 deploy status must be visible');
@@ -40,4 +37,4 @@ const scripts=[...admin.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)]
   .filter(m=>!/\bsrc\s*=/.test(m[1]))
   .map(m=>m[2]).filter(s=>s.trim());
 for(let i=0;i<scripts.length;i++)new vm.Script(scripts[i],{filename:'admin-inline-'+i+'.js'});
-console.log('MR LEE CONTACT/ADMIN QA: six channels including TikTok, existing fallback, Fresh/Future dock, Admin diagnostics, date/score/CSV guards, '+scripts.length+' inline scripts parsed.');
+console.log('MR LEE CONTACT/ADMIN QA: native six-channel trigger, no JS dependency, Admin diagnostics and CSV/date guards, '+scripts.length+' inline scripts parsed.');
