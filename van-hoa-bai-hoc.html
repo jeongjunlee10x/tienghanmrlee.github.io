@@ -81,6 +81,7 @@
 <script>if(new URLSearchParams(location.search).get('chu-de')==='an-toan-giao-thong')document.documentElement.dataset.mrleeTrafficGallery='1';</script>
 <link rel="stylesheet" href="assets/culture/traffic-gallery-v1.css?v=20261101-topic22-v44">
 <link rel="stylesheet" href="assets/branding/inner-layout-density-v1.css?v=20261103-density-v1">
+<link rel="stylesheet" href="assets/branding/contact-native-v5.css?v=20261104-native-v5" data-mrlee-contact-native="v5">
 </head><body>
 <header class="head"><div class="wrap headin"><a class="brand" href="index.html"><img src="assets/branding/logo-mrlee.png" alt="Logo MR LEE"><span>TIẾNG HÀN MR LEE<small>HỌC DỄ HIỂU · LUYỆN DỄ NHỚ</small></span></a><nav class="nav" aria-label="Chuyên mục"><a href="index.html">Trang chủ</a><a href="hoc-tieng-han.html">Học tiếng Hàn</a><a href="giao-tiep-phong-van.html">Giao tiếp</a><a href="topik-v12.html">Luyện thi TOPIK</a><a href="van-hoa-han-quoc.html" aria-current="page">Văn hóa & Kỹ năng sống</a></nav></div></header>
 <main class="wrap"><nav class="crumb"><a href="index.html">Trang chủ</a> / <a href="van-hoa-han-quoc.html">Văn hóa & Kỹ năng sống</a> / <span id="topicName">Bài học</span></nav><header class="lessonHero" id="topicHero"></header>
@@ -980,4 +981,18 @@ imgs.forEach(img=>{img.addEventListener('load',update);img.addEventListener('err
 <script>(()=>{'use strict';if(document.documentElement.dataset.mrleePhoneGallery!=='1')return;const gallery=document.getElementById('cultureImagesV19Topic21'),status=document.getElementById('mrleePhoneStatus');if(!gallery||!status)return;const imgs=[...gallery.querySelectorAll('img')];const update=()=>{const loaded=imgs.filter(i=>i.complete&&i.naturalWidth>0).length,bad=imgs.filter(i=>i.complete&&!i.naturalWidth).length,fallback=imgs.filter(i=>i.src.includes('/culture-v20-hd/')).length;status.textContent=bad?'Lỗi tải '+bad+'/5 ảnh.':loaded===5?(fallback?'Đã tải 5/5 ảnh; '+fallback+' ảnh dự phòng.':'Đã tải đủ 5/5 ảnh chụp HD.'):'Đang tải '+loaded+'/5 ảnh.';status.classList.toggle('phoneError',bad>0)};imgs.forEach(i=>{i.addEventListener('load',update);i.addEventListener('error',update)});update()})();</script>
 
 <script>(()=>{'use strict';if(document.documentElement.dataset.mrleeTrafficGallery!=='1')return;const gal=document.getElementById('cultureImagesV19Topic22'),status=document.getElementById('mrleeTrafficStatus');if(!gal||!status)return;const imgs=[...gal.querySelectorAll('img')];const update=()=>{const ok=imgs.filter(i=>i.complete&&i.naturalWidth>0).length,bad=imgs.filter(i=>i.complete&&!i.naturalWidth).length,fallback=imgs.filter(i=>i.src.includes('/culture-v20-hd/')).length;status.textContent=bad?'Không tải được '+bad+'/5 ảnh — mở ảnh để kiểm tra.':ok===5?(fallback?'Đã tải 5/5 ảnh; '+fallback+' ảnh dự phòng.':'Đã tải đầy đủ 5/5 ảnh chụp thực tế HD.'):'Đang tải '+ok+'/5 ảnh.';status.classList.toggle('trafficError',bad>0)};imgs.forEach(i=>{i.addEventListener('load',update);i.addEventListener('error',update)});update()})();</script>
+
+<!-- MR LEE contact V5: native HTML, visible even if contact JavaScript does not load. -->
+<details id="mrleeContactNative" aria-label="Liên hệ nhanh MR LEE" style="position:fixed!important;right:14px!important;bottom:96px!important;z-index:10020!important;display:block!important;visibility:visible!important;opacity:1!important">
+ <summary style="display:list-item;min-height:46px;background:#094a86;color:#fff;border:2px solid #fff;border-radius:999px;padding:12px 15px;font-weight:850;cursor:pointer"><span class="mrlee-native-open-label">☎ Liên hệ</span><span class="mrlee-native-close-label">− Thu gọn liên hệ</span></summary>
+ <nav class="mrlee-native-links" aria-label="Sáu kênh liên hệ MR LEE">
+  <a data-channel="call" href="tel:+84376991180">☎ Gọi 0376 991 180</a>
+  <a data-channel="zalo" href="https://zalo.me/0376991180" target="_blank" rel="noopener noreferrer">Z · Zalo MR LEE</a>
+  <a data-channel="messenger" href="https://m.me/MRLEEKR10" target="_blank" rel="noopener noreferrer">M · Messenger MR LEE</a>
+  <a data-channel="tiktok" href="https://www.tiktok.com/@hankuc_chemi" target="_blank" rel="noopener noreferrer">♪ TikTok @hankuc_chemi</a>
+  <a data-channel="email" href="mailto:tienghanmrlee@gmail.com">@ Email MR LEE</a>
+  <button data-channel="kakao" type="button" onclick="if(navigator.clipboard){navigator.clipboard.writeText('ycleeee').then(()=>{this.textContent='KakaoTalk: đã sao chép ycleeee'}).catch(()=>{this.textContent='KakaoTalk: ycleeee'})}">K · KakaoTalk: ycleeee</button>
+ </nav>
+</details>
+<!-- /MR LEE contact V5 -->
 </body></html>
