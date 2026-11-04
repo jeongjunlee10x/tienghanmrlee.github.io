@@ -122,43 +122,31 @@ assert(deepCss.includes('data-mrlee-v24="courses"')&&
  deepCss.includes('data-mrlee-v25="conversation"')&&
  deepCss.includes('data-mrlee-v25="culture-story"'),
  'Deep page rules must be scoped, not globally override page contents');
-const dockCSS=read('assets/branding/contact-dock.css');
-const brandJS=read('assets/branding/site-logo.js');
-assert(dockCSS.includes('.mrlee-contact-links{display:flex;flex-direction:column'),
- 'Six floating contact buttons must be visible on desktop');
-assert(dockCSS.includes('.mrlee-contact-toggle{display:inline-flex;'),
- 'Thu gọn liên hệ button must be visible on desktop');
-assert(dockCSS.includes('[data-open="false"] .mrlee-contact-links{display:none!important}'),
- 'Collapsing must hide only links and preserve the reopen control');
-const dockJS=read('assets/branding/contact-dock.js');
-assert(dockJS.includes("existing.remove()")&&dockJS.includes("6ch-collapse-v4"),
- 'Modern six-channel contact dock must replace duplicate legacy ID');
-assert(dockCSS.includes('z-index:10020!important')&&
- dockCSS.includes('body #mrleeContactDock[data-mrlee-contact-version="6ch-collapse-v4"]'),
- 'Contact toggle should remain visible above competing widgets');
-assert(read('mrlee-redesign.js').includes('script[src*="assets/branding/site-logo.js"]'),
- 'Legacy three-channel rail should not preempt official contact dock');
-assert(read('assets/branding/home-ranking-repair.css').includes('bottom:max(92px,'),
- 'Homepage ranking stylesheet still places contacts below ranking controls');
-
-assert(dockJS.includes('Thu gọn liên hệ')&&dockJS.includes('Mở liên hệ'),
- 'The contact toggle must switch between collapse and reopen labels');
-assert(dockJS.includes("matchMedia('(min-width:701px)').matches"),
- 'Six contact buttons must be expanded initially on desktop');
-assert(read('assets/branding/contact-dock.js').includes("['call'") &&
- read('assets/branding/contact-dock.js').includes("['zalo'") &&
- read('assets/branding/contact-dock.js').includes("['messenger'") &&
- read('assets/branding/contact-dock.js').includes("['tiktok'") &&
- read('assets/branding/contact-dock.js').includes("['email'") &&
- read('assets/branding/contact-dock.js').includes("kakao.dataset.channel='kakao'"),
- 'Every original contact channel must remain available');
-assert(brandJS.includes('contact-dock.css?v=20261104-rescue-v4'),
- 'Shared logo loader must deploy new contact dock stylesheet');
-for(const page of ['index.html',...Object.keys(v9Pages),...innerPages]){
- assert(read(page).includes('site-logo.js?v=20261104-rescue-v4'),
-  'Contact drawer cache version is stale: '+page);
+/* Contact V5: native HTML must remain visible before any enhancement JS runs. */
+const nativeCSS=read('assets/branding/contact-native-v5.css');
+const nativeLoader=read('assets/branding/site-logo.js');
+assert(nativeCSS.includes('#mrleeContactNative>summary'), 'No guaranteed visible native contact button');
+assert(nativeCSS.includes('position:fixed!important'), 'Native contact button must be fixed on screen');
+assert(nativeCSS.includes(':not([open]) .mrlee-native-links'), 'Native contact details must collapse');
+assert(nativeLoader.includes('mrleeContactNative')&&nativeLoader.includes('document.body.insertAdjacentHTML'),
+ 'Other public pages must also obtain a native contact menu without the old dock script');
+assert(nativeLoader.includes('contact-native-v5.css?v=20261104-native-v5'),
+ 'Native contact CSS version not loaded on child pages');
+assert(read('mrlee-redesign.js').includes("q('#mrleeContactNative')"),
+ 'Legacy three-channel rail must not duplicate the native contact');
+const nativePages=['index.html',...Object.keys(v9Pages).filter(p=>p!=='admin.html'),...innerPages];
+for(const page of nativePages){
+ const html=read(page);
+ assert(html.includes('id="mrleeContactNative"'),'HTML contact button absent: '+page);
+ assert(html.includes('contact-native-v5.css?v=20261104-native-v5'),'Native stylesheet absent: '+page);
+ assert(html.includes('site-logo.js?v=20261104-native-v5'),'Old logo script cache: '+page);
+ for(const channel of ['call','zalo','messenger','tiktok','email','kakao']){
+  assert(html.includes('data-channel="'+channel+'"'), 'Contact channel '+channel+' absent: '+page);
+ }
 }
-console.log('SOURCE PASS UI V10: 16 pages linked, original-color glow, six preserved contact channels with collapse toggle and ordered cards.');
+assert(!read('admin.html').includes('id="mrleeContactNative"'),
+ 'Marketing contact dock should not cover private Admin dashboard');
+console.log('SOURCE PASS Contact V5: 15 public pages with six native channels; no asynchronous JS dependency.');
 
 console.log('SOURCE PASS phase5: 10 layouts, no V1/V4/V5 injectors, protected routes, Admin, 5 JS syntax checks.');
 
