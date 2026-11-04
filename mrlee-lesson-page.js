@@ -132,9 +132,17 @@ function listLessons(){
     return `<a class="mr-new-card" href="hoc-theo-bai.html?cap=${cap}&bai=${u.number}"><strong>Bài ${u.number}: ${esc(u.title)}</strong><span lang="ko">${esc(u.ko)}</span><span>${esc(d?.grammar?.map(g=>g.formula).join(' · ')||u.grammar)}</span><em>${count} từ · 10 câu luyện nói · 15 bộ bài tập →</em></a>`;
   }).join('');
 }
+function lessonExampleMarkup(raw){
+  const value=String(raw??'');
+  const at=value.indexOf('→');
+  if(at<0)return /[가-힣ㄱ-ㅎㅏ-ㅣ]/.test(value)
+   ?`<span class="mr-sc-example-ko" lang="ko">${esc(value)}</span>`:esc(value);
+  const korean=value.slice(0,at).trim(),vietnamese=value.slice(at+1).trim();
+  return `<span class="mr-sc-example-ko" lang="ko">${esc(korean)}</span> <span class="mr-sc-example-vi" lang="vi">→ ${esc(vietnamese)}</span>`;
+}
 function renderGrammar(d){
   const core=d.grammar.filter(x=>x.stage!=='Ôn bài trước').length;
-  $('lessonGrammar').innerHTML=`<div class="mr-sc-summary">${core} điểm ngữ pháp bài ${d.bai} + 1 cấu trúc ôn từ bài trước. Các ví dụ minh họa cần được ôn với từ trong bài.</div><div class="mr-sc-grammar-list">${d.grammar.map(g=>`<article class="mr-sc-grammar-card"><div class="mr-sc-grammar-head"><strong>${esc(g.formula)}</strong><span>${esc(g.stage||'Trọng tâm')}</span></div><p><b>Ý nghĩa:</b> ${esc(g.meaning)}</p><p><b>Cách dùng:</b> ${esc(g.usage)}</p><p class="mr-sc-example"><b>Ví dụ:</b> ${esc(g.example)}</p>${g.reviewFrom?`<p class="mr-v6-review">Ôn từ ${esc(g.reviewFrom)}</p>`:''}</article>`).join('')}</div>`;
+  $('lessonGrammar').innerHTML=`<div class="mr-sc-summary">${core} điểm ngữ pháp bài ${d.bai} + 1 cấu trúc ôn từ bài trước. Các ví dụ minh họa cần được ôn với từ trong bài.</div><div class="mr-sc-grammar-list">${d.grammar.map(g=>`<article class="mr-sc-grammar-card"><div class="mr-sc-grammar-head"><strong class="mr-sc-formula" lang="ko">${esc(g.formula)}</strong><span>${esc(g.stage||'Trọng tâm')}</span></div><p><b>Ý nghĩa:</b> ${esc(g.meaning)}</p><p><b>Cách dùng:</b> ${esc(g.usage)}</p><p class="mr-sc-example"><b>Ví dụ:</b> ${lessonExampleMarkup(g.example)}</p>${g.reviewFrom?`<p class="mr-v6-review">Ôn từ ${esc(g.reviewFrom)}</p>`:''}</article>`).join('')}</div>`;
 }
 function renderVocab(d){
   const target=$('lessonVocab'),vocab=lessonVocabulary(d),isAdvanced=d.cap>=3;
