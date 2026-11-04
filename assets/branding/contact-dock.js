@@ -6,9 +6,14 @@ if(location.pathname.toLowerCase().endsWith('/admin.html'))return; // Admin has 
 const doc=document;
 function node(tag,cls,text){const el=doc.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el}
 function boot(){
- if(doc.getElementById('mrleeContactDock'))return;
- const root=node('aside');root.id='mrleeContactDock';root.setAttribute('aria-label','Liên hệ nhanh MR LEE');
- const initiallyOpen=matchMedia('(min-width:701px)').matches;
+ // The legacy redesign also creates #mrleeContactDock with just 3 links.
+ // Upgrade that element instead of silently returning and leaving the wrong UI.
+ const existing=doc.getElementById('mrleeContactDock');
+ if(existing?.dataset.mrleeContactVersion==='6ch-collapse-v4'&&
+    existing.querySelectorAll('[data-channel]').length===6)return;
+ if(existing)existing.remove();
+ const root=node('aside');root.id='mrleeContactDock';root.dataset.mrleeContactVersion='6ch-collapse-v4';root.setAttribute('aria-label','Liên hệ nhanh MR LEE');
+ const initiallyOpen=typeof matchMedia==='function'?matchMedia('(min-width:701px)').matches:true;
  root.dataset.open=String(initiallyOpen);
  const links=node('div','mrlee-contact-links');links.id='mrleeContactLinks';
  const config=[
