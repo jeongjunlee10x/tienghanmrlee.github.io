@@ -1,0 +1,250 @@
+/* MR LEE Lesson Typography V2 — scope ONLY hoc-theo-bai.html.
+   Korean glyph coverage, Vietnamese accents, wrapping and Fresh/Future contrast.
+   All course content, audio, tasks, tracking and scoring stay untouched. */
+html[data-mrlee-v24="courses"]{
+ --lesson-vi-font:"Be Vietnam Pro","Segoe UI",Tahoma,Arial,sans-serif;
+ --lesson-ko-font:"Malgun Gothic","맑은 고딕","Apple SD Gothic Neo","Noto Sans KR","Noto Sans CJK KR",sans-serif;
+ --lesson-paper:#fff;--lesson-field:#f1f7ff;--lesson-ink:#183b5b;
+ --lesson-soft:#49677f;--lesson-rule:#d8e5f3;--lesson-ko:#0e527f;
+ --lesson-action:#154f80;--lesson-action-ink:#fff;
+}
+html[data-mrlee-v24="courses"][data-mrlee-theme="future"]{
+ --lesson-paper:#0b2444;--lesson-field:#133353;--lesson-ink:#f0f9ff;
+ --lesson-soft:#c4d8ed;--lesson-rule:#356186;--lesson-ko:#9be8ff;
+ --lesson-action:#24629b;--lesson-action-ink:#fff;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory,
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory :is(input,select,button,textarea){
+ font-family:var(--lesson-vi-font)!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory :is(
+ #lessonTitle,#lessonIntro,h2,h3,p,small,span,strong,b,em,button,a,label){
+ text-rendering:optimizeLegibility;
+ font-kerning:normal;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory :is(
+ #lessonTitle,#lessonIntro,h2,h3,p,small,span,strong,em,button,a,label){
+ word-break:normal;
+ overflow-wrap:break-word;
+ hyphens:none;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory [lang="ko"],
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-sc-formula,
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-new-korean,
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-sc-vocab-word{
+ font-family:var(--lesson-ko-font)!important;
+ letter-spacing:0!important;
+ word-break:keep-all!important;
+ overflow-wrap:break-word!important;
+ font-kerning:normal;
+ font-variant-ligatures:normal;
+ line-height:1.6!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonContent{
+ font-family:var(--lesson-vi-font)!important;
+ color:var(--lesson-ink)!important;
+ font-size:14px!important;
+ line-height:1.7!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonContent>.mr-new-panel{
+ background:var(--lesson-paper)!important;
+ border-color:var(--lesson-rule)!important;
+ color:var(--lesson-ink)!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonContent :is(h2,h3){
+ color:var(--lesson-ink)!important;
+ font-family:var(--lesson-vi-font)!important;
+ letter-spacing:-.015em!important;
+ line-height:1.4!important;
+ overflow-wrap:break-word!important;
+ height:auto!important;max-height:none!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonContent h2{
+ font-size:clamp(19px,2vw,24px)!important;margin:0 0 12px!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonContent h3{
+ font-size:clamp(17px,1.7vw,21px)!important;margin:17px 0 8px!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory :is(
+ .mr-sc-summary,.mr-new-hint,.mr-new-note,.mr-v6-review){
+ font-family:var(--lesson-vi-font)!important;
+ font-size:13px!important;
+ line-height:1.7!important;
+ white-space:normal!important;
+ overflow-wrap:break-word!important;
+ color:var(--lesson-soft)!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonContent .mr-sc-grammar-list{
+ grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ gap:11px!important;align-items:stretch!important;margin:10px 0 18px!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonContent .mr-sc-grammar-card{
+ min-width:0!important;height:auto!important;max-height:none!important;
+ padding:16px!important;margin:0!important;
+ background:var(--lesson-paper)!important;
+ color:var(--lesson-ink)!important;border:1px solid var(--lesson-rule)!important;
+ box-shadow:none!important;overflow:visible!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-sc-grammar-head{
+ align-items:flex-start!important;gap:6px 10px!important;
+ padding-bottom:10px!important;border-color:var(--lesson-rule)!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-sc-grammar-head strong{
+ display:block!important;max-width:100%!important;min-width:0!important;
+ font-size:clamp(17px,1.7vw,21px)!important;
+ font-weight:750!important;line-height:1.55!important;
+ color:var(--lesson-ko)!important;
+ text-overflow:clip!important;white-space:normal!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-sc-grammar-head span{
+ line-height:1.55!important;font-size:12px!important;
+ color:var(--lesson-soft)!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-sc-grammar-card p{
+ font-family:var(--lesson-vi-font)!important;
+ font-size:14px!important;line-height:1.75!important;
+ margin:7px 0!important;
+ padding:0!important;
+ color:var(--lesson-ink)!important;
+ word-break:normal!important;overflow-wrap:break-word!important;
+ white-space:normal!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-sc-grammar-card p b{
+ color:var(--lesson-ink)!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-sc-grammar-card .mr-sc-example{
+ background:var(--lesson-field)!important;color:var(--lesson-ink)!important;
+ border:1px solid var(--lesson-rule)!important;
+ padding:10px 12px!important;margin-top:12px!important;
+ font-size:14px!important;line-height:1.85!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-sc-vocab-grid{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ gap:9px!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-sc-vocab-card{
+ display:flex!important;min-width:0!important;gap:11px!important;
+ align-items:center!important;justify-content:space-between!important;
+ background:var(--lesson-paper)!important;color:var(--lesson-ink)!important;
+ border:1px solid var(--lesson-rule)!important;
+ padding:11px 13px!important;overflow:visible!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-sc-vocab-card>div{
+ min-width:0!important;max-width:100%!important;flex:1 1 auto!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-sc-vocab-word{
+ color:var(--lesson-ko)!important;font-size:clamp(17px,1.8vw,21px)!important;
+ font-weight:700!important;
+ white-space:normal!important;line-height:1.6!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-v6-kind{
+ display:inline-block!important;vertical-align:middle!important;
+ padding:2px 7px!important;margin:0 0 0 6px!important;
+ font:700 10px/1.5 var(--lesson-vi-font)!important;
+ background:var(--lesson-field)!important;color:var(--lesson-soft)!important;
+ border-radius:99px!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-sc-vocab-meaning{
+ font-family:var(--lesson-vi-font)!important;
+ font-size:14px!important;line-height:1.65!important;
+ color:var(--lesson-soft)!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-sc-vocab-tools{
+ gap:8px!important;align-items:center!important;flex-wrap:wrap!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory :is(
+ .mr-sc-search,.mr-v6-filter,.mr-sc-mini-btn,.mr-sc-vocab-card button,
+ .mr-new-btn,.mr-new-input){
+ color:var(--lesson-ink)!important;
+ border-color:var(--lesson-rule)!important;
+ background:var(--lesson-field)!important;
+ font-family:var(--lesson-vi-font)!important;
+ line-height:1.5!important;
+ font-size:13px!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-new-btn.primary{
+ color:var(--lesson-action-ink)!important;background:var(--lesson-action)!important;
+ border-color:var(--lesson-action)!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-new-row{
+ align-items:flex-start!important;gap:14px!important;min-width:0!important;
+ padding:16px 0!important;
+ border-color:var(--lesson-rule)!important;
+ color:var(--lesson-ink)!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-new-row>div:first-child{
+ min-width:0!important;flex:1 1 250px!important;max-width:100%!important;
+ font-family:var(--lesson-vi-font)!important;
+ color:var(--lesson-ink)!important;line-height:1.65!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-new-korean{
+ color:var(--lesson-ko)!important;
+ font-size:clamp(19px,2vw,24px)!important;
+ font-weight:700!important;
+ line-height:1.65!important;margin:5px 0!important;
+ height:auto!important;max-height:none!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-speaking strong small{
+ font-family:var(--lesson-vi-font)!important;
+ color:var(--lesson-soft)!important;font-size:12px!important;line-height:1.5!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-actions{
+ min-width:0!important;flex:0 1 420px!important;max-width:100%!important;
+ justify-content:flex-start!important;gap:8px!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-actions audio{
+ max-width:100%!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonWorkbook{
+ display:grid!important;
+ grid-template-columns:repeat(3,minmax(0,1fr))!important;
+ align-items:stretch!important;gap:9px!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonWorkbook>a{
+ box-sizing:border-box!important;width:100%!important;min-width:0!important;
+ max-width:none!important;height:auto!important;min-height:58px!important;
+ white-space:normal!important;
+ overflow-wrap:break-word!important;
+ color:var(--lesson-ink)!important;
+ background:var(--lesson-field)!important;
+ line-height:1.55!important;font-size:13px!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonWorkbook>a small{
+ display:inline-block;color:var(--lesson-soft)!important;
+ margin-top:3px;font-size:11px!important;line-height:1.45!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mrlee-v31-extra,
+html[data-mrlee-v24="courses"] .mrlee-v31-extra{
+ font-family:var(--lesson-vi-font)!important;
+}
+html[data-mrlee-v24="courses"] .mrlee-v31-extra :is(p,strong,small,button,label,input,select){
+ line-height:1.55!important;overflow-wrap:break-word!important;
+}
+html[data-mrlee-v24="courses"] .mrlee-v31-extra-question p[lang="ko"],
+html[data-mrlee-v24="courses"] .mrlee-v31-extra-question :is(.ko,.korean){
+ font-family:var(--lesson-ko-font)!important;
+ word-break:keep-all!important;overflow-wrap:break-word!important;
+ line-height:1.65!important;
+}
+@media(max-width:900px){
+ html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonContent .mr-sc-grammar-list{
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+ html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonWorkbook{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ }
+}
+@media(max-width:640px){
+ html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-sc-vocab-grid{
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+ html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonWorkbook{
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+ html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-actions{
+  flex-basis:auto!important;width:100%!important;
+ }
+ html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonContent .mr-new-panel{
+  padding:14px!important;
+ }
+}
