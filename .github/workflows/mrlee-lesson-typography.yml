@@ -1,0 +1,48 @@
+name: MR LEE - Lesson typography QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'hoc-theo-bai.html'
+      - 'mrlee-lesson-page.js'
+      - 'mrlee-sc-lesson-data.js'
+      - 'mrlee-advanced-lesson-data.js'
+      - 'assets/branding/lesson-typography-v2.css'
+      - 'assets/branding/lesson-directory-first-v1.css'
+      - 'tools/check-lesson-typography-browser.mjs'
+      - 'tools/check-lesson-directory-first.mjs'
+      - '.github/workflows/mrlee-lesson-typography.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mrlee-lesson-typography-qa
+  cancel-in-progress: true
+jobs:
+  lesson-fonts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check 90 routes, real lesson grammar, Korean font styles
+        run: node tools/check-lesson-directory-first.mjs
+      - name: Install Chromium
+        run: |
+          npm install --no-save --no-audit --no-fund --package-lock=false playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Render 3 lessons in 2 themes at 2 viewport sizes
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/mrlee-lesson-http.log 2>&1 &
+          sleep 2
+          node tools/check-lesson-typography-browser.mjs
+      - name: Upload font QA screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mrlee-lesson-fonts
+          path: artifacts/lesson-fonts/*.png
+          retention-days: 14
+          if-no-files-found: ignore
