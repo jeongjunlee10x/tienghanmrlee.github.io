@@ -248,3 +248,38 @@ html[data-mrlee-v24="courses"] .mrlee-v31-extra-question :is(.ko,.korean){
   padding:14px!important;
  }
 }
+
+
+/* MRLEE explanation contrast V3 - keep notes readable in Fresh AND Future.
+   Scope is the lesson directory only; no change to lesson data or scoring. */
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonContent :is(
+ .mr-new-note,.mr-sc-empty,.mr-new-dialogue){
+ background:var(--lesson-field)!important;
+ border:1px solid var(--lesson-rule)!important;
+ color:var(--lesson-ink)!important;
+ border-radius:12px!important;
+ padding:13px 16px!important;
+ line-height:1.75!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonContent .mr-new-note{
+ font-family:var(--lesson-vi-font)!important;
+ font-size:14px!important;
+ font-weight:500!important;
+ opacity:1!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonContent :is(
+ .mr-new-hint,.mr-sc-summary,.mr-v6-review){
+ font-size:14px!important;
+ line-height:1.75!important;
+ color:var(--lesson-soft)!important;
+ opacity:1!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonContent .mr-new-dialogue :is(p,small,span){
+ color:var(--lesson-ink)!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonContent .mr-new-note a{
+ color:var(--lesson-ko)!important;
+ text-decoration:underline!important;
+ text-underline-offset:3px;
+ font-weight:750;
+}
