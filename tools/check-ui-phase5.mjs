@@ -135,3 +135,23 @@ for(const page of ['index.html',...Object.keys(v9Pages),...innerPages]){
 console.log('SOURCE PASS UI V10: 16 pages linked, original-color glow, compact contact drawer and ordered cards.');
 
 console.log('SOURCE PASS phase5: 10 layouts, no V1/V4/V5 injectors, protected routes, Admin, 5 JS syntax checks.');
+
+
+/* No duplicated 'KHÁM PHÁ THÊM' trays on any currently served HTML page. */
+const noExploreTrayPages=[
+ 'topik-nghe-124-cau.html','de-thi-topik.html','luyen-noi-nang-cao.html',
+ 'topik-viet-51-54.html','thi-topik-online.html','topik-luyen-de.html',
+ 'topik-i-lo-trinh.html','topik-ii-lo-trinh.html','topik-hoc-moi-ngay.html',
+ 'bai-hoc.html','hoi-thoai-tap-noi.html','kiem-tra-online.html',
+ 'van-hoa-han-quoc.html','admin.html','luyen-noi-tinh-diem.html',
+ 'tuyen-sinh.html','giao-tiep-phong-van.html','topik-nghe-24-cau.html',
+ 'van-hoa-bai-hoc.html','on-luyen-phong-van.html','bang-chu-cai-tieng-han.html',
+ 'giao-tiep-theo-chu-de.html'
+];
+for(const p of noExploreTrayPages){
+ assert(!read(p).includes('assets/v25/experience.js'),
+  'Redundant KHÁM PHÁ THÊM injector still active: '+p);
+}
+assert(!read('assets/v25/experience.css').includes('v25-route-tray'),
+ 'Unused Explore tray stylesheet remains');
+console.log('SOURCE PASS: 22 pages no longer inject redundant KHÁM PHÁ THÊM links.');
