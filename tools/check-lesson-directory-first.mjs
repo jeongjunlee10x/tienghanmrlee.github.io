@@ -32,7 +32,7 @@ assert(!html.includes('class="breadcrumbs"'),'Duplicate breadcrumb occupies the 
 assert(html.includes('lesson-directory-first-v1.css?v=20261104-first-v1'),
  'Direct grid CSS missing or stale');
 assert(html.includes('theme.js?v=20261104-lesson-first-v1'),'Theme script cache is stale');
-assert(html.includes('mrlee-lesson-page.js?v=20261104-font-v2'),
+assert(html.includes('mrlee-lesson-page.js?v=20261104-speaking-v3'),
  'Lesson renderer cache is stale');
 assert(theme.includes("if(path==='hoc-theo-bai.html')"),
  'Theme JS must skip duplicate megamenu, portal and decoration on lesson directory');
@@ -50,6 +50,22 @@ assert(lessonJS.includes('function lessonExampleMarkup(raw)') &&
  lessonJS.includes('lessonExampleMarkup(g.example)'),
  'Grammar formula/example should be marked as Korean without changing text');
 assert(lessonJS.includes("currentPool.map(u=>"),'Actual course links must still use real bank');
+const listeningJS=read('mrlee-listening-plus.js');
+const speakingCSS=read('assets/branding/lesson-speaking-v3.css');
+assert(html.includes('lesson-speaking-v3.css?v=20261104-speaking-v3'),
+ 'New speaking stylesheet not loaded');
+assert(html.includes('mrlee-listening-plus.js?v=20261104-speaking-v3'),
+ 'Listening enhancer cache still outdated');
+assert(listeningJS.includes("audio.closest('[data-no-audio-plus]')"),
+ 'Global audio enhancer still duplicates speaking player controls');
+for(const selector of ['mr-v5-speaking-card','mr-v5-sentence-ko','mr-v5-sentence-vi',
+ 'mr-v5-speak-tools','mr-v5-audio-main','mr-v5-actions','data-no-audio-plus','data-no-tts']){
+ assert(lessonJS.includes(selector),'Missing new speaking markup: '+selector);
+}
+assert(speakingCSS.includes('#lessonSpeak .mr-v5-speaking-card'),
+ 'Dedicated speaking layout styles missing');
+assert(speakingCSS.includes('#lessonSpeak .ml-audio-bar'),
+ 'Cached old toolbar may not be hidden');
 assert(lessonJS.includes('hoc-theo-bai.html?cap=${cap}&bai=${u.number}'),
  'Dynamic lesson card must link to selected level and lesson');
 assert(lessonJS.includes("renderGrammar(d);renderVocab(d);renderSpeaking(d,samples);renderWorkbook(d,units);"),
