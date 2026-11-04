@@ -38,7 +38,7 @@ assert(theme.includes("if(path==='hoc-theo-bai.html')"),
 assert(experience.includes("if(page==='hoc-theo-bai.html')return;"),
  'Promotional experience JS must not reinsert large banner on lesson directory');
 assert(lessonJS.includes("currentPool.map(u=>"),'Actual course links must still use real bank');
-assert(lessonJS.includes("href=\\"hoc-theo-bai.html?cap=\\${cap}&bai=\\${u.number}"),
+assert(lessonJS.includes('hoc-theo-bai.html?cap=${cap}&bai=${u.number}'),
  'Dynamic lesson card must link to selected level and lesson');
 assert(lessonJS.includes("renderGrammar(d);renderVocab(d);renderSpeaking(d,samples);renderWorkbook(d,units);"),
  'All language/voice/quiz functions must remain linked');
