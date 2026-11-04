@@ -136,7 +136,7 @@ assert(dockJS.includes("existing.remove()")&&dockJS.includes("6ch-collapse-v4"),
 assert(dockCSS.includes('z-index:10020!important')&&
  dockCSS.includes('body #mrleeContactDock[data-mrlee-contact-version="6ch-collapse-v4"]'),
  'Contact toggle should remain visible above competing widgets');
-assert(read('mrlee-redesign.js').includes('site-logo.js"]\'))return;'),
+assert(read('mrlee-redesign.js').includes('script[src*="assets/branding/site-logo.js"]'),
  'Legacy three-channel rail should not preempt official contact dock');
 assert(read('assets/branding/home-ranking-repair.css').includes('bottom:max(92px,'),
  'Homepage ranking stylesheet still places contacts below ranking controls');
