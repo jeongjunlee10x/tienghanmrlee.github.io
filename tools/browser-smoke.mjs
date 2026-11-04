@@ -27,37 +27,32 @@ try{
  const cases=[
   {file:'index.html',check:async p=>{
     await p.locator('main').first().waitFor({timeout:10000});
-    const contact=p.locator('#mrleeContactDock');
+    // Contact V5: HTML details/summary is present before any JavaScript can run.
+    const contact=p.locator('#mrleeContactNative');
     await contact.waitFor({state:'visible',timeout:12000});
-    if(await contact.locator('.mrlee-contact-links > *').count()!==6)throw Error('Contact dock must expose 6 real channels');
-    const tik=contact.locator('a.mrlee-contact-link[data-channel="tiktok"]');
-    if(await tik.count()!==1 || await tik.getAttribute('href')!=='https://www.tiktok.com/@hankuc_chemi')
-      throw Error('Missing/incorrect TikTok @hankuc_chemi profile URL');
-    if(await tik.getAttribute('target')!=='_blank'||!(await tik.getAttribute('rel'))?.includes('noopener'))
-      throw Error('TikTok link should open safely in new tab');
-    // Desktop initially shows 6 channels; mobile starts collapsed.
-    // Every visitor must be able to collapse and reopen the same 6 contacts.
-    const toggle=contact.locator('button.mrlee-contact-toggle');
-    const links=contact.locator('.mrlee-contact-links');
-    const startsExpanded=p.viewportSize().width>700;
-    if(!await toggle.isVisible())throw Error('Contact collapse/reopen trigger not visible');
-    if(await links.isVisible()!==startsExpanded)
-      throw Error('Incorrect initial contact visibility at '+p.viewportSize().width);
-    if(await contact.getAttribute('data-mrlee-contact-version')!=='6ch-collapse-v4')
-      throw Error('A legacy 3-link contact widget has taken over');
-    const hit=await toggle.evaluate(el=>{
+    const summary=contact.locator('summary');
+    const links=contact.locator('.mrlee-native-links');
+    if(!await summary.isVisible())throw Error('Native contact button is not visible');
+    if(await links.locator('[data-channel]').count()!==6)
+      throw Error('Native contact menu is missing one or more of six channels');
+    const tik=contact.locator('a[data-channel="tiktok"]');
+    if(await tik.getAttribute('href')!=='https://www.tiktok.com/@hankuc_chemi')
+      throw Error('Incorrect TikTok URL');
+    if(await p.locator('#mrleeContactDock').count())
+      throw Error('Legacy contact widget duplicated native dock');
+    const hit=await summary.evaluate(el=>{
       const b=el.getBoundingClientRect(),x=b.left+b.width/2,y=b.top+b.height/2;
       const top=document.elementFromPoint(x,y);
-      return {x,y,clickable:top===el||el.contains(top),overlap:top?.outerHTML.slice(0,180)||null};
+      return {x,y,clickable:top===el||el.contains(top),overlap:top?.outerHTML.slice(0,160)||null};
     });
-    if(!hit.clickable)throw Error('Contact trigger obstructed: '+JSON.stringify(hit));
-    await toggle.click({timeout:5000});
-    if(await links.isVisible()===startsExpanded)
-      throw Error('Contact dock did not toggle links');
-    await toggle.click({timeout:5000});
-    if(await links.isVisible()!==startsExpanded)
-      throw Error('Contact dock failed to restore initial state');
-    if(startsExpanded)await toggle.click({timeout:5000}); // Do not obscure leaderboard checks.
+    if(!hit.clickable)throw Error('Native contact button is obscured: '+JSON.stringify(hit));
+    if(await links.isVisible())throw Error('Native contacts should be collapsed initially');
+    await summary.click({timeout:5000});
+    if(!await links.isVisible()||await contact.getAttribute('open')===null)
+      throw Error('Native contact did not expand');
+    await summary.click({timeout:5000});
+    if(await links.isVisible()||await contact.getAttribute('open')!==null)
+      throw Error('Native contact did not collapse');
     // A completed entry selection persists. There must be NO header switcher.
     if(await p.locator('.mrlee-theme-switch').count())throw Error('Legacy header theme switcher reappeared');
     if(await p.locator('#mrlee-theme-entry').count())throw Error('Entry dialog asked twice during an already-chosen tab');
@@ -318,7 +313,7 @@ try{
            headerScroll:title?.scrollHeight,headerClient:title?.clientHeight,
            rankScroll:rank?.scrollHeight,rankClient:rank?.clientHeight,
            scoreInTitle:score?.parentElement===title,
-           contactCollapsed:getComputedStyle(query('#mrleeContactDock .mrlee-contact-links')).display==='none',
+           contactCollapsed:!query('#mrleeContactNative')?.hasAttribute('open'),
            rankScrollWidth:query('#rankSlider')?.scrollWidth,
            rankClientWidth:query('#rankSlider')?.clientWidth};
        });
