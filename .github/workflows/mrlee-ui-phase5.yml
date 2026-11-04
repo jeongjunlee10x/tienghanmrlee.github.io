@@ -6,6 +6,12 @@ on:
       - 'index.html'
       - 'assets/images/heroes/01-trang-chu-*.webp'
       - 'hoc-tieng-han.html'
+      - 'hoc-theo-bai.html'
+      - 'mrlee-lesson-page.js'
+      - 'assets/branding/lesson-directory-first-v1.css'
+      - 'assets/mrlee-dual-ui/theme.js'
+      - 'assets/mrlee-v2/experience.js'
+      - 'tools/check-lesson-directory-first.mjs'
       - 'kiem-tra-topik.html'
       - 'van-hoa-han-quoc.html'
       - 'van-hoa-bai-hoc.html'
@@ -34,6 +40,8 @@ jobs:
           node-version: '22'
       - name: Verify ten active layouts and local assets
         run: node tools/check-ui-phase5.mjs
+      - name: Ensure 15 lessons are first, without redundant banners
+        run: node tools/check-lesson-directory-first.mjs
       - name: Set up Chromium for actual rendering
         run: |
           npm install --no-audit --no-fund --no-save --package-lock=false playwright@1.56.1
