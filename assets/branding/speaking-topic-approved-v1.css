@@ -1,0 +1,189 @@
+/* MR LEE speaking topics: approved photo-first launch layout (2026-11-04).
+   Isolated to one page; native phrases, scores, auth, V5 fold mechanics untouched. */
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] main>.mrlee-v4-root{
+ display:flex!important;flex-direction:column!important;gap:12px!important;
+ height:auto!important;max-height:none!important;min-height:0!important;
+ grid-template-rows:none!important;padding:0!important;margin:8px 0 16px!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"][data-mrlee-v4-compact="true"][data-mrlee-v4-folded="true"],
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"][data-mrlee-v4-compact="true"][data-mrlee-v4-folded="true"] body{
+ overflow-y:auto!important;max-height:none!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-v4-hero{
+ display:flex!important;min-height:94px!important;height:94px!important;max-height:94px!important;
+ padding:14px 25px!important;margin:0!important;border-radius:16px!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-v4-hero-words{width:min(690px,78%)!important}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-v4-hero-words h1{
+ font-size:clamp(20px,2vw,27px)!important;line-height:1.18!important;margin:3px 0!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-v4-hero-words :is(h2,p,.mrlee-v4-actions){display:none!important}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-v4-eyebrow{font-size:11px!important;line-height:1.4!important;letter-spacing:.1em!important}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-panel{
+ min-width:0;padding:clamp(16px,2vw,27px)!important;margin:0!important;
+ border:1px solid var(--v4-frame)!important;border-radius:19px!important;
+ background:var(--v4-glass)!important;box-shadow:0 12px 26px #04132933;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-head{
+ display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+ margin:0 0 17px;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-head-main{display:flex;align-items:center;gap:12px;min-width:0}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-mark{
+ display:grid;place-items:center;width:52px;height:52px;flex:none;
+ background:linear-gradient(140deg,#0fa6d0,#1762a9);border:1px solid #76dfff;
+ border-radius:15px;box-shadow:0 5px 15px #21b2ff40;font-size:27px;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-head h2{
+ margin:0!important;color:var(--v4-ink)!important;
+ font:850 clamp(20px,2.1vw,29px)/1.3 "Be Vietnam Pro",system-ui,sans-serif!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-head p{
+ margin:4px 0 0!important;color:var(--v4-hint)!important;font-size:13px!important;
+ line-height:1.6!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-head-hint{
+ color:var(--v4-hint)!important;font-weight:700;font-size:13px;line-height:1.5;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-board{
+ display:grid!important;grid-template-columns:minmax(0,0.94fr) minmax(0,1.28fr)!important;
+ gap:16px!important;align-items:stretch;min-width:0;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-board>.mrlee-v4-directory{
+ margin:0!important;padding:0!important;min-width:0;
+ display:flex!important;flex-direction:column!important;border:0!important;
+ background:transparent!important;box-shadow:none!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-board .mrlee-v4-directory-grid{
+ display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+ width:100%!important;height:100%!important;flex:1 1 auto!important;gap:0!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-board .mrlee-v4-card{
+ display:flex!important;align-items:flex-end!important;position:relative;
+ min-width:0!important;min-height:320px!important;height:100%!important;overflow:hidden!important;
+ padding:0!important;border-radius:16px!important;border:2px solid #61ceff!important;
+ background:#082347!important;box-shadow:0 7px 20px #0b77b33b!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-board .mrlee-v4-card img{
+ width:100%!important;height:100%!important;opacity:1!important;
+ object-fit:cover!important;object-position:center center!important;filter:none!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-board .mrlee-v4-card::before{
+ background:linear-gradient(90deg,#03152bf2 0%,#06223bcb 39%,#072c4c24 88%)!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-board .mrlee-v4-card-copy{
+ position:relative;z-index:2;justify-content:flex-end;gap:12px!important;
+ width:min(65%,345px);max-width:100%;height:100%;padding:24px!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-board .mrlee-v4-card-index{
+ align-self:flex-start;display:inline-block;background:#31c8f6!important;
+ color:#05233e!important;border-radius:7px;padding:5px 11px;font-size:14px!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-board .mrlee-v4-card-copy strong{
+ font:900 clamp(24px,2.3vw,36px)/1.2 "Be Vietnam Pro",system-ui,sans-serif!important;
+ color:white!important;text-shadow:0 2px 6px #0008;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-board .mrlee-v4-card-caption{
+ display:block!important;color:#ebf8ff!important;font-size:14px!important;line-height:1.65!important;
+ text-shadow:0 1px 3px #031024bf;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-start{
+ display:inline-flex;align-items:center;justify-content:center;align-self:flex-start;
+ min-height:42px;margin-top:11px;padding:9px 16px;border:1px solid #94eaff;
+ border-radius:999px;background:#0b5a99e8;color:#fff;font-weight:850;font-size:13px;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-board .mrlee-v4-card-arrow{display:none!important}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-tools-wrap{min-width:0;display:flex;flex-direction:column;gap:11px}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-tools-title{
+ margin:0;color:var(--v4-ink)!important;font-weight:850;font-size:16px!important;line-height:1.5!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-tools-title::before{
+ content:"";display:inline-block;height:16px;width:4px;margin-right:10px;
+ vertical-align:-3px;border-radius:3px;background:#35c7ff;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-tools-wrap>.mrlee-v4-tools{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ grid-template-rows:repeat(2,minmax(0,1fr))!important;
+ margin:0!important;gap:11px!important;flex:1 1 auto;min-width:0;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-tools-wrap .mrlee-v4-tool{
+ position:relative;isolation:isolate;display:flex!important;align-items:stretch!important;
+ min-width:0!important;min-height:144px!important;height:auto!important;
+ padding:0!important;border-radius:15px!important;overflow:hidden!important;
+ border:1px solid #538dc1!important;background:#091d40!important;
+ color:white!important;box-shadow:0 7px 16px #08142955!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-tools-wrap .mrlee-v4-tool img{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+ object-fit:cover!important;object-position:65% center!important;
+ opacity:1!important;filter:none!important;mask-image:none!important;z-index:-2!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-tools-wrap .mrlee-v4-tool::before{
+ content:"";position:absolute;inset:0;z-index:-1;
+ background:linear-gradient(90deg,#061c39f9 0%,#092447dc 48%,#0722463d 95%);
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-tool-copy{
+ display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
+ min-width:0;width:65%;padding:15px 11px 15px 16px;gap:5px;
+ position:relative;z-index:2;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-tool-icon{
+ display:grid;place-items:center;flex:none;width:29px;height:29px;
+ border-radius:9px;background:#1766a9d9;border:1px solid #68c8ff;
+ font-size:15px;line-height:1;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-tool-name{
+ font-size:clamp(14px,1.18vw,17px)!important;color:white!important;
+ font-weight:850!important;line-height:1.25!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-tool-desc{
+ font-size:12px!important;line-height:1.48!important;color:#d7edff!important;font-weight:550;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-tools-wrap .mrlee-v4-tool-arrow{
+ position:absolute;right:auto;left:16px;bottom:8px;
+ margin:0!important;display:grid;place-items:center;
+ width:27px;height:24px;border-radius:99px;
+ background:#11679ed9;color:#fff!important;font-size:17px!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-board .mrlee-v4-card:hover,
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-tools-wrap .mrlee-v4-tool:hover{
+ transform:translateY(-2px)!important;border-color:#86eaff!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-v4-live-intro{
+ min-height:66px!important;height:auto!important;display:flex!important;
+ padding:10px 16px!important;margin:0!important;gap:10px!important;flex-wrap:wrap!important;
+ border-radius:13px!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-v4-live-intro strong{font-size:14px!important}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-v4-live-intro>span{
+ display:inline!important;color:var(--v4-hint)!important;font-size:13px!important;
+}
+html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-v5-open-detail{
+ min-width:165px!important;min-height:44px!important;height:auto!important;margin-left:auto!important;
+ padding:10px 14px!important;font-size:13px!important;white-space:normal!important;
+}
+@media(max-width:1000px){
+ html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-board{grid-template-columns:minmax(0,1fr)!important}
+ html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-board .mrlee-v4-card{min-height:300px!important}
+ html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-tools-wrap .mrlee-v4-tool{min-height:153px!important}
+}
+@media(max-width:620px){
+ html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-v4-hero{
+  min-height:80px!important;height:80px!important;max-height:80px!important;padding:11px 15px!important;
+ }
+ html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-v4-hero-words{width:100%!important}
+ html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-panel{padding:12px!important}
+ html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-head{gap:7px!important}
+ html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-head-hint{display:none!important}
+ html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-mark{width:42px;height:42px;font-size:22px}
+ html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-head h2{font-size:20px!important}
+ html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-board .mrlee-v4-card{min-height:240px!important}
+ html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-board .mrlee-v4-card-copy{width:76%;padding:18px!important}
+ html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-tools-wrap>.mrlee-v4-tools{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto!important}
+ html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-tools-wrap .mrlee-v4-tool{min-height:120px!important}
+ html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-v4-live-intro{align-items:flex-start!important}
+ html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-v5-open-detail{width:100%;margin:4px 0 0!important}
+}
+@media(prefers-reduced-motion:reduce){
+ html[data-mrlee-v4="speaking"][data-mrlee-speaking-showcase="ready"] .mrlee-speaking-board :is(.mrlee-v4-card,.mrlee-v4-tool){transition:none!important}
+}
