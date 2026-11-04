@@ -178,14 +178,51 @@ async function toggleRecord(btn,play){
   }catch(err){alert(`Không thể sử dụng micro: ${err?.message||'Vui lòng cấp quyền.'}`);}
 }
 function renderSpeaking(d,samples){
-  $('lessonSpeak').innerHTML=samples.map((s,i)=>`<div class="mr-new-row mr-v5-speaking"><div><strong>Câu ${i+1} · <small>${esc(s.sourceLabel)}</small></strong><div class="mr-new-korean" lang="ko">${esc(s.ko)}</div><div>${esc(s.vi)}</div></div><div class="mr-v5-actions"><audio controls preload="metadata" data-mrlee-pro-file="${i}" src="${esc(s.audio)}" aria-label="MP3 câu nghe ${i+1}" style="width:min(300px,100%);display:block"></audio><span data-mrlee-pro-error="${i}" role="status" style="font-size:12px;color:#a04e08"></span><button class="mr-new-btn" data-play="${i}" type="button">🗣️ Giọng trình duyệt dự phòng</button><button class="mr-new-btn" data-record="${i}" type="button">🎙️ Ghi âm</button><audio data-audio="${i}" controls hidden></audio></div></div>`).join('');
-  $('lessonSpeak').querySelectorAll('[data-mrlee-pro-file]').forEach(a=>{
-    a.addEventListener('error',()=>{const t=$('lessonSpeak').querySelector(`[data-mrlee-pro-error="${a.dataset.mrleeProFile}"]`);if(t)t.textContent='MP3 chưa tải được; dùng nút giọng trình duyệt hoặc kiểm tra danh mục.';});
+  // Compact lesson speaking cards: one real MP3 player + browser TTS fallback +
+  // optional local recording. The global listening enhancer opts out only here
+  // to avoid duplicating speed/play/replay controls next to native audio.
+  const host=$('lessonSpeak');
+  host.innerHTML=`<div class="mr-v5-speaking-list">${samples.map((s,i)=>`
+    <article class="mr-v5-speaking-card mr-v5-speaking" data-no-audio-plus data-no-tts>
+      <div class="mr-v5-sentence">
+        <div class="mr-v5-sentence-meta"><span class="mr-v5-sentence-number">Câu ${i+1}</span>
+          <small>${esc(s.sourceLabel)}</small></div>
+        <p class="mr-v5-sentence-ko mr-new-korean" lang="ko">${esc(s.ko)}</p>
+        <p class="mr-v5-sentence-vi" lang="vi">${esc(s.vi)}</p>
+      </div>
+      <div class="mr-v5-speak-tools">
+        <div class="mr-v5-audio-group">
+          <span class="mr-v5-tool-label">🎧 Nghe mẫu tiếng Hàn</span>
+          <audio controls preload="metadata" class="mr-v5-audio-main"
+            data-mrlee-pro-file="${i}" src="${esc(s.audio)}"
+            aria-label="MP3 câu nghe ${i+1}"></audio>
+          <span class="mr-v5-audio-error" data-mrlee-pro-error="${i}" role="status"></span>
+        </div>
+        <div class="mr-v5-actions">
+          <button class="mr-new-btn mr-v5-fallback" data-play="${i}" type="button"
+            aria-label="Nghe giọng trình duyệt câu ${i+1}">🗣️ Giọng dự phòng</button>
+          <button class="mr-new-btn mr-v5-record" data-record="${i}" type="button"
+            aria-label="Ghi âm câu ${i+1}">🎙️ Ghi âm</button>
+        </div>
+        <audio data-audio="${i}" controls hidden class="mr-v5-recording"
+          aria-label="Nghe lại bản ghi âm câu ${i+1}"></audio>
+      </div>
+    </article>`).join('')}</div>`;
+  host.querySelectorAll('[data-mrlee-pro-file]').forEach(a=>{
+    a.addEventListener('error',()=>{
+      const status=host.querySelector(`[data-mrlee-pro-error="${a.dataset.mrleeProFile}"]`);
+      if(status)status.textContent='MP3 chưa tải được. Có thể dùng giọng dự phòng.';
+    });
   });
-  $('lessonSpeak').addEventListener('click',e=>{
-    const b=e.target.closest('button');if(!b)return;
-    if(b.hasAttribute('data-play'))speak(samples[Number(b.dataset.play)].ko);
-    if(b.hasAttribute('data-record'))toggleRecord(b,$(`lessonSpeak`).querySelector(`[data-audio="${b.dataset.record}"]`));
+  // Delegation preserves all ten TTS and recording actions even as UI changes.
+  host.addEventListener('click',event=>{
+    const button=event.target.closest('button');
+    if(!button)return;
+    if(button.hasAttribute('data-play'))speak(samples[Number(button.dataset.play)].ko);
+    if(button.hasAttribute('data-record')){
+      const player=host.querySelector(`[data-audio="${button.dataset.record}"]`);
+      toggleRecord(button,player);
+    }
   });
   $('lessonSpeakingLink').href=`luyen-noi-tinh-diem.html?task=${encodeURIComponent(findRoadmap(d.cap,d.bai).id)}`;
 }
