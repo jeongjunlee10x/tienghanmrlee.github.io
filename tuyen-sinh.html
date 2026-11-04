@@ -35,7 +35,8 @@
 <link rel="stylesheet" href="assets/mrlee-geo/university-admin-map.css?v=20261027-a2">
   <link rel="stylesheet" href="assets/branding/admissions-readability-v2.css?v=20261029-b2" data-mrlee-admissions-fix="v2">
 <link rel="stylesheet" href="assets/branding/admissions-readable-v2.css?v=20261029-a2" data-mrlee-admissions-contrast="1">
-<link rel="stylesheet" href="assets/v31/premium-gallery.css?v=31.0"><script defer src="assets/v31/premium-gallery.js?v=31.0"></script><link rel="stylesheet" href="assets/v31/official-sources.css?v=31.0"><script defer src="assets/v31/official-sources.js?v=31.0"></script><link rel="stylesheet" href="assets/mrlee-ui2027/workspaces-v3.css?v=20261103-density-v9"><script defer src="assets/mrlee-ui2027/workspaces-v3.js?v=20261101-p3"></script></head>
+<link rel="stylesheet" href="assets/v31/premium-gallery.css?v=31.0"><script defer src="assets/v31/premium-gallery.js?v=31.0"></script><link rel="stylesheet" href="assets/v31/official-sources.css?v=31.0"><script defer src="assets/v31/official-sources.js?v=31.0"></script><link rel="stylesheet" href="assets/mrlee-ui2027/workspaces-v3.css?v=20261103-density-v9"><script defer src="assets/mrlee-ui2027/workspaces-v3.js?v=20261101-p3"></script><link rel="stylesheet" href="assets/branding/contact-native-v5.css?v=20261104-native-v5" data-mrlee-contact-native="v5">
+</head>
 <body>
   <a class="ts-skip" href="#noi-dung">Chuyển đến nội dung chính</a>
   <div class="ts-announcement"><span class="ts-announcement-dot"></span> TIẾNG HÀN MR LEE <span class="ts-announcement-sep">·</span> Định hướng học tập tại Hàn Quốc <a href="#dang-ky">Tư vấn qua Messenger / Zalo <span aria-hidden="true">↗</span></a></div>
@@ -221,5 +222,19 @@
     <a id="tsFloatZalo" class="ts-float-icon ts-float-zalo" href="#dang-ky" target="_blank" rel="noopener noreferrer" aria-label="Mở Zalo MR LEE" title="Zalo" hidden>Z</a>
     <a class="ts-float-cta" href="#dang-ky"><span>✦</span> Đăng ký tư vấn</a>
   </div>
+
+<!-- MR LEE contact V5: native HTML, visible even if contact JavaScript does not load. -->
+<details id="mrleeContactNative" aria-label="Liên hệ nhanh MR LEE" style="position:fixed!important;right:14px!important;bottom:96px!important;z-index:10020!important;display:block!important;visibility:visible!important;opacity:1!important">
+ <summary style="display:list-item;min-height:46px;background:#094a86;color:#fff;border:2px solid #fff;border-radius:999px;padding:12px 15px;font-weight:850;cursor:pointer"><span class="mrlee-native-open-label">☎ Liên hệ</span><span class="mrlee-native-close-label">− Thu gọn liên hệ</span></summary>
+ <nav class="mrlee-native-links" aria-label="Sáu kênh liên hệ MR LEE">
+  <a data-channel="call" href="tel:+84376991180">☎ Gọi 0376 991 180</a>
+  <a data-channel="zalo" href="https://zalo.me/0376991180" target="_blank" rel="noopener noreferrer">Z · Zalo MR LEE</a>
+  <a data-channel="messenger" href="https://m.me/MRLEEKR10" target="_blank" rel="noopener noreferrer">M · Messenger MR LEE</a>
+  <a data-channel="tiktok" href="https://www.tiktok.com/@hankuc_chemi" target="_blank" rel="noopener noreferrer">♪ TikTok @hankuc_chemi</a>
+  <a data-channel="email" href="mailto:tienghanmrlee@gmail.com">@ Email MR LEE</a>
+  <button data-channel="kakao" type="button" onclick="if(navigator.clipboard){navigator.clipboard.writeText('ycleeee').then(()=>{this.textContent='KakaoTalk: đã sao chép ycleeee'}).catch(()=>{this.textContent='KakaoTalk: ycleeee'})}">K · KakaoTalk: ycleeee</button>
+ </nav>
+</details>
+<!-- /MR LEE contact V5 -->
 </body>
 </html>
