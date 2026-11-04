@@ -6,6 +6,7 @@ if(location.pathname.toLowerCase().endsWith('/admin.html'))return; // Admin has 
 const doc=document;
 function node(tag,cls,text){const el=doc.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el}
 function boot(){
+ if(doc.getElementById('mrleeContactNative')){doc.getElementById('mrleeContactDock')?.remove();return;}
  // The legacy redesign also creates #mrleeContactDock with just 3 links.
  // Upgrade that element instead of silently returning and leaving the wrong UI.
  const existing=doc.getElementById('mrleeContactDock');
