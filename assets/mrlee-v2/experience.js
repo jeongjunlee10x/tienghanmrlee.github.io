@@ -74,6 +74,9 @@ function backtotop(){
  const show=()=>{b.dataset.visible=String(window.scrollY>600)};window.addEventListener('scroll',show,{passive:true});show();
  b.addEventListener('click',()=>window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'}));
 }
-function boot(){ensureNav();context();footer();backtotop()}
+function boot(){
+ if(page==='hoc-theo-bai.html')return; // 15 lesson links must be first; no marketing banner or extra navigation.
+ ensureNav();context();footer();backtotop()
+}
 if(d.readyState==='loading')d.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
