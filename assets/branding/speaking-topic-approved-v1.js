@@ -50,9 +50,9 @@
   toolPanel.append(el('h3','mrlee-speaking-tools-title','Các dạng luyện tập khác'));
   originalTitle?.remove();
   dir.classList.add('mrlee-speaking-feature');
+  dir.before(panel);
   board.append(dir,toolPanel);
   panel.append(head,board);
-  dir.before(panel);
   toolPanel.append(tools);
   const caption=card.querySelector('.mrlee-v4-card-caption');
   if(caption)caption.textContent='Luyện cách chào hỏi, làm quen và giới thiệu bản thân bằng tiếng Hàn.';
