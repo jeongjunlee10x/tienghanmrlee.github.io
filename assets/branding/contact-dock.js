@@ -7,7 +7,9 @@ const doc=document;
 function node(tag,cls,text){const el=doc.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el}
 function boot(){
  if(doc.getElementById('mrleeContactDock'))return;
- const root=node('aside');root.id='mrleeContactDock';root.setAttribute('aria-label','Liên hệ nhanh MR LEE');root.dataset.open='false';
+ const root=node('aside');root.id='mrleeContactDock';root.setAttribute('aria-label','Liên hệ nhanh MR LEE');
+ const initiallyOpen=matchMedia('(min-width:701px)').matches;
+ root.dataset.open=String(initiallyOpen);
  const links=node('div','mrlee-contact-links');links.id='mrleeContactLinks';
  const config=[
   ['call','☎','Gọi 0376991180','tel:+84376991180'],
@@ -28,12 +30,21 @@ function boot(){
   try{if(!navigator.clipboard?.writeText)throw Error('Clipboard unavailable');await navigator.clipboard.writeText('ycleeee');status.textContent='Đã sao chép ID KakaoTalk: ycleeee'}
   catch{status.textContent='ID KakaoTalk: ycleeee (hãy sao chép thủ công)'}
  });links.append(kakao);
- const toggle=node('button','mrlee-contact-toggle','☏  Liên hệ');toggle.type='button';toggle.setAttribute('aria-controls',links.id);toggle.setAttribute('aria-expanded','false');
- toggle.addEventListener('click',()=>{const open=root.dataset.open!=='true';root.dataset.open=String(open);toggle.setAttribute('aria-expanded',String(open));if(open)links.querySelector('a')?.focus()});
+ const toggle=node('button','mrlee-contact-toggle');toggle.type='button';toggle.setAttribute('aria-controls',links.id);
+ function setOpen(open,focusFirst=false){
+  root.dataset.open=String(open);
+  toggle.setAttribute('aria-expanded',String(open));
+  toggle.textContent=open?'− Thu gọn liên hệ':'+ Mở liên hệ';
+  toggle.setAttribute('aria-label',open?'Thu gọn các nút liên hệ':'Mở các nút liên hệ');
+  if(!open&&links.contains(doc.activeElement))toggle.focus();
+  if(open&&focusFirst)links.querySelector('a')?.focus();
+ }
+ setOpen(initiallyOpen);
+ toggle.addEventListener('click',()=>setOpen(root.dataset.open!=='true));
  root.append(status,links,toggle);doc.body.append(root);
  doc.body.classList.add('mrlee-contact-ready'); // Legacy homepage rail remains if script fails.
- doc.querySelectorAll('a[href="#contactPanel"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();root.dataset.open='true';toggle.setAttribute('aria-expanded','true');links.querySelector('a')?.focus()}));
- doc.addEventListener('keydown',e=>{if(e.key==='Escape'&&root.dataset.open==='true'){root.dataset.open='false';toggle.setAttribute('aria-expanded','false');toggle.focus()}});
+ doc.querySelectorAll('a[href="#contactPanel"]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();setOpen(true,true)}));
+ doc.addEventListener('keydown',e=>{if(e.key==='Escape'&&root.dataset.open==='true'){setOpen(false);toggle.focus()}});
 }
 if(doc.readyState==='loading')doc.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
