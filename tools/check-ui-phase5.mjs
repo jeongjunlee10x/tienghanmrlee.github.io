@@ -124,15 +124,24 @@ assert(deepCss.includes('data-mrlee-v24="courses"')&&
  'Deep page rules must be scoped, not globally override page contents');
 const dockCSS=read('assets/branding/contact-dock.css');
 const brandJS=read('assets/branding/site-logo.js');
-assert(dockCSS.includes('#mrleeContactDock[data-open="true"] .mrlee-contact-links{display:grid}'),
- 'Contact drawer must be collapsed by default and open as a grid');
-assert(brandJS.includes('contact-dock.css?v=20261103-compact-v1'),
+assert(dockCSS.includes('.mrlee-contact-links{display:flex;flex-direction:column'),
+ 'Six floating contact buttons must be visible on desktop');
+assert(dockCSS.includes('.mrlee-contact-toggle{display:none;'),
+ 'Original desktop contact rail should not collapse into one button');
+assert(read('assets/branding/contact-dock.js').includes("['call'") &&
+ read('assets/branding/contact-dock.js').includes("['zalo'") &&
+ read('assets/branding/contact-dock.js').includes("['messenger'") &&
+ read('assets/branding/contact-dock.js').includes("['tiktok'") &&
+ read('assets/branding/contact-dock.js').includes("['email'") &&
+ read('assets/branding/contact-dock.js').includes("kakao.dataset.channel='kakao'"),
+ 'Every original contact channel must remain available');
+assert(brandJS.includes('contact-dock.css?v=20261104-restore-six-v2'),
  'Shared logo loader must deploy new contact dock stylesheet');
 for(const page of ['index.html',...Object.keys(v9Pages),...innerPages]){
- assert(read(page).includes('site-logo.js?v=20261103-dock-v1'),
+ assert(read(page).includes('site-logo.js?v=20261104-restore-six-v2'),
   'Contact drawer cache version is stale: '+page);
 }
-console.log('SOURCE PASS UI V10: 16 pages linked, original-color glow, compact contact drawer and ordered cards.');
+console.log('SOURCE PASS UI V10: 16 pages linked, original-color glow, six visible contact channels and ordered cards.');
 
 console.log('SOURCE PASS phase5: 10 layouts, no V1/V4/V5 injectors, protected routes, Admin, 5 JS syntax checks.');
 
