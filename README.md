@@ -29,6 +29,7 @@ Website chính thức: **https://jeongjunlee10x.github.io/tienghanmrlee.github.i
 | `MRLEE_AUDIO/`, `MRLEE_PRO_AUDIO/` | MP3 học bài, Workbook và TOPIK | **Không đổi đường dẫn** khi chưa cập nhật manifest và kiểm thử 404 |
 | `assets/topik-v10/`, các tệp `mrlee-topik-*` | Dữ liệu và chức năng TOPIK | Không xóa dữ liệu khi chỉ dọn giao diện |
 | `supabase/`, `functions/`, `firestore.rules`, `firebase*.json` | Backend, bảo mật và cấu hình dịch vụ | Không đưa khóa bí mật vào Git hoặc JavaScript phía client |
+| `supabase/manual-sql/` | Script SQL thao tác thủ công, **không tự chạy** | Không đưa vào Cloudflare Pages; không chạy lại trên production nếu chưa nghiệm thu |
 | `tools/` | Kiểm thử và kiểm toán mã nguồn | Chạy kiểm tra trước khi push |
 | `.github/workflows/` | Các bước QA, build, triển khai | Dùng workflow hiện hành; không tự động force-push |
 | `docs/` | Tài liệu thiết kế, kiểm toán, hướng dẫn | Tài liệu kỹ thuật lâu dài |
@@ -37,6 +38,13 @@ Website chính thức: **https://jeongjunlee10x.github.io/tienghanmrlee.github.i
 | `archive/legacy-installers/` | Bộ CMD/PowerShell + `FILES/` + manifest cũ | Giữ cùng thư mục để không phá đường dẫn tương đối |
 
 Chi tiết kiểm kê, các thay đổi dọn dẹp và những thứ **không được xóa**: [docs/GIT_REPO_STRUCTURE_2026-11-02.md](docs/GIT_REPO_STRUCTURE_2026-11-02.md).
+
+## Triển khai song song Cloudflare Pages (không thay GitHub Pages)
+
+- Tên miền dự kiến: `https://mrlee.pages.dev/`. Chỉ được xem là hoạt động sau khi tạo project và kiểm thử thực tế.
+- Kết nối repository hiện tại với Cloudflare Pages: production branch `main`; build command `node tools/build-cloudflare-pages.mjs && node tools/check-cloudflare-pages-build.mjs`; output directory `dist`; root `/`; Node.js 22+.
+- `dist/` chỉ sinh lúc build, nằm trong `.gitignore`, **không commit**, không xóa hay thay đường dẫn GitHub Pages cũ.
+- Xem [hướng dẫn thiết lập Cloudflare Pages](docs/CLOUDFLARE_PAGES_DEPLOY.md) và [các script SQL quản trị thủ công](supabase/manual-sql/README.md).
 
 ## Chạy QA trước khi đẩy GitHub
 

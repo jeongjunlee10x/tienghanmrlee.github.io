@@ -44,7 +44,7 @@
 Đã đối chiếu cấu trúc live Supabase dự án `pkxqsboyotlyoizzxizb` ở chế độ chỉ đọc:
 - Các bảng `mrlee_students`, `mrlee_scores`, `mrlee_learning_events`, `mrlee_placement_submissions`, `mrlee_consultation_requests` tồn tại.
 - Những bảng trên có RLS bật. Việc RLS bật không tự chứng minh phân quyền thực thi đúng với mọi vai trò.
-- Bảng `mrlee_reward_v2_awards` và `mrlee_reward_v2_claims` **không hiện diện** ở lần kiểm tra; file `MRLEE_REWARD_V2_SETUP.sql` ở GitHub chỉ là script, không có nghĩa đã chạy trên máy chủ.
+- Bảng `mrlee_reward_v2_awards` và `mrlee_reward_v2_claims` **không hiện diện** ở lần kiểm tra; file `supabase/manual-sql/MRLEE_REWARD_V2_SETUP.sql` ở GitHub chỉ là script, không có nghĩa đã chạy trên máy chủ.
 - Biểu đồ hoạt động xem lịch sử tối đa 1.500 bản ghi mỗi loại và hồ sơ mẫu tối đa 2.000; KPI count chính dùng `count: exact` theo quyền RLS.
 - Không chép dữ liệu cá nhân ra bản báo cáo này.
 

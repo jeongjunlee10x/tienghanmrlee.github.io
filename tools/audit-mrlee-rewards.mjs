@@ -12,7 +12,7 @@ const sources={
  leaderboard:'mrlee-leaderboard.js',
  scoring:'scripts/mrlee-score-spark/runner.cjs',
  rewardV2:'supabase/functions/mrlee-reward-v2/index.ts',
- rewardMigration:'MRLEE_REWARD_V2_SETUP.sql',
+ rewardMigration:'supabase/manual-sql/MRLEE_REWARD_V2_SETUP.sql',
 };
 const read=(k)=>{const path=sources[k];if(!existsSync(resolve(root,path)))return '';return readFileSync(resolve(root,path),'utf8')};
 const checks=[

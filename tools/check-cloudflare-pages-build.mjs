@@ -2,6 +2,7 @@
  * Run after: node tools/build-cloudflare-pages.mjs.
  */
 import assert from 'node:assert/strict';
+import {Script} from 'node:vm';
 import {readdir,stat,readFile} from 'node:fs/promises';
 import {join,relative,resolve,extname} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -46,6 +47,9 @@ for(const p of files.map(x=>x.path)){
  assert(!/\.(?:zip|sql|pem|pfx|bak|ps1|cmd|rules)$/i.test(p),
   'Sensitive or unnecessary source file published: '+p);
 }
+// Prevent a recurring contact dock JavaScript parse error from reaching Cloudflare.
+new Script(await readFile(join(dist,'assets/branding/contact-dock.js'),'utf8'),
+ {filename:'assets/branding/contact-dock.js'});
 const index=await readFile(join(dist,'index.html'),'utf8');
 const share=await readFile(join(dist,'mrlee-engagement.js'),'utf8');
 const redirects=await readFile(join(dist,'_redirects'),'utf8');

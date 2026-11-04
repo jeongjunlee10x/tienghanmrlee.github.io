@@ -45,3 +45,11 @@ Phần HTML trùng lặp được rút gọn khoảng **7,7 KB**. **Không xóa*
 - Trước khi công bố: kiểm tra GitHub Actions, GitHub Pages deployment, và ảnh chụp Chromium của hai giao diện. Các thao tác học sinh đăng nhập, lưu điểm, nộp bài và Admin cần kiểm tra thêm bằng tài khoản thật.
 
 Không sử dụng `git push --force` hoặc xóa nguyên thư mục âm thanh/sao lưu trực tiếp mà không có kiểm tra đường dẫn.
+
+## Bổ sung dọn gốc ngày 04/11/2026 — chuẩn bị Cloudflare Pages
+
+- Di chuyển nguyên bản ba script SQL từ root vào `supabase/manual-sql/`. Chúng vẫn nằm trong Git để đối chiếu, **không tự chạy migration**.
+- Cập nhật `tools/audit-mrlee-rewards.mjs` và các tài liệu trỏ đến Reward V2 SQL.
+- Giữ nguyên toàn bộ trang HTML, các đường dẫn ảnh, MP3 và script đang phục vụ website. Những tệp khó phân loại chưa được xóa hoặc di chuyển vì nguy cơ hỏng liên kết động.
+- Tài nguyên triển khai Cloudflare được xuất vào `dist/` qua `tools/build-cloudflare-pages.mjs`, bỏ qua lưu trữ lịch sử, mã backend, tệp bí mật và công cụ phát triển. Không commit `dist/`.
+- GitHub Pages cũ tiếp tục tồn tại; Cloudflare Pages sẽ liên kết cùng GitHub repository khi người quản trị xác nhận cấu hình Dashboard.
