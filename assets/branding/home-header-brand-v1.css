@@ -1,0 +1,82 @@
+/* Homepage logo/title repair – do not recolor or replace the approved meme logo.
+   This title is real selectable text, not a CSS pseudo-element or an image overlay.
+   Scope to home .site-header only; leave Admin/subpage/auth branding untouched. */
+html[data-mrlee-redesign="v2"] .site-header .header-inner > a.brand {
+ display:inline-flex!important;
+ align-items:center!important;justify-content:flex-start!important;
+ gap:10px!important;
+ width:max-content!important;
+ max-width:min(42vw,332px)!important;
+ min-width:0!important;
+ flex:0 1 auto!important;
+ overflow:visible!important;
+ text-decoration:none!important;
+ white-space:normal!important;
+}
+html[data-mrlee-redesign="v2"] .site-header .header-inner > a.brand > img {
+ display:block!important;
+ flex:0 0 auto!important;
+ width:clamp(96px,9vw,128px)!important;
+ max-width:128px!important;
+ min-width:0!important;
+ height:clamp(50px,5vw,64px)!important;
+ max-height:64px!important;
+ object-fit:contain!important;
+ object-position:center!important;
+}
+html[data-mrlee-redesign="v2"] .site-header .header-inner > a.brand > .mrlee-header-brand-name {
+ display:block!important;
+ flex:0 1 auto!important;
+ min-width:0!important;
+ width:auto!important;
+ height:auto!important;
+ padding:0!important;margin:0!important;
+ overflow:visible!important;
+ opacity:1!important;visibility:visible!important;
+ color:#123763!important;
+ font-family:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif!important;
+ font-size:clamp(13px,1.04vw,17px)!important;
+ font-weight:900!important;
+ letter-spacing:-.025em!important;
+ line-height:1.3!important;
+ text-align:left!important;
+ white-space:normal!important;
+ text-transform:none!important;
+ text-shadow:0 0 1px rgba(255,255,255,.75)!important;
+ -webkit-text-stroke:0!important;
+}
+html[data-mrlee-redesign="v2"][data-mrlee-theme="future"]
+ .site-header .header-inner > a.brand > .mrlee-header-brand-name{
+ color:#f1faff!important;
+ text-shadow:0 0 2px rgba(255,255,255,.6),0 0 12px rgba(91,215,255,.42)!important;
+}
+html[data-mrlee-redesign="v2"] .site-header .header-inner > a.brand:focus-visible{
+ outline:3px solid #69d9ff!important;outline-offset:4px;
+ border-radius:10px;
+}
+@media(max-width:900px){
+ html[data-mrlee-redesign="v2"] .site-header .header-inner > a.brand{
+  max-width:min(62vw,275px)!important;gap:7px!important;
+ }
+ html[data-mrlee-redesign="v2"] .site-header .header-inner > a.brand > img{
+  width:clamp(81px,11vw,108px)!important;
+  height:54px!important;
+ }
+ html[data-mrlee-redesign="v2"] .site-header .header-inner > a.brand > .mrlee-header-brand-name{
+  font-size:clamp(12px,1.9vw,15px)!important;
+ }
+}
+@media(max-width:440px){
+ html[data-mrlee-redesign="v2"] .site-header .header-inner > a.brand{
+  max-width:67vw!important;gap:5px!important;
+ }
+ html[data-mrlee-redesign="v2"] .site-header .header-inner > a.brand > img{
+  width:clamp(70px,22vw,91px)!important;
+  height:49px!important;
+ }
+ html[data-mrlee-redesign="v2"] .site-header .header-inner > a.brand > .mrlee-header-brand-name{
+  font-size:12px!important;
+  max-width:128px!important;
+  line-height:1.25!important;
+ }
+}
