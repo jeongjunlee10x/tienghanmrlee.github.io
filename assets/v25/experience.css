@@ -8,13 +8,6 @@ html[data-mrlee-v25] :where(.panel,.info-panel,.mr-new-panel,.content-section,.s
 html[data-mrlee-v25] :where(.panel,.info-panel,.mr-new-panel,.content-section){border-radius:20px;box-shadow:var(--x-shadow);border-color:var(--x-line)}
 html[data-mrlee-v25] :where(.panel,.info-panel,.mr-new-panel,.content-section):focus-within{border-color:#97bff4}
 html[data-mrlee-v25] :where(button,.btn,.mr-new-btn,.ts-btn){touch-action:manipulation}
-/* Shared quick-path navigation, only inserted on non-exam pages; content links are real routes */
-.v25-route-tray{max-width:1160px;margin:18px auto 22px;padding:12px;background:#ffffffeb;box-shadow:0 12px 32px #14457914;border:1px solid #dae9f8;border-radius:20px;display:flex;gap:9px;flex-wrap:wrap;align-items:center}
-.v25-route-tray strong{font-size:12px;color:#274e8a;padding:0 11px;white-space:nowrap}
-.v25-route-tray a{color:#184b87!important;font-size:12px!important;text-decoration:none!important;font-weight:750;display:inline-flex;align-items:center;gap:5px;border:1px solid #e2ecf9;border-radius:999px;padding:9px 13px;background:#f7faff;white-space:nowrap;min-height:38px;transition:transform .18s,background .18s,border-color .18s}
-.v25-route-tray a:hover{transform:translateY(-2px);border-color:#b9d8fc;background:#e7f2ff}
-.v25-route-tray a[aria-current=page]{background:#1c57ad;color:#fff!important;border-color:#1c57ad}
-.v25-route-tray a:focus-visible{outline:3px solid #ec5a7c}
 /* Korean Conversation Studio · vivid blue and photographic framing */
 html[data-mrlee-v25=conversation] body{background:radial-gradient(circle at 100% 2%,#daf1fc 0,transparent 32%),linear-gradient(180deg,#f0f7ff,#fbfdff 40%,#f7faff)}
 html[data-mrlee-v25=conversation] :where(main.shell,main.wrap,main.mr-new-shell){max-width:1180px}
@@ -88,6 +81,6 @@ html[data-mrlee-v25=lesson-index] .hero{border-radius:24px;overflow:hidden;box-s
 html[data-mrlee-v25=lesson-index] :where(.section,.card,.level-card){border-radius:18px;border-color:#dce7f6;box-shadow:0 10px 28px #183b6e16}
 html[data-mrlee-v25=lesson-index] :where(.section h2,.hero h1){letter-spacing:-.04em}
 /* Shared visual safety */
-@media(max-width:850px){.v25-route-tray{margin:12px 12px 18px;border-radius:16px;gap:7px}.v25-route-tray strong{flex:0 0 100%;padding-left:5px}html[data-mrlee-v25=conversation] :where(.page-hero,.section-hero)::before{width:67%;opacity:.28}}
-@media(max-width:600px){.v25-route-tray{padding:10px;gap:6px}.v25-route-tray a{min-height:40px;padding:8px 10px;font-size:11px!important}html[data-mrlee-v25=conversation] :where(.page-hero,.section-hero)::before{width:100%;opacity:.18}html[data-mrlee-v25=culture-story] .hero:before{opacity:.18;width:100%}html[data-mrlee-v25] :where(.panel,.mr-new-panel,.content-section){border-radius:15px}html[data-mrlee-v25=admin-console] .table-scroll{overflow-x:auto;overscroll-behavior-inline:contain}}
+@media(max-width:850px){html[data-mrlee-v25=conversation] :where(.page-hero,.section-hero)::before{width:67%;opacity:.28}}
+@media(max-width:600px){html[data-mrlee-v25=conversation] :where(.page-hero,.section-hero)::before{width:100%;opacity:.18}html[data-mrlee-v25=culture-story] .hero:before{opacity:.18;width:100%}html[data-mrlee-v25] :where(.panel,.mr-new-panel,.content-section){border-radius:15px}html[data-mrlee-v25=admin-console] .table-scroll{overflow-x:auto;overscroll-behavior-inline:contain}}
 @media(prefers-reduced-motion:reduce){html[data-mrlee-v25] :where(*,*::before,*::after){transition-duration:.01ms!important;animation-duration:.01ms!important;scroll-behavior:auto!important}}
