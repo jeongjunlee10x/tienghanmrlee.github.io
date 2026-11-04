@@ -45,3 +45,6 @@ coverage/
 *.rej
 # Không đưa các bản trích xuất snapshot cũ mới vào thư mục gốc
 MRLEE_BACKUP_*/
+
+# Cloudflare Pages: bản xuất tĩnh tạo khi build, không commit lên GitHub
+/dist/
