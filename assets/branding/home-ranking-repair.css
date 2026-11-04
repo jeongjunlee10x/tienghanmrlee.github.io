@@ -147,7 +147,7 @@ html[data-mrlee-v303="reference"] #ranking .rank-title>#mrleeV12Widget #mrleeV12
   white-space:normal!important;
 }
 /* Default compact contact trigger; full five contacts only after the learner taps it. */
-#mrleeContactDock{bottom:max(14px,env(safe-area-inset-bottom))!important;right:max(12px,env(safe-area-inset-right))!important}
+#mrleeContactDock{bottom:max(92px,calc(env(safe-area-inset-bottom) + 78px))!important;right:max(12px,env(safe-area-inset-right))!important;z-index:10020!important}
 #mrleeContactDock>.mrlee-contact-links{display:none!important}
 #mrleeContactDock[data-open="true"]>.mrlee-contact-links{display:flex!important}
 #mrleeContactDock>.mrlee-contact-toggle{display:inline-flex!important}
