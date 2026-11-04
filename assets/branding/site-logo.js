@@ -37,6 +37,7 @@
   const script=document.createElement('script');script.src='assets/branding/media-quality-v3.js?v=20261027-q3';script.defer=true;script.dataset.mrleeImageQuality='js';document.head.append(script);
  }
  function loadContactDock(){
+  if(document.getElementById('mrleeContactNative'))return; // Native contact details always visible without JavaScript.
   if(location.pathname.toLowerCase().endsWith('/admin.html'))return;
   if(document.querySelector('script[data-mrlee-contact-dock-loader]'))return;
   const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('contact-dock.css?v=20261104-rescue-v4',current.src).href;css.dataset.mrleeContactDock='css';document.head.append(css);
