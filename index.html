@@ -101,6 +101,7 @@ html[data-mrlee-v306="images"] #mainContent .feature-info {
 
 <link rel="stylesheet" href="assets/mrlee-ui2027/rebuild-home-v2.css?v=20261103-nav-density-v10">
 <script defer src="assets/mrlee-ui2027/rebuild-home-v2.js?v=20261101-rebuild2"></script>
+<link rel="stylesheet" href="assets/branding/contact-native-v5.css?v=20261104-native-v5" data-mrlee-contact-native="v5">
 </head>
 <body data-mrlee-version="MRLEE_MAIN_V30_3">
 <a class="skip-link" href="#mainContent">Tới nội dung chính</a>
@@ -361,4 +362,18 @@ html[data-mrlee-v306="images"] #mainContent .feature-info {
     <footer class="mrlee-auth2-pro-footer">Cùng MR LEE chạm tới ước mơ <span aria-hidden="true">♥</span></footer>
   </div>
 </dialog>
+
+<!-- MR LEE contact V5: native HTML, visible even if contact JavaScript does not load. -->
+<details id="mrleeContactNative" aria-label="Liên hệ nhanh MR LEE" style="position:fixed!important;right:14px!important;bottom:96px!important;z-index:10020!important;display:block!important;visibility:visible!important;opacity:1!important">
+ <summary style="display:list-item;min-height:46px;background:#094a86;color:#fff;border:2px solid #fff;border-radius:999px;padding:12px 15px;font-weight:850;cursor:pointer"><span class="mrlee-native-open-label">☎ Liên hệ</span><span class="mrlee-native-close-label">− Thu gọn liên hệ</span></summary>
+ <nav class="mrlee-native-links" aria-label="Sáu kênh liên hệ MR LEE">
+  <a data-channel="call" href="tel:+84376991180">☎ Gọi 0376 991 180</a>
+  <a data-channel="zalo" href="https://zalo.me/0376991180" target="_blank" rel="noopener noreferrer">Z · Zalo MR LEE</a>
+  <a data-channel="messenger" href="https://m.me/MRLEEKR10" target="_blank" rel="noopener noreferrer">M · Messenger MR LEE</a>
+  <a data-channel="tiktok" href="https://www.tiktok.com/@hankuc_chemi" target="_blank" rel="noopener noreferrer">♪ TikTok @hankuc_chemi</a>
+  <a data-channel="email" href="mailto:tienghanmrlee@gmail.com">@ Email MR LEE</a>
+  <button data-channel="kakao" type="button" onclick="if(navigator.clipboard){navigator.clipboard.writeText('ycleeee').then(()=>{this.textContent='KakaoTalk: đã sao chép ycleeee'}).catch(()=>{this.textContent='KakaoTalk: ycleeee'})}">K · KakaoTalk: ycleeee</button>
+ </nav>
+</details>
+<!-- /MR LEE contact V5 -->
 </body></html>
