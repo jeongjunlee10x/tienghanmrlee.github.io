@@ -95,6 +95,9 @@
     const footer=q('footer');if(footer&&footer.parentNode)footer.before(band);else document.body.appendChild(band);
   }
   function createDock(){
+    // One six-channel dock is managed by assets/branding/site-logo.js.
+    // Keep legacy three-channel fallback only if the official loader is absent.
+    if(document.querySelector('script[src*="assets/branding/site-logo.js"]'))return;
     if(q('#mrleeContactDock'))return;
     const dock=newEl('aside','mrlee-contact-dock');dock.id='mrleeContactDock';dock.setAttribute('aria-label','Liên hệ Tiếng Hàn Mr Lee');
     const links=newEl('div','mrlee-dock-links');links.id='mrleeContactLinks';
