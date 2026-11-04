@@ -1,0 +1,36 @@
+name: MR LEE — Cloudflare Pages safe export preflight
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/build-cloudflare-pages.mjs'
+      - 'tools/check-cloudflare-pages-build.mjs'
+      - '.github/workflows/mrlee-cloudflare-preflight.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: mrlee-cloudflare-preflight
+  cancel-in-progress: true
+jobs:
+  dry-run-only:
+    name: Build and inspect dist (no Cloudflare deployment)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout current GitHub Pages source
+        uses: actions/checkout@v4
+      - name: Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify builder syntax and isolated output
+        run: |
+          node --check tools/build-cloudflare-pages.mjs
+          node --check tools/check-cloudflare-pages-build.mjs
+          node tools/build-cloudflare-pages.mjs
+          node tools/check-cloudflare-pages-build.mjs
+      - name: Show build totals only (do not upload 500 MiB of audio)
+        run: |
+          du -sh dist
+          echo "Cloudflare deployment has NOT been initiated. Original GitHub Pages remains online."
