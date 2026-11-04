@@ -1,0 +1,61 @@
+/* MR LEE contact rail V5 - progressively enhanced native HTML.
+   <details>/<summary> needs no JavaScript to be visible, expand or collapse.
+   Scoped by a unique ID so legacy three- and six-channel docks cannot hide it. */
+#mrleeContactNative{
+ position:fixed!important;right:14px!important;
+ bottom:max(96px,calc(env(safe-area-inset-bottom) + 86px))!important;
+ z-index:10020!important;display:block!important;visibility:visible!important;
+ opacity:1!important;max-width:calc(100vw - 28px);
+ font:750 13px/1.4 "Be Vietnam Pro",system-ui,sans-serif!important;
+ color:#fff;pointer-events:auto!important;
+}
+#mrleeContactNative>summary{
+ display:flex!important;align-items:center;justify-content:center;gap:8px;
+ list-style:none;appearance:none;min-width:120px;min-height:48px;
+ border:2px solid #fff;border-radius:999px;
+ padding:10px 15px;background:#094a86;color:#fff;
+ box-shadow:0 8px 24px #041f43a6;cursor:pointer;
+ font:850 13px/1.4 "Be Vietnam Pro",system-ui,sans-serif;
+}
+#mrleeContactNative>summary::-webkit-details-marker{display:none}
+#mrleeContactNative>summary:focus-visible,
+#mrleeContactNative .mrlee-native-links :is(a,button):focus-visible{
+ outline:3px solid #ffc44b;outline-offset:3px;
+}
+#mrleeContactNative[open]>summary{background:#062c55}
+#mrleeContactNative[open]>summary .mrlee-native-open-label{display:none}
+#mrleeContactNative:not([open])>summary .mrlee-native-close-label{display:none}
+#mrleeContactNative .mrlee-native-links{
+ position:absolute;right:0;bottom:calc(100% + 9px);
+ display:flex;flex-direction:column;gap:6px;
+ max-height:min(65dvh,485px);overflow-y:auto;overscroll-behavior:contain;
+ min-width:min(240px,calc(100vw - 28px));
+ padding:9px;background:#0a2546f5;
+ border:1px solid #ffffff69;border-radius:17px;
+ box-shadow:0 10px 32px #06152ec4;
+}
+#mrleeContactNative:not([open]) .mrlee-native-links{display:none!important}
+#mrleeContactNative .mrlee-native-links :is(a,button){
+ display:flex;align-items:center;gap:10px;
+ box-sizing:border-box;width:100%;min-height:44px;
+ padding:9px 12px;text-align:left;
+ border:1px solid #ffffff40;border-radius:11px;
+ background:#185899;color:white;text-decoration:none;
+ font:800 12px/1.4 "Be Vietnam Pro",system-ui,sans-serif;
+ cursor:pointer;
+}
+#mrleeContactNative .mrlee-native-links [data-channel="call"]{background:#14865e}
+#mrleeContactNative .mrlee-native-links [data-channel="zalo"]{background:#0868ed}
+#mrleeContactNative .mrlee-native-links [data-channel="messenger"]{background:#7542d6}
+#mrleeContactNative .mrlee-native-links [data-channel="tiktok"]{background:#161622}
+#mrleeContactNative .mrlee-native-links [data-channel="email"]{background:#bd6022}
+#mrleeContactNative .mrlee-native-links [data-channel="kakao"]{background:#ffe03c;color:#382800}
+#mrleeContactNative .mrlee-native-links :is(a,button):hover{filter:brightness(1.1)}
+@media(max-width:700px){
+ #mrleeContactNative{right:max(12px,env(safe-area-inset-right))!important;
+  bottom:max(88px,calc(env(safe-area-inset-bottom) + 80px))!important}
+ #mrleeContactNative>summary{min-height:46px;padding:9px 13px}
+}
+@media(prefers-reduced-motion:reduce){
+ #mrleeContactNative *{transition:none!important}
+}
