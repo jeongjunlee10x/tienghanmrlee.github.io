@@ -223,6 +223,12 @@ function primaryNav(){
  if(head?.parentNode)head.after(nav);else doc.body.prepend(nav);
 }
 function run(){
+ if(path==='hoc-theo-bai.html'){
+  // Lesson directory owns the first screen: no duplicate mega-menu, portal,
+  // decorative hero or image layers before the 15 native lesson links.
+  update(theme);
+  return;
+ }
  const modern=html.matches('[data-mrlee-redesign="v2"],[data-mrlee-hub-v2],[data-mrlee-culture-v2],[data-mrlee-phase3]');
  if(modern){
   // The new pages supply their own verified navigation and photographs.
