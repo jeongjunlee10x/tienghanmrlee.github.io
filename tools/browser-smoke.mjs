@@ -35,10 +35,16 @@ try{
       throw Error('Missing/incorrect TikTok @hankuc_chemi profile URL');
     if(await tik.getAttribute('target')!=='_blank'||!(await tik.getAttribute('rel'))?.includes('noopener'))
       throw Error('TikTok link should open safely in new tab');
-    // Contact is intentionally collapsed on all devices so it never hides ranking cards.
+    // Desktop initially shows 6 channels; mobile starts collapsed.
+    // Every visitor must be able to collapse and reopen the same 6 contacts.
     const toggle=contact.locator('button.mrlee-contact-toggle');
-    if(!await toggle.isVisible())throw Error('Compact contact trigger not visible');
-    if(await contact.locator('.mrlee-contact-links').isVisible())throw Error('Contact links cover the homepage by default');
+    const links=contact.locator('.mrlee-contact-links');
+    const startsExpanded=p.viewportSize().width>700;
+    if(!await toggle.isVisible())throw Error('Contact collapse/reopen trigger not visible');
+    if(await links.isVisible()!==startsExpanded)
+      throw Error('Incorrect initial contact visibility at '+p.viewportSize().width);
+    if(await contact.getAttribute('data-mrlee-contact-version')!=='6ch-collapse-v4')
+      throw Error('A legacy 3-link contact widget has taken over');
     const hit=await toggle.evaluate(el=>{
       const b=el.getBoundingClientRect(),x=b.left+b.width/2,y=b.top+b.height/2;
       const top=document.elementFromPoint(x,y);
@@ -46,9 +52,12 @@ try{
     });
     if(!hit.clickable)throw Error('Contact trigger obstructed: '+JSON.stringify(hit));
     await toggle.click({timeout:5000});
-    if(!await contact.locator('.mrlee-contact-links').isVisible())throw Error('Contact dock did not expand');
+    if(await links.isVisible()===startsExpanded)
+      throw Error('Contact dock did not toggle links');
     await toggle.click({timeout:5000});
-    if(await contact.locator('.mrlee-contact-links').isVisible())throw Error('Contact dock did not collapse');
+    if(await links.isVisible()!==startsExpanded)
+      throw Error('Contact dock failed to restore initial state');
+    if(startsExpanded)await toggle.click({timeout:5000}); // Do not obscure leaderboard checks.
     // A completed entry selection persists. There must be NO header switcher.
     if(await p.locator('.mrlee-theme-switch').count())throw Error('Legacy header theme switcher reappeared');
     if(await p.locator('#mrlee-theme-entry').count())throw Error('Entry dialog asked twice during an already-chosen tab');
