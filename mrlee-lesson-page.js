@@ -129,7 +129,7 @@ function listLessons(){
   $('lessonIntro').textContent='Chọn bài học; nội dung được khóa theo bài hiện tại và bài đã học trước đó.';
   $('lessonGrid').innerHTML=currentPool.map(u=>{
     const d=findData(cap,u.number),count=d?.vocab?.length||0;
-    return `<a class="mr-new-card" href="hoc-theo-bai.html?cap=${cap}&bai=${u.number}"><strong>Bài ${u.number}: ${esc(u.title)}</strong><span lang="ko">${esc(u.ko)}</span><span>${esc(d?.grammar?.map(g=>g.formula).join(' · ')||u.grammar)}</span><em>${count} từ · 10 câu luyện nói · 10 câu bài tập →</em></a>`;
+    return `<a class="mr-new-card" href="hoc-theo-bai.html?cap=${cap}&bai=${u.number}"><strong>Bài ${u.number}: ${esc(u.title)}</strong><span lang="ko">${esc(u.ko)}</span><span>${esc(d?.grammar?.map(g=>g.formula).join(' · ')||u.grammar)}</span><em>${count} từ · 10 câu luyện nói · 15 bộ bài tập →</em></a>`;
   }).join('');
 }
 function renderGrammar(d){
