@@ -17,7 +17,7 @@ const premiumCss=doc.createElement('link');premiumCss.rel='stylesheet';premiumCs
 const navCss=doc.createElement('link');navCss.rel='stylesheet';navCss.href='assets/mrlee-v2/primary-nav.css?v=20261025-r1';doc.head.append(navCss);
 // Production-ready V2 experience: page-specific real CTAs and accessible site footer.
 const experienceCss=doc.createElement('link');experienceCss.rel='stylesheet';experienceCss.href='assets/mrlee-v2/experience.css?v=20261025-r2';doc.head.append(experienceCss);
-const experienceScript=doc.createElement('script');experienceScript.src='assets/mrlee-v2/experience.js?v=20261025-r2';doc.head.append(experienceScript);
+const experienceScript=doc.createElement('script');experienceScript.src='assets/mrlee-v2/experience.js?v=20261104-lesson-first-v1';doc.head.append(experienceScript);
 // AI media loader checks real binary availability before enhancing pages (including Admin).
 const aiLoader=doc.createElement('script');aiLoader.src='assets/mrlee-ai/v1/loader.js?v=20261025-r3';aiLoader.defer=true;doc.head.append(aiLoader);
 const admin=path==='admin.html';
