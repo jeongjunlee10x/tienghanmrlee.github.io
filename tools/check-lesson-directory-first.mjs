@@ -8,6 +8,7 @@ import {spawnSync} from 'node:child_process';
 const read=p=>fs.readFileSync(p,'utf8');
 const html=read('hoc-theo-bai.html');
 const layout=read('assets/branding/lesson-directory-first-v1.css');
+const typography=read('assets/branding/lesson-typography-v2.css');
 const theme=read('assets/mrlee-dual-ui/theme.js');
 const experience=read('assets/mrlee-v2/experience.js');
 const lessonJS=read('mrlee-lesson-page.js');
@@ -31,12 +32,23 @@ assert(!html.includes('class="breadcrumbs"'),'Duplicate breadcrumb occupies the 
 assert(html.includes('lesson-directory-first-v1.css?v=20261104-first-v1'),
  'Direct grid CSS missing or stale');
 assert(html.includes('theme.js?v=20261104-lesson-first-v1'),'Theme script cache is stale');
-assert(html.includes('mrlee-lesson-page.js?v=20261104-directory-first-v1'),
+assert(html.includes('mrlee-lesson-page.js?v=20261104-font-v2'),
  'Lesson renderer cache is stale');
 assert(theme.includes("if(path==='hoc-theo-bai.html')"),
  'Theme JS must skip duplicate megamenu, portal and decoration on lesson directory');
 assert(experience.includes("if(page==='hoc-theo-bai.html')return;"),
  'Promotional experience JS must not reinsert large banner on lesson directory');
+assert(html.includes('lesson-typography-v2.css?v=20261104-font-v2'),
+ 'Lesson font repair stylesheet must load on real lesson pages');
+for(const key of ['--lesson-vi-font','--lesson-ko-font','Malgun Gothic',
+ 'word-break:keep-all','mr-sc-grammar-card','mr-sc-vocab-word',
+ '#lessonSpeak .mr-new-korean','data-mrlee-theme="future"']){
+ assert(typography.includes(key),'Korean/Vietnamese typography repair missing '+key);
+}
+assert(lessonJS.includes('function lessonExampleMarkup(raw)') &&
+ lessonJS.includes('class="mr-sc-formula" lang="ko"') &&
+ lessonJS.includes('lessonExampleMarkup(g.example)'),
+ 'Grammar formula/example should be marked as Korean without changing text');
 assert(lessonJS.includes("currentPool.map(u=>"),'Actual course links must still use real bank');
 assert(lessonJS.includes('hoc-theo-bai.html?cap=${cap}&bai=${u.number}'),
  'Dynamic lesson card must link to selected level and lesson');
