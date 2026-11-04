@@ -39,8 +39,8 @@
  function loadContactDock(){
   if(location.pathname.toLowerCase().endsWith('/admin.html'))return;
   if(document.querySelector('script[data-mrlee-contact-dock-loader]'))return;
-  const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('contact-dock.css?v=20261104-restore-six-v2',current.src).href;css.dataset.mrleeContactDock='css';document.head.append(css);
-  const script=document.createElement('script');script.src=new URL('contact-dock.js?v=20261027-r2',current.src).href;script.defer=true;script.dataset.mrleeContactDockLoader='1';document.head.append(script);
+  const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('contact-dock.css?v=20261104-toggle-v3',current.src).href;css.dataset.mrleeContactDock='css';document.head.append(css);
+  const script=document.createElement('script');script.src=new URL('contact-dock.js?v=20261104-toggle-v3',current.src).href;script.defer=true;script.dataset.mrleeContactDockLoader='1';document.head.append(script);
  }
  function favicon(){
   let found=false;for(const link of document.querySelectorAll('link[rel~="icon"]')){link.href=OFFICIAL;link.type='image/png';found=true;}
