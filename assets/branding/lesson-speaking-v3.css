@@ -1,0 +1,195 @@
+/* MR LEE – Speaking cards V3 (lesson page only).
+   Ten independent compact cards; no repeated audio enhancer toolbars.
+   Preserve original MP3, TTS, local recording, auth, and Spark links. */
+html[data-mrlee-v24="courses"]{
+ --speak-surface:#ffffff;
+ --speak-border:#d6e5f2;
+ --speak-wash:#f1f7ff;
+ --speak-text:#193b5a;
+ --speak-muted:#526f87;
+ --speak-ko:#125d93;
+ --speak-focus:#1978ad;
+}
+html[data-mrlee-v24="courses"][data-mrlee-theme="future"]{
+ --speak-surface:#112c4c;
+ --speak-border:#315c80;
+ --speak-wash:#0c2441;
+ --speak-text:#edf8ff;
+ --speak-muted:#bdd6eb;
+ --speak-ko:#8fe7ff;
+ --speak-focus:#5adffb;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak{
+ display:block!important;
+ width:100%!important;
+ min-width:0!important;
+ padding:0 0 12px!important;
+ margin:8px 0 12px!important;
+ color:var(--speak-text)!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-speaking-list{
+ display:grid!important;
+ grid-template-columns:minmax(0,1fr)!important;
+ gap:10px!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-speaking-card{
+ display:grid!important;
+ grid-template-columns:minmax(0,1fr) minmax(310px,460px)!important;
+ align-items:center!important;
+ gap:12px 22px!important;
+ width:100%!important;min-width:0!important;
+ min-height:0!important;height:auto!important;max-height:none!important;
+ padding:15px 18px!important;margin:0!important;
+ border:1px solid var(--speak-border)!important;
+ border-radius:15px!important;background:var(--speak-surface)!important;
+ color:var(--speak-text)!important;
+ box-shadow:0 3px 12px rgba(3,28,60,.07)!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-sentence{
+ display:flex!important;flex-direction:column!important;
+ align-items:flex-start!important;justify-content:center!important;
+ gap:5px!important;min-width:0!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-sentence-meta{
+ display:flex!important;flex-wrap:wrap!important;
+ align-items:center!important;gap:6px 10px!important;
+ margin:0 0 2px!important;color:var(--speak-muted)!important;
+ font:650 12px/1.5 "Be Vietnam Pro","Segoe UI",sans-serif!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-sentence-number{
+ display:inline-block!important;
+ padding:4px 9px!important;
+ border-radius:7px!important;
+ background:var(--speak-wash)!important;
+ color:var(--speak-text)!important;
+ font-size:12px!important;font-weight:850!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-sentence-meta small{
+ color:var(--speak-muted)!important;
+ font:600 11px/1.45 "Be Vietnam Pro","Segoe UI",sans-serif!important;
+ margin:0!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-sentence-ko{
+ font-family:"Malgun Gothic","맑은 고딕","Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;
+ color:var(--speak-ko)!important;
+ font-size:clamp(21px,1.9vw,27px)!important;
+ font-weight:750!important;
+ line-height:1.55!important;
+ letter-spacing:0!important;
+ word-break:keep-all!important;
+ overflow-wrap:break-word!important;
+ height:auto!important;max-height:none!important;
+ margin:2px 0!important;padding:0!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-sentence-vi{
+ color:var(--speak-text)!important;
+ font:600 14px/1.65 "Be Vietnam Pro","Segoe UI",sans-serif!important;
+ word-break:normal!important;overflow-wrap:break-word!important;
+ height:auto!important;max-height:none!important;
+ margin:0!important;padding:0!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-speak-tools{
+ display:flex!important;
+ flex-direction:column!important;justify-content:center!important;
+ gap:8px!important;
+ min-width:0!important;width:100%!important;
+ padding:10px 12px!important;
+ border:1px solid var(--speak-border)!important;
+ border-radius:12px!important;
+ background:var(--speak-wash)!important;
+ color:var(--speak-text)!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-audio-group{
+ display:flex!important;flex-direction:column!important;
+ gap:5px!important;min-width:0!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-tool-label{
+ color:var(--speak-muted)!important;
+ font:750 11px/1.4 "Be Vietnam Pro","Segoe UI",sans-serif!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-audio-main{
+ display:block!important;
+ width:100%!important;max-width:100%!important;
+ height:40px!important;min-width:0!important;
+ margin:0!important;
+ border-radius:10px!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-audio-error{
+ display:block!important;
+ font:600 11px/1.5 "Be Vietnam Pro",sans-serif!important;
+ color:var(--speak-muted)!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-audio-error:empty{
+ display:none!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-actions{
+ display:grid!important;grid-template-columns:1fr 1fr!important;
+ align-items:stretch!important;
+ justify-content:stretch!important;
+ gap:8px!important;
+ margin:0!important;padding:0!important;
+ width:100%!important;min-width:0!important;max-width:none!important;
+ flex:none!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-actions .mr-new-btn{
+ display:flex!important;align-items:center!important;
+ justify-content:center!important;gap:6px!important;
+ min-height:40px!important;height:auto!important;
+ width:100%!important;max-width:none!important;min-width:0!important;
+ padding:8px 10px!important;
+ border:1px solid var(--speak-border)!important;
+ border-radius:10px!important;
+ background:var(--speak-surface)!important;
+ color:var(--speak-text)!important;
+ font:750 12px/1.4 "Be Vietnam Pro","Segoe UI",sans-serif!important;
+ text-align:center!important;white-space:normal!important;
+ cursor:pointer!important;box-shadow:none!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-actions .mr-new-btn:hover,
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-actions .mr-new-btn:focus-visible{
+ border-color:var(--speak-focus)!important;
+ outline-color:var(--speak-focus)!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-recording{
+ width:100%!important;max-width:100%!important;
+ height:40px!important;margin:1px 0 0!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-recording[hidden]{
+ display:none!important;
+}
+/* The global audio utility adds a player toolbar only to generic audio,
+   not to lesson speaking. This is also a defensive style for old cached JS. */
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .ml-audio-bar{
+ display:none!important;
+}
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .ml-speak-btn{
+ display:none!important;
+}
+@media(max-width:980px){
+ html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-speaking-card{
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:12px!important;
+ }
+}
+@media(max-width:640px){
+ html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-speaking-list{
+  gap:9px!important;
+ }
+ html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-speaking-card{
+  padding:13px!important;gap:10px!important;
+ }
+ html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-speak-tools{
+  padding:9px!important;
+ }
+ html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-sentence-ko{
+  font-size:22px!important;
+ }
+ html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-sentence-vi{
+  font-size:13px!important;
+ }
+}
+@media(max-width:350px){
+ html[data-mrlee-v24="courses"] #mrleeLessonDirectory #lessonSpeak .mr-v5-actions{
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+}
