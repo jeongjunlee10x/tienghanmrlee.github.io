@@ -40,7 +40,7 @@ try{
    await page.locator('#dang-ky').scrollIntoViewIfNeeded();
    const ui=await page.evaluate(()=>{
     const css=selector=>{const el=document.querySelector(selector);return el?getComputedStyle(el):null};
-    const dock=document.querySelector('#mrleeContactDock');
+    const dock=document.querySelector('#mrleeContactNative');
     return {
       heading:css('#contactHeading')?.color,
       headingSection:css('.ts-contact-section')?.backgroundImage,
@@ -48,9 +48,9 @@ try{
       card:css('.ts-form-card')?.backgroundColor,
       label:css('.ts-form-card label[for="tsName"]')?.color,
       input:css('#tsName')?.backgroundColor,
-      dockOpen:dock?.dataset.open||null,
-      dockLinks:css('#mrleeContactDock .mrlee-contact-links')?.display||null,
-      dockToggle:css('#mrleeContactDock .mrlee-contact-toggle')?.display||null,
+      dockOpen:dock?.hasAttribute('open')||false,
+      dockLinks:css('#mrleeContactNative .mrlee-native-links')?.display||null,
+      dockToggle:css('#mrleeContactNative > summary')?.display||null,
       width:window.innerWidth,
       scrollWidth:document.documentElement.scrollWidth
     };
@@ -60,7 +60,7 @@ try{
      ui.card==='rgb(255, 255, 255)' &&
      ui.label==='rgb(24, 59, 97)' &&
      ui.input==='rgb(245, 248, 253)';
-   const dockOK=!ui.dockOpen||(ui.dockOpen==='false'&&ui.dockLinks==='none'&&ui.dockToggle!=='none');
+   const dockOK=ui.dockOpen===false&&ui.dockLinks==='none'&&ui.dockToggle!=='none';
    if(!colorsOK||!dockOK||ui.scrollWidth>ui.width+5)throw Error('Admissions contrast or dock '+JSON.stringify(ui));
    await fs.promises.mkdir(path.join(root,'artifacts','subpage-review'),{recursive:true});
    await page.locator('#dang-ky').screenshot({
