@@ -39,6 +39,7 @@ try{
     document.querySelector('#lessonVocab .mr-sc-vocab-word'),
     null,{timeout:30000});
    await page.evaluate(()=>document.fonts.ready);
+   await page.waitForTimeout(500); // allow global audio enhancer mutation observer to settle
    const result=await page.evaluate(()=>{
     const one=s=>document.querySelector(s);
     const style=s=>getComputedStyle(one(s));
@@ -65,6 +66,25 @@ try{
       vocabCount:document.querySelectorAll('#lessonVocab .mr-sc-vocab-card').length,
       grammarCount:document.querySelectorAll('#lessonGrammar .mr-sc-grammar-card').length,
       speakingCount:document.querySelectorAll('#lessonSpeak .mr-v5-speaking').length,
+      speakingCards:[...document.querySelectorAll('#lessonSpeak .mr-v5-speaking-card')].map(card=>{
+       const row=card.getBoundingClientRect();
+       const sentence=card.querySelector('.mr-v5-sentence')?.getBoundingClientRect();
+       const tools=card.querySelector('.mr-v5-speak-tools')?.getBoundingClientRect();
+       return {
+        width:Math.round(row.width),height:Math.round(row.height),
+        isGrid:getComputedStyle(card).display==='grid',
+        hasMP3:card.querySelectorAll('audio.mr-v5-audio-main[controls][src]').length===1,
+        ttsCount:card.querySelectorAll('button[data-play]').length,
+        recordCount:card.querySelectorAll('button[data-record]').length,
+        hiddenRecording:card.querySelector('audio[data-audio]')?.hidden===true,
+        hasKorean:!!card.querySelector('.mr-v5-sentence-ko[lang="ko"]'),
+        hasVietnamese:!!card.querySelector('.mr-v5-sentence-vi[lang="vi"]'),
+        duplicateAudioBars:card.querySelectorAll('.ml-audio-bar,.ml-speak-btn').length,
+        hasAudioOptout:card.hasAttribute('data-no-audio-plus')&&card.hasAttribute('data-no-tts'),
+        columnsSideBySide:tools?.left>=sentence?.right-3,
+        contentFits:sentence?.bottom<=row.bottom+2&&tools?.bottom<=row.bottom+2
+       };
+      }),
       workbookCount:document.querySelectorAll('#lessonWorkbook > a').length,
       lessonTitle:one('#lessonTitle')?.textContent,
       hasReplacementChar:one('#lessonContent')?.textContent?.includes('\uFFFD')||false,
@@ -86,12 +106,24 @@ try{
    assert(result.vocabCount>=25,'Vocabulary did not render '+url);
    assert(result.grammarCount>=3,'Grammar did not render '+url); // SC2 Bài 1 has three existing approved grammar entries.
    assert.equal(result.speakingCount,10,'Listening/speaking list lost a lesson');
+   assert.equal(result.speakingCards.length,10,'Ten cards are required');
+   assert(result.speakingCards.every(c=>c.isGrid&&c.hasMP3&&c.ttsCount===1&&
+      c.recordCount===1&&c.hiddenRecording&&c.hasKorean&&c.hasVietnamese&&
+      c.duplicateAudioBars===0&&c.hasAudioOptout&&c.contentFits),
+     'Speaking controls duplicated, missing or clipped '+JSON.stringify(result.speakingCards));
+   assert(result.speakingCards.every(c=>c.height<(width>=981?270:370)),
+     'Oversized speaking card '+JSON.stringify(result.speakingCards));
+   if(width>=981)assert(result.speakingCards.every(c=>c.columnsSideBySide),
+     'Desktop speaking sentence / player must stay in two neat columns');
+
    assert.equal(result.workbookCount,15,'Workbook missing a set');
    assert(!result.hasReplacementChar,'Broken replacement glyph U+FFFD found in lesson');
    assert(!result.clipped.length,'Clipped lesson font '+JSON.stringify(result.clipped));
    assert(result.scrollWidth<=result.viewport+3,'Mobile horizontal overflow '+JSON.stringify(result));
    assert(result.contactVisible,'Six-channel contact missing from lesson');
    if(errors.length)console.log('LESSON SCRIPT WARN '+c.name+' '+errors.slice(0,3).join(' | '));
+   await page.locator('#lessonSpeak .mr-v5-speaking-card').first().screenshot({
+    path:`artifacts/lesson-fonts/${c.name}-speaking-${size}-${theme}.png`,animations:'disabled'});
    await page.locator('#lessonGrammar').screenshot({
     path:`artifacts/lesson-fonts/${c.name}-${size}-${theme}.png`,animations:'disabled'});
    passes++;
