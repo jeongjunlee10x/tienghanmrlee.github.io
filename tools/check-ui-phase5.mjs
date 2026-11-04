@@ -131,6 +131,16 @@ assert(dockCSS.includes('.mrlee-contact-toggle{display:inline-flex;'),
 assert(dockCSS.includes('[data-open="false"] .mrlee-contact-links{display:none!important}'),
  'Collapsing must hide only links and preserve the reopen control');
 const dockJS=read('assets/branding/contact-dock.js');
+assert(dockJS.includes("existing.remove()")&&dockJS.includes("6ch-collapse-v4"),
+ 'Modern six-channel contact dock must replace duplicate legacy ID');
+assert(dockCSS.includes('z-index:10020!important')&&
+ dockCSS.includes('body #mrleeContactDock[data-mrlee-contact-version="6ch-collapse-v4"]'),
+ 'Contact toggle should remain visible above competing widgets');
+assert(read('mrlee-redesign.js').includes('site-logo.js"]\'))return;'),
+ 'Legacy three-channel rail should not preempt official contact dock');
+assert(read('assets/branding/home-ranking-repair.css').includes('bottom:max(92px,'),
+ 'Homepage ranking stylesheet still places contacts below ranking controls');
+
 assert(dockJS.includes('Thu gọn liên hệ')&&dockJS.includes('Mở liên hệ'),
  'The contact toggle must switch between collapse and reopen labels');
 assert(dockJS.includes("matchMedia('(min-width:701px)').matches"),
@@ -142,10 +152,10 @@ assert(read('assets/branding/contact-dock.js').includes("['call'") &&
  read('assets/branding/contact-dock.js').includes("['email'") &&
  read('assets/branding/contact-dock.js').includes("kakao.dataset.channel='kakao'"),
  'Every original contact channel must remain available');
-assert(brandJS.includes('contact-dock.css?v=20261104-toggle-v3'),
+assert(brandJS.includes('contact-dock.css?v=20261104-rescue-v4'),
  'Shared logo loader must deploy new contact dock stylesheet');
 for(const page of ['index.html',...Object.keys(v9Pages),...innerPages]){
- assert(read(page).includes('site-logo.js?v=20261104-toggle-v3'),
+ assert(read(page).includes('site-logo.js?v=20261104-rescue-v4'),
   'Contact drawer cache version is stale: '+page);
 }
 console.log('SOURCE PASS UI V10: 16 pages linked, original-color glow, six preserved contact channels with collapse toggle and ordered cards.');
