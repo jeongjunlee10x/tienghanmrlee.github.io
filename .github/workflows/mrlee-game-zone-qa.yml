@@ -5,6 +5,7 @@ on:
       - feature/mrlee-game-zone-phase1
       - feature/mrlee-game-zone-phase2
       - feature/mrlee-game-zone-phase3
+      - feature/mrlee-gamezone-compact-lobby
     paths:
       - 'tro-choi-tieng-han.html'
       - 'quan-tri-tro-choi.html'
@@ -38,6 +39,7 @@ jobs:
           node --check assets/game-zone/content.js
           node --check assets/game-zone/games.js
           node --check assets/game-zone/app.js
+          node --check assets/game-zone/compact.js
           node --check assets/game-zone/phase2.js
           node --check assets/game-zone/phase3.js
           node --check assets/game-zone/verified.js
