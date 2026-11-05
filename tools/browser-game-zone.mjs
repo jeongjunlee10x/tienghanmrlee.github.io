@@ -36,8 +36,17 @@ try {
    await page.goto(origin+"/tro-choi-tieng-han.html?cap=1&bai=1",{waitUntil:"domcontentloaded",timeout:20000});
    await page.waitForFunction(()=>document.getElementById("mzNotice")?.textContent?.startsWith("Đã tải"),null,{timeout:15000});
    assert.equal(await page.locator("#mzCards button").count(),10);
+   assert.equal(await page.locator(".mz-hero").count(),0,"No oversized landing hero");
+   assert.equal(await page.locator(".mz-compact-head #mzXP").count(),1);
+   assert.equal(await page.locator("#mzVerifiedFold").evaluate(n=>n.open),false);
    assert.equal(await page.evaluate(()=>document.documentElement.dataset.mrleeTheme),theme);
    await page.locator("#mzCards button").nth(0).click();
+   await page.locator("#mzFullscreen").click();
+   await page.waitForFunction(()=>{
+     const a=document.getElementById("mzArena");
+     return document.fullscreenElement===a||a?.classList.contains("mz-fullscreen-fallback");
+   },null,{timeout:3000});
+   await page.keyboard.press("Escape");
    await page.locator("#mzGame .mz-pair-grid").waitFor({timeout:7000});
    assert.ok(await page.locator("#mzGame .mz-col").first().locator("button").count()>=4);
    await page.locator("#mzGame .mz-col").first().locator("button").first().click();
