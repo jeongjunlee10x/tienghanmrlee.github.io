@@ -8,11 +8,12 @@
 <link rel="icon" href="assets/branding/logo-mrlee.png">
 <link rel="stylesheet" href="assets/branding/site-logo.css?v=20261103-glow-v1">
 <script defer src="assets/branding/site-logo.js?v=20261104-native-v5"></script>
-<link rel="stylesheet" href="assets/arena/arena.css?v=1">
+<link rel="stylesheet" href="assets/arena/arena.css?v=2">
+<link rel="stylesheet" href="assets/arena/strategy.css?v=1">
 <style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
 <script>try{document.documentElement.dataset.mrleeTheme=localStorage.getItem("MRLEE.THEME.V1")==="future"?"future":"fresh"}catch{document.documentElement.dataset.mrleeTheme="fresh"}</script>
 <script type="module" src="auth-guard.js"></script>
-<script type="module" src="assets/arena/app.js?v=1"></script>
+<script type="module" src="assets/arena/app.js?v=2"></script>
 </head>
 <body>
 <div class="arena-app">
@@ -40,14 +41,14 @@
  <p><strong>Nguyên tắc an toàn:</strong> Mỗi ván thử dùng một vé. Thắng được vàng, EXP và một vé mới; thua không bị trừ điểm học tập. Tính năng đổi điểm rèn luyện sang vé sẽ chỉ triển khai khi có kiểm soát máy chủ và hạn mức cho học viên, không có cơ chế cá cược hoặc đổi tiền thật.</p>
 </section>
 <section id="arenaLobby" aria-labelledby="arenaListHeading">
- <div class="arena-heading"><div><small>PHÒNG GAME</small><h2 id="arenaListHeading">Chọn chiến trường</h2></div><p>Phiên thử nghiệm đầu tiên: Bài Màu đấu 3 bot. Các game khác đang được chuẩn bị luật chơi.</p></div>
+ <div class="arena-heading"><div><small>PHÒNG GAME</small><h2 id="arenaListHeading">Chọn chiến trường</h2></div><p>Ba trò đã có thể chơi với bot: Bài Màu, Cờ vua và Tiến lên miền Nam. Ba trò còn lại sẽ bổ sung sau.</p></div>
  <div class="arena-catalog" id="arenaCatalog">
    <button type="button" class="arena-game-card playable" data-game="colors">
      <span class="arena-card-banner colors"><span>🔴</span><span>🔵</span><span>🟢</span><span>🟡</span></span>
      <span class="arena-card-body"><strong>Bài Màu Đại Chiến</strong><small>4 người · Đấu 3 AI · 3–8 phút</small><span class="arena-enter">Chơi ngay <span aria-hidden="true">→</span></span></span>
    </button>
-   <article class="arena-game-card"><div class="arena-card-banner chess">♟ ♜ ♞</div><div class="arena-card-body"><strong>Cờ Vua</strong><small>Chiến thuật · AI · Elo</small><span class="arena-soon">Đang phát triển</span></div></article>
-   <article class="arena-game-card"><div class="arena-card-banner tienlen">🂡 🂱 🃁</div><div class="arena-card-body"><strong>Tiến Lên Miền Nam</strong><small>4 người · Chặt bài · Đấu bot</small><span class="arena-soon">Đang phát triển</span></div></article>
+   <button type="button" class="arena-game-card playable" data-game="chess"><span class="arena-card-banner chess">♟ ♜ ♞</span><span class="arena-card-body"><strong>Cờ Vua</strong><small>Đầy đủ luật · Đấu AI 3 mức</small><span class="arena-enter">Chơi ngay →</span></span></button>
+   <button type="button" class="arena-game-card playable" data-game="tienlen"><span class="arena-card-banner tienlen">🂡 🂱 🃁</span><span class="arena-card-body"><strong>Tiến Lên Miền Nam</strong><small>4 người · Chặt bài · Đấu 3 AI</small><span class="arena-enter">Chơi ngay →</span></span></button>
    <article class="arena-game-card"><div class="arena-card-banner ludo">🎲 🐎 🎯</div><div class="arena-card-body"><strong>Cờ Cá Ngựa</strong><small>Xúc xắc · Di chuyển quân</small><span class="arena-soon">Đang phát triển</span></div></article>
    <article class="arena-game-card"><div class="arena-card-banner xiangqi">帥 車 馬</div><div class="arena-card-body"><strong>Cờ Tướng / Cờ Úp</strong><small>Chiến thuật Đông Á · AI</small><span class="arena-soon">Đang phát triển</span></div></article>
    <article class="arena-game-card"><div class="arena-card-banner estate">🏘️ 💼 🏙️</div><div class="arena-card-body"><strong>Địa Ốc Đại Chiến</strong><small>Giao dịch · Chiến thuật tài sản</small><span class="arena-soon">Đang phát triển</span></div></article>
@@ -73,8 +74,62 @@
  <div class="arena-events"><h3>Diễn biến trận đấu</h3><div id="arenaEventLog" aria-live="polite"></div></div>
  <div id="arenaOutcome" class="arena-outcome" hidden aria-live="assertive"></div>
 </section>
+
+<section id="arenaChess" class="arena-expanded-game" hidden aria-labelledby="chessTitle">
+ <div class="arena-table-heading">
+   <button type="button" id="chessExit" class="arena-soft">← Về sảnh</button>
+   <div><span class="arena-eyebrow">CỜ VUA • BẠN ĐI QUÂN TRẮNG</span><h2 id="chessTitle">Đại chiến Cờ Vua ♟</h2></div>
+   <label class="arena-difficulty">AI <select id="chessLevel"><option value="easy">Tập sự</option><option value="normal" selected>Tiêu chuẩn</option><option value="hard">Chiến thuật</option></select></label>
+ </div>
+ <div class="chess-layout">
+  <div class="chess-main">
+   <div class="chess-player"><span>🤖 Quân đen • Máy</span><span>Chơi đúng luật</span></div>
+   <div id="chessBoard" class="chess-board" aria-label="Bàn cờ vua 8 nhân 8, trắng ở dưới"></div>
+   <div class="chess-player"><span>👑 Quân trắng • Bạn</span><span>Chọn quân rồi chọn ô</span></div>
+   <div id="chessPromotion" class="chess-promotion" hidden></div>
+  </div>
+  <aside class="chess-sidebar">
+   <div class="arena-panel"><h3>Trạng thái</h3><p id="chessStatus" role="status" aria-live="polite">Bạn được đi trước.</p>
+     <div class="arena-inline-actions"><button type="button" id="chessClaim" class="arena-soft" hidden>Xin hòa hợp lệ</button>
+     <button type="button" id="chessRestart" class="arena-action">↻ Ván mới (1 vé)</button></div></div>
+   <div class="arena-panel"><h3>Biên bản nước đi</h3><div id="chessMoves" class="chess-moves" aria-live="polite"></div></div>
+   <p class="arena-game-note">AI chơi tại trình duyệt, không ghi Elo chính thức. Nhập thành, bắt tốt qua đường, phong cấp và chiếu hết được kiểm tra trong lõi luật.</p>
+  </aside>
+ </div>
+</section>
+<section id="arenaTienLen" class="arena-expanded-game" hidden aria-labelledby="tlTitle">
+ <div class="arena-table-heading">
+   <button id="tlExit" type="button" class="arena-soft">← Về sảnh</button>
+   <div><span class="arena-eyebrow">TIẾN LÊN MIỀN NAM • 4 NGƯỜI</span><h2 id="tlTitle">Đại Chiến Tiến Lên 🂡</h2></div>
+   <button id="tlNew" type="button" class="arena-action">↻ Ván mới (1 vé)</button>
+ </div>
+ <div class="tl-board">
+  <div id="tlOpponents" class="tl-opponents" aria-label="Ba đối thủ máy"></div>
+  <div class="tl-center">
+   <p id="tlStatus" role="status" aria-live="polite">Đang chia bài...</p>
+   <div id="tlPile" class="tl-pile" aria-label="Bài trên bàn"></div>
+   <p id="tlHint" class="tl-hint">Chọn những lá bạn muốn đánh.</p>
+  </div>
+  <div class="tl-bottom">
+   <div class="tl-player"><strong>🧑 Bạn</strong><span id="tlCount">13 lá</span></div>
+   <div id="tlHand" class="tl-hand" aria-label="13 lá bài của bạn"></div>
+   <p id="tlSelected" class="tl-selected">Chọn bài để đánh</p>
+   <div class="tl-controls">
+    <button id="tlPlay" type="button" class="arena-primary">Đánh bài</button>
+    <button id="tlPass" type="button" class="arena-soft">Bỏ lượt</button>
+    <button id="tlSuggest" type="button" class="arena-action">💡 Gợi ý</button>
+   </div>
+  </div>
+ </div>
+ <div class="arena-panel tl-rules-panel">
+  <h3>Quy ước luật chơi</h3>
+  <p>3♠ mở ván; rác, đôi, sám, sảnh, tứ quý, 3–4 đôi thông. Sảnh không chứa 2. Trong bản này, 3 đôi thông chặt một 2; tứ quý chặt 2 đơn, đôi 2 và 3 đôi thông; 4 đôi thông chặt đôi 2, tứ quý hoặc bộ nhỏ hơn theo quy ước. Bỏ lượt sẽ mất quyền đánh tới vòng mới; người hết bài đầu tiên thắng.</p>
+ </div>
+ <div class="arena-events"><h3>Nhật ký lượt</h3><div id="tlEvents" aria-live="polite"></div></div>
+</section>
+
 <section class="arena-next">
- <h2>Phòng đấu bạn bè và đấu hạng</h2><p>Ở phiên hoàn chỉnh, tất cả các ván PvP sẽ do máy chủ lưu lượt đi, đồng hồ, trạng thái thắng–thua và cộng thưởng. Bản thử hiện tại chỉ dành cho đấu AI và không ghi vàng hoặc EXP lên hồ sơ học viên.</p>
+ <h2>Phòng đấu bạn bè và đấu hạng</h2><p>Ở phiên hoàn chỉnh, tất cả các ván PvP sẽ do máy chủ lưu lượt đi, đồng hồ, trạng thái thắng–thua và cộng thưởng. Bản thử hiện tại cho phép đấu với AI ở ba trò chơi, chưa mở PvP. Vàng/EXP không ghi lên hồ sơ học viên.</p>
 </section>
 </main>
 <footer class="arena-footer">MR LEE GAME ARENA · Chơi vui, học tốt, không cá cược · <a href="tro-choi-tieng-han.html">Quay lại Game Zone học tập</a></footer>

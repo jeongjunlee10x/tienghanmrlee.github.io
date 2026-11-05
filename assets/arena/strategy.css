@@ -1,0 +1,46 @@
+/* Arena chess & Tiến Lên shared light/future design. */
+.arena-expanded-game{margin-top:24px}
+.arena-expanded-game .arena-table-heading h2{font-size:clamp(19px,2.7vw,26px)}
+.arena-panel{background:var(--surface);border:1px solid var(--line);border-radius:17px;padding:17px;margin-bottom:15px;color:var(--ink)}
+.arena-panel h3{margin:0 0 8px;font-size:15px}.arena-panel p{font-size:13px;color:var(--muted)}
+.arena-inline-actions{display:flex;flex-wrap:wrap;gap:8px}.arena-difficulty{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800}
+.arena-difficulty select{border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--ink);padding:9px;font:inherit}
+.chess-layout{display:grid;grid-template-columns:minmax(0,630px) minmax(220px,1fr);gap:22px;align-items:start}
+.chess-main{min-width:0}.chess-player{display:flex;justify-content:space-between;gap:8px;padding:7px 2px;font-size:12px;color:var(--muted);font-weight:750}
+.chess-board{width:100%;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));border:5px solid #574d5b;border-radius:6px;overflow:hidden;aspect-ratio:1}
+.chess-square{position:relative;min-width:0;width:100%;aspect-ratio:1;border:0;padding:0;display:grid;place-items:center}
+.chess-square.light{background:#f0d9b5}.chess-square.dark{background:#b58863}.chess-square.chosen{box-shadow:inset 0 0 0 5px #ffd95e}
+.chess-square.target{box-shadow:inset 0 0 0 5px #409c79aa}
+.chess-square span.chess-white,.chess-square span.chess-black{font-family:"Segoe UI Symbol","DejaVu Sans",serif;font-size:clamp(26px,5.1vw,58px);line-height:1;color:#fffdf4;text-shadow:0 1px 2px #141414,0 0 2px #171717}
+.chess-square span.chess-black{color:#18191f;text-shadow:0 0 2px #faf9f3,0 1px 2px #fff9f1}
+.chess-square small{position:absolute;font:700 10px/1 system-ui;pointer-events:none;color:#43382b}
+.chess-rank{top:3px;left:3px}.chess-file{right:3px;bottom:3px}.chess-dot{background:#306a44a9;width:19%;aspect-ratio:1;border-radius:50%}
+.chess-moves{max-height:420px;overflow:auto;min-height:95px}.chess-moves p{margin:5px 0;padding:4px 8px;border-radius:7px;background:var(--bg);font:500 12px/1.5 ui-monospace,Consolas,monospace}
+.chess-promotion{padding:13px;background:var(--surface);border:1px solid var(--line);border-radius:13px}.chess-promotion-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.chess-promo-btn{min-width:62px;min-height:58px;background:#f5dec2;color:#172039;border:1px solid #856f55;border-radius:10px;font-size:39px}
+.arena-game-note{font-size:11px;color:var(--muted)}
+.tl-board{background:radial-gradient(ellipse at center,#126b74,#075056 65%,#06333b);border:4px solid #1c575c;border-radius:24px;padding:clamp(11px,3vw,27px);color:#fff}
+.tl-opponents{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tl-opponent{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:7px;background:#ffffff18;border:1px solid #ffffff4b;border-radius:12px;padding:9px}
+.tl-opponent.active{background:#e9c34837;border-color:#ffe57d}
+.tl-opponent small{color:#eaf9ff;font-size:11px}.tl-opponent strong{font-size:12px}.tl-avatar{font-size:24px}
+.tl-center{text-align:center;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#tlStatus{font-size:14px;font-weight:800;color:#fff9d5}
+.tl-pile{display:flex;justify-content:center;flex-wrap:wrap;gap:5px;min-height:82px;padding:6px}
+.tl-empty{font-size:12px;color:#e8faff}
+.tl-card-face{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:48px;width:48px;min-height:68px;background:#fff;color:#182846;border:2px solid #f2eadd;border-radius:9px;box-shadow:0 4px 10px #0003}
+.tl-card-face.red{color:#c82d4d}.tl-card-face.black{color:#182846}
+.tl-card-face strong{font-size:21px;line-height:1.2;white-space:nowrap}.tl-card-face small{font-size:8px;color:#536576;font-weight:800}
+.tl-hint{font-size:11px;color:#e8fbff}
+.tl-bottom{border-top:1px solid #ffffff4f;padding-top:10px}
+.tl-player{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;font-size:13px}
+.tl-hand{display:flex;gap:5px;justify-content:center;align-items:end;overflow-x:auto;padding:11px 0 15px;min-height:92px}
+.tl-hand-card{flex-shrink:0;border:0;padding:0;background:none;border-radius:10px;transition:transform .12s}
+.tl-hand-card.selected{transform:translateY(-12px);outline:3px solid #ffd55b;outline-offset:2px}
+.tl-hand-card:disabled{opacity:.8}.tl-hand-card:focus-visible{outline:3px solid #ffe581}
+.tl-selected{color:#fff3b4;text-align:center;font-size:11px}
+.tl-controls{display:flex;justify-content:center;flex-wrap:wrap;gap:8px}
+.tl-rules-panel p{font-size:12px}
+@media(max-width:950px){.chess-layout{grid-template-columns:1fr}.chess-sidebar{display:grid;grid-template-columns:1fr 1fr;gap:10px}.chess-sidebar .arena-panel{margin-bottom:0}.arena-game-note{grid-column:1/-1}}
+@media(max-width:610px){.chess-board{border-width:3px}.chess-square span.chess-white,.chess-square span.chess-black{font-size:clamp(28px,8vw,42px)}.chess-sidebar{grid-template-columns:1fr}.tl-hand{justify-content:flex-start;gap:3px}.tl-card-face{width:43px;min-width:43px;min-height:63px}.tl-card-face strong{font-size:17px}.tl-opponents{gap:5px}.tl-opponent{padding:7px 4px}.tl-opponent strong{font-size:10px}.tl-opponent small{font-size:9px}.tl-avatar{font-size:18px}.tl-center{min-height:188px}}
+@media(prefers-reduced-motion:reduce){.tl-hand-card{transition:none}}
