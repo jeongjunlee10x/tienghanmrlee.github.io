@@ -30,7 +30,7 @@ try{
   }));
   try{
    await page.goto(origin+"/mrlee-game-arena.html",{waitUntil:"domcontentloaded",timeout:20000});
-   assert.equal(await page.locator(".arena-game-card.playable").count(),3);
+   assert.equal(await page.locator(".arena-game-card.playable").count(),6);
    await page.locator('[data-game="chess"]').click();
    await page.locator("#chessBoard .chess-square").first().waitFor({timeout:6000});
    assert.equal(await page.locator("#chessBoard .chess-square").count(),64);
