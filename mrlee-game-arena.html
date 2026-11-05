@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="MR LEE GAME ARENA: game chiến thuật, bài màu, cờ vua, tiến lên, cá ngựa và các trò chơi giải trí học đường.">
+<meta name="theme-color" content="#111b39">
+<title>MR LEE GAME ARENA | Khu giải trí</title>
+<link rel="icon" href="assets/branding/logo-mrlee.png">
+<link rel="stylesheet" href="assets/branding/site-logo.css?v=20261103-glow-v1">
+<script defer src="assets/branding/site-logo.js?v=20261104-native-v5"></script>
+<link rel="stylesheet" href="assets/arena/arena.css?v=1">
+<style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
+<script>try{document.documentElement.dataset.mrleeTheme=localStorage.getItem("MRLEE.THEME.V1")==="future"?"future":"fresh"}catch{document.documentElement.dataset.mrleeTheme="fresh"}</script>
+<script type="module" src="auth-guard.js"></script>
+<script type="module" src="assets/arena/app.js?v=1"></script>
+</head>
+<body>
+<div class="arena-app">
+<header class="arena-header">
+  <a href="index.html" class="arena-logo"><img src="assets/branding/logo-mrlee.png" width="52" height="52" alt="MR LEE"><span><strong>MR LEE</strong><small>GAME ARENA</small></span></a>
+  <nav><a href="tro-choi-tieng-han.html">🎓 Game học tập</a><a href="index.html">Trang chủ</a></nav>
+</header>
+<main>
+<section class="arena-hero">
+  <div class="arena-hero-copy">
+    <span class="arena-eyebrow">GIẢI TRÍ • ĐỐI KHÁNG • CHIẾN THUẬT</span>
+    <h1>Vào trận đi, <span>chiến hữu!</span></h1>
+    <p>Thắng bằng chiến thuật. Lên cấp bằng trải nghiệm. Vàng và XP dưới đây là số liệu <strong>thử nghiệm trong phiên</strong>, không phải số dư điểm học tập chính thức.</p>
+    <div class="arena-tags"><span>⚔️ Đấu AI</span><span>🎮 Luật rõ ràng</span><span>🏅 Không tiền thật</span></div>
+  </div>
+  <div class="arena-wallet" aria-label="Ví trò chơi thử nghiệm">
+    <div><small>🪙 Vàng demo</small><strong id="arenaGold">0</strong></div>
+    <div><small>✨ EXP demo</small><strong id="arenaXp">0</strong></div>
+    <div><small>🎫 Vé miễn phí</small><strong id="arenaTickets">3</strong></div>
+    <div><small>🏆 Thắng / Thua</small><strong id="arenaRecord">0 / 0</strong></div>
+  </div>
+</section>
+<section class="arena-economy">
+ <span class="arena-economy-icon">🛡️</span>
+ <p><strong>Nguyên tắc an toàn:</strong> Mỗi ván thử dùng một vé. Thắng được vàng, EXP và một vé mới; thua không bị trừ điểm học tập. Tính năng đổi điểm rèn luyện sang vé sẽ chỉ triển khai khi có kiểm soát máy chủ và hạn mức cho học viên, không có cơ chế cá cược hoặc đổi tiền thật.</p>
+</section>
+<section id="arenaLobby" aria-labelledby="arenaListHeading">
+ <div class="arena-heading"><div><small>PHÒNG GAME</small><h2 id="arenaListHeading">Chọn chiến trường</h2></div><p>Phiên thử nghiệm đầu tiên: Bài Màu đấu 3 bot. Các game khác đang được chuẩn bị luật chơi.</p></div>
+ <div class="arena-catalog" id="arenaCatalog">
+   <button type="button" class="arena-game-card playable" data-game="colors">
+     <span class="arena-card-banner colors"><span>🔴</span><span>🔵</span><span>🟢</span><span>🟡</span></span>
+     <span class="arena-card-body"><strong>Bài Màu Đại Chiến</strong><small>4 người · Đấu 3 AI · 3–8 phút</small><span class="arena-enter">Chơi ngay <span aria-hidden="true">→</span></span></span>
+   </button>
+   <article class="arena-game-card"><div class="arena-card-banner chess">♟ ♜ ♞</div><div class="arena-card-body"><strong>Cờ Vua</strong><small>Chiến thuật · AI · Elo</small><span class="arena-soon">Đang phát triển</span></div></article>
+   <article class="arena-game-card"><div class="arena-card-banner tienlen">🂡 🂱 🃁</div><div class="arena-card-body"><strong>Tiến Lên Miền Nam</strong><small>4 người · Chặt bài · Đấu bot</small><span class="arena-soon">Đang phát triển</span></div></article>
+   <article class="arena-game-card"><div class="arena-card-banner ludo">🎲 🐎 🎯</div><div class="arena-card-body"><strong>Cờ Cá Ngựa</strong><small>Xúc xắc · Di chuyển quân</small><span class="arena-soon">Đang phát triển</span></div></article>
+   <article class="arena-game-card"><div class="arena-card-banner xiangqi">帥 車 馬</div><div class="arena-card-body"><strong>Cờ Tướng / Cờ Úp</strong><small>Chiến thuật Đông Á · AI</small><span class="arena-soon">Đang phát triển</span></div></article>
+   <article class="arena-game-card"><div class="arena-card-banner estate">🏘️ 💼 🏙️</div><div class="arena-card-body"><strong>Địa Ốc Đại Chiến</strong><small>Giao dịch · Chiến thuật tài sản</small><span class="arena-soon">Đang phát triển</span></div></article>
+ </div>
+</section>
+<section id="arenaTable" hidden aria-labelledby="arenaTableHeading">
+ <div class="arena-table-heading"><button id="arenaExit" class="arena-soft" type="button">← Về sảnh</button><div><span class="arena-eyebrow">BÀI MÀU • ĐẤU VỚI MÁY</span><h2 id="arenaTableHeading">Sắc Màu Đại Chiến</h2></div><button id="arenaRules" class="arena-soft" type="button">❔ Luật</button></div>
+ <div class="arena-board" aria-label="Bàn bài bốn người">
+   <div id="arenaOpponents" class="arena-opponents"></div>
+   <div class="arena-board-center"><div class="arena-deck">
+      <div class="arena-cardback" aria-label="Bộ bài úp">MR LEE</div><div id="arenaTopCard" class="arena-playing-card top-card" aria-label="Lá bài trên bàn"></div>
+   </div>
+   <div class="arena-turn" id="arenaTurn" role="status" aria-live="polite"></div>
+   <div class="arena-active-color">Màu hiện tại <strong id="arenaActiveColor">—</strong></div>
+   <div class="arena-turn-controls"><button type="button" class="arena-action" id="arenaDraw">🃏 Rút 1 lá</button><button type="button" class="arena-action" id="arenaPass" hidden>Qua lượt →</button></div>
+   </div>
+   <div class="arena-player-label"><strong>🧑 Bạn</strong><span id="arenaHandCount"></span></div>
+   <div id="arenaHand" class="arena-hand" aria-label="Bài đang cầm"></div>
+   <div id="arenaColorPicker" class="arena-color-picker" hidden aria-label="Chọn màu bài đổi màu">
+     <strong>Chọn màu tiếp theo</strong><div id="arenaColorOptions"></div><button id="arenaColorCancel" class="arena-soft" type="button">Hủy</button>
+   </div>
+ </div>
+ <div class="arena-events"><h3>Diễn biến trận đấu</h3><div id="arenaEventLog" aria-live="polite"></div></div>
+ <div id="arenaOutcome" class="arena-outcome" hidden aria-live="assertive"></div>
+</section>
+<section class="arena-next">
+ <h2>Phòng đấu bạn bè và đấu hạng</h2><p>Ở phiên hoàn chỉnh, tất cả các ván PvP sẽ do máy chủ lưu lượt đi, đồng hồ, trạng thái thắng–thua và cộng thưởng. Bản thử hiện tại chỉ dành cho đấu AI và không ghi vàng hoặc EXP lên hồ sơ học viên.</p>
+</section>
+</main>
+<footer class="arena-footer">MR LEE GAME ARENA · Chơi vui, học tốt, không cá cược · <a href="tro-choi-tieng-han.html">Quay lại Game Zone học tập</a></footer>
+</div>
+<dialog id="arenaRulesDialog" class="arena-dialog" aria-labelledby="arenaRulesTitle">
+ <h2 id="arenaRulesTitle">Luật Bài Màu Đại Chiến</h2>
+ <p>Mỗi người bắt đầu với 7 lá. Đánh lá có cùng màu, cùng số hoặc cùng ký hiệu với lá trên bàn; có thể đổi màu bằng thẻ đặc biệt.</p>
+ <p>Thẻ <strong>+2</strong> bắt đối thủ kế tiếp rút 2 và mất lượt; <strong>Cấm lượt</strong> bỏ lượt kế tiếp; <strong>Đảo chiều</strong> đổi hướng chơi; <strong>Đổi màu</strong> chọn màu mới; <strong>+4</strong> chỉ được đánh khi bạn không có lá bài thường trùng màu hiện tại.</p>
+ <p>Nếu không đánh được, rút một lá; được đánh ngay lá vừa rút nếu hợp lệ, hoặc bấm <strong>Qua lượt</strong>. Ai hết bài trước thắng. Đây là trò thiết kế riêng lấy cảm hứng từ cơ chế ghép màu, không phải sản phẩm UNO chính thức.</p>
+ <button id="arenaRulesClose" type="button" class="arena-action">Đã hiểu</button>
+</dialog>
+</body></html>
