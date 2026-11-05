@@ -14,11 +14,14 @@
 <link rel="stylesheet" href="assets/arena/rooms.css?v=2">
 <link rel="stylesheet" href="assets/arena/extra-games.css?v=2">
 <link rel="stylesheet" href="assets/arena/daily-rewards.css?v=1">
+<link rel="stylesheet" href="assets/arena/discovery.css?v=1">
+<link rel="stylesheet" href="assets/arena/game-polish.css?v=1">
 <style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
 <script>try{document.documentElement.dataset.mrleeTheme=localStorage.getItem("MRLEE.THEME.V1")==="future"?"future":"fresh"}catch{document.documentElement.dataset.mrleeTheme="fresh"}</script>
 <script type="module" src="auth-guard.js"></script>
 <script type="module" src="assets/arena/app.js?v=6"></script>
 <script type="module" src="assets/arena/daily-rewards.js?v=1"></script>
+<script type="module" src="assets/arena/discovery.js?v=1"></script>
 </head>
 <body>
 <div class="arena-app">
@@ -37,6 +40,32 @@
 </section>
 <section id="arenaLobby" aria-labelledby="arenaListHeading">
  <div class="arena-heading"><div><small>PHÒNG GAME</small><h2 id="arenaListHeading">Chọn chiến trường</h2></div><p>Chơi nhanh · Chơi với bạn · Chọn bàn · Đấu máy. Nhận mã phòng khi tạo bàn.</p></div>
+ <div class="arena-discovery-layout">
+ <aside class="arena-discovery-side" aria-label="Danh mục trò chơi">
+  <strong class="arena-discovery-side-title">🧭 KHÁM PHÁ</strong>
+  <nav class="arena-game-filters" aria-label="Lọc game">
+   <button type="button" data-arena-filter="all" aria-pressed="true">🎮 Tất cả trò chơi <span>6</span></button>
+   <button type="button" data-arena-filter="recent" aria-pressed="false">🕘 Chơi gần đây</button>
+   <button type="button" data-arena-filter="favorite" aria-pressed="false">⭐ Yêu thích</button>
+   <button type="button" data-arena-filter="online" aria-pressed="false">👥 Chơi với bạn <span>3</span></button>
+   <button type="button" data-arena-filter="card" aria-pressed="false">🃏 Game bài</button>
+   <button type="button" data-arena-filter="board" aria-pressed="false">♟️ Cờ và chiến thuật</button>
+   <button type="button" data-arena-filter="strategy" aria-pressed="false">🏙️ Chiến lược</button>
+  </nav>
+  <div class="arena-discovery-side-tip"><b>🪙 Vàng G</b><p>Điểm danh và quay thưởng mỗi ngày. Đấu máy miễn phí bằng vé thử; 3 trò đã có phòng PvP.</p></div>
+ </aside>
+ <div class="arena-discovery-main">
+  <div class="arena-discovery-spotlight"><div class="arena-spotlight-symbol" aria-hidden="true">🎮</div><div>
+   <span class="arena-eyebrow">MR LEE · MINI GAMES</span><strong>Chọn game, vào bàn, chơi ngay.</strong>
+   <p>Game bài, cờ và chiến thuật trong một sảnh. Không cần cài đặt ứng dụng.</p></div>
+   <button type="button" class="arena-discovery-rewards" id="arenaDiscoverRewards">🎁 Nhận thưởng hôm nay</button>
+  </div>
+  <div class="arena-discovery-tools">
+    <label class="arena-discovery-search" for="arenaGameSearch"><span aria-hidden="true">⌕</span><input type="search" id="arenaGameSearch" placeholder="Tìm trò chơi, ví dụ: Tiến Lên, Cờ Vua…" autocomplete="off"></label>
+    <label class="arena-discovery-sort" for="arenaGameSort">Sắp xếp <select id="arenaGameSort"><option value="featured">Đề xuất</option><option value="recent">Gần đây</option><option value="alphabetic">A–Z</option></select></label>
+  </div>
+  <div class="arena-discovery-count"><span id="arenaGameCount">6 trò có thể chơi</span><small>Yêu thích và lịch sử lưu trên thiết bị này</small></div>
+  <div id="arenaGameEmpty" class="arena-discovery-empty" hidden>Không tìm thấy trò phù hợp. Thử tìm theo tên hoặc chọn “Tất cả trò chơi”.</div>
  <div class="arena-catalog" id="arenaCatalog">
    <article class="arena-game-card playable">
      <span class="arena-card-banner colors"><span>🔴</span><span>🔵</span><span>🟢</span><span>🟡</span></span>
@@ -65,6 +94,8 @@
    <article class="arena-game-card playable"><div class="arena-card-banner xiangqi">帥 車 馬</div><div class="arena-card-body"><strong>Cờ Tướng / Cờ Úp</strong><small>2 người · Đấu máy · 2 chế độ</small><div class="arena-game-actions"><button class="arena-bots" type="button" data-game="xiangqi">🎮 Chơi ngay · Đấu máy</button><span class="arena-soon">PvP trực tuyến: đang hoàn thiện</span></div></div></article>
    <article class="arena-game-card playable"><div class="arena-card-banner estate">🏘️ 💼 🏙️</div><div class="arena-card-body"><strong>Địa Ốc Đại Chiến</strong><small>4 người · Mua bán, thu thuê, nâng cấp</small><div class="arena-game-actions"><button class="arena-bots" type="button" data-game="estate">🎮 Chơi ngay · Đấu máy</button><span class="arena-soon">PvP trực tuyến: đang hoàn thiện</span></div></div></article>
  </div>
+ </div>
+</div>
 </section>
 
 <section id="arenaRoomHub" class="arena-room-section" hidden aria-labelledby="arenaRoomHubTitle">
