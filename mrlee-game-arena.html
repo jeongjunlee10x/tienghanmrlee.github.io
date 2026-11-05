@@ -13,16 +13,18 @@
 <link rel="stylesheet" href="assets/arena/tienlen-live.css?v=2">
 <link rel="stylesheet" href="assets/arena/rooms.css?v=2">
 <link rel="stylesheet" href="assets/arena/extra-games.css?v=2">
+<link rel="stylesheet" href="assets/arena/daily-rewards.css?v=1">
 <style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
 <script>try{document.documentElement.dataset.mrleeTheme=localStorage.getItem("MRLEE.THEME.V1")==="future"?"future":"fresh"}catch{document.documentElement.dataset.mrleeTheme="fresh"}</script>
 <script type="module" src="auth-guard.js"></script>
 <script type="module" src="assets/arena/app.js?v=6"></script>
+<script type="module" src="assets/arena/daily-rewards.js?v=1"></script>
 </head>
 <body>
 <div class="arena-app">
 <header class="arena-header">
   <a href="index.html" class="arena-logo"><img src="assets/branding/logo-mrlee.png" width="52" height="52" alt="MR LEE"><span><strong>MR LEE</strong><small>GAME ARENA</small></span></a>
-  <nav><a href="tro-choi-tieng-han.html">🎓 Game học tập</a><a href="index.html">Trang chủ</a></nav>
+  <nav><button type="button" id="arenaDailyOpen" class="arena-daily-launch">🎁 Điểm danh · Quay thưởng</button><a href="tro-choi-tieng-han.html">🎓 Game học tập</a><a href="index.html">Trang chủ</a></nav>
 </header>
 <main><div id="arenaToast" class="arena-toast" role="status" aria-live="polite" hidden></div>
 <section class="arena-compact-wallet" aria-label="Thông tin Game Arena">
