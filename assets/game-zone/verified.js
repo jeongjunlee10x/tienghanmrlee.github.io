@@ -1,8 +1,8 @@
 /* MR LEE GAME ZONE: browser client for verified server-only XP challenges.
  * Not an authority: answers, score and rewards are validated in PostgreSQL RPC.
  */
-import {initializeApp,getApps} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-import {getAuth} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+// Load Firebase SDK only when the learner opts into server scoring.
+// A blocked CDN must not prevent any of the ten local learning games.
 import {firebaseConfig,isFirebaseConfigured} from "../../firebase-config.js";
 import {el,button} from "./core.js";
 const ENDPOINT="https://pkxqsboyotlyoizzxizb.supabase.co/functions/v1/mrlee-game-zone";
@@ -11,6 +11,10 @@ const state={session:null,answers:[],i:0,working:false,ready:false,expiry:null};
 const safe=(x)=>String(x??"");
 async function token(){
  if(!isFirebaseConfigured)throw Error("Firebase chưa được cấu hình.");
+ const [{initializeApp,getApps},{getAuth}]=await Promise.all([
+  import("https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js"),
+  import("https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js")
+ ]);
  const app=getApps().find(x=>x.name==="[DEFAULT]")||initializeApp(firebaseConfig);
  const user=getAuth(app).currentUser;
  if(!user||!user.emailVerified)throw Error("Cần đăng nhập và xác minh email học viên trước khi nhận XP.");

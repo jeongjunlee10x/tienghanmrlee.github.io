@@ -7,6 +7,9 @@ on:
       - feature/mrlee-game-zone-phase3
     paths:
       - 'tro-choi-tieng-han.html'
+      - 'quan-tri-tro-choi.html'
+      - 'supabase/functions/mrlee-game-zone/**'
+      - 'supabase/manual-sql/MRLEE_GAME_ZONE_SETUP.sql'
       - 'assets/game-zone/**'
       - 'tools/test-game-zone.mjs'
       - 'tools/browser-game-zone.mjs'
@@ -37,6 +40,8 @@ jobs:
           node --check assets/game-zone/app.js
           node --check assets/game-zone/phase2.js
           node --check assets/game-zone/phase3.js
+          node --check assets/game-zone/verified.js
+          node --check assets/game-zone/admin.js
       - name: Validate lesson adapters, registry and themes
         run: node tools/test-game-zone.mjs
       - name: Run full site static QA

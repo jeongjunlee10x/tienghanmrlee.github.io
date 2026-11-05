@@ -30,6 +30,14 @@ assert.match(html,/auth-guard\.js/);
 assert.match(html,/id="mzCards"/);
 assert.match(app,/XP chỉ tính trong phiên/);
 assert.match(css,/data-mrlee-theme="future"/);
+const verified=await readFile(new URL("../assets/game-zone/verified.js",import.meta.url),"utf8");
+const adminUI=await readFile(new URL("../assets/game-zone/admin.js",import.meta.url),"utf8");
+const migration=await readFile(new URL("../supabase/manual-sql/MRLEE_GAME_ZONE_SETUP.sql",import.meta.url),"utf8");
+assert.match(verified,/getIdToken\(/);
+assert.match(adminUI,/mrlee_admins/);
+assert.match(migration,/mrlee_game_finish/);
+assert.match(migration,/to service_role/);
+assert.doesNotMatch(migration,/grant execute on function public\.mrlee_game_finish\([^;]+\) to authenticated/i);
 let totalWords=0, totalSentences=0, weaker=[];
 for(let cap=1;cap<=6;cap++)for(let bai=1;bai<=15;bai++){
   const lesson=await loadLesson(cap,bai);
