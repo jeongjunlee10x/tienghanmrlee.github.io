@@ -35,7 +35,7 @@ try {
   try {
    await page.goto(origin+"/tro-choi-tieng-han.html?cap=1&bai=1",{waitUntil:"domcontentloaded",timeout:20000});
    await page.waitForFunction(()=>document.getElementById("mzNotice")?.textContent?.startsWith("Đã tải"),null,{timeout:15000});
-   assert.equal(await page.locator("#mzCards button").count(),8);
+   assert.equal(await page.locator("#mzCards button").count(),10);
    assert.equal(await page.evaluate(()=>document.documentElement.dataset.mrleeTheme),theme);
    await page.locator("#mzCards button").nth(0).click();
    await page.locator("#mzGame .mz-pair-grid").waitFor({timeout:7000});
@@ -84,14 +84,29 @@ try {
    assert.ok(await page.locator("#mzGame .mz-product").count()>=3);
    await page.locator("#mzGame .mz-product").first().click();
    assert.match(await page.locator("#mzGame .mz-mart-basket").textContent(),/1 món/);
+   await page.locator("#mzBack").click();
+   await page.locator("#mzLesson").selectOption("1");
+   await page.waitForFunction(()=>document.getElementById("mzNotice")?.textContent?.startsWith("Đã tải"),null,{timeout:10000});
+   await page.locator("#mzCards button").nth(8).click();
+   const topik=page.locator("#mzGame .mz-topik-question");
+   await topik.waitFor({timeout:6000});
+   assert.equal(await page.locator("#mzGame .mz-option").count(),4);
+   await page.locator("#mzGame .mz-option").first().click();
+   await page.locator("#mzBack").click();
+   await page.locator("#mzLesson").selectOption("2");
+   await page.waitForFunction(()=>document.getElementById("mzNotice")?.textContent?.startsWith("Đã tải"),null,{timeout:10000});
+   await page.locator("#mzCards button").nth(9).click();
+   await page.locator("#mzGame .mz-travel-sign").first().waitFor({timeout:6000});
+   assert.equal(await page.locator("#mzGame .mz-travel-sign").count(),4);
+   await page.locator("#mzGame .mz-travel-sign").first().click();
    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
    assert.ok(overflow<=2,"Horizontal overflow "+overflow+"px at width "+width);
    assert.equal((await page.locator("#mzXP").textContent()).trim(),"0","No unverified official XP may be awarded");
-   console.log("PASS browser Game Zone: "+width+"px / "+theme+" / eight interactive modes + real MP3");
+   console.log("PASS browser Game Zone: "+width+"px / "+theme+" / ten interactive modes + real MP3");
    passed++;
   } finally{await context.close();}
  }
- console.log("PASS Game Zone browser phase2: "+passed+"/4 viewport/theme combinations");
+ console.log("PASS Game Zone browser phase3: "+passed+"/4 viewport/theme combinations");
 } finally {
  if(browser)await browser.close();
  await new Promise(resolve=>server.close(resolve));

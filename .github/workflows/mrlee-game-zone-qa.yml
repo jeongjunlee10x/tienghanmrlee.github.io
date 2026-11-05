@@ -1,11 +1,15 @@
-name: MR LEE Game Zone Phase 1–2 QA
+name: MR LEE Game Zone Phase 1–3 QA
 on:
   push:
     branches:
       - feature/mrlee-game-zone-phase1
       - feature/mrlee-game-zone-phase2
+      - feature/mrlee-game-zone-phase3
     paths:
       - 'tro-choi-tieng-han.html'
+      - 'quan-tri-tro-choi.html'
+      - 'supabase/functions/mrlee-game-zone/**'
+      - 'supabase/manual-sql/MRLEE_GAME_ZONE_SETUP.sql'
       - 'assets/game-zone/**'
       - 'tools/test-game-zone.mjs'
       - 'tools/browser-game-zone.mjs'
@@ -35,8 +39,19 @@ jobs:
           node --check assets/game-zone/games.js
           node --check assets/game-zone/app.js
           node --check assets/game-zone/phase2.js
+          node --check assets/game-zone/phase3.js
+          node --check assets/game-zone/verified.js
+          node --check assets/game-zone/admin.js
       - name: Validate lesson adapters, registry and themes
         run: node tools/test-game-zone.mjs
+      - name: Install Deno for Supabase API type checks
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Type-check Firebase verified game API
+        run: deno check supabase/functions/mrlee-game-zone/index.ts
+      - name: Check live Game Zone API authorization (read-only)
+        run: node tools/test-game-zone-api.mjs
       - name: Run full site static QA
         run: node tools/check-site.mjs
       - name: Validate Cloudflare Pages static export
@@ -47,5 +62,5 @@ jobs:
         run: |
           npm install --no-save --no-package-lock playwright@1.56.1
           npx playwright install chromium --with-deps
-      - name: Test all four games on desktop/mobile in both themes
+      - name: Test ten games on desktop/mobile in both themes
         run: node tools/browser-game-zone.mjs

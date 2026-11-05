@@ -1,0 +1,14 @@
+/* Dedicated Game Zone Admin, without global activity widgets */
+.mz-admin-intro{padding:27px 0 14px}.mz-admin-intro h1{font-size:clamp(25px,4vw,36px);margin:6px 0}.mz-admin-intro p{color:var(--mz-muted)}
+.mz-admin-overview{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+.mz-admin-overview>div{background:var(--mz-card);border:1px solid var(--mz-line);border-radius:18px;padding:18px}
+.mz-admin-overview strong{font-size:29px;display:block;color:var(--mz-primary)}.mz-admin-overview small{color:var(--mz-muted)}
+.mz-admin-panel{background:var(--mz-card);border:1px solid var(--mz-line);padding:22px;border-radius:18px;margin:18px 0}
+.mz-admin-panel h2{font-size:20px;margin:0 0 8px}.mz-admin-panel p{color:var(--mz-muted);font-size:13px}
+.mz-admin-heading{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.mz-admin-filters{display:flex;gap:12px;margin:15px 0}.mz-admin-filters label{display:flex;flex-direction:column;gap:5px;flex:1}
+.mz-admin-filters select,.mz-admin-panel textarea{width:100%;color:var(--mz-ink);background:var(--mz-bg);border:1px solid var(--mz-line);border-radius:12px;padding:10px}
+.mz-admin-panel textarea{min-height:210px;font:13px/1.7 ui-monospace,Consolas,monospace}
+.mz-admin-list{display:grid;gap:9px;margin:12px 0}.mz-admin-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:12px;border:1px solid var(--mz-line);background:var(--mz-bg)}
+.mz-admin-item>div{min-width:0;flex:1}.mz-admin-item strong{display:block;overflow-wrap:anywhere}.mz-admin-item small{color:var(--mz-muted);display:block;overflow-wrap:anywhere}.mz-admin-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+@media(max-width:700px){.mz-admin-overview{grid-template-columns:1fr}.mz-admin-item{flex-direction:column;align-items:flex-start}.mz-admin-panel{padding:15px}.mz-admin-filters{flex-direction:column}}

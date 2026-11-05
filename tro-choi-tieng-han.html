@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="description" content="MR LEE GAME ZONE: 8 trò chơi tiếng Hàn theo 90 bài học, từ vựng, ngữ pháp, nghe, gõ chữ và tình huống siêu thị.">
+  <meta name="description" content="MR LEE GAME ZONE: 10 trò chơi tiếng Hàn theo 90 bài học, từ vựng, ngữ pháp, nghe, gõ chữ và tình huống siêu thị.">
   <title>MR LEE GAME ZONE | Trò chơi tiếng Hàn</title>
   <link rel="icon" href="assets/branding/logo-mrlee.png">
   <link rel="stylesheet" href="assets/branding/site-logo.css?v=20261103-glow-v1">
   <script defer src="assets/branding/site-logo.js?v=20261104-native-v5"></script>
-  <link rel="stylesheet" href="assets/game-zone/game-zone.css?v=2">
+  <link rel="stylesheet" href="assets/game-zone/game-zone.css?v=3">
   <style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
   <script>
     try {
@@ -16,7 +16,7 @@
     } catch (e) { document.documentElement.dataset.mrleeTheme = "fresh"; }
   </script>
   <script type="module" src="auth-guard.js"></script>
-  <script type="module" src="assets/game-zone/app.js?v=2"></script>
+  <script type="module" src="assets/game-zone/app.js?v=3"></script>
 </head>
 <body>
 <div class="mz-app">
@@ -66,11 +66,30 @@
 
     <section id="mzLobby" aria-labelledby="mzGamesTitle">
       <div class="mz-section-title">
-        <div><span class="mz-kicker">GIAI ĐOẠN 1 &amp; 2</span><h2 id="mzGamesTitle">Chọn trò chơi</h2></div>
-        <span class="mz-minor">8 trò chơi • 6 cấp • 90 bài</span>
+        <div><span class="mz-kicker">HOÀN THIỆN 3 GIAI ĐOẠN</span><h2 id="mzGamesTitle">Chọn trò chơi</h2></div>
+        <span class="mz-minor">10 trò chơi • 6 cấp • 90 bài</span>
       </div>
       <div id="mzCards" class="mz-cards"></div>
-      <p class="mz-disclaimer">Cả tám trò chơi đều dùng kiến thức theo bài hiện tại hoặc đã học trước đó. XP đang hiển thị là điểm luyện tập của phiên chơi, <strong>không phải TOPIK Spark hoặc điểm thưởng chính thức</strong>. Hệ thống sẽ chỉ đồng bộ sau khi tính điểm máy chủ được nghiệm thu.</p>
+      <p class="mz-disclaimer">Cả mười trò chơi đều dùng kiến thức theo bài hiện tại hoặc đã học trước đó. XP đang hiển thị là điểm luyện tập của phiên chơi, <strong>không phải TOPIK Spark hoặc điểm thưởng chính thức</strong>. Hệ thống sẽ chỉ đồng bộ sau khi tính điểm máy chủ được nghiệm thu.</p>
+    </section>
+
+    <section id="mzVerified" class="mz-verified" aria-labelledby="mzVerifiedTitle">
+      <div class="mz-section-title"><div><span class="mz-kicker">THÀNH TÍCH MÁY CHỦ · RIÊNG GAME ZONE</span><h2 id="mzVerifiedTitle">Đấu trường XP xác minh</h2></div>
+        <span class="mz-minor">Không cộng gộp với TOPIK Spark</span></div>
+      <p class="mz-disclaimer">Đây là thử thách 5 câu đã được giáo viên duyệt và máy chủ tự chấm. Các trò chơi phía trên vẫn sử dụng XP luyện tập trong phiên. Điểm ở đây chỉ ghi khi đáp án được kiểm tra bằng ngân hàng riêng.</p>
+      <div class="mz-verified-grid">
+        <div class="mz-verified-card">
+          <h3>Thử thách tính điểm tuần</h3>
+          <p id="mzMyVerified" class="mz-minor">Đang tải điểm xác minh...</p>
+          <p id="mzVerifiedStatus" class="mz-notice" role="status">Đang kiểm tra hệ thống điểm...</p>
+          <button type="button" class="mz-primary" id="mzVerifiedStart" disabled>Bắt đầu 5 câu xác minh</button>
+          <div id="mzVerifiedQuestion" class="mz-verified-question" aria-live="polite"></div>
+        </div>
+        <div class="mz-verified-card">
+          <h3>🏆 Xếp hạng Game Zone tuần</h3>
+          <div id="mzVerifiedRanking" aria-live="polite"><p class="mz-minor">Đang tải...</p></div>
+        </div>
+      </div>
     </section>
 
     <section id="mzArena" class="mz-arena" aria-labelledby="mzArenaTitle" hidden>

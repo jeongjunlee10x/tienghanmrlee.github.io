@@ -4,10 +4,12 @@ import {readFile} from "node:fs/promises";
 import {MODES, shuffled, uniqueWords, parseCsv, pickWords} from "../assets/game-zone/core.js";
 import {GAME_RUNNERS} from "../assets/game-zone/games.js";
 import {PHASE2_RUNNERS,availableMarketProducts,marketOrderCorrect,grammarCards} from "../assets/game-zone/phase2.js";
+import {PHASE3_RUNNERS,availableTravelStops,createTopikPracticeBank} from "../assets/game-zone/phase3.js";
 import {loadLesson, collectSentences} from "../assets/game-zone/content.js";
 
-assert.deepEqual(new Set(MODES.map(x=>x.id)),new Set([...Object.keys(GAME_RUNNERS),...Object.keys(PHASE2_RUNNERS)]));
-assert.equal(MODES.length,8);
+assert.deepEqual(new Set(MODES.map(x=>x.id)),new Set([...Object.keys(GAME_RUNNERS),...Object.keys(PHASE2_RUNNERS),...Object.keys(PHASE3_RUNNERS)]));
+assert.equal(MODES.length,10);
+assert.ok(availableTravelStops([{ko:"학교",vi:"trường học"},{ko:"책",vi:"sách"}]).every(x=>x.ko==="학교"));
 const store=new Map();
 const oldStorage=globalThis.sessionStorage;
 globalThis.sessionStorage={getItem:key=>store.get(key)||null,setItem:(key,value)=>store.set(key,value)};
@@ -28,6 +30,14 @@ assert.match(html,/auth-guard\.js/);
 assert.match(html,/id="mzCards"/);
 assert.match(app,/XP chỉ tính trong phiên/);
 assert.match(css,/data-mrlee-theme="future"/);
+const verified=await readFile(new URL("../assets/game-zone/verified.js",import.meta.url),"utf8");
+const adminUI=await readFile(new URL("../assets/game-zone/admin.js",import.meta.url),"utf8");
+const migration=await readFile(new URL("../supabase/manual-sql/MRLEE_GAME_ZONE_SETUP.sql",import.meta.url),"utf8");
+assert.match(verified,/getIdToken\(/);
+assert.match(adminUI,/mrlee_admins/);
+assert.match(migration,/mrlee_game_finish/);
+assert.match(migration,/to service_role/);
+assert.doesNotMatch(migration,/grant execute on function public\.mrlee_game_finish\([^;]+\) to authenticated/i);
 let totalWords=0, totalSentences=0, weaker=[];
 for(let cap=1;cap<=6;cap++)for(let bai=1;bai<=15;bai++){
   const lesson=await loadLesson(cap,bai);
@@ -37,12 +47,15 @@ for(let cap=1;cap<=6;cap++)for(let bai=1;bai<=15;bai++){
   assert.deepEqual(new Set(lesson.words.map(x=>x.ko)).size,lesson.words.length);
   assert.ok(Array.isArray(lesson.grammar)&&Array.isArray(lesson.marketWords));
   assert.ok(lesson.marketWords.some(x=>lesson.words.some(y=>y.ko===x.ko)));
+  const testBank=createTopikPracticeBank(lesson);
+  assert.ok(testBank.every(q=>q.options.length===4&&q.options.some(x=>x===q.answer)));
+  assert.ok(availableTravelStops(lesson.marketWords).every(x=>lesson.marketWords.some(w=>x.ko===w.ko)));
   const available=availableMarketProducts(lesson.marketWords);
   const allowed=new Set(lesson.marketWords.map(x=>x.ko));
   assert.ok(available.every(x=>allowed.has(x.ko)),"Market must not introduce future vocabulary");
   totalWords+=lesson.words.length;totalSentences+=lesson.sentences.length;
   if(lesson.words.length<4 || lesson.sentences.length===0)weaker.push(cap+"-"+bai);
 }
-console.log("GAME ZONE phase2: 8 games; 90 lessons; "+totalWords+" usable vocab entries; "+totalSentences+" sentence examples.");
+console.log("GAME ZONE phase3: 10 games; 90 lessons; "+totalWords+" usable vocab entries; "+totalSentences+" sentence examples.");
 if(weaker.length)console.log("Needs lesson content review for one or more modes: "+weaker.join(", "));
 console.log("PASS: adapters, registry, access gate, themes, and basic content checks.");

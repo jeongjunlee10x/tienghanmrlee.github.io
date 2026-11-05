@@ -3,7 +3,9 @@ import {MODES, LEVELS, el, button} from "./core.js";
 import {loadLesson, loadWordAudio} from "./content.js";
 import {GAME_RUNNERS} from "./games.js";
 import {PHASE2_RUNNERS} from "./phase2.js";
-const ALL_RUNNERS=Object.freeze({...GAME_RUNNERS,...PHASE2_RUNNERS});
+import {PHASE3_RUNNERS} from "./phase3.js";
+import {initVerifiedChallenge} from "./verified.js";
+const ALL_RUNNERS=Object.freeze({...GAME_RUNNERS,...PHASE2_RUNNERS,...PHASE3_RUNNERS});
 
 const $=id=>document.getElementById(id);
 const state={cap:1,bai:1,lesson:null,xp:0,wins:0,sequence:0,cleanup:null,mode:null};
@@ -130,3 +132,4 @@ $("mzLesson").addEventListener("change",()=>{
 $("mzBack").addEventListener("click",showLobby);
 $("mzReplay").addEventListener("click",()=>{if(state.mode)beginGame(state.mode);});
 fillLessons();renderModes();updateScore();selectLesson();
+initVerifiedChallenge(()=>({cap:state.cap,bai:state.bai}));

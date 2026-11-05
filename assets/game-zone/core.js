@@ -8,6 +8,8 @@ export const MODES = Object.freeze([
   { id:"grammar-detective", label:"Thám tử ngữ pháp", ko:"문법 탐정", icon:"🔎", desc:"Tìm công thức đang bị ghép sai ý nghĩa." },
   { id:"typing-king", label:"Vua gõ tiếng Hàn", ko:"타자왕", icon:"⌨️", desc:"Gõ từ Hangul đúng và luyện chính tả." },
   { id:"korean-mart", label:"Siêu thị Hàn Quốc", ko:"한국 마트", icon:"🛒", desc:"Mua đúng sản phẩm đã học bằng tiếng Hàn." },
+  { id:"topik-battle", label:"Đại chiến TOPIK", ko:"TOPIK 배틀", icon:"⚔️", desc:"Thử sức trong trận hỏi nhanh theo dạng TOPIK. Không phải đề thi chính thức." },
+  { id:"korean-travel", label:"Du lịch Hàn Quốc", ko:"한국 여행", icon:"🧭", desc:"Theo bản đồ nhiệm vụ, nhận diện địa điểm đã học." },
 ]);
 export const LEVELS = ["Sơ cấp 1", "Sơ cấp 2", "Trung cấp 1", "Trung cấp 2", "Cao cấp 1", "Cao cấp 2"];
 export function shuffled(items, random = Math.random) {
