@@ -1,0 +1,181 @@
+/* MR LEE Game Arena — local sandbox. Wins/XP/gold here are not official rewards. */
+import {newGame,canPlay,play,beginDraw,pass,botTurn,cardLabel,topCard,
+  COLOR_VI,COLORS,PLAYER_NAMES} from "./color-engine.js";
+const $=id=>document.getElementById(id);
+const state={game:null,tickets:3,gold:0,xp:0,wins:0,losses:0,pending:null,
+  timer:null,epoch:0,settled:false,leaving:false};
+function updateWallet(){
+ $("arenaGold").textContent=state.gold.toLocaleString("vi-VN");
+ $("arenaXp").textContent=state.xp.toLocaleString("vi-VN");
+ $("arenaTickets").textContent=String(state.tickets);
+ $("arenaRecord").textContent=state.wins+" / "+state.losses;
+}
+function el(tag,cl,text){
+ const x=document.createElement(tag);if(cl)x.className=cl;
+ if(text!==undefined)x.textContent=String(text);return x;
+}
+function button(text,cl,onclick){
+ const b=el("button",cl,text);b.type="button";
+ if(onclick)b.addEventListener("click",onclick);
+ return b;
+}
+function flash(text){
+ const turn=$("arenaTurn");turn.textContent=text;
+}
+function presentCard(card,small=false){
+ const span=el("span","arena-card-symbol",cardLabel(card));
+ const cardEl=el("span","arena-card-face arena-card-"+(card.color||"wild"));
+ const motif=el("span","arena-card-motif",card.type==="number"?String(card.value):"✦");
+ cardEl.append(span,motif);
+ cardEl.dataset.type=card.type;
+ if(small)cardEl.classList.add("small");
+ return cardEl;
+}
+function showTable(){
+ $("arenaLobby").hidden=true;$("arenaTable").hidden=false;
+ $("arenaOutcome").hidden=true;
+ $("arenaTable").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function showLobby(){
+ if(state.timer){clearTimeout(state.timer);state.timer=null;}
+ state.epoch++;
+ state.pending=null;state.game=null;state.settled=false;
+ $("arenaTable").hidden=true;$("arenaLobby").hidden=false;
+ $("arenaLobby").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function start(){
+ if(state.tickets<1){
+  $("arenaLobby").scrollIntoView({behavior:"smooth",block:"start"});
+  const alert=el("p","arena-empty-tickets",
+   "Đã dùng hết 3 vé thử trong phiên này. Chưa hỗ trợ đổi điểm học tập thành vé. Hãy quay về học để tiếp tục.");
+  $("arenaCatalog").after(alert);
+  setTimeout(()=>alert.remove(),7000);
+  return;
+ }
+ if(state.timer)clearTimeout(state.timer);
+ state.epoch++;
+ state.tickets--;
+ state.pending=null;
+ state.game=newGame();
+ state.settled=false;
+ updateWallet();showTable();render();
+}
+function colorChoice(card){
+ state.pending=card.id;
+ const container=$("arenaColorPicker"),list=$("arenaColorOptions");
+ list.replaceChildren();
+ for(const color of COLORS){
+  const b=button(COLOR_VI[color],"arena-choose arena-card-"+color,()=>{
+   if(state.pending===null||!state.game)return;
+   try{
+    play(state.game,0,state.pending,color);
+    state.pending=null;container.hidden=true;render();
+   }catch(err){flash(err.message);}
+  });
+  list.append(b);
+ }
+ container.hidden=false;container.scrollIntoView({block:"nearest"});
+}
+function settle(){
+ if(!state.game||state.settled||state.game.winner===null)return;
+ state.settled=true;
+ const won=state.game.winner===0;
+ if(won){state.gold+=100;state.xp+=50;state.tickets++;state.wins++;}
+ else {state.xp+=10;state.losses++;}
+ updateWallet();
+ const winName=PLAYER_NAMES[state.game.winner];
+ const outcome=$("arenaOutcome");outcome.hidden=false;outcome.replaceChildren();
+ const headline=el("h2","",won?"🏆 CHIẾN THẮNG!":"💫 KẾT THÚC VÁN");
+ const summary=el("p","",won?
+   "Bạn đã hết bài trước cả 3 đối thủ. +100 vàng, +50 EXP và hoàn lại 1 vé (demo).":
+   winName+" đã về nhất. Bạn nhận +10 EXP luyện tập (demo). Vé thử đã sử dụng không được hoàn lại.");
+ const caution=el("p","arena-disclaimer",
+   "Không trừ điểm học tập; vàng, EXP và vé chỉ tồn tại trong phiên này. Không có chuyển đổi tiền thật.");
+ const actions=el("div","arena-outcome-actions");
+ const replay=button("🔄 Chơi tiếp","arena-primary",start);
+ const exit=button("Về sảnh","arena-soft",showLobby);
+ actions.append(replay,exit);outcome.append(headline,summary,caution,actions);
+ flash(won?"Bạn đã chiến thắng!":"Người thắng: "+winName);
+ outcome.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+function renderOpponents(g){
+ const area=$("arenaOpponents");area.replaceChildren();
+ for(let i=1;i<=3;i++){
+  const panel=el("div","arena-opponent"+(g.turn===i?" active":""));
+  const avatar=el("div","arena-avatar",["","👩🏻","🧑🏻","👩🏽"][i]);
+  const detail=el("div","arena-opponent-info");
+  detail.append(el("strong","",PLAYER_NAMES[i]),el("small","",g.hands[i].length+" lá bài"));
+  panel.append(avatar,detail);
+  if(g.turn===i)panel.append(el("em","arena-thinking","Đang nghĩ…"));
+  area.append(panel);
+ }
+}
+function render(){
+ const g=state.game;
+ if(!g||$("arenaTable").hidden)return;
+ renderOpponents(g);
+ const top=$("arenaTopCard");top.replaceChildren(presentCard(topCard(g)));
+ top.setAttribute("aria-label","Lá trên bàn: "+cardLabel(topCard(g))+"; màu "+COLOR_VI[g.activeColor]);
+ const active=$("arenaActiveColor");active.textContent=COLOR_VI[g.activeColor];active.dataset.color=g.activeColor;
+ const humanTurn=g.turn===0&&g.winner===null;
+ $("arenaHandCount").textContent=g.hands[0].length+" lá · "+(humanTurn?"đến lượt bạn":"chờ đối thủ");
+ const list=$("arenaHand");list.replaceChildren();
+ g.hands[0].forEach(card=>{
+  const legal=humanTurn&&canPlay(g,card,0);
+  const b=button("","arena-hand-card"+(legal?" playable":""),()=>{
+   if(!state.game||state.pending!==null)return;
+   try{
+    if(card.type==="wild"||card.type==="wild4")colorChoice(card);
+    else {play(state.game,0,card.id);render();}
+   }catch(err){flash(err.message);}
+  });
+  b.disabled=!legal||state.pending!==null;
+  b.append(presentCard(card));
+  b.setAttribute("aria-label",cardLabel(card)+" "+(card.color?COLOR_VI[card.color]:"đặc biệt"));
+  list.append(b);
+ });
+ const draw=$("arenaDraw"),go=$("arenaPass");
+ draw.disabled=!humanTurn||g.drawnCardId!==null||state.pending!==null;
+ go.hidden=!humanTurn||g.drawnCardId===null;
+ go.disabled=state.pending!==null;
+ const winner=g.winner;
+ if(winner!==null){
+  flash(PLAYER_NAMES[winner]+" đã thắng ván!");
+ }else if(humanTurn){
+  flash(g.drawnCardId===null?"Lượt của bạn: chọn thẻ hợp lệ hoặc rút một lá.":
+   "Bạn đã rút 1 lá. Có thể đánh lá vừa rút nếu hợp lệ, hoặc bỏ lượt.");
+ }else flash("Đang chờ "+PLAYER_NAMES[g.turn]+" ra bài…");
+ const history=$("arenaEventLog");history.replaceChildren();
+ g.events.slice(-7).reverse().forEach(message=>history.append(el("p","",message)));
+ if(winner!==null){settle();return;}
+ if(!humanTurn&&state.pending===null)scheduleBot();
+}
+function scheduleBot(){
+ if(!state.game||state.timer)return;
+ const epoch=state.epoch;
+ state.timer=setTimeout(()=>{
+  state.timer=null;
+  if(epoch!==state.epoch||!state.game||state.game.turn===0||state.game.winner!==null)return;
+  try{botTurn(state.game);render();}
+  catch(err){flash("Đối thủ tạm dừng: "+err.message);}
+ },650);
+}
+$("arenaCatalog").querySelector("[data-game=colors]").addEventListener("click",start);
+$("arenaExit").addEventListener("click",showLobby);
+$("arenaDraw").addEventListener("click",()=>{
+ const g=state.game;if(!g||g.turn!==0||state.pending!==null)return;
+ try{beginDraw(g,0);render();}catch(err){flash(err.message);}
+});
+$("arenaPass").addEventListener("click",()=>{
+ const g=state.game;if(!g||g.turn!==0||state.pending!==null)return;
+ try{pass(g,0);render();}catch(err){flash(err.message);}
+});
+$("arenaColorCancel").addEventListener("click",()=>{
+ state.pending=null;$("arenaColorPicker").hidden=true;render();
+});
+$("arenaRules").addEventListener("click",()=>$("arenaRulesDialog").showModal());
+$("arenaRulesClose").addEventListener("click",()=>$("arenaRulesDialog").close());
+$("arenaRulesDialog").addEventListener("click",e=>{
+ if(e.target===$("arenaRulesDialog"))$("arenaRulesDialog").close();
+});
+updateWallet();
