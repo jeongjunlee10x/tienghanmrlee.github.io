@@ -23,7 +23,7 @@ function seatCard(player,room,counts){
  const holder=el("div","arena-pvp-seat"+(room.gameState.turn===player.seat?" active":""));
  holder.dataset.position=pos;holder.dataset.seat=String(player.seat);
  holder.append(el("span","",portraits[player.seat]),el("strong","",player.name),
-  el("small","","🪙 Vàng demo • "+(counts[player.seat]??0)+" lá"));
+  el("small","","🂠 "+(counts[player.seat]??0)+" lá còn lại"));
  const backs=el("div","arena-pvp-backs");
  for(let i=0;i<Math.min(5,counts[player.seat]??0);i++)backs.append(el("span","arena-back-mini"));
  holder.append(backs);
@@ -36,9 +36,9 @@ function statusBanner(room){
   state.turn===room.seat?"✨ Đến lượt bạn":"⏳ Lượt của "+turnName;
 }
 export function mountOnlineCanvas(root,onMove){
- let chosenSquare=-1,chosenCards=new Set(),chosenWild=null,locked=false,lastCode="",lastVersion=-1;
+ let chosenSquare=-1,chosenCards=new Set(),chosenWild=null,locked=false,lastCode="",lastVersion=-1,sortBy="rank";
  function clear(){
-  chosenSquare=-1;chosenCards.clear();chosenWild=null;locked=false;lastCode="";lastVersion=-1;
+  chosenSquare=-1;chosenCards.clear();chosenWild=null;locked=false;lastCode="";lastVersion=-1;sortBy="rank";
   root.replaceChildren();
  }
  async function submit(action){
@@ -115,15 +115,19 @@ export function mountOnlineCanvas(root,onMove){
   center.append(el("strong","",statusBanner(room)),current,
    el("small","",""+(state.last?.combo?.type||"Vòng mở")+" · "+(state.last?.player!==undefined?
     "Bộ trước: "+(room.players.find(x=>x.seat===state.last.player)?.name||"người chơi"):"")));
+  const lastEvent=state.history?.at(-1);
+  if(lastEvent)center.append(el("p","arena-online-tl-notice",lastEvent));
   board.append(center);
   const bottom=el("div","arena-pvp-human");
   const name=room.players.find(p=>p.seat===room.seat)?.name||"Bạn";
-  bottom.append(el("div","arena-pvp-human-hud","🧑 "+name+" · 🪙 Vàng demo · 🂠 "+state.myHand.length+" lá"));
+  bottom.append(el("div","arena-pvp-human-hud","🧑 "+name+" · Bàn "+room.minGold+"G/lá · 🂠 "+state.myHand.length+" lá"));
   const hand=el("div","arena-pvp-hand");
   const dummy={winner:state.winner,turn:state.turn,first:state.first,last:state.last,
    hands:[[],[],[],[]]};
   dummy.hands[room.seat]=state.myHand;
-  for(const c of state.myHand){
+  const sortedHand=[...state.myHand].sort((a,b)=>sortBy==="suit"?
+   a.suit-b.suit||a.rank-b.rank:a.rank-b.rank||a.suit-b.suit);
+  for(const c of sortedHand){
    const card=btn("",""+(chosenCards.has(c.id)?"selected":""),()=>{
     if(!myTurn||locked)return;
     if(chosenCards.has(c.id))chosenCards.delete(c.id);else chosenCards.add(c.id);
@@ -148,7 +152,14 @@ export function mountOnlineCanvas(root,onMove){
    chosenCards=new Set(matches[0].map(c=>c.id));render(room,true);
   });
   suggest.disabled=!myTurn||locked;
-  actions.append(play,pass,suggest);bottom.append(actions);
+  const sort=btn(sortBy==="rank"?"⇅ Xếp theo chất":"⇅ Xếp theo giá trị","arena-soft",()=>{
+   sortBy=sortBy==="rank"?"suit":"rank";render(room,true);
+  });
+  const clearSelection=btn("✕ Bỏ chọn","arena-soft",()=>{
+   chosenCards.clear();render(room,true);
+  });
+  clearSelection.disabled=chosenCards.size===0||locked;
+  actions.append(play,pass,suggest,sort,clearSelection);bottom.append(actions);
   board.append(bottom);
   const events=el("div","arena-pvp-events");
   (state.history||[]).slice(-5).reverse().forEach(line=>events.append(el("p","",line)));
@@ -173,7 +184,7 @@ export function mountOnlineCanvas(root,onMove){
   board.append(center);
   const hand=el("div","arena-pvp-hand"),bottom=el("div","arena-pvp-human");
   const me=room.players.find(p=>p.seat===room.seat)?.name||"Bạn";
-  bottom.append(el("div","arena-pvp-human-hud","🧑 "+me+" • 🪙 Vàng demo • 🃏 "+state.myHand.length+" lá"));
+  bottom.append(el("div","arena-pvp-human-hud","🧑 "+me+" • Bàn "+room.minGold+"G/lá • 🃏 "+state.myHand.length+" lá"));
   const dummy={winner:state.winner,turn:state.turn,hands:[[],[],[],[]],
    discard:[state.top],activeColor:state.activeColor,drawnCardId:state.drawnCardId};
   dummy.hands[room.seat]=state.myHand;
