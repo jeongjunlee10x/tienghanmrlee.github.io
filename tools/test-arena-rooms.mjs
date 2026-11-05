@@ -43,7 +43,7 @@ assert.match(html,/data-fullscreen-target="arenaPvPBoard"/);
 assert.equal((html.match(/data-room-action="quick"/g)||[]).length,3);
 assert.equal((html.match(/data-room-action="friends"/g)||[]).length,3);
 assert.equal((html.match(/data-room-action="browse"/g)||[]).length,3);
-assert.equal((html.match(/class="arena-game-card playable"/g)||[]).length,3);
+assert.equal((html.match(/class="arena-game-card playable"/g)||[]).length,6);
 assert.ok(js.includes("navigator.clipboard.writeText"));
 assert.ok(!js.includes("service_role"),"No service role key in UI");
 console.log("PASS Arena PvP: 12 G tiers, 1:10 conversion, 10 cards at 10G -> 100G, RLS/private ledger and fullscreen contract.");
