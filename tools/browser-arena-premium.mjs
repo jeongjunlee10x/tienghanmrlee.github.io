@@ -53,6 +53,8 @@ try{
   await page.route("**/assets/arena/room-api.js",route=>route.fulfill({status:200,contentType:"text/javascript",body:stub}));
   try{
    await page.goto(origin+"/mrlee-game-arena.html",{waitUntil:"domcontentloaded",timeout:25000});
+   await page.locator("#arenaDailyDialog").waitFor({state:"visible",timeout:12000});
+   await page.locator("#arenaDailyClose").click();
    await page.waitForFunction(()=>document.querySelectorAll("#arenaCatalog img.arena-cover-image").length===6,null,{timeout:12000});
    const allCovers=await page.locator("#arenaCatalog img.arena-cover-image").evaluateAll(images=>
     images.map(img=>({src:img.getAttribute("src"),valid:img.complete&&img.naturalWidth>=400})));
@@ -87,7 +89,7 @@ try{
  await page.route("**/assets/arena/room-api.js",route=>route.fulfill({status:200,contentType:"text/javascript",body:stub}));
  try{
   await page.goto(origin+"/mrlee-game-arena.html",{waitUntil:"domcontentloaded",timeout:25000});
-  await page.locator("#arenaDailyOpen").click();
+  await page.locator("#arenaDailyDialog").waitFor({state:"visible",timeout:12000});
   await page.locator("#arenaDailySpinButton").waitFor({state:"visible",timeout:10000});
   await page.locator("#arenaDailySpinButton").click();
   await page.waitForFunction(()=>document.querySelector("#arenaWheelDisk")?.getAttribute("aria-busy")==="true",null,{timeout:2000});
@@ -117,6 +119,8 @@ try{
  await zone.route("**/assets/arena/room-api.js",route=>route.fulfill({status:200,contentType:"text/javascript",body:stub}));
  try{
   await zone.goto(origin+"/tro-choi-tieng-han.html?cap=1&bai=1",{waitUntil:"domcontentloaded",timeout:25000});
+  await zone.locator("#arenaDailyDialog").waitFor({state:"visible",timeout:12000});
+  await zone.locator("#arenaDailyClose").click();
   await zone.locator("#mzCards .mz-card").first().waitFor();
   assert.equal(await zone.locator("#mzCards .mz-card").count(),10);
   assert.equal(await zone.locator("#mzCards .mz-cover-art").count(),10);
