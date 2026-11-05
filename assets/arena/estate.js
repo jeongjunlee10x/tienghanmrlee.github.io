@@ -155,6 +155,7 @@ export function mountEstate({onStart,onFinish,onExit}){
   const all=Array.from({length:49},()=>el("div","estate-cell"));
   g.tiles.forEach((t,i)=>{
    const [r,c]=ESTATE_PATH[i],tile=el("div","estate-tile type-"+t.kind+(t.owner>=0?" owned owner-"+t.owner:""));
+   tile.dataset.pathIndex=String(i);
    const title=el("strong","",t.name),detail=el("small","",
     t.kind==="property"?(t.owner>=0?"🏠 "+names[t.owner]+(t.level?" ⭐"+t.level:""):"💰 "+t.price):
     t.kind==="bonus"?"+"+t.price:t.kind==="tax"?"−"+t.price:"");
