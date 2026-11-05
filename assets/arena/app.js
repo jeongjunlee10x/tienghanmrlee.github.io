@@ -1,6 +1,8 @@
 /* MR LEE Game Arena — local sandbox. Wins/XP/gold here are not official rewards. */
 import {newGame,canPlay,play,beginDraw,pass,botTurn,cardLabel,topCard,
   COLOR_VI,COLORS,PLAYER_NAMES} from "./color-engine.js";
+import {mountChess} from "./chess-ui.js";
+import {mountTienLen} from "./tienlen-ui.js";
 const $=id=>document.getElementById(id);
 const state={game:null,tickets:3,gold:0,xp:0,wins:0,losses:0,pending:null,
   timer:null,epoch:0,settled:false,leaving:false};
@@ -36,8 +38,11 @@ function showTable(){
  $("arenaOutcome").hidden=true;
  $("arenaTable").scrollIntoView({behavior:"smooth",block:"start"});
 }
+let chessController=null,tienLenController=null;
 function showLobby(){
  if(state.timer){clearTimeout(state.timer);state.timer=null;}
+ chessController?.stop();tienLenController?.stop();
+ $("arenaChess").hidden=true;$("arenaTienLen").hidden=true;
  state.epoch++;
  state.pending=null;state.game=null;state.settled=false;
  $("arenaTable").hidden=true;$("arenaLobby").hidden=false;
@@ -58,6 +63,7 @@ function start(){
  state.pending=null;
  state.game=newGame();
  state.settled=false;
+ $("arenaChess").hidden=true;$("arenaTienLen").hidden=true;
  updateWallet();showTable();render();
 }
 function colorChoice(card){
@@ -179,3 +185,48 @@ $("arenaRulesDialog").addEventListener("click",e=>{
  if(e.target===$("arenaRulesDialog"))$("arenaRulesDialog").close();
 });
 updateWallet();
+
+
+// Independent strategy games share only the demo wallet; no grade/SQL writes.
+function startStrategy(mode){
+ if(state.tickets<1){
+  const warn=document.createElement("p");warn.className="arena-empty-tickets";
+  warn.textContent="Bạn đã dùng hết vé demo. Không trừ điểm học tập để mua thêm.";
+  $("arenaCatalog").after(warn);setTimeout(()=>warn.remove(),7000);
+  showLobby();return false;
+ }
+ if(state.timer!==null)clearTimeout(state.timer);state.timer=null;
+ state.epoch++;state.tickets--;state.pending=null;state.game=null;
+ $("arenaLobby").hidden=true;$("arenaTable").hidden=true;
+ $("arenaChess").hidden=mode!=="chess";$("arenaTienLen").hidden=mode!=="tienlen";
+ updateWallet();return true;
+}
+function settleStrategy(result,label,root){
+ if(root.querySelector(".arena-game-result"))return;
+ if(result==="win"){state.gold+=100;state.xp+=50;state.tickets++;state.wins++;}
+ else if(result==="draw"){state.xp+=20;}
+ else {state.xp+=10;state.losses++;}
+ updateWallet();
+ const panel=document.createElement("div");panel.className="arena-outcome arena-game-result";
+ const title=document.createElement("h2");title.textContent=result==="win"?"🏆 BẠN CHIẾN THẮNG":
+  result==="draw"?"🤝 VÁN HÒA":"💫 HẾT VÁN";
+ const note=document.createElement("p");note.textContent=label+" · "+
+  (result==="win"?"+100 vàng demo, +50 EXP demo, hoàn 1 vé":
+   result==="draw"?"+20 EXP demo":" +10 EXP demo");
+ const caution=document.createElement("p");caution.className="arena-disclaimer";
+ caution.textContent="Vàng và EXP chỉ dùng trong phiên. Không ảnh hưởng điểm kiểm tra, TOPIK Spark hoặc điểm thưởng học tập.";
+ panel.append(title,note,caution);
+ root.append(panel);panel.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+chessController=mountChess({
+ onStart:()=>startStrategy("chess"),
+ onFinish:settleStrategy,
+ onExit:showLobby
+});
+tienLenController=mountTienLen({
+ onStart:()=>startStrategy("tienlen"),
+ onFinish:settleStrategy,
+ onExit:showLobby
+});
+$("arenaCatalog").querySelector('[data-game="chess"]').addEventListener("click",()=>chessController.start());
+$("arenaCatalog").querySelector('[data-game="tienlen"]').addEventListener("click",()=>tienLenController.start());
