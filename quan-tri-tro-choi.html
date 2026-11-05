@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Quản trị Game Zone | MR LEE</title>
+  <link rel="icon" href="assets/branding/logo-mrlee.png">
+  <link rel="stylesheet" href="assets/branding/site-logo.css?v=20261103-glow-v1">
+  <script defer src="assets/branding/site-logo.js?v=20261104-native-v5"></script>
+  <link rel="stylesheet" href="assets/game-zone/game-zone.css?v=3">
+  <link rel="stylesheet" href="assets/game-zone/admin.css?v=1">
+  <script>try{document.documentElement.dataset.mrleeTheme=localStorage.getItem('MRLEE.THEME.V1')==='future'?'future':'fresh'}catch(e){document.documentElement.dataset.mrleeTheme='fresh'}</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="assets/game-zone/admin.js?v=1"></script>
+</head>
+<body>
+<div class="mz-app">
+<header class="mz-header">
+  <a class="mz-brand" href="admin.html"><img src="assets/branding/logo-mrlee.png" width="52" height="52" alt="MR LEE"><span><b>MR LEE</b><small>ADMIN · GAME ZONE</small></span></a>
+  <nav class="mz-nav"><a href="admin.html">← Quản trị chính</a><a href="tro-choi-tieng-han.html">Xem trò chơi</a></nav>
+</header>
+<main>
+  <section class="mz-admin-intro">
+    <span class="mz-kicker">QUẢN TRỊ RIÊNG GAME ZONE</span>
+    <h1>Ngân hàng câu hỏi và điểm tuần</h1>
+    <p>Chỉ dành cho Admin Supabase đã được cấp quyền. Học viên đăng nhập Firebase để chơi; điểm Game Zone tách biệt hoàn toàn TOPIK Spark.</p>
+  </section>
+  <p id="mzAdminStatus" role="status" class="mz-notice">Đang xác minh quyền quản trị...</p>
+  <section id="mzAdminLocked" hidden class="mz-admin-panel">
+    <h2>Yêu cầu quyền Admin</h2>
+    <p>Đăng nhập bằng tài khoản quản trị Supabase tại trang Admin chính, sau đó quay lại đây.</p>
+    <a class="mz-study-link" href="admin.html">Mở trang Admin</a>
+  </section>
+  <div id="mzAdminBody" hidden>
+    <section class="mz-admin-overview" aria-label="Số liệu riêng Game Zone">
+      <div><strong id="mzQTotal">—</strong><small>Câu hỏi trong kho</small></div>
+      <div><strong id="mzQApproved">—</strong><small>Câu đã duyệt</small></div>
+      <div><strong id="mzWeekPlays">—</strong><small>Bài nhận XP trong tuần</small></div>
+    </section>
+    <section class="mz-admin-panel" aria-labelledby="mzBankHeading">
+      <div class="mz-admin-heading">
+        <div><h2 id="mzBankHeading">Duyệt ngân hàng câu hỏi</h2><p>Câu hỏi mới chưa được tính điểm cho tới khi Admin duyệt.</p></div>
+        <button id="mzReload" type="button" class="mz-ghost">↻ Làm mới</button>
+      </div>
+      <div class="mz-admin-filters">
+        <label>Cấp <select id="mzBankCap"><option value="1">Sơ cấp 1</option><option value="2">Sơ cấp 2</option><option value="3">Trung cấp 1</option><option value="4">Trung cấp 2</option><option value="5">Cao cấp 1</option><option value="6">Cao cấp 2</option></select></label>
+        <label>Bài <select id="mzBankBai"></select></label>
+      </div>
+      <div id="mzBankList" class="mz-admin-list" aria-live="polite"></div>
+    </section>
+    <section class="mz-admin-panel" aria-labelledby="mzImportHeading">
+      <h2 id="mzImportHeading">Nhập câu hỏi JSON Lines</h2>
+      <p>Mỗi dòng là một đối tượng JSON. Cần đúng <code>cap</code>, <code>bai</code>, <code>kind</code> (<code>vocabulary</code>, <code>grammar</code>, <code>reading</code>), <code>prompt</code>, <code>options</code> (4 phương án), <code>answer_index</code> (0–3), <code>explanation</code>. Tối đa 50 câu mỗi lượt nhập, mặc định <strong>chưa duyệt</strong>.</p>
+      <textarea id="mzImportInput" rows="7" spellcheck="false" placeholder='{"cap":1,"bai":1,"kind":"vocabulary","prompt":"학생 có nghĩa là gì?","options":["học sinh","giáo viên","sinh viên","bác sĩ"],"answer_index":0,"explanation":"학생 là học sinh."}'></textarea>
+      <div class="mz-admin-actions">
+        <button id="mzPreview" type="button" class="mz-ghost">Kiểm tra dữ liệu</button>
+        <button id="mzImport" type="button" class="mz-primary" disabled>Nhập câu chưa duyệt</button>
+      </div>
+      <p id="mzImportStatus" role="status"></p>
+    </section>
+    <section class="mz-admin-panel" aria-labelledby="mzWeeklyHeading">
+      <h2 id="mzWeeklyHeading">Bảng thành tích Game Zone trong tuần</h2>
+      <p>Đây là điểm XP đã được máy chủ kiểm tra bằng bộ câu hỏi đã duyệt, không phải điểm thi TOPIK Spark hoặc ví động lực.</p>
+      <div id="mzAdminRanking" class="mz-admin-list"></div>
+    </section>
+  </div>
+</main>
+<footer class="mz-footer">© MR LEE · Quản trị Game Zone độc lập · Không chứa service_role key trong giao diện</footer>
+</div>
+</body></html>
