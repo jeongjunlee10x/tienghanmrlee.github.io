@@ -1,0 +1,77 @@
+/* MR LEE GAME ZONE premium game gallery + visual correct/incorrect feedback.
+ * 10 distinct original CSS illustrated covers; no screenshot backgrounds.
+ */
+.mz-hero{isolation:isolate;position:relative;box-shadow:0 16px 45px #0c2e6970;border:1px solid #ffffff59}
+.mz-hero::after{content:"";position:absolute;pointer-events:none;right:-25px;bottom:-145px;width:330px;height:330px;
+ border-radius:50%;border:2px solid #ffffff23;box-shadow:0 0 0 54px #ffffff0a,0 0 0 104px #ffffff07}
+.mz-section-title h2{letter-spacing:-.035em;font-weight:950}
+.mz-cards{gap:16px}
+.mz-card{padding:0!important;min-height:264px;overflow:hidden;isolation:isolate;position:relative;
+ border-radius:18px!important;border:1px solid color-mix(in srgb,var(--mz-line),#668bd5 25%)!important;
+ background:var(--mz-card);box-shadow:0 5px 20px #0d2f5640;gap:0!important;
+ transition:transform .23s,box-shadow .23s,border-color .23s}
+.mz-card:hover:not(:disabled){transform:translateY(-5px);box-shadow:0 16px 32px #082e5c55;border-color:#69c7ff!important}
+.mz-card:disabled{opacity:.65}
+.mz-card>.mz-cover-art{
+ --mz-a:#1e70b7;--mz-b:#132d6b;
+ display:flex;justify-content:center;align-items:center;position:relative;overflow:hidden;
+ width:100%;height:138px;flex:0 0 138px;margin:0;
+ background:radial-gradient(ellipse at 77% 20%,#ffffff55,transparent 50%),linear-gradient(125deg,var(--mz-a),var(--mz-b));
+ border-radius:16px 16px 0 0}
+.mz-cover-art::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,transparent 0 26px,#ffffff0b 27px 29px,transparent 30px 51px)}
+.mz-cover-art::after{content:"";position:absolute;width:124px;height:124px;top:10px;left:calc(50% - 62px);border-radius:50%;
+ border:1px solid #ffffff75;box-shadow:0 0 0 16px #ffffff11,0 0 0 36px #ffffff0b;
+ transform:rotate(-15deg)}
+.mz-cover-glow{display:grid;place-items:center;position:relative;z-index:1;width:99px;height:99px;
+ border:1px solid #ffffff99;border-radius:23px;transform:rotate(-9deg);background:linear-gradient(140deg,#ffffff38,#ffffff18);
+ box-shadow:0 13px 27px #070d3488,inset 0 1px 0 #ffffffa9;
+ font-size:65px;line-height:1;filter:drop-shadow(0 5px 5px #0214378b);
+ transition:transform .35s cubic-bezier(.21,.7,.22,1)}
+.mz-card:hover:not(:disabled) .mz-cover-glow{transform:rotate(1deg) translateY(-6px) scale(1.08)}
+.mz-cover-label{position:absolute;left:10px;top:10px;z-index:2;display:inline-flex;align-items:center;gap:4px;
+ padding:5px 8px;border:1px solid #ffffff67;border-radius:40px;background:#102a46a1;color:#fff;
+ font-weight:900;font-size:9px;letter-spacing:.08em;line-height:1.1;text-shadow:0 1px 4px #0008}
+.mz-card>strong{padding:13px 14px 0!important;margin:0!important;line-height:1.45;color:var(--mz-ink);
+ font-size:clamp(13px,1.8vw,17px);font-weight:950;letter-spacing:-.035em}
+.mz-card>small{padding:2px 14px 0;font-size:11px;color:var(--mz-primary);font-weight:900}
+.mz-card>p{padding:6px 14px 15px;margin:0!important;font-size:11px;line-height:1.58;color:var(--mz-muted);font-weight:600}
+.mz-card[data-game-mode="word-match"] .mz-cover-art{--mz-a:#3158c5;--mz-b:#792f9e}
+.mz-card[data-game-mode="sentence-builder"] .mz-cover-art{--mz-a:#1666a0;--mz-b:#19a0ae}
+.mz-card[data-game-mode="listening"] .mz-cover-art{--mz-a:#222b86;--mz-b:#7036b0}
+.mz-card[data-game-mode="memory"] .mz-cover-art{--mz-a:#b12b86;--mz-b:#612c87}
+.mz-card[data-game-mode="hangul-bubbles"] .mz-cover-art{--mz-a:#e77a45;--mz-b:#df3c75}
+.mz-card[data-game-mode="grammar-detective"] .mz-cover-art{--mz-a:#35578a;--mz-b:#104b73}
+.mz-card[data-game-mode="typing-king"] .mz-cover-art{--mz-a:#23466f;--mz-b:#0c7e8d}
+.mz-card[data-game-mode="korean-mart"] .mz-cover-art{--mz-a:#17866a;--mz-b:#335f82}
+.mz-card[data-game-mode="topik-battle"] .mz-cover-art{--mz-a:#ca5f32;--mz-b:#8d255d}
+.mz-card[data-game-mode="korean-travel"] .mz-cover-art{--mz-a:#377abb;--mz-b:#2b918b}
+.mz-play-brand{display:inline-flex;align-items:center;gap:6px;font-weight:900;font-size:9px;color:var(--mz-ink);letter-spacing:.03em}
+.mz-play-brand img{width:28px;height:28px;object-fit:contain}
+.mz-arena{position:relative;isolation:isolate}
+.mz-game{transition:opacity .2s}
+@keyframes mz-success-glow{0%{filter:drop-shadow(0 0 0 #19a574);transform:scale(1)}
+ 50%{filter:drop-shadow(0 0 14px #40e6b7);transform:scale(1.045)}100%{filter:none;transform:none}}
+@keyframes mz-error-shake{0%,100%{transform:none}25%{transform:translateX(-4px)}
+ 50%{transform:translateX(4px)}75%{transform:translateX(-2px)}}
+.mz-answer-success{animation:mz-success-glow .5s ease}
+.mz-answer-error{animation:mz-error-shake .38s ease;outline:2px solid #e35b6a}
+.mz-result:not([hidden]){animation:arena-bloom .35s cubic-bezier(.22,.78,.24,1) both}
+.mz-memory-card{transform-style:preserve-3d;transition:transform .28s ease,background .2s}
+.mz-memory-card:not(:disabled):active{transform:rotateY(9deg) scale(.98)}
+.mz-bubble:active{transform:scale(.91);transition:transform .1s}
+.mz-option:active,.mz-tile:active{transform:scale(.98)}
+@media(max-width:610px){
+ .mz-cards{gap:10px}
+ .mz-card{min-height:240px}
+ .mz-card>.mz-cover-art{height:110px;flex-basis:110px}
+ .mz-cover-glow{width:75px;height:75px;font-size:47px;border-radius:18px}
+ .mz-cover-art::after{width:95px;height:95px;top:9px;left:calc(50% - 48px)}
+ .mz-card>strong{padding:10px 10px 0!important;font-size:13px}
+ .mz-card>small{padding:2px 10px 0;font-size:10px}
+ .mz-card>p{padding:4px 10px 12px;font-size:10px}
+ .mz-cover-label{left:7px;top:7px;font-size:7px;padding:4px 6px}
+}
+@media(prefers-reduced-motion:reduce){
+ .mz-cover-glow,.mz-card,.mz-memory-card{transition:none!important}
+ .mz-answer-success,.mz-answer-error,.mz-result{animation:none!important}
+}
