@@ -32,6 +32,25 @@ for(const m of theme.matchAll(/'([a-z0-9-]+\.html(?:\?[^']*)?)'/gi)){
  const f=m[1].split('?')[0];if(!exists(f))errors.push('BROKEN DYNAMIC PORTAL LINK: '+f);
 }
 
+// Placement exam contrast regression: both themes must keep legible question,
+ // form and result surfaces even though shared Future theme sets dark panels.
+const placement=exists('kiem-tra-dau-vao.html')?fs.readFileSync('kiem-tra-dau-vao.html','utf8'):'';
+for(const marker of [
+  'id="mrlee-placement-contrast-v2"',
+  'html[data-mrlee-v23="exam"] .shell #intro',
+  'html[data-mrlee-v23="exam"] .shell .option',
+  'html[data-mrlee-v23="exam"] .shell #results .lesson-row',
+  'html[data-mrlee-v23="exam"] .shell #results .correct-text',
+  'html[data-mrlee-v23="exam"] .shell #results .incorrect-text',
+  'html[data-mrlee-v23="exam"] .shell #mrlee-placement-save'
+])if(!placement.includes(marker))errors.push('PLACEMENT CONTRAST MISSING: '+marker);
+if(placement.match(/id="mrlee-placement-contrast-v2"/g)?.length!==1)
+  errors.push('PLACEMENT CONTRAST DUPLICATED');
+if(placement.indexOf('id="mrlee-placement-contrast-v2"')<placement.indexOf('assets/mrlee-dual-ui/theme.css'))
+  errors.push('PLACEMENT CONTRAST BEFORE GLOBAL THEME');
+if(!placement.includes('id="mrleePlacementConsent"')||!placement.includes('id="results"'))
+  errors.push('PLACEMENT FLOW LOST');
+
 // R1 release guards: real six-section navigation, Admin counts from RLS,
 // and presentation labels which cannot silently drift back to sample totals.
 const navCssFile='assets/mrlee-v2/primary-nav.css';

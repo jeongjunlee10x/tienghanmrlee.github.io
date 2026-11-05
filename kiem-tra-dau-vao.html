@@ -56,6 +56,123 @@ a{color:inherit} button {cursor:pointer} :focus-visible{outline:3px solid #e69a4
 <link rel="stylesheet" href="assets/mrlee-score-v12/score.css?v=12.0"><script type="module" src="assets/mrlee-score-v12/widget.js?v=12.0"></script><!-- MRLEE_DUAL_UI_V1 -->
 <script>try{document.documentElement.dataset.mrleeTheme=localStorage.getItem('MRLEE.THEME.V1')==='future'?'future':'fresh'}catch(e){document.documentElement.dataset.mrleeTheme='fresh'}</script>
 <link rel="stylesheet" href="assets/mrlee-dual-ui/theme.css?v=20261024-1">
+<style id="mrlee-placement-contrast-v2">
+/* MR LEE placement: isolate reading surfaces from global Fresh/Future theme colors.
+   All pages outside data-mrlee-v23="exam" remain unchanged. */
+html[data-mrlee-v23="exam"] .shell{
+  --ink:#172b43;--muted:#52647b;--line:#d7e1ed;
+  --navy:#19395d;--navy2:#235a87;--white:#fff;
+  color:#172b43;color-scheme:light;
+}
+html[data-mrlee-v23="exam"] .shell :is(.panel,.question-card,.exam-bar){
+  background:#fff!important;color:#172b43!important;border-color:#d7e1ed!important;
+  box-shadow:0 6px 20px #14345514!important;
+}
+html[data-mrlee-v23="exam"] .shell #intro{
+  background:#fff!important;background-image:none!important;overflow:visible;
+}
+html[data-mrlee-v23="exam"] .shell #intro::after{content:none!important}
+html[data-mrlee-v23="exam"] .shell :is(#intro,#results) :is(h1,h2,h3),
+html[data-mrlee-v23="exam"] .shell .question-card h3{
+  color:#19395d!important;text-shadow:none!important;
+}
+html[data-mrlee-v23="exam"] .shell :is(#intro,#results) p,
+html[data-mrlee-v23="exam"] .shell .question-card :is(p,.answer-line),
+html[data-mrlee-v23="exam"] .shell .status-label{color:#344a63!important}
+html[data-mrlee-v23="exam"] .shell :is(.muted,.score-desc,.helper,.privacy){
+  color:#52647b!important;
+}
+html[data-mrlee-v23="exam"] .shell :is(.field,.status-label strong,.identity-summary,.question-top){
+  color:#19395d!important;
+}
+html[data-mrlee-v23="exam"] .shell .pill{background:#eaf2fb!important;color:#183f70!important}
+html[data-mrlee-v23="exam"] .shell .lesson-badge{background:#fff0df!important;color:#824b17!important}
+html[data-mrlee-v23="exam"] .shell .eyebrow{color:#97551d!important}
+html[data-mrlee-v23="exam"] .shell .btn{
+  background:#1b4d80!important;color:#fff!important;border-color:#1b4d80!important;
+  text-shadow:none!important;
+}
+html[data-mrlee-v23="exam"] .shell .btn:hover:not(:disabled){
+  background:#123c67!important;color:#fff!important;
+}
+html[data-mrlee-v23="exam"] .shell .btn.secondary{
+  background:#e8f0fa!important;color:#173f6b!important;border-color:#c7d9ec!important;
+}
+html[data-mrlee-v23="exam"] .shell .btn.ghost{
+  background:#fff!important;color:#173f6b!important;border-color:#b9cbe0!important;
+}
+html[data-mrlee-v23="exam"] .shell :is(.btn.secondary,.btn.ghost):hover:not(:disabled){
+  background:#d8e8f9!important;color:#123c67!important;
+}
+html[data-mrlee-v23="exam"] .shell #intro :is(.name-input,.form-input,input[type="date"],select){
+  background:#fff!important;color:#172b43!important;border:1px solid #aebfd3!important;
+  -webkit-text-fill-color:#172b43;
+}
+html[data-mrlee-v23="exam"] .shell #intro :is(input,select)::placeholder{color:#5d6e82!important;opacity:1}
+html[data-mrlee-v23="exam"] .shell #intro input[type="checkbox"]{accent-color:#1b4d80}
+html[data-mrlee-v23="exam"] .shell .bank-preview{
+  background:#fff7eb!important;color:#704716!important;border:1px solid #ecd3a8!important;
+}
+html[data-mrlee-v23="exam"] .shell .identity-summary{
+  background:#edf4fb!important;color:#1b416d!important;border-color:#c9daeb!important;
+}
+html[data-mrlee-v23="exam"] .shell .exam-bar{background:#fff!important}
+html[data-mrlee-v23="exam"] .shell .time{color:#a72338!important}
+html[data-mrlee-v23="exam"] .shell .question-nav button{
+  background:#fff!important;color:#1d466f!important;border-color:#bacce0!important;
+}
+html[data-mrlee-v23="exam"] .shell .question-nav button.answered{
+  background:#dff6eb!important;color:#075c43!important;border-color:#80bfa4!important;
+}
+html[data-mrlee-v23="exam"] .shell .question-nav button.current{
+  outline:3px solid #ca7934!important;outline-offset:0;
+}
+html[data-mrlee-v23="exam"] .shell .option{
+  background:#fff!important;color:#172b43!important;border-color:#cbd7e4!important;
+}
+html[data-mrlee-v23="exam"] .shell .option:hover{background:#f2f7fd!important}
+html[data-mrlee-v23="exam"] .shell .option:has(input:checked){
+  background:#e8f2ff!important;border-color:#527cae!important;
+}
+html[data-mrlee-v23="exam"] .shell .option input{accent-color:#1e568a;color-scheme:light}
+html[data-mrlee-v23="exam"] .shell .option-letter{color:#244e7b!important}
+html[data-mrlee-v23="exam"] .shell .passage{
+  background:#f1f5fa!important;color:#243b58!important;border-left-color:#c07832!important;
+}
+html[data-mrlee-v23="exam"] .shell #results #score{color:#193f6e!important}
+html[data-mrlee-v23="exam"] .shell #results #recommend{color:#195582!important}
+html[data-mrlee-v23="exam"] .shell #results .lesson-row{
+  background:#f7faff!important;color:#203a55!important;border-color:#d4e1ee!important;
+}
+html[data-mrlee-v23="exam"] .shell #results .lesson-row.weak{
+  background:#fff0e8!important;color:#7b381d!important;border-color:#ecc1ab!important;
+}
+html[data-mrlee-v23="exam"] .shell #results .review-note{
+  background:#eaf2fc!important;color:#203e5e!important;
+}
+html[data-mrlee-v23="exam"] .shell #results .review-card.correct{border-left-color:#16835d!important}
+html[data-mrlee-v23="exam"] .shell #results .review-card.incorrect{border-left-color:#b52f45!important}
+html[data-mrlee-v23="exam"] .shell #results .correct-text{color:#096443!important}
+html[data-mrlee-v23="exam"] .shell #results .incorrect-text,
+html[data-mrlee-v23="exam"] .shell #intro .form-error{color:#ad273d!important}
+html[data-mrlee-v23="exam"] .shell #mrlee-placement-save{
+  background:#edf5fe!important;color:#173e69!important;border-color:#b6d0eb!important;
+}
+html[data-mrlee-v23="exam"][data-mrlee-theme="future"] .site-header .logo,
+html[data-mrlee-v23="exam"][data-mrlee-theme="future"] .site-header .site-nav a{
+  color:#eaf7ff!important;
+}
+@media(max-width:640px){
+  html[data-mrlee-v23="exam"] .shell .panel{padding:18px!important}
+  html[data-mrlee-v23="exam"] .shell #results .score-big{font-size:36px}
+  html[data-mrlee-v23="exam"] .shell .option{padding:12px!important}
+}
+@media print{
+  html[data-mrlee-v23="exam"] .shell :is(.panel,.question-card,.exam-bar){
+    background:#fff!important;color:#172b43!important;box-shadow:none!important;
+  }
+}
+</style>
 <script defer src="assets/mrlee-dual-ui/theme.js?v=20261029-entry1"></script>
 </head>
 <body>
