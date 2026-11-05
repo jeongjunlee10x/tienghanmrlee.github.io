@@ -229,6 +229,11 @@ Deno.serve(async(req:Request)=>{
   const uid=await identity(req),database=db(),url=new URL(req.url),kind=url.searchParams.get("action");
   if(req.method==="GET"){
    if(kind==="wallet")return reply(req,200,{ok:true,wallet:await wallet(database,uid)});
+   if(kind==="daily"){
+    const {data,error}=await database.rpc("mrlee_arena_daily_status",{p_uid:uid});
+    if(error)fail("Không thể tải thông tin điểm danh và vòng quay.",503);
+    return reply(req,200,{ok:true,daily:data,wallet:await wallet(database,uid)});
+   }
    if(kind==="list"){
     const game=gameName(url.searchParams.get("game"));
     return reply(req,200,{ok:true,rooms:await listRooms(database,game,uid)});
@@ -246,6 +251,17 @@ Deno.serve(async(req:Request)=>{
   let body:Body;try{body=JSON.parse(raw);}catch{fail("Dữ liệu JSON không hợp lệ.");}
   if(!body||typeof body!=="object"||Array.isArray(body))fail("Dữ liệu không hợp lệ.");
   const nickname=name(body.nickname);
+  if(kind==="daily_checkin"||kind==="daily_spin"){
+   const action=kind==="daily_checkin"?"checkin":"spin";
+   const {data,error}=await database.rpc("mrlee_arena_daily_claim",{p_uid:uid,p_kind:action});
+   if(error){
+    if(error.code==="P0001")fail("Không thể nhận thưởng hôm nay.",403);
+    fail("Máy chủ chưa ghi nhận phần thưởng. Hãy thử lại.",503);
+   }
+   const {data:daily,error:statusError}=await database.rpc("mrlee_arena_daily_status",{p_uid:uid});
+   if(statusError)fail("Phần thưởng đã xử lý nhưng chưa tải được trạng thái mới. Hãy tải lại trang.",503);
+   return reply(req,200,{ok:true,reward:data,daily,wallet:await wallet(database,uid)});
+  }
   if(kind==="convert"){
    if(!Number.isInteger(body.points)||body.points<1||body.points>10000)
      fail("Chọn từ 1 đến 10.000 điểm đã xác minh mỗi lần đổi.");
