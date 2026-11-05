@@ -6,7 +6,7 @@
 const $=id=>document.getElementById(id);
 const arena=!!$("arenaLobby"),zone=!!$("mzLobby");
 const entries=arena?[
- ["arenaTable",".arena-board",["arenaTurn","arenaEventLog"]],
+ ["arenaTable",".arena-board",["arenaTurn"]],
  ["arenaChess",".chess-main",["chessStatus"]],
  ["arenaTienLen",".tl-board",["tlStatus","tlTableEvent"]],
  ["arenaLudo",".arena-extra-stage",["ludoStatus"]],
