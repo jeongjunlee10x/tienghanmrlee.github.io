@@ -4,6 +4,9 @@ import {newGame,canPlay,play,beginDraw,pass,botTurn,cardLabel,topCard,
 import {mountChess} from "./chess-ui.js";
 import {mountTienLen} from "./tienlen-ui.js";
 import {mountArenaRooms} from "./rooms-ui.js";
+import {mountLudo} from "./ludo.js";
+import {mountXiangqi} from "./xiangqi.js";
+import {mountEstate} from "./estate.js";
 const $=id=>document.getElementById(id);
 const state={game:null,tickets:3,gold:0,xp:0,wins:0,losses:0,pending:null,
   timer:null,epoch:0,settled:false,leaving:false};
@@ -40,9 +43,15 @@ function showTable(){
  $("arenaTable").scrollIntoView({behavior:"smooth",block:"start"});
 }
 let chessController=null,tienLenController=null;
+let ludoController=null,xiangqiController=null,estateController=null;
+const extraSections=["arenaLudo","arenaXiangqi","arenaEstate"];
+function hideExtraGames(){
+ ludoController?.stop();xiangqiController?.stop();estateController?.stop();
+ extraSections.forEach(id=>$(id).hidden=true);
+}
 function showLobby(){
  if(state.timer){clearTimeout(state.timer);state.timer=null;}
- chessController?.stop();tienLenController?.stop();
+ chessController?.stop();tienLenController?.stop();hideExtraGames();
  $("arenaChess").hidden=true;$("arenaTienLen").hidden=true;
  roomController?.stop();
  state.epoch++;
@@ -65,7 +74,7 @@ function start(){
  state.pending=null;
  state.game=newGame();
  state.settled=false;
- $("arenaChess").hidden=true;$("arenaTienLen").hidden=true;
+ $("arenaChess").hidden=true;$("arenaTienLen").hidden=true;hideExtraGames();
  updateWallet();showTable();render();
 }
 function colorChoice(card){
@@ -202,6 +211,10 @@ function startStrategy(mode){
  state.epoch++;state.tickets--;state.pending=null;state.game=null;
  $("arenaLobby").hidden=true;$("arenaTable").hidden=true;
  $("arenaChess").hidden=mode!=="chess";$("arenaTienLen").hidden=mode!=="tienlen";
+ extraSections.forEach(id=>$(id).hidden=id!=="arena"+({ludo:"Ludo",xiangqi:"Xiangqi",estate:"Estate"}[mode]||"__none__"));
+ [ludoController,xiangqiController,estateController].forEach((controller,i)=>{
+  if(["ludo","xiangqi","estate"][i]!==mode)controller?.stop();
+ });
  updateWallet();return true;
 }
 function settleStrategy(result,label,root){
@@ -222,8 +235,17 @@ function settleStrategy(result,label,root){
  const exit=button("← Về sảnh","arena-soft",showLobby);
  actions.append(exit);panel.append(title,note,caution,actions);
  panel.classList.add("arena-match-result");
- (root.querySelector(".tl-board, .chess-main")||root).append(panel);
+ (root.querySelector(".tl-board, .chess-main, .ludo-board, .xq-board-wrap, .estate-board")||root).append(panel);
 }
+ludoController=mountLudo({
+ onStart:()=>startStrategy("ludo"),onFinish:settleStrategy,onExit:showLobby
+});
+xiangqiController=mountXiangqi({
+ onStart:()=>startStrategy("xiangqi"),onFinish:settleStrategy,onExit:showLobby
+});
+estateController=mountEstate({
+ onStart:()=>startStrategy("estate"),onFinish:settleStrategy,onExit:showLobby
+});
 chessController=mountChess({
  onStart:()=>startStrategy("chess"),
  onFinish:settleStrategy,
@@ -238,6 +260,9 @@ tienLenController=mountTienLen({
 });
 $("arenaCatalog").querySelector('[data-game="chess"]').addEventListener("click",()=>chessController.start());
 $("arenaCatalog").querySelector('[data-game="tienlen"]').addEventListener("click",()=>tienLenController.start());
+for(const [game,controller] of [["ludo",ludoController],["xiangqi",xiangqiController],["estate",estateController]]){
+ $("arenaCatalog").querySelector('[data-game="'+game+'"]').addEventListener("click",()=>controller.start());
+}
 
 
 // Shared PvP lobby runs separately from the local bot economy. All remote G is
@@ -245,7 +270,7 @@ $("arenaCatalog").querySelector('[data-game="tienlen"]').addEventListener("click
 let roomController=mountArenaRooms({
  onEnter:()=>{
   if(state.timer)clearTimeout(state.timer);state.timer=null;
-  chessController?.stop();tienLenController?.stop();
+  chessController?.stop();tienLenController?.stop();hideExtraGames();
   $("arenaLobby").hidden=true;$("arenaTable").hidden=true;
   $("arenaChess").hidden=true;$("arenaTienLen").hidden=true;
   state.game=null;state.epoch++;
