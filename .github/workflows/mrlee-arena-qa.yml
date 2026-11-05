@@ -1,22 +1,29 @@
 name: MR LEE Arena MVP QA
 on:
   push:
-    branches: [feature/mrlee-arcade-mvp, feature/mrlee-arcade-chess-tienlen, feature/mrlee-tienlen-live-table-v2]
+    branches: [feature/mrlee-arcade-mvp, feature/mrlee-arcade-chess-tienlen, feature/mrlee-tienlen-live-table-v2, feature/mrlee-arena-multiplayer-rooms]
     paths:
       - 'mrlee-game-arena.html'
       - 'assets/arena/**'
+      - 'supabase/functions/mrlee-arena-rooms/**'
+      - 'supabase/manual-sql/MRLEE_ARENA_*.sql'
       - 'tro-choi-tieng-han.html'
       - 'tools/test-arena.mjs'
       - 'tools/test-arena-strategy.mjs'
       - 'tools/test-tienlen-fx.mjs'
+      - 'tools/test-arena-rooms.mjs'
+      - 'tools/test-arena-live-api.mjs'
       - 'tools/browser-arena.mjs'
       - 'tools/browser-arena-strategy.mjs'
       - 'tools/browser-tienlen-live.mjs'
+      - 'tools/browser-arena-rooms.mjs'
       - '.github/workflows/mrlee-arena-qa.yml'
   pull_request:
     paths:
       - 'mrlee-game-arena.html'
       - 'assets/arena/**'
+      - 'supabase/functions/mrlee-arena-rooms/**'
+      - 'supabase/manual-sql/MRLEE_ARENA_*.sql'
       - 'tro-choi-tieng-han.html'
       - 'tools/test-arena.mjs'
       - 'tools/browser-arena.mjs'
@@ -41,6 +48,12 @@ jobs:
           node --check assets/arena/tienlen-fx.js
           node --check tools/test-tienlen-fx.mjs
           node --check tools/browser-tienlen-live.mjs
+          node --check tools/browser-arena-rooms.mjs
+          node --check tools/test-arena-rooms.mjs
+          node --check tools/test-arena-live-api.mjs
+          node --check assets/arena/room-api.js
+          node --check assets/arena/rooms-ui.js
+          node --check assets/arena/rooms-play.js
           node --check tools/test-arena.mjs
           node --check tools/browser-arena.mjs
       - name: Arena gameplay rules
@@ -49,6 +62,14 @@ jobs:
         run: node tools/test-arena-strategy.mjs
       - name: Table visual effects and chop labels
         run: node tools/test-tienlen-fx.mjs
+      - name: Multiplayer rooms and G ledger contract tests
+        run: node tools/test-arena-rooms.mjs
+      - uses: denoland/setup-deno@v2
+        with: {deno-version: v2.x}
+      - name: Type-check Edge room API
+        run: deno check supabase/functions/mrlee-arena-rooms/index.ts
+      - name: Live Arena API security smoke
+        run: node tools/test-arena-live-api.mjs
       - name: Whole-site static QA
         run: node tools/check-site.mjs
       - name: Cloudflare Pages export
@@ -64,3 +85,4 @@ jobs:
           node tools/browser-arena.mjs
           node tools/browser-arena-strategy.mjs
           node tools/browser-tienlen-live.mjs
+          node tools/browser-arena-rooms.mjs

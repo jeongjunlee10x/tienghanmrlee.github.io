@@ -3,6 +3,7 @@ import {newGame,canPlay,play,beginDraw,pass,botTurn,cardLabel,topCard,
   COLOR_VI,COLORS,PLAYER_NAMES} from "./color-engine.js";
 import {mountChess} from "./chess-ui.js";
 import {mountTienLen} from "./tienlen-ui.js";
+import {mountArenaRooms} from "./rooms-ui.js";
 const $=id=>document.getElementById(id);
 const state={game:null,tickets:3,gold:0,xp:0,wins:0,losses:0,pending:null,
   timer:null,epoch:0,settled:false,leaving:false};
@@ -43,6 +44,7 @@ function showLobby(){
  if(state.timer){clearTimeout(state.timer);state.timer=null;}
  chessController?.stop();tienLenController?.stop();
  $("arenaChess").hidden=true;$("arenaTienLen").hidden=true;
+ roomController?.stop();
  state.epoch++;
  state.pending=null;state.game=null;state.settled=false;
  $("arenaTable").hidden=true;$("arenaLobby").hidden=false;
@@ -101,8 +103,9 @@ function settle(){
  const replay=button("🔄 Chơi tiếp","arena-primary",start);
  const exit=button("Về sảnh","arena-soft",showLobby);
  actions.append(replay,exit);outcome.append(headline,summary,caution,actions);
+ outcome.classList.add("arena-match-result");
+ $("arenaTable").querySelector(".arena-board").append(outcome);
  flash(won?"Bạn đã chiến thắng!":"Người thắng: "+winName);
- outcome.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
 function renderOpponents(g){
  const area=$("arenaOpponents");area.replaceChildren();
@@ -215,8 +218,11 @@ function settleStrategy(result,label,root){
    result==="draw"?"+20 EXP demo":" +10 EXP demo");
  const caution=document.createElement("p");caution.className="arena-disclaimer";
  caution.textContent="Vàng và EXP chỉ dùng trong phiên. Không ảnh hưởng điểm kiểm tra, TOPIK Spark hoặc điểm thưởng học tập.";
- panel.append(title,note,caution);
- root.append(panel);panel.scrollIntoView({behavior:"smooth",block:"nearest"});
+ const actions=document.createElement("div");actions.className="arena-outcome-actions";
+ const exit=button("← Về sảnh","arena-soft",showLobby);
+ actions.append(exit);panel.append(title,note,caution,actions);
+ panel.classList.add("arena-match-result");
+ (root.querySelector(".tl-board, .chess-main")||root).append(panel);
 }
 chessController=mountChess({
  onStart:()=>startStrategy("chess"),
@@ -232,3 +238,56 @@ tienLenController=mountTienLen({
 });
 $("arenaCatalog").querySelector('[data-game="chess"]').addEventListener("click",()=>chessController.start());
 $("arenaCatalog").querySelector('[data-game="tienlen"]').addEventListener("click",()=>tienLenController.start());
+
+
+// Shared PvP lobby runs separately from the local bot economy. All remote G is
+// read from the Firebase-verified Edge API, never from demo state.gold.
+let roomController=mountArenaRooms({
+ onEnter:()=>{
+  if(state.timer)clearTimeout(state.timer);state.timer=null;
+  chessController?.stop();tienLenController?.stop();
+  $("arenaLobby").hidden=true;$("arenaTable").hidden=true;
+  $("arenaChess").hidden=true;$("arenaTienLen").hidden=true;
+  state.game=null;state.epoch++;
+ },
+ onExit:showLobby,
+ onWallet:()=>{}
+});
+void roomController.refreshWallet().catch(()=>{});
+
+function toast(message){
+ const node=$("arenaToast");if(!node)return;
+ node.textContent=message;node.hidden=false;
+ clearTimeout(toast._timer);
+ toast._timer=setTimeout(()=>node.hidden=true,2300);
+}
+function openPseudoFullscreen(target){
+ target.classList.add("arena-fallback-fullscreen");
+ document.body.classList.add("arena-fullscreen-active");
+ toast("⛶ Toàn màn hình · Nhấn ESC để thoát");
+}
+function leavePseudoFullscreen(){
+ document.querySelector(".arena-fallback-fullscreen")?.classList.remove("arena-fallback-fullscreen");
+ document.body.classList.remove("arena-fullscreen-active");
+}
+document.querySelectorAll("[data-fullscreen-target]").forEach(control=>{
+ control.addEventListener("click",async()=>{
+  const target=$(control.dataset.fullscreenTarget);
+  if(!target)return;
+  if(document.fullscreenElement===target){await document.exitFullscreen();return;}
+  if(target.classList.contains("arena-fallback-fullscreen")){leavePseudoFullscreen();return;}
+  try{
+   if(!target.requestFullscreen)throw Error("not supported");
+   await target.requestFullscreen();
+  }catch{openPseudoFullscreen(target);}
+ });
+});
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape")leavePseudoFullscreen();
+});
+document.addEventListener("fullscreenchange",()=>{
+ document.querySelectorAll("[data-fullscreen-target]").forEach(control=>{
+  control.textContent=document.fullscreenElement?.id===control.dataset.fullscreenTarget?
+   "↙ Thu nhỏ":"⛶ Toàn màn hình";
+ });
+});
