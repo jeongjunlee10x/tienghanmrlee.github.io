@@ -13,7 +13,9 @@ const JWKS=createRemoteJWKSet(new URL("https://www.googleapis.com/service_accoun
  {timeoutDuration:5000,cooldownDuration:30000,cacheMaxAge:3600000});
 const ORIGINS=new Set(["https://jeongjunlee10x.github.io","https://mrlee-b6a.pages.dev"]);
 const GAME_SLOTS:Record<string,number>={chess:2,tienlen:4,colors:4};
-const GOLD_TIERS=new Set([0,100,500,1000]);
+const GOLD_TIERS=new Set([5,10,50,100,500,1000,5000,10000,50000,100000,500000,1000000]);
+const RISK_CARDS:Record<string,number>={chess:1,tienlen:13,colors:20};
+const exposure=(game:string,stake:number)=>stake*RISK_CARDS[game];
 const CODE_LETTERS="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 type Member={uid:string,name:string,seat:number,ready:boolean};
 type Room={code:string,game:string,visibility:string,min_gold:number,status:string,
@@ -65,7 +67,7 @@ function name(value:unknown){
  return text.length>=2?text:"Học viên";
 }
 function roomTier(value:unknown){
- if(typeof value!=="number"||!GOLD_TIERS.has(value))fail("Mốc vàng demo không hợp lệ.");
+ if(typeof value!=="number"||!GOLD_TIERS.has(value))fail("Mức bàn G không hợp lệ.");
  return value;
 }
 function randomCode(){
@@ -86,9 +88,10 @@ function safeRoom(room:Room,uid:string){
  const result:any={code:room.code,game,visibility:room.visibility,minGold:room.min_gold,
   status:room.status,seat:player.seat,capacity:GAME_SLOTS[game],
   players:room.members.map(m=>({name:m.name,seat:m.seat,ready:m.ready})),
-  version:room.version,expiresAt:room.expires_at};
+  version:room.version,expiresAt:room.expires_at,requiredGold:exposure(game,room.min_gold)};
  if(room.status!=="playing"&&room.status!=="finished")return result;
  const state=room.state;
+ if(room.status==="finished"&&state.settlement)result.settlement=state.settlement;
  if(game==="chess"){
   const position=state.history.at(-1),detail=Chess.status(state.history);
   result.gameState={position,notation:state.notation,turn:position.t===1?0:1,
@@ -127,7 +130,30 @@ function createState(game:string){
  }
  return game==="tienlen"?TienLen.start(secureRandom):Colors.newGame(secureRandom);
 }
+async function wallet(database:any,uid:string){
+ const {error:init}=await database.from("mrlee_arena_wallets")
+   .upsert({firebase_uid:uid},{onConflict:"firebase_uid",ignoreDuplicates:true});
+ if(init)fail("Chưa mở được ví G.",503);
+ const {data:w,error}=await database.from("mrlee_arena_wallets")
+   .select("gold,converted_points").eq("firebase_uid",uid).single();
+ if(error)fail("Không đọc được ví G.",503);
+ const {data:awards,error:pointsError}=await database.from("mrlee_game_awards")
+   .select("xp").eq("firebase_uid",uid);
+ if(pointsError)fail("Không xác minh được nguồn điểm học.",503);
+ const total=(awards||[]).reduce((sum:number,a:{xp:number})=>sum+a.xp,0);
+ return {gold:Number(w.gold),earnedPoints:total,
+  convertedPoints:Number(w.converted_points),
+  availablePoints:Math.max(0,total-Number(w.converted_points))};
+}
+async function requireGold(database:any,uid:string,game:string,tier:number){
+ const w=await wallet(database,uid);
+ const necessary=exposure(game,tier);
+ if(w.gold<necessary)fail("Cần tối thiểu "+necessary.toLocaleString("vi-VN")+
+  "G để bảo đảm thanh toán ván này. Hãy đổi điểm đã xác minh hoặc chọn mức bàn thấp hơn.",403);
+ return w;
+}
 async function freshRoom(database:any,uid:string,game:string,visibility:string,tier:number,nickname:string){
+ await requireGold(database,uid,game,tier);
  const {count,error:countError}=await database.from("mrlee_arena_rooms").select("code",{head:true,count:"exact"})
   .in("status",["waiting","playing"]).contains("members",[{uid}]).gt("expires_at",now());
  if(countError)fail("Không kiểm tra được phòng hiện có.",503);
@@ -147,6 +173,7 @@ async function joinRoom(database:any,row:Room,uid:string,nickname:string){
  if(row.members.some(x=>x.uid===uid))return row;
  if(row.status!=="waiting")fail("Bàn này đã bắt đầu hoặc đóng.",409);
  if(row.members.length>=GAME_SLOTS[row.game])fail("Bàn đã đủ số người.",409);
+ await requireGold(database,uid,row.game,row.min_gold);
  const members=[...row.members,{uid,name:nickname,seat:row.members.length,ready:false}];
  return cas(database,row,{members});
 }
@@ -211,6 +238,7 @@ Deno.serve(async(req:Request)=>{
  try{
   const uid=await identity(req),database=db(),url=new URL(req.url),kind=url.searchParams.get("action");
   if(req.method==="GET"){
+   if(kind==="wallet")return reply(req,200,{ok:true,wallet:await wallet(database,uid)});
    if(kind==="list"){
     const game=gameName(url.searchParams.get("game"));
     return reply(req,200,{ok:true,rooms:await listRooms(database,game,uid)});
@@ -228,6 +256,18 @@ Deno.serve(async(req:Request)=>{
   let body:Body;try{body=JSON.parse(raw);}catch{fail("Dữ liệu JSON không hợp lệ.");}
   if(!body||typeof body!=="object"||Array.isArray(body))fail("Dữ liệu không hợp lệ.");
   const nickname=name(body.nickname);
+  if(kind==="convert"){
+   if(!Number.isInteger(body.points)||body.points<1||body.points>10000)
+     fail("Chọn từ 1 đến 10.000 điểm đã xác minh mỗi lần đổi.");
+   const {data,error}=await database.rpc("mrlee_arena_convert",{
+    p_uid:uid,p_points:body.points
+   });
+   if(error){
+    if(error.code==="P0001")fail("Không đủ điểm học tập đã xác minh để đổi.",403);
+    fail("Không chuyển đổi được điểm sang G.",503);
+   }
+   return reply(req,200,{ok:true,conversion:data,wallet:await wallet(database,uid)});
+  }
   if(kind==="create"){
    const game=gameName(body.game),tier=roomTier(body.minGold),visibility=body.visibility;
    if(visibility!=="private"&&visibility!=="public")fail("Kiểu phòng không hợp lệ.");
@@ -235,10 +275,10 @@ Deno.serve(async(req:Request)=>{
    return reply(req,200,{ok:true,room:safeRoom(row,uid)});
   }
   if(kind==="quick"){
-   const game=gameName(body.game),gold=roomTier(body.gold);
+   const game=gameName(body.game),balance=(await wallet(database,uid)).gold;
    const rooms=await listRooms(database,game,uid);
-   const options=rooms.filter(x=>x.minGold<=gold)
-      .sort((a,b)=>b.count-a.count||a.minGold-b.minGold);
+   const options=rooms.filter(x=>exposure(game,x.minGold)<=balance)
+      .sort((a,b)=>b.count-a.count||b.minGold-a.minGold);
    for(const room of options.slice(0,12)){
     try{
      const current=await selectRoom(database,room.code);
@@ -248,7 +288,10 @@ Deno.serve(async(req:Request)=>{
      if(![404,409].includes((e as {status?:number}).status||0))throw e;
     }
    }
-   const created=await freshRoom(database,uid,game,"public",0,nickname);
+   const suitable=[...GOLD_TIERS].filter(x=>exposure(game,x)<=balance)
+      .sort((a,b)=>a-b);
+   if(!suitable.length)fail("Bạn chưa đủ G vào bàn thấp nhất. Hãy đổi điểm học tập đã xác minh sang G.",403);
+   const created=await freshRoom(database,uid,game,"public",suitable[0],nickname);
    return reply(req,200,{ok:true,room:safeRoom(created,uid),match:"created"});
   }
   const code=roomCode(body.code);
@@ -267,7 +310,12 @@ Deno.serve(async(req:Request)=>{
     }else await cas(database,room,{members});
     return reply(req,200,{ok:true,left:true});
    }
-   if(room.status==="playing")await cas(database,room,{status:"closed"});
+   if(room.status==="playing"){
+    const {data,error}=await database.rpc("mrlee_arena_abort_match",{
+     p_code:code,p_expected_version:room.version
+    });
+    if(error||data!==true)fail("Bàn đã đổi trạng thái. Hãy cập nhật trước khi rời.",409);
+   }
    return reply(req,200,{ok:true,left:true});
   }
   if(kind==="ready"){
@@ -275,9 +323,21 @@ Deno.serve(async(req:Request)=>{
    if(typeof body.ready!=="boolean")fail("Trạng thái sẵn sàng không hợp lệ.");
    const members=room.members.map(m=>m.uid===uid?{...m,ready:body.ready}:m);
    const allReady=members.length===GAME_SLOTS[room.game]&&members.every(m=>m.ready);
-   const patch:Partial<Room>=allReady?
-    {members,status:"playing",state:createState(room.game)}:{members};
-   const changed=await cas(database,room,patch);
+   await requireGold(database,uid,room.game,room.min_gold);
+   const changed=await cas(database,room,{members});
+   if(allReady){
+    const {error}=await database.rpc("mrlee_arena_start_match",{
+     p_code:code,p_expected_version:changed.version,p_state:createState(room.game)
+    });
+    if(error){
+     // Prevent a room from remaining stuck with all ready after insufficient funds.
+     try{await cas(database,changed,{members:members.map(x=>x.uid===uid?{...x,ready:false}:x)});}catch{}
+     if(error.code==="P0001")fail("Chưa đủ G để bắt đầu. Mỗi người phải có đủ G bảo đảm cho số lá còn lại tối đa.",403);
+     fail("Không thể khóa số dư G để bắt đầu ván.",503);
+    }
+    const started=await selectRoom(database,code);
+    return reply(req,200,{ok:true,room:safeRoom(started,uid)});
+   }
    return reply(req,200,{ok:true,room:safeRoom(changed,uid)});
   }
   if(kind==="move"){
@@ -287,7 +347,27 @@ Deno.serve(async(req:Request)=>{
    const state=structuredClone(room.state);
    const result=room.game==="chess"?actionChess(state,me.seat,body):
     room.game==="tienlen"?actionTienLen(state,me.seat,body):actionColors(state,me.seat,body);
-   const updated=await cas(database,room,{state,status:result.finished?"finished":"playing"});
+   if(result.finished){
+    let winner=-1,remaining:number[];
+    if(room.game==="chess"){
+      const end=Chess.status(state.history);
+      winner=end.winner===1?0:end.winner===-1?1:-1;
+      remaining=[0,0];
+    }else{
+      winner=state.winner;
+      remaining=state.hands.map((cards:unknown[])=>cards.length);
+    }
+    state.settlement={winner,remaining,rate:room.min_gold};
+    const {error}=await database.rpc("mrlee_arena_settle_match",{
+     p_code:code,p_expected_version:room.version,p_state:state,
+     p_winner:winner,p_remaining:remaining
+    });
+    if(error){
+      if(error.code==="P0001")fail("Kết quả vừa được xử lý hoặc trận đã đổi lượt.",409);
+      fail("Không ghi nhận được kết quả và giao dịch G.",503);
+    }
+   }else await cas(database,room,{state,status:"playing"});
+   const updated=await selectRoom(database,code);
    return reply(req,200,{ok:true,room:safeRoom(updated,uid)});
   }
   fail("Không tìm thấy thao tác.",404);
