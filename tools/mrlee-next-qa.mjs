@@ -32,6 +32,24 @@ for(const m of theme.matchAll(/'([a-z0-9-]+\.html(?:\?[^']*)?)'/gi)){
  const f=m[1].split('?')[0];if(!exists(f))errors.push('BROKEN DYNAMIC PORTAL LINK: '+f);
 }
 
+// Admin V4 keeps protected data sections and uses existing RLS-based auth.
+const adminV4=exists('admin.html')?fs.readFileSync('admin.html','utf8'):'';
+for(const x of [
+ 'assets/mrlee-admin/layout-v4.css','assets/mrlee-admin/layout-v4.js',
+ 'id="pageSubtitle"','id="refresh"','id="mrlee27AdminNotice"',
+ 'data-mrlee27-nav="placements"','data-mrlee27-nav="consultations"',
+ 'id="studentsTbody"','id="scoresTbody"','id="rewardClaimsTbody"',
+ 'id="authWrap"','function isAdmin(uid)','mrlee_admins'
+])if(!adminV4.includes(x))errors.push('ADMIN V4 MISSING: '+x);
+const adminLayoutJS='assets/mrlee-admin/layout-v4.js';
+if(!exists(adminLayoutJS))errors.push('ADMIN V4 LAYOUT JS MISSING');
+else {
+ const adminLayoutSource=fs.readFileSync(adminLayoutJS,'utf8');
+ for(const key of ['overview','students','scores','all-attempts','activity','placements','consultations','rewards','settings'])
+  if(!adminLayoutSource.includes(key+':[')&&!adminLayoutSource.includes("'"+key+"':["))errors.push('ADMIN V4 NAV KEY: '+key);
+ const adminSyntax=spawnSync(process.execPath,['--check',path.join(root,adminLayoutJS)],{encoding:'utf8'});
+ if(adminSyntax.status!==0)errors.push('ADMIN V4 SYNTAX: '+adminSyntax.stderr.slice(0,300));
+}
 // Placement exam contrast regression: both themes must keep legible question,
  // form and result surfaces even though shared Future theme sets dark panels.
 const placement=exists('kiem-tra-dau-vao.html')?fs.readFileSync('kiem-tra-dau-vao.html','utf8'):'';

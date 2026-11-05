@@ -51,7 +51,7 @@ html[data-mrlee-theme="future"] .auth-head h1{color:#ecfaff!important;font-weigh
 <script defer src="assets/mrlee-ai/v3/live-mapping.js?v=20261025-3"></script>
 
 <link rel="stylesheet" href="assets/branding/mrlee-meme-brand.css?v=20261103-glow-v1" data-mrlee-brand="mascot">
-<link rel="stylesheet" href="assets/v31/admin-inbox.css?v=31.0"><link rel="stylesheet" href="assets/mrlee-ui2027/workspaces-v3.css?v=20261103-density-v9"><script defer src="assets/mrlee-ui2027/workspaces-v3.js?v=20261101-p3"></script></head>
+<link rel="stylesheet" href="assets/v31/admin-inbox.css?v=31.0"><link rel="stylesheet" href="assets/mrlee-ui2027/workspaces-v3.css?v=20261103-density-v9"><link rel="stylesheet" href="assets/mrlee-admin/layout-v4.css?v=20261105-admin4"><script defer src="assets/mrlee-ui2027/workspaces-v3.js?v=20261101-p3"></script></head>
 <body>
 <section id="authWrap" class="auth-wrap">
   <div class="auth-card">
@@ -103,35 +103,35 @@ html[data-mrlee-theme="future"] .auth-head h1{color:#ecfaff!important;font-weigh
     <div class="side-footer"><span id="adminEmail"></span><button id="logout" class="btn sm white">Đăng xuất</button></div>
   </aside>
   <div class="content">
-    <header class="topbar"><div><h2 id="pageTitle">Tổng quan</h2><p>Quản lý dữ liệu học viên trên hệ thống riêng</p></div><div class="topbar-right"><span class="connection" id="connection">● Đã kết nối</span><div class="user-dot" id="avatarInitial">A</div></div></header>
+    <header class="topbar"><div><h2 id="pageTitle">Tổng quan</h2><p id="pageSubtitle">Tình hình học viên, kết quả và tác vụ cần xử lý</p></div><div class="topbar-right"><button type="button" id="refresh" class="admin-refresh">↻ Làm mới dữ liệu</button><span class="connection" id="connection">● Đã kết nối</span><div class="user-dot" id="avatarInitial">A</div></div></header>
     <main class="main-pad">
       <div id="syncStatus" class="sync-strip pending" role="status">Chưa có lần đồng bộ thành công. Hãy chạy GitHub Actions sau khi cấu hình.</div>
       <section id="page-overview" class="page">
         <div class="mrlee27-admin-focus" aria-label="Các công cụ quản trị chính">
           <div>
-            <span class="mr27-eyebrow">MR LEE · ADMIN CONSOLE</span>
-            <h2>Quản trị tập trung.<br>Dữ liệu rõ ràng.</h2>
-            <p>Chọn tác vụ cần xử lý; số liệu tổng quan bên dưới được lấy từ dữ liệu mà tài khoản quản trị hiện tại có quyền truy cập.</p>
+            <span class="mr27-eyebrow">TRUNG TÂM ĐIỀU HÀNH</span>
+            <h2>Thao tác nhanh</h2>
+            <p>Mở đúng công việc cần xử lý. Số liệu hiển thị theo quyền truy cập của tài khoản quản trị.</p>
           </div>
           <div class="mrlee27-admin-buttons" aria-label="Điều hướng quản trị">
-            <button type="button" data-mrlee27-nav="students">Quản lý học viên ↗</button>
+            <button type="button" data-mrlee27-nav="students">Hồ sơ học viên ↗</button>
             <button type="button" data-mrlee27-nav="scores">Kết quả học tập ↗</button>
-            <button type="button" data-mrlee27-nav="placements">Bài kiểm tra đầu vào ↗</button>
-            <button type="button" data-mrlee27-nav="consultations">Phiếu tư vấn ↗</button>
+            <button type="button" data-mrlee27-nav="placements">Kiểm tra đầu vào ↗</button>
+            <button type="button" data-mrlee27-nav="consultations">Yêu cầu tư vấn ↗</button>
             <p id="mrlee27AdminNotice" class="mrlee27-admin-notice" role="status" aria-live="polite">Chức năng được mở sau khi xác thực và xác nhận quyền Admin.</p>
           </div>
         </div>
         <div class="kpis">
-          <div class="kpi"><span>Hồ sơ đang hiển thị (tối đa 1.000)</span><strong id="kpiStudents">0</strong><i>♙</i></div>
-          <div class="kpi"><span>Có hoạt động học 7 ngày (trong mẫu)</span><strong id="kpiActive">0</strong><i>✓</i></div>
-          <div class="kpi"><span>Bài ghi điểm (tối đa 2.000)</span><strong id="kpiScores">0</strong><i>▤</i></div>
-          <div class="kpi"><span>Điểm trung bình mẫu (%)</span><strong id="kpiAvg">—</strong><i>◷</i></div>
+          <div class="kpi"><span>Hồ sơ (mẫu tối đa 1.000)</span><strong id="kpiStudents">0</strong><i>♙</i></div>
+          <div class="kpi"><span>Hoạt động 7 ngày (mẫu)</span><strong id="kpiActive">0</strong><i>✓</i></div>
+          <div class="kpi"><span>Kết quả (mẫu tối đa 2.000)</span><strong id="kpiScores">0</strong><i>▤</i></div>
+          <div class="kpi"><span>Điểm trung bình (%) · mẫu</span><strong id="kpiAvg">—</strong><i>◷</i></div>
         </div>
         <div class="grid-2">
           <div class="panel"><div class="panel-head"><div><h3>Phân bố trình độ</h3><p>Hồ sơ đồng bộ Firebase và hồ sơ nhập thủ công</p></div></div><div class="levels" id="levelBars"></div></div>
           <div class="panel"><div class="panel-head"><div><h3>Điểm gần đây</h3><p>Điểm luyện tập đồng bộ và điểm quản trị nhập thủ công</p></div></div><div id="recentResults" class="recent-list"></div></div>
         </div>
-        <div class="panel"><div class="panel-head"><h3>Truy cập nhanh</h3></div><div class="navlinks"><a href="index.html" target="_blank" rel="noopener">Mở website học viên ↗</a><a href="de-thi-topik.html" target="_blank" rel="noopener">Bộ đề TOPIK ↗</a><a href="kiem-tra-online.html" target="_blank" rel="noopener">Kiểm tra Online ↗</a><a href="trung-tam-hoc-vien.html" target="_blank" rel="noopener">Trung tâm học viên ↗</a></div></div>
+        
       </section>
       <section id="page-students" class="page" hidden>
         <div class="panel"><div class="panel-head"><div><h3>Danh sách học viên</h3><p>Học viên Firebase được thêm tự động; hồ sơ nhập tay được giữ nguyên.</p></div><button class="btn" id="newStudent">＋ Thêm học viên</button></div>
@@ -140,7 +140,7 @@ html[data-mrlee-theme="future"] .auth-head h1{color:#ecfaff!important;font-weigh
         </div>
       </section>
       <section id="page-scores" class="page" hidden>
-        <div class="panel"><div class="panel-head"><div><h3>Kết quả luyện tập</h3><p>Điểm đồng bộ từ Firebase là điểm tự chấm của học viên, không phải điểm thi chính thức.</p></div><button class="btn" id="newScore">ï¼‹ Thêm kết quả</button></div>
+        <div class="panel"><div class="panel-head"><div><h3>Kết quả luyện tập</h3><p>Điểm đồng bộ từ Firebase là điểm tự chấm của học viên, không phải điểm thi chính thức.</p></div><button class="btn" id="newScore">＋ Thêm kết quả</button></div>
           <div class="toolbar"><input id="scoreSearch" type="search" class="search" placeholder="Tìm học viên hoặc tên bài thi..." aria-label="Tìm kết quả"></div>
           <div class="table-scroll"><table class="data-table"><thead><tr><th>Học viên</th><th>Bài kiểm tra</th><th>Điểm</th><th>Tỷ lệ</th><th>Nguồn</th><th>Ngày kiểm tra</th><th>Thao tác</th></tr></thead><tbody id="scoresTbody"></tbody></table></div><div id="scoreCount" class="footnote"></div>
         </div>
@@ -160,7 +160,8 @@ html[data-mrlee-theme="future"] .auth-head h1{color:#ecfaff!important;font-weigh
       </section>
       <section id="page-settings" class="page" hidden>
         <div class="panel" aria-label="Chẩn đoán Admin"><div class="panel-head"><div><h3>◈ Báo cáo trạng thái Admin</h3><p>Số liệu thực tế trong phạm vi dữ liệu mà tài khoản quản trị được phép đọc. Không hiển thị dữ liệu cá nhân ở đây.</p></div></div><p id="mrleeAdminHealth" class="info" role="status">Đăng nhập Admin để kiểm tra dữ liệu và đồng bộ Firebase.</p><p id="mrleeRewardHealth" class="info warning" role="status">Đang kiểm tra khả năng sử dụng Phiếu thưởng V2.</p><p class="muted small">Dữ liệu học viên, bài làm và tư vấn chỉ được xem sau khi xác thực và RLS kiểm tra quyền. Nếu đồng bộ trễ hơn 6 giờ, hãy kiểm tra GitHub Actions.</p></div>
-        <div class="panel"><div class="panel-head"><div><h3>Cấu hình quản trị</h3></div></div><p id="connectedUrl" class="muted" style="overflow-wrap:anywhere"></p><p class="info">Trang quản trị đăng nhập bằng Supabase; bản sao dữ liệu học viên đồng bộ một chiều từ Firebase qua GitHub Actions. Chỉ các tài khoản có UID được thêm vào bảng <code>mrlee_admins</code> mới được đọc hoặc sửa dữ liệu.</p><p class="info warning">Sau khi cài SQL và GitHub Secrets, học viên Firebase tự xuất hiện sau lần Actions chạy thành công. Không được đưa khóa Firebase service account hoặc Supabase secret vào HTML.</p><div class="tools"><button id="refresh" class="btn soft">↻ Tải lại dữ liệu</button><button id="reconfigure" class="btn white">Đổi Supabase Project</button></div></div>
+        <div class="panel"><div class="panel-head"><div><h3>Cấu hình quản trị</h3></div></div><p id="connectedUrl" class="muted" style="overflow-wrap:anywhere"></p><p class="info">Trang quản trị đăng nhập bằng Supabase; bản sao dữ liệu học viên đồng bộ một chiều từ Firebase qua GitHub Actions. Chỉ các tài khoản có UID được thêm vào bảng <code>mrlee_admins</code> mới được đọc hoặc sửa dữ liệu.</p><p class="info warning">Sau khi cài SQL và GitHub Secrets, học viên Firebase tự xuất hiện sau lần Actions chạy thành công. Không được đưa khóa Firebase service account hoặc Supabase secret vào HTML.</p><div class="tools"><button id="reconfigure" class="btn white">Đổi Supabase Project</button></div></div>
+        <div class="panel"><div class="panel-head"><h3>Liên kết nghiệp vụ</h3></div><div class="navlinks"><a href="index.html" target="_blank" rel="noopener">Mở website học viên ↗</a><a href="de-thi-topik.html" target="_blank" rel="noopener">Bộ đề TOPIK ↗</a><a href="kiem-tra-online.html" target="_blank" rel="noopener">Kiểm tra Online ↗</a><a href="trung-tam-hoc-vien.html" target="_blank" rel="noopener">Trung tâm học viên ↗</a></div></div>
         <div class="panel"><h3 style="margin-top:0">Mẫu CSV học viên</h3><p class="muted small">Các cột: <code>full_name,email,phone,level,status,notes</code>. File CSV lưu UTF-8.</p><button id="sampleCSV" class="btn soft">↓ Tải mẫu CSV</button></div>
       </section>
     </main>
@@ -416,4 +417,4 @@ html[data-mrlee-theme="future"] .auth-head h1{color:#ecfaff!important;font-weigh
 <link rel="stylesheet" href="assets/mrlee-next/consultation-admin.css?v=20261024">
 <script defer src="assets/mrlee-next/consultation-admin.js?v=20261024"></script>
 <script defer src="assets/mrlee-dual-ui/admin-charts.js?v=20261024-4"></script>
-<script defer src="assets/v31/admin-inbox.js?v=31.0"></script></body></html>
+<script defer src="assets/v31/admin-inbox.js?v=31.0"></script><script defer src="assets/mrlee-admin/layout-v4.js?v=20261105-admin4"></script></body></html>
