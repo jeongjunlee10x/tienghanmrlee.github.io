@@ -53,6 +53,14 @@ try{
   await page.route("**/assets/arena/room-api.js",route=>route.fulfill({status:200,contentType:"text/javascript",body:walletStub}));
   try{
    await page.goto(origin+"/mrlee-game-arena.html",{waitUntil:"domcontentloaded",timeout:30000});
+   // Install a deterministic orientation/fullscreen probe after DOM creation.
+   // addInitScript can run before document.documentElement exists on mobile Chromium.
+   await page.evaluate(()=>{
+    window.__mrleeOrientation={fullscreen:0,lock:0};
+    document.documentElement.requestFullscreen=()=>{window.__mrleeOrientation.fullscreen++;return Promise.resolve();};
+    try{Object.defineProperty(screen.orientation,"lock",{configurable:true,
+     value:async()=>{window.__mrleeOrientation.lock++;throw Error("mock lock unavailable");}});}catch{}
+   });
    await page.locator('[data-game="colors"]').click();
    await page.waitForFunction(()=>document.body.classList.contains("arena-mobile-playing"),null,{timeout:7000});
    await page.locator("#arenaTable .arena-live-hud").waitFor({state:"visible",timeout:7000});
