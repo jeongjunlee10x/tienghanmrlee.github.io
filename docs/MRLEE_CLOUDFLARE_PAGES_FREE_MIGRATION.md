@@ -1,6 +1,6 @@
 # MR LEE — Cloudflare Pages miễn phí (song song GitHub Pages)
 
-Tình trạng: **đã chuẩn bị mã đóng gói, CHƯA kết nối tài khoản Cloudflare/chưa tạo tên miền**.
+Tình trạng cập nhật 05/11/2026: Pages project `mrlee` đã kết nối GitHub; tên miền thực tế `https://mrlee-b6a.pages.dev/`. Backend CORS đã cập nhật; Firebase/Turnstile/D1 cần nghiệm thu riêng.
 
 ## Dữ liệu gốc (GitHub main, 04/11/2026)
 
@@ -15,7 +15,7 @@ Tình trạng: **đã chuẩn bị mã đóng gói, CHƯA kết nối tài kho�
 1. Vào https://dash.cloudflare.com/ và đăng nhập/đăng ký tài khoản Free.
 2. Mở **Workers & Pages → Create application → Pages → Connect to Git**.
 3. Chọn **GitHub**; chỉ cấp quyền cho repository `jeongjunlee10x/tienghanmrlee.github.io`.
-4. Chọn **Project name**: `mrlee` nếu tên chưa có người sử dụng, để nhận `https://mrlee.pages.dev`.
+4. Chọn **Project name**: `mrlee` nếu tên chưa có người sử dụng, để nhận `https://mrlee-b6a.pages.dev`.
    - Nếu tên đã có chủ: cân nhắc `mrleevn` hoặc `tienghanmrlee`; đừng coi `mrlee.pages.dev` là đã đăng ký trước khi dashboard xác nhận.
 5. Thiết lập:
    - Git repository: `jeongjunlee10x/tienghanmrlee.github.io`
@@ -51,8 +51,7 @@ Cloudflare Dashboard → **Turnstile** → widget đang dùng → Settings → H
 Thử trang kiểm tra đầu vào và đăng ký tư vấn thực sự gửi thành công qua Supabase.
 
 ### Supabase CORS / điểm thưởng
-Nguồn `supabase/functions/mrlee-reward-v2/index.ts` hiện ràng buộc CORS bằng
-`https://jeongjunlee10x.github.io` (không cho `pages.dev`).
+Supabase Reward V2 đã cập nhật v4 để cho phép cả GitHub cũ và `https://mrlee-b6a.pages.dev` theo danh sách origin chặt chẽ; vẫn cần xác minh cơ sở dữ liệu Reward V2 và RLS.
 Trước khi chuyển khách truy cập, **cập nhật và triển khai Edge Function** để allowlist đồng thời cả `https://jeongjunlee10x.github.io` và `https://<actual-name>.pages.dev`; sau đó thử tính điểm, lịch sử và bảng xếp hạng. Không thay đổi trực tiếp production khi tên miền mới chưa xác định.
 
 ### Đối chiếu hành vi và đường dẫn

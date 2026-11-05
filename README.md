@@ -41,7 +41,7 @@ Chi tiết kiểm kê, các thay đổi dọn dẹp và những thứ **không �
 
 ## Triển khai song song Cloudflare Pages (không thay GitHub Pages)
 
-- Tên miền dự kiến: `https://mrlee.pages.dev/`. Chỉ được xem là hoạt động sau khi tạo project và kiểm thử thực tế.
+- Cloudflare Pages song song đã tạo: `https://mrlee-b6a.pages.dev/` (đã có deployment thành công; các chức năng cần nghiệm thu riêng).
 - Kết nối repository hiện tại với Cloudflare Pages: production branch `main`; build command `node tools/build-cloudflare-pages.mjs && node tools/check-cloudflare-pages-build.mjs`; output directory `dist`; root `/`; Node.js 22+.
 - `dist/` chỉ sinh lúc build, nằm trong `.gitignore`, **không commit**, không xóa hay thay đường dẫn GitHub Pages cũ.
 - Xem [hướng dẫn thiết lập Cloudflare Pages](docs/CLOUDFLARE_PAGES_DEPLOY.md) và [các script SQL quản trị thủ công](supabase/manual-sql/README.md).

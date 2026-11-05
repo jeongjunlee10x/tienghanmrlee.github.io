@@ -31,8 +31,12 @@ const oldOrigin = 'https://jeongjunlee10x.github.io/tienghanmrlee.github.io';
 const oldRoot = '/tienghanmrlee.github.io/';
 // CF_PAGES_URL is set by Cloudflare on both production and previews.
 // MRLEE_SITE_ORIGIN overrides it when a final domain is assigned.
-const origin = String(process.env.MRLEE_SITE_ORIGIN || process.env.CF_PAGES_URL ||
-  'https://mrlee.pages.dev').replace(/\/+$/,'');
+const configuredOrigin = String(process.env.MRLEE_SITE_ORIGIN || process.env.CF_PAGES_URL ||
+  'https://mrlee-b6a.pages.dev').replace(/\/+$/,'');
+// Cloudflare assigned mrlee-b6a.pages.dev; preserve the legacy mistaken dashboard
+// value until an administrator edits it, without modifying the GitHub site.
+const origin = configuredOrigin === 'https://mrlee.pages.dev'
+  ? 'https://mrlee-b6a.pages.dev' : configuredOrigin;
 if(!/^https:\/\/[a-z0-9.-]+(?::\d+)?$/i.test(origin)){
  throw new Error('Invalid MRLEE_SITE_ORIGIN / CF_PAGES_URL: use an https:// origin without path');
 }
@@ -84,6 +88,11 @@ const workers=Array.from({length:16},async()=>{
   let next=original.replaceAll(oldOrigin+'/',origin+'/')
                    .replaceAll(oldOrigin,origin)
                    .replaceAll(oldRoot,'/');
+  // Only Cloudflare's generated homepage gets canonical SEO metadata.
+  if(item.rel==='index.html' && !/<link\b[^>]*rel=["']canonical["']/i.test(next)){
+    next=next.replace(/<\/head>/i,
+      `<link rel="canonical" href="${origin}/">\n</head>`);
+  }
   // Existing GitHub Pages root is unchanged; only Cloudflare output differs.
   await writeFile(target,next,'utf8');
  }
@@ -94,7 +103,20 @@ await Promise.all(workers);
 await writeFile(join(out,'_redirects'),
   '# Old GitHub-project prefix accidentally used on Cloudflare\n'+
   '/tienghanmrlee.github.io/* /:splat 301\n','utf8');
-const count=input.length+1; // _redirects is deployment metadata, counted conservatively
+const sitemapPages=['','hoc-tieng-han.html','giao-tiep-theo-chu-de.html',
+ 'kiem-tra-topik.html','van-hoa-han-quoc.html','tuyen-sinh.html',
+ 'ban-do-dai-hoc-han-quoc.html','giao-tiep-phong-van.html',
+ 'hoc-bong-han-quoc.html'];
+const available=new Set(input.map(x=>x.rel));
+const sitemap='<?xml version="1.0" encoding="UTF-8"?>\n'+
+ '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+
+ sitemapPages.filter(p=>!p||available.has(p)).map(p=>`  <url><loc>${origin}/${p}</loc></url>`).join('\n')+
+ '\n</urlset>\n';
+await writeFile(join(out,'sitemap.xml'),sitemap,'utf8');
+await writeFile(join(out,'robots.txt'),
+ 'User-agent: *\nAllow: /\nDisallow: /admin.html\nDisallow: /trung-tam-hoc-vien.html\n'+
+ `Sitemap: ${origin}/sitemap.xml\n`,'utf8');
+const count=input.length+3; // _redirects, sitemap.xml, robots.txt
 if(count>maxFiles)throw new Error('Output exceeds Cloudflare free safety threshold');
 const bytes=input.reduce((n,f)=>n+f.size,0);
 const mp3=input.filter(f=>f.ext==='.mp3').length;

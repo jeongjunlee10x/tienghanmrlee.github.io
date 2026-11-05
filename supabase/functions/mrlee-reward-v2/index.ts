@@ -10,10 +10,11 @@ const jwks = createRemoteJWKSet(new URL(
 ), { timeoutDuration: 5000, cooldownDuration: 30000, cacheMaxAge: 3600000 });
 
 const allowedOrigin = 'https://jeongjunlee10x.github.io';
+const allowedOrigins = new Set([allowedOrigin, 'https://mrlee-b6a.pages.dev']);
 function cors(req: Request) {
   const origin = req.headers.get('Origin') || '';
   return {
-    'Access-Control-Allow-Origin': origin === allowedOrigin ? allowedOrigin : allowedOrigin,
+    'Access-Control-Allow-Origin': allowedOrigins.has(origin) ? origin : 'null',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'authorization, content-type',
     'Vary': 'Origin',
@@ -69,7 +70,7 @@ Deno.serve(async (req: Request) => {
   const headers = cors(req);
   if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers });
   const origin = req.headers.get('Origin');
-  if (origin && origin !== allowedOrigin) return response(req, 403, { error: 'Nguồn truy cập không được phép.' });
+  if (origin && !allowedOrigins.has(origin)) return response(req, 403, { error: 'Nguồn truy cập không được phép.' });
   if (!['GET', 'POST'].includes(req.method)) return response(req, 405, { error: 'Phương thức không được hỗ trợ.' });
   try {
     const uid = await firebaseUid(req);

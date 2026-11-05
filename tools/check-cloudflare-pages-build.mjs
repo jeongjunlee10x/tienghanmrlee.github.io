@@ -27,7 +27,7 @@ const required=[
  'tuyen-sinh.html','ban-do-dai-hoc-han-quoc.html','admin.html',
  'auth-guard.js','firebase-config.js',
  'mrlee-sc-lesson-data.js','MRLEE_AUDIO','MRLEE_PRO_AUDIO',
- 'assets/branding/site-logo.js','_redirects'
+ 'assets/branding/site-logo.js','_redirects','robots.txt','sitemap.xml'
 ];
 for(const p of required){
  const isDir=!p.includes('.') && !p.startsWith('_');
@@ -54,9 +54,20 @@ const index=await readFile(join(dist,'index.html'),'utf8');
 const share=await readFile(join(dist,'mrlee-engagement.js'),'utf8');
 const redirects=await readFile(join(dist,'_redirects'),'utf8');
 assert(index.includes('<html')&&index.includes('mrleeNewHome'),'Homepage lost functionality');
-assert(share.includes('https://mrlee.pages.dev/')||
- share.includes((process.env.MRLEE_SITE_ORIGIN||process.env.CF_PAGES_URL||'https://mrlee.pages.dev').replace(/\/+$/,'')+'/'),
- 'Old share URL was not translated for the new hostname');
+const configuredOrigin=String(process.env.MRLEE_SITE_ORIGIN||process.env.CF_PAGES_URL||
+ 'https://mrlee-b6a.pages.dev').replace(/\/+$/,'');
+const expectedOrigin=configuredOrigin==='https://mrlee.pages.dev'
+ ? 'https://mrlee-b6a.pages.dev' : configuredOrigin;
+assert(share.includes(expectedOrigin+'/'),
+ 'Sharing still points to a different Cloudflare hostname');
+assert(!share.includes('https://mrlee.pages.dev/'),
+ 'Unassigned mrlee.pages.dev link leaked into the generated website');
+assert(index.includes(`<link rel="canonical" href="${expectedOrigin}/">`),
+ 'Canonical homepage URL is missing or inconsistent');
+const robots=await readFile(join(dist,'robots.txt'),'utf8');
+const sitemap=await readFile(join(dist,'sitemap.xml'),'utf8');
+assert(robots.includes(`Sitemap: ${expectedOrigin}/sitemap.xml`), 'robots.txt sitemap mismatch');
+assert(sitemap.includes(`<loc>${expectedOrigin}/</loc>`), 'sitemap root URL mismatch');
 assert(!share.includes('https://jeongjunlee10x.github.io/tienghanmrlee.github.io/'),
  'Sharing still uses GitHub project URL');
 assert(redirects.includes('/tienghanmrlee.github.io/* /:splat 301'),
@@ -66,5 +77,5 @@ assert(files.some(f=>f.path.startsWith('images/')&&f.path.endsWith('.webp')));
 const MiB=(files.reduce((sum,f)=>sum+f.size,0)/1048576).toFixed(1);
 console.log('CLOUDFLARE DEPLOY PRECHECK PASSED '+JSON.stringify({
  files:files.length,mp3:audio.length,MiB,
- remaining:20000-files.length,headersAndRoutes:'OK',legacyGitHub:'unchanged'
+ remaining:20000-files.length,staticAssets:'OK',legacyGitHub:'unchanged',origin:expectedOrigin
 }));
