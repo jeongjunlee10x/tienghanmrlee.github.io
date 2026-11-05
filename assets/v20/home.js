@@ -28,14 +28,34 @@
     showToast('Phiếu tư vấn đã tạo');
   });
 
-  $('#menuToggle')?.addEventListener('click', ()=>{
-    const nav = $('#mobileNav');
-    const btn = $('#menuToggle');
-    const open = !nav.classList.contains('show');
-    nav.classList.toggle('show', open);
-    nav.hidden = !open;
-    btn.setAttribute('aria-expanded', String(open));
+  // Responsive homepage hamburger: overlay only; never push down the hero.
+  const menuButton = $('#menuToggle');
+  const menuPanel = $('#mobileNav');
+  const setMenuOpen = (open, restoreFocus = false) => {
+    if (!menuButton || !menuPanel) return;
+    menuPanel.hidden = !open;
+    menuPanel.classList.toggle('show', open);
+    menuButton.setAttribute('aria-expanded', String(open));
+    menuButton.setAttribute('aria-label', open ? 'Đóng menu' : 'Mở menu');
+    menuButton.textContent = open ? '✕' : '☰';
+    if (restoreFocus) menuButton.focus();
+  };
+  menuButton?.addEventListener('click', () => setMenuOpen(menuPanel.hidden));
+  document.addEventListener('pointerdown', (event) => {
+    if (!menuPanel || menuPanel.hidden) return;
+    if (!menuPanel.contains(event.target) && !menuButton.contains(event.target)) {
+      setMenuOpen(false);
+    }
   });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && menuPanel && !menuPanel.hidden) {
+      setMenuOpen(false, true);
+    }
+  });
+  menuPanel?.addEventListener('click', (event) => {
+    if (event.target.closest('a[href]')) setMenuOpen(false);
+  });
+  setMenuOpen(false);
 
   $('#rankPrev')?.addEventListener('click',()=> $('#rankSlider')?.scrollBy({left:-260,behavior:'smooth'}));
   $('#rankNext')?.addEventListener('click',()=> $('#rankSlider')?.scrollBy({left:260,behavior:'smooth'}));
