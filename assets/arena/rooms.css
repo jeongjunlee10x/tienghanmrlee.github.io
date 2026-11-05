@@ -1,0 +1,134 @@
+/* MR LEE Arena PvP lobby: native keyboard/touch friendly, theme-aware, no wagering. */
+.arena-game-card.playable{border-color:color-mix(in srgb,var(--line) 65%,#548feb);box-shadow:var(--shadow)}
+.arena-game-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+.arena-game-actions>button{min-height:42px;padding:9px 7px;border-radius:11px;font-size:11px;font-weight:900;border:1px solid var(--line);transition:transform .15s ease,box-shadow .15s ease}
+.arena-game-actions>button:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 5px 13px #173e792a}
+.arena-game-actions .arena-quick{color:#fff;background:linear-gradient(125deg,#c84382,#8c3db6);border-color:#d38bde}
+.arena-game-actions .arena-friends{color:#fff;background:linear-gradient(125deg,#1c89b9,#2252b5);border-color:#80ace9}
+.arena-game-actions .arena-rooms-link{color:var(--ink);background:var(--bg)}
+.arena-game-actions .arena-bots{color:#c35f13;background:#fff3de;border-color:#f6d7a4}
+.arena-game-card .arena-card-body{min-width:0}
+.arena-room-section{padding:2px 0 20px;margin-top:18px}
+.arena-room-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+.arena-room-tab{font-size:12px;font-weight:900;min-height:52px;background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:14px}
+.arena-room-tab[aria-selected=true]{background:#153d8a;color:#fff;border-color:#427beb;box-shadow:0 8px 18px #3468ab3d}
+.arena-room-panel,.arena-room-lobby-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow)}
+.arena-room-help{font-size:12px;color:var(--muted);line-height:1.8}
+.arena-room-pill{font-size:11px;padding:7px 11px;border-radius:99px;color:#235cc2;border:1px solid #aacced;background:#deefff;font-weight:900}
+.arena-room-label{display:grid;gap:7px;font-size:12px;font-weight:900;color:var(--ink);margin:10px 0}
+.arena-room-label>input,.arena-room-label>select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:var(--bg);color:var(--ink);min-height:45px;font:inherit}
+.arena-room-create-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.arena-room-create,.arena-room-join{padding:18px;border:1px solid var(--line);background:var(--bg);border-radius:16px;min-width:0}
+.arena-room-create>h3,.arena-room-join>h3{font-size:17px;margin:0}
+.arena-room-create>p,.arena-room-join>p{font-size:12px;color:var(--muted)}
+.arena-room-create button,.arena-room-join button{width:100%;min-height:43px}
+.arena-room-check{display:flex;gap:9px;align-items:center;font-size:12px;margin:13px 0;font-weight:750}
+.arena-room-check>input{width:17px;height:17px;accent-color:#3387b9}
+.arena-room-status{font-size:12px;font-weight:750;color:var(--muted);min-height:20px;margin:12px 0}
+.arena-room-status[data-error=true]{color:#dc5e59}
+.arena-room-browser-heading{display:flex;align-items:center;justify-content:space-between;gap:9px;flex-wrap:wrap}
+.arena-room-browser-heading h3{font-size:17px}
+.arena-room-list{display:grid;gap:9px}
+.arena-room-list-row{border:1px solid var(--line);border-radius:13px;background:var(--bg);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px}
+.arena-room-list-row>div{display:flex;flex-direction:column;gap:4px;min-width:0}
+.arena-room-list-row strong{overflow-wrap:anywhere;font-size:13px}
+.arena-room-list-row small{font-size:11px;color:var(--muted)}
+.arena-room-list-row button{white-space:nowrap}
+.arena-invite-line{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:20px 0}
+.arena-invite-code{letter-spacing:.2em;font:900 clamp(26px,5vw,47px)/1.2 ui-monospace,Consolas,monospace;color:#347ec8;background:var(--bg);border:1px dashed #81a8d1;padding:8px 18px;border-radius:12px}
+.arena-room-lobby-info{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:13px 0}
+.arena-room-lobby-info span{border:1px solid var(--line);padding:6px 11px;font-weight:800;font-size:11px;border-radius:100px}
+.arena-room-players{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:15px 0}
+.arena-room-player{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:1px solid var(--line);background:var(--bg);border-radius:14px;padding:13px 7px;min-height:115px;text-align:center;min-width:0}
+.arena-room-player>span:first-child{font-size:30px;line-height:1.1}
+.arena-room-player strong{font-size:12px;max-width:100%;overflow-wrap:anywhere}
+.arena-room-player small{font-size:10px;color:var(--muted)}
+.arena-room-player.ready{border-color:#34a58d;background:color-mix(in srgb,var(--surface) 78%,#3bd2af)}
+.arena-room-lobby-cta{display:flex;gap:10px;flex-wrap:wrap}
+.arena-room-canvas{min-height:320px;border:1px solid var(--line);border-radius:20px;background:var(--surface);padding:15px}
+.arena-pvp-header{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.arena-pvp-header h3{font-size:17px;margin:3px 0}
+.arena-pvp-moves{font:500 12px/1.65 ui-monospace,monospace;max-height:180px;overflow-y:auto;padding:10px;background:var(--bg);border-radius:13px}
+.arena-pvp-moves p{margin:3px 0}
+.arena-pvp-chess{display:grid;grid-template-columns:minmax(0,580px) 1fr;gap:18px;margin-top:12px}
+.arena-pvp-chess .chess-board{max-width:580px}
+.arena-pvp-chess .chess-square{cursor:pointer}
+.arena-pvp-chess .chess-square:disabled{cursor:default}
+.arena-pvp-options{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:12px 0}
+.arena-pvp-options>button{padding:10px 15px;border-radius:12px;font-weight:850;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.arena-pvp-info{font-size:12px;color:var(--muted)}
+.arena-pvp-game-over{font-size:22px;font-weight:900;color:#1c89a1;text-align:center;padding:14px}
+.arena-pvp-card-table{position:relative;isolation:isolate;min-height:490px;border:8px solid #644425;border-radius:38%/19%;background:radial-gradient(ellipse at center,#157f6c,#055a50 77%,#063f42);box-shadow:inset 0 0 0 3px #d6c18d,inset 0 0 70px #032f327a;color:white;overflow:hidden}
+.arena-pvp-seat{position:absolute;display:flex;flex-direction:column;align-items:center;gap:4px;border:1px solid #d4eddf63;background:#022e36d9;border-radius:12px;padding:7px 10px;min-width:98px;max-width:155px;z-index:2;text-align:center}
+.arena-pvp-seat strong{font-size:12px;overflow-wrap:anywhere}
+.arena-pvp-seat small{font-size:10px;color:#ffe4a0}
+.arena-pvp-seat.active{border-color:#ffe99e;box-shadow:0 0 14px #ffcf6a}
+.arena-pvp-seat[data-position="top"]{top:8px;left:50%;transform:translateX(-50%)}
+.arena-pvp-seat[data-position="left"]{top:26%;left:9px}
+.arena-pvp-seat[data-position="right"]{top:26%;right:9px}
+.arena-pvp-seat[data-position="bottom"]{display:none}
+.arena-pvp-backs{display:flex;height:26px;align-items:center;justify-content:center;gap:0;overflow:hidden}
+.arena-pvp-backs .arena-back-mini{height:30px;width:21px;margin-left:-8px;border-radius:4px;border:2px solid #fff;background:repeating-linear-gradient(45deg,#1e418c 0 4px,#4167b6 4px 8px);box-shadow:0 1px 4px #0007}
+.arena-pvp-backs .arena-back-mini:first-child{margin-left:0}
+.arena-pvp-center{position:absolute;left:15%;right:15%;top:31%;min-height:135px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px}
+.arena-pvp-center>strong{color:#ffeec0;text-shadow:0 2px 7px #0008;font-size:13px}
+.arena-pvp-current{display:flex;justify-content:center;gap:0;max-width:100%;overflow:hidden;align-items:center;min-height:78px}
+.arena-pvp-current .tl-real-card{margin-left:-9px}
+.arena-pvp-current .tl-real-card:first-child{margin-left:0}
+.arena-pvp-human{position:absolute;bottom:12px;left:11px;right:11px;display:flex;flex-direction:column;gap:5px}
+.arena-pvp-human-hud{display:flex;justify-content:center;gap:12px;align-items:center;flex-wrap:wrap;font-size:12px;color:#fff2d7}
+.arena-pvp-human-hud strong{font-weight:900}
+.arena-pvp-hand{display:flex;align-items:center;justify-content:center;gap:2px;overflow-x:auto;min-height:88px;padding:11px 2px 2px;scrollbar-width:thin;scrollbar-color:#eee0a7 transparent}
+.arena-pvp-hand>button{flex:0 0 38px;width:38px;border:0;background:none;padding:0;overflow:visible;border-radius:8px;height:68px;position:relative}
+.arena-pvp-hand>button:last-child{flex-basis:50px}
+.arena-pvp-hand>button.selected{transform:translateY(-9px)}
+.arena-pvp-hand>button.selected .tl-real-card{box-shadow:0 0 0 3px #ffe078}
+.arena-pvp-hand>button:disabled{opacity:.8}
+.arena-pvp-hand>button .tl-real-card,.arena-pvp-current .tl-real-card{--pvp-card-width:54px;width:54px;height:76px;min-width:54px;min-height:76px;border:2px solid #fff;border-radius:9px;display:block;position:relative;background:#fff;color:#172534;overflow:hidden;font:700 13px Georgia,serif;box-shadow:0 4px 7px #0006}
+.arena-pvp-hand .tl-real-card.red,.arena-pvp-current .tl-real-card.red{color:#c82e4e}
+.arena-pvp-hand .tl-card-corner,.arena-pvp-current .tl-card-corner{position:absolute;left:3px;top:2px;display:flex;flex-direction:column;line-height:.8}
+.arena-pvp-hand .tl-card-foot,.arena-pvp-current .tl-card-foot{top:auto;left:auto;bottom:3px;right:3px;transform:rotate(180deg)}
+.arena-pvp-hand .tl-card-art,.arena-pvp-current .tl-card-art{position:absolute;inset:20% 10%;display:grid;place-items:center;border-radius:20%;background:#f7f5f0}
+.arena-pvp-hand .tl-card-art-suit,.arena-pvp-current .tl-card-art-suit{font-size:32px}
+.arena-pvp-hand .tl-card-royal,.arena-pvp-current .tl-card-royal{position:absolute;font-size:25px;inset:15%;color:#b69e5b}
+.arena-pvp-hand .tl-card-emboss,.arena-pvp-current .tl-card-emboss{opacity:.2}
+.arena-pvp-actions{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap}
+.arena-pvp-actions button{min-height:40px;border-radius:10px;padding:7px 13px;font-size:12px}
+.arena-pvp-events{background:var(--bg);border-radius:12px;padding:8px 12px;margin-top:11px}
+.arena-pvp-events p{font-size:11px;color:var(--muted);margin:5px 0}
+.arena-pvp-color-card{height:88px;min-width:62px;width:62px;border-radius:11px;border:3px solid #fff7;background:#1c6c9e;color:white;font:900 19px/1.1 system-ui;box-shadow:0 5px 10px #0007}
+.arena-pvp-color-card.red{background:#cc3355}.arena-pvp-color-card.blue{background:#247ecc}
+.arena-pvp-color-card.green{background:#059773}.arena-pvp-color-card.yellow{background:#ffcd40;color:#312727}
+.arena-pvp-color-card.wild{background:conic-gradient(#db466b 0 25%,#138ed3 25% 50%,#00ad7a 50% 75%,#f4cb43 75% 100%)}
+.arena-pvp-color-card.selected{transform:translateY(-8px);box-shadow:0 0 0 3px #ffe284,0 6px 12px #0007}
+.arena-pvp-human .arena-pvp-color-card{font-size:14px;min-width:48px;width:48px;height:72px}
+.arena-pvp-human .arena-pvp-hand>button{width:38px;flex-basis:38px}
+.arena-pvp-human .arena-pvp-hand>button:last-child{flex-basis:48px}
+.arena-pvp-current>.arena-pvp-color-card{pointer-events:none}
+@media(max-width:920px){.arena-pvp-chess{grid-template-columns:1fr}.arena-room-players{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){
+ .arena-game-actions{gap:6px}.arena-game-actions>button{min-height:45px;font-size:10px;padding:7px 4px}
+ .arena-room-create-grid{grid-template-columns:1fr}
+ .arena-room-panel,.arena-room-lobby-card{padding:13px}
+ .arena-room-tabs{gap:5px}
+ .arena-room-tab{font-size:10px;min-height:46px;padding:6px}
+ .arena-invite-code{font-size:25px;letter-spacing:.13em}
+ .arena-pvp-card-table{min-height:460px;border-width:5px;border-radius:26%/10%}
+ .arena-pvp-seat{min-width:79px;max-width:100px;padding:5px 5px}
+ .arena-pvp-seat[data-position="left"]{left:4px;top:23%}
+ .arena-pvp-seat[data-position="right"]{right:4px;top:23%}
+ .arena-pvp-seat strong{font-size:10px}
+ .arena-pvp-seat small{font-size:9px}
+ .arena-pvp-center{left:15%;right:15%;top:28%;min-height:132px}
+ .arena-pvp-center>strong{font-size:11px}
+ .arena-pvp-human{left:5px;right:5px;bottom:7px}
+ .arena-pvp-hand{justify-content:flex-start;min-height:78px}
+ .arena-pvp-hand>button{flex-basis:30px;width:30px}
+ .arena-pvp-hand>button:last-child{flex-basis:45px}
+ .arena-pvp-human .arena-pvp-hand>button{flex-basis:30px;width:30px}
+ .arena-pvp-human .arena-pvp-hand>button:last-child{flex-basis:45px}
+ .arena-pvp-actions button{font-size:11px;padding:7px 10px}
+ .arena-pvp-current .tl-real-card{margin-left:-20px}
+ .arena-pvp-human .arena-pvp-color-card{min-width:45px;width:45px}
+}
+@media(prefers-reduced-motion:reduce){.arena-game-actions>button{transition:none}.arena-pvp-hand button.selected{transform:none}}
