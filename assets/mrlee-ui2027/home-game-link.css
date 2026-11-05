@@ -1,0 +1,77 @@
+/* MR LEE home entry to Game Arena — independent CTA, not a ninth main tile.
+   Shared by Fresh and Future themes, inside the safe hero-copy column only. */
+html[data-mrlee-redesign="v2"] #mrleeNewHome .mr27-actions a.mr27-game-arena-link{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:9px!important;
+  border:1px solid #ffc463!important;
+  color:#2f2108!important;
+  background:linear-gradient(105deg,#ffe79c 0%,#f8c657 52%,#f2aa43 100%)!important;
+  box-shadow:0 6px 17px #a76c2433!important;
+  font-weight:900!important;
+  letter-spacing:.015em;
+  text-decoration:none!important;
+  white-space:nowrap;
+}
+html[data-mrlee-redesign="v2"] #mrleeNewHome .mr27-actions a.mr27-game-arena-link:hover{
+  background:linear-gradient(105deg,#fff0bb,#ffc850)!important;
+  box-shadow:0 9px 22px #a76c2455!important;
+  transform:translateY(-2px);
+}
+html[data-mrlee-redesign="v2"] #mrleeNewHome .mr27-actions a.mr27-game-arena-link:focus-visible{
+  outline:3px solid #247dcc!important;
+  outline-offset:3px!important;
+}
+html[data-mrlee-theme="future"][data-mrlee-redesign="v2"] #mrleeNewHome .mr27-actions a.mr27-game-arena-link{
+  border-color:#83ecff!important;
+  color:#041526!important;
+  background:linear-gradient(106deg,#5ff0e5,#71b9fc 55%,#a89bfc)!important;
+  box-shadow:0 8px 18px #23d1ed36!important;
+}
+html[data-mrlee-theme="future"][data-mrlee-redesign="v2"] #mrleeNewHome .mr27-actions a.mr27-game-arena-link:hover{
+  background:linear-gradient(106deg,#8af4ed,#94c5ff)!important;
+}
+html[data-mrlee-redesign="v2"] .mobile-nav a.mrlee-mobile-arena{
+  display:block;
+  background:linear-gradient(100deg,#fff2bb,#ffce70)!important;
+  border:1px solid #e5b454;
+  border-radius:10px;
+  color:#513511!important;
+  font-weight:900!important;
+}
+html[data-mrlee-theme="future"][data-mrlee-redesign="v2"] .mobile-nav a.mrlee-mobile-arena{
+  color:#061a2c!important;
+  background:linear-gradient(105deg,#6ce9e3,#82aafd)!important;
+  border-color:#51bdd1;
+}
+@media(max-width:650px){
+  html[data-mrlee-redesign="v2"] #mrleeNewHome .mr27-actions{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:7px;
+    width:100%;
+  }
+  html[data-mrlee-redesign="v2"] #mrleeNewHome .mr27-actions a{
+    width:100%;
+    min-width:0;
+    padding:9px 8px!important;
+    font-size:10.5px!important;
+    text-align:center;
+    white-space:normal;
+    min-height:43px;
+  }
+  html[data-mrlee-redesign="v2"] #mrleeNewHome .mr27-actions a.mr27-game-arena-link{
+    font-size:11px!important;
+    padding:9px 6px!important;
+  }
+}
+@media(max-width:370px){
+  html[data-mrlee-redesign="v2"] #mrleeNewHome .mr27-actions a{
+    font-size:9.5px!important;
+    padding:7px 5px!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html[data-mrlee-redesign="v2"] #mrleeNewHome .mr27-actions a.mr27-game-arena-link{transition:none!important}
+}
