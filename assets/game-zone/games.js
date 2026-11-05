@@ -14,7 +14,7 @@ function header(host, title, detail) {
 }
 
 export function playWordMatch(ctx) {
-  const pairs=pickWords(ctx.lesson.words,5), host=ctx.host;
+  const pairs=pickWords(ctx.lesson.words,5,"words:"+ctx.lesson.cap+":"+ctx.lesson.bai), host=ctx.host;
   if(pairs.length<4)return message(host,"Chưa đủ từ để ghép","Bài học này cần ít nhất bốn cặp từ có nghĩa khác nhau.");
   host.replaceChildren();
   const count=header(host,"Ghép đúng cặp từ","Chọn một từ tiếng Hàn và một nghĩa tiếng Việt tương ứng.");
@@ -126,7 +126,7 @@ export function playSentence(ctx) {
 
 export function playListening(ctx) {
   const audible=ctx.lesson.words.filter(x=>ctx.audio?.has(x.ko));
-  const questions=pickWords(audible,6),host=ctx.host;
+  const questions=pickWords(audible,6,"listening:"+ctx.lesson.cap+":"+ctx.lesson.bai),host=ctx.host;
   if(questions.length<4)return message(host,"Chưa có đủ MP3 phù hợp","Trò nghe chỉ mở khi có ít nhất bốn từ và tệp MP3 khớp bài học. Không thay bằng lời đọc tự tạo.");
   host.replaceChildren();
   const count=header(host,"Nghe và chọn nghĩa","Nhấn ▶ để nghe từ tiếng Hàn; có thể nghe lại trước khi trả lời.");
@@ -165,7 +165,7 @@ export function playListening(ctx) {
 }
 
 export function playMemory(ctx) {
-  const pairs=pickWords(ctx.lesson.words,5),host=ctx.host;
+  const pairs=pickWords(ctx.lesson.words,5,"memory:"+ctx.lesson.cap+":"+ctx.lesson.bai),host=ctx.host;
   if(pairs.length<4)return message(host,"Chưa đủ dữ liệu","Bài này cần ít nhất bốn cặp từ để chơi trí nhớ.");
   const cards=shuffled(pairs.flatMap((p,id)=>[{id,text:p.ko,ko:true},{id,text:p.vi,ko:false}]));
   host.replaceChildren();

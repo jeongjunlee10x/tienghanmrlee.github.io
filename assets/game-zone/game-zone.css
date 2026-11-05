@@ -41,3 +41,39 @@ html[data-mrlee-theme="future"] .mz-study-link,html[data-mrlee-theme="future"] .
 @media(max-width:940px){.mz-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.mz-card{min-height:208px}}
 @media(max-width:610px){.mz-header{align-items:flex-start}.mz-nav{justify-content:flex-end}.mz-nav a{font-size:11px;padding:6px}.mz-hero{grid-template-columns:1fr;padding:23px}.mz-hero-stats{grid-template-columns:1fr 1fr}.mz-section-title{align-items:flex-start;flex-direction:column}.mz-card{min-height:190px;padding:14px}.mz-card strong{font-size:15px}.mz-card .mz-card-icon{font-size:34px}.mz-cards{gap:10px}.mz-option-grid{grid-template-columns:1fr}.mz-memory-card{min-height:84px;font-size:13px}.mz-memory-grid{gap:7px}.mz-pair-grid{gap:8px}.mz-tile{font-size:13px;padding:8px}.mz-arena-top{gap:9px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mz-card{transition:none}.mz-card:hover{transform:none}}
+
+
+/* GAME ZONE Phase 2 — responsive interactive surfaces */
+.mz-bubble-field{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;min-height:170px;padding:20px 7px;align-items:center}
+.mz-bubble{--bubble-delay:0s;min-height:108px;width:100%;padding:12px 5px;border:2px solid #65aede;border-radius:48% 50% 46% 51%;color:var(--mz-ink);background:radial-gradient(circle at 27% 18%,#ffffffa0,transparent 41%),var(--mz-soft);box-shadow:inset -10px -11px 15px #4c9fe52c,0 8px 16px #063c6b1a;animation:mz-bob 2.6s ease-in-out infinite;animation-delay:var(--bubble-delay);font-size:clamp(14px,1.6vw,19px);font-weight:900;word-break:keep-all}
+.mz-bubble:hover,.mz-bubble:focus-visible{border-color:var(--mz-primary);filter:brightness(1.06)}
+.mz-bubble-wrong{opacity:.35;animation:none}
+@keyframes mz-bob{0%,100%{filter:brightness(1)}50%{filter:brightness(1.13)}}
+.mz-hearts{text-align:right;font-size:21px;margin:0}
+.mz-suspects{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.mz-suspect{display:flex;flex-direction:column;gap:13px;justify-content:center;align-items:center;min-height:165px;padding:16px 12px;border:2px solid var(--mz-line);background:var(--mz-bg);color:var(--mz-ink);border-radius:16px;text-align:center}
+.mz-suspect strong{font-size:clamp(16px,1.7vw,22px);line-height:1.5;word-break:keep-all}
+.mz-suspect small{color:var(--mz-muted);font-size:13px;line-height:1.6}
+.mz-suspect:hover:not(:disabled),.mz-suspect:focus-visible{border-color:var(--mz-primary)}
+.mz-suspect.mz-found{border-color:var(--mz-good);background:var(--mz-soft);opacity:1}
+.mz-detective-fix{padding:6px 8px}.mz-detective-fix p{margin:6px 0}
+.mz-typing-form{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch}
+.mz-typing-input{min-height:51px;min-width:180px;flex:1 1 240px;color:var(--mz-ink);background:var(--mz-bg);border:2px solid var(--mz-line);border-radius:12px;padding:11px 14px;font-size:clamp(16px,2vw,21px)}
+.mz-typing-stats{padding:8px 0;color:var(--mz-muted)}
+.mz-mart-order{border-radius:15px;background:var(--mz-soft);padding:14px 19px}
+.mz-mart-request{display:flex;gap:25px;flex-wrap:wrap;margin:7px 0 0;padding-left:23px}
+.mz-mart-shelf{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:17px 0}
+.mz-product{min-height:135px;border:2px solid var(--mz-line);background:var(--mz-bg);border-radius:14px;color:var(--mz-ink);padding:10px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.mz-product-icon{font-size:31px}.mz-product strong{font-size:17px;word-break:keep-all}
+.mz-product small{color:var(--mz-muted);font-size:12px}
+.mz-product[aria-pressed="true"]{background:var(--mz-soft);border-color:var(--mz-primary);box-shadow:0 0 0 2px var(--mz-primary)}
+.mz-mart-basket{font-weight:800;margin:14px 0}
+@media(max-width:700px){
+  .mz-bubble-field{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+  .mz-bubble{min-height:90px;font-size:14px}
+  .mz-suspects{grid-template-columns:1fr}
+  .mz-suspect{min-height:90px;gap:3px}
+  .mz-mart-shelf{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .mz-mart-request{gap:18px}
+}
+@media(prefers-reduced-motion:reduce){.mz-bubble{animation:none}}

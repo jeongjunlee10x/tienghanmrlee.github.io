@@ -2,6 +2,8 @@
 import {MODES, LEVELS, el, button} from "./core.js";
 import {loadLesson, loadWordAudio} from "./content.js";
 import {GAME_RUNNERS} from "./games.js";
+import {PHASE2_RUNNERS} from "./phase2.js";
+const ALL_RUNNERS=Object.freeze({...GAME_RUNNERS,...PHASE2_RUNNERS});
 
 const $=id=>document.getElementById(id);
 const state={cap:1,bai:1,lesson:null,xp:0,wins:0,sequence:0,cleanup:null,mode:null};
@@ -78,7 +80,7 @@ async function selectLesson(){
   }
 }
 async function beginGame(id){
-  const mode=MODES.find(m=>m.id===id),run=GAME_RUNNERS[id];
+  const mode=MODES.find(m=>m.id===id),run=ALL_RUNNERS[id];
   if(!mode || !run || !state.lesson){notice("Vui lòng tải bài học trước khi chơi.",true);return;}
   stopGame();
   state.mode=id;
