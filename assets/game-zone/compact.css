@@ -1,0 +1,55 @@
+/* MR LEE Game Zone – one-screen game-grid first, no splash, concise tabletop notices. */
+.mz-compact-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;
+ margin-top:15px;background:var(--mz-card);border:1px solid var(--mz-line);border-radius:16px;padding:10px 16px}
+.mz-compact-head>strong{font-size:16px;color:var(--mz-ink)}
+.mz-compact-scores{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.mz-compact-scores span,.mz-compact-scores>a{font-size:11px;font-weight:800;display:inline-flex;align-items:center;gap:5px;
+ padding:5px 10px;border-radius:10px;background:var(--mz-soft);color:var(--mz-ink);white-space:nowrap}
+.mz-compact-scores>a{background:#1f6bb9;color:white}
+.mz-selectors{margin-top:10px;padding:10px 13px;border-radius:14px;gap:10px}
+.mz-selectors label{flex:1 1 170px}
+.mz-selectors select{min-height:38px;padding:5px 10px}
+.mz-section-title{margin-top:8px}
+#mzLobby .mz-section-title .mz-kicker{display:none}
+#mzLobby .mz-disclaimer{display:none}
+.mz-notice{margin:8px 0;padding:8px 13px;min-height:0;font-size:12px}
+.mz-verified-fold{margin:14px 0 18px;border:1px solid var(--mz-line);border-radius:14px;background:var(--mz-card)}
+.mz-verified-fold>summary{cursor:pointer;font-size:13px;font-weight:850;padding:13px 18px;list-style:revert;color:var(--mz-ink)}
+.mz-verified-fold[open]>summary{border-bottom:1px solid var(--mz-line)}
+.mz-verified-fold #mzVerified{margin-top:4px;border:0;box-shadow:none}
+.mz-arena{position:relative;isolation:isolate}
+.mz-arena-top{flex-wrap:wrap;gap:9px}
+#mzFullscreen{white-space:nowrap}
+.mz-arena-toast{position:absolute;top:74px;left:50%;transform:translateX(-50%);z-index:50;
+ width:max-content;max-width:min(88%,440px);pointer-events:none;
+ color:#fff;background:#153659f0;border:1px solid #8fdbf6;border-radius:12px;
+ font-size:12px;font-weight:900;text-align:center;box-shadow:0 9px 26px #0006;padding:10px 15px}
+.mz-feedback{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;
+ clip-path:inset(50%)!important;white-space:nowrap!important;padding:0!important;border:0!important}
+.mz-result:not([hidden]){position:absolute;z-index:65;left:50%;top:50%;transform:translate(-50%,-50%);
+ width:min(440px,calc(100% - 22px));max-height:80%;overflow:auto;margin:0!important;
+ color:#fff!important;background:#12385ceE!important;border:2px solid #ffe39a!important;
+ border-radius:20px;box-shadow:0 13px 45px #000a;text-align:center;padding:20px!important}
+.mz-result:not([hidden]) strong{font-size:25px;color:#ffdf83}
+.mz-result:not([hidden]) p{font-size:13px;color:#fff}
+.mz-arena:fullscreen{background:var(--mz-bg);color:var(--mz-ink);padding:16px;
+ height:100dvh;width:100vw;overflow:auto}
+.mz-arena.mz-fullscreen-fallback{position:fixed!important;inset:0!important;z-index:8500!important;
+ width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;
+ overflow:auto!important;margin:0!important;padding:12px!important;background:var(--mz-bg)}
+body.mz-game-fullscreen{overflow:hidden}
+@media(max-width:610px){
+ .mz-compact-head{padding:8px 10px;margin-top:8px}
+ .mz-compact-head>strong{font-size:13px}
+ .mz-compact-scores{gap:4px}
+ .mz-compact-scores span,.mz-compact-scores>a{font-size:10px;padding:4px 7px}
+ .mz-selectors{gap:7px}
+ .mz-selectors label{flex:1 1 120px;font-size:11px}
+ .mz-selectors select{font-size:12px}
+ .mz-cards{gap:9px}
+ .mz-section-title{gap:5px;margin:8px 0}
+ .mz-section-title h2{font-size:20px}
+ .mz-verified-fold>summary{font-size:12px}
+ .mz-arena-top{gap:5px}
+ #mzFullscreen{font-size:11px;padding:7px}
+}
