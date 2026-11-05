@@ -176,6 +176,8 @@ export function mountXiangqi({onStart,onFinish,onExit}){
   status.textContent=g.winner!==null?(g.winner===1?"🏆 Bạn thắng!":"🏆 Máy thắng!"):
    g.turn===1?(isXiangqiCheck(g,1)?"⚠️ Tướng đang bị chiếu! Chọn nước cứu tướng.":"🔴 Lượt bạn · chọn quân đỏ và ô đích hợp lệ."):
    "⏳ Máy đang suy nghĩ nước đi...";
+  board.append(node("div","arena-extra-ticker xq-ticker",g.last?
+   (g.turn===1?"Máy vừa đi. Đến lượt bạn.":"Đã đi quân. Chờ máy trả lời."):"Chọn quân đỏ để đi."));
   $("xqMoveCount").textContent=g.moves.length+" nước";
   $("xqMoveLog").replaceChildren(...g.moves.slice(-6).reverse().map((m,i)=>node("p","",
    (m.side===1?"🔴 Bạn: ":"⚫ Máy: ")+m.piece+" "+(m.capture?"× ":"→ ")+
