@@ -3,7 +3,11 @@ export const MODES = Object.freeze([
   { id:"word-match", label:"Ghép từ siêu tốc", ko:"단어 매칭", icon:"🧩", desc:"Ghép tiếng Hàn với nghĩa tiếng Việt." },
   { id:"sentence-builder", label:"Xây dựng câu", ko:"문장 만들기", icon:"🔤", desc:"Sắp xếp từ thành câu tiếng Hàn đúng." },
   { id:"listening", label:"Thính giác siêu phàm", ko:"듣기 챌린지", icon:"🎧", desc:"Nghe MP3 rồi chọn nghĩa chính xác." },
-  { id:"memory", label:"Trí nhớ thần tốc", ko:"기억력 게임", icon:"🃏", desc:"Lật thẻ tìm đúng cặp từ Hàn–Việt." }
+  { id:"memory", label:"Trí nhớ thần tốc", ko:"기억력 게임", icon:"🃏", desc:"Lật thẻ tìm đúng cặp từ Hàn–Việt." },
+  { id:"hangul-bubbles", label:"Bắn bóng Hangul", ko:"한글 버블", icon:"🎈", desc:"Săn bong bóng đúng theo nghĩa tiếng Việt." },
+  { id:"grammar-detective", label:"Thám tử ngữ pháp", ko:"문법 탐정", icon:"🔎", desc:"Tìm công thức đang bị ghép sai ý nghĩa." },
+  { id:"typing-king", label:"Vua gõ tiếng Hàn", ko:"타자왕", icon:"⌨️", desc:"Gõ từ Hangul đúng và luyện chính tả." },
+  { id:"korean-mart", label:"Siêu thị Hàn Quốc", ko:"한국 마트", icon:"🛒", desc:"Mua đúng sản phẩm đã học bằng tiếng Hàn." },
 ]);
 export const LEVELS = ["Sơ cấp 1", "Sơ cấp 2", "Trung cấp 1", "Trung cấp 2", "Cao cấp 1", "Cao cấp 2"];
 export function shuffled(items, random = Math.random) {

@@ -37,7 +37,12 @@ export async function loadLesson(cap,bai) {
   const raw=list.find(x=>Number(x.cap)===cap && Number(x.bai)===bai);
   if(!raw)throw new Error("Chưa tìm được nội dung của bài này.");
   const words=uniqueWords((raw.vocab||[]).map(x=>({ko:x[0],vi:x[1]})));
-  return {cap,bai,title:String(raw.title||""),words,sentences:collectSentences(raw)};
+  // Only courses/lessons at or before the selected lesson are permitted.
+  const candidates=cap<=2?SC_LESSONS:[...SC_LESSONS,...await advancedLessons()];
+  const ordinal=(cap-1)*15+bai;
+  const earlier=candidates.filter(x=>((Number(x.cap)-1)*15+Number(x.bai))<=ordinal);
+  const marketWords=uniqueWords(earlier.flatMap(x=>(x.vocab||[]).map(v=>({ko:v[0],vi:v[1]}))));
+  return {cap,bai,title:String(raw.title||""),words,grammar:raw.grammar||[],marketWords,sentences:collectSentences(raw)};
 }
 export async function loadWordAudio(cap,bai) {
   const folder="MRLEE_AUDIO/01_HOC_TIENG_HAN/CAP_"+cap+"/BAI_"+String(bai).padStart(2,"0")+"/01_TU_VUNG/";
