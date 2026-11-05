@@ -70,3 +70,24 @@
 @media(max-width:850px){.arena-extra-layout{grid-template-columns:1fr}.arena-extra-side{display:grid;grid-template-columns:1fr 1fr;gap:10px}.arena-extra-side .arena-panel{margin-bottom:0}}
 @media(max-width:530px){.arena-extra-side{grid-template-columns:1fr}.arena-extra-board{border-width:3px}.ludo-pawn{width:clamp(12px,3vw,19px);height:clamp(12px,3vw,19px);font-size:8px}.xq-piece{font-size:clamp(14px,5vw,25px);border-width:2px}.estate-tile{padding:1px;border-radius:3px}.estate-tile strong{font-size:7px}.estate-tile small{font-size:7px}.estate-tokens{font-size:10px}.estate-center strong{font-size:19px}.arena-extra-stage{width:100%}}
 @media(prefers-reduced-motion:reduce){.ludo-pawn.legal{animation:none}}
+
+/* Keep primary controls visible before the board on compact screens. */
+.arena-extra-ticker{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:9;width:max-content;max-width:75%;padding:6px 10px;border-radius:100px;background:#102848d9;color:#fff;font-size:clamp(9px,1.25vw,12px);font-weight:850;text-align:center;pointer-events:none;line-height:1.35;box-shadow:0 3px 13px #15223c4a}
+.xq-board{position:relative}
+.xq-ticker{top:auto;bottom:4px;max-width:82%;background:#54320ad9}
+.estate-ticker{display:block;margin:10px 0 0!important;font-size:clamp(10px,1.4vw,13px)!important;font-weight:850!important;color:#ffe9ab!important;max-width:260px}
+@media(max-width:850px){
+ .arena-extra-layout{grid-template-columns:1fr}
+ .arena-extra-stage{grid-column:1;grid-row:2}
+ .arena-extra-side{display:contents}
+ .arena-extra-side>.arena-panel{grid-column:1;margin:0}
+ .arena-extra-side>.arena-panel:first-child{grid-row:1;padding:10px 12px}
+ .arena-extra-side>.arena-panel:nth-child(2){grid-row:3}
+ .arena-extra-side>.arena-panel:nth-child(3){grid-row:4}
+ .arena-extra-side>.arena-panel:first-child p.arena-demo-rule{display:none}
+ .arena-extra-side>.arena-panel:first-child h3{margin-bottom:2px}
+ .arena-extra-side>.arena-panel:first-child .arena-extra-bar{margin:5px 0}
+ .arena-extra-status{margin:4px 0!important;min-height:0}
+ .ludo-score{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .ludo-player{font-size:9px;padding:4px}
+}
