@@ -1,0 +1,70 @@
+/* MR LEE Arena: legal chess / Tiến lên deterministic and randomized unit tests. */
+import assert from "node:assert/strict";
+import {START_FEN,start as chessStart,parseFen,legal,apply,fromUci,uci,status,checked,bestBotMove,square,index} from "../assets/arena/chess-engine.js";
+import {deck,start as tlStart,analyze,beats,canPlay,play,pass,options,botTurn,label} from "../assets/arena/tienlen-engine.js";
+import {readFile} from "node:fs/promises";
+const c=(r,s)=>{const m=fromUci(s,r);assert.ok(m,"Expected legal chess move: "+r);return apply(s,m);};
+let s=chessStart();
+assert.equal(legal(s).length,20);
+assert.equal(square(index("h1")),"h1");
+assert.equal(s.b[index("d1")],"Q");assert.equal(s.b[index("d8")],"q");
+s=c("e2e4",s);assert.equal(legal(s).length,20);
+s=c("e7e5",s);assert.equal(legal(s).length,29);
+let mate=chessStart();for(const move of ["f2f3","e7e5","g2g4","d8h4"])mate=c(move,mate);
+assert.deepEqual({done:status([mate]).done,winner:status([mate]).winner},{done:true,winner:-1});
+assert.ok(checked(mate));
+let castle=parseFen("r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1");
+assert.ok(fromUci(castle,"e1g1"));
+assert.ok(fromUci(castle,"e1c1"));
+castle=c("e1g1",castle);assert.equal(castle.b[index("g1")],"K");assert.equal(castle.b[index("f1")],"R");
+let ep=chessStart();for(const move of ["e2e4","a7a6","e4e5","d7d5"])ep=c(move,ep);
+assert.equal(fromUci(ep,"e5d6")?.[3],"ep");
+ep=c("e5d6",ep);assert.equal(ep.b[index("d5")],".");assert.equal(ep.b[index("d6")],"P");
+let promotion=parseFen("4k3/P7/8/8/8/8/8/4K3 w - - 0 1");
+assert.ok(fromUci(promotion,"a7a8q"));assert.ok(fromUci(promotion,"a7a8n"));
+promotion=c("a7a8n",promotion);assert.equal(promotion.b[index("a8")],"N");
+assert.equal(status([parseFen("4k3/8/8/8/8/8/8/4K3 w - - 0 1")]).winner,0);
+let ai=chessStart();ai=c("d2d4",ai);
+const bot=bestBotMove(ai,"normal");assert.ok(bot);assert.ok(legal(ai).some(x=>uci(x)===uci(bot)));
+assert.equal(deck().length,52);
+assert.equal(new Set(deck().map(x=>x.id)).size,52);
+const cards=ids=>ids.map(id=>deck().find(c=>c.id===id));
+assert.equal(analyze(cards(["3-0","4-1","5-2"]))?.type,"straight");
+assert.equal(analyze(cards(["3-0","3-1","4-0","4-1","5-0","5-1"]))?.type,"pair-run");
+assert.equal(analyze(cards(["3-0","3-1","3-2","3-3"]))?.type,"quad");
+assert.equal(analyze(cards(["12-0","13-0","14-0","15-0"])),null,"2 cannot join a straight");
+assert.ok(beats(analyze(cards(["3-0","3-1","4-0","4-1","5-0","5-1"])),analyze(cards(["15-0"]))));
+assert.ok(beats(analyze(cards(["7-0","7-1","7-2","7-3"])),analyze(cards(["15-0","15-1"]))));
+assert.ok(!beats(analyze(cards(["4-0","4-1"])),analyze(cards(["15-0","15-1"]))));
+let tl=tlStart(()=>0.52);
+assert.deepEqual(tl.hands.map(x=>x.length),[13,13,13,13]);
+assert.ok(tl.hands[tl.turn].some(x=>x.id==="3-0"));
+const firstSeat=tl.turn;
+assert.equal(canPlay(tl,firstSeat,[tl.hands[firstSeat].find(x=>x.id!=="3-0").id]),false);
+play(tl,firstSeat,["3-0"]);
+assert.equal(tl.first,false);
+let current=tl.turn;
+pass(tl,current);current=tl.turn;pass(tl,current);current=tl.turn;pass(tl,current);
+assert.equal(tl.last,null);assert.equal(tl.turn,firstSeat);
+let winners=0;
+for(let game=0;game<15;game++){
+ const g=tlStart();
+ let steps=0;
+ while(g.winner===null&&steps<330){
+  if(g.turn===0){
+   const choices=options(g.hands[0]).filter(cards=>canPlay(g,0,cards.map(x=>x.id)));
+   if(choices.length)play(g,0,choices[0].map(x=>x.id));
+   else pass(g,0);
+  }else botTurn(g);
+  steps++;
+ }
+ assert.ok(g.winner!==null,"Tiến lên must finish");
+ assert.ok(steps<=300,"Turn cap for bots");
+ winners++;
+}
+const html=await readFile(new URL("../mrlee-game-arena.html",import.meta.url),"utf8");
+const root=await readFile(new URL("../assets/arena/app.js",import.meta.url),"utf8");
+assert.match(html,/id="chessBoard"/);assert.match(html,/id="tlHand"/);
+assert.match(root,/mountChess/);assert.match(root,/mountTienLen/);
+assert.doesNotMatch(root,/update.*(?:student_score|topik_points)/i);
+console.log("PASS Arena strategy: chess legal 20/29, mate, castles, en passant, promotions, AI; Tiến lên deck, chops, passes, 15 complete matches.");

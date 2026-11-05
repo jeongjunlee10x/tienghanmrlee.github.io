@@ -20,6 +20,7 @@ export function mountChess({onStart,onFinish,onExit}){
  function begin(){
   if(!onStart())return;
   stop();history=[start()];labels=[];picked=-1;done=false;
+  root.querySelector(".arena-game-result")?.remove();
   root.hidden=false;root.scrollIntoView({behavior:"smooth",block:"start"});
   draw();
  }

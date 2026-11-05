@@ -27,6 +27,7 @@ export function mountTienLen({onStart,onFinish,onExit}){
  function begin(){
   if(!onStart())return;
   stop();game=start();selected=new Set();done=false;
+  root.querySelector(".arena-game-result")?.remove();
   root.hidden=false;root.scrollIntoView({behavior:"smooth",block:"start"});
   render();schedule();
  }
