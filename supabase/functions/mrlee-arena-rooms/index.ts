@@ -4,7 +4,7 @@
  * WARNING: game gold is a non-wagered local/demo match tier; no real rewards.
  */
 import {createRemoteJWKSet,jwtVerify} from "npm:jose@6.1.0";
-import {createClient} from "npm:@supabase/supabase-js@2";
+import {createClient} from "npm:@supabase/supabase-js@2.119.0";
 import * as Chess from "./chess-engine.js";
 import * as TienLen from "./tienlen-engine.js";
 import * as Colors from "./color-engine.js";
