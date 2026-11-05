@@ -1,7 +1,7 @@
 name: MR LEE Arena MVP QA
 on:
   push:
-    branches: [feature/mrlee-arcade-mvp, feature/mrlee-arcade-chess-tienlen, feature/mrlee-tienlen-live-table-v2, feature/mrlee-arena-multiplayer-rooms]
+    branches: [feature/mrlee-arcade-mvp, feature/mrlee-arcade-chess-tienlen, feature/mrlee-tienlen-live-table-v2, feature/mrlee-arena-multiplayer-rooms, main]
     paths:
       - 'mrlee-game-arena.html'
       - 'assets/arena/**'
@@ -10,6 +10,8 @@ on:
       - 'tro-choi-tieng-han.html'
       - 'tools/test-arena.mjs'
       - 'tools/test-arena-strategy.mjs'
+      - 'tools/test-arena-extra.mjs'
+      - 'tools/browser-arena-extra.mjs'
       - 'tools/test-tienlen-fx.mjs'
       - 'tools/test-arena-rooms.mjs'
       - 'tools/test-arena-live-api.mjs'
@@ -26,6 +28,8 @@ on:
       - 'supabase/manual-sql/MRLEE_ARENA_*.sql'
       - 'tro-choi-tieng-han.html'
       - 'tools/test-arena.mjs'
+      - 'tools/test-arena-extra.mjs'
+      - 'tools/browser-arena-extra.mjs'
       - 'tools/browser-arena.mjs'
       - '.github/workflows/mrlee-arena-qa.yml'
 jobs:
@@ -54,12 +58,19 @@ jobs:
           node --check assets/arena/room-api.js
           node --check assets/arena/rooms-ui.js
           node --check assets/arena/rooms-play.js
+          node --check assets/arena/ludo.js
+          node --check assets/arena/xiangqi.js
+          node --check assets/arena/estate.js
+          node --check tools/test-arena-extra.mjs
+          node --check tools/browser-arena-extra.mjs
           node --check tools/test-arena.mjs
           node --check tools/browser-arena.mjs
       - name: Arena gameplay rules
         run: node tools/test-arena.mjs
       - name: Chess and Tien Len rules
         run: node tools/test-arena-strategy.mjs
+      - name: Remaining three games rules
+        run: node tools/test-arena-extra.mjs
       - name: Table visual effects and chop labels
         run: node tools/test-tienlen-fx.mjs
       - name: Multiplayer rooms and G ledger contract tests
@@ -86,3 +97,4 @@ jobs:
           node tools/browser-arena-strategy.mjs
           node tools/browser-tienlen-live.mjs
           node tools/browser-arena-rooms.mjs
+          node tools/browser-arena-extra.mjs
