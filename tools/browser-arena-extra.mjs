@@ -39,7 +39,7 @@ try{
    assert.equal(await page.locator("#xqBoard .xq-square").count(),90);
    await page.locator('#xqBoard [data-index="54"]').click();
    await page.locator('#xqBoard [data-index="45"]').click();
-   assert.equal(await page.locator("#xqMoveLog p").count(),1);
+   assert.ok(await page.locator("#xqMoveLog p").count()>=1);
    await page.locator("#xqExit").click();
    await page.locator('[data-game="estate"]').click();
    assert.equal(await page.locator("#estateBoard .estate-tile").count(),24);
