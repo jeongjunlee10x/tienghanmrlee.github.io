@@ -11,10 +11,11 @@
 <link rel="stylesheet" href="assets/arena/arena.css?v=2">
 <link rel="stylesheet" href="assets/arena/strategy.css?v=1">
 <link rel="stylesheet" href="assets/arena/tienlen-live.css?v=2">
+<link rel="stylesheet" href="assets/arena/rooms.css?v=1">
 <style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
 <script>try{document.documentElement.dataset.mrleeTheme=localStorage.getItem("MRLEE.THEME.V1")==="future"?"future":"fresh"}catch{document.documentElement.dataset.mrleeTheme="fresh"}</script>
 <script type="module" src="auth-guard.js"></script>
-<script type="module" src="assets/arena/app.js?v=3"></script>
+<script type="module" src="assets/arena/app.js?v=4"></script>
 </head>
 <body>
 <div class="arena-app">
@@ -44,17 +45,105 @@
 <section id="arenaLobby" aria-labelledby="arenaListHeading">
  <div class="arena-heading"><div><small>PHÒNG GAME</small><h2 id="arenaListHeading">Chọn chiến trường</h2></div><p>Ba trò đã có thể chơi với bot: Bài Màu, Cờ vua và Tiến lên miền Nam. Ba trò còn lại sẽ bổ sung sau.</p></div>
  <div class="arena-catalog" id="arenaCatalog">
-   <button type="button" class="arena-game-card playable" data-game="colors">
+   <article class="arena-game-card playable">
      <span class="arena-card-banner colors"><span>🔴</span><span>🔵</span><span>🟢</span><span>🟡</span></span>
-     <span class="arena-card-body"><strong>Bài Màu Đại Chiến</strong><small>4 người · Đấu 3 AI · 3–8 phút</small><span class="arena-enter">Chơi ngay <span aria-hidden="true">→</span></span></span>
-   </button>
-   <button type="button" class="arena-game-card playable" data-game="chess"><span class="arena-card-banner chess">♟ ♜ ♞</span><span class="arena-card-body"><strong>Cờ Vua</strong><small>Đầy đủ luật · Đấu AI 3 mức</small><span class="arena-enter">Chơi ngay →</span></span></button>
-   <button type="button" class="arena-game-card playable" data-game="tienlen"><span class="arena-card-banner tienlen">🂡 🂱 🃁</span><span class="arena-card-body"><strong>Tiến Lên Miền Nam</strong><small>4 người · Chặt bài · Đấu 3 AI</small><span class="arena-enter">Chơi ngay →</span></span></button>
+     <div class="arena-card-body"><strong>Bài Màu Đại Chiến</strong><small>4 người · Chơi trực tuyến / đấu máy</small>
+      <div class="arena-game-actions">
+       <button type="button" class="arena-quick" data-room-action="quick" data-room-game="colors">⚡ Chơi nhanh</button>
+       <button type="button" class="arena-friends" data-room-action="friends" data-room-game="colors">👥 Chơi với bạn</button>
+       <button type="button" class="arena-rooms-link" data-room-action="browse" data-room-game="colors">▦ Chọn bàn</button>
+       <button type="button" class="arena-bots" data-game="colors">🤖 Đấu máy</button>
+      </div>
+     </div>
+   </article>
+   <article class="arena-game-card playable"><span class="arena-card-banner chess">♟ ♜ ♞</span><div class="arena-card-body"><strong>Cờ Vua</strong><small>2 người · PvP / Đấu AI</small><div class="arena-game-actions">
+ <button type="button" class="arena-quick" data-room-action="quick" data-room-game="chess">⚡ Chơi nhanh</button>
+ <button type="button" class="arena-friends" data-room-action="friends" data-room-game="chess">👥 Chơi với bạn</button>
+ <button type="button" class="arena-rooms-link" data-room-action="browse" data-room-game="chess">▦ Chọn bàn</button>
+ <button type="button" class="arena-bots" data-game="chess">🤖 Đấu máy</button>
+ </div></div></article>
+   <article class="arena-game-card playable"><span class="arena-card-banner tienlen">🂡 🂱 🃁</span><div class="arena-card-body"><strong>Tiến Lên Miền Nam</strong><small>4 người · Phòng bạn bè / Đấu bot</small><div class="arena-game-actions">
+ <button type="button" class="arena-quick" data-room-action="quick" data-room-game="tienlen">⚡ Chơi nhanh</button>
+ <button type="button" class="arena-friends" data-room-action="friends" data-room-game="tienlen">👥 Chơi với bạn</button>
+ <button type="button" class="arena-rooms-link" data-room-action="browse" data-room-game="tienlen">▦ Chọn bàn</button>
+ <button type="button" class="arena-bots" data-game="tienlen">🤖 Đấu máy</button>
+ </div></div></article>
    <article class="arena-game-card"><div class="arena-card-banner ludo">🎲 🐎 🎯</div><div class="arena-card-body"><strong>Cờ Cá Ngựa</strong><small>Xúc xắc · Di chuyển quân</small><span class="arena-soon">Đang phát triển</span></div></article>
    <article class="arena-game-card"><div class="arena-card-banner xiangqi">帥 車 馬</div><div class="arena-card-body"><strong>Cờ Tướng / Cờ Úp</strong><small>Chiến thuật Đông Á · AI</small><span class="arena-soon">Đang phát triển</span></div></article>
    <article class="arena-game-card"><div class="arena-card-banner estate">🏘️ 💼 🏙️</div><div class="arena-card-body"><strong>Địa Ốc Đại Chiến</strong><small>Giao dịch · Chiến thuật tài sản</small><span class="arena-soon">Đang phát triển</span></div></article>
  </div>
 </section>
+
+<section id="arenaRoomHub" class="arena-room-section" hidden aria-labelledby="arenaRoomHubTitle">
+ <div class="arena-table-heading"><button id="roomHubExit" type="button" class="arena-soft">← Về sảnh</button>
+  <div><span class="arena-eyebrow">ĐẤU TRỰC TUYẾN · KHÔNG ĐẶT CƯỢC</span><h2 id="arenaRoomHubTitle">Phòng chơi Arena</h2></div>
+  <span id="roomGamePill" class="arena-room-pill">Phòng đấu</span>
+ </div>
+ <div class="arena-room-tabs">
+  <button type="button" data-room-tab="quick" class="arena-room-tab">⚡ Chơi nhanh</button>
+  <button type="button" data-room-tab="friends" class="arena-room-tab">👥 Chơi với bạn</button>
+  <button type="button" data-room-tab="browse" class="arena-room-tab">▦ Chọn bàn</button>
+ </div>
+ <div class="arena-room-panel">
+  <p class="arena-room-help">🪙 Ghép bàn theo <strong>mốc vàng demo</strong> bạn đang có. Không trừ vàng khi vào bàn, không chuyển vàng cho đối thủ, không nhận vàng/EXP thật từ trận PvP.</p>
+  <label class="arena-room-label">Tên hiển thị trong phòng <input id="roomNickname" maxlength="24" autocomplete="nickname" placeholder="Nhập tên, ví dụ: Lee" value="Học viên"></label>
+  <div id="roomFriends" class="arena-room-create-grid">
+   <div class="arena-room-create">
+    <h3>✨ Tạo bàn mới</h3>
+    <p>Tạo mã ngẫu nhiên 8 ký tự để gửi cho bạn bè.</p>
+    <label class="arena-room-label">Mốc vàng demo (không đặt cược)
+      <select id="roomMinGold">
+       <option value="0">🪙 Tự do · 0 vàng</option>
+       <option value="100">🪙 Từ 100 vàng demo</option>
+       <option value="500">🪙 Từ 500 vàng demo</option>
+       <option value="1000">🪙 Từ 1.000 vàng demo</option>
+      </select>
+    </label>
+    <label class="arena-room-check"><input type="checkbox" id="roomPublic"> Bàn công khai (hiển thị trong Chọn bàn)</label>
+    <button id="roomCreate" type="button" class="arena-primary">➕ Tạo bàn và nhận mã</button>
+   </div>
+   <div class="arena-room-join">
+    <h3>🔑 Vào bàn bằng mã</h3>
+    <p>Nhập mã bạn bè đã gửi; chỉ người có mã mới vào bàn riêng.</p>
+    <label class="arena-room-label">Mã phòng <input id="roomJoinCode" maxlength="10" spellcheck="false" autocomplete="off" placeholder="Ví dụ ABCD2345"></label>
+    <button id="roomJoin" type="button" class="arena-action">Vào bàn</button>
+   </div>
+  </div>
+  <div id="roomBrowser" hidden>
+    <div class="arena-room-browser-heading"><h3>▦ Những bàn công khai đang chờ</h3>
+      <button id="roomRefreshList" type="button" class="arena-soft">↻ Làm mới</button>
+    </div>
+    <div id="roomBrowserList" aria-live="polite" class="arena-room-list"></div>
+  </div>
+  <p id="roomHubStatus" class="arena-room-status" role="status" aria-live="polite"></p>
+ </div>
+</section>
+<section id="arenaRoomLobby" class="arena-room-section" hidden aria-labelledby="roomLobbyTitle">
+ <div class="arena-table-heading"><button id="roomLobbyExit" type="button" class="arena-soft">← Rời bàn</button>
+ <div><span class="arena-eyebrow">PHÒNG ĐẤU BẠN BÈ</span><h2 id="roomLobbyTitle">Đang chờ đủ người</h2></div></div>
+ <div class="arena-room-lobby-card">
+  <p class="arena-room-help">Chia sẻ mã phòng để bạn bè nhập tại mục <strong>Chơi với bạn → Vào bàn</strong>.</p>
+  <div class="arena-invite-line"><strong id="roomLobbyCode" class="arena-invite-code">--------</strong><button id="roomCopyCode" class="arena-action" type="button">📋 Sao chép mã</button><button id="roomCopyLink" class="arena-soft" type="button">🔗 Sao chép liên kết</button></div>
+  <div class="arena-room-lobby-info"><span id="roomLobbyGame"></span><span id="roomLobbyGold"></span><span id="roomLobbyCount"></span></div>
+  <div id="roomLobbyPlayers" class="arena-room-players"></div>
+  <div class="arena-room-lobby-cta">
+   <button id="roomToggleReady" type="button" class="arena-primary">✓ Tôi đã sẵn sàng</button>
+   <button id="roomLobbyRefresh" type="button" class="arena-soft">↻ Cập nhật phòng</button>
+  </div>
+  <p id="roomLobbyStatus" class="arena-room-status" role="status" aria-live="polite">Mọi người cùng nhấn sẵn sàng để bắt đầu.</p>
+ </div>
+</section>
+<section id="arenaPvPBoard" class="arena-room-section" hidden aria-labelledby="roomBoardTitle">
+ <div class="arena-table-heading">
+  <button id="roomBoardExit" type="button" class="arena-soft">← Rời trận</button>
+  <div><span class="arena-eyebrow">PvP · LƯỢT ĐƯỢC KIỂM TRA TẠI MÁY CHỦ</span><h2 id="roomBoardTitle">Phòng đấu</h2></div>
+  <span class="arena-room-pill" id="roomBoardCode"></span>
+ </div>
+ <p id="roomBoardStatus" class="arena-room-status" role="status" aria-live="polite">Đang đồng bộ trận đấu...</p>
+ <div id="roomGameCanvas" class="arena-room-canvas" aria-live="polite"></div>
+ <p class="arena-room-help">Trận PvP hiện chưa cộng/trừ vàng, EXP, vé hoặc điểm học tập. Đối thủ chỉ được xem số lá bài còn lại của bạn, không đọc được bài trên tay.</p>
+</section>
+
 <section id="arenaTable" hidden aria-labelledby="arenaTableHeading">
  <div class="arena-table-heading"><button id="arenaExit" class="arena-soft" type="button">← Về sảnh</button><div><span class="arena-eyebrow">BÀI MÀU • ĐẤU VỚI MÁY</span><h2 id="arenaTableHeading">Sắc Màu Đại Chiến</h2></div><button id="arenaRules" class="arena-soft" type="button">❔ Luật</button></div>
  <div class="arena-board" aria-label="Bàn bài bốn người">
@@ -138,7 +227,7 @@
 </section>
 
 <section class="arena-next">
- <h2>Phòng đấu bạn bè và đấu hạng</h2><p>Ở phiên hoàn chỉnh, tất cả các ván PvP sẽ do máy chủ lưu lượt đi, đồng hồ, trạng thái thắng–thua và cộng thưởng. Bản thử hiện tại cho phép đấu với AI ở ba trò chơi, chưa mở PvP. Vàng/EXP không ghi lên hồ sơ học viên.</p>
+ <h2>Phòng đấu bạn bè và đấu hạng</h2><p>Đã có phòng PvP bằng mã mời, chơi nhanh và chọn bàn công khai cho ba game đang hoạt động. Máy chủ xác nhận từng lượt và giấu bài đối thủ; phòng PvP không cộng/trừ vàng, EXP, vé hoặc điểm học tập. Trò chơi mới vẫn được đánh dấu đang phát triển.</p>
 </section>
 </main>
 <footer class="arena-footer">MR LEE GAME ARENA · Chơi vui, học tốt, không cá cược · <a href="tro-choi-tieng-han.html">Quay lại Game Zone học tập</a></footer>
