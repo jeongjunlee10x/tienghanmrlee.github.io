@@ -23,7 +23,7 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
  const root=$("arenaTienLen"),board=$("tlBoard"),hand=$("tlHand"),opponents=$("tlOpponents"),pile=$("tlPile");
  const status=$("tlStatus"),message=$("tlHint"),count=$("tlCount"),logs=$("tlEvents");
  const fx=createTableEffects(board,pile);
- let game=null,selected=new Set(),timer=null,epoch=0,done=false,busy=false;
+ let game=null,selected=new Set(),timer=null,epoch=0,done=false,busy=false,sortMode="rank";
  function stop(){
   epoch++;if(timer!==null)clearTimeout(timer);
   timer=null;busy=false;fx.cancel();
@@ -33,7 +33,7 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
  async function begin(){
   if(!onStart())return;
   stop();
-  const current=epoch;game=start();selected=new Set();done=false;busy=true;
+  const current=epoch;game=start();selected=new Set();done=false;busy=true;sortMode="rank";
   board.dataset.fxCount="0";board.dataset.lastFx="";
   root.querySelector(".arena-game-result")?.remove();
   root.hidden=false;root.scrollIntoView({behavior:"smooth",block:"start"});
@@ -150,6 +150,9 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   if(!game||root.hidden)return;
   const playable=game.turn===0&&game.winner===null&&!busy&&!done;
   opponents.replaceChildren(...[1,2,3].map(renderSeat));
+  $("tlRoundBadge").textContent="Lượt "+(game.rounds+1);
+  $("tlTableEvent").textContent=game.history.at(-1)||"Ván đấu đã sẵn sàng";
+  board.dataset.currentTurn=String(game.turn);
   const previous=game.last?.combo;
   pile.replaceChildren();
   if(!game.played.length)pile.append(el("p","tl-empty","Vòng mới · Chưa có bài trên bàn"));
@@ -163,7 +166,9 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
    playable?(game.first?"Bạn có 3♠, lượt mở đầu phải dùng lá này.":"✨ Lượt của bạn · chọn bài và đánh ra giữa bàn.") :
     "⏳ Đến lượt "+NAMES[game.turn]+"…";
   hand.replaceChildren();
-  for(const card of game.hands[0]){
+  const sortedHand=[...game.hands[0]].sort((a,b)=>sortMode==="suit"?
+   a.suit-b.suit||a.rank-b.rank:a.rank-b.rank||a.suit-b.suit);
+  for(const card of sortedHand){
    const chosen=selected.has(card.id);
    const b=button("","tl-hand-card"+(chosen?" selected":""),()=>toggleCard(card.id));
    b.dataset.cardId=card.id;
@@ -175,6 +180,9 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   $("tlPlay").disabled=!selectedValid();
   $("tlPass").disabled=!playable||!game.last;
   $("tlSuggest").disabled=!playable;
+  $("tlSort").disabled=busy||done;
+  $("tlSort").textContent=sortMode==="rank"?"⇅ Xếp theo chất":"⇅ Xếp theo giá trị";
+  $("tlClear").disabled=!selected.size||!playable;
   $("tlSelected").textContent=combo?
    "Đã chọn: "+kind[combo.type]+" ("+selected.size+" lá)"+
     (selectedValid()?" · ĐỦ ĐIỀU KIỆN ĐÁNH":" · chưa hợp lệ/chưa đủ mạnh"):
@@ -185,6 +193,14 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
  $("tlPlay").addEventListener("click",act);
  $("tlPass").addEventListener("click",skip);
  $("tlSuggest").addEventListener("click",suggest);
+ $("tlSort").addEventListener("click",()=>{
+   if(!game||busy||done)return;
+   sortMode=sortMode==="rank"?"suit":"rank";render();
+ });
+ $("tlClear").addEventListener("click",()=>{
+   if(!game||busy||done)return;
+   selected.clear();render();
+ });
  $("tlNew").addEventListener("click",begin);
  $("tlExit").addEventListener("click",exit);
  return {start:begin,stop,refreshHUD:()=>{if(game&&!root.hidden)render();}};
