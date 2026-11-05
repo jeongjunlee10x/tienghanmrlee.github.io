@@ -12,6 +12,7 @@ on:
       - 'tools/test-arena-strategy.mjs'
       - 'tools/test-tienlen-fx.mjs'
       - 'tools/test-arena-rooms.mjs'
+      - 'tools/test-arena-live-api.mjs'
       - 'tools/browser-arena.mjs'
       - 'tools/browser-arena-strategy.mjs'
       - 'tools/browser-tienlen-live.mjs'
@@ -49,6 +50,7 @@ jobs:
           node --check tools/browser-tienlen-live.mjs
           node --check tools/browser-arena-rooms.mjs
           node --check tools/test-arena-rooms.mjs
+          node --check tools/test-arena-live-api.mjs
           node --check assets/arena/room-api.js
           node --check assets/arena/rooms-ui.js
           node --check assets/arena/rooms-play.js
@@ -66,6 +68,8 @@ jobs:
         with: {deno-version: v2.x}
       - name: Type-check Edge room API
         run: deno check supabase/functions/mrlee-arena-rooms/index.ts
+      - name: Live Arena API security smoke
+        run: node tools/test-arena-live-api.mjs
       - name: Whole-site static QA
         run: node tools/check-site.mjs
       - name: Cloudflare Pages export
