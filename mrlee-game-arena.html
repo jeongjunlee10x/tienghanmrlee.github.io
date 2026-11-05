@@ -10,10 +10,11 @@
 <script defer src="assets/branding/site-logo.js?v=20261104-native-v5"></script>
 <link rel="stylesheet" href="assets/arena/arena.css?v=2">
 <link rel="stylesheet" href="assets/arena/strategy.css?v=1">
+<link rel="stylesheet" href="assets/arena/tienlen-live.css?v=2">
 <style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
 <script>try{document.documentElement.dataset.mrleeTheme=localStorage.getItem("MRLEE.THEME.V1")==="future"?"future":"fresh"}catch{document.documentElement.dataset.mrleeTheme="fresh"}</script>
 <script type="module" src="auth-guard.js"></script>
-<script type="module" src="assets/arena/app.js?v=2"></script>
+<script type="module" src="assets/arena/app.js?v=3"></script>
 </head>
 <body>
 <div class="arena-app">
@@ -103,23 +104,31 @@
    <div><span class="arena-eyebrow">TIẾN LÊN MIỀN NAM • 4 NGƯỜI</span><h2 id="tlTitle">Đại Chiến Tiến Lên 🂡</h2></div>
    <button id="tlNew" type="button" class="arena-action">↻ Ván mới (1 vé)</button>
  </div>
- <div class="tl-board">
-  <div id="tlOpponents" class="tl-opponents" aria-label="Ba đối thủ máy"></div>
+ <div id="tlBoard" class="tl-board" data-fx-phase="idle" data-fx-count="0" aria-label="Bàn chơi 4 người, ba đối thủ ngồi trên, trái và phải">
+  <span class="tl-table-watermark" aria-hidden="true">MR LEE</span>
+  <div id="tlOpponents" class="tl-opponents" aria-label="Ba đối thủ máy và mặt sau lá bài"></div>
   <div class="tl-center">
-   <p id="tlStatus" role="status" aria-live="polite">Đang chia bài...</p>
-   <div id="tlPile" class="tl-pile" aria-label="Bài trên bàn"></div>
+   <span class="tl-pile-label">BÀI ĐANG ĐÁNH</span>
+   <p id="tlStatus" role="status" aria-live="polite">Đang xáo bài...</p>
+   <div id="tlPile" class="tl-pile" aria-label="Các lá bài được đánh ra giữa bàn"></div>
    <p id="tlHint" class="tl-hint">Chọn những lá bạn muốn đánh.</p>
   </div>
-  <div class="tl-bottom">
-   <div class="tl-player"><strong>🧑 Bạn</strong><span id="tlCount">13 lá</span></div>
-   <div id="tlHand" class="tl-hand" aria-label="13 lá bài của bạn"></div>
+  <div class="tl-bottom" data-seat="bottom">
+   <div class="tl-player-hud">
+    <div class="tl-player-identity"><span class="tl-avatar" aria-hidden="true">🧑</span>
+      <span class="tl-player-details"><strong id="tlPlayerName">Bạn</strong><small id="tlPlayerGold" class="tl-player-gold">🪙 0 vàng demo</small></span>
+    </div>
+    <span id="tlCount" class="tl-player-count">🃏 13 lá</span>
+   </div>
+   <div id="tlHand" class="tl-hand" aria-label="Bài đang cầm hiển thị mặt trước"></div>
    <p id="tlSelected" class="tl-selected">Chọn bài để đánh</p>
    <div class="tl-controls">
-    <button id="tlPlay" type="button" class="arena-primary">Đánh bài</button>
+    <button id="tlPlay" type="button" class="arena-primary">🃏 Đánh ra bàn</button>
     <button id="tlPass" type="button" class="arena-soft">Bỏ lượt</button>
     <button id="tlSuggest" type="button" class="arena-action">💡 Gợi ý</button>
    </div>
   </div>
+  <div id="tlDealNotice" class="tl-deal-notice" hidden>🃏 Đang xáo và chia 52 lá...</div>
  </div>
  <div class="arena-panel tl-rules-panel">
   <h3>Quy ước luật chơi</h3>

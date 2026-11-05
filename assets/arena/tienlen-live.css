@@ -1,0 +1,122 @@
+/* MR LEE live Tiến Lên V2: four seated players, realistic cards, deal and chop FX */
+#arenaTienLen .tl-board{--cw:clamp(43px,5.2vw,64px);--ch:calc(var(--cw)*1.48);position:relative;isolation:isolate;display:block;min-height:650px;padding:0;overflow:hidden;border:10px solid #654328;border-radius:38%/22%;background:radial-gradient(ellipse at 50% 45%,#16836b 0,#096b57 50%,#064638 88%);box-shadow:inset 0 0 0 3px #b69868,inset 0 0 85px #01271d91,0 19px 30px #07132555;color:#fff}
+#arenaTienLen .tl-board:before{content:"";position:absolute;inset:16px;pointer-events:none;border:2px solid #e0d0a33b;border-radius:39%/22%}
+#arenaTienLen .tl-table-watermark{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);font-size:clamp(26px,8vw,66px);color:#ffffff13;letter-spacing:.16em;font-weight:900;pointer-events:none}
+#arenaTienLen .tl-opponents{display:contents}
+#arenaTienLen .tl-opponent{position:absolute;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:121px;max-width:174px;padding:8px;border:1px solid #e7cf945e;border-radius:15px;background:linear-gradient(155deg,#032f37ec,#113247e9);box-shadow:0 7px 16px #001d24aa}
+#arenaTienLen .tl-opponent.active{border-color:#ffe38b;box-shadow:0 0 0 2px #ffe47b80,0 0 20px #fbd8757a}
+#arenaTienLen .tl-opponent[data-seat=top]{top:12px;left:50%;transform:translateX(-50%)}
+#arenaTienLen .tl-opponent[data-seat=left]{left:12px;top:33%;transform:translateY(-50%)}
+#arenaTienLen .tl-opponent[data-seat=right]{right:12px;top:33%;transform:translateY(-50%)}
+#arenaTienLen .tl-seat-id{display:flex;align-items:center;gap:7px}
+#arenaTienLen .tl-seat-id .tl-avatar{display:grid;place-items:center;width:36px;height:36px;flex-shrink:0;font-size:24px;border-radius:50%;background:#ffffff30;border:2px solid #d8e3d66b}
+#arenaTienLen .tl-seat-meta{display:flex;flex-direction:column;line-height:1.35}
+#arenaTienLen .tl-seat-meta strong{font-size:12px;white-space:nowrap}
+#arenaTienLen .tl-seat-meta small{font-size:10px;font-weight:800;color:#fce399}
+#arenaTienLen .tl-seat-count{padding:2px 9px;border-radius:90px;background:#ffffff22;color:#fff;font-size:10px;font-weight:800}
+#arenaTienLen .tl-seat-state{font-size:10px;color:#bcebd9}
+#arenaTienLen .tl-back-fan{position:relative;height:49px;width:111px}
+#arenaTienLen .tl-back-fan .tl-card-back{position:absolute;width:44px;height:63px;top:1px;left:calc(50% - 22px + var(--fan)*10px);transform:rotate(calc(var(--fan)*8deg))}
+#arenaTienLen .tl-card-back{display:block;flex-shrink:0;width:var(--cw);height:var(--ch);border:4px solid #fef9eb;border-radius:9px;padding:4px;background:linear-gradient(145deg,#284a9e,#101e69 66%,#693a95);box-shadow:0 4px 10px #0008}
+#arenaTienLen .tl-card-back-inner{display:grid;place-items:center;width:100%;height:100%;border-radius:5px;border:2px solid #b3e3f0;background:repeating-linear-gradient(45deg,#ffffff13 0 2px,#1c277e27 2px 6px),radial-gradient(circle,#6176be,#1c3f8a)}
+#arenaTienLen .tl-back-crest{display:grid;place-items:center;width:66%;aspect-ratio:1;border:2px double #ebd58f;border-radius:50%;font-size:20px;font-weight:900;color:#fff1b8;text-shadow:0 2px 3px #0008}
+#arenaTienLen .tl-center{position:absolute;z-index:1;left:18%;right:18%;top:32%;height:31%;min-height:155px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:8px;pointer-events:none;text-align:center}
+#arenaTienLen #tlStatus{margin:0;font-size:13px;color:#fff3d3;text-shadow:0 2px 6px #000b;font-weight:900}
+#arenaTienLen .tl-pile{display:flex;align-items:center;justify-content:center;flex-wrap:nowrap;gap:0;width:100%;min-height:98px;padding:4px;overflow:visible}
+#arenaTienLen .tl-pile>.tl-real-card{flex-shrink:0;margin-left:-9px;box-shadow:0 7px 16px #0008}
+#arenaTienLen .tl-pile>.tl-real-card:first-child{margin-left:0}
+#arenaTienLen .tl-empty{font-size:12px;color:#e1f8ed}
+#arenaTienLen .tl-hint{margin:0;font-size:11px;color:#ffeda7;text-shadow:0 2px 4px #0008}
+#arenaTienLen .tl-pile-label{color:#ffe6ac;font-size:10px;font-weight:900;letter-spacing:.14em}
+#arenaTienLen .tl-bottom{position:absolute;z-index:5;bottom:12px;left:15px;right:15px;padding:0;margin:0;border:0;background:none}
+#arenaTienLen .tl-player-hud{display:flex;align-items:center;justify-content:space-between;gap:8px;width:min(100%,600px);margin:0 auto 8px;padding:7px 12px;border:1px solid #f4da9477;border-radius:14px;background:linear-gradient(100deg,#052c35f0,#133448ed);box-shadow:0 5px 15px #0006}
+#arenaTienLen .tl-player-identity{display:flex;align-items:center;gap:9px}
+#arenaTienLen .tl-player-identity .tl-avatar{font-size:25px;line-height:1}
+#arenaTienLen .tl-player-details{display:flex;flex-direction:column;line-height:1.3}
+#arenaTienLen .tl-player-details strong{font-size:13px}
+#arenaTienLen .tl-player-gold{font-size:11px;font-weight:900;color:#ffdd88}
+#arenaTienLen .tl-player-count{font-size:11px;padding:4px 9px;border-radius:99px;background:#ffffff23;font-weight:800}
+#arenaTienLen .tl-hand{--spread:calc(var(--cw)*.83);display:flex;justify-content:center;gap:0;align-items:start;width:min(100%,950px);height:calc(var(--ch) + 18px);margin:auto;padding:13px 4px 0;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scrollbar-color:#dec96a transparent}
+#arenaTienLen .tl-hand-card{position:relative;flex:0 0 var(--spread);width:var(--spread);height:var(--ch);padding:0;border:0;border-radius:9px;background:transparent;overflow:visible;transition:transform .16s}
+#arenaTienLen .tl-hand-card:last-child{flex-basis:var(--cw)}
+#arenaTienLen .tl-hand-card.selected{transform:translateY(-11px);outline:0}
+#arenaTienLen .tl-hand-card.selected .tl-real-card{box-shadow:0 0 0 3px #ffdf83,0 7px 17px #0009}
+#arenaTienLen .tl-hand-card:hover:not(:disabled):not(.selected){transform:translateY(-7px)}
+#arenaTienLen .tl-hand-card:disabled{opacity:.9}
+#arenaTienLen .tl-hand-card:focus-visible{outline:3px solid #ffe085}
+#arenaTienLen .tl-selected{margin:3px 0 5px;color:#fff3c7;font-size:11px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#arenaTienLen .tl-controls{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+#arenaTienLen .tl-controls button{min-height:42px;border-radius:11px;font-size:12px}
+#arenaTienLen .tl-real-card{position:relative;isolation:isolate;flex-shrink:0;display:block;width:var(--cw);height:var(--ch);min-width:0;min-height:0;border:2px solid #fff;border-radius:9px;background:linear-gradient(160deg,#fff,#fffcf7 73%,#eae5e0);color:#162034;box-shadow:inset 0 0 0 1px #cdc4bb,0 4px 7px #0005;overflow:hidden;font-family:Georgia,"Times New Roman",serif}
+#arenaTienLen .tl-real-card.red{color:#ca2948}
+#arenaTienLen .tl-card-corner{position:absolute;z-index:3;top:4px;left:4px;display:flex;flex-direction:column;align-items:center;line-height:.95;font-size:calc(var(--cw)*.24)}
+#arenaTienLen .tl-card-corner strong{font-size:1.05em}
+#arenaTienLen .tl-card-foot{top:auto;left:auto;bottom:4px;right:4px;transform:rotate(180deg)}
+#arenaTienLen .tl-card-art{position:absolute;inset:18% 12%;display:grid;place-items:center;background:radial-gradient(circle,#f5f1ea,#fff 75%);border:1px solid #f0e6df;border-radius:33%}
+#arenaTienLen .tl-card-art-suit{font-size:calc(var(--cw)*.65);line-height:1}
+#arenaTienLen .tl-card-emboss{position:absolute;font-size:calc(var(--cw)*.22);opacity:.3;transform:rotate(-10deg)}
+#arenaTienLen .tl-card-royal{position:absolute;inset:14% 9%;display:grid;place-items:center;font-size:calc(var(--cw)*.55);color:#bfa052;border:1px solid #b99b5988;border-radius:10px;background:#fff8dfa3}
+#arenaTienLen .tl-is-dealing .tl-hand-card,#arenaTienLen .tl-is-dealing .tl-back-fan{opacity:0}
+#arenaTienLen .tl-is-dealing #tlPile{opacity:.1}
+#arenaTienLen .tl-is-throwing #tlPile{visibility:hidden}
+#arenaTienLen .tl-effect-layer{position:absolute;z-index:30;inset:0;pointer-events:none;overflow:hidden;border-radius:38%/22%}
+#arenaTienLen .tl-flying-card{position:absolute;z-index:31;pointer-events:none;transform:translate(-50%,-50%);will-change:transform,opacity}
+#arenaTienLen .tl-shuffle-card{animation:tl-shuffle .4s ease-in-out infinite alternate}
+@keyframes tl-shuffle{from{transform:translate(calc(-50% - 28px),-50%) rotate(-17deg)}to{transform:translate(calc(-50% + 28px),-50%) rotate(17deg)}}
+#arenaTienLen .tl-deal-notice{position:absolute;z-index:12;top:55%;left:50%;transform:translate(-50%,-50%);padding:11px 15px;background:#102c38e8;border:2px solid #ead48a;border-radius:15px;color:#ffe7a2;font-size:12px;font-weight:900;white-space:nowrap;box-shadow:0 6px 20px #0008}
+#arenaTienLen .tl-chop-title{position:absolute;z-index:40;transform:translate(-50%,-50%);font-size:clamp(24px,5vw,57px);color:#fff1a5;font-weight:1000;-webkit-text-stroke:1px #9e2f10;text-shadow:0 0 15px #ffd46b,0 4px 0 #a63c1b,0 8px 14px #000a;white-space:nowrap;animation:tl-big-chop .85s both}
+@keyframes tl-big-chop{0%{transform:translate(-50%,-50%) scale(.2);opacity:0}35%{transform:translate(-50%,-50%) scale(1.27);opacity:1}75%{transform:translate(-50%,-50%) scale(1.01);opacity:1}100%{transform:translate(-50%,-65%) scale(1.05);opacity:0}}
+#arenaTienLen .tl-shockwave{position:absolute;border:6px solid #ffe17d;width:38px;height:38px;border-radius:50%;box-shadow:0 0 26px #ff9a33;transform:translate(-50%,-50%);animation:tl-shock .7s ease-out both}
+@keyframes tl-shock{from{scale:.3;opacity:1}to{scale:10;opacity:0}}
+#arenaTienLen .tl-chop-spark{position:absolute;width:8px;height:14px;border-radius:35%;background:linear-gradient(#fff,#ffda52,#ff5720);transform:translate(-50%,-50%) rotate(var(--angle));animation:tl-spark .8s ease-out both}
+@keyframes tl-spark{from{opacity:1;translate:0 0}to{opacity:0;translate:calc(cos(var(--angle))*var(--distance)) calc(sin(var(--angle))*var(--distance))}}
+#arenaTienLen .tl-chop-shake{animation:tl-shake .33s ease-in-out}
+@keyframes tl-shake{0%,100%{filter:none}30%{filter:brightness(1.28)}55%{filter:brightness(.8)}75%{filter:brightness(1.2)}}
+#arenaTienLen .tl-pass-badge{position:absolute;z-index:43;padding:5px 12px;border:1px solid #d8c7a4;border-radius:20px;background:#1f2342ea;color:#fff0bb;font-size:11px;font-weight:900;transform:translate(-50%,-50%);animation:tl-pass .85s both}
+@keyframes tl-pass{from{opacity:0;translate:0 14px}35%{opacity:1;translate:0 0}to{opacity:0;translate:0 -25px}}
+@media(max-width:850px){
+#arenaTienLen .tl-board{--cw:48px;min-height:590px;border-width:7px;border-radius:28%/13%}
+#arenaTienLen .tl-opponent{min-width:100px;padding:6px}
+#arenaTienLen .tl-opponent[data-seat=left]{left:5px;top:29%}
+#arenaTienLen .tl-opponent[data-seat=right]{right:5px;top:29%}
+#arenaTienLen .tl-seat-id .tl-avatar{width:28px;height:28px;font-size:19px}
+#arenaTienLen .tl-back-fan{width:84px;height:36px}
+#arenaTienLen .tl-back-fan .tl-card-back{width:32px;height:44px;left:calc(50% - 16px + var(--fan)*7px)}
+#arenaTienLen .tl-back-crest{font-size:11px}
+#arenaTienLen .tl-center{left:16%;right:16%;top:34%;height:24%}
+#arenaTienLen .tl-bottom{left:8px;right:8px}
+}
+@media(max-width:530px){
+#arenaTienLen .tl-board{--cw:42px;min-height:555px;border-width:5px;border-radius:21%/10%}
+#arenaTienLen .tl-board:before{inset:7px}
+#arenaTienLen .tl-opponent{min-width:83px;max-width:108px;padding:5px 3px}
+#arenaTienLen .tl-opponent[data-seat=top]{top:7px}
+#arenaTienLen .tl-opponent[data-seat=left]{left:3px;top:25%}
+#arenaTienLen .tl-opponent[data-seat=right]{right:3px;top:25%}
+#arenaTienLen .tl-seat-id{gap:3px}
+#arenaTienLen .tl-seat-meta strong{font-size:9px}
+#arenaTienLen .tl-seat-meta small{font-size:8px}
+#arenaTienLen .tl-seat-state{display:none}
+#arenaTienLen .tl-back-fan{height:30px;width:78px}
+#arenaTienLen .tl-back-fan .tl-card-back{width:29px;height:39px;left:calc(50% - 14px + var(--fan)*6px)}
+#arenaTienLen .tl-seat-count{font-size:9px}
+#arenaTienLen .tl-center{top:32%;height:24%;left:13%;right:13%}
+#arenaTienLen #tlStatus{font-size:11px}
+#arenaTienLen .tl-pile{min-height:78px}
+#arenaTienLen .tl-pile>.tl-real-card{margin-left:-17px}
+#arenaTienLen .tl-bottom{left:5px;right:5px;bottom:6px}
+#arenaTienLen .tl-player-hud{padding:5px 8px;margin-bottom:5px}
+#arenaTienLen .tl-player-identity .tl-avatar{font-size:19px}
+#arenaTienLen .tl-player-details strong{font-size:11px}
+#arenaTienLen .tl-player-gold,#arenaTienLen .tl-player-count{font-size:10px}
+#arenaTienLen .tl-hand{--spread:30px;justify-content:flex-start;height:77px;padding:12px 2px 0}
+#arenaTienLen .tl-hand-card{height:63px}
+#arenaTienLen .tl-card-corner{font-size:10px}
+#arenaTienLen .tl-controls{gap:5px}
+#arenaTienLen .tl-controls button{font-size:11px;padding:8px 11px}
+#arenaTienLen .tl-chop-title{font-size:27px}
+}
+@media(prefers-reduced-motion:reduce){
+#arenaTienLen .tl-hand-card{transition:none}
+#arenaTienLen .tl-chop-title,#arenaTienLen .tl-shockwave,#arenaTienLen .tl-chop-spark,#arenaTienLen .tl-chop-shake,#arenaTienLen .tl-shuffle-card{animation:none!important}
+}
