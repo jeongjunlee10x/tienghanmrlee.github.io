@@ -1,0 +1,42 @@
+name: MR LEE Daily Check-in and Lucky Wheel QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/arena/daily-rewards.js'
+      - 'assets/arena/daily-rewards.css'
+      - 'mrlee-game-arena.html'
+      - 'tro-choi-tieng-han.html'
+      - 'supabase/functions/mrlee-arena-rooms/index.ts'
+      - 'supabase/manual-sql/MRLEE_ARENA_DAILY_REWARDS.sql'
+      - 'tools/test-arena-daily.mjs'
+      - 'tools/browser-arena-daily.mjs'
+      - '.github/workflows/mrlee-arena-daily-qa.yml'
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions: {contents: read}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Code checks and wheel invariants
+        run: |
+          node --check assets/arena/daily-rewards.js
+          node --check assets/arena/app.js
+          node --check tools/test-arena-daily.mjs
+          node --check tools/browser-arena-daily.mjs
+          node tools/test-arena-daily.mjs
+      - name: Whole-site and Cloudflare build
+        run: |
+          node tools/check-site.mjs
+          node tools/build-cloudflare-pages.mjs
+          node tools/check-cloudflare-pages-build.mjs
+      - name: Chromium setup
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install chromium --with-deps
+      - name: Verify daily popup, check-in, spin and wallet on both pages
+        run: node tools/browser-arena-daily.mjs
