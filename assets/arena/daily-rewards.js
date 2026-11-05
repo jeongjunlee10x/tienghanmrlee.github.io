@@ -74,8 +74,8 @@ export function mountDailyRewards(){
   $("arenaDailyCheckStatus").textContent=daily.checkedIn?"Hẹn gặp lại ngày mai!":"Chưa điểm danh hôm nay";
   btnSpin.disabled=busy||rolling||daily.spun;
   btnSpin.textContent=rolling?"🎡 Đang quay...":daily.spun?"✓ Đã quay hôm nay":"🎯 QUAY NGAY";
-  $("arenaDailySpinStatus").textContent=daily.spun?
-   "Hôm nay đã trúng "+formatG(daily.spinGold)+" · Mai quay tiếp":
+  $("arenaDailySpinStatus").textContent=rolling?"🎡 Vòng quay đang chạy · kết quả sau 4,8 giây":
+   daily.spun?"Hôm nay đã trúng "+formatG(daily.spinGold)+" · Mai quay tiếp":
    "Bạn có một lượt quay miễn phí hôm nay";
   $("arenaDailyDay").textContent="📅 "+daily.day.split("-").reverse().join("/");
   const pending=!daily.checkedIn||!daily.spun;
@@ -99,16 +99,30 @@ export function mountDailyRewards(){
   busy=true;update();error("");
   try{
    const result=await roomRequest(kind==="spin"?"daily_spin":"daily_checkin",{});
-   daily=result.daily;updateWallet(result.wallet);
+   daily=result.daily;
+   // For a new spin, do not reveal the balance/result until the wheel stops.
+   const newlySpun=kind==="spin"&&!result.reward.already;
+   if(!newlySpun)updateWallet(result.wallet);
    if(kind==="spin"){
     const award=Number(result.reward.awardedGold);
     const amount=result.reward.already?Number(daily.spinGold):award;
     if(!PRIZES.includes(amount))throw Error("Mức thưởng từ máy chủ không hợp lệ.");
     if(!result.reward.already){
      rolling=true;update();$("arenaWheelResult").hidden=true;
+     const reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
      const index=layout.indexOf(amount);
-     disk.style.transform="rotate("+(2160+((360-(index+.5)*angle)%360+360)%360)+"deg)";
-     await new Promise(done=>setTimeout(done,window.matchMedia("(prefers-reduced-motion: reduce)").matches?0:5100));
+     const diskContainer=disk.closest(".arena-wheel-container");
+     const rotations=2880+((360-(index+.5)*angle)%360+360)%360;
+     disk.style.transitionDuration=reduced?"0ms":"4800ms";
+     diskContainer?.classList.add("arena-wheel-rolling");
+     disk.setAttribute("aria-busy","true");
+     disk.style.transform="rotate("+rotations+"deg)";
+     await new Promise(done=>setTimeout(done,reduced?0:4850));
+     diskContainer?.classList.remove("arena-wheel-rolling");
+     diskContainer?.classList.add("arena-wheel-won");
+     disk.setAttribute("aria-busy","false");
+     setTimeout(()=>diskContainer?.classList.remove("arena-wheel-won"),1600);
+     updateWallet(result.wallet);
      rolling=false;
     }
     $("arenaWheelResult").textContent="🎉 +"+formatG(amount);
