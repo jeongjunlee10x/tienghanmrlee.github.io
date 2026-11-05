@@ -31,8 +31,24 @@ export function uniqueWords(rows) {
   }
   return out;
 }
-export function pickWords(rows, amount) {
-  return shuffled(uniqueWords(rows)).slice(0,amount);
+export function pickWords(rows, amount, namespace="") {
+  const eligible=uniqueWords(rows);
+  if(!namespace)return shuffled(eligible).slice(0,amount);
+  const storageKey="MRLEE.GAME.RECENT."+namespace;
+  let history=[];
+  try {
+    const saved=JSON.parse(sessionStorage.getItem(storageKey)||"[]");
+    if(Array.isArray(saved))history=saved.filter(x=>typeof x==="string").slice(-40);
+  }catch{}
+  const old=new Set(history);
+  const current=shuffled(eligible.filter(x=>!old.has(normalized(x.ko))));
+  const fallback=shuffled(eligible.filter(x=>old.has(normalized(x.ko))));
+  const picked=[...current,...fallback].slice(0,amount);
+  try {
+    const updated=[...history,...picked.map(x=>normalized(x.ko))];
+    sessionStorage.setItem(storageKey,JSON.stringify(updated.slice(-Math.max(amount*3,12))));
+  }catch{}
+  return picked;
 }
 export function el(tag, className, content) {
   const node=document.createElement(tag);

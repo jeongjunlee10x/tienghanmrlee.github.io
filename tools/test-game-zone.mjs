@@ -1,13 +1,20 @@
 /* Run: node tools/test-game-zone.mjs (Node 22+) */
 import assert from "node:assert/strict";
 import {readFile} from "node:fs/promises";
-import {MODES, shuffled, uniqueWords, parseCsv} from "../assets/game-zone/core.js";
+import {MODES, shuffled, uniqueWords, parseCsv, pickWords} from "../assets/game-zone/core.js";
 import {GAME_RUNNERS} from "../assets/game-zone/games.js";
 import {PHASE2_RUNNERS,availableMarketProducts,marketOrderCorrect,grammarCards} from "../assets/game-zone/phase2.js";
 import {loadLesson, collectSentences} from "../assets/game-zone/content.js";
 
 assert.deepEqual(new Set(MODES.map(x=>x.id)),new Set([...Object.keys(GAME_RUNNERS),...Object.keys(PHASE2_RUNNERS)]));
 assert.equal(MODES.length,8);
+const store=new Map();
+const oldStorage=globalThis.sessionStorage;
+globalThis.sessionStorage={getItem:key=>store.get(key)||null,setItem:(key,value)=>store.set(key,value)};
+const wordsForRepeat=Array.from({length:12},(_,i)=>({ko:"가".repeat(i+1),vi:"số "+i}));
+const round1=pickWords(wordsForRepeat,4,"anti-repeat-test"),round2=pickWords(wordsForRepeat,4,"anti-repeat-test");
+assert.equal(round2.filter(x=>round1.some(y=>y.ko===x.ko)).length,0,"Immediate repetition must be avoided if enough words exist");
+if(oldStorage===undefined)delete globalThis.sessionStorage;else globalThis.sessionStorage=oldStorage;
 assert.ok(grammarCards([{formula:"N은/는",meaning:"chủ đề"},{formula:"N이/가",meaning:"chủ ngữ"},{formula:"N을/를",meaning:"tân ngữ"}]).length===3);
 assert.ok(marketOrderCorrect(new Set(["책","펜"]),["펜","책"]));
 assert.ok(!marketOrderCorrect(new Set(["책"]),["책","펜"]));

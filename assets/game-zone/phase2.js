@@ -9,7 +9,7 @@ function header(host,title,hint){
   return count;
 }
 export function playBubbles(ctx){
-  const words=pickWords(ctx.lesson.words.filter(w=>/^[가-힣]+(?:\s+[가-힣]+)*$/u.test(w.ko)),8);
+  const words=pickWords(ctx.lesson.words.filter(w=>/^[가-힣]+(?:\s+[가-힣]+)*$/u.test(w.ko)),8,"bubbles:"+ctx.lesson.cap+":"+ctx.lesson.bai);
   if(words.length<5)return empty(ctx.host,"Chưa đủ từ vựng","Cần 5 từ Hangul rõ nghĩa của bài này.");
   const count=header(ctx.host,"Bắn bóng Hangul","Đọc nghĩa tiếng Việt rồi bắn vào từ Hangul đúng. Bạn có ba trái tim.");
   const request=el("div","mz-prompt"),hearts=el("p","mz-hearts"),field=el("div","mz-bubble-field");
@@ -99,7 +99,7 @@ export function playGrammarDetective(ctx){
   draw();return ()=>{};
 }
 export function playTypingKing(ctx){
-  const vocab=pickWords(ctx.lesson.words.filter(x=>/^[가-힣]+(?: [가-힣]+)*$/u.test(x.ko)&&x.ko.length<=24),8);
+  const vocab=pickWords(ctx.lesson.words.filter(x=>/^[가-힣]+(?: [가-힣]+)*$/u.test(x.ko)&&x.ko.length<=24),8,"typing:"+ctx.lesson.cap+":"+ctx.lesson.bai);
   if(vocab.length<4)return empty(ctx.host,"Thiếu từ gõ được","Bài học cần tối thiểu 4 từ không có dấu đặc biệt.");
   const count=header(ctx.host,"Vua gõ tiếng Hàn","Gõ từ tiếng Hàn theo nghĩa Việt. Có thể dùng bàn phím Hàn Quốc hoặc bộ gõ trên điện thoại.");
   const prompt=el("div","mz-prompt"),form=el("form","mz-typing-form");
@@ -171,13 +171,15 @@ export function playKoreanMart(ctx){
   const actions=el("div","mz-actions"),pay=button("🧾 Thanh toán","mz-primary"),clear=button("Xóa giỏ","mz-ghost");
   const next=button("Đơn hàng tiếp theo →","mz-primary");next.hidden=true;
   actions.append(pay,clear,next);ctx.host.append(order,shelf,basket,actions);
-  let i=0,correct=0,misses=0,locked=false,cart=new Set(),target=[];
+  let i=0,correct=0,misses=0,locked=false,cart=new Set(),target=[],shelfList=[];
   const totalOrders=stock.length>=5?4:3, won=n=>Number(n).toLocaleString("ko-KR")+" ₩";
+  const possibleOrders=[];
+  for(let a=0;a<stock.length;a++)for(let b=a+1;b<stock.length;b++)possibleOrders.push([stock[a],stock[b]]);
+  const orderPlan=shuffled(possibleOrders).slice(0,totalOrders);
   function paint(){
     shelf.replaceChildren();
     // Keep up to eight cards and always include both requested products.
-    const list=stock.length<=8?stock:shuffled([...target,...shuffled(stock.filter(x=>!target.some(t=>t.ko===x.ko))).slice(0,6)]);
-    list.forEach(product=>{
+    shelfList.forEach(product=>{
       const card=button("","mz-product",()=>{
         if(locked||!ctx.active())return;
         if(cart.has(product.ko))cart.delete(product.ko);else cart.add(product.ko);
@@ -192,7 +194,8 @@ export function playKoreanMart(ctx){
   }
   function draw(){
     if(!ctx.active())return;
-    locked=false;cart=new Set();target=shuffled(stock).slice(0,2);
+    locked=false;cart=new Set();target=orderPlan[i];
+    shelfList=stock.length<=8?stock.slice():shuffled([...target,...shuffled(stock.filter(x=>!target.some(t=>t.ko===x.ko))).slice(0,6)]);
     count.textContent=(i+1)+" / "+totalOrders;
     order.replaceChildren(el("strong","","🛒 Danh sách cần mua"));
     const list=el("ul","mz-mart-request");
