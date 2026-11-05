@@ -1,0 +1,48 @@
+name: MR LEE Arena MVP QA
+on:
+  push:
+    branches: [feature/mrlee-arcade-mvp]
+    paths:
+      - 'mrlee-game-arena.html'
+      - 'assets/arena/**'
+      - 'tro-choi-tieng-han.html'
+      - 'tools/test-arena.mjs'
+      - 'tools/browser-arena.mjs'
+      - '.github/workflows/mrlee-arena-qa.yml'
+  pull_request:
+    paths:
+      - 'mrlee-game-arena.html'
+      - 'assets/arena/**'
+      - 'tro-choi-tieng-han.html'
+      - 'tools/test-arena.mjs'
+      - 'tools/browser-arena.mjs'
+      - '.github/workflows/mrlee-arena-qa.yml'
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 13
+    permissions: {contents: read}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Syntax
+        run: |
+          node --check assets/arena/color-engine.js
+          node --check assets/arena/app.js
+          node --check tools/test-arena.mjs
+          node --check tools/browser-arena.mjs
+      - name: Arena gameplay rules
+        run: node tools/test-arena.mjs
+      - name: Whole-site static QA
+        run: node tools/check-site.mjs
+      - name: Cloudflare Pages export
+        run: |
+          node tools/build-cloudflare-pages.mjs
+          node tools/check-cloudflare-pages-build.mjs
+      - name: Install browser
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install chromium --with-deps
+      - name: Mobile and desktop match smoke
+        run: node tools/browser-arena.mjs
