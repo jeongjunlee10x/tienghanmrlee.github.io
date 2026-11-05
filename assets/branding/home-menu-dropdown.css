@@ -1,0 +1,141 @@
+/* MR LEE HOME NAV — compact hamburger overlay, not a page-wide panel.
+ * Overrides the legacy 901–1800px mobile-nav flex layout.
+ * Isolated to the homepage header; does not change the 8 main tiles.
+ */
+html[data-mrlee-redesign="v2"] .site-header{
+  overflow:visible!important;
+}
+html[data-mrlee-redesign="v2"] .site-header #menuToggle{
+  box-sizing:border-box;
+  position:relative;
+  z-index:2;
+  display:inline-grid;
+  place-items:center;
+  flex:0 0 auto;
+  width:45px;
+  height:45px;
+  min-width:45px;
+  padding:0!important;
+  border:2px solid #8cc6f4!important;
+  border-radius:14px!important;
+  background:#e8f5ff!important;
+  color:#123c78!important;
+  box-shadow:0 2px 11px #0b346533;
+  font:900 24px/1 "Be Vietnam Pro",system-ui,sans-serif;
+}
+html[data-mrlee-redesign="v2"] .site-header #menuToggle[aria-expanded="true"]{
+  background:#1556a4!important;
+  color:#fff!important;
+  border-color:#81d8ff!important;
+}
+html[data-mrlee-redesign="v2"] .site-header #menuToggle:focus-visible{
+  outline:3px solid #ffca63!important;
+  outline-offset:3px!important;
+}
+/* Critical: even when another CSS framework specifies display:flex, hidden wins. */
+html[data-mrlee-redesign="v2"] .site-header nav#mobileNav[hidden]{
+  display:none!important;
+}
+html[data-mrlee-redesign="v2"] .site-header nav#mobileNav{
+  position:absolute!important;
+  inset:auto clamp(12px,1.6vw,26px) auto auto!important;
+  top:calc(100% + 7px)!important;
+  z-index:10001!important;
+  box-sizing:border-box!important;
+  width:min(376px,calc(100vw - 24px))!important;
+  max-width:calc(100vw - 24px)!important;
+  max-height:min(65dvh,600px)!important;
+  height:auto!important;
+  min-height:0!important;
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain;
+  padding:12px!important;
+  margin:0!important;
+  border:1px solid #cadcf3!important;
+  border-radius:18px!important;
+  background:#fff!important;
+  color:#153b68!important;
+  box-shadow:0 20px 60px #071c3952,0 6px 15px #13294d30!important;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  align-content:start;
+  gap:6px;
+  -webkit-overflow-scrolling:touch;
+}
+html[data-mrlee-redesign="v2"] .site-header nav#mobileNav:not([hidden]){
+  display:grid!important;
+}
+html[data-mrlee-redesign="v2"] .site-header nav#mobileNav a{
+  display:flex!important;
+  box-sizing:border-box!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  min-width:0!important;
+  width:100%!important;
+  min-height:43px!important;
+  height:auto!important;
+  margin:0!important;
+  padding:10px 12px!important;
+  border:1px solid #e1eaf7!important;
+  border-radius:11px!important;
+  background:#f3f7ff!important;
+  color:#153c6b!important;
+  opacity:1!important;
+  visibility:visible!important;
+  font:800 12px/1.35 "Be Vietnam Pro",system-ui,sans-serif!important;
+  text-decoration:none!important;
+  text-shadow:none!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere;
+}
+html[data-mrlee-redesign="v2"] .site-header nav#mobileNav a:hover,
+html[data-mrlee-redesign="v2"] .site-header nav#mobileNav a:focus-visible{
+  background:#e3f0ff!important;
+  border-color:#69a5e8!important;
+  color:#0e4a94!important;
+  outline-offset:2px!important;
+}
+html[data-mrlee-redesign="v2"] .site-header nav#mobileNav a.mrlee-mobile-arena{
+  background:linear-gradient(115deg,#ffedba,#ffd279)!important;
+  border-color:#e7bc61!important;
+  color:#50350b!important;
+  font-weight:950!important;
+}
+html[data-mrlee-redesign="v2"][data-mrlee-theme="future"] .site-header #menuToggle{
+  background:#163654!important;color:#d5eeff!important;border-color:#69c1ff!important;
+}
+html[data-mrlee-redesign="v2"][data-mrlee-theme="future"] .site-header #menuToggle[aria-expanded="true"]{
+  background:#2e7dbe!important;color:#fff!important;
+}
+html[data-mrlee-redesign="v2"][data-mrlee-theme="future"] .site-header nav#mobileNav{
+  background:#0c203b!important;color:#f0faff!important;border-color:#416b92!important;
+  box-shadow:0 24px 65px #000a!important;
+}
+html[data-mrlee-redesign="v2"][data-mrlee-theme="future"] .site-header nav#mobileNav a{
+  background:#173354!important;color:#eef8ff!important;border-color:#2e5275!important;
+}
+html[data-mrlee-redesign="v2"][data-mrlee-theme="future"] .site-header nav#mobileNav a:hover,
+html[data-mrlee-redesign="v2"][data-mrlee-theme="future"] .site-header nav#mobileNav a:focus-visible{
+  background:#23527b!important;color:#fff!important;border-color:#79c6f7!important;
+}
+html[data-mrlee-redesign="v2"][data-mrlee-theme="future"] .site-header nav#mobileNav a.mrlee-mobile-arena{
+  color:#041c32!important;
+  background:linear-gradient(115deg,#70f0e2,#84b5ff)!important;
+  border-color:#74d1eb!important;
+}
+@media(max-width:680px){
+ html[data-mrlee-redesign="v2"] .site-header nav#mobileNav{
+  grid-template-columns:1fr;
+  right:10px!important;
+  width:min(320px,calc(100vw - 20px))!important;
+  max-height:68dvh!important;
+  padding:10px!important;
+ }
+ html[data-mrlee-redesign="v2"] .site-header nav#mobileNav a{
+  min-height:42px!important;
+  padding:10px 13px!important;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ html[data-mrlee-redesign="v2"] .site-header nav#mobileNav{scroll-behavior:auto}
+}
