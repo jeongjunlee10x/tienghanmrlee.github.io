@@ -156,7 +156,7 @@ if(canvas){
   const map=new Map();
   for(const tile of canvas.querySelectorAll(".arena-pvp-chess .chess-square")){
    const glyph=tile.querySelector(".chess-white,.chess-black");
-   map.set(tile.dataset.square,{glyph:glyph?(glyph.className+"|"+glyph.textContent):"",node:tile});
+   map.set(tile.dataset.square,{glyph:glyph?(glyph.className+"|"+glyph.textContent):"",point:position(tile),node:tile});
   }
   return map;
  };
@@ -170,7 +170,12 @@ if(canvas){
      if(!data.glyph||data.glyph===lastChess.get(square)?.glyph)continue;
      const from=donors.find(([src,old])=>old.glyph===data.glyph&&src!==square);
      if(!from)continue;
-     flight(data.node.querySelector(".chess-white,.chess-black"),from[1].node,data.node,420);
+     // Previous DOM was replaced; retain the old snapshot coordinates.
+     const a=from[1].point,b=data.point;
+     animateToken(data.node.querySelector(".chess-white,.chess-black"),[
+      translateKey(a.x-b.x,a.y-b.y,.94),
+      translateKey((a.x-b.x)*.28,(a.y-b.y)*.28,1.07,.72),
+      translateKey(0,0)],420);
      pulse(data.node,"chess-arrive",480);
     }
    }
