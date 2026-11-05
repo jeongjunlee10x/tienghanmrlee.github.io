@@ -69,9 +69,23 @@ html[data-mrlee-theme="future"] .auth-head h1{color:#ecfaff!important;font-weigh
       <label class="field"><span class="label">Email quản trị</span><input id="loginEmail" type="email" required autocomplete="username" placeholder="admin@example.com"></label>
       <label class="field"><span class="label">Mật khẩu</span><input id="loginPassword" type="password" required autocomplete="current-password" placeholder="Mật khẩu đã thiết lập"></label>
       <button class="btn" id="loginButton" type="submit">Đăng nhập quản trị →</button>
+      <button type="button" id="forgotPassword" class="btn soft">Quên mật khẩu quản trị?</button>
       <button type="button" id="changeCfg" class="btn soft">Thay cấu hình kết nối</button>
     </form>
+    <form id="forgotForm" class="form-grid hidden" autocomplete="off">
+      <div class="info">Khôi phục mật khẩu của tài khoản <strong>Admin Supabase</strong>. Email khôi phục chỉ được gửi tới địa chỉ quản trị đã đăng ký.</div>
+      <label class="field"><span class="label">Email quản trị</span><input id="forgotEmail" type="email" required autocomplete="email" placeholder="Email Admin Supabase"></label>
+      <button id="sendResetButton" class="btn" type="submit">Gửi email khôi phục mật khẩu</button>
+      <button type="button" id="backToLogin" class="btn soft">Quay lại đăng nhập</button>
+    </form>
+    <form id="newPasswordForm" class="form-grid hidden" autocomplete="off">
+      <div class="info">Đã xác minh liên kết khôi phục. Tạo mật khẩu mới cho tài khoản Admin Supabase (từ 12 ký tự).</div>
+      <label class="field"><span class="label">Mật khẩu mới</span><input id="newPassword" type="password" required minlength="12" autocomplete="new-password"></label>
+      <label class="field"><span class="label">Nhập lại mật khẩu mới</span><input id="confirmNewPassword" type="password" required minlength="12" autocomplete="new-password"></label>
+      <button id="savePasswordButton" class="btn" type="submit">Đặt mật khẩu mới</button>
+    </form>
     <p id="authError" class="error" role="alert"></p>
+    <p id="authNotice" role="status" aria-live="polite" class="small muted"></p>
     <p class="small muted" style="margin-bottom:0">Dữ liệu học viên được đồng bộ một chiều từ Firebase qua GitHub Actions sau khi hoàn tất cấu hình. Không cần tài khoản Firebase để đăng nhập Admin.</p>
   </div>
 </section>
@@ -163,6 +177,7 @@ html[data-mrlee-theme="future"] .auth-head h1{color:#ecfaff!important;font-weigh
   // Public client configuration only. Supabase RLS + Admin user table enforce access.
   const DEFAULT_URL='https://pkxqsboyotlyoizzxizb.supabase.co', DEFAULT_KEY='sb_publishable_3BacezFjGR1-l6-1_E5tRg_o2qauZIz';
   let client=null, account=null, students=[], scores=[], activities=[], lastSync=null, modalType='', editingId=null, view='overview';
+  let recoveryMode=false;
   const levels=['Sơ cấp 1','Sơ cấp 2','Trung cấp 1','Trung cấp 2','Cao cấp 1','Cao cấp 2','TOPIK I','TOPIK II','Khác'];
   const statuses=['Đang học','Tạm nghỉ','Hoàn thành'];
   const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -170,14 +185,83 @@ html[data-mrlee-theme="future"] .auth-head h1{color:#ecfaff!important;font-weigh
   const fmtNum=n=>Number(n||0).toLocaleString('vi-VN');
   function toast(message,bad=false){const t=$('toast');t.textContent=message;t.classList.toggle('err',bad);t.classList.remove('hidden');clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.add('hidden'),3800)}
   function authError(s){$('authError').textContent=s||''}
-  function showAuth(which){$('authWrap').classList.remove('hidden');$('app').classList.add('hidden');$('setupForm').classList.toggle('hidden',which!=='setup');$('loginForm').classList.toggle('hidden',which!=='login');authError('')}
+  function authNotice(s){$('authNotice').textContent=s||''}
+  function showAuth(which){
+    $('authWrap').classList.remove('hidden');$('app').classList.add('hidden');
+    for(const [id,mode] of [['setupForm','setup'],['loginForm','login'],['forgotForm','forgot'],['newPasswordForm','reset']])
+      $(id).classList.toggle('hidden',which!==mode);
+    authError('');authNotice('');
+  }
   function readConfig(){try{return {url:localStorage.getItem(K_URL)||DEFAULT_URL,key:localStorage.getItem(K_KEY)||DEFAULT_KEY}}catch{return {url:DEFAULT_URL,key:DEFAULT_KEY}}}
   function validConfig(url,key){try{let u=new URL(url);if(u.protocol!=='https:'||!u.hostname.endsWith('.supabase.co')||key.length<25||key.includes('service_role')||key.startsWith('sb_secret_'))return false;if(key.split('.').length===3){let payload=JSON.parse(atob(key.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));if(payload.role!=='anon')return false}return true}catch{return false}}
-  async function init(){const cfg=readConfig();if(!cfg.url||!cfg.key){showAuth('setup');return}if(!validConfig(cfg.url,cfg.key)){showAuth('setup');return}if(!window.supabase?.createClient){showAuth('login');authError('Không tải được thư viện Supabase. Kiểm tra kết nối mạng hoặc bộ chặn nội dung.');return}try{client=window.supabase.createClient(cfg.url,cfg.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});const {data:{session},error}=await client.auth.getSession();if(error)throw error;if(session?.user){const allowed=await isAdmin(session.user.id);if(allowed){account=session.user;await enterApp();return}await client.auth.signOut();showAuth('login');authError('Tài khoản chưa được cấp quyền Admin trong mrlee_admins.');return}showAuth('login')}catch(err){showAuth('login');authError('Lỗi kết nối: '+String(err?.message||err))}}
+  async function init(){const cfg=readConfig();if(!cfg.url||!cfg.key){showAuth('setup');return}if(!validConfig(cfg.url,cfg.key)){showAuth('setup');return}if(!window.supabase?.createClient){showAuth('login');authError('Không tải được thư viện Supabase. Kiểm tra kết nối mạng hoặc bộ chặn nội dung.');return}try{client=window.supabase.createClient(cfg.url,cfg.key,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+    const linkRecovery=/(?:^|[&#?])type=recovery(?:&|$)/.test(location.hash+location.search);
+    client.auth.onAuthStateChange((event)=>{if(event==='PASSWORD_RECOVERY'){recoveryMode=true;showAuth('reset')}});
+    const {data:{session},error}=await client.auth.getSession();if(error)throw error;
+    if(recoveryMode||linkRecovery){showAuth('reset');return}
+    if(session?.user){const allowed=await isAdmin(session.user.id);if(allowed){account=session.user;await enterApp();return}await client.auth.signOut();showAuth('login');authError('Tài khoản chưa được cấp quyền Admin trong mrlee_admins.');return}showAuth('login')}catch(err){showAuth('login');authError('Lỗi kết nối: '+String(err?.message||err))}}
   async function isAdmin(uid){const {data,error}=await client.from('mrlee_admins').select('user_id').eq('user_id',uid).maybeSingle();if(error)throw error;return Boolean(data?.user_id===uid)}
   $('setupForm').addEventListener('submit',async e=>{e.preventDefault();let url=$('cfgUrl').value.trim().replace(/\/+$/,''),key=$('cfgKey').value.trim();if(!validConfig(url,key)){authError('URL phải có dạng https://...supabase.co và cần dùng publishable/anon key. Tuyệt đối không dùng secret/service_role key.');return}localStorage.setItem(K_URL,url);localStorage.setItem(K_KEY,key);await init()});
   $('changeCfg').addEventListener('click',()=>{let c=readConfig();$('cfgUrl').value=c.url;$('cfgKey').value=c.key;showAuth('setup')});
-  $('loginForm').addEventListener('submit',async e=>{e.preventDefault();authError('');const b=$('loginButton');b.disabled=true;b.textContent='Đang kiểm tra...';try{const {data,error}=await client.auth.signInWithPassword({email:$('loginEmail').value.trim(),password:$('loginPassword').value});if(error)throw error;if(!await isAdmin(data.user.id)){await client.auth.signOut();throw new Error('Tài khoản này chưa được cấp quyền Admin. Hãy thêm UID vào bảng mrlee_admins bằng SQL Editor.')}account=data.user;await enterApp()}catch(err){authError(err?.message||'Đăng nhập thất bại')}finally{b.disabled=false;b.textContent='Đăng nhập quản trị →'}});
+  $('loginForm').addEventListener('submit',async e=>{
+    e.preventDefault();authError('');authNotice('');
+    const b=$('loginButton');b.disabled=true;b.textContent='Đang kiểm tra...';
+    try{
+      const {data,error}=await client.auth.signInWithPassword({
+        email:$('loginEmail').value.trim(),password:$('loginPassword').value
+      });
+      if(error)throw error;
+      if(!await isAdmin(data.user.id)){
+        await client.auth.signOut();
+        throw new Error('Tài khoản đã đăng nhập nhưng chưa được cấp quyền Admin.');
+      }
+      account=data.user;await enterApp();
+    }catch(err){
+      const wrong=err?.code==='invalid_credentials'||/invalid login credentials/i.test(String(err?.message||''));
+      authError(wrong
+        ? 'Email hoặc mật khẩu Admin Supabase không đúng. Không dùng mật khẩu Firebase hoặc Cloudflare; nếu quên, chọn “Quên mật khẩu quản trị?”.'
+        : String(err?.message||'Đăng nhập thất bại.'));
+    }finally{b.disabled=false;b.textContent='Đăng nhập quản trị →'}
+  });
+  $('forgotPassword').addEventListener('click',()=>{
+    $('forgotEmail').value=$('loginEmail').value.trim();
+    showAuth('forgot');
+  });
+  $('backToLogin').addEventListener('click',()=>showAuth('login'));
+  $('forgotForm').addEventListener('submit',async e=>{
+    e.preventDefault();authError('');authNotice('');
+    const btn=$('sendResetButton');btn.disabled=true;
+    try{
+      if(!client)throw Error('Chưa kết nối Supabase.');
+      const email=$('forgotEmail').value.trim();
+      const redirectTo=location.origin+'/admin.html';
+      const {error}=await client.auth.resetPasswordForEmail(email,{redirectTo});
+      if(error)throw error;
+      authNotice('Nếu email thuộc tài khoản quản trị, hệ thống sẽ gửi liên kết khôi phục. Kiểm tra cả thư Spam. Liên kết cần được cho phép trong Supabase → Authentication → URL Configuration.');
+    }catch(err){authError('Không thể gửi email khôi phục: '+String(err?.message||'Lỗi kết nối'))}
+    finally{btn.disabled=false}
+  });
+  $('newPasswordForm').addEventListener('submit',async e=>{
+    e.preventDefault();authError('');authNotice('');
+    const password=$('newPassword').value;
+    if(password.length<12||password!==$('confirmNewPassword').value){
+      authError('Mật khẩu phải từ 12 ký tự và hai lần nhập phải trùng nhau.');return;
+    }
+    const btn=$('savePasswordButton');btn.disabled=true;
+    try{
+      const {data:{user},error:verifyError}=await client.auth.getUser();
+      if(verifyError||!user||!recoveryMode&&!/(?:^|[&#?])type=recovery(?:&|$)/.test(location.hash+location.search))
+        throw Error('Liên kết khôi phục không hợp lệ hoặc đã hết hạn.');
+      const {error}=await client.auth.updateUser({password});
+      if(error)throw error;
+      await client.auth.signOut();recoveryMode=false;
+      $('loginPassword').value='';$('newPassword').value='';$('confirmNewPassword').value='';
+      showAuth('login');
+      authNotice('Đã cập nhật mật khẩu. Hãy đăng nhập lại bằng mật khẩu mới.');
+      history.replaceState(null,'',location.pathname);
+    }catch(err){authError('Chưa cập nhật mật khẩu: '+String(err?.message||'Liên kết không hợp lệ'))}
+    finally{btn.disabled=false}
+  });
   async function enterApp(){const {data:{user},error}=await client.auth.getUser();if(error||!user||!await isAdmin(user.id)){await client.auth.signOut();throw new Error('Phiên đăng nhập không hợp lệ hoặc đã bị thu hồi quyền quản trị.')}account=user;$('adminEmail').textContent=user.email||'';$('avatarInitial').textContent=(user.email||'A')[0].toUpperCase();$('authWrap').classList.add('hidden');$('app').classList.remove('hidden');$('connectedUrl').textContent='Đang kết nối đến '+readConfig().url;await loadAll();navigate(view);void inspectRewardModule()}
   async function loadAll(){try{
     const [a,b,c,d]=await Promise.all([

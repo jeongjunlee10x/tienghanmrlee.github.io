@@ -63,6 +63,12 @@ const adminCharts=exists('assets/mrlee-dual-ui/admin-charts.js')?fs.readFileSync
 if(!adminCharts.includes("select('id,level,last_activity_at',{count:'exact'})"))errors.push('ADMIN STUDENT TOTAL NOT SERVER-COUNTED');
 if(!adminCharts.includes('activeTotal:activeCount.error?null:activeCount.count'))errors.push('ADMIN ACTIVE KPI NOT SERVER-COUNTED');
 const admin=exists('admin.html')?fs.readFileSync('admin.html','utf8'):'';
+for(const marker of [
+  "id=\"forgotPassword\"","id=\"forgotForm\"","id=\"newPasswordForm\"",
+  "resetPasswordForEmail","event==='PASSWORD_RECOVERY'","updateUser({password})",
+  "if(!await isAdmin(data.user.id))"
+])if(!admin.includes(marker))errors.push('ADMIN AUTH RECOVERY MISSING: '+marker);
+
 if(admin.includes('Tiếng HÃ n'))errors.push('ADMIN TITLE MOJIBAKE');
 const ctxScript=exists('assets/mrlee-v2/experience.js')?fs.readFileSync('assets/mrlee-v2/experience.js','utf8'):'';
 for(const x of ['index.html','hoc-tieng-han.html','giao-tiep-theo-chu-de.html','kiem-tra-topik.html','mrlee-bai-tap-pro.html','giao-tiep-phong-van.html','van-hoa-han-quoc.html','ban-do-dai-hoc-han-quoc.html','trung-tam-hoc-vien.html','dang-ky-tu-van.html'])if(!ctxScript.includes("'"+x+"'"))errors.push('V2 EXPERIENCE ROUTE: '+x);
