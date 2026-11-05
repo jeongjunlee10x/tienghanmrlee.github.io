@@ -212,16 +212,24 @@
  </div>
  <div class="chess-layout">
   <div class="chess-main">
-   <div class="chess-player"><span>🤖 Quân đen • Máy</span><span>Chơi đúng luật</span></div>
+   <div class="chess-player chess-player-premium"><span>🤖 <strong>MR LEE BOT</strong> · Quân đen</span><span id="chessBlackClock" class="chess-clock" aria-label="Đồng hồ quân đen">10:00</span></div>
    <div id="chessBoard" class="chess-board" aria-label="Bàn cờ vua 8 nhân 8, trắng ở dưới"></div>
-   <div class="chess-player"><span>👑 Quân trắng • Bạn</span><span>Chọn quân rồi chọn ô</span></div>
+   <div class="chess-player chess-player-premium"><span>👑 <strong>BẠN</strong> · Quân trắng</span><span id="chessWhiteClock" class="chess-clock" aria-label="Đồng hồ quân trắng">10:00</span></div>
    <div id="chessPromotion" class="chess-promotion" hidden></div>
   </div>
   <aside class="chess-sidebar">
-   <div class="arena-panel"><h3>Trạng thái</h3><p id="chessStatus" role="status" aria-live="polite">Bạn được đi trước.</p>
+   <div class="arena-panel chess-command-panel"><h3>♟️ Phòng Cờ Vua MR LEE</h3>
+     <p class="arena-game-note">Đấu luyện với bot · Không có Elo chính thức</p>
+     <div class="chess-settings-row">
+      <label for="chessTime">Thời gian <select id="chessTime"><option value="300">5 phút</option><option value="600" selected>10 phút</option><option value="900">15 phút</option></select></label>
+      <label for="chessBoardTheme">Bàn cờ <select id="chessBoardTheme"><option value="forest" selected>Xanh ngọc</option><option value="wood">Gỗ nâu</option><option value="night">Đêm xanh</option></select></label>
+     </div>
+     <p id="chessStatus" class="chess-status-indicator" role="status" aria-live="polite">Bạn được đi trước.</p>
+     <div class="chess-tools"><button id="chessFlip" class="arena-soft" type="button">🔄 Xoay bàn</button><button id="chessUndo" class="arena-soft" type="button" disabled>↶ Đi lại</button><button id="chessHint" class="arena-soft" type="button">💡 Gợi ý</button></div>
      <div class="arena-inline-actions"><button type="button" id="chessClaim" class="arena-soft" hidden>Xin hòa hợp lệ</button>
      <button type="button" id="chessRestart" class="arena-action">↻ Ván mới (1 vé)</button></div></div>
-   <div class="arena-panel"><h3>Biên bản nước đi</h3><div id="chessMoves" class="chess-moves" aria-live="polite"></div></div>
+   <div class="arena-panel"><h3>Biên bản nước đi</h3><div id="chessMoves" class="chess-moves" aria-live="polite"></div>
+     <p class="arena-game-note">Nhập thành, bắt tốt qua đường, phong cấp và chiếu hết đều được kiểm tra theo luật.</p></div>
    <p class="arena-game-note">AI chơi tại trình duyệt, không ghi Elo chính thức. Nhập thành, bắt tốt qua đường, phong cấp và chiếu hết được kiểm tra trong lõi luật.</p>
   </aside>
  </div>
@@ -233,10 +241,10 @@
    <button class="arena-soft arena-fullscreen-btn" type="button" data-fullscreen-target="arenaTienLen" title="Chơi toàn màn hình">⛶ Toàn màn hình</button><button id="tlNew" type="button" class="arena-action">↻ Ván mới (1 vé)</button>
  </div>
  <div id="tlBoard" class="tl-board" data-fx-phase="idle" data-fx-count="0" aria-label="Bàn chơi 4 người, ba đối thủ ngồi trên, trái và phải">
-  <span class="tl-table-watermark" aria-hidden="true">MR LEE</span>
+  <span class="tl-table-watermark" aria-hidden="true">MR LEE</span><div class="tl-room-badge" aria-hidden="true">♠ MR LEE · TIẾN LÊN MIỀN NAM · ♥</div>
   <div id="tlOpponents" class="tl-opponents" aria-label="Ba đối thủ máy và mặt sau lá bài"></div>
   <div class="tl-center">
-   <span class="tl-pile-label">BÀI ĐANG ĐÁNH</span>
+   <span class="tl-pile-label">BÀI ĐANG ĐÁNH</span><span id="tlRoundBadge" class="tl-round-badge">Vòng 1</span>
    <p id="tlStatus" role="status" aria-live="polite">Đang xáo bài...</p>
    <div id="tlPile" class="tl-pile" aria-label="Các lá bài được đánh ra giữa bàn"></div>
    <p id="tlHint" class="tl-hint">Chọn những lá bạn muốn đánh.</p>
@@ -253,7 +261,7 @@
    <div class="tl-controls">
     <button id="tlPlay" type="button" class="arena-primary">🃏 Đánh ra bàn</button>
     <button id="tlPass" type="button" class="arena-soft">Bỏ lượt</button>
-    <button id="tlSuggest" type="button" class="arena-action">💡 Gợi ý</button>
+    <button id="tlSuggest" type="button" class="arena-action">💡 Gợi ý</button><button id="tlSort" type="button" class="arena-soft">⇅ Xếp theo chất</button><button id="tlClear" type="button" class="arena-soft">✕ Bỏ chọn</button>
    </div>
   </div>
   <div id="tlDealNotice" class="tl-deal-notice" hidden>🃏 Đang xáo và chia 52 lá...</div>
