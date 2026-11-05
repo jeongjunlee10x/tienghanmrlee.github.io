@@ -16,7 +16,7 @@ on:
       - '.github/workflows/mrlee-game-zone-qa.yml'
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
     timeout-minutes: 12
