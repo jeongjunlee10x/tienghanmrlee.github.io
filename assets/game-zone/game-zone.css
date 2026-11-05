@@ -93,3 +93,14 @@ html[data-mrlee-theme="future"] .mz-study-link,html[data-mrlee-theme="future"] .
 .mz-travel-sign-icon{font-size:30px}.mz-travel-sign strong{font-size:clamp(16px,2vw,21px);word-break:keep-all}
 .mz-travel-sign:hover:not(:disabled){border-color:var(--mz-primary)}
 @media(max-width:600px){.mz-travel-board{grid-template-columns:1fr}.mz-travel-sign{min-height:63px}.mz-travel-emoji{font-size:45px}}
+
+
+.mz-verified{margin-top:26px;padding-top:6px;border-top:1px solid var(--mz-line)}
+.mz-verified-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:15px}
+.mz-verified-card{padding:20px;background:var(--mz-card);border:1px solid var(--mz-line);border-radius:18px;min-width:0}
+.mz-verified-card h3{margin:0 0 10px}.mz-verified-question{margin-top:20px}
+.mz-verified-question .mz-prompt{padding:14px 8px;text-align:left;font-size:clamp(17px,2.3vw,24px)}
+.mz-ranked-list{padding:0;list-style-position:inside}
+.mz-rank-row{padding:12px 5px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--mz-line)}
+.mz-rank-row strong{color:var(--mz-primary)}.mz-rank-row span{overflow-wrap:anywhere}
+@media(max-width:800px){.mz-verified-grid{grid-template-columns:1fr}}
