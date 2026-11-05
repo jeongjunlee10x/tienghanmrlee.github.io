@@ -105,6 +105,21 @@ for(const x of ['function primaryNav()','assets/mrlee-v2/primary-nav.css','Bản
  if(!theme.includes(x))errors.push('V2 NAV MISSING: '+x);
 }
 const adminCharts=exists('assets/mrlee-dual-ui/admin-charts.js')?fs.readFileSync('assets/mrlee-dual-ui/admin-charts.js','utf8'):'';
+const expectedAdminCharts=[
+  "const overview=()=>d.getElementById('page-overview')",
+  "if(!page||page.id!=='page-overview'||page.querySelector('.mrlee-admin-analytics'))return;",
+  "if(!home.contains(el))el.remove()",
+  "d.querySelectorAll('#page-overview > .mrlee-admin-analytics')",
+  "if(!overviewVisible())return;",
+  "new MutationObserver(maybeLoad).observe(home,{attributes:true,attributeFilter:['hidden']})"
+];
+for(const marker of expectedAdminCharts)
+ if(!adminCharts.includes(marker))errors.push('ADMIN CHARTS SCOPE REGRESSION: '+marker);
+if(/pages\(\)\.forEach\(panel\)/.test(adminCharts))
+ errors.push('ADMIN CHARTS DUPLICATED ON EVERY SECTION');
+if(!fs.readFileSync(path.join(root,'admin.html'),'utf8').includes('admin-charts.js?v=20261105-overview-only-v2'))
+ errors.push('ADMIN CHART SCRIPT VERSION NOT REFRESHED');
+
 if(!adminCharts.includes("select('id,level,last_activity_at',{count:'exact'})"))errors.push('ADMIN STUDENT TOTAL NOT SERVER-COUNTED');
 if(!adminCharts.includes('activeTotal:activeCount.error?null:activeCount.count'))errors.push('ADMIN ACTIVE KPI NOT SERVER-COUNTED');
 const admin=exists('admin.html')?fs.readFileSync('admin.html','utf8'):'';
