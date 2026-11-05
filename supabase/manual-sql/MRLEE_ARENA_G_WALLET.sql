@@ -185,10 +185,18 @@ grant execute on function public.mrlee_arena_abort_match(varchar,bigint) to serv
 
 create or replace function public.mrlee_arena_wallet_status(p_uid text)
 returns jsonb language plpgsql security definer set search_path=public,pg_temp as $$
-declare w public.mrlee_arena_wallets%rowtype; earned bigint;
+declare w public.mrlee_arena_wallets%rowtype; earned bigint; old_room record;
 begin
  if p_uid is null or length(p_uid) not between 8 and 128
  then raise exception 'BAD_UID' using errcode='P0001';end if;
+ -- Automatically return escrow held by abandoned/expired rooms when a member
+ -- next opens the wallet. Even without cron, virtual G cannot remain stuck forever.
+ for old_room in select code,version from public.mrlee_arena_rooms
+   where status='playing' and expires_at<now()
+   and members @> jsonb_build_array(jsonb_build_object('uid',p_uid))
+   order by code loop
+  perform public.mrlee_arena_abort_match(old_room.code,old_room.version);
+ end loop;
  insert into public.mrlee_arena_wallets(firebase_uid) values(p_uid) on conflict do nothing;
  select * into w from public.mrlee_arena_wallets where firebase_uid=p_uid;
  select coalesce(sum(xp),0) into earned from public.mrlee_game_awards where firebase_uid=p_uid;
