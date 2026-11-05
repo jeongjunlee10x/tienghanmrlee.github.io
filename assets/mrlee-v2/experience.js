@@ -4,10 +4,13 @@
  */
 (()=>{'use strict';
 const d=document,html=d.documentElement;
-const page=decodeURIComponent(location.pathname.split('/').pop()||'index.html');
+const page=decodeURIComponent(location.pathname.split('/').filter(Boolean).pop()||'index.html');
+// Cloudflare Pages pretty URLs serve admin.html at /admin or /admin/.
+// Keep the authenticated Admin console isolated from public learning/marketing UI.
+const isAdmin=/^admin(?:\.html)?$/i.test(page)||html.dataset.mrleePhase3==='admin';
+if(isAdmin)return;
 // Standalone pages do not load the global theme controller; share the same safe AI loader.
 const aiLoader=d.createElement('script');aiLoader.defer=true;aiLoader.src='assets/mrlee-ai/v1/loader.js?v=20261025-r3';d.head.append(aiLoader);
-if(page==='admin.html')return;
 const appPages={
  'index.html':['Một hành trình học tiếng Hàn có định hướng','Từ bảng chữ cái, từ vựng và ngữ pháp đến giao tiếp, TOPIK và du học. Chọn mục tiêu phù hợp, theo dõi hành trình của bạn từng ngày.','Bắt đầu học','hoc-tieng-han.html','Kiểm tra đầu vào','kiem-tra-dau-vao.html','home','6 cấp độ học · Luyện thi TOPIK I/II'],
  'hoc-tieng-han.html':['Học tiếng Hàn từ nền tảng đến nâng cao','Khám phá lộ trình sáu cấp độ, học từ vựng, ngữ pháp, phát âm và luyện tập theo bài. Nội dung học được sắp xếp theo trình độ.','Xem lộ trình 6 cấp','hoc-theo-bai.html','Mở WORKBOOK','mrlee-bai-tap-pro.html','learning','Từ vựng · Ngữ pháp · Nghe · Nói'],

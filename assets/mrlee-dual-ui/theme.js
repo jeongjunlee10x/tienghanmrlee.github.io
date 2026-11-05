@@ -2,7 +2,7 @@
 (()=>{'use strict';
 const VISIT_KEY='MRLEE.THEME.ENTRY.V1';
 const KEY='MRLEE.THEME.V1',ROOT='assets/mrlee-dual-ui/cards/',doc=document,html=doc.documentElement;
-const path=decodeURIComponent(location.pathname.split('/').pop()||'index.html');
+const path=decodeURIComponent(location.pathname.split('/').filter(Boolean).pop()||'index.html');
 const entryStyle=doc.createElement('link');entryStyle.rel='stylesheet';entryStyle.href='assets/mrlee-dual-ui/entry-picker.css?v=20261029-v1';doc.head.append(entryStyle);
 /* Shared 2027 visual foundations, load for every page that uses dual themes. */
 const foundationStyle=doc.createElement('link');
@@ -20,7 +20,7 @@ const experienceCss=doc.createElement('link');experienceCss.rel='stylesheet';exp
 const experienceScript=doc.createElement('script');experienceScript.src='assets/mrlee-v2/experience.js?v=20261104-lesson-first-v1';doc.head.append(experienceScript);
 // AI media loader checks real binary availability before enhancing pages (including Admin).
 const aiLoader=doc.createElement('script');aiLoader.src='assets/mrlee-ai/v1/loader.js?v=20261025-r3';aiLoader.defer=true;doc.head.append(aiLoader);
-const admin=path==='admin.html';
+const admin=/^admin(?:\.html)?$/i.test(path)||html.dataset.mrleePhase3==='admin';
 const sceneNames=['learning','speaking','topik','interview','culture','universities','home','admin'];
 function which(t){t=String(t).toLowerCase();if(/mrlee-bai-tap-pro|workbook/.test(t))return 'workbook';if(/trung-tam-hoc-vien|ho-so-hoc-vien/.test(t))return 'profile';if(/admin|xep-hang|ranking/.test(t))return 'admin';if(/van-hoa|culture|du-lich|kham-pha/.test(t))return 'culture';if(/phong-van/.test(t))return 'interview';if(/ban-do|dai-hoc|truong/.test(t))return 'universities';if(/giao-tiep|hoi-thoai|noi/.test(t))return 'speaking';if(/topik|kiem-tra|luyen-de|thi|nghe/.test(t))return 'topik';if(/hoc-|bai-tap|workbook|hoc-vien/.test(t))return 'learning';return 'home'}
 function asset(n){
@@ -223,6 +223,8 @@ function primaryNav(){
  if(head?.parentNode)head.after(nav);else doc.body.prepend(nav);
 }
 function run(){
+ // Admin uses its own navigation, charts and authentication; no public overlays.
+ if(admin){update(theme);return;}
  if(path==='hoc-theo-bai.html'){
   // Lesson directory owns the first screen: no duplicate mega-menu, portal,
   // decorative hero or image layers before the 15 native lesson links.

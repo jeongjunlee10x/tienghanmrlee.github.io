@@ -90,3 +90,7 @@ html[data-mrlee-phase3="admin"] #app .panel{padding:13px!important}
 html[data-mrlee-phase3="admin"] #app .topbar-right .user-dot{display:none}
 }
 @media print{html[data-mrlee-phase3="admin"] #app .sidebar,html[data-mrlee-phase3="admin"] #app .topbar{display:none!important}html[data-mrlee-phase3="admin"] #app.layout{display:block;background:#fff!important}}
+
+/* Admin isolation: legacy public-site marketing must never cover the dashboard,
+   including cached scripts on Cloudflare pretty URL /admin. */
+html[data-mrlee-phase3="admin"] :is(.mrlee-v2-primary-nav,.mrlee-v2-context,.mrlee-v2-site-footer,.mrlee-next-portal,.mrlee-cinematic-gallery,.mrlee-v2-backtotop,.mrlee-future-banner,.mrlee-ai-admin-banner){display:none!important}

@@ -32,6 +32,31 @@ for(const m of theme.matchAll(/'([a-z0-9-]+\.html(?:\?[^']*)?)'/gi)){
  const f=m[1].split('?')[0];if(!exists(f))errors.push('BROKEN DYNAMIC PORTAL LINK: '+f);
 }
 
+// Cloudflare pretty URL /admin must NOT create public menu/hero/marketing.
+// Verify in an isolated VM before any deployment. No credentials or network.
+const vmAdmin = await import('node:vm');
+const expText=fs.readFileSync(path.join(root,'assets/mrlee-v2/experience.js'),'utf8');
+const themeText=fs.readFileSync(path.join(root,'assets/mrlee-dual-ui/theme.js'),'utf8');
+for(const route of ['/admin','/admin/','/admin.html']){
+  const injected=[];
+  const htmlRoot={dataset:{mrleePhase3:'admin'},setAttribute(){},matches(){return false}};
+  const mockedDoc={documentElement:htmlRoot,readyState:'loading',
+    createElement(tag){const el={tag,style:{},dataset:{},setAttribute(){},append(){},classList:{add(){},remove(){}}};injected.push(el);return el},
+    head:{append(){}},querySelector(){return null},querySelectorAll(){return []},
+    getElementById(){return null},addEventListener(){}
+  };
+  try{
+    vmAdmin.runInNewContext(expText,{document:mockedDoc,location:{pathname:route}}, {timeout:500});
+    if(injected.length)errors.push('ADMIN ROUTE INJECTS PUBLIC UI: '+route);
+  }catch(e){errors.push('ADMIN ROUTE REGRESSION: '+route+' '+e.message)}
+}
+if(!themeText.includes("const admin=/^admin(?:\\.html)?$/i.test(path)||html.dataset.mrleePhase3==='admin'"))
+ errors.push('ADMIN THEME ROUTE ALIAS GUARD MISSING');
+if(!themeText.includes("if(admin){update(theme);return;}"))
+ errors.push('ADMIN THEME RUN STILL INJECTS PUBLIC DECORATIONS');
+if(!fs.readFileSync(path.join(root,'assets/mrlee-admin/layout-v4.css'),'utf8').includes('Admin isolation: legacy public-site marketing'))
+ errors.push('ADMIN MARKETING CSS FALLBACK MISSING');
+
 // Admin V4 keeps protected data sections and uses existing RLS-based auth.
 const adminV4=exists('admin.html')?fs.readFileSync('admin.html','utf8'):'';
 for(const x of [
