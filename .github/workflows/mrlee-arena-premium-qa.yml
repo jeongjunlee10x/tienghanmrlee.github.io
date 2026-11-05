@@ -1,0 +1,58 @@
+name: MR LEE Game Arena Premium Visual QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'mrlee-game-arena.html'
+      - 'tro-choi-tieng-han.html'
+      - 'assets/arena/premium.css'
+      - 'assets/arena/premium.js'
+      - 'assets/arena/premium-fx.js'
+      - 'assets/arena/covers/**'
+      - 'assets/arena/chess-ui.js'
+      - 'assets/arena/xiangqi.js'
+      - 'assets/arena/estate.js'
+      - 'assets/arena/ludo.js'
+      - 'assets/arena/daily-rewards.css'
+      - 'assets/arena/daily-rewards.js'
+      - 'assets/game-zone/premium.css'
+      - 'assets/game-zone/app.js'
+      - 'tools/browser-arena-premium.mjs'
+      - '.github/workflows/mrlee-arena-premium-qa.yml'
+  workflow_dispatch:
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    permissions: {contents: read}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: "22"}
+      - name: Syntax, release files, static site and Cloudflare
+        run: |
+          node --check assets/arena/premium.js
+          node --check assets/arena/premium-fx.js
+          node --check assets/arena/chess-ui.js
+          node --check assets/arena/xiangqi.js
+          node --check assets/arena/ludo.js
+          node --check assets/arena/estate.js
+          node --check assets/arena/daily-rewards.js
+          node --check assets/game-zone/app.js
+          node --check tools/browser-arena-premium.mjs
+          node tools/check-site.mjs
+          node tools/build-cloudflare-pages.mjs
+          node tools/check-cloudflare-pages-build.mjs
+      - name: Install Chromium headless
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install chromium --with-deps
+      - name: Interaction and visual QA (both themes and mobile)
+        run: node tools/browser-arena-premium.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mrlee-premium-visual-screens
+          path: artifacts/arena-premium/*.png
+          if-no-files-found: ignore
+          retention-days: 14
