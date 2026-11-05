@@ -267,7 +267,8 @@ Deno.serve(async(req:Request)=>{
   if(kind==="quick"){
    const game=gameName(body.game),balance=(await wallet(database,uid)).gold;
    const rooms=await listRooms(database,game,uid);
-   const options=rooms.filter(x=>exposure(game,x.minGold)<=balance)
+   const options=(rooms as Array<{code:string,minGold:number,count:number}>)
+      .filter(x=>exposure(game,x.minGold)<=balance)
       .sort((a,b)=>b.count-a.count||b.minGold-a.minGold);
    for(const room of options.slice(0,12)){
     try{
