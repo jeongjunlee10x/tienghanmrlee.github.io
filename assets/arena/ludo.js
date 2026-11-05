@@ -139,6 +139,7 @@ export function mountLudo({onStart,onFinish,onExit}){
    tile.append(token);
   }));
   board.replaceChildren(...holder);
+  board.append(node("div","arena-extra-ticker",g.history.at(-1)));
   moves.replaceChildren();
   g.pawns.forEach((arr,who)=>{
    const home=arr.filter(v=>v===58).length;
