@@ -141,6 +141,10 @@ export function mountChess({onStart,onFinish,onExit}){
    if(r===7)tile.append(make("small","chess-file","abcdefgh"[actualCol]));
    board.append(tile);
   }
+  // Rendered position is authoritative; data tags are for visual FLIP only.
+  const recent=traces.at(-1);
+  board.dataset.lastMove=recent?recent.map(square).join(","):"";
+  board.dataset.moveIndex=String(traces.length);
   const verdict=status(history);
   if(!done)note.textContent=hintText||verdict.reason+(s.t===1?" · Chọn quân rồi chọn ô đích.":" · Máy đang tính nước đi…");
   moveList.replaceChildren();
