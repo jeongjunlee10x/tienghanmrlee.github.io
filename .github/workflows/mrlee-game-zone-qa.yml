@@ -1,0 +1,47 @@
+name: MR LEE Game Zone Phase 1 QA
+on:
+  push:
+    branches:
+      - feature/mrlee-game-zone-phase1
+    paths:
+      - 'tro-choi-tieng-han.html'
+      - 'assets/game-zone/**'
+      - 'tools/test-game-zone.mjs'
+      - '.github/workflows/mrlee-game-zone-qa.yml'
+  pull_request:
+    paths:
+      - 'tro-choi-tieng-han.html'
+      - 'assets/game-zone/**'
+      - 'tools/test-game-zone.mjs'
+      - '.github/workflows/mrlee-game-zone-qa.yml'
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check game script syntax
+        run: |
+          node --check assets/game-zone/core.js
+          node --check assets/game-zone/content.js
+          node --check assets/game-zone/games.js
+          node --check assets/game-zone/app.js
+      - name: Validate lesson adapters, registry and themes
+        run: node tools/test-game-zone.mjs
+      - name: Run full site static QA
+        run: node tools/check-site.mjs
+      - name: Validate Cloudflare Pages static export
+        run: |
+          node tools/build-cloudflare-pages.mjs
+          node tools/check-cloudflare-pages-build.mjs
+      - name: Install Chromium for Game Zone smoke tests
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install chromium --with-deps
+      - name: Test all four games on desktop/mobile in both themes
+        run: node tools/browser-game-zone.mjs

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="MR LEE GAME ZONE: luyện từ vựng, ngữ pháp, nghe và ghi nhớ tiếng Hàn theo 90 bài học.">
+  <title>MR LEE GAME ZONE | Trò chơi tiếng Hàn</title>
+  <link rel="icon" href="assets/branding/logo-mrlee.png">
+  <link rel="stylesheet" href="assets/game-zone/game-zone.css?v=1">
+  <style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
+  <script>
+    try {
+      document.documentElement.dataset.mrleeTheme = localStorage.getItem("MRLEE.THEME.V1") === "future" ? "future" : "fresh";
+    } catch (e) { document.documentElement.dataset.mrleeTheme = "fresh"; }
+  </script>
+  <script type="module" src="auth-guard.js"></script>
+  <script type="module" src="assets/game-zone/app.js?v=1"></script>
+</head>
+<body>
+<div class="mz-app">
+  <header class="mz-header">
+    <a class="mz-brand" href="index.html" aria-label="Trang chủ MR LEE">
+      <img src="assets/branding/logo-mrlee.png" width="52" height="52" alt="MR LEE" decoding="async">
+      <span><b>MR LEE</b><small>GAME ZONE</small></span>
+    </a>
+    <nav class="mz-nav" aria-label="Điều hướng">
+      <a href="hoc-tieng-han.html">Học tiếng Hàn</a>
+      <a href="mrlee-bai-tap-pro.html">Workbook</a>
+      <a href="bang-diem-tuan-v12.html">Điểm tuần</a>
+    </nav>
+  </header>
+
+  <main id="mzMain">
+    <section class="mz-hero" aria-labelledby="mzTitle">
+      <div>
+        <span class="mz-kicker">HỌC TIẾNG HÀN QUA TRÒ CHƠI</span>
+        <h1 id="mzTitle">Đấu trường <span>MR LEE</span></h1>
+        <p>Chọn cấp độ và bài học để mở thử thách. Chơi đúng kiến thức, rèn phản xạ, ghi nhớ lâu hơn.</p>
+      </div>
+      <div class="mz-hero-stats" aria-live="polite">
+        <div><strong id="mzXP">0</strong><small>XP luyện tập phiên này</small></div>
+        <div><strong id="mzWins">0</strong><small>Trò đã hoàn thành</small></div>
+      </div>
+    </section>
+
+    <section class="mz-selectors" aria-label="Chọn nội dung học">
+      <label>Cấp độ
+        <select id="mzLevel">
+          <option value="1">Sơ cấp 1 · 초급 1</option>
+          <option value="2">Sơ cấp 2 · 초급 2</option>
+          <option value="3">Trung cấp 1 · 중급 1</option>
+          <option value="4">Trung cấp 2 · 중급 2</option>
+          <option value="5">Cao cấp 1 · 고급 1</option>
+          <option value="6">Cao cấp 2 · 고급 2</option>
+        </select>
+      </label>
+      <label>Bài học
+        <select id="mzLesson" aria-label="Chọn bài học"></select>
+      </label>
+      <a class="mz-study-link" id="mzStudy" href="hoc-theo-bai.html?cap=1&bai=1">Xem bài học ↗</a>
+    </section>
+
+    <div id="mzNotice" class="mz-notice" role="status" aria-live="polite">Đang chuẩn bị nội dung...</div>
+
+    <section id="mzLobby" aria-labelledby="mzGamesTitle">
+      <div class="mz-section-title">
+        <div><span class="mz-kicker">GIAI ĐOẠN 1</span><h2 id="mzGamesTitle">Chọn trò chơi</h2></div>
+        <span class="mz-minor">4 trò đầu tiên • 6 cấp • 90 bài</span>
+      </div>
+      <div id="mzCards" class="mz-cards"></div>
+      <p class="mz-disclaimer">XP đang hiển thị là điểm luyện tập của phiên chơi, <strong>không phải TOPIK Spark hoặc điểm thưởng chính thức</strong>. Hệ thống sẽ chỉ đồng bộ sau khi tính điểm máy chủ được nghiệm thu.</p>
+    </section>
+
+    <section id="mzArena" class="mz-arena" aria-labelledby="mzArenaTitle" hidden>
+      <div class="mz-arena-top">
+        <button type="button" id="mzBack" class="mz-ghost">← Chọn trò khác</button>
+        <div><span class="mz-kicker" id="mzMode"></span><h2 id="mzArenaTitle">Trò chơi</h2></div>
+        <button type="button" id="mzReplay" class="mz-ghost">↻ Chơi lại</button>
+      </div>
+      <div id="mzGame" class="mz-game"></div>
+      <div id="mzFeedback" class="mz-feedback" role="status" aria-live="polite"></div>
+      <div id="mzResult" class="mz-result" hidden></div>
+    </section>
+  </main>
+
+  <footer class="mz-footer">
+    <span>© MR LEE · Học cùng LEE – Đi Hàn EASY!</span>
+    <a href="quy-tac-diem-mrlee.html">Quy tắc tích điểm hiện hành</a>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+/* Run: node tools/test-game-zone.mjs (Node 22+) */
+import assert from "node:assert/strict";
+import {readFile} from "node:fs/promises";
+import {MODES, shuffled, uniqueWords, parseCsv} from "../assets/game-zone/core.js";
+import {GAME_RUNNERS} from "../assets/game-zone/games.js";
+import {loadLesson, collectSentences} from "../assets/game-zone/content.js";
+
+assert.deepEqual(new Set(MODES.map(x=>x.id)),new Set(Object.keys(GAME_RUNNERS)));
+assert.equal(shuffled([1,2,3],()=>0).length,3);
+assert.equal(uniqueWords([{ko:"책",vi:"sách"},{ko:"책",vi:"sách"},{ko:"물",vi:"nước"}]).length,2);
+assert.deepEqual(parseCsv('\uFEFFfile,text,old,male\n"v1.mp3","한국",,False\n')[1],["v1.mp3","한국","","False"]);
+const html=await readFile(new URL("../tro-choi-tieng-han.html",import.meta.url),"utf8");
+const app=await readFile(new URL("../assets/game-zone/app.js",import.meta.url),"utf8");
+const css=await readFile(new URL("../assets/game-zone/game-zone.css",import.meta.url),"utf8");
+assert.match(html,/auth-guard\.js/);
+assert.match(html,/id="mzCards"/);
+assert.match(app,/XP chỉ tính trong phiên/);
+assert.match(css,/data-mrlee-theme="future"/);
+let totalWords=0, totalSentences=0, weaker=[];
+for(let cap=1;cap<=6;cap++)for(let bai=1;bai<=15;bai++){
+  const lesson=await loadLesson(cap,bai);
+  assert.equal(lesson.cap,cap);assert.equal(lesson.bai,bai);
+  assert.ok(Array.isArray(lesson.words)&&Array.isArray(lesson.sentences));
+  assert.ok(lesson.words.every(x=>typeof x.ko==="string"&&typeof x.vi==="string"));
+  assert.deepEqual(new Set(lesson.words.map(x=>x.ko)).size,lesson.words.length);
+  totalWords+=lesson.words.length;totalSentences+=lesson.sentences.length;
+  if(lesson.words.length<4 || lesson.sentences.length===0)weaker.push(cap+"-"+bai);
+}
+console.log("GAME ZONE phase1: 4 games; 90 lessons; "+totalWords+" usable vocab entries; "+totalSentences+" sentence examples.");
+if(weaker.length)console.log("Needs lesson content review for one or more modes: "+weaker.join(", "));
+console.log("PASS: adapters, registry, access gate, themes, and basic content checks.");
