@@ -1,0 +1,43 @@
+/* Daily Game Arena + learning Game Zone. Scoped dual-theme popup. */
+.arena-daily-launch{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 13px;border:1px solid #dcae4d;border-radius:11px;background:linear-gradient(125deg,#fff6bd,#f8d979);color:#543917;font:900 12px/1.35 "Be Vietnam Pro",system-ui,sans-serif;cursor:pointer;text-decoration:none}
+.arena-daily-launch.arena-daily-pending{box-shadow:0 0 0 3px #ffc84336}
+.arena-daily-launch:focus-visible,.arena-daily-dialog button:focus-visible{outline:3px solid #2080d8;outline-offset:3px}
+.arena-daily-dialog{position:fixed;inset:0;margin:auto;padding:0;box-sizing:border-box;width:min(910px,calc(100vw - 20px));max-width:910px;max-height:93dvh;overflow-y:auto;border:1px solid #d2dfef;border-radius:22px;background:#f8faff;color:#1a2e50;font-family:"Be Vietnam Pro",system-ui,sans-serif;box-shadow:0 22px 95px #030b2cc9}
+.arena-daily-dialog::backdrop{background:#030b23bc;backdrop-filter:blur(5px)}
+.arena-daily-dialog [hidden]{display:none!important}
+.arena-daily-shell{padding:clamp(12px,2.5vw,22px)}
+.arena-daily-heading{display:flex;align-items:start;justify-content:space-between;gap:13px;margin-bottom:13px}
+.arena-daily-heading small{font-weight:900;letter-spacing:.11em;color:#426f9d;font-size:10px}
+.arena-daily-heading h2{font-size:clamp(18px,2.6vw,27px);line-height:1.35;margin:6px 0 3px;font-weight:900;color:inherit}
+.arena-daily-heading p{font-size:11px;margin:3px 0;color:#536780}
+.arena-daily-close{flex-shrink:0;min-height:40px;min-width:40px;border:1px solid #c2cfe2;border-radius:11px;background:#fff;color:#162c4c;font-weight:900;font-size:18px;cursor:pointer}
+.arena-daily-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:13px}
+.arena-daily-checkin,.arena-daily-spin{min-width:0;border:1px solid #d2dfeb;border-radius:17px;padding:clamp(11px,2vw,19px);display:flex;flex-direction:column;align-items:center;text-align:center;background:#fff}
+.arena-daily-checkin{justify-content:center;background:linear-gradient(155deg,#fffcf1,#ffedbf)}
+.arena-daily-gift{font-size:52px;line-height:1.3}
+.arena-daily-checkin h3,.arena-daily-spin h3{font-size:clamp(15px,2.2vw,21px);margin:6px 0;font-weight:900}
+.arena-daily-award{color:#a05a16;font-size:clamp(21px,2.8vw,29px);line-height:1.5;font-weight:900}
+.arena-daily-award span{font-size:12px;font-weight:700;display:block;color:#4a6181}
+.arena-daily-checkin p,.arena-daily-spin p{font-size:11px;color:#4e647f;line-height:1.7;margin:6px 0 13px;max-width:315px}
+.arena-daily-primary{border:0;border-radius:12px;min-height:43px;padding:10px 17px;color:#fff;background:linear-gradient(110deg,#e83f85,#9c39bd);font-size:12px;font-weight:900;cursor:pointer}
+.arena-daily-primary:disabled{opacity:1;color:#fff;background:#9aa9ba;cursor:default}
+.arena-daily-checkin>small,.arena-daily-spin>small{display:block;min-height:22px;margin-top:8px;font-size:10px;font-weight:800;color:#375778;line-height:1.5}
+.arena-wheel-container{position:relative;aspect-ratio:1;width:min(338px,100%);margin:7px auto 16px;flex-shrink:0}
+.arena-wheel-disk{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;border:8px solid #f5d17b;box-shadow:0 0 0 4px #fff1b0,0 8px 18px #0e193b44;transition:transform 5s cubic-bezier(.1,.75,.15,1)}
+.arena-wheel-pointer{position:absolute;left:50%;top:-5px;transform:translateX(-50%);z-index:5;width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:31px solid #f23848;filter:drop-shadow(0 3px 2px #14234383)}
+.arena-wheel-label{position:absolute;display:block;min-width:36px;text-align:center;color:#fff;white-space:nowrap;font-size:clamp(10px,1.4vw,14px);line-height:1.3;font-weight:900;text-shadow:0 1px 3px #000a,0 0 5px #0c183b;pointer-events:none}
+.arena-wheel-hub{position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;place-content:center;width:22%;aspect-ratio:1;border:5px solid #f0c96c;border-radius:50%;background:radial-gradient(circle,#fffcef,#dfb85d);color:#5b3916;font-size:clamp(9px,1.5vw,16px);font-weight:1000;line-height:1.05;box-shadow:0 3px 12px #10214280}
+.arena-wheel-result{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:6;padding:14px 17px;white-space:nowrap;border:2px solid #ffda7a;border-radius:15px;background:#102a4ced;color:#fff5bb;box-shadow:0 10px 25px #06152988;font-size:clamp(15px,2.7vw,23px);font-weight:900}
+.arena-daily-footer{display:flex;justify-content:center;gap:8px 16px;flex-wrap:wrap;margin:14px 0 0;padding:13px 0;border-top:1px solid #dce6f2;font-size:11px;color:#3f5b79;font-weight:700}
+.arena-daily-footer strong{color:#213e61;font-size:13px}
+.arena-daily-error{font-weight:750;font-size:12px;padding:10px;border-radius:9px;background:#fee9ec;color:#881e35}
+.arena-daily-disclaimer{font-size:10px;line-height:1.65;color:#61718a;text-align:center;margin:0}
+html[data-mrlee-theme="future"] .arena-daily-dialog{background:#101d36;border-color:#37567e;color:#f2f8ff}
+html[data-mrlee-theme="future"] .arena-daily-checkin{background:linear-gradient(130deg,#24314c,#493b36);border-color:#52637a}
+html[data-mrlee-theme="future"] .arena-daily-spin{background:#1a2e4e;border-color:#395779}
+html[data-mrlee-theme="future"] .arena-daily-heading p,html[data-mrlee-theme="future"] .arena-daily-checkin p,html[data-mrlee-theme="future"] .arena-daily-spin p,html[data-mrlee-theme="future"] .arena-daily-award span,html[data-mrlee-theme="future"] .arena-daily-checkin>small,html[data-mrlee-theme="future"] .arena-daily-spin>small,html[data-mrlee-theme="future"] .arena-daily-disclaimer{color:#c4d7ea}
+html[data-mrlee-theme="future"] .arena-daily-award{color:#ffe49a}
+html[data-mrlee-theme="future"] .arena-daily-footer,html[data-mrlee-theme="future"] .arena-daily-footer strong{color:#f6e0b0}
+html[data-mrlee-theme="future"] .arena-daily-close{background:#24415e;border-color:#637c9c;color:#fff}
+@media(max-width:650px){.arena-daily-dialog{width:calc(100vw - 12px);border-radius:14px;max-height:94dvh}.arena-daily-grid{grid-template-columns:1fr;gap:9px}.arena-daily-shell{padding:12px}.arena-daily-checkin,.arena-daily-spin{padding:12px}.arena-daily-gift{font-size:31px}.arena-daily-award{font-size:20px}.arena-daily-award span{display:inline;font-size:11px}.arena-daily-checkin h3,.arena-daily-spin h3{margin:2px 0}.arena-daily-checkin p,.arena-daily-spin p{margin:4px 0 8px}.arena-wheel-container{width:min(290px,77vw)}.arena-wheel-label{font-size:11px}.arena-daily-heading h2{font-size:17px}}
+@media(prefers-reduced-motion:reduce){.arena-wheel-disk{transition:none}}
