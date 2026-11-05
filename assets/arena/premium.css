@@ -120,3 +120,13 @@ html[data-mrlee-theme="future"] .arena-game-brand.brand-pvp{background:#152941}
  .arena-match-result,.arena-game-result,.arena-top-fx,.arena-card-drawn,.arena-dice-roll,
  .chess-arrive,.arena-arrive,.xq-arrive{animation:none!important}
 }
+
+/* Individual property tokens can hop across the verified 24-tile route. */
+.estate-tokens{display:flex;align-items:center;justify-content:center;gap:1px;flex-wrap:wrap}
+.estate-pawn{display:inline-grid;place-items:center;position:relative;z-index:2;
+ min-width:12px;min-height:14px;font-size:clamp(10px,1.7vw,15px);line-height:1.1;
+ transform-origin:center;will-change:transform}
+.estate-tile .estate-pawn{filter:drop-shadow(0 2px 2px #13264370)}
+#estateDice,#ludoDie{display:inline-block;transform-origin:center;will-change:transform}
+#arenaTable .arena-board-center{position:relative}
+.arena-discovery-main .arena-cover-image{background:#123159}
