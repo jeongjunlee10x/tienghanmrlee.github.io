@@ -47,6 +47,8 @@ else {
  const adminLayoutSource=fs.readFileSync(adminLayoutJS,'utf8');
  for(const key of ['overview','students','scores','all-attempts','activity','placements','consultations','rewards','settings'])
   if(!adminLayoutSource.includes(key+':[')&&!adminLayoutSource.includes("'"+key+"':["))errors.push('ADMIN V4 NAV KEY: '+key);
+ if(!adminLayoutSource.includes("overview.append(inbox)"))
+  errors.push('ADMIN V4 NOTIFICATION NOT SCOPED TO OVERVIEW');
  const adminSyntax=spawnSync(process.execPath,['--check',path.join(root,adminLayoutJS)],{encoding:'utf8'});
  if(adminSyntax.status!==0)errors.push('ADMIN V4 SYNTAX: '+adminSyntax.stderr.slice(0,300));
 }

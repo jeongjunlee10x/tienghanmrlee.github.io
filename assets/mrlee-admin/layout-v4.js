@@ -35,6 +35,11 @@ function ready(){
    const cap=document.createElement('span');cap.className='admin-nav-label';cap.textContent='Chức năng khác';box.append(cap,...extra);groups.push(box);
  }
  menu.replaceChildren(...groups);
+ // Notifications are useful in the overview, not repeated above every page.
+ // Moving the original authenticated inbox preserves its event handlers/RLS.
+ const overview=document.getElementById('page-overview');
+ const inbox=document.getElementById('mrleeV31Inbox');
+ if(overview&&inbox)overview.append(inbox);
  const sync=()=>{
    const page=Object.keys(titles).find(k=>{const el=document.getElementById('page-'+k);return el&&!el.hidden})||'overview';
    heading.textContent=titles[page][0];desc.textContent=titles[page][1];
