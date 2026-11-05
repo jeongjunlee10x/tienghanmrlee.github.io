@@ -68,7 +68,7 @@ try{
    assert.equal(await button.getAttribute("aria-expanded"),"false");
    assert.equal(await button.textContent(),"☰");
    assert.equal(await button.evaluate(el=>el===document.activeElement),true);
-   await button.click();await page.locator(".mr27-overline").click();
+   await button.click();await page.mouse.click(4,200);
    assert.equal(await menu.isVisible(),false,"Outside click must close dropdown");
    console.log("PASS home hamburger "+width+"px "+theme+", "+Math.round(measured.panel.width)+"x"+Math.round(measured.panel.height));
   }finally{await context.close();}
