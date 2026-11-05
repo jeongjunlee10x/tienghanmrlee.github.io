@@ -1,0 +1,72 @@
+/* Remaining Arena games: shared dual-theme compact board design. */
+.arena-extra-layout{display:grid;grid-template-columns:minmax(0,700px) minmax(220px,1fr);gap:16px;align-items:start}
+.arena-extra-stage{position:relative;min-width:0}
+.arena-extra-side{min-width:0}
+.arena-extra-side .arena-panel{margin-bottom:10px}
+.arena-extra-side .arena-panel p{margin:8px 0}
+.arena-extra-status{font-weight:800;font-size:13px;color:var(--ink);min-height:39px}
+.arena-extra-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:9px 0}
+.arena-extra-board{position:relative;overflow:hidden;border:5px solid #304a65;border-radius:17px;box-shadow:0 15px 30px #0c234b22;background:var(--surface)}
+.arena-extra-board .arena-match-result{position:absolute;z-index:50;left:50%;top:50%;transform:translate(-50%,-50%);width:min(430px,92%)}
+.arena-mini-log{max-height:170px;overflow:auto}.arena-mini-log p{font-size:11px;line-height:1.65}
+.arena-demo-rule{font-size:11px!important;color:var(--muted);padding-top:8px}
+.ludo-board{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));width:100%;aspect-ratio:1;gap:0;user-select:none}
+.ludo-cell{position:relative;min-width:0;border:1px solid #596b8530;background:#eff3fa;display:flex;align-items:center;justify-content:center;flex-wrap:wrap}
+.ludo-cell.track{background:#fff;border-color:#a8b9d1}
+.ludo-cell.base-red{background:#f7bdc8}.ludo-cell.base-blue{background:#b7dffa}
+.ludo-cell.base-yellow{background:#fff1ab}.ludo-cell.base-green{background:#b5ecd2}
+.ludo-cell.lane-red,.ludo-cell.start-red{background:#ef8ca2}
+.ludo-cell.lane-blue,.ludo-cell.start-blue{background:#73bee8}
+.ludo-cell.lane-yellow,.ludo-cell.start-yellow{background:#ebd465}
+.ludo-cell.lane-green,.ludo-cell.start-green{background:#78d6a9}
+.ludo-cell.goal{background:#ffd180}
+.ludo-pawn{border:1px solid #fff!important;box-shadow:0 2px 3px #1c213155;border-radius:50%;width:clamp(14px,2.4vw,23px);height:clamp(14px,2.4vw,23px);padding:0;font-size:10px;font-weight:900;display:grid;place-items:center;z-index:2;line-height:1}
+.ludo-pawn.red{background:#ce3352;color:white}.ludo-pawn.blue{background:#187db5;color:white}
+.ludo-pawn.yellow{background:#d5a827;color:#332900}.ludo-pawn.green{background:#168f5f;color:white}
+.ludo-pawn.legal{outline:3px solid #ffb723;outline-offset:1px;animation:ludo-pulse .8s ease-in-out infinite alternate}
+.ludo-pawn:disabled{opacity:1!important;cursor:default}
+.ludo-pawn:focus-visible{outline:3px solid #222}
+.ludo-score{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.ludo-player{display:block;padding:7px 6px;border-radius:8px;border:1px solid var(--line);font-size:10px;font-weight:800;background:var(--bg)}
+.ludo-player.red{border-left:4px solid #d93357}.ludo-player.blue{border-left:4px solid #1686d2}
+.ludo-player.yellow{border-left:4px solid #d9b02b}.ludo-player.green{border-left:4px solid #179963}
+.ludo-player.active{outline:2px solid #eaac30}
+.ludo-dice{font-size:45px;line-height:1.1}
+@keyframes ludo-pulse{to{filter:brightness(1.17);transform:scale(1.14)}}
+.xq-board-wrap{width:100%;max-width:600px;margin:auto;padding:8px;background:#ca995b}
+.xq-board{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));width:100%;aspect-ratio:9/10;border:2px solid #76512d;gap:0;background:#f1d49c;user-select:none}
+.xq-square{display:flex;align-items:center;justify-content:center;position:relative;min-width:0;border:1px solid #ba9364;background:linear-gradient(90deg,transparent 48%,#b69060 49%,#b69060 51%,transparent 52%),linear-gradient(0deg,transparent 48%,#b69060 49%,#b69060 51%,transparent 52%);padding:0;aspect-ratio:1}
+.xq-square.river{background:#f8e6c2}
+.xq-square.selected{background:#fed56d}
+.xq-square.target{background:#d1e5a2}
+.xq-piece{display:grid;place-items:center;width:84%;height:84%;border-radius:50%;border:3px solid #76522f;background:radial-gradient(circle at 30% 25%,#fff8d7,#e8bd76);font:900 clamp(14px,3.1vw,33px)/1 "Noto Sans CJK SC","Microsoft YaHei","SimSun",serif;box-shadow:0 2px 4px #51402566}
+.xq-piece.red{color:#ad2437;border-color:#9b5135}.xq-piece.black{color:#24272e}
+.xq-piece.covered{color:#684b32;background:radial-gradient(circle,#edd7a2,#b68c5a)}
+.xq-target-dot{width:22%;aspect-ratio:1;border-radius:100%;background:#376d46}
+.xq-river-label{text-align:center;font:bold 16px/1.5 Georgia,serif;color:#693d1c;margin:5px}
+.xq-badge{font-weight:800;font-size:12px}
+.estate-board{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-template-rows:repeat(7,minmax(0,1fr));aspect-ratio:1;width:100%;background:linear-gradient(140deg,#edf5ff,#e8f5e8);gap:2px;padding:3px}
+.estate-cell{min-width:0;min-height:0}
+.estate-tile{background:#fefefe;border:1px solid #a5bbd2;border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-width:0;gap:2px;padding:3px;overflow:hidden}
+.estate-tile strong{font-weight:900;font-size:clamp(8px,1.05vw,11px);line-height:1.3;overflow-wrap:anywhere;color:#233950}
+.estate-tile small{font-size:clamp(8px,.9vw,10px);font-weight:750;color:#65788a;line-height:1.2}
+.estate-tile.type-start{background:#fbdb90}.estate-tile.type-property{background:#dfeefe}
+.estate-tile.type-bonus{background:#c6efdb}.estate-tile.type-tax{background:#fbd2ce}
+.estate-tile.type-chance{background:#e8d8fc}.estate-tile.type-free{background:#edf1f4}
+.estate-tile.owned{border:3px solid #d6ae44}
+.estate-tile.owner-0{border-color:#d74460}.estate-tile.owner-1{border-color:#257abd}
+.estate-tile.owner-2{border-color:#cba324}.estate-tile.owner-3{border-color:#22905d}
+.estate-tokens{font-size:clamp(9px,1.7vw,16px);white-space:nowrap;line-height:1.2}
+.estate-center{grid-column:2/7;grid-row:2/7;border-radius:12px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:12px;background:radial-gradient(circle,#243c79,#102248);color:#fff;border:3px solid #e3bc5d}
+.estate-center strong{font-size:clamp(17px,3vw,31px);line-height:1.35}
+.estate-center small{font-size:clamp(10px,1.2vw,13px);color:#eaf4ff;max-width:280px}
+.estate-middle-dice{font-size:clamp(26px,4vw,40px);margin-top:12px;font-weight:900;color:#ffe080}
+.estate-players{display:grid;gap:7px}.estate-player{padding:9px;border:1px solid var(--line);border-radius:10px;background:var(--bg);display:flex;flex-direction:column;gap:2px}
+.estate-player.active{outline:2px solid #eab63c}.estate-player.bankrupt{opacity:.5}
+.estate-player strong{font-size:12px}.estate-player small{font-size:10px;color:var(--muted)}.estate-player b{font-size:11px}
+.estate-prompt{border:1px solid #e6ac40;background:#fff3d6;color:#543912;border-radius:11px;padding:10px}
+.estate-prompt p{color:#543912!important;font-weight:800}.estate-upgrades{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.estate-upgrades button{padding:6px 9px;min-height:33px;font-size:10px}
+@media(max-width:850px){.arena-extra-layout{grid-template-columns:1fr}.arena-extra-side{display:grid;grid-template-columns:1fr 1fr;gap:10px}.arena-extra-side .arena-panel{margin-bottom:0}}
+@media(max-width:530px){.arena-extra-side{grid-template-columns:1fr}.arena-extra-board{border-width:3px}.ludo-pawn{width:clamp(12px,3vw,19px);height:clamp(12px,3vw,19px);font-size:8px}.xq-piece{font-size:clamp(14px,5vw,25px);border-width:2px}.estate-tile{padding:1px;border-radius:3px}.estate-tile strong{font-size:7px}.estate-tile small{font-size:7px}.estate-tokens{font-size:10px}.estate-center strong{font-size:19px}.arena-extra-stage{width:100%}}
+@media(prefers-reduced-motion:reduce){.ludo-pawn.legal{animation:none}}
