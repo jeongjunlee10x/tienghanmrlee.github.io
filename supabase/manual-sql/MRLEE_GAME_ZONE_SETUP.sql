@@ -171,7 +171,7 @@ begin
    returning * into result_row;
  if earned>0 then
    insert into public.mrlee_game_weekly(firebase_uid,week_start,alias,xp,awarded_lessons)
-     values(p_firebase_uid,week_vn,'Học viên '||left(p_firebase_uid,6),earned,1)
+     values(p_firebase_uid,week_vn,'Học viên '||left(pg_catalog.md5(p_firebase_uid),6),earned,1)
    on conflict(firebase_uid,week_start) do update set
      xp=public.mrlee_game_weekly.xp+excluded.xp,
      awarded_lessons=public.mrlee_game_weekly.awarded_lessons+1,updated_at=now();
