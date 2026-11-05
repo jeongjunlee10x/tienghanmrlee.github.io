@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="360" viewBox="0 0 880 360" role="img" aria-label="Minh hoạ trò chơi gốc MR LEE">
+ <defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#634024"/><stop offset=".5" stop-color="#462522"/><stop offset="1" stop-color="#29213e"/></linearGradient>
+ <radialGradient id="orb"><stop stop-color="#ffc66c" stop-opacity=".8"/><stop offset=".55" stop-color="#ffc66c" stop-opacity=".18"/><stop offset="1" stop-color="#ffc66c" stop-opacity="0"/></radialGradient>
+ <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff778d"/><stop offset=".6" stop-color="#df2959"/><stop offset="1" stop-color="#8e1e4e"/></linearGradient>
+ <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a1f8ff"/><stop offset=".6" stop-color="#2187d2"/><stop offset="1" stop-color="#124b9c"/></linearGradient>
+ <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a8ffda"/><stop offset=".6" stop-color="#15b48a"/><stop offset="1" stop-color="#0d6855"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff1a3"/><stop offset=".5" stop-color="#ffcc58"/><stop offset="1" stop-color="#bd7531"/></linearGradient>
+ <linearGradient id="ivory" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".55" stop-color="#f5e7cc"/><stop offset="1" stop-color="#d5bfa5"/></linearGradient>
+ <linearGradient id="fade"><stop stop-color="#06152c" stop-opacity=".68"/><stop offset=".5" stop-color="#06152c" stop-opacity=".2"/><stop offset="1" stop-color="#06152c" stop-opacity="0"/></linearGradient>
+ <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="12" stdDeviation="11" flood-color="#030a20" flood-opacity=".52"/></filter>
+ </defs>
+ <rect width="880" height="360" fill="url(#bg)"/>
+ <circle cx="630" cy="140" r="300" fill="url(#orb)"/>
+ <path d="M0 310 Q290 205 880 325 L880 360 L0 360Z" fill="#ffffff" opacity=".075"/>
+ <path d="M0 0 H880 L540 360 H360Z" fill="#ffffff" opacity=".045"/>
+ <g><circle cx="487" cy="98" r="3" fill="#fff6d2" opacity="0.2"/><circle cx="584" cy="169" r="1.5" fill="#fff6d2" opacity="0.3"/><circle cx="681" cy="240" r="1.5" fill="#fff6d2" opacity="0.4"/><circle cx="778" cy="311" r="1.5" fill="#fff6d2" opacity="0.5"/><circle cx="325" cy="82" r="3" fill="#fff6d2" opacity="0.6"/><circle cx="422" cy="153" r="1.5" fill="#fff6d2" opacity="0.2"/><circle cx="519" cy="224" r="1.5" fill="#fff6d2" opacity="0.3"/><circle cx="616" cy="295" r="1.5" fill="#fff6d2" opacity="0.4"/><circle cx="713" cy="66" r="3" fill="#fff6d2" opacity="0.5"/><circle cx="810" cy="137" r="1.5" fill="#fff6d2" opacity="0.6"/><circle cx="357" cy="208" r="1.5" fill="#fff6d2" opacity="0.2"/><circle cx="454" cy="279" r="1.5" fill="#fff6d2" opacity="0.3"/><circle cx="551" cy="50" r="3" fill="#fff6d2" opacity="0.4"/><circle cx="648" cy="121" r="1.5" fill="#fff6d2" opacity="0.5"/><circle cx="745" cy="192" r="1.5" fill="#fff6d2" opacity="0.6"/><circle cx="292" cy="263" r="1.5" fill="#fff6d2" opacity="0.2"/><circle cx="389" cy="34" r="3" fill="#fff6d2" opacity="0.3"/></g>
+ <circle cx="730" cy="150" r="170" fill="none" stroke="#ffffff" stroke-opacity=".10" stroke-width="2"/>
+ <circle cx="730" cy="150" r="125" fill="none" stroke="#ffffff" stroke-opacity=".12" stroke-width="2"/>
+ <g transform="translate(472 34)" filter="url(#shadow)">
+ <path d="M7 76 L325 26 L406 278 L91 333 Z" fill="#d9ad74" stroke="#ffdfad" stroke-width="9"/>
+ <path d="M22 91 L311 48 L383 263 L99 310Z" fill="#c4925f"/>
+ <g stroke="#82532c" stroke-width="3" opacity=".7">
+ <path d="M40 83 L116 300 M74 78 L149 293 M109 74 L186 287 M145 68 L223 283 M180 63 L260 277 M219 58 L301 271 M255 52 L340 266"/>
+ <path d="M50 111 L330 68 M63 148 L344 107 M76 183 L356 146 M89 219 L369 186 M100 256 L380 225"/>
+ </g>
+ <g>
+ <g transform="translate(124 103)"><ellipse cx="0" cy="9" rx="56" ry="51" fill="#5a321e" opacity=".6"/><ellipse rx="56" ry="51" fill="url(#ivory)" stroke="#f9e2ab" stroke-width="8"/><text text-anchor="middle" y="20" font-family="serif" font-size="53" font-weight="900" fill="#b72f26">帥</text></g>
+ <g transform="translate(277 168)"><ellipse cy="9" rx="57" ry="51" fill="#5a321e" opacity=".6"/><ellipse rx="57" ry="51" fill="url(#ivory)" stroke="#f9e2ab" stroke-width="8"/><text text-anchor="middle" y="20" font-family="serif" font-size="53" font-weight="900" fill="#21292a">車</text></g>
+ <g transform="translate(165 240)"><ellipse cy="9" rx="55" ry="50" fill="#5a321e" opacity=".6"/><ellipse rx="55" ry="50" fill="url(#ivory)" stroke="#f9e2ab" stroke-width="8"/><text text-anchor="middle" y="20" font-family="serif" font-size="53" font-weight="900" fill="#b72f26">馬</text></g>
+ </g></g>
+ <rect width="640" height="360" fill="url(#fade)"/>
+ <path d="M14 14H866V346H14Z" fill="none" stroke="#ffffff" stroke-opacity=".2" stroke-width="2" rx="10"/>
+ </svg>
