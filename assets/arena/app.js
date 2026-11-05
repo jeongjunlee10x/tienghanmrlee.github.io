@@ -226,7 +226,9 @@ chessController=mountChess({
 tienLenController=mountTienLen({
  onStart:()=>startStrategy("tienlen"),
  onFinish:settleStrategy,
- onExit:showLobby
+ onExit:showLobby,
+ getGold:()=>state.gold,
+ getPlayerName:()=>"Bạn"
 });
 $("arenaCatalog").querySelector('[data-game="chess"]').addEventListener("click",()=>chessController.start());
 $("arenaCatalog").querySelector('[data-game="tienlen"]').addEventListener("click",()=>tienLenController.start());
