@@ -48,11 +48,14 @@ function renderModes(){
   const root=$("mzCards");root.replaceChildren();
   for(const mode of MODES) {
     const card=button("","mz-card");
+    card.dataset.gameMode=mode.id;
     card.setAttribute("aria-label","Chơi "+mode.label);
-    card.append(el("span","mz-card-icon",mode.icon),
-                el("strong","",mode.label),
-                el("small","",mode.ko),
-                el("p","",mode.desc));
+    const art=el("span","mz-cover-art");
+    art.setAttribute("aria-hidden","true");
+    art.append(el("span","mz-cover-label","✦ MR LEE GAME ZONE"),
+               el("span","mz-cover-glow",mode.icon));
+    card.append(art,el("strong","",mode.label),
+                el("small","",mode.ko),el("p","",mode.desc));
     card.addEventListener("click",()=>beginGame(mode.id));
     root.append(card);
   }
@@ -88,6 +91,7 @@ async function beginGame(id){
   state.mode=id;
   const sequence=state.sequence,lesson=state.lesson;
   $("mzLobby").hidden=true;$("mzArena").hidden=false;
+  $("mzArena").dataset.gameMode=id;
   $("mzArenaTitle").textContent=mode.label;
   $("mzMode").textContent=mode.ko+" · "+LEVELS[state.cap-1]+" – Bài "+state.bai;
   $("mzGame").append(el("p","","Đang chuẩn bị trò chơi..."));
@@ -131,5 +135,12 @@ $("mzLesson").addEventListener("change",()=>{
 });
 $("mzBack").addEventListener("click",showLobby);
 $("mzReplay").addEventListener("click",()=>{if(state.mode)beginGame(state.mode);});
+// Brand every learning-game table with the approved MR LEE logo.
+const brand=el("span","mz-play-brand");
+const logo=document.createElement("img");
+logo.src="assets/branding/logo-mrlee.png?v=20261026-meme1";
+logo.alt="";logo.width=28;logo.height=28;
+brand.append(logo,el("span","","MR LEE · GAME ZONE"));
+$("mzArena").querySelector(".mz-arena-top")?.append(brand);
 fillLessons();renderModes();updateScore();selectLesson();
 initVerifiedChallenge(()=>({cap:state.cap,bai:state.bai}));
