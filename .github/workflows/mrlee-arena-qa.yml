@@ -1,15 +1,17 @@
 name: MR LEE Arena MVP QA
 on:
   push:
-    branches: [feature/mrlee-arcade-mvp, feature/mrlee-arcade-chess-tienlen]
+    branches: [feature/mrlee-arcade-mvp, feature/mrlee-arcade-chess-tienlen, feature/mrlee-tienlen-live-table-v2]
     paths:
       - 'mrlee-game-arena.html'
       - 'assets/arena/**'
       - 'tro-choi-tieng-han.html'
       - 'tools/test-arena.mjs'
       - 'tools/test-arena-strategy.mjs'
+      - 'tools/test-tienlen-fx.mjs'
       - 'tools/browser-arena.mjs'
       - 'tools/browser-arena-strategy.mjs'
+      - 'tools/browser-tienlen-live.mjs'
       - '.github/workflows/mrlee-arena-qa.yml'
   pull_request:
     paths:
@@ -36,12 +38,17 @@ jobs:
           node --check assets/arena/chess-ui.js
           node --check assets/arena/tienlen-engine.js
           node --check assets/arena/tienlen-ui.js
+          node --check assets/arena/tienlen-fx.js
+          node --check tools/test-tienlen-fx.mjs
+          node --check tools/browser-tienlen-live.mjs
           node --check tools/test-arena.mjs
           node --check tools/browser-arena.mjs
       - name: Arena gameplay rules
         run: node tools/test-arena.mjs
       - name: Chess and Tien Len rules
         run: node tools/test-arena-strategy.mjs
+      - name: Table visual effects and chop labels
+        run: node tools/test-tienlen-fx.mjs
       - name: Whole-site static QA
         run: node tools/check-site.mjs
       - name: Cloudflare Pages export
@@ -56,3 +63,4 @@ jobs:
         run: |
           node tools/browser-arena.mjs
           node tools/browser-arena-strategy.mjs
+          node tools/browser-tienlen-live.mjs
