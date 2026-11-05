@@ -32,7 +32,7 @@ try{
    await page.goto(origin+"/mrlee-game-arena.html",{waitUntil:"domcontentloaded",timeout:20000});
    assert.equal(await page.locator(".arena-game-card.playable").count(),3);
    await page.locator('[data-room-game="tienlen"][data-room-action="friends"]').click();
-   await page.locator("#roomMinGold option").first().waitFor();
+   await page.locator("#roomMinGold option").first().waitFor({state:"attached"});
    assert.equal(await page.locator("#roomMinGold option").count(),12);
    await page.waitForFunction(()=>document.getElementById("roomAvailableGold")?.textContent==="150K G");
    assert.equal((await page.locator("#roomVerifiedPoints").textContent()).trim(),"40");
