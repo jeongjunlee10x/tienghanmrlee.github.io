@@ -16,7 +16,9 @@ async function credential(){
  if(!isFirebaseConfigured)throw new Error("Chưa có cấu hình đăng nhập Firebase.");
  const {app,auth}=await getAuthSDK();
  const instance=app.getApps().find(x=>x.name==="[DEFAULT]")||app.initializeApp(firebaseConfig);
- const user=auth.getAuth(instance).currentUser;
+ const authInstance=auth.getAuth(instance);
+ if(typeof authInstance.authStateReady==="function")await authInstance.authStateReady();
+ const user=authInstance.currentUser;
  if(!user||!user.emailVerified)throw new Error("Cần đăng nhập và xác minh email để tham gia PvP.");
  return "Bearer "+await user.getIdToken();
 }

@@ -19,7 +19,7 @@ const RELATIVE=["bottom","left","top","right"];
 function relative(real,viewer){return RELATIVE[(real-viewer+4)%4];}
 const portraits=["🧑","👩🏻","🧑🏻","👩🏽"];
 function seatCard(player,room,counts){
- const pos=relative(player.seat,room.seat);
+ const pos=room.game==="chess"?"top":relative(player.seat,room.seat);
  const holder=el("div","arena-pvp-seat"+(room.gameState.turn===player.seat?" active":""));
  holder.dataset.position=pos;holder.dataset.seat=String(player.seat);
  holder.append(el("span","",portraits[player.seat]),el("strong","",player.name),
@@ -47,6 +47,9 @@ export function mountOnlineCanvas(root,onMove){
   try{
    await onMove(action);
    chosenCards.clear();chosenSquare=-1;chosenWild=null;
+  }catch(error){
+    // onMove renders the error in the board status overlay.
+    console.warn("Arena move rejected:",error?.message||error);
   }finally{locked=false;}
  }
  function renderChess(room){
