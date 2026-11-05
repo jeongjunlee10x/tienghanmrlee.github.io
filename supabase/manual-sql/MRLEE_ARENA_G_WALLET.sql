@@ -181,3 +181,20 @@ grant execute on function public.mrlee_arena_convert(text,integer) to service_ro
 grant execute on function public.mrlee_arena_start_match(varchar,bigint,jsonb) to service_role;
 grant execute on function public.mrlee_arena_settle_match(varchar,bigint,jsonb,integer,integer[]) to service_role;
 grant execute on function public.mrlee_arena_abort_match(varchar,bigint) to service_role;
+
+
+create or replace function public.mrlee_arena_wallet_status(p_uid text)
+returns jsonb language plpgsql security definer set search_path=public,pg_temp as $$
+declare w public.mrlee_arena_wallets%rowtype; earned bigint;
+begin
+ if p_uid is null or length(p_uid) not between 8 and 128
+ then raise exception 'BAD_UID' using errcode='P0001';end if;
+ insert into public.mrlee_arena_wallets(firebase_uid) values(p_uid) on conflict do nothing;
+ select * into w from public.mrlee_arena_wallets where firebase_uid=p_uid;
+ select coalesce(sum(xp),0) into earned from public.mrlee_game_awards where firebase_uid=p_uid;
+ return jsonb_build_object('gold',w.gold,'earnedPoints',earned,
+   'convertedPoints',w.converted_points,
+   'availablePoints',greatest(earned-w.converted_points,0));
+end $$;
+revoke all on function public.mrlee_arena_wallet_status(text) from public,anon,authenticated;
+grant execute on function public.mrlee_arena_wallet_status(text) to service_role;

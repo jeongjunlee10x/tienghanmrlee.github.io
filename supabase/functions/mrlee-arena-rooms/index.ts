@@ -131,19 +131,9 @@ function createState(game:string){
  return game==="tienlen"?TienLen.start(secureRandom):Colors.newGame(secureRandom);
 }
 async function wallet(database:any,uid:string){
- const {error:init}=await database.from("mrlee_arena_wallets")
-   .upsert({firebase_uid:uid},{onConflict:"firebase_uid",ignoreDuplicates:true});
- if(init)fail("Chưa mở được ví G.",503);
- const {data:w,error}=await database.from("mrlee_arena_wallets")
-   .select("gold,converted_points").eq("firebase_uid",uid).single();
- if(error)fail("Không đọc được ví G.",503);
- const {data:awards,error:pointsError}=await database.from("mrlee_game_awards")
-   .select("xp").eq("firebase_uid",uid);
- if(pointsError)fail("Không xác minh được nguồn điểm học.",503);
- const total=(awards||[]).reduce((sum:number,a:{xp:number})=>sum+a.xp,0);
- return {gold:Number(w.gold),earnedPoints:total,
-  convertedPoints:Number(w.converted_points),
-  availablePoints:Math.max(0,total-Number(w.converted_points))};
+ const {data,error}=await database.rpc("mrlee_arena_wallet_status",{p_uid:uid});
+ if(error||!data)fail("Không thể xác minh ví G và nguồn điểm học.",503);
+ return data as {gold:number,earnedPoints:number,convertedPoints:number,availablePoints:number};
 }
 async function requireGold(database:any,uid:string,game:string,tier:number){
  const w=await wallet(database,uid);
