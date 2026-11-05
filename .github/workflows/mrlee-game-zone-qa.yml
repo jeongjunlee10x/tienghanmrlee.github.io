@@ -33,6 +33,12 @@ jobs:
           node --check assets/game-zone/app.js
       - name: Validate lesson adapters, registry and themes
         run: node tools/test-game-zone.mjs
+      - name: Run full site static QA
+        run: node tools/check-site.mjs
+      - name: Validate Cloudflare Pages static export
+        run: |
+          node tools/build-cloudflare-pages.mjs
+          node tools/check-cloudflare-pages-build.mjs
       - name: Install Chromium for Game Zone smoke tests
         run: |
           npm install --no-save --no-package-lock playwright@1.56.1
