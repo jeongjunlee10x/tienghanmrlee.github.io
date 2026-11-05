@@ -1,0 +1,35 @@
+name: MR LEE Game Zone Phase 1 QA
+on:
+  push:
+    branches:
+      - feature/mrlee-game-zone-phase1
+    paths:
+      - 'tro-choi-tieng-han.html'
+      - 'assets/game-zone/**'
+      - 'tools/test-game-zone.mjs'
+      - '.github/workflows/mrlee-game-zone-qa.yml'
+  pull_request:
+    paths:
+      - 'tro-choi-tieng-han.html'
+      - 'assets/game-zone/**'
+      - 'tools/test-game-zone.mjs'
+      - '.github/workflows/mrlee-game-zone-qa.yml'
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check game script syntax
+        run: |
+          node --check assets/game-zone/core.js
+          node --check assets/game-zone/content.js
+          node --check assets/game-zone/games.js
+          node --check assets/game-zone/app.js
+      - name: Validate lesson adapters, registry and themes
+        run: node tools/test-game-zone.mjs
