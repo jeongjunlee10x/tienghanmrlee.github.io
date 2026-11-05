@@ -46,3 +46,14 @@ Với game bài, phải che bài đối thủ trong mọi kênh truy xuất dữ
 
 ## 7. Bản quyền và thương hiệu
 Dùng cách chơi màu và hành động theo thiết kế riêng. Không dùng logo, card back, hình ảnh, nhãn 'UNO' hay 'Monopoly' như sản phẩm chính thức. Tên hiển thị là Bài Màu Đại Chiến và Địa Ốc Đại Chiến.
+## Bản nâng cấp Chess + Tiến Lên (05/11/2026)
+- **Cờ vua có thể chơi:** Người chơi cầm quân trắng, máy cầm đen; chọn ô xuất phát/ô đích; hỗ trợ chiếu, chiếu hết, nhập thành, bắt tốt qua đường, phong cấp 4 loại, hòa cơ bản, biên bản nước đi và 3 mức bot (Tập sự/Tiêu chuẩn/Chiến thuật). Kết quả chỉ là giải trí demo, **không có Elo PvP chính thức**.
+- **Tiến lên miền Nam có thể chơi:** Một người và 3 bot, 52 lá, 13 lá/người, có 3♠ mở ván, bộ rác/đôi/sám/sảnh/tứ quý/đôi thông, chặt 2, bỏ lượt, vòng mới, AI đánh theo lượt và gợi ý chọn bài. Quy ước luật của biến thể này được trình bày trực tiếp trên bàn.
+- Cả hai dùng cùng một ví demo của Arena: mỗi lượt bắt đầu cần một vé; thắng +100 vàng demo / +50 EXP demo / hoàn một vé; thua +10 EXP demo; hòa +20 EXP demo. Không ghi các loại điểm này vào Supabase, không điều chỉnh điểm học tập.
+- **Đã kiểm thử:** 20 nước khai cuộc cờ vua, phản ứng sau e4/e5 là 29 nước, chiếu hết Fool's Mate, nhập thành, bắt tốt qua đường, phong cấp, AI và bộ Tiến lên gồm 15 mô phỏng ván; Chromium trên desktop/mobile hai theme; 18/18 QA tĩnh, xuất Cloudflare 16.346 tệp.
+- **Chưa có:** PvP, tài khoản và bảng Elo, đồng hồ cờ, cấp vàng/EXP máy chủ, chống gian lận kiểu máy chủ, các tính năng online, Cờ cá ngựa/Cờ tướng/Địa ốc. Trò chơi không dùng để quy đổi vật chất.
+
+## Vận hành và hoàn tác
+- Module mới: assets/arena/chess-engine.js, chess-ui.js, tienlen-engine.js, tienlen-ui.js, strategy.css.
+- Kiểm thử: node tools/test-arena-strategy.mjs và node tools/browser-arena-strategy.mjs (Chromium).
+- Có thể vô hiệu hóa các nút trò mới khỏi sảnh mà không thay đổi Game Zone, TOPIK Spark, Reward V2 hoặc hệ thống admin.
