@@ -1,0 +1,42 @@
+name: MR LEE Arena Final Three Games QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/arena/ludo.js'
+      - 'assets/arena/xiangqi.js'
+      - 'assets/arena/estate.js'
+      - 'assets/arena/extra-games.css'
+      - 'assets/arena/app.js'
+      - 'mrlee-game-arena.html'
+      - 'tools/test-arena-extra.mjs'
+      - 'tools/browser-arena-extra.mjs'
+      - '.github/workflows/mrlee-arena-extra-qa.yml'
+  workflow_dispatch:
+jobs:
+  local-games:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions: {contents: read}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Check JavaScript syntax and game rules
+        run: |
+          node --check assets/arena/app.js
+          node --check assets/arena/ludo.js
+          node --check assets/arena/xiangqi.js
+          node --check assets/arena/estate.js
+          node tools/test-arena-extra.mjs
+      - name: Verify deployment assets
+        run: |
+          node tools/check-site.mjs
+          node tools/build-cloudflare-pages.mjs
+          node tools/check-cloudflare-pages-build.mjs
+      - name: Prepare browser
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install chromium --with-deps
+      - name: Four mobile and desktop browser scenarios
+        run: node tools/browser-arena-extra.mjs
