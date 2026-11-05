@@ -132,3 +132,68 @@
  .arena-pvp-human .arena-pvp-color-card{min-width:45px;width:45px}
 }
 @media(prefers-reduced-motion:reduce){.arena-game-actions>button{transition:none}.arena-pvp-hand button.selected{transform:none}}
+
+
+/* Minimal game-only landing: no lengthy hero or off-table status sections. */
+.arena-compact-wallet{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+ padding:14px 18px;margin:14px 0;background:var(--surface);border:1px solid var(--line);border-radius:17px}
+.arena-compact-wallet>div:first-child{display:flex;flex-direction:column;gap:1px}
+.arena-compact-wallet>div:first-child strong{font-size:15px;color:var(--ink)}
+.arena-compact-wallet>div:first-child small{color:var(--muted);font-size:10px}
+.arena-wallet-mini{display:flex;align-items:center;flex-wrap:wrap;gap:9px}
+.arena-wallet-mini span{border:1px solid var(--line);border-radius:9px;background:var(--bg);
+ padding:5px 9px;font-size:11px;color:var(--muted);font-weight:700}
+.arena-wallet-mini strong{font-weight:900;color:var(--ink)}
+.arena-wallet-mini .arena-demo-gold{opacity:.65}
+.arena-room-gold-bar{display:grid;grid-template-columns:minmax(130px,1fr) minmax(135px,1fr) minmax(180px,1.3fr);gap:12px;
+ border-radius:14px;background:var(--bg);border:1px solid var(--line);padding:15px}
+.arena-room-gold-bar>div{display:flex;flex-direction:column;justify-content:center}
+.arena-room-gold-bar small{font-size:11px;color:var(--muted);font-weight:800}
+.arena-room-gold-bar strong{font-size:clamp(17px,2vw,25px);color:var(--ink)}
+.arena-convert-inline{display:flex!important;flex-wrap:wrap;flex-direction:row!important;align-items:center;gap:7px}
+.arena-convert-inline label{font-size:11px;font-weight:900;color:var(--ink);width:100%}
+.arena-convert-inline input{max-width:95px;min-width:60px;min-height:37px;border:1px solid var(--line);border-radius:9px;
+ background:var(--surface);color:var(--ink);padding:5px 7px;font:inherit;font-size:12px}
+.arena-convert-inline button{min-height:37px;padding:7px 12px;font-size:11px}
+.arena-toast{position:fixed;top:14%;left:50%;transform:translateX(-50%);z-index:9000;max-width:85vw;
+ padding:11px 20px;border-radius:15px;background:#102c4de9;color:#fff;font-size:13px;font-weight:900;
+ text-align:center;pointer-events:none;box-shadow:0 9px 24px #0007}
+.arena-match-result{position:absolute!important;z-index:200;top:50%;left:50%;
+ width:min(450px,calc(100% - 20px));margin:0!important;transform:translate(-50%,-50%);
+ border:2px solid #ffdd84;border-radius:20px;background:#0b2445f5;color:#fff;box-shadow:0 14px 65px #000b;
+ padding:18px!important;text-align:center;max-height:85%;overflow:auto}
+.arena-match-result h2{color:#ffdf84;font-size:clamp(23px,4vw,35px)}
+.arena-match-result p{color:#fff;font-size:13px}
+.arena-match-result .arena-disclaimer{font-size:11px;color:#b7d7e5}
+.arena-match-result .arena-action{margin:10px}
+#arenaChess .chess-main{position:relative}
+.arena-room-canvas{position:relative;isolation:isolate}
+#arenaPvPBoard{position:relative}
+.arena-fullscreen-active{overflow:hidden}
+.arena-fallback-fullscreen{position:fixed!important;inset:0!important;z-index:8500!important;
+ width:100vw!important;height:100dvh!important;max-width:none!important;max-height:none!important;
+ margin:0!important;padding:12px!important;overflow:auto!important;background:var(--bg)!important;border-radius:0}
+.arena-expanded-game:fullscreen,#arenaPvPBoard:fullscreen,#arenaTable:fullscreen{
+ width:100vw;height:100dvh;max-width:none;overflow:auto;padding:15px;background:var(--bg);color:var(--ink)}
+.arena-fullscreen-btn{white-space:nowrap}
+.arena-room-section .arena-match-result{color:#fff;background:#0c294aeF}
+.arena-room-section .arena-match-result p{color:#fff}
+@media(max-width:800px){
+ .arena-room-gold-bar{grid-template-columns:1fr 1fr}
+ .arena-room-gold-bar .arena-convert-inline{grid-column:1/-1}
+ .arena-compact-wallet{padding:10px;gap:8px}
+ .arena-wallet-mini{gap:5px}
+ .arena-wallet-mini span{padding:5px 7px;font-size:10px}
+}
+@media(max-width:520px){
+ .arena-room-gold-bar{grid-template-columns:1fr}
+ .arena-room-gold-bar .arena-convert-inline{grid-column:auto}
+ .arena-room-panel{padding:10px}
+ .arena-room-create-grid{gap:8px}
+ .arena-compact-wallet{margin:9px 0}
+ #arenaLobby .arena-heading{margin:10px 0}
+ #arenaLobby .arena-heading p{display:none}
+ #arenaLobby .arena-card-banner{min-height:82px}
+ .arena-table-heading{gap:7px}
+ .arena-fullscreen-btn{font-size:10px;padding:6px 8px}
+}
