@@ -167,6 +167,7 @@ export function mountEstate({onStart,onFinish,onExit}){
   center.append(el("strong","","🏙️ ĐỊA ỐC ĐẠI CHIẾN"),
    el("small","","Tung xúc xắc · Mua đất · Thu tiền thuê · Nâng cấp"),
    el("span","estate-middle-dice",g.roll[0]?g.roll.join(" + "):"🎲"));
+  center.append(el("small","estate-ticker",g.history.at(-1)));
   board.replaceChildren(...all,center);
   $("estatePlayers").replaceChildren(...g.players.map((player,i)=>{
    const row=el("div","estate-player"+(g.turn===i?" active":"")+(player.bankrupt?" bankrupt":""));
