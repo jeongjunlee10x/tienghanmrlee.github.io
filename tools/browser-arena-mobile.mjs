@@ -39,12 +39,7 @@ try{
   await context.addInitScript(theme=>{
    localStorage.setItem("MRLEE.THEME.V1",theme);
    window.__mrleeOrientation={fullscreen:0,lock:0};
-   document.documentElement.requestFullscreen=function(){window.__mrleeOrientation.fullscreen++;return Promise.resolve();};
-   try{
-    Object.defineProperty(screen.orientation,"lock",{configurable:true,value:async()=>{
-     window.__mrleeOrientation.lock++;throw Error("simulated unsupported orientation lock");
-    }});
-   }catch{}
+   // Fullscreen mock is installed after goto, once documentElement exists.
   },theme);
   const page=await context.newPage(),runtimeErrors=[];
   page.on("pageerror",err=>runtimeErrors.push(err.message));
@@ -96,7 +91,7 @@ try{
  const ctx=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
  await ctx.addInitScript(()=>{
   localStorage.setItem("MRLEE.THEME.V1","fresh");
-  document.documentElement.requestFullscreen=async()=>{};
+  // No DOM references here: init scripts may execute before <html> exists.
  });
  const page=await ctx.newPage(),errors=[];
  page.on("pageerror",e=>errors.push(e.message));
@@ -105,6 +100,7 @@ try{
  await page.route("**/assets/arena/room-api.js",route=>route.fulfill({status:200,contentType:"text/javascript",body:walletStub}));
  try{
   await page.goto(origin+"/tro-choi-tieng-han.html?cap=1&bai=1",{waitUntil:"domcontentloaded",timeout:30000});
+  await page.evaluate(()=>{document.documentElement.requestFullscreen=async()=>{};});
   await page.waitForFunction(()=>document.querySelector("#mzCards button")?.disabled===false,null,{timeout:15000});
   await page.locator("#mzCards button").first().click();
   await page.locator("#mzGame .mz-pair-grid").waitFor({state:"visible",timeout:10000});
