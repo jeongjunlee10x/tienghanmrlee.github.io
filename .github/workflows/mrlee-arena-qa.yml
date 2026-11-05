@@ -5,6 +5,8 @@ on:
     paths:
       - 'mrlee-game-arena.html'
       - 'assets/arena/**'
+      - 'supabase/functions/mrlee-arena-rooms/**'
+      - 'supabase/manual-sql/MRLEE_ARENA_*.sql'
       - 'tro-choi-tieng-han.html'
       - 'tools/test-arena.mjs'
       - 'tools/test-arena-strategy.mjs'
@@ -19,6 +21,8 @@ on:
     paths:
       - 'mrlee-game-arena.html'
       - 'assets/arena/**'
+      - 'supabase/functions/mrlee-arena-rooms/**'
+      - 'supabase/manual-sql/MRLEE_ARENA_*.sql'
       - 'tro-choi-tieng-han.html'
       - 'tools/test-arena.mjs'
       - 'tools/browser-arena.mjs'
