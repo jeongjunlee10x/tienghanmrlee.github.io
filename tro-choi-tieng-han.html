@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="assets/branding/site-logo.css?v=20261103-glow-v1">
   <script defer src="assets/branding/site-logo.js?v=20261104-native-v5"></script>
   <link rel="stylesheet" href="assets/game-zone/game-zone.css?v=3">
+  <link rel="stylesheet" href="assets/game-zone/compact.css?v=1">
   <style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
   <script>
     try {
@@ -17,6 +18,7 @@
   </script>
   <script type="module" src="auth-guard.js"></script>
   <script type="module" src="assets/game-zone/app.js?v=3"></script>
+  <script type="module" src="assets/game-zone/compact.js?v=1"></script>
 </head>
 <body>
 <div class="mz-app">
@@ -34,17 +36,14 @@
   </header>
 
   <main id="mzMain">
-    <section class="mz-hero" aria-labelledby="mzTitle">
-      <div>
-        <span class="mz-kicker">HỌC TIẾNG HÀN QUA TRÒ CHƠI</span>
-        <h1 id="mzTitle">Đấu trường <span>MR LEE</span></h1>
-        <p>Chọn cấp độ và bài học để mở thử thách. Chơi đúng kiến thức, rèn phản xạ, ghi nhớ lâu hơn.</p>
+    <div class="mz-compact-head">
+      <strong>🎮 GAME ZONE</strong>
+      <div class="mz-compact-scores">
+        <span>⭐ XP phiên <strong id="mzXP">0</strong></span>
+        <span>🏆 Hoàn thành <strong id="mzWins">0</strong></span>
+        <a href="mrlee-game-arena.html">⚔️ Arena PvP</a>
       </div>
-      <div class="mz-hero-stats" aria-live="polite">
-        <div><strong id="mzXP">0</strong><small>XP luyện tập phiên này</small></div>
-        <div><strong id="mzWins">0</strong><small>Trò đã hoàn thành</small></div>
-      </div>
-    </section>
+    </div>
 
     <section class="mz-selectors" aria-label="Chọn nội dung học">
       <label>Cấp độ
@@ -74,6 +73,8 @@
       <p class="mz-disclaimer">Cả mười trò chơi đều dùng kiến thức theo bài hiện tại hoặc đã học trước đó. XP đang hiển thị là điểm luyện tập của phiên chơi, <strong>không phải TOPIK Spark hoặc điểm thưởng chính thức</strong>. Hệ thống sẽ chỉ đồng bộ sau khi tính điểm máy chủ được nghiệm thu.</p>
     </section>
 
+    <details id="mzVerifiedFold" class="mz-verified-fold">
+      <summary>⭐ Kiếm điểm học tập xác minh · Xếp hạng tuần</summary>
     <section id="mzVerified" class="mz-verified" aria-labelledby="mzVerifiedTitle">
       <div class="mz-section-title"><div><span class="mz-kicker">THÀNH TÍCH MÁY CHỦ · RIÊNG GAME ZONE</span><h2 id="mzVerifiedTitle">Đấu trường XP xác minh</h2></div>
         <span class="mz-minor">Không cộng gộp với TOPIK Spark</span></div>
@@ -92,14 +93,17 @@
         </div>
       </div>
     </section>
+    </details>
 
     <section id="mzArena" class="mz-arena" aria-labelledby="mzArenaTitle" hidden>
       <div class="mz-arena-top">
         <button type="button" id="mzBack" class="mz-ghost">← Chọn trò khác</button>
         <div><span class="mz-kicker" id="mzMode"></span><h2 id="mzArenaTitle">Trò chơi</h2></div>
+        <button type="button" id="mzFullscreen" class="mz-ghost" title="Toàn màn hình trò chơi">⛶ Toàn màn hình</button>
         <button type="button" id="mzReplay" class="mz-ghost">↻ Chơi lại</button>
       </div>
       <div id="mzGame" class="mz-game"></div>
+      <div id="mzArenaToast" class="mz-arena-toast" aria-hidden="true" hidden></div>
       <div id="mzFeedback" class="mz-feedback" role="status" aria-live="polite"></div>
       <div id="mzResult" class="mz-result" hidden></div>
     </section>
