@@ -1,9 +1,10 @@
-name: MR LEE Game Zone Phase 1–2 QA
+name: MR LEE Game Zone Phase 1–3 QA
 on:
   push:
     branches:
       - feature/mrlee-game-zone-phase1
       - feature/mrlee-game-zone-phase2
+      - feature/mrlee-game-zone-phase3
     paths:
       - 'tro-choi-tieng-han.html'
       - 'assets/game-zone/**'
@@ -35,6 +36,7 @@ jobs:
           node --check assets/game-zone/games.js
           node --check assets/game-zone/app.js
           node --check assets/game-zone/phase2.js
+          node --check assets/game-zone/phase3.js
       - name: Validate lesson adapters, registry and themes
         run: node tools/test-game-zone.mjs
       - name: Run full site static QA
@@ -47,5 +49,5 @@ jobs:
         run: |
           npm install --no-save --no-package-lock playwright@1.56.1
           npx playwright install chromium --with-deps
-      - name: Test all four games on desktop/mobile in both themes
+      - name: Test ten games on desktop/mobile in both themes
         run: node tools/browser-game-zone.mjs

@@ -77,3 +77,19 @@ html[data-mrlee-theme="future"] .mz-study-link,html[data-mrlee-theme="future"] .
   .mz-mart-request{gap:18px}
 }
 @media(prefers-reduced-motion:reduce){.mz-bubble{animation:none}}
+
+
+/* Phase 3: TOPIK-style timed battle and lesson-gated Korea travel */
+.mz-topik-progress{display:inline-flex;padding:6px 12px;background:var(--mz-soft);border:1px solid var(--mz-line);border-radius:99px;font-weight:800;color:var(--mz-ink)}
+.mz-topik-clock{display:block;text-align:right;color:var(--mz-primary);font-size:18px}
+.mz-topik-question{margin-bottom:16px}
+.mz-topik-question>p{font-size:15px;color:var(--mz-ink);font-weight:800}
+.mz-travel-map{font-size:18px;letter-spacing:.1em;white-space:nowrap;overflow:hidden}
+.mz-travel-scene{padding:22px 18px;border-radius:17px;background:var(--mz-soft);border:1px solid var(--mz-line);text-align:center}
+.mz-travel-scene h3{font-size:clamp(18px,3vw,25px);color:var(--mz-ink)}
+.mz-travel-emoji{font-size:56px;display:block}
+.mz-travel-board{margin-top:15px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.mz-travel-sign{min-height:88px;padding:15px 10px;display:flex;align-items:center;justify-content:center;gap:12px;border-radius:15px;border:2px solid var(--mz-line);background:var(--mz-bg);color:var(--mz-ink)}
+.mz-travel-sign-icon{font-size:30px}.mz-travel-sign strong{font-size:clamp(16px,2vw,21px);word-break:keep-all}
+.mz-travel-sign:hover:not(:disabled){border-color:var(--mz-primary)}
+@media(max-width:600px){.mz-travel-board{grid-template-columns:1fr}.mz-travel-sign{min-height:63px}.mz-travel-emoji{font-size:45px}}
