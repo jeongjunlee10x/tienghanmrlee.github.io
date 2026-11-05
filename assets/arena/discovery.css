@@ -1,0 +1,56 @@
+/* Original MR LEE discovery interface. No Facebook styles/assets/source code. */
+.arena-discovery-layout{display:grid;grid-template-columns:218px minmax(0,1fr);gap:20px;align-items:start}
+.arena-discovery-side{position:sticky;top:12px;min-width:0;padding:15px;background:var(--surface);border:1px solid var(--line);border-radius:19px;box-shadow:var(--shadow)}
+.arena-discovery-side-title{display:block;font-size:12px;letter-spacing:.08em;font-weight:900;margin:2px 0 12px}
+.arena-game-filters{display:flex;flex-direction:column;gap:5px}
+.arena-game-filters button{width:100%;display:flex;align-items:center;justify-content:space-between;gap:5px;text-align:left;border:1px solid transparent;background:transparent;color:var(--muted);border-radius:11px;min-height:43px;padding:10px;font-size:11px;font-weight:850;cursor:pointer}
+.arena-game-filters button:hover{background:var(--bg);color:var(--ink)}
+.arena-game-filters button[aria-pressed="true"]{background:linear-gradient(100deg,#2b70d0,#5548be);color:#fff;box-shadow:0 6px 14px #152b6744}
+.arena-game-filters button span{display:grid;place-items:center;min-width:21px;border-radius:15px;background:#ffffff29;font-size:10px}
+.arena-discovery-side-tip{margin-top:18px;padding:12px 10px;background:var(--bg);border:1px solid var(--line);border-radius:13px}
+.arena-discovery-side-tip b{font-size:12px}.arena-discovery-side-tip p{font-size:10px;line-height:1.7;color:var(--muted);margin:5px 0 0}
+.arena-discovery-main{min-width:0}
+.arena-discovery-spotlight{display:flex;align-items:center;gap:14px;padding:17px 21px;margin-bottom:15px;border-radius:18px;background:linear-gradient(105deg,#132f70,#3c3ca4 57%,#733a85);color:#fff;box-shadow:0 13px 30px #132f7042}
+.arena-spotlight-symbol{display:grid;place-items:center;flex:none;width:63px;height:63px;border-radius:17px;background:#ffffff1b;font-size:40px}
+.arena-discovery-spotlight>div:nth-child(2){min-width:0;flex:1}
+.arena-discovery-spotlight strong{display:block;font-size:clamp(16px,2.3vw,23px);line-height:1.4;font-weight:950;margin:2px 0 3px}
+.arena-discovery-spotlight p{font-size:11px;color:#e7e8ff;margin:4px 0}
+.arena-discovery-rewards{color:#402b19;background:#ffe19b;border:1px solid #fff0bd;min-height:42px;padding:10px 12px;border-radius:12px;font-size:11px;font-weight:900;flex-shrink:0}
+.arena-discovery-tools{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.arena-discovery-search{display:flex;align-items:center;gap:9px;background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:0 12px;flex:1;min-width:0}
+.arena-discovery-search>span{font-size:28px;color:var(--muted);line-height:1}
+.arena-discovery-search input{border:0;outline:0;background:none;color:var(--ink);font:600 12px/1.4 inherit;min-height:45px;width:100%;min-width:0}
+.arena-discovery-search input::placeholder{color:var(--muted)}
+.arena-discovery-search:focus-within{outline:2px solid #5789de;outline-offset:2px}
+.arena-discovery-sort{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:11px;font-weight:750}
+.arena-discovery-sort select{border:1px solid var(--line);border-radius:12px;padding:12px 8px;background:var(--surface);color:var(--ink);font:inherit;min-height:45px}
+.arena-discovery-count{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.arena-discovery-count span{font-weight:900;font-size:12px}.arena-discovery-count small{color:var(--muted);font-size:10px}
+.arena-discovery-empty{padding:26px 16px;text-align:center;font-weight:750;font-size:13px;color:var(--muted);background:var(--surface);border-radius:14px;border:1px dashed var(--line)}
+.arena-discovery-main .arena-catalog{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.arena-discovery-main .arena-game-card{position:relative;box-shadow:0 4px 16px #091a3c12}
+.arena-discovery-main .arena-game-card:hover{transform:translateY(-2px);transition:transform .14s,border-color .14s;border-color:#6a8ddb}
+.arena-discovery-main .arena-card-banner{min-height:145px}
+.arena-discovery-main .arena-card-body{padding:15px 16px 17px;gap:5px}
+.arena-discovery-main .arena-card-body strong{font-size:15px;padding-right:30px}
+.arena-discovery-main .arena-card-body small{font-size:10px}
+.arena-game-favorite{position:absolute;right:12px;top:112px;z-index:2;border:1px solid #ffffff99;background:#fffdfa;color:#927543;min-width:34px;min-height:34px;border-radius:50%;font-size:19px;line-height:1;display:grid;place-items:center;box-shadow:0 4px 12px #1d24474a}
+.arena-game-favorite[aria-pressed="true"]{color:#b5790d;background:#ffedab}
+.arena-discovery-main .arena-game-actions{margin-top:8px}
+.arena-discovery-main .arena-game-actions button{min-height:34px}
+.arena-discovery-main .arena-card-banner.colors{background:linear-gradient(120deg,#1a396d,#3c56b5 60%,#7462c3)}
+.arena-discovery-main .arena-card-banner.chess{background:linear-gradient(125deg,#d1e0fa,#7db1b4)}
+.arena-discovery-main .arena-card-banner.tienlen{background:linear-gradient(120deg,#2f6680,#0a8e76)}
+.arena-discovery-main .arena-card-banner.ludo{background:linear-gradient(135deg,#f5ddb5,#bde7ba)}
+.arena-discovery-main .arena-card-banner.xiangqi{background:linear-gradient(120deg,#f4d4aa,#c28e7b)}
+.arena-discovery-main .arena-card-banner.estate{background:linear-gradient(120deg,#bfd9f3,#aca8e2)}
+.arena-game-meta{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin-top:6px}
+.arena-game-meta span{border:1px solid var(--line);background:var(--bg);color:var(--muted);border-radius:6px;padding:3px 6px;font-size:9px;font-weight:800}
+.arena-game-meta .arena-game-online{border-color:#5daf83;background:#e7f8ef;color:#176340}
+.arena-game-meta .arena-game-offline{border-color:var(--line);background:var(--bg);color:var(--muted)}
+html[data-mrlee-theme="future"] .arena-game-meta .arena-game-online{background:#0f4939;color:#c2ffe4;border-color:#257c66}
+.arena-catalog[aria-busy="true"]{opacity:.6}
+@media(max-width:900px){.arena-discovery-layout{grid-template-columns:175px minmax(0,1fr);gap:11px}.arena-discovery-side{padding:10px}.arena-discovery-main .arena-card-banner{min-height:120px}.arena-game-favorite{top:87px}.arena-discovery-spotlight{flex-wrap:wrap}.arena-discovery-rewards{margin-left:auto}}
+@media(max-width:680px){.arena-discovery-layout{display:flex;flex-direction:column;gap:10px}.arena-discovery-side{position:static;padding:7px 0;width:100%;background:transparent;border:0;box-shadow:none}.arena-discovery-side-title{display:none}.arena-game-filters{display:flex;flex-direction:row;gap:6px;overflow-x:auto;padding:3px 2px 8px;scrollbar-width:thin}.arena-game-filters button{width:auto;flex:0 0 auto;border-color:var(--line);background:var(--surface);min-height:35px;white-space:nowrap;padding:7px 9px;font-size:10px}.arena-discovery-side-tip{display:none}.arena-discovery-main{width:100%}.arena-discovery-spotlight{padding:12px;gap:10px}.arena-spotlight-symbol{width:42px;height:42px;font-size:25px}.arena-discovery-spotlight p{display:none}.arena-discovery-rewards{min-height:35px;padding:8px}.arena-discovery-tools{flex-direction:column;align-items:stretch}.arena-discovery-sort{justify-content:flex-end}.arena-discovery-main .arena-catalog{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.arena-discovery-main .arena-card-banner{min-height:88px;font-size:26px}.arena-game-favorite{right:8px;top:62px;min-width:29px;min-height:29px;font-size:15px}.arena-discovery-main .arena-card-body{padding:11px 10px 13px}.arena-discovery-main .arena-card-body strong{font-size:12px}.arena-discovery-main .arena-card-body small{font-size:9px}.arena-discovery-main .arena-game-actions{gap:4px}.arena-discovery-main .arena-game-actions button{font-size:9px;padding:6px;min-height:30px}.arena-discovery-main .arena-card-banner.colors span{min-width:0;max-width:27px;height:27px;font-size:18px;border-width:2px}.arena-discovery-count small{display:none}}
+@media(max-width:360px){.arena-discovery-main .arena-catalog{grid-template-columns:1fr}.arena-discovery-main .arena-card-banner{min-height:110px}.arena-game-favorite{top:84px}}
+@media(prefers-reduced-motion:reduce){.arena-discovery-main .arena-game-card:hover{transform:none}}
