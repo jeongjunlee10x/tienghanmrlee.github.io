@@ -161,7 +161,17 @@ export function mountEstate({onStart,onFinish,onExit}){
     t.kind==="bonus"?"+"+t.price:t.kind==="tax"?"−"+t.price:"");
    tile.append(title,detail);
    const pawns=g.players.filter(p=>!p.bankrupt&&p.at===i);
-   if(pawns.length)tile.append(el("span","estate-tokens",pawns.map(p=>icons[p.index]).join("")));
+   if(pawns.length){
+    const holder=el("span","estate-tokens");
+    for(const player of pawns){
+     const person=el("span","estate-pawn",icons[player.index]);
+     person.dataset.player=String(player.index);
+     person.dataset.position=String(i);
+     person.setAttribute("aria-label",player.name+" ở "+t.name);
+     holder.append(person);
+    }
+    tile.append(holder);
+   }
    all[r*7+c]=tile;
   });
   const center=el("div","estate-center");
