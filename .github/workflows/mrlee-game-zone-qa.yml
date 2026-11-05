@@ -50,6 +50,8 @@ jobs:
           deno-version: v2.x
       - name: Type-check Firebase verified game API
         run: deno check supabase/functions/mrlee-game-zone/index.ts
+      - name: Check live Game Zone API authorization (read-only)
+        run: node tools/test-game-zone-api.mjs
       - name: Run full site static QA
         run: node tools/check-site.mjs
       - name: Validate Cloudflare Pages static export

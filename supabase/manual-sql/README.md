@@ -11,3 +11,5 @@ Ba file được chuyển nguyên vẹn từ thư mục gốc vào nhóm quản 
 Các script chỉ dùng trong Supabase SQL Editor khi người quản trị chấp thuận. Không chạy tự động khi build website hoặc tạo Cloudflare Pages. Không chứa khóa `service_role` trong source công khai.
 
 **Đường dẫn mới**: `supabase/manual-sql/`. Mã kiểm toán trong `tools/audit-mrlee-rewards.mjs` đã được cập nhật.
+
+| `MRLEE_GAME_ZONE_SETUP.sql` | Cơ sở dữ liệu độc lập cho Game Zone (5 bảng + RPC chấm điểm), RLS bảo vệ điểm và ngân hàng câu hỏi. Chỉ dùng khi chuẩn bị triển khai Game Zone giai đoạn 3. |
