@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="360" viewBox="0 0 880 360" role="img" aria-label="Minh hoạ trò chơi gốc MR LEE">
+ <defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#681135"/><stop offset=".5" stop-color="#3a173d"/><stop offset="1" stop-color="#1d1849"/></linearGradient>
+ <radialGradient id="orb"><stop stop-color="#ff6f92" stop-opacity=".8"/><stop offset=".55" stop-color="#ff6f92" stop-opacity=".18"/><stop offset="1" stop-color="#ff6f92" stop-opacity="0"/></radialGradient>
+ <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff778d"/><stop offset=".6" stop-color="#df2959"/><stop offset="1" stop-color="#8e1e4e"/></linearGradient>
+ <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a1f8ff"/><stop offset=".6" stop-color="#2187d2"/><stop offset="1" stop-color="#124b9c"/></linearGradient>
+ <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a8ffda"/><stop offset=".6" stop-color="#15b48a"/><stop offset="1" stop-color="#0d6855"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff1a3"/><stop offset=".5" stop-color="#ffcc58"/><stop offset="1" stop-color="#bd7531"/></linearGradient>
+ <linearGradient id="ivory" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".55" stop-color="#f5e7cc"/><stop offset="1" stop-color="#d5bfa5"/></linearGradient>
+ <linearGradient id="fade"><stop stop-color="#06152c" stop-opacity=".68"/><stop offset=".5" stop-color="#06152c" stop-opacity=".2"/><stop offset="1" stop-color="#06152c" stop-opacity="0"/></linearGradient>
+ <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="12" stdDeviation="11" flood-color="#030a20" flood-opacity=".52"/></filter>
+ </defs>
+ <rect width="880" height="360" fill="url(#bg)"/>
+ <circle cx="630" cy="140" r="300" fill="url(#orb)"/>
+ <path d="M0 310 Q290 205 880 325 L880 360 L0 360Z" fill="#ffffff" opacity=".075"/>
+ <path d="M0 0 H880 L540 360 H360Z" fill="#ffffff" opacity=".045"/>
+ <g><circle cx="381" cy="60" r="3" fill="#fff6d2" opacity="0.2"/><circle cx="478" cy="131" r="1.5" fill="#fff6d2" opacity="0.3"/><circle cx="575" cy="202" r="1.5" fill="#fff6d2" opacity="0.4"/><circle cx="672" cy="273" r="1.5" fill="#fff6d2" opacity="0.5"/><circle cx="769" cy="44" r="3" fill="#fff6d2" opacity="0.6"/><circle cx="316" cy="115" r="1.5" fill="#fff6d2" opacity="0.2"/><circle cx="413" cy="186" r="1.5" fill="#fff6d2" opacity="0.3"/><circle cx="510" cy="257" r="1.5" fill="#fff6d2" opacity="0.4"/><circle cx="607" cy="28" r="3" fill="#fff6d2" opacity="0.5"/><circle cx="704" cy="99" r="1.5" fill="#fff6d2" opacity="0.6"/><circle cx="801" cy="170" r="1.5" fill="#fff6d2" opacity="0.2"/><circle cx="348" cy="241" r="1.5" fill="#fff6d2" opacity="0.3"/><circle cx="445" cy="312" r="3" fill="#fff6d2" opacity="0.4"/><circle cx="542" cy="83" r="1.5" fill="#fff6d2" opacity="0.5"/><circle cx="639" cy="154" r="1.5" fill="#fff6d2" opacity="0.6"/><circle cx="736" cy="225" r="1.5" fill="#fff6d2" opacity="0.2"/><circle cx="283" cy="296" r="3" fill="#fff6d2" opacity="0.3"/></g>
+ <circle cx="730" cy="150" r="170" fill="none" stroke="#ffffff" stroke-opacity=".10" stroke-width="2"/>
+ <circle cx="730" cy="150" r="125" fill="none" stroke="#ffffff" stroke-opacity=".12" stroke-width="2"/>
+ <g transform="translate(535 38)" filter="url(#shadow)">
+ <g transform="rotate(-25 58 146)"><rect x="0" y="25" width="150" height="250" rx="16" fill="#fffaf0" stroke="#f8dfb2" stroke-width="6"/><text x="12" y="65" fill="#cf2150" font-size="46" font-family="Georgia">A</text><text x="65" y="175" fill="#d52552" font-size="110">♥</text></g>
+ <g transform="rotate(-5 99 147)"><rect x="76" y="16" width="150" height="250" rx="16" fill="#fffdf6" stroke="#f8dfb2" stroke-width="6"/><text x="90" y="56" fill="#233655" font-size="46" font-family="Georgia">K</text><text x="145" y="168" fill="#29354d" font-size="112">♠</text></g>
+ <g transform="rotate(17 162 145)"><rect x="157" y="24" width="150" height="248" rx="16" fill="#fffaf4" stroke="#f8dfb2" stroke-width="6"/><text x="172" y="63" fill="#d32856" font-size="46" font-family="Georgia">2</text><text x="220" y="176" fill="#d22855" font-size="117">♦</text></g>
+ <g transform="translate(310 219)"><ellipse cx="0" cy="0" rx="40" ry="17" fill="#ffb652" stroke="#fff4d0" stroke-width="7"/><ellipse cx="0" cy="-8" rx="39" ry="16" fill="url(#gold)" stroke="#fff2d6" stroke-width="5"/><text x="0" y="-3" text-anchor="middle" fill="#8b3d11" font-size="24" font-weight="900">G</text></g>
+ </g>
+ <rect width="640" height="360" fill="url(#fade)"/>
+ <path d="M14 14H866V346H14Z" fill="none" stroke="#ffffff" stroke-opacity=".2" stroke-width="2" rx="10"/>
+ </svg>
