@@ -12,10 +12,11 @@
 <link rel="stylesheet" href="assets/arena/strategy.css?v=1">
 <link rel="stylesheet" href="assets/arena/tienlen-live.css?v=2">
 <link rel="stylesheet" href="assets/arena/rooms.css?v=2">
+<link rel="stylesheet" href="assets/arena/extra-games.css?v=1">
 <style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
 <script>try{document.documentElement.dataset.mrleeTheme=localStorage.getItem("MRLEE.THEME.V1")==="future"?"future":"fresh"}catch{document.documentElement.dataset.mrleeTheme="fresh"}</script>
 <script type="module" src="auth-guard.js"></script>
-<script type="module" src="assets/arena/app.js?v=5"></script>
+<script type="module" src="assets/arena/app.js?v=6"></script>
 </head>
 <body>
 <div class="arena-app">
@@ -58,9 +59,9 @@
  <button type="button" class="arena-rooms-link" data-room-action="browse" data-room-game="tienlen">▦ Chọn bàn</button>
  <button type="button" class="arena-bots" data-game="tienlen">🤖 Đấu máy</button>
  </div></div></article>
-   <article class="arena-game-card"><div class="arena-card-banner ludo">🎲 🐎 🎯</div><div class="arena-card-body"><strong>Cờ Cá Ngựa</strong><small>Xúc xắc · Di chuyển quân</small><span class="arena-soon">Đang phát triển</span></div></article>
-   <article class="arena-game-card"><div class="arena-card-banner xiangqi">帥 車 馬</div><div class="arena-card-body"><strong>Cờ Tướng / Cờ Úp</strong><small>Chiến thuật Đông Á · AI</small><span class="arena-soon">Đang phát triển</span></div></article>
-   <article class="arena-game-card"><div class="arena-card-banner estate">🏘️ 💼 🏙️</div><div class="arena-card-body"><strong>Địa Ốc Đại Chiến</strong><small>Giao dịch · Chiến thuật tài sản</small><span class="arena-soon">Đang phát triển</span></div></article>
+   <article class="arena-game-card playable"><div class="arena-card-banner ludo">🎲 🐎 🎯</div><div class="arena-card-body"><strong>Cờ Cá Ngựa</strong><small>4 người · Xúc xắc, bắt quân, về đích</small><div class="arena-game-actions"><button class="arena-bots" type="button" data-game="ludo">🎮 Chơi ngay · Đấu máy</button><span class="arena-soon">PvP trực tuyến: đang hoàn thiện</span></div></div></article>
+   <article class="arena-game-card playable"><div class="arena-card-banner xiangqi">帥 車 馬</div><div class="arena-card-body"><strong>Cờ Tướng / Cờ Úp</strong><small>2 người · Đấu máy · 2 chế độ</small><div class="arena-game-actions"><button class="arena-bots" type="button" data-game="xiangqi">🎮 Chơi ngay · Đấu máy</button><span class="arena-soon">PvP trực tuyến: đang hoàn thiện</span></div></div></article>
+   <article class="arena-game-card playable"><div class="arena-card-banner estate">🏘️ 💼 🏙️</div><div class="arena-card-body"><strong>Địa Ốc Đại Chiến</strong><small>4 người · Mua bán, thu thuê, nâng cấp</small><div class="arena-game-actions"><button class="arena-bots" type="button" data-game="estate">🎮 Chơi ngay · Đấu máy</button><span class="arena-soon">PvP trực tuyến: đang hoàn thiện</span></div></div></article>
  </div>
 </section>
 
@@ -231,6 +232,38 @@
  <div class="arena-events"><h3>Nhật ký lượt</h3><div id="tlEvents" aria-live="polite"></div></div>
 </section>
 
+
+<section id="arenaLudo" class="arena-expanded-game" hidden aria-labelledby="ludoTitle">
+ <div class="arena-table-heading"><button id="ludoExit" class="arena-soft" type="button">← Về sảnh</button><div><span class="arena-eyebrow">CỜ CÁ NGỰA · 4 NGƯỜI</span><h2 id="ludoTitle">Cờ Cá Ngựa 🎲</h2></div><button type="button" class="arena-soft arena-fullscreen-btn" data-fullscreen-target="arenaLudo">⛶ Toàn màn hình</button><button id="ludoNew" class="arena-action" type="button">↻ Ván mới (1 vé)</button></div>
+ <div class="arena-extra-layout">
+  <div class="arena-extra-stage"><div id="ludoBoard" class="ludo-board arena-extra-board" aria-label="Bàn cờ cá ngựa 4 màu"></div></div>
+  <aside class="arena-extra-side">
+   <div class="arena-panel"><h3>🎲 Lượt chơi</h3><p id="ludoStatus" class="arena-extra-status" role="status" aria-live="polite"></p><div class="arena-extra-bar"><strong id="ludoDie" class="ludo-dice" aria-live="polite">🎲</strong><button id="ludoRoll" type="button" class="arena-primary">Tung xúc xắc</button></div><div id="ludoMoves" class="ludo-score"></div><p class="arena-demo-rule">Tung 6 để xuất quân; đi đúng số ô; bắt quân ở ô không an toàn; đưa đủ 4 ngựa về đích để thắng.</p></div>
+   <div class="arena-panel"><h3>Diễn biến</h3><div id="ludoHistory" class="arena-mini-log" aria-live="polite"></div><p class="arena-demo-rule">Chơi với máy bằng vé demo, không trừ ví G hay điểm học tập.</p></div>
+  </aside>
+ </div>
+</section>
+<section id="arenaXiangqi" class="arena-expanded-game" hidden aria-labelledby="xqTitle">
+ <div class="arena-table-heading"><button id="xqExit" class="arena-soft" type="button">← Về sảnh</button><div><span class="arena-eyebrow">CHIẾN THUẬT · 2 NGƯỜI</span><h2 id="xqTitle">Cờ Tướng / Cờ Úp 帥</h2></div><button type="button" class="arena-soft arena-fullscreen-btn" data-fullscreen-target="arenaXiangqi">⛶ Toàn màn hình</button><button id="xqNew" class="arena-action" type="button">↻ Ván mới (1 vé)</button></div>
+ <div class="arena-extra-layout">
+  <div class="arena-extra-stage"><div class="xq-board-wrap arena-extra-board"><div id="xqBoard" class="xq-board" aria-label="Bàn cờ tướng 9 cột, 10 hàng"></div><div class="xq-river-label">楚 河　·　漢 界</div></div></div>
+  <aside class="arena-extra-side">
+   <div class="arena-panel"><h3>♜ Chế độ đấu máy</h3><label class="arena-difficulty" for="xqVariant">Luật <select id="xqVariant"><option value="xiangqi">Cờ Tướng</option><option value="up">Cờ Úp</option></select></label><p id="xqStatus" class="arena-extra-status" role="status" aria-live="polite"></p><p class="arena-demo-rule">Bạn điều khiển quân đỏ, máy cầm quân đen. Chọn quân rồi chọn ô. Hệ thống chặn các nước khiến tướng bị chiếu. Cờ Úp: quân úp dùng cách đi của vị trí gốc ở lượt mở đầu, sau đó lật quân đã xáo.</p></div>
+   <div class="arena-panel"><h3>Biên bản · <span id="xqMoveCount">0 nước</span></h3><div id="xqMoveLog" class="arena-mini-log" aria-live="polite"></div><p class="arena-demo-rule">Đấu máy bằng vé demo, không tính Elo hay dùng G thật.</p></div>
+  </aside>
+ </div>
+</section>
+<section id="arenaEstate" class="arena-expanded-game" hidden aria-labelledby="estateTitle">
+ <div class="arena-table-heading"><button id="estateExit" class="arena-soft" type="button">← Về sảnh</button><div><span class="arena-eyebrow">ĐỊA ỐC · 4 NGƯỜI</span><h2 id="estateTitle">Địa Ốc Đại Chiến 🏘️</h2></div><button type="button" class="arena-soft arena-fullscreen-btn" data-fullscreen-target="arenaEstate">⛶ Toàn màn hình</button><button id="estateNew" class="arena-action" type="button">↻ Ván mới (1 vé)</button></div>
+ <div class="arena-extra-layout">
+  <div class="arena-extra-stage"><div id="estateBoard" class="estate-board arena-extra-board" aria-label="Bàn địa ốc 24 ô"></div></div>
+  <aside class="arena-extra-side">
+   <div class="arena-panel"><h3>💼 Quyết định</h3><p id="estateStatus" class="arena-extra-status" role="status" aria-live="polite"></p><div class="arena-extra-bar"><strong id="estateRound">Vòng 1/16</strong><span id="estateDice">🎲 🎲</span><button id="estateRoll" type="button" class="arena-primary">Tung 2 xúc xắc</button></div><div id="estateOffer" class="estate-prompt" hidden><p id="estateOfferText"></p><div class="arena-extra-bar"><button id="estateBuy" class="arena-primary" type="button">🏠 Mua đất</button><button id="estateSkip" class="arena-soft" type="button">Bỏ qua</button></div></div><div id="estateUpgrades" class="estate-upgrades"></div><p class="arena-demo-rule">Mỗi người khởi đầu 1.800 xu demo. Qua xuất phát nhận 200 xu; thắng theo tổng tài sản sau 16 vòng hoặc khi các đối thủ phá sản.</p></div>
+   <div class="arena-panel"><h3>🏆 Tài sản</h3><div id="estatePlayers" class="estate-players"></div></div>
+   <div class="arena-panel"><h3>Diễn biến</h3><div id="estateHistory" class="arena-mini-log" aria-live="polite"></div><p class="arena-demo-rule">Xu bất động sản chỉ dùng trong ván đấu máy; không phải vàng G hoặc điểm học tập.</p></div>
+  </aside>
+ </div>
+</section>
 
 </main>
 <footer class="arena-footer">MR LEE GAME ARENA · Chơi vui, học tốt, không cá cược · <a href="tro-choi-tieng-han.html">Quay lại Game Zone học tập</a></footer>
