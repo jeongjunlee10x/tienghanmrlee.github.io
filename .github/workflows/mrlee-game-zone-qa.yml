@@ -44,6 +44,12 @@ jobs:
           node --check assets/game-zone/admin.js
       - name: Validate lesson adapters, registry and themes
         run: node tools/test-game-zone.mjs
+      - name: Install Deno for Supabase API type checks
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Type-check Firebase verified game API
+        run: deno check supabase/functions/mrlee-game-zone/index.ts
       - name: Run full site static QA
         run: node tools/check-site.mjs
       - name: Validate Cloudflare Pages static export
