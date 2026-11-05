@@ -134,6 +134,8 @@ export function mountLudo({onStart,onFinish,onExit}){
    const [r,c]=coordinates(who,i,p),tile=holder[r*14+c];
    const token=button(String(i+1),"ludo-pawn "+COLORS[who],()=>choose(i));
    token.title=NAMES[who]+" · ngựa "+(i+1)+(p<0?" trong chuồng":p===58?" đã về đích":"");
+   token.dataset.pawn=who+"-"+i;
+   token.dataset.progress=String(p);
    token.disabled=who!==0||!allowed.includes(i);
    if(allowed.includes(i))token.classList.add("legal");
    tile.append(token);
