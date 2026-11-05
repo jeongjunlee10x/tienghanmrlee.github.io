@@ -1,0 +1,28 @@
+{
+  "version": "WB10K-20261105",
+  "total": 10000,
+  "uniquePromptAnswer": 10000,
+  "uniquePrompts": 10000,
+  "levels": {
+    "1": 1675,
+    "2": 1665,
+    "3": 1665,
+    "4": 1665,
+    "5": 1665,
+    "6": 1665
+  },
+  "types": {
+    "word-ko-vi": 1727,
+    "word-vi-ko": 1672,
+    "grammar": 262,
+    "pair-vi-ko": 3191,
+    "pair-ko-vi": 3148
+  },
+  "perLessonTarget": "112 questions for first ten lessons, 111 for remaining eighty",
+  "sources": [
+    "mrlee-sc-lesson-data.js",
+    "mrlee-advanced-lesson-data.js"
+  ],
+  "scope": "Current lesson only; vocabulary and listed grammar structures",
+  "rewardPolicy": "Extended bank is unscored practice, independent from verified 6-question Spark modules"
+}

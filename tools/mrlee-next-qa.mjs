@@ -154,6 +154,9 @@ const form=exists('dang-ky-tu-van.html')?fs.readFileSync('dang-ky-tu-van.html','
 for(const x of ['cf-turnstile','mrleeConsultConsent','mrleeConsultReceipt','logo-mrlee.png'])if(!form.includes(x))errors.push('CONSULT MISSING: '+x);
 const rules=exists('quy-tac-diem-mrlee.html')?fs.readFileSync('quy-tac-diem-mrlee.html','utf8'):'';
 if(!rules.includes('không phải điểm TOPIK chính thức'))errors.push('REWARD DISCLOSURE MISSING');
+const workbookQA=spawnSync(process.execPath,['tools/check-workbook-bank-v2.mjs'],{cwd:root,encoding:'utf8',maxBuffer:8*1024*1024});
+if(workbookQA.status!==0)errors.push('WORKBOOK 10K VALIDATION FAILED: '+String(workbookQA.stderr||workbookQA.stdout).slice(0,1400));
+else console.log(String(workbookQA.stdout||'').trim());
 console.log('MR LEE QA NEXT — '+pages.length+' trang · '+scripts.length+' script · '+scenes.length+' đồ họa theo chủ đề.');
 if(errors.length){for(const e of errors)console.error(e);console.error('FAILED '+errors.length+' checks');process.exit(1)}
 console.log('PASS — paths, original logo, functions, privacy labels and JS syntax.');
