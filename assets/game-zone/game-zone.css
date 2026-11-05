@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@400;500;700;900&display=swap");
+:root{color-scheme:light;--mz-bg:#f4f8ff;--mz-card:#fff;--mz-ink:#122a48;--mz-muted:#516883;--mz-line:#dce7f5;--mz-primary:#0d79d6;--mz-soft:#eaf4ff;--mz-good:#077e55;--mz-bad:#b92e4b;--mz-shadow:0 15px 40px #0d37521a}
+html[data-mrlee-theme="future"]{color-scheme:dark;--mz-bg:#061327;--mz-card:#101f39;--mz-ink:#ecf8ff;--mz-muted:#b8d1e5;--mz-line:#2c5076;--mz-primary:#58d5ff;--mz-soft:#152f50;--mz-good:#80eac2;--mz-bad:#ff8a9e;--mz-shadow:0 14px 38px #0006}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--mz-bg);color:var(--mz-ink);font-family:"Be Vietnam Pro","Noto Sans KR",system-ui,sans-serif;line-height:1.65}
+button,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}
+a{color:inherit;text-decoration:none}a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid #f6b941;outline-offset:3px}
+[hidden]{display:none!important}.mz-app{max-width:1260px;margin:auto;min-height:100vh;padding:0 clamp(14px,3vw,32px);display:flex;flex-direction:column}
+.mz-header,.mz-nav,.mz-brand,.mz-selectors,.mz-arena-top,.mz-section-title,.mz-footer{display:flex;align-items:center;gap:16px}
+.mz-header{justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--mz-line)}
+.mz-brand{gap:10px}.mz-brand img{width:52px;height:52px;object-fit:contain;border-radius:50%}.mz-brand span{display:flex;flex-direction:column;line-height:1.2}.mz-brand b{font-size:20px;font-weight:900}.mz-brand small{font-size:10px;letter-spacing:.14em;color:var(--mz-primary);font-weight:900}
+.mz-nav{gap:6px;flex-wrap:wrap}.mz-nav a{border-radius:12px;padding:8px 12px;color:var(--mz-muted);font-weight:700;font-size:13px}.mz-nav a:hover{background:var(--mz-soft);color:var(--mz-ink)}
+.mz-hero{margin-top:24px;background:linear-gradient(116deg,#0759af,#163989 53%,#322a76);color:white;border-radius:28px;box-shadow:var(--mz-shadow);padding:clamp(24px,4vw,44px);display:grid;grid-template-columns:minmax(0,1fr) minmax(185px,280px);gap:18px;align-items:center;overflow:hidden}
+html[data-mrlee-theme="future"] .mz-hero{background:linear-gradient(120deg,#07335d,#0d2860 55%,#492c80);border:1px solid #449ad2}
+.mz-kicker{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.08em;color:var(--mz-primary)}.mz-hero .mz-kicker{color:#a5faff}.mz-hero h1{font-size:clamp(28px,4vw,49px);margin:5px 0 12px;font-weight:900;line-height:1.25}.mz-hero h1 span{color:#8ffff0}.mz-hero p{max-width:650px;color:#ecf3ff;margin:0;font-size:14px}
+.mz-hero-stats{display:grid;gap:12px}.mz-hero-stats>div{border:1px solid #ffffff55;background:#ffffff13;border-radius:16px;padding:12px 16px;backdrop-filter:blur(7px)}.mz-hero-stats strong{font-size:26px;display:block;line-height:1.3}.mz-hero-stats small{font-size:11px;color:#e6f5ff}
+.mz-selectors{background:var(--mz-card);border:1px solid var(--mz-line);border-radius:20px;margin-top:20px;padding:18px;flex-wrap:wrap;box-shadow:var(--mz-shadow)}
+.mz-selectors label{display:flex;flex:1 1 220px;flex-direction:column;gap:6px;font-size:12px;font-weight:800;color:var(--mz-muted)}
+.mz-selectors select{width:100%;min-height:44px;color:var(--mz-ink);background:var(--mz-bg);border:1px solid var(--mz-line);border-radius:11px;padding:8px 11px;font-size:14px}
+.mz-study-link,.mz-primary{display:inline-flex;align-items:center;justify-content:center;min-height:45px;border:0;border-radius:12px;background:var(--mz-primary);color:#fff;padding:10px 19px;font-weight:800;font-size:13px}
+html[data-mrlee-theme="future"] .mz-study-link,html[data-mrlee-theme="future"] .mz-primary{color:#07213e}
+.mz-notice{margin-top:12px;font-size:13px;color:var(--mz-muted);min-height:23px}.mz-notice[data-error="true"]{color:var(--mz-bad)}
+.mz-section-title{justify-content:space-between;margin:18px 0 14px}.mz-section-title h2{margin:4px 0 0;font-size:clamp(22px,2.5vw,29px)}.mz-minor{font-size:12px;color:var(--mz-muted)}
+.mz-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.mz-card{width:100%;min-height:245px;display:flex;flex-direction:column;text-align:left;align-items:flex-start;padding:20px;border:1px solid var(--mz-line);border-radius:20px;background:var(--mz-card);color:var(--mz-ink);box-shadow:var(--mz-shadow);transition:transform .15s,border-color .15s}
+.mz-card:hover{transform:translateY(-3px);border-color:var(--mz-primary)}.mz-card .mz-card-icon{font-size:45px;margin-bottom:9px}.mz-card strong{font-size:18px;line-height:1.4}.mz-card small{color:var(--mz-primary);font-weight:800}.mz-card p{font-size:12px;color:var(--mz-muted);margin:10px 0 0}
+.mz-disclaimer{font-size:12px;color:var(--mz-muted);margin:17px 0 24px}.mz-arena{margin-top:20px;border:1px solid var(--mz-line);border-radius:22px;padding:clamp(16px,3vw,29px);background:var(--mz-card);box-shadow:var(--mz-shadow)}
+.mz-arena-top{justify-content:space-between;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--mz-line);padding-bottom:16px}.mz-arena-top h2{margin:0;font-size:22px}.mz-ghost{background:var(--mz-soft);border:1px solid var(--mz-line);color:var(--mz-ink);padding:10px 13px;border-radius:11px;font-weight:800;font-size:12px}
+.mz-game{padding-top:22px}.mz-game h3{font-size:19px;margin:0 0 10px}.mz-game p{color:var(--mz-muted);font-size:13px}
+.mz-game-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px}.mz-prompt{font-size:clamp(21px,3.5vw,33px);font-weight:900;text-align:center;padding:20px 12px}
+.mz-prompt[lang="ko"],[lang="ko"]{font-family:"Noto Sans KR","Be Vietnam Pro",sans-serif;word-break:keep-all}
+.mz-pair-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mz-col{display:grid;gap:9px}
+.mz-tile,.mz-option,.mz-memory-card{background:var(--mz-bg);color:var(--mz-ink);border:2px solid var(--mz-line);border-radius:12px;padding:12px;min-height:52px;font-size:15px;font-weight:700;word-break:break-word}
+.mz-tile[aria-pressed="true"],.mz-option[aria-pressed="true"]{border-color:var(--mz-primary);background:var(--mz-soft)}
+.mz-tile.mz-complete,.mz-memory-card.mz-complete{border-color:var(--mz-good);background:var(--mz-soft);opacity:.58}
+.mz-option:hover:not(:disabled),.mz-tile:hover:not(:disabled),.mz-memory-card:hover:not(:disabled){border-color:var(--mz-primary)}
+.mz-token-list,.mz-chosen-tokens{display:flex;flex-wrap:wrap;gap:9px;min-height:63px;padding:14px;border:1px dashed var(--mz-line);border-radius:14px;margin:14px 0}
+.mz-chosen-tokens{background:var(--mz-soft);align-items:center}.mz-actions{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.mz-option-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mz-audio{width:min(100%,470px);display:block;margin:15px auto}.mz-memory-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.mz-memory-card{min-height:100px;font-size:17px}.mz-feedback{min-height:23px;font-size:14px;color:var(--mz-muted);font-weight:700;margin-top:15px}.mz-feedback[data-good="true"]{color:var(--mz-good)}.mz-feedback[data-good="false"]{color:var(--mz-bad)}
+.mz-result{text-align:center;padding:18px;border:1px solid var(--mz-line);background:var(--mz-soft);border-radius:17px;margin-top:15px}.mz-result strong{font-size:25px}.mz-footer{margin-top:auto;justify-content:space-between;padding:22px 0;flex-wrap:wrap;color:var(--mz-muted);font-size:11px}
+@media(max-width:940px){.mz-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.mz-card{min-height:208px}}
+@media(max-width:610px){.mz-header{align-items:flex-start}.mz-nav{justify-content:flex-end}.mz-nav a{font-size:11px;padding:6px}.mz-hero{grid-template-columns:1fr;padding:23px}.mz-hero-stats{grid-template-columns:1fr 1fr}.mz-section-title{align-items:flex-start;flex-direction:column}.mz-card{min-height:190px;padding:14px}.mz-card strong{font-size:15px}.mz-card .mz-card-icon{font-size:34px}.mz-cards{gap:10px}.mz-option-grid{grid-template-columns:1fr}.mz-memory-card{min-height:84px;font-size:13px}.mz-memory-grid{gap:7px}.mz-pair-grid{gap:8px}.mz-tile{font-size:13px;padding:8px}.mz-arena-top{gap:9px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mz-card{transition:none}.mz-card:hover{transform:none}}
