@@ -63,6 +63,13 @@ document.addEventListener("pointerdown",event=>{
 document.addEventListener("keydown",e=>{
  if(e.key==="Escape")for(const card of cards)showMore(card,false);
 });
+$("arenaRefMoreFilters")?.addEventListener("click",()=>{
+ const side=document.querySelector(".arena-ref-categories");
+ const next=!side?.classList.contains("arena-ref-show-more");
+ side?.classList.toggle("arena-ref-show-more",next);
+ $("arenaRefMoreFilters").setAttribute("aria-expanded",String(next));
+ $("arenaRefMoreFilters").textContent=next?"⌃ Thu gọn bộ lọc":"⌄ Bộ lọc nâng cao";
+});
 $("arenaRefColorsAccess")?.addEventListener("click",()=>{
  const card=document.querySelector('[data-game-id="colors"]');
  card?.querySelector("button[data-game='colors']")?.click();
@@ -92,6 +99,7 @@ function fillPreview(){
  }
 }
 fillPreview();
+setTimeout(fillPreview,350);
 function syncWallet(wallet){
  if(!wallet)return;
  const gold=formatG(wallet.gold);
