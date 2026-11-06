@@ -225,3 +225,93 @@ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-board{
 @media(prefers-reduced-motion:reduce){
  .arena-chess-digital-clock.urgent{animation:none}
 }
+
+/* Distinct full-screen game selection skins, retained across lobby and active board. */
+html[data-room-game="chess"] .game-room-shell{
+ background:radial-gradient(ellipse at 45% 14%,#425d71,#111e32 65%,#091222)!important
+}
+html[data-room-game="chess"] .game-room-shell::before{
+ background-image:linear-gradient(135deg,#07192caa,#12304491),var(--room-cover);
+ opacity:.5!important;filter:saturate(.65)
+}
+html[data-room-game="chess"] .game-room-shell::after{
+ background:linear-gradient(to top,#5b46345c,transparent 30%)!important
+}
+html[data-room-game="chess"] .game-room-tile{
+ background:linear-gradient(155deg,#243b50,#152538)!important;
+ border-color:#ccae77!important;box-shadow:inset 0 1px #f9eac555,0 9px 22px #0007;
+ text-shadow:none!important
+}
+html[data-room-game="chess"] .game-room-tile strong{color:#fff0d2;text-shadow:0 2px 5px #0008}
+html[data-room-game="chess"] .game-room-tile small{color:#b5cee0;text-shadow:none}
+html[data-room-game="chess"] .game-room-tile.tile-quick{background:linear-gradient(155deg,#405c5c,#183c42)!important}
+html[data-room-game="chess"] .game-room-tile.tile-friends{background:linear-gradient(155deg,#324b73,#1b2d49)!important}
+html[data-room-game="chess"] .game-room-tile.tile-rooms{background:linear-gradient(155deg,#6b513d,#302d36)!important}
+html[data-room-game="chess"] .game-room-tile.tile-more{background:linear-gradient(155deg,#4e517a,#2c2b49)!important}
+html[data-room-game="chess"] .game-room-tile .tile-graphic{color:#f6db98;text-shadow:0 6px #050d1d9c}
+html[data-room-game="xiangqi"] .game-room-shell{
+ background:radial-gradient(ellipse at 50% 12%,#dfb680,#926447 57%,#4b2f27)!important
+}
+html[data-room-game="xiangqi"] .game-room-shell::before{opacity:.2!important}
+html[data-room-game="xiangqi"] .game-room-tile{
+ background:linear-gradient(155deg,#b67a40,#74452e)!important;
+ border-color:#f1d2a3!important;box-shadow:inset 0 0 0 2px #f3d9a5b0,0 8px 22px #3a170b6e
+}
+html[data-room-game="xiangqi"] .game-room-tile.tile-friends{background:linear-gradient(155deg,#953f32,#622c2c)!important}
+html[data-room-game="xiangqi"] .game-room-tile.tile-rooms{background:linear-gradient(155deg,#605447,#39322e)!important}
+html[data-room-game="colors"] .game-room-shell{
+ background:radial-gradient(ellipse at 35% 14%,#9b66d1,#3b2b91 60%,#151440)!important
+}
+html[data-room-game="colors"] .game-room-tile{
+ border-color:#ffffffc6!important;box-shadow:0 8px 25px #110d4f99,
+ inset 0 0 0 3px #ffffff40
+}
+html[data-room-game="ludo"] .game-room-shell{
+ background:linear-gradient(145deg,#59adcd,#4776b8 38%,#54a881 73%,#e1b850)!important
+}
+html[data-room-game="ludo"] .game-room-tile{
+ border-color:#f2f8ff!important;box-shadow:0 8px 20px #16374b99
+}
+html[data-room-game="estate"] .game-room-shell{
+ background:radial-gradient(ellipse at 32% 16%,#87a9cb,#355987 54%,#15273d)!important
+}
+html[data-room-game="estate"] .game-room-tile{
+ background:linear-gradient(145deg,#3883b7,#234969)!important;
+ border-color:#bfd9f2!important;box-shadow:inset 0 1px #ffffff5a,0 9px 20px #0a2a4fa3
+}
+html[data-room-game="estate"] .game-room-tile.tile-friends{background:linear-gradient(145deg,#4b7599,#264c67)!important}
+html[data-room-game="estate"] .game-room-tile.tile-rooms{background:linear-gradient(145deg,#a77b48,#664936)!important}
+html[data-room-game="chess"] .game-room-title h1,
+html[data-room-game="xiangqi"] .game-room-title h1,
+html[data-room-game="estate"] .game-room-title h1{
+ color:#fff0d0;text-shadow:0 3px 8px #0d172dab,0 1px 1px #4a2e1d
+}
+html[data-room-game="chess"] .game-room-title p,
+html[data-room-game="xiangqi"] .game-room-title p,
+html[data-room-game="estate"] .game-room-title p{color:#f4e8d5}
+html[data-room-game="chess"] .game-room-title,
+html[data-room-game="xiangqi"] .game-room-title,
+html[data-room-game="estate"] .game-room-title{filter:none}
+html[data-room-game="chess"] .game-room-footer,
+html[data-room-game="xiangqi"] .game-room-footer,
+html[data-room-game="estate"] .game-room-footer{
+ background:linear-gradient(180deg,#0e1e3066,#091426d9)!important;border-color:#d9bf9477
+}
+@media(max-width:700px) and (orientation:portrait){
+ html[data-room-game="chess"] .game-room-lobby{
+  justify-content:flex-start!important;padding:6px 8px!important;overflow-y:auto;min-height:0
+ }
+ html[data-room-game="chess"] .game-room-tiles{
+  flex:1 1 auto;min-height:225px;max-height:none!important
+ }
+ html[data-room-game="chess"] .game-room-title{margin-bottom:5px}
+ html[data-room-game="chess"] .game-room-hint{min-height:0;margin:5px 0}
+ html[data-room-game="chess"] .game-room-tile{border-width:3px;border-radius:16px}
+ html[data-room-game="chess"] .game-room-tile .tile-graphic{font-size:clamp(42px,13vw,66px)}
+}
+@media(max-height:670px) and (orientation:landscape){
+ html[data-room-game="chess"] .game-room-title{margin-bottom:4px}
+ html[data-room-game="chess"] .game-room-tiles{max-height:calc(100% - 125px)}
+ html[data-room-game="chess"] .room-chess-time-picker{padding:4px 8px;margin-bottom:4px;min-height:32px}
+ html[data-room-game="chess"] .room-chess-time-picker select{min-height:30px}
+}
