@@ -2,7 +2,7 @@
  * G/points are read exclusively from the Firebase-verified Arena Edge API.
  */
 import {roomRequest,formatG} from "./room-api.js";
-import {mountArenaFriendPopup} from "./game-room-social.js";
+import {mountArenaFriendPopup} from "./game-room-social.js?v=20261106-chess-r7";
 const $=id=>document.getElementById(id);
 const GAME_PAGES=Object.freeze({
  colors:{name:"Bài Màu Đại Chiến",online:true,description:"Trò chơi sắc màu bốn người"},
