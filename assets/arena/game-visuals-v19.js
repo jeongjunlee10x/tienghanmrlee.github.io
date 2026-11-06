@@ -58,7 +58,7 @@ const colors={
 };
 let prev=-Infinity,active=0;
 function fx({kind="card",element=null,label="",count}={}){
- if(mode==="off"||reduce()||document.hidden||active>40)return;
+ if(mode==="off"||reduce()||document.hidden||active>=40)return;
  const now=performance.now();
  if(kind!=="win"&&now-prev<95)return;prev=now;
  const anchor=typeof element==="string"?document.querySelector(element):element;
@@ -68,7 +68,7 @@ function fx({kind="card",element=null,label="",count}={}){
  const x=Math.max(20,Math.min(innerWidth-20,bounds.left+bounds.width/2));
  const y=Math.max(20,Math.min(innerHeight-20,bounds.top+bounds.height/2));
  const accent=colors[kind]||colors.card;
- const amount=Math.min(25,mode==="lite"?4:(count|| (kind==="win"?17:8)));
+ const amount=Math.max(0,Math.min(40-active,25,mode==="lite"?4:(count|| (kind==="win"?17:8))));
  for(let i=0;i<amount;i++){
   const spark=document.createElement("span");spark.className="arena-vfx-spark";
   spark.style.setProperty("--pc",accent);
