@@ -303,7 +303,13 @@
    <div class="arena-panel chess-command-panel"><h3>♟️ Phòng Cờ Vua MR LEE</h3>
      <p class="arena-game-note">Đấu luyện với bot · Không có Elo chính thức</p>
      <div class="chess-settings-row">
-      <label for="chessTime">Thời gian <select id="chessTime"><option value="300">5 phút</option><option value="600" selected>10 phút</option><option value="900">15 phút</option></select></label>
+      <label for="chessTime">Thời gian <select id="chessTime">
+<option value="1+0">Bullet · 1+0</option><option value="2+1">Bullet · 2+1</option>
+<option value="3+0">Blitz · 3+0</option><option value="3+2">Blitz · 3+2</option>
+<option value="5+0">Blitz · 5+0</option><option value="5+3">Blitz · 5+3</option>
+<option value="10+0" selected>Rapid · 10+0</option><option value="10+5">Rapid · 10+5</option>
+<option value="15+10">Rapid · 15+10</option><option value="30+0">Rapid · 30+0</option>
+<option value="none">Không giới hạn</option></select></label>
       <label for="chessBoardTheme">Bàn cờ <select id="chessBoardTheme"><option value="forest" selected>Xanh ngọc</option><option value="wood">Gỗ nâu</option><option value="night">Đêm xanh</option></select></label>
      </div>
      <p id="chessStatus" class="chess-status-indicator" role="status" aria-live="polite">Bạn được đi trước.</p>
