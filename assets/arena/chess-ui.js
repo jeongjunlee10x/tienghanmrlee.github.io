@@ -4,6 +4,7 @@
  */
 import {GLYPHS,start,legal,apply,san,side,square,status,bestBotMove} from "./chess-engine.js";
 import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r2";
+import {emitArenaFX} from "./game-visuals-v19.js?v=20261107-v19";
 const $=id=>document.getElementById(id);
 const make=(tag,cl,text)=>{
  const x=document.createElement(tag);if(cl)x.className=cl;
@@ -143,9 +144,11 @@ export function mountChess({onStart,onFinish,onExit}){
   labels.push((s.t===1?s.full+". ":s.full+"... ")+san(s,actual));
   if(Number.isFinite(clockRemaining[s.t]))clockRemaining[s.t]+=clockBonus;
   traces.push([actual[0],actual[1]]);
+  const wasCapture=s.b[actual[1]]!==".";
   history.push(apply(s,actual));picked=-1;hintText="";
   clockLast=Date.now();
   const verdict=status(history);draw();
+  if(wasCapture)emitArenaFX("capture",board.querySelector('[data-index="'+actual[1]+'"]'));
   if(verdict.done){finish(verdict);return;}
   if(verdict.claim&&history.at(-1).t===1)note.textContent+=" · Bạn có thể xin hòa.";
   schedule();
@@ -239,10 +242,12 @@ export function mountChess({onStart,onFinish,onExit}){
     labels.push(s.full+"... "+san(s,move));
     if(Number.isFinite(clockRemaining[s.t]))clockRemaining[s.t]+=clockBonus;
     traces.push([move[0],move[1]]);
+    const wasCapture=s.b[move[1]]!==".";
     history.push(apply(s,move));
     clockLast=Date.now();hintText="";
     const verdict=status(history);
     draw();
+    if(wasCapture)emitArenaFX("capture",board.querySelector('[data-index="'+move[1]+'"]'));
     if(verdict.done)finish(verdict);
    }catch(err){note.textContent="Lỗi tính nước máy: "+err.message+" · Thử bắt đầu ván mới.";}
   },280);
