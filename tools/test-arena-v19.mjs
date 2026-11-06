@@ -22,6 +22,8 @@ for(const prop of ["@keyframes arena-v19-enter","@keyframes arena-v19-active-glo
  ".arena-visual-quality",".arena-vfx-spark",".arena-vfx-label"]){
  check(css.includes(prop),"Game visuals stylesheet includes "+prop);
 }
+check(css.includes("box-sizing:border-box!important;max-width:100%!important"),
+ "Framed game boards fit narrow touchscreens without horizontal overflow");
 check(main.includes('game-visuals-v19.css?v=20261107-v19'),"Arena loads V19 stylesheet after other skins");
 check(main.includes('app.js?v=20261107-v19'),"Arena loads V19 application");
 for(const page of ["game-co-vua","game-co-tuong","game-tien-len","game-bai-mau","game-co-ca-ngua","game-dia-oc"]){
