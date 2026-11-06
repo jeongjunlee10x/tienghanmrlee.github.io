@@ -110,7 +110,7 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
    if(snapshot!==epoch||!game||done||root.hidden||game.turn===0)return;
    const who=game.turn,previous=game.last?.combo||null;
    try{
-    botTurn(game);
+    botTurn(game,$("tlLevel")?.value||"normal");
     if(game.last?.player===who&&game.played.length){
      busy=true;
      const moveCards=game.played.slice();
