@@ -62,9 +62,9 @@ await mkdir(path.join(ROOT,"artifacts","game-rooms"),{recursive:true});
 let browser;
 try{
  browser=await chromium.launch({headless:true,args:["--no-sandbox"]});
- for(const [width,height] of [[844,390],[390,844]]){
+ for(const [width,height] of [[844,390],[390,844],[1440,900]]){
   for(const [pageFile,game,section,online] of GAMES){
-   const context=await browser.newContext({viewport:{width,height},isMobile:true,hasTouch:true,reducedMotion:"reduce"});
+   const context=await browser.newContext({viewport:{width,height},isMobile:width<900,hasTouch:width<900,reducedMotion:"reduce"});
    await context.addInitScript(()=>localStorage.setItem("MRLEE.THEME.V1","future"));
    const page=await context.newPage(),errors=[];
    page.on("pageerror",e=>errors.push(e.message));
@@ -100,6 +100,13 @@ try{
     assert.equal(await page.locator("#roomLobby").isVisible(),false);
     assert.equal(await page.locator("#roomPlay").isVisible(),true);
     assert.equal(await iframe.locator("html").evaluate(el=>el.classList.contains("arena-embedded")),true);
+    if(width>=1000){
+     const desktop=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth-innerWidth,
+      screen:document.querySelector(".game-room-play").getBoundingClientRect().width,
+      iframe:document.querySelector("#roomGameFrame").getBoundingClientRect().width}));
+     assert.ok(desktop.overflow<=4,"Desktop horizontal overflow "+JSON.stringify(desktop));
+     assert.ok(desktop.iframe>=desktop.screen*.92,"Desktop iframe width clipped "+JSON.stringify(desktop));
+    }
     if(game==="colors"&&width===844){
      const layout=await page.evaluate(()=>{
       const r=el=>{const b=el.getBoundingClientRect();return {x:b.x,y:b.y,w:b.width,h:b.height}};
