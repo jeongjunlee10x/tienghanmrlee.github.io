@@ -1,0 +1,422 @@
+/* MR LEE GAME ARENA V20 — APPROVED PORTRAIT BOARD LAYOUTS.
+ * Chess, Xiangqi/Cờ Úp, Ludo and Estate. One vertical board centered on
+ * desktop and phone; player info above/below, actions below on mobile.
+ * Last in CSS cascade; no changes to actual rule engines or PvP wallet.
+ */
+html.arena-reference-v1.arena-embedded:is(
+ [data-embedded-game="chess"],[data-embedded-game="xiangqi"],
+ [data-embedded-game="ludo"],[data-embedded-game="estate"]){
+ background:radial-gradient(ellipse at 50% 9%,#253c75,#0b1636 73%,#080f24)!important
+}
+html.arena-embedded:is(
+ [data-embedded-game="chess"],[data-embedded-game="xiangqi"],
+ [data-embedded-game="ludo"],[data-embedded-game="estate"]) body{
+ background:transparent!important;color:#fff2d7!important
+}
+html.arena-embedded:is(
+ [data-embedded-game="chess"],[data-embedded-game="xiangqi"],
+ [data-embedded-game="ludo"],[data-embedded-game="estate"])
+ :is(#arenaChess,#arenaXiangqi,#arenaLudo,#arenaEstate,#arenaPvPBoard){
+ box-sizing:border-box!important;margin:0 auto!important;
+ padding:3px clamp(5px,1.3vw,14px) 12px!important;width:100%!important;
+ max-width:1200px!important;min-width:0!important;
+ background:transparent!important;color:#f7e9d4!important
+}
+html.arena-embedded:is(
+ [data-embedded-game="chess"],[data-embedded-game="xiangqi"],
+ [data-embedded-game="ludo"],[data-embedded-game="estate"])
+ :is(#arenaChess,#arenaXiangqi,#arenaLudo,#arenaEstate,#arenaPvPBoard)>.arena-table-heading{
+ display:flex!important;flex-wrap:nowrap!important;align-items:center!important;
+ justify-content:space-between!important;
+ margin:0 0 6px!important;padding:3px 9px!important;
+ min-height:42px!important;max-height:49px!important;
+ border:1px solid #afc6f45e!important;border-radius:12px!important;
+ background:linear-gradient(100deg,#101e40f0,#27325de8,#101f41ed)!important;
+ box-shadow:0 5px 17px #040b2491!important;color:#fff0d4!important
+}
+html.arena-embedded:is(
+ [data-embedded-game="chess"],[data-embedded-game="xiangqi"],
+ [data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-table-heading>div{min-width:0!important;flex:1 1 auto!important}
+html.arena-embedded:is(
+ [data-embedded-game="chess"],[data-embedded-game="xiangqi"],
+ [data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-table-heading .arena-eyebrow{display:none!important}
+html.arena-embedded:is(
+ [data-embedded-game="chess"],[data-embedded-game="xiangqi"],
+ [data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-table-heading h2{
+ color:#fff0bc!important;font-size:clamp(12px,1.4vw,17px)!important;
+ text-overflow:ellipsis;overflow:hidden;white-space:nowrap;line-height:1.25!important
+}
+html.arena-embedded:is(
+ [data-embedded-game="chess"],[data-embedded-game="xiangqi"],
+ [data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-table-heading button{
+ min-height:34px!important;padding:6px 10px!important;
+ border-radius:10px!important;border:1px solid #9ac1eca1!important;
+ background:linear-gradient(145deg,#234769,#142644)!important;
+ color:#f6f2e6!important;font-size:11px!important;white-space:nowrap
+}
+/* Portrait participant bars — same visual language as approved mobile cards. */
+.arena-v20-player-bar{
+ box-sizing:border-box;width:100%;min-height:45px;
+ display:flex;align-items:center;gap:9px;
+ padding:5px 10px;margin:0;
+ border-radius:11px;border:1px solid #6294bd7b;
+ background:linear-gradient(100deg,#122d4aea,#162f51ed);
+ box-shadow:inset 0 1px #ffffff28,0 5px 14px #0005;
+ color:#f8e8ca;font:800 12px/1.25 system-ui,sans-serif
+}
+.arena-v20-player-bar.is-turn{
+ border-color:#f9d579!important;
+ box-shadow:inset 0 1px #fff6,0 0 0 2px #f9d57955,0 5px 17px #ffc66a62!important;
+ background:linear-gradient(105deg,#1a4c5f,#21435e)!important
+}
+.arena-v20-player-bar.arena-v20-me{
+ background:linear-gradient(105deg,#183a53,#213b67)
+}
+.arena-v20-player-icon{
+ flex:0 0 33px;width:33px;height:33px;border-radius:50%;
+ display:grid;place-items:center;font-size:20px;line-height:1;
+ border:2px solid #f2d98a;background:linear-gradient(145deg,#304976,#172848);
+ box-shadow:0 2px 8px #0009
+}
+.arena-v20-player-bar strong{min-width:0;flex:1 1 auto;font-size:clamp(10px,1.25vw,13px)}
+.arena-v20-turn-badge{
+ display:inline-flex;justify-content:center;align-items:center;
+ min-width:82px;padding:5px 8px;border-radius:8px;
+ background:#121e35a9;border:1px solid #a0aebe8f;
+ color:#cadbef;font:900 10px/1.2 ui-monospace,monospace;white-space:nowrap
+}
+.arena-v20-player-bar.is-turn .arena-v20-turn-badge{
+ background:linear-gradient(140deg,#fbe59e,#e6b85b);
+ color:#332e28;border-color:#ffe6a9
+}
+.arena-v20-portrait-stage{
+ display:flex!important;flex-direction:column!important;
+ align-items:stretch;justify-content:flex-start;gap:6px!important;
+ min-width:0!important;width:100%!important;
+}
+/* Chess — playable vertical board and independent player clocks. */
+html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-layout{
+ display:grid!important;grid-template-columns:minmax(0,635px) minmax(250px,1fr)!important;
+ gap:clamp(10px,1.8vw,22px)!important;align-items:start!important;
+ max-width:1100px!important;width:100%!important;margin:0 auto!important;
+}
+html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-main{
+ box-sizing:border-box;width:min(100%,calc(100dvh - 148px),635px)!important;
+ max-width:635px!important;min-width:0!important;
+ padding:5px!important;margin:0 auto!important;
+ border:2px solid #b49158!important;border-radius:13px!important;
+ background:linear-gradient(145deg,#7b6044,#2b3947 18%,#172940 88%,#806746)!important;
+ box-shadow:inset 0 1px #edd19b91,0 13px 31px #0009!important
+}
+html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-board{
+ box-sizing:border-box;width:100%!important;height:auto!important;
+ aspect-ratio:1!important;margin:0 auto!important;
+ border:5px solid #b49167!important;border-radius:5px!important
+}
+html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-player{
+ display:flex!important;align-items:center!important;justify-content:space-between!important;
+ min-height:45px!important;padding:5px 8px!important;margin:0!important;
+ background:linear-gradient(95deg,#102d48,#1c4266)!important;
+ border:1px solid #708aa8c4;border-radius:9px;
+ color:#fff0da!important;font-weight:850!important;font-size:12px!important
+}
+html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-player:first-child{
+ margin-bottom:4px!important
+}
+html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-player:nth-child(3){
+ margin-top:4px!important
+}
+html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-clock{
+ min-width:65px;min-height:32px;display:grid;place-items:center;
+ padding:4px 9px;border:1px solid #d7bc7e;border-radius:9px;
+ background:#061c32;color:#ffe9a6!important;
+ font:950 17px/1.1 ui-monospace,Consolas,monospace;
+ font-variant-numeric:tabular-nums;letter-spacing:.035em
+}
+html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-clock.active{
+ background:#163f4a!important;box-shadow:0 0 0 2px #e9cb835a,0 0 12px #f1bc5e66!important
+}
+html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-sidebar{
+ min-width:0;max-height:calc(100dvh - 92px);overflow-y:auto;
+ scrollbar-width:thin;scrollbar-color:#bd9f70 #112842
+}
+html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-sidebar .arena-panel{
+ border:1px solid #7198bd89!important;border-radius:13px!important;
+ background:linear-gradient(135deg,#173252ec,#0d2241ec)!important;
+ color:#f3e9dc!important;box-shadow:0 7px 18px #0005!important;
+ margin-bottom:8px!important;padding:12px!important
+}
+html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-sidebar .arena-panel h3,
+html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-sidebar .arena-panel p{
+ color:#fff0c5!important
+}
+/* PvP chess remains a *portrait* board regardless of monitor ratio. */
+html.arena-embedded[data-embedded-game="chess"] #arenaPvPBoard .arena-pvp-chess{
+ display:grid!important;grid-template-columns:minmax(0,620px) minmax(235px,1fr)!important;
+ max-width:1080px!important;gap:15px!important;
+ margin:0 auto!important;align-items:start!important
+}
+html.arena-embedded[data-embedded-game="chess"] #arenaPvPBoard .arena-chess-board-stack{
+ width:min(100%,calc(100dvh - 160px),620px)!important;
+ margin:0 auto!important;padding:5px!important;
+ border:2px solid #c7aa74;border-radius:14px;
+ background:linear-gradient(145deg,#6b5e4e,#193148 15%,#152c41 88%,#766146);
+ box-shadow:0 11px 26px #0008
+}
+html.arena-embedded[data-embedded-game="chess"] #arenaPvPBoard .chess-board{
+ box-sizing:border-box;width:100%!important;aspect-ratio:1!important;
+ border:5px solid #b38b58!important
+}
+html.arena-embedded[data-embedded-game="chess"] #arenaPvPBoard .arena-chess-player-bar{
+ min-height:43px;display:flex;align-items:center;justify-content:space-between;gap:8px;
+ border:1px solid #87aec57f;border-radius:9px;
+ padding:5px 8px;background:#142d48;color:#f3e8d7;margin:3px 0
+}
+html.arena-embedded[data-embedded-game="chess"] #arenaPvPBoard .arena-chess-player-bar.active{
+ border-color:#f2d189;background:#245764
+}
+html.arena-embedded[data-embedded-game="chess"] #arenaPvPBoard .arena-chess-digital-clock{
+ min-width:67px;font:900 16px/1.2 ui-monospace,Consolas,monospace;
+ padding:6px 9px;border-radius:8px;border:1px solid #d9bc7c;
+ color:#f9e1a3;background:#091d35
+}
+/* Xiangqi, Ludo, Estate: board centered vertically with opponent HUD on top. */
+html.arena-embedded:is(
+ [data-embedded-game="xiangqi"],[data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-extra-layout{
+ display:grid!important;grid-template-columns:minmax(0,650px) minmax(230px,1fr)!important;
+ gap:clamp(9px,1.6vw,20px)!important;align-items:start!important;
+ max-width:1140px!important;width:100%!important;margin:0 auto!important
+}
+html.arena-embedded:is(
+ [data-embedded-game="xiangqi"],[data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-extra-stage{
+ width:min(100%,650px)!important;max-width:100%!important;margin:0 auto!important;
+ grid-column:1!important;grid-row:1!important
+}
+html.arena-embedded:is(
+ [data-embedded-game="xiangqi"],[data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-extra-side{
+ min-width:0!important;grid-column:2!important;grid-row:1!important;
+ display:flex!important;flex-direction:column!important;gap:9px!important;
+ max-height:calc(100dvh - 88px)!important;overflow-y:auto!important
+}
+html.arena-embedded:is(
+ [data-embedded-game="xiangqi"],[data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-extra-side .arena-panel{
+ margin:0!important;padding:12px!important;
+ background:linear-gradient(135deg,#173454,#0e2242)!important;
+ color:#fff1d8!important;border:1px solid #7295b993!important;border-radius:13px!important;
+ box-shadow:0 6px 18px #0006!important
+}
+html.arena-embedded:is(
+ [data-embedded-game="xiangqi"],[data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-extra-side .arena-panel h3{color:#ffe5af!important;font-size:13px!important}
+html.arena-embedded:is(
+ [data-embedded-game="xiangqi"],[data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-extra-side .arena-panel p{color:#d8e4f3!important;font-size:11px!important}
+html.arena-embedded[data-embedded-game="xiangqi"] #arenaXiangqi .xq-board-wrap{
+ width:min(100%,calc((100dvh - 189px)*.9),590px)!important;
+ min-width:0!important;max-width:100%!important;box-sizing:border-box;
+ padding:6px!important;margin:0 auto!important;
+ border:8px ridge #926134!important;border-radius:8px!important;
+ background:linear-gradient(140deg,#946637,#dfb879 45%,#8c5b30)!important;
+ box-shadow:inset 0 0 0 2px #f4d69d,0 12px 27px #140c079e!important
+}
+html.arena-embedded[data-embedded-game="xiangqi"] #arenaXiangqi .xq-board{
+ box-sizing:border-box;width:100%!important;height:auto!important;
+ aspect-ratio:9/10!important;background:#edd0a1!important
+}
+html.arena-embedded[data-embedded-game="xiangqi"] #arenaXiangqi .xq-river-label{
+ font:900 14px/1.4 Georgia,serif!important;
+ color:#482614!important;text-shadow:0 1px #fff8!important
+}
+html.arena-embedded[data-embedded-game="ludo"] #arenaLudo .ludo-board{
+ box-sizing:border-box;width:min(100%,calc(100dvh - 176px),620px)!important;
+ max-width:100%!important;height:auto!important;aspect-ratio:1!important;
+ margin:0 auto!important;border:7px solid #ebf2fa!important;
+ border-radius:14px!important;box-shadow:0 12px 28px #0008!important
+}
+html.arena-embedded[data-embedded-game="estate"] #arenaEstate .estate-board{
+ box-sizing:border-box;width:min(100%,calc(100dvh - 176px),620px)!important;
+ max-width:100%!important;height:auto!important;aspect-ratio:1!important;
+ margin:0 auto!important;border:7px solid #c9a26e!important;
+ border-radius:12px!important;box-shadow:0 14px 30px #0009!important
+}
+/* Compact scoreboard and context actions, as in the approved phone mockups. */
+html.arena-embedded[data-embedded-game="ludo"] #arenaLudo .ludo-score{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ gap:5px!important
+}
+html.arena-embedded[data-embedded-game="ludo"] #arenaLudo .ludo-player{
+ background:#122a46!important;border:1px solid #799ab8!important;
+ color:#fff3dc!important;font-size:10px!important
+}
+html.arena-embedded[data-embedded-game="estate"] #arenaEstate .estate-player{
+ background:#f9f0db!important;color:#263b54!important;
+ border:1px solid #bfa36b!important
+}
+html.arena-embedded[data-embedded-game="estate"] #arenaEstate .estate-player strong,
+html.arena-embedded[data-embedded-game="estate"] #arenaEstate .estate-player small,
+html.arena-embedded[data-embedded-game="estate"] #arenaEstate .estate-player b{
+ color:#213e5b!important
+}
+html.arena-embedded[data-embedded-game="estate"] #arenaEstate .estate-upgrades button{
+ background:linear-gradient(145deg,#e4ca8a,#cca05d)!important;color:#392c22!important
+}
+/* Desktop windows under ~1080 px: stacked portrait composition, no cropping. */
+@media(max-width:990px){
+ html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-layout,
+ html.arena-embedded[data-embedded-game="chess"] #arenaPvPBoard .arena-pvp-chess,
+ html.arena-embedded:is([data-embedded-game="xiangqi"],[data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-extra-layout{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:8px!important;
+  width:100%!important;max-width:680px!important;margin:0 auto!important
+ }
+ html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-main,
+ html.arena-embedded[data-embedded-game="chess"] #arenaPvPBoard .arena-chess-board-stack{
+  width:min(100%,620px)!important;max-width:100%!important;
+ }
+ html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-sidebar{
+  width:100%!important;max-height:none!important;overflow:visible!important;
+  display:grid!important;grid-template-columns:1fr!important;gap:7px!important
+ }
+ html.arena-embedded[data-embedded-game="chess"] #arenaPvPBoard .arena-pvp-chess>.arena-panel{
+  margin:0!important;padding:10px!important
+ }
+ html.arena-embedded:is([data-embedded-game="xiangqi"],[data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-extra-stage{
+  grid-column:1!important;grid-row:1!important;width:100%!important;
+ }
+ html.arena-embedded:is([data-embedded-game="xiangqi"],[data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-extra-side{
+  display:contents!important;grid-row:auto!important;max-height:none!important;overflow:visible!important
+ }
+ html.arena-embedded:is([data-embedded-game="xiangqi"],[data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-extra-side>.arena-panel{
+  grid-column:1!important;margin:0!important;padding:8px 10px!important
+ }
+ html.arena-embedded:is([data-embedded-game="xiangqi"],[data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-extra-side>.arena-panel:first-child{grid-row:2!important}
+ html.arena-embedded:is([data-embedded-game="xiangqi"],[data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-extra-side>.arena-panel:nth-child(2){grid-row:3!important}
+ html.arena-embedded:is([data-embedded-game="xiangqi"],[data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-extra-side>.arena-panel:nth-child(3){grid-row:4!important}
+ html.arena-embedded[data-embedded-game="xiangqi"] #arenaXiangqi .xq-board-wrap{
+  width:min(100%,570px)!important
+ }
+ html.arena-embedded[data-embedded-game="ludo"] #arenaLudo .ludo-board,
+ html.arena-embedded[data-embedded-game="estate"] #arenaEstate .estate-board{
+  width:min(100%,580px)!important
+ }
+}
+/* Phone portrait: a game-accurate vertical board with thumb-sized controls. */
+@media(max-width:600px) and (orientation:portrait){
+ html.arena-embedded:is([data-embedded-game="chess"],[data-embedded-game="xiangqi"],
+ [data-embedded-game="ludo"],[data-embedded-game="estate"]) body{
+  overflow-x:hidden!important;overflow-y:auto!important
+ }
+ html.arena-embedded:is([data-embedded-game="chess"],[data-embedded-game="xiangqi"],
+ [data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-table-heading{gap:4px!important;padding:2px 5px!important;min-height:38px!important}
+ html.arena-embedded:is([data-embedded-game="chess"],[data-embedded-game="xiangqi"],
+ [data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-table-heading button{padding:4px 7px!important;min-height:30px!important;font-size:9px!important}
+ html.arena-embedded:is([data-embedded-game="chess"],[data-embedded-game="xiangqi"],
+ [data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-table-heading h2{font-size:12px!important}
+ html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-main,
+ html.arena-embedded[data-embedded-game="chess"] #arenaPvPBoard .arena-chess-board-stack{
+  width:100%!important;max-width:100%!important;margin:auto!important;padding:3px!important
+ }
+ html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-board,
+ html.arena-embedded[data-embedded-game="chess"] #arenaPvPBoard .chess-board{
+  box-sizing:border-box!important;width:100%!important;height:auto!important;
+  aspect-ratio:1!important;border-width:4px!important
+ }
+ html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-player{
+  min-height:39px!important;padding:3px 7px!important;font-size:10px!important
+ }
+ html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-clock{font-size:14px;min-width:59px}
+ html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-sidebar{
+  margin-top:4px!important;gap:6px!important
+ }
+ html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-sidebar .arena-panel{
+  padding:8px!important;margin:0!important
+ }
+ html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-tools button,
+ html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-inline-actions button{
+  min-height:37px!important;font-size:10px!important
+ }
+ .arena-v20-player-bar{min-height:37px!important;padding:3px 7px!important;gap:6px!important}
+ .arena-v20-player-icon{flex-basis:28px;width:28px;height:28px;font-size:17px}
+ .arena-v20-player-bar strong{font-size:10px!important}
+ .arena-v20-turn-badge{font-size:9px!important;padding:4px 6px!important;min-width:72px!important}
+ html.arena-embedded[data-embedded-game="xiangqi"] #arenaXiangqi .xq-board-wrap{
+  width:100%!important;max-width:100%!important;padding:3px!important;border-width:4px!important
+ }
+ html.arena-embedded[data-embedded-game="xiangqi"] #arenaXiangqi .xq-board{
+  width:100%!important;height:auto!important;aspect-ratio:9/10!important
+ }
+ html.arena-embedded[data-embedded-game="xiangqi"] #arenaXiangqi .xq-piece{
+  font-size:clamp(15px,5vw,26px)!important;border-width:2px!important
+ }
+ html.arena-embedded[data-embedded-game="xiangqi"] #arenaXiangqi .xq-river-label{
+  margin:2px 0!important;font-size:12px!important
+ }
+ html.arena-embedded[data-embedded-game="ludo"] #arenaLudo .ludo-board,
+ html.arena-embedded[data-embedded-game="estate"] #arenaEstate .estate-board{
+  width:100%!important;max-width:100%!important;height:auto!important;
+  aspect-ratio:1!important;border-width:3px!important
+ }
+ html.arena-embedded[data-embedded-game="ludo"] #arenaLudo .ludo-pawn{
+  width:clamp(13px,4vw,18px)!important;height:clamp(13px,4vw,18px)!important;
+  font-size:8px!important
+ }
+ html.arena-embedded[data-embedded-game="estate"] #arenaEstate .estate-tile{
+  padding:1px!important;border-width:1px!important;min-width:0!important
+ }
+ html.arena-embedded[data-embedded-game="estate"] #arenaEstate .estate-tile strong{
+  font-size:clamp(6px,1.65vw,8px)!important
+ }
+ html.arena-embedded[data-embedded-game="estate"] #arenaEstate .estate-tile small{
+  font-size:clamp(6px,1.6vw,8px)!important
+ }
+ html.arena-embedded:is([data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-extra-side>.arena-panel:first-child{order:2}
+ html.arena-embedded:is([data-embedded-game="xiangqi"],[data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-extra-side .arena-extra-status{
+  padding:5px 8px!important;margin:5px 0!important;font-size:11px!important
+ }
+ html.arena-embedded:is([data-embedded-game="xiangqi"],[data-embedded-game="ludo"],[data-embedded-game="estate"])
+ .arena-extra-side .arena-extra-bar button{
+  min-height:42px!important;flex:1 1 auto!important;font-size:12px!important
+ }
+ html.arena-embedded[data-embedded-game="ludo"] #arenaLudo .ludo-score{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important
+ }
+ html.arena-embedded[data-embedded-game="estate"] #arenaEstate .estate-players{
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:5px!important
+ }
+}
+@media(max-height:520px) and (orientation:landscape){
+ /* Board games still use portrait boards, centered and height-constrained. */
+ html.arena-embedded[data-embedded-game="chess"] #arenaChess .chess-main{
+  width:min(100%,calc(100dvh - 95px))!important
+ }
+ html.arena-embedded[data-embedded-game="xiangqi"] #arenaXiangqi .xq-board-wrap{
+  width:min(100%,calc((100dvh - 125px)*.9))!important
+ }
+ html.arena-embedded[data-embedded-game="ludo"] #arenaLudo .ludo-board,
+ html.arena-embedded[data-embedded-game="estate"] #arenaEstate .estate-board{
+  width:min(100%,calc(100dvh - 140px))!important
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ .arena-v20-player-bar,.arena-v20-turn-badge{transition:none!important;animation:none!important}
+}
