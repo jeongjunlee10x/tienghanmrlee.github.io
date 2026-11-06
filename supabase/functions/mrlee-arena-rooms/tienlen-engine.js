@@ -22,13 +22,19 @@ export function shuffle(items,rng=Math.random){
  }
  return a;
 }
-export function start(rng=Math.random){
+export function start(rng=Math.random,playerCount=4){
+ if(!Number.isInteger(playerCount)||playerCount<2||playerCount>4)throw Error("Tiến Lên cần 2–4 người.");
  const shuffled=shuffle(deck(),rng);
- const hands=[[],[],[],[]];
- shuffled.forEach((c,i)=>hands[i%4].push(c));
+ // Keep 13 cards per player even with 2/3 participants. Unused cards are out
+ // of the match; ensure 3♠ is in play for the traditional opening rule.
+ const dealtCount=13*playerCount;
+ const openerIndex=shuffled.findIndex(c=>c.id==="3-0");
+ if(openerIndex>=dealtCount)[shuffled[0],shuffled[openerIndex]]=[shuffled[openerIndex],shuffled[0]];
+ const hands=Array.from({length:playerCount},()=>[]);
+ shuffled.slice(0,dealtCount).forEach((c,i)=>hands[i%playerCount].push(c));
  hands.forEach(h=>h.sort((a,b)=>value(a)-value(b)));
  const first=hands.findIndex(hand=>hand.some(c=>c.id==="3-0"));
- return {hands,turn:first,first:true,leader:first,last:null,passed:[false,false,false,false],
+ return {hands,turn:first,first:true,leader:first,last:null,passed:Array(playerCount).fill(false),
   history:["Ai có 3♠ được đi trước. Lượt đầu phải chứa 3♠."],played:[],winner:null,rounds:0};
 }
 export function analyze(cards){
@@ -66,8 +72,8 @@ export function beats(a,b){
  return a.suit>b.suit;
 }
 export function nextSeat(g,from=g.turn){
- for(let i=1;i<=4;i++){
-  const seat=(from+i)%4;
+ for(let i=1;i<=g.hands.length;i++){
+  const seat=(from+i)%g.hands.length;
   if(!g.passed[seat])return seat;
  }
  return from;
@@ -87,7 +93,7 @@ export function play(g,player,ids){
  const combo=analyze(cards);
  g.hands[player]=hand.filter(c=>!ids.includes(c.id));
  g.last={player,combo};g.leader=player;
- g.passed=[false,false,false,false];
+ g.passed=Array(g.hands.length).fill(false);
  g.played=cards;
  g.first=false;g.rounds++;
  const type={single:"rác",pair:"đôi",triple:"sám",quad:"tứ quý",straight:"sảnh","pair-run":"đôi thông"}[combo.type];
@@ -109,10 +115,10 @@ export function pass(g,player){
  g.passed[player]=true;
  g.history.push(NAMES[player]+" bỏ lượt.");
  g.rounds++;
- const available=Array.from({length:4},(_,i)=>i).filter(i=>i!==g.last.player&&!g.passed[i]);
+ const available=Array.from({length:g.hands.length},(_,i)=>i).filter(i=>i!==g.last.player&&!g.passed[i]);
  if(!available.length){
   const leader=g.last.player;
-  g.last=null;g.played=[];g.passed=[false,false,false,false];
+  g.last=null;g.played=[];g.passed=Array(g.hands.length).fill(false);
   g.turn=leader;
   g.history.push("Vòng mới: "+NAMES[leader]+" được mở bài.");
  }else g.turn=nextSeat(g,player);
