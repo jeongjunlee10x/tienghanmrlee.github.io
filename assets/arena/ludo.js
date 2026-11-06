@@ -69,6 +69,38 @@ function coordinates(who,pawn,progress){
  return TRACK[(STARTS[who]+progress)%52];
 }
 import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r2";
+// AI choices are calculated from real board state; easy is random,
+// normal prioritizes exit/capture, hard additionally avoids exposed horses.
+export function ludoBotChoice(g,difficulty="normal",rng=Math.random){
+ const moves=ludoMoves(g);
+ if(!moves.length)return null;
+ if(difficulty==="easy")return moves[Math.floor(rng()*moves.length)];
+ const who=g.turn,step=g.die;
+ const scored=moves.map(index=>{
+  const progress=g.pawns[who][index],next=progress===-1?0:progress+step;
+  let score=(progress===-1?36:Math.min(36,next*.42))+(next===58?190:0);
+  if(next>=0&&next<52){
+   const cell=(STARTS[who]+next)%52,protectedCell=STARTS.includes(cell);
+   if(protectedCell)score+=13;
+   for(const other of g.seats){
+    if(other===who)continue;
+    for(const pawn of g.pawns[other]){
+     if(pawn<0||pawn>=52)continue;
+     const enemy=(STARTS[other]+pawn)%52;
+     if(!protectedCell&&enemy===cell)score+=125;
+     if(difficulty==="hard"&&!protectedCell){
+      const gap=(cell-enemy+52)%52;
+      if(gap>=1&&gap<=6)score-=Math.max(0,38-gap*3);
+     }
+    }
+   }
+  }
+  if(progress>=52)score+=80;
+  return {index,score:score+rng()*(difficulty==="hard"?1.5:12)};
+ });
+ scored.sort((a,b)=>b.score-a.score);
+ return scored[0].index;
+}
 export function mountLudo({onStart,onFinish,onExit}){
  const root=$("arenaLudo"),board=$("ludoBoard"),status=$("ludoStatus"),rollBtn=$("ludoRoll"),moves=$("ludoMoves");
  const requested=Number(new URL(location.href).searchParams.get("players"));
@@ -114,12 +146,9 @@ export function mountLudo({onStart,onFinish,onExit}){
    if(game.phase==="roll")rollLudo(game);
    if(game.phase==="choose"){
     const choices=ludoMoves(game);
-    choices.sort((a,b)=>{
-     const x=game.pawns[who][a],y=game.pawns[who][b];
-     return (y===58?100:y)-(x===58?100:x);
-    });
-    if(choices.length){
-     const idx=choices[0],next=game.pawns[who][idx]===-1?0:game.pawns[who][idx]+game.die;
+    const idx=ludoBotChoice(game,$("ludoLevel")?.value||"normal");
+    if(idx!==null){
+     const next=game.pawns[who][idx]===-1?0:game.pawns[who][idx]+game.die;
      const from=board.querySelector('[data-pawn="'+who+'-'+idx+'"]');
      const dest=coordinates(who,idx,next).join("-");
      const to=board.querySelector('[data-cell="'+dest+'"]');
