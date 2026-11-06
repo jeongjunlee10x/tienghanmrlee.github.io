@@ -76,8 +76,8 @@ const publicGuidePages=[
  'lo-trinh-trung-cap-1.html','lo-trinh-trung-cap-2.html',
  'lo-trinh-cao-cap-1.html','lo-trinh-cao-cap-2.html'
 ];
-assert(sitemapUrls.length>=24,'Public sitemap lost the seven new learning guides');
-assert(sitemapUrls.length>=28,'Public sitemap lost the four additional study guides');
+assert(sitemapUrls.length>=21,'Public sitemap lost core SEO landing pages');
+// Number of sitemap URLs is now governed by public accessibility, not private lesson links.
 const publicTopicGuides=[
  'huong-dan-on-thi-topik-i.html','huong-dan-on-thi-topik-ii.html',
  'ngu-phap-tieng-han-co-ban.html','cau-hoi-phong-van-du-hoc-han-quoc.html'
