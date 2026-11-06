@@ -100,6 +100,20 @@ try{
     assert.equal(await page.locator("#roomLobby").isVisible(),false);
     assert.equal(await page.locator("#roomPlay").isVisible(),true);
     assert.equal(await iframe.locator("html").evaluate(el=>el.classList.contains("arena-embedded")),true);
+    if(game==="chess"||game==="xiangqi"){
+     // These are portrait-first games: the user never has to turn the phone.
+     assert.equal(await page.locator("#roomTryLandscape").isVisible(),false);
+     const square=await iframe.locator(game==="chess"?"#chessBoard":"#xqBoard").evaluate(el=>{
+      const b=el.getBoundingClientRect();
+      return {width:b.width,left:b.left,right:b.right,viewport:document.documentElement.clientWidth,
+       overflow:document.documentElement.scrollWidth-document.documentElement.clientWidth};
+     });
+     assert.ok(square.width>120&&square.left>=-2&&square.right<=square.viewport+3,
+      "Portrait chess board clipped "+pageFile+" "+width+": "+JSON.stringify(square));
+     assert.ok(square.overflow<=5,"Iframe horizontal overflow "+pageFile+": "+JSON.stringify(square));
+     if(width===390)assert.equal(await iframe.locator(".arena-rotate-prompt").count(),0,
+      "Portrait chess/xiangqi must not show rotate prompt");
+    }
     if(width>=1000){
      const desktop=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth-innerWidth,
       screen:document.querySelector(".game-room-play").getBoundingClientRect().width,
