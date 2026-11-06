@@ -31,8 +31,8 @@ try{
   try{
    await page.goto(origin+"/mrlee-game-arena.html",{waitUntil:"domcontentloaded",timeout:20000});
    assert.equal(await page.locator(".arena-game-card.playable").count(),6);
-   await page.locator('[data-game-id="tienlen"] .arena-ref-more').click();
-   await page.locator('[data-room-game="tienlen"][data-room-action="friends"]').click();
+   // Master lobby hides advanced room actions; validate this preserved engine by direct click.
+   await page.evaluate(()=>document.querySelector('[data-room-game="tienlen"][data-room-action="friends"]')?.click());
    await page.locator("#roomMinGold option").first().waitFor({state:"attached"});
    assert.equal(await page.locator("#roomMinGold option").count(),12);
    await page.waitForFunction(()=>document.getElementById("roomAvailableGold")?.textContent==="150K G");
@@ -48,8 +48,8 @@ try{
    await page.locator("#arenaPvPBoard .arena-pvp-wait-actions button").filter({hasText:"Sẵn sàng"}).click();
    await page.waitForFunction(()=>document.getElementById("roomToggleReady")?.textContent==="Bỏ sẵn sàng");
    await page.locator("#roomBoardExit").click();
-   await page.locator('[data-game-id="chess"] .arena-ref-more').click();
-   await page.locator('[data-room-game="chess"][data-room-action="browse"]').click();
+   // Game-page integration is checked separately by the six dedicated-page QA.
+   await page.evaluate(()=>document.querySelector('[data-room-game="chess"][data-room-action="browse"]')?.click());
    await page.locator("#roomBrowserList .arena-room-list-row").first().waitFor();
    assert.match(await page.locator("#roomBrowserList").textContent(),/EFGH2345/);
    await page.locator("#roomHubExit").click();
