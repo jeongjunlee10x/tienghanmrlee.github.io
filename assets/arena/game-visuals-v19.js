@@ -56,7 +56,7 @@ const colors={
  card:"#f5cf82",chess:"#e4c587",xiangqi:"#e6b67d",ludo:"#78dbff",
  estate:"#95c7ff",colors:"#c9a0ff",win:"#ffde82",capture:"#f9a174"
 };
-let prev=0,active=0;
+let prev=-Infinity,active=0;
 function fx({kind="card",element=null,label="",count}={}){
  if(mode==="off"||reduce()||document.hidden||active>40)return;
  const now=performance.now();
