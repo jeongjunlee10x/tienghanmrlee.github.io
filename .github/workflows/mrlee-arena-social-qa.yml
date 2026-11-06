@@ -10,6 +10,8 @@ on:
       - 'assets/arena/game-room-browser.js'
       - 'assets/arena/game-room-browser.css'
       - 'tools/browser-arena-social.mjs'
+      - 'tools/test-arena-create-jsonb.mjs'
+      - 'supabase/functions/mrlee-arena-rooms/index.ts'
       - 'tools/browser-game-rooms.mjs'
       - '.github/workflows/mrlee-arena-social-qa.yml'
   workflow_dispatch:
@@ -28,6 +30,8 @@ jobs:
           node --check assets/arena/game-room-browser.js
           node --check assets/arena/game-room-shell.js
           node --check tools/browser-arena-social.mjs
+          node --check tools/test-arena-create-jsonb.mjs
+          node tools/test-arena-create-jsonb.mjs
           node tools/check-site.mjs
           node tools/build-cloudflare-pages.mjs
           node tools/check-cloudflare-pages-build.mjs
