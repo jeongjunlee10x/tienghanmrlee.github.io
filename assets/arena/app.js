@@ -1,12 +1,12 @@
 /* MR LEE Game Arena — local sandbox. Wins/XP/gold here are not official rewards. */
 import {newGame,canPlay,play,beginDraw,pass,botTurn,cardLabel,topCard,
   COLOR_VI,COLORS,PLAYER_NAMES} from "./color-engine.js?v=20261107-ai-r18";
-import {mountChess} from "./chess-ui.js?v=20261107-motion-v22";
-import {mountTienLen} from "./tienlen-ui.js?v=20261107-motion-v22";
-import {mountArenaRooms} from "./rooms-ui.js?v=20261107-motion-v22";
-import {mountLudo} from "./ludo.js?v=20261107-motion-v22";
-import {mountXiangqi} from "./xiangqi.js?v=20261107-motion-v22";
-import {mountEstate} from "./estate.js?v=20261107-motion-v22";
+import {mountChess} from "./chess-ui.js?v=20261107-motion-v22b";
+import {mountTienLen} from "./tienlen-ui.js?v=20261107-motion-v22b";
+import {mountArenaRooms} from "./rooms-ui.js?v=20261107-motion-v22b";
+import {mountLudo} from "./ludo.js?v=20261107-motion-v22b";
+import {mountXiangqi} from "./xiangqi.js?v=20261107-motion-v22b";
+import {mountEstate} from "./estate.js?v=20261107-motion-v22b";
 import {enablePointerDrag,animateBoardMove,animateCardTransfer} from "./drag-gestures.js?v=20261107-motion-v22b";
 import {emitArenaFX} from "./game-visuals-v19.js?v=20261107-approved-v20";
 const $=id=>document.getElementById(id);
