@@ -7,6 +7,7 @@ import {mountArenaRooms} from "./rooms-ui.js?v=20261106-chess-r10";
 import {mountLudo} from "./ludo.js?v=20261106-modes-r9";
 import {mountXiangqi} from "./xiangqi.js?v=20261106-modes-r9";
 import {mountEstate} from "./estate.js?v=20261106-modes-r9";
+import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r1";
 const $=id=>document.getElementById(id);
 const state={game:null,tickets:Infinity,gold:0,xp:0,wins:0,losses:0,pending:null,
   timer:null,epoch:0,settled:false,leaving:false};
@@ -144,10 +145,14 @@ function render(){
    if(!state.game||state.pending!==null)return;
    try{
     if(card.type==="wild"||card.type==="wild4")colorChoice(card);
-    else {play(state.game,0,card.id);render();}
+    else {
+     const from=b,to=$("arenaTopCard");
+     animateBoardMove({from,to,piece:b.querySelector(".arena-card-face"),kind:"color-card"});
+     play(state.game,0,card.id);render();
+    }
    }catch(err){flash(err.message);}
   });
-  b.disabled=!legal||state.pending!==null;
+  b.disabled=!legal||state.pending!==null;b.dataset.cardId=String(card.id);
   b.append(presentCard(card));
   b.setAttribute("aria-label",cardLabel(card)+" "+(card.color?COLOR_VI[card.color]:"đặc biệt"));
   list.append(b);
@@ -178,6 +183,29 @@ function scheduleBot(){
   catch(err){flash("Đối thủ tạm dừng: "+err.message);}
  },650);
 }
+// Lift a colored card, move it across the table and release over the pile.
+// The original color-engine checks legality; invalid drops return to the hand.
+enablePointerDrag({
+ root:$("arenaTable"),itemSelector:"#arenaHand .arena-hand-card[data-card-id]",
+ targetSelector:".arena-board-center",previewSelector:".arena-card-face",
+ canStart:item=>{
+  const g=state.game,id=Number(item.dataset.cardId);
+  return Boolean(g&&g.turn===0&&g.winner===null&&state.pending===null&&
+   g.hands[0].some(card=>card.id===id&&canPlay(g,card,0)));
+ },
+ canDrop:(item)=>Boolean(state.game&&state.game.turn===0&&state.game.winner===null&&
+  state.game.hands[0].some(card=>card.id===Number(item.dataset.cardId)&&canPlay(state.game,card,0))),
+ onDrop:item=>{
+  const g=state.game,id=Number(item.dataset.cardId);
+  const card=g?.hands[0]?.find(c=>c.id===id);
+  if(!card||!canPlay(g,card,0))return false;
+  try{
+   if(card.type==="wild"||card.type==="wild4")colorChoice(card);
+   else{play(g,0,id);render();}
+   return true;
+  }catch(error){flash(error.message);return false;}
+ }
+});
 $("arenaCatalog").querySelector("[data-game=colors]").addEventListener("click",start);
 $("arenaExit").addEventListener("click",showLobby);
 $("arenaDraw").addEventListener("click",()=>{
