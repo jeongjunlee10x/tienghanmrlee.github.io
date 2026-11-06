@@ -119,22 +119,49 @@ export function enablePointerDrag({
  window.addEventListener("blur",()=>clean("cancel"));
  return {cancel:()=>clean("cancel")};
 }
-// Animate the accepted move after model state updates. Never delays engine logic.
+// The accepted game move remains authoritative; sprites never hold the turn.
+const movingSprites=new Set();
 export function animateBoardMove({from,to,piece,kind="piece"}){
- if(!from||!to||!piece||reduceMotion()||!piece.animate)return;
+ if(!from||!to||!piece||reduceMotion()||!piece.animate||document.hidden)return;
  const before=from.getBoundingClientRect(),after=to.getBoundingClientRect();
  const r=piece.getBoundingClientRect();if(!r.width||!r.height)return;
- const clone=piece.cloneNode(true);snapshotVisual(piece,clone);clone.classList.add("arena-move-sprite",kind);
+ for(const stale of movingSprites)if(movingSprites.size>=24){stale.remove();movingSprites.delete(stale);}
+ const clone=piece.cloneNode(true);snapshotVisual(piece,clone);
+ clone.classList.add("arena-move-sprite",kind);
  clone.setAttribute("aria-hidden","true");
  clone.style.width=r.width+"px";clone.style.height=r.height+"px";
  clone.style.left=r.left+"px";clone.style.top=r.top+"px";
- document.body.append(clone);
+ document.body.append(clone);movingSprites.add(clone);
  const dx=after.left+after.width/2-r.left-r.width/2;
  const dy=after.top+after.height/2-r.top-r.height/2;
- const a=clone.animate([
+ const settings={
+  "chess-piece":{duration:340,lift:10,scale:1.07,spin:0},
+  "xiangqi-piece":{duration:330,lift:14,scale:1.12,spin:0},
+  "ludo-piece":{duration:540,lift:24,scale:1.18,spin:0},
+  "estate-pawn":{duration:610,lift:27,scale:1.11,spin:0},
+  "color-card":{duration:360,lift:35,scale:1.08,spin:-10},
+  "piece":{duration:370,lift:12,scale:1.09,spin:0}
+ };
+ const p=settings[kind]||settings.piece;
+ const max=Math.hypot(dx,dy);
+ const duration=Math.min(p.duration+Math.min(120,max*.13),750);
+ const middle={transform:"translate3d("+(dx*.47)+"px,"+(dy*.47-p.lift)+"px,0) rotate("+
+  p.spin*.6+"deg) scale("+p.scale+")",opacity:1,offset:.53};
+ const frames=kind==="ludo-piece"||kind==="estate-pawn"?[
   {transform:"translate3d(0,0,0) scale(1)",opacity:1},
-  {transform:"translate3d("+(dx*.55)+"px,"+(dy*.55-9)+"px,0) scale(1.14)",opacity:1,offset:.56},
-  {transform:"translate3d("+dx+"px,"+dy+"px,0) scale(1)",opacity:.15}
- ],easeOut(Math.min(420,240+Math.hypot(dx,dy)*.28)));
- a.finished.catch(()=>{}).then(()=>clone.remove());
+  {transform:"translate3d("+(dx*.26)+"px,"+(dy*.26-p.lift)+"px,0) scale("+p.scale+")",opacity:1,offset:.25},
+  {transform:"translate3d("+(dx*.52)+"px,"+(dy*.52)+"px,0) scale(1)",opacity:1,offset:.49},
+  {transform:"translate3d("+(dx*.76)+"px,"+(dy*.76-p.lift*.7)+"px,0) scale(1.07)",opacity:1,offset:.74},
+  {transform:"translate3d("+dx+"px,"+dy+"px,0) scale(1)",opacity:.08}
+ ]:[
+  {transform:"translate3d(0,0,0) scale(1)",opacity:1},
+  middle,
+  {transform:"translate3d("+dx+"px,"+dy+"px,0) rotate(0deg) scale(1)",opacity:.12}
+ ];
+ const animation=clone.animate(frames,{
+  duration,easing:"cubic-bezier(.22,.79,.25,1)",fill:"forwards"
+ });
+ const cleanup=()=>{clone.remove();movingSprites.delete(clone);};
+ animation.finished.catch(()=>{}).then(cleanup);
+ setTimeout(cleanup,duration+200);
 }
