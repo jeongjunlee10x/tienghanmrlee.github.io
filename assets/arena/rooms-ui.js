@@ -180,7 +180,7 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
   $("roomBoardCode").textContent=room.code;
   $("roomLobbyCode").textContent=room.code;
   $("roomLobbyGame").textContent=gameName();
-  $("roomLobbyGold").textContent=formatG(room.minGold)+"/lá · Bảo đảm "+formatG(room.requiredGold);
+  $("roomLobbyGold").textContent=formatG(room.minGold)+(room.game==="chess"?"/ván · "+(room.timeControl||"10+0"):"/lá")+" · Bảo đảm "+formatG(room.requiredGold);
   $("roomLobbyCount").textContent=room.players.length+"/"+room.capacity+" người";
   const mine=room.players.find(p=>p.seat===room.seat);
   $("roomToggleReady").textContent=mine?.ready?"Bỏ sẵn sàng":"✓ Tôi đã sẵn sàng";
@@ -217,13 +217,13 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
   $("roomBoardTitle").textContent=gameName()+" · "+(room.status==="finished"?"Kết thúc · Đợi ván sau":"Đang đấu PvP");
   $("roomBoardCode").textContent=room.code;
   canvas.render(room);
-  if(["tienlen","chess","colors"].includes(room.game)&&room.status==="playing"&&room.gameState?.turnDeadline){
+  if(["tienlen","colors"].includes(room.game)&&room.status==="playing"&&room.gameState?.turnDeadline){
    const hud=el("div","arena-turn-clock");hud.id="roomTurnClock";
    hud.setAttribute("role","timer");hud.setAttribute("aria-label","Thời gian còn lại trong lượt đánh");
    $("roomGameCanvas").append(hud);
   }
   status("roomBoardStatus",room.status==="finished"?"Ván đã được máy chủ kết toán G; xem bài và chọn Tiếp tục.":
-   "Đang chơi ván "+(room.roundIndex||1)+" · "+formatG(room.minGold)+"/lá");
+   "Đang chơi ván "+(room.roundIndex||1)+" · "+formatG(room.minGold)+(room.game==="chess"?"/ván · "+(room.timeControl||"10+0"):"/lá"));
   $("roomGameCanvas").querySelector(".arena-next-round-dialog")?.remove();
   if(room.status!=="finished"||!room.settlement)return;
   const detail=room.settlement,remaining=detail.remaining||[];
@@ -386,7 +386,7 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
  // decides when a turn expires and performs the legal automatic action.
  setInterval(()=>{
   const node=$("roomTurnClock");
-  if(!node||!room||!["tienlen","chess","colors"].includes(room.game)||room.status!=="playing")return;
+  if(!node||!room||!["tienlen","colors"].includes(room.game)||room.status!=="playing")return;
   const deadline=Date.parse(room.gameState?.turnDeadline||"");
   if(!Number.isFinite(deadline)){node.textContent="⏱ Đang đồng bộ...";return;}
   const seconds=Math.max(0,Math.ceil((deadline-Date.now()-serverClockOffset)/1000));
