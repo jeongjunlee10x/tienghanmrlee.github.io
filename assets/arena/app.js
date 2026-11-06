@@ -232,6 +232,13 @@ function settleStrategy(result,label,root){
  const caution=document.createElement("p");caution.className="arena-disclaimer";
  caution.textContent="Vàng và EXP chỉ dùng trong phiên. Không ảnh hưởng điểm kiểm tra, TOPIK Spark hoặc điểm thưởng học tập.";
  const actions=document.createElement("div");actions.className="arena-outcome-actions";
+ const restartByGame={
+  arenaChess:()=>chessController?.start(),arenaTienLen:()=>tienLenController?.start(),
+  arenaLudo:()=>ludoController?.start(),arenaXiangqi:()=>xiangqiController?.start(),
+  arenaEstate:()=>estateController?.start()
+ };
+ const playAgain=restartByGame[root.id];
+ if(playAgain)actions.append(button("▶ CHƠI VÁN TIẾP","arena-primary",playAgain));
  const exit=button("← Về sảnh","arena-soft",showLobby);
  actions.append(exit);panel.append(title,note,caution,actions);
  panel.classList.add("arena-match-result");
