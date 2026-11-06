@@ -438,8 +438,29 @@ export function mountOnlineCanvas(root,onMove){
    return true;
   }
  });
+ function animateRemoteChess(previous,next){
+  if(!previous||previous.code!==next.code||previous.game!=="chess"||
+   next.game!=="chess"||previous.status!=="playing"||next.status!=="playing"||
+   previous.gameState?.turn===next.seat||
+   previous.gameState?.turn===next.gameState?.turn)return;
+  const oldPieces=previous.gameState?.position?.b,newPieces=next.gameState?.position?.b;
+  if(!oldPieces||!newPieces)return;
+  const movedSide=next.gameState.turn===0?-1:1;
+  const sources=[],destinations=[];
+  for(let i=0;i<128;i++)if((i&0x88)===0){
+   if(Chess.side(oldPieces[i])===movedSide&&oldPieces[i]!==newPieces[i])sources.push(i);
+   if(Chess.side(newPieces[i])===movedSide&&oldPieces[i]!==newPieces[i])destinations.push(i);
+  }
+  if(!sources.length||!destinations.length)return;
+  // The old DOM still represents the opponent's last position. Its square
+  // coordinates are stable even when the viewer is seated on black.
+  const from=root.querySelector('.arena-pvp-chess [data-index="'+sources[0]+'"]');
+  const to=root.querySelector('.arena-pvp-chess [data-index="'+destinations[0]+'"]');
+  animateBoardMove({from,to,piece:from?.querySelector(".chess-white,.chess-black"),kind:"chess-piece"});
+ }
  function render(room,force=false){
   if(!room?.gameState)return;
+  if(!force&&room.version!==lastVersion)animateRemoteChess(shownRoom,room);
   shownRoom=room;
   clockOffset=Date.parse(room.serverTime||"")-Date.now()||0;
   if(room.code!==lastCode){chosenSquare=-1;chosenCards.clear();chosenWild=null;lastVersion=-1;}
