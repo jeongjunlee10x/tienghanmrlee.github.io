@@ -49,6 +49,21 @@ if(params.get("embed")==="1"&&window.parent!==window){
   checkState();
   setTimeout(checkState,180);
  }
+ // A broken game engine or blocked module must be visible to the parent;
+ // it must never strand the player behind a blank loading screen forever.
+ window.addEventListener("error",event=>{
+  if(!hasGoneIn)send("error","Bàn chơi gặp lỗi khởi động. Hãy bấm Thử lại.");
+ });
+ window.addEventListener("unhandledrejection",()=>{
+  if(!hasGoneIn)send("error","Chưa tải đủ dữ liệu trò chơi. Hãy bấm Thử lại.");
+ });
+ setTimeout(()=>{
+  if(!hasGoneIn){
+   send("error",document.documentElement.dataset.arenaAppReady==="1"?
+    "Bàn chơi chưa xuất hiện. Hãy thử mở lại.":
+    "Không thể khởi tạo bộ luật trò chơi. Hãy bấm Thử lại.");
+  }
+ },10500);
  window.addEventListener("mrlee:arena-ready",boot);
  if(document.documentElement.dataset.arenaAppReady==="1")boot();
  if(lobby)new MutationObserver(checkState).observe(lobby,{attributes:true,attributeFilter:["hidden"]});
