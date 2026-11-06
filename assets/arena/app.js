@@ -7,7 +7,7 @@ import {mountArenaRooms} from "./rooms-ui.js?v=20261106-gesture-r12";
 import {mountLudo} from "./ludo.js?v=20261106-gesture-r12";
 import {mountXiangqi} from "./xiangqi.js?v=20261106-gesture-r12";
 import {mountEstate} from "./estate.js?v=20261106-gesture-r12";
-import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r1";
+import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r2";
 const $=id=>document.getElementById(id);
 const state={game:null,tickets:Infinity,gold:0,xp:0,wins:0,losses:0,pending:null,
   timer:null,epoch:0,settled:false,leaving:false};
