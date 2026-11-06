@@ -83,6 +83,13 @@ try{
     assert.ok(overflow<=4,"Horizontal overflow on "+pageFile+" at "+width+": "+overflow);
     const tiles=await page.locator(".game-room-tiles").boundingBox();
     assert.ok(tiles&&tiles.height<=height,"Oversized tiles in "+pageFile+": "+tiles?.height);
+    assert.ok(tiles.x>=-1&&tiles.x+tiles.width<=width+2,
+     "Game menu cropped horizontally on "+pageFile+": "+JSON.stringify(tiles));
+    const positions=await page.locator(".game-room-tile").evaluateAll(nodes=>nodes.map(n=>{
+     const r=n.getBoundingClientRect();return {x:r.x,right:r.right,width:r.width};
+    }));
+    assert.ok(positions.every(b=>b.x>=-1&&b.right<=width+2),
+     "Game buttons clipped on "+pageFile+" "+width+"px: "+JSON.stringify(positions));
     if(game==="tienlen"||game==="chess"){
      await page.screenshot({path:path.join(ROOT,"artifacts","game-rooms",game+"-"+width+".png")});
     }
