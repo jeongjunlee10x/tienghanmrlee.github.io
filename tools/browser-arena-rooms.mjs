@@ -31,6 +31,7 @@ try{
   try{
    await page.goto(origin+"/mrlee-game-arena.html",{waitUntil:"domcontentloaded",timeout:20000});
    assert.equal(await page.locator(".arena-game-card.playable").count(),6);
+   await page.locator('[data-game-id="tienlen"] .arena-ref-more').click();
    await page.locator('[data-room-game="tienlen"][data-room-action="friends"]').click();
    await page.locator("#roomMinGold option").first().waitFor({state:"attached"});
    assert.equal(await page.locator("#roomMinGold option").count(),12);
@@ -47,11 +48,12 @@ try{
    await page.locator("#roomToggleReady").click();
    await page.waitForFunction(()=>document.getElementById("roomToggleReady")?.textContent==="Bỏ sẵn sàng");
    await page.locator("#roomLobbyExit").click();
+   await page.locator('[data-game-id="chess"] .arena-ref-more').click();
    await page.locator('[data-room-game="chess"][data-room-action="browse"]').click();
    await page.locator("#roomBrowserList .arena-room-list-row").first().waitFor();
    assert.match(await page.locator("#roomBrowserList").textContent(),/EFGH2345/);
    await page.locator("#roomHubExit").click();
-   await page.locator('[data-game="chess"]').click();
+   await page.locator('.arena-ref-play[data-ref-play="chess"]').click();
    await page.locator("#chessBoard").waitFor({state:"visible"});
    await page.locator('[data-fullscreen-target="arenaChess"]').click();
    await page.waitForFunction(()=>{
