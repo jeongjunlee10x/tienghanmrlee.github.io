@@ -114,8 +114,8 @@ html[data-room-layout="portrait"] #roomOrientationTip{display:none!important}
   padding:6px 11px;font:900 11px/1.2 system-ui;touch-action:manipulation
  }
 }
-/* Rotate automatically only where the browser supports fullscreen locking.
- * Do NOT use CSS rotate(90deg): rotated hit-tests break iframe touch moves. */
+/* Rotate only where the browser supports fullscreen locking.
+ * Never rotate an iframe via CSS: hit testing for touch moves must remain correct. */
 @media(max-width:960px) and (orientation:landscape) and (max-height:500px){
  body.game-room-in-play .game-room-play-head{
   min-height:31px!important;height:31px;padding-block:1px!important
