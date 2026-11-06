@@ -379,3 +379,30 @@ html.arena-reference-v1.arena-embedded #arenaTienLen .tl-controls.arena-card-tur
   min-height:620px!important
  }
 }
+
+/* The pile owner should never be confused with the next actor. */
+#arenaPvPBoard .arena-last-played-by,
+#arenaTienLen .arena-last-played-by{
+ display:inline-flex;align-items:center;justify-content:center;
+ margin:2px auto 5px;padding:4px 10px;
+ border:1px solid #e4c89281;border-radius:99px;
+ background:#142d42d9;color:#ffedca;
+ font:900 clamp(10px,1.6vw,12px)/1.3 system-ui;
+ text-shadow:0 1px 3px #0009
+}
+#arenaPvPBoard .arena-last-played-by.mine,
+#arenaTienLen .arena-last-played-by.mine{
+ background:#25654ddd!important;border-color:#ffdd78!important;
+ color:#fff0ac!important;box-shadow:0 0 10px #ffe0806d
+}
+#arenaPvPBoard .arena-pvp-current .tl-real-card,
+#arenaPvPBoard .arena-pvp-current .tl-real-card:not(:first-child),
+#arenaTienLen .tl-pile>.tl-real-card:not(:first-child){
+ margin-left:-6px!important
+}
+#arenaPvPBoard .arena-pvp-current{overflow:visible!important}
+#arenaTienLen .arena-last-played-by[hidden]{display:none!important}
+@media(max-width:620px){
+ #arenaPvPBoard .arena-last-played-by,
+ #arenaTienLen .arena-last-played-by{font-size:10px;padding:3px 7px}
+}
