@@ -1,13 +1,13 @@
 /* MR LEE Game Arena — local sandbox. Wins/XP/gold here are not official rewards. */
 import {newGame,canPlay,play,beginDraw,pass,botTurn,cardLabel,topCard,
   COLOR_VI,COLORS,PLAYER_NAMES} from "./color-engine.js?v=20261107-ai-r18";
-import {mountChess} from "./chess-ui.js?v=20261107-ai-r18";
-import {mountTienLen} from "./tienlen-ui.js?v=20261107-ai-r18";
-import {mountArenaRooms} from "./rooms-ui.js?v=20261107-ai-r18";
-import {mountLudo} from "./ludo.js?v=20261107-ai-r18";
-import {mountXiangqi} from "./xiangqi.js?v=20261107-ai-r18";
-import {mountEstate} from "./estate.js?v=20261107-ai-r18";
-import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r2";
+import {mountChess} from "./chess-ui.js?v=20261107-v19";
+import {mountTienLen} from "./tienlen-ui.js?v=20261107-v19";
+import {mountArenaRooms} from "./rooms-ui.js?v=20261107-v19";
+import {mountLudo} from "./ludo.js?v=20261107-v19";
+import {mountXiangqi} from "./xiangqi.js?v=20261107-v19";
+import {mountEstate} from "./estate.js?v=20261107-v19";
+import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261107-v19";
 import {emitArenaFX} from "./game-visuals-v19.js?v=20261107-v19";
 const $=id=>document.getElementById(id);
 // AI difficulty is a visual preference only; it is never trusted for G scoring
