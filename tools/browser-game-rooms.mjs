@@ -115,6 +115,26 @@ try{
      assert.ok((await iframe.locator("#estateRound").textContent()).includes("1/8"),
       "Estate fast mode uses eight rounds");
     }
+    // Readable card hands and the contextual, non-blocking popup.
+    if(game==="colors"){
+     assert.equal(await iframe.locator("#arenaHand .arena-hand-card").count(),7,
+      "All seven player cards must remain visible with no opponent hand leaks");
+     assert.equal(await iframe.locator("#arenaTable .arena-turn-controls.arena-card-turn-popup").isVisible(),true,
+      "Bot Color actions only appear on this player's turn");
+     const face=await iframe.locator("#arenaHand .arena-card-face").first().boundingBox();
+     assert.ok(face&&face.width>=40,"Color card faces must remain legible on phones");
+    }
+    if(game==="tienlen"){
+     await iframe.locator("#tlDealNotice").waitFor({state:"hidden",timeout:14000});
+     const active=await iframe.locator("#tlHand .tl-hand-card:not(:disabled)").count()>0;
+     const popup=iframe.locator("#arenaTienLen .tl-controls.arena-card-turn-popup");
+     assert.equal(await popup.isVisible(),active,
+      "Bot Tiến Lên play/pass action panel must follow the actual turn");
+     assert.equal(await iframe.locator("#tlHand .tl-hand-card").count(),13,
+      "Player's 13 real cards must remain in hand during the deal");
+     const face=await iframe.locator("#tlHand .tl-real-card").first().boundingBox();
+     assert.ok(face&&face.width>=35,"Tiến Lên ranks and suits must not shrink beyond recognition");
+    }
     assert.equal(await page.locator("#roomLobby").isVisible(),false);
     assert.equal(await page.locator("#roomPlay").isVisible(),true);
     // Verify a real pointer gesture completes a legal move, not just CSS hover.
