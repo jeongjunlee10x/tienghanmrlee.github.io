@@ -56,7 +56,7 @@ try{
     try{Object.defineProperty(screen.orientation,"lock",{configurable:true,
      value:async()=>{window.__mrleeOrientation.lock++;throw Error("mock lock unavailable");}});}catch{}
    });
-   await page.locator('[data-game="colors"]').click();
+   await page.locator("#arenaRefColorsAccess").click();
    await page.waitForFunction(()=>document.body.classList.contains("arena-mobile-playing"),null,{timeout:7000});
    await page.locator("#arenaTable .arena-live-hud").waitFor({state:"visible",timeout:7000});
    assert.match((await page.locator("#arenaTable .arena-live-hud").textContent())||"",/lượt|chờ|bài/i);
@@ -68,13 +68,13 @@ try{
    else assert.equal(await page.locator("#arenaTable .arena-rotate-prompt").isVisible(),false);
    await page.locator("#arenaExit").click();
    assert.equal(await page.locator("#arenaTable").isVisible(),false);
-   await page.locator('[data-game="chess"]').click();
+   await page.locator('.arena-ref-play[data-ref-play="chess"]').click();
    await page.locator("#chessBoard .chess-square").first().waitFor({state:"visible",timeout:7000});
    await page.locator("#chessStatus").evaluate(n=>n.textContent="Chiếu! Đến lượt bạn.");
    await page.locator("#arenaChess .arena-live-hud").waitFor({state:"visible",timeout:4000});
    assert.match((await page.locator("#arenaChess .arena-live-hud").textContent())||"",/Chiếu/);
    await page.locator("#chessExit").click();
-   await page.locator('[data-game="tienlen"]').click();
+   await page.locator('.arena-ref-play[data-ref-play="tienlen"]').click();
    await page.locator("#tlBoard .arena-live-hud").waitFor({state:"visible",timeout:12000});
    assert.equal(await page.locator("#tlBoard .arena-live-hud").evaluate(n=>!!n.closest(".tl-board")),true);
    assert.equal(await page.locator('#arenaTienLen > .arena-events').evaluate(n=>getComputedStyle(n).display),"none");
