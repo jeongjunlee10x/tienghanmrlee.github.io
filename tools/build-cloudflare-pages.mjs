@@ -108,13 +108,13 @@ const articleGuides=new Set([
  'cau-hoi-phong-van-du-hoc-han-quoc.html'
 ]);
 function addEditorialStructuredData(html,pathname){
- if(!articleGuides.has(pathname)||!/<\\/head>/i.test(html))return html;
+ if(!articleGuides.has(pathname)||!/<\/head>/i.test(html))return html;
  if(/data-mrlee-editorial-jsonld=/.test(html))return html;
  const url=origin+'/'+pathname;
- const headline=(html.match(/<title\\b[^>]*>([\\s\\S]*?)<\\/title>/i)?.[1]||'')
+ const headline=(html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1]||'')
    .split(' | ')[0].trim();
- const descTag=html.match(/<meta\\b(?=[^>]*\\bname\\s*=\\s*["']description["'])[^>]*>/i)?.[0]||'';
- const description=descTag.match(/\\bcontent\\s*=\\s*(["'])([\\s\\S]*?)\\1/i)?.[2]||'';
+ const descTag=html.match(/<meta\b(?=[^>]*\bname\s*=\s*["']description["'])[^>]*>/i)?.[0]||'';
+ const description=descTag.match(/\bcontent\s*=\s*(["'])([\s\S]*?)\1/i)?.[2]||'';
  if(!headline||!description)throw new Error('Editorial guide lacks title/description: '+pathname);
  const breadcrumb=[{name:'Trang chủ',url:origin+'/'}];
  if(pathname.startsWith('lo-trinh-')){
@@ -134,9 +134,9 @@ function addEditorialStructuredData(html,pathname){
     '@type':'ListItem','position':i+1,'name':b.name,'item':b.url
    }))}
  ]};
- const serialized=JSON.stringify(schema).replace(/</g,'\\\\u003c');
- return html.replace(/<\\/head>/i,
-  '<script type="application/ld+json" data-mrlee-editorial-jsonld="v1">'+serialized+'</script>\\n</head>');
+ const serialized=JSON.stringify(schema).replace(/</g,'\\u003c');
+ return html.replace(/<\/head>/i,
+  '<script type="application/ld+json" data-mrlee-editorial-jsonld="v1">'+serialized+'</script>\n</head>');
 }
 const escapeMeta = text => String(text).replace(/&(?!(?:#\d+|#x[0-9a-f]+|[a-z][a-z0-9]+);)/gi,'&amp;')
   .replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
