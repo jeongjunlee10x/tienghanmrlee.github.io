@@ -66,8 +66,9 @@ try{
     const result=await page.request.get(origin+"/"+cover.src);
     assert.equal(result.status(),200,"Original illustrated cover missing: "+cover.src);
    }
-   await page.waitForFunction(()=>[...document.querySelectorAll("#arenaCatalog .arena-game-card.playable:visible img.arena-cover-image")]
-     .every(img=>img.complete&&img.naturalWidth>=400),null,{timeout:10000}).catch(()=>{});
+   await page.waitForFunction(()=>[...document.querySelectorAll("#arenaCatalog .arena-game-card.playable img.arena-cover-image")]
+     .filter(img=>img.closest(".arena-game-card")?.getClientRects().length>0)
+     .every(img=>img.complete&&img.naturalWidth>=400),null,{timeout:10000});
    assert.equal(await page.locator("#arenaCatalog .arena-cover-brand").count(),6);
    assert.equal(await page.locator("#arenaCatalog .arena-cover-identity").count(),6);
    assert.equal(await page.locator(".arena-board-brand").count(),6);
