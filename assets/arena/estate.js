@@ -150,8 +150,9 @@ export function mountEstate({onStart,onFinish,onExit}){
  function bumpDice(){
   for(const target of [$("estateDice"),board.querySelector(".estate-middle-dice")]){
    if(!target)return;
-   target.classList.remove("arena-dice-rolling");
-   void target.offsetWidth;target.classList.add("arena-dice-rolling");
+   target.classList.remove("arena-dice-rolling","arena-v22-dice-rolling");
+   void target.offsetWidth;target.classList.add("arena-v22-dice-rolling");
+   setTimeout(()=>target.classList.remove("arena-v22-dice-rolling"),760);
   }
  }
  function buy(yes){
