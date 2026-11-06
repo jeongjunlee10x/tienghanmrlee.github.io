@@ -93,6 +93,17 @@
 #arenaTienLen .tl-pile,#arenaPvPBoard .arena-pvp-current{
  min-width:0;
 }
+/* The previous Tiến Lên felt center was pointer-events:none: the browser
+ * could not identify it as a drag destination even with a valid card ID.
+ * Re-enable hit testing in this central region without touching the hand. */
+html.arena-reference-v1.arena-embedded #arenaTienLen .tl-center,
+#arenaTienLen .tl-center{pointer-events:auto!important}
+#arenaTienLen .tl-center .tl-pile,
+#arenaTienLen .tl-center .tl-hint{pointer-events:none}
+#arenaTienLen .tl-center.arena-drop-over{
+ outline:3px dashed #ffdc8e!important;outline-offset:-6px!important;
+ border-radius:18px
+}
 #arenaXiangqi .xq-piece.covered{font-family:"Noto Serif CJK SC","Microsoft YaHei","SimSun",serif!important}
 @media(max-width:850px){
  .arena-expanded-game .arena-table-heading{gap:7px!important}
