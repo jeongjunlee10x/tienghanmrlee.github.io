@@ -159,7 +159,7 @@ export function mountChess({onStart,onFinish,onExit}){
   board.dataset.lastMove=recent?recent.map(square).join(","):"";
   board.dataset.moveIndex=String(traces.length);
   const verdict=status(history);
-  if(!done)note.textContent=hintText||verdict.reason+(s.t===1?" · Chọn quân rồi chọn ô đích.":" · Máy đang tính nước đi…");
+  if(!done)note.textContent=hintText||verdict.reason+(s.t===1?" · Kéo quân tới ô hợp lệ hoặc chạm chọn hai ô.":" · Máy đang tính nước đi…");
   moveList.replaceChildren();
   for(let i=0;i<labels.length;i+=2){
    const p=make("p","chess-move-line",labels[i]+(labels[i+1]?"  "+labels[i+1]:""));
