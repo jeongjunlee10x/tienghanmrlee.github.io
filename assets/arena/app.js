@@ -8,6 +8,7 @@ import {mountLudo} from "./ludo.js?v=20261107-ai-r18";
 import {mountXiangqi} from "./xiangqi.js?v=20261107-ai-r18";
 import {mountEstate} from "./estate.js?v=20261107-ai-r18";
 import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r2";
+import {emitArenaFX} from "./game-visuals-v19.js?v=20261107-v19";
 const $=id=>document.getElementById(id);
 // AI difficulty is a visual preference only; it is never trusted for G scoring
 // or sent to the real-money-free multiplayer settlement API.
@@ -93,6 +94,7 @@ function colorChoice(card){
    try{
     play(state.game,0,state.pending,color);
     state.pending=null;container.hidden=true;render();
+    emitArenaFX("colors",$("arenaTopCard"));
    }catch(err){flash(err.message);}
   });
   list.append(b);
@@ -121,6 +123,7 @@ function settle(){
  outcome.classList.add("arena-match-result");
  $("arenaTable").querySelector(".arena-board").append(outcome);
  flash(won?"Bạn đã chiến thắng!":"Người thắng: "+winName);
+ if(won)emitArenaFX("win",outcome,"CHIẾN THẮNG");
 }
 function renderOpponents(g){
  const area=$("arenaOpponents");area.replaceChildren();
@@ -168,7 +171,7 @@ function render(){
     else {
      const from=b,to=$("arenaTopCard");
      animateBoardMove({from,to,piece:b.querySelector(".arena-card-face"),kind:"color-card"});
-     play(state.game,0,card.id);render();
+     play(state.game,0,card.id);render();emitArenaFX("colors",$("arenaTopCard"));
     }
    }catch(err){flash(err.message);}
   });
@@ -221,7 +224,7 @@ enablePointerDrag({
   if(!card||!canPlay(g,card,0))return false;
   try{
    if(card.type==="wild"||card.type==="wild4")colorChoice(card);
-   else{play(g,0,id);render();}
+   else{play(g,0,id);render();emitArenaFX("colors",$("arenaTopCard"));}
    return true;
   }catch(error){flash(error.message);return false;}
  }
@@ -285,6 +288,7 @@ function settleStrategy(result,label,root){
  actions.append(exit);panel.append(title,note,caution,actions);
  panel.classList.add("arena-match-result");
  (root.querySelector(".tl-board, .chess-main, .ludo-board, .xq-board-wrap, .estate-board")||root).append(panel);
+ if(result==="win")emitArenaFX("win",panel,"CHIẾN THẮNG");
 }
 ludoController=mountLudo({
  onStart:()=>startStrategy("ludo"),onFinish:settleStrategy,onExit:showLobby
