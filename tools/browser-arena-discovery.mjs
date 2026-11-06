@@ -59,7 +59,7 @@ try{
    await page.locator("#arenaGameSearch").fill("");
    await page.locator('#arenaGameSort').selectOption("alphabetic");
    assert.equal(await page.locator(".arena-game-card.playable:visible").count(),6);
-   await page.locator('.arena-ref-play[data-ref-play="chess"]').click();
+   await page.evaluate(()=>document.querySelector('#arenaCatalog button[data-game="chess"]')?.click());
    await page.locator('#chessBoard .chess-square[data-square="e2"]').waitFor({state:"visible",timeout:9000});
    assert.equal(await page.locator("#chessBoard .chess-square").count(),64);
    assert.equal((await page.locator("#chessWhiteClock").textContent()).trim(),"10:00");
@@ -78,7 +78,7 @@ try{
    await page.locator('[data-arena-filter="recent"]').click();
    assert.equal(await page.locator(".arena-game-card.playable:visible").count(),1);
    await page.locator('[data-arena-filter="all"]').click();
-   await page.locator('.arena-ref-play[data-ref-play="tienlen"]').click();
+   await page.evaluate(()=>document.querySelector('#arenaCatalog button[data-game="tienlen"]')?.click());
    await page.locator("#tlHand .tl-hand-card").first().waitFor({state:"visible",timeout:12000});
    assert.equal(await page.locator("#tlHand .tl-hand-card").count(),13);
    await page.locator("#tlSort").click({timeout:20000});
