@@ -256,7 +256,7 @@ body.game-room-in-play .game-room-main{height:100dvh}
  .game-room-title h1{font-size:22px;white-space:normal}
  .game-room-title p{font-size:10px}
  .game-room-tiles{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));
-  flex:1 1 auto;min-height:0;max-height:540px;gap:12px}
+  flex:1 1 auto;min-height:0;max-height:440px;gap:12px}
  .game-room-tile{min-height:0;border-width:4px;border-radius:19px;padding:7px 6px 14px}
  .tile-graphic{top:43%;width:84px;height:84px;font-size:59px}
  .tile-emoji{font-size:22px}
@@ -288,4 +288,12 @@ body.game-room-in-play .game-room-main{height:100dvh}
 @media(prefers-reduced-motion:reduce){
  .game-room-tile{transition:none}
  .game-room-tile:hover:not(:disabled){transform:none}
+}
+
+/* Make game selection compact on tall portrait phones; keep rules and controls readable. */
+.game-room-avatar img{display:block;width:100%;height:100%;object-fit:cover;border-radius:9px}
+.game-room-play-status{flex:0 1 auto;color:#ffe6ae;font-size:10px;font-weight:800;text-align:center}
+.game-room-dialog a{display:inline-block;color:#a0e9ff;text-decoration:underline;font-weight:900;padding:6px 0}
+@media(max-width:450px) and (orientation:portrait){
+ .game-room-tiles{max-height:430px}
 }
