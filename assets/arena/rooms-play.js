@@ -261,6 +261,11 @@ export function mountOnlineCanvas(root,onMove){
   center.append(el("strong","",statusBanner(room)),current,
    el("small","",""+(state.last?.combo?.type||"Vòng mở")+" · "+(state.last?.player!==undefined?
     "Bộ trước: "+(room.players.find(x=>x.seat===state.last.player)?.name||"người chơi"):"")));
+  if(state.last?.player!==undefined){
+   const latest=room.players.find(p=>p.seat===state.last.player)?.name||"Người chơi";
+   center.append(el("span","arena-last-played-by"+(state.last.player===room.seat?" mine":""),
+    state.last.player===room.seat?"🂠 BẠN VỪA ĐÁNH":"🂠 "+latest+" vừa đánh"));
+  }
   const lastEvent=state.history?.at(-1);
   if(lastEvent)center.append(el("p","arena-online-tl-notice",lastEvent));
   board.append(center);
