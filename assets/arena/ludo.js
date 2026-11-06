@@ -18,7 +18,7 @@ const BASES=[
  [[10,2],[10,3],[11,2],[11,3]]
 ];
 const die=()=>Math.floor(Math.random()*6)+1;
-export function newLudo(playerCount=4){if(![2,3,4].includes(playerCount))throw Error("Chọn 2, 3 hoặc 4 người.");return {turn:0,activePlayers:playerCount,phase:"roll",die:0,pawns:Array.from({length:4},()=>[-1,-1,-1,-1]),winner:null,history:["Tung được 6 để đưa ngựa ra chuồng xuất phát."],turns:0};}
+export function newLudo(playerCount=4){if(![2,3,4].includes(playerCount))throw Error("Chọn 2, 3 hoặc 4 người.");return {turn:0,activePlayers:playerCount,seats:playerCount===2?[0,2]:Array.from({length:playerCount},(_,i)=>i),phase:"roll",die:0,pawns:Array.from({length:4},()=>[-1,-1,-1,-1]),winner:null,history:["Tung được 6 để đưa ngựa ra chuồng xuất phát."],turns:0};}
 export function ludoMoves(g,n=g.turn,roll=g.die){
  if(g.winner!==null||roll<1||roll>6)return [];
  return g.pawns[n].map((p,i)=>p===-1?(roll===6?i:-1):p===58?-1:p+roll<=58?i:-1).filter(i=>i>=0);
@@ -45,7 +45,7 @@ export function moveLudo(g,pawn){
  g.history.push(...events);
  if(g.pawns[who].every(p=>p===58)){g.winner=who;g.phase="end";g.history.push("🏆 "+NAMES[who]+" về đích cả 4 ngựa!");return g;}
  g.phase="roll";g.die=0;g.turns++;
- if(step!==6&&!captured)g.turn=(g.turn+1)%g.activePlayers;
+ if(step!==6&&!captured)g.turn=g.seats[(g.seats.indexOf(g.turn)+1)%g.seats.length];
  else g.history.push("✨ "+NAMES[who]+" được tung thêm lượt.");
  return g;
 }
@@ -58,7 +58,7 @@ export function rollLudo(g,value=die()){
  if(!choices.length){
   g.history.push("Không có nước hợp lệ.");
   g.phase="roll";g.die=0;g.turns++;
-  if(value!==6)g.turn=(g.turn+1)%g.activePlayers;
+  if(value!==6)g.turn=g.seats[(g.seats.indexOf(g.turn)+1)%g.seats.length];
  }
  return g;
 }
@@ -112,6 +112,7 @@ export function mountLudo({onStart,onFinish,onExit}){
  function render(){
   if(!game||root.hidden)return;
   const g=game,canChoose=g.turn===0&&g.phase==="choose",allowed=canChoose?ludoMoves(g):[];
+  board.dataset.activePlayers=String(g.activePlayers);
   status.textContent=g.winner!==null?"🏆 "+NAMES[g.winner]+" chiến thắng!":
    g.turn===0?(g.phase==="roll"?"Đến lượt bạn · tung xúc xắc.":"Bạn tung "+g.die+" · chọn ngựa để đi."):
    "⏳ "+NAMES[g.turn]+" đang chơi.";
@@ -131,7 +132,7 @@ export function mountLudo({onStart,onFinish,onExit}){
    if(r>=8&&r<=12&&c>=1&&c<=5)tile.classList.add("base-green");
    if(r>=6&&r<=7&&c>=6&&c<=7)tile.classList.add("goal");
    return tile;});
-  g.pawns.forEach((horses,who)=>{if(who>=g.activePlayers)return;horses.forEach((p,i)=>{
+  g.pawns.forEach((horses,who)=>{if(!g.seats.includes(who))return;horses.forEach((p,i)=>{
    const [r,c]=coordinates(who,i,p),tile=holder[r*14+c];
    const token=button(String(i+1),"ludo-pawn "+COLORS[who],()=>choose(i));
    token.title=NAMES[who]+" · ngựa "+(i+1)+(p<0?" trong chuồng":p===58?" đã về đích":"");
@@ -145,7 +146,7 @@ export function mountLudo({onStart,onFinish,onExit}){
   board.append(node("div","arena-extra-ticker",g.history.at(-1)));
   moves.replaceChildren();
   g.pawns.forEach((arr,who)=>{
-   if(who>=g.activePlayers)return;
+   if(!g.seats.includes(who))return;
    const home=arr.filter(v=>v===58).length;
    const chip=node("span","ludo-player "+COLORS[who]+(who===g.turn?" active":""),
     NAMES[who]+" · "+home+"/4 về đích");moves.append(chip);
