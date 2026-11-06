@@ -142,10 +142,11 @@ try{
   await page.locator("#roomExitGame").click();
   await page.locator("#roomLobby").waitFor({state:"visible",timeout:9000});
   await page.locator('[data-play-mode="browse"]').click();
-  await page.waitForURL(/game-chon-ban\.html\?game=tienlen/,{timeout:10000});
-  await page.locator("#browserRooms .room-browser-new").waitFor({state:"visible",timeout:7000});
-  await page.locator("#browserGameReturn").click();
-  await page.waitForURL(/game-tien-len\.html/,{timeout:10000});
+  await frame.locator("#arenaRoomHub").waitFor({state:"visible",timeout:12000});
+  await frame.locator("#roomBrowserList").getByText("Chưa có bàn công khai").waitFor({state:"visible",timeout:7000});
+  assert.match(page.url(),/game-tien-len\.html/,"Browsing must stay on the game page");
+  await page.locator("#roomExitGame").click();
+  await page.locator("#roomLobby").waitFor({state:"visible",timeout:9000});
   await page.locator('[data-play-mode="quick"]').click();
   await frame.locator("#arenaPvPBoard .arena-pvp-waiting").waitFor({state:"visible",timeout:10000});
   assert.equal(await frame.locator("#roomLobbyCode").textContent(),"ABCD2345");
