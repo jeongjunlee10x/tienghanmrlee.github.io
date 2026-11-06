@@ -4,7 +4,8 @@
  */
 import {TRACK,STARTS,LANE} from "./ludo.js";
 const $=id=>document.getElementById(id);
-const lowMotion=()=>window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches===true;
+const lowMotion=()=>document.documentElement.dataset.arenaVisuals==="off"||
+ window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches===true;
 const center=rect=>({x:rect.left+rect.width/2,y:rect.top+rect.height/2});
 const position=n=>center(n.getBoundingClientRect());
 function translateKey(x,y,scale=1,offset){
