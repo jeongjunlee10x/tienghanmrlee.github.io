@@ -11,6 +11,10 @@ const [main,app,css,visual,drag,fx,premium,card,room,tl,chess,xq,ludo,estate]=aw
  "assets/arena/xiangqi.js","assets/arena/ludo.js","assets/arena/estate.js"
 ].map(read));
 let count=0;const check=(cond,label)=>{assert.ok(cond,label);count++;};
+for(const slug of ["chess","xiangqi","ludo","estate","tienlen","colors"]){
+ check(css.includes('url("./covers/'+slug+'.svg")'),
+  "Illustrated lobby uses existing original vector cover "+slug);
+}
 for(const name of ["arenaChess","arenaXiangqi","arenaLudo","arenaEstate","arenaTable","arenaTienLen"]){
  check(css.includes("#"+name),"Dedicated, visual identity exists for "+name);
 }
