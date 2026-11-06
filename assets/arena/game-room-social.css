@@ -1,0 +1,130 @@
+/* MR LEE dedicated Friend Room popup: original arcade window.
+ * Does not copy third-party artwork/code. Works at 844×390 and 390×844.
+ */
+.arena-social-modal{box-sizing:border-box;position:fixed;inset:0;margin:auto;
+ padding:0!important;border:3px solid #c5ddf0!important;border-radius:24px!important;
+ width:min(1100px,calc(100vw - 20px));max-width:calc(100vw - 20px);
+ max-height:min(690px,calc(100dvh - 20px));height:min(690px,calc(100dvh - 20px));
+ background:linear-gradient(180deg,#dfeefa,#e8d2b2 19%,#e9d5b8 80%,#f4e8cc 81%);
+ color:#874b38;font:800 15px/1.4 "Be Vietnam Pro",system-ui,sans-serif;
+ box-shadow:0 13px 0 #2d2d2fa6,0 18px 55px #101129d1,inset 0 0 0 5px #ffffff74;
+ overflow:hidden}
+.arena-social-modal::backdrop{background:#050a21aa;backdrop-filter:blur(5px)}
+.arena-social-shell{display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;height:100%;min-height:0;padding:9px}
+.arena-social-heading{display:flex;align-items:center;justify-content:center;position:relative;min-height:61px;
+ border-radius:20px 20px 0 0;background:linear-gradient(180deg,#f2faffdd,#9fbed553);
+ border-bottom:1px solid #9da7a76b}
+.arena-social-heading h2{margin:0;font-size:clamp(19px,2.4vw,33px);font-weight:1000;color:#fff1cc;
+ text-shadow:0 2px 0 #9d6943,0 3px 7px #3a3141;letter-spacing:-.04em}
+.arena-social-close{position:absolute;top:6px;right:6px;display:grid;place-items:center;
+ width:42px;height:42px;border:3px solid #ffccd2;border-radius:50%;
+ background:radial-gradient(circle at 35% 25%,#ffb1b6,#db364b 68%,#9c1524);
+ box-shadow:inset 0 2px #fff7,0 4px 6px #55342a77;color:#fff;font:1000 24px/1 system-ui}
+.arena-social-tabs{display:grid;grid-template-columns:1fr 1fr;min-height:52px;border:2px solid #b4834f;
+ border-radius:13px 13px 0 0;overflow:hidden;background:#332a2e}
+.arena-social-tab{border:0;border-radius:0;color:#fff;font:1000 clamp(16px,2vw,27px)/1.2 "Be Vietnam Pro",system-ui,sans-serif;
+ text-shadow:0 2px 2px #10080a;padding:8px 12px;background:#342b31;transition:filter .15s}
+.arena-social-tab[aria-selected="true"]{background:linear-gradient(#63dc67 0,#29c748 60%,#18ac37 100%);
+ color:#fff;box-shadow:inset 0 2px #bcff9c,0 -2px #aefaaa}
+.arena-social-content{overflow-y:auto;overflow-x:hidden;min-height:0;padding:12px 17px 9px;
+ background:linear-gradient(#e6d1b1,#e6d3b7);scrollbar-width:thin}
+.arena-social-summary{margin:0 0 9px!important;text-align:center;color:#754939;
+ font-size:clamp(11px,1.25vw,14px);font-weight:850}
+.arena-social-tier-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:12px;row-gap:12px;
+ padding:8px 4px}
+.arena-social-tier{display:flex;position:relative;flex-direction:column;align-items:flex-start;justify-content:center;
+ gap:5px;padding:12px 11px;min-height:75px;border-radius:13px;border:2px solid #c19e78;
+ background:#fff8dfc9;color:#764334;cursor:pointer;transition:background .16s,box-shadow .16s}
+.arena-social-tier:has(input:checked){border-color:#42bf5c;background:#ecffe6;box-shadow:inset 0 0 0 2px #8ce19a,0 2px 8px #42874645}
+.arena-social-tier:has(input:disabled){opacity:.5;cursor:not-allowed;filter:saturate(.5)}
+.arena-social-tier input{position:absolute;left:9px;top:12px;margin:0;width:21px;height:21px;accent-color:#23c245}
+.arena-social-tier-name{display:block;align-self:center;margin-left:12px;font:1000 clamp(14px,1.75vw,23px)/1.1 "Be Vietnam Pro",system-ui,sans-serif;color:#824b36;white-space:nowrap}
+.arena-social-risk{display:block;align-self:center;font-size:clamp(9px,.9vw,11px);line-height:1.25;color:#906b58;font-weight:750}
+.arena-social-public{display:flex;align-items:center;gap:8px;justify-content:center;padding:5px 8px;
+ color:#754936;font-size:12px;font-weight:900;cursor:pointer}
+.arena-social-public input{width:18px;height:18px;accent-color:#2ab94e}
+.arena-social-rule{margin:5px auto 9px!important;max-width:740px;text-align:center;color:#805b4c;
+ font-size:11px;line-height:1.5}
+.arena-social-submit{display:grid;place-items:center;margin:0 auto 8px;min-width:min(250px,100%);
+ min-height:51px;padding:8px 20px;border:2px solid #afe18d;border-radius:40px;
+ font:1000 clamp(17px,2vw,25px)/1.2 "Be Vietnam Pro",system-ui,sans-serif;
+ background:linear-gradient(#d0ffad,#5ecc4e 48%,#29af43);color:#fff;
+ text-shadow:0 2px 2px #275c2d;box-shadow:0 5px 0 #4b8745,0 5px 13px #3d563b6b}
+.arena-social-submit:hover:not(:disabled){filter:brightness(1.06)}
+.arena-social-submit:disabled{opacity:.55;filter:grayscale(.4);cursor:not-allowed}
+.arena-social-status{min-height:17px;margin:6px 0!important;text-align:center;color:#8f3b32;
+ font-size:11px;line-height:1.4;font-weight:850;overflow-wrap:anywhere}
+.arena-social-join-intro{margin:0 auto 9px!important;text-align:center;color:#774b3d;font-size:12px}
+.arena-social-code{display:flex;align-items:center;gap:7px;margin:0 auto 10px;max-width:390px}
+.arena-social-code input{flex:1 1 auto;min-width:0;min-height:52px;max-width:100%;
+ padding:8px 12px;text-align:center;letter-spacing:.19em;border:2px solid #bc9981;
+ border-radius:14px;background:#b19481;color:#fffaf0;font:1000 clamp(21px,3vw,32px)/1.1 ui-monospace,monospace;
+ text-shadow:0 2px #7b5a4c;box-shadow:inset 0 2px 4px #5a4b4666}
+.arena-social-code input::placeholder{color:#fff9dfc1;letter-spacing:.14em}
+.arena-social-paste{flex:0 0 auto;min-height:48px;padding:7px 15px;border:1px solid #aa7f59;
+ border-radius:11px;background:linear-gradient(#fffdee,#ecdbbc);color:#80513d;font-weight:900}
+.arena-social-keypad{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;
+ width:min(350px,100%);margin:0 auto 10px}
+.arena-social-key{display:grid;place-items:center;min-height:46px;padding:4px;border:1px solid #f8f0d6;
+ border-bottom:5px solid #9e8167;border-radius:11px;
+ background:linear-gradient(#fffef1,#fffbe3);color:#895449;font:1000 clamp(21px,2.8vw,30px)/1.2 system-ui;
+ box-shadow:0 3px 5px #634b3460}
+.arena-social-key:active{transform:translateY(2px);border-bottom-width:2px}
+.arena-social-note{margin:0 auto 9px!important;text-align:center;color:#83594b;font-size:10px}
+.arena-social-footer{display:grid;place-items:center;min-height:22px;margin:0;padding:3px 7px;text-align:center;
+ background:#f3e7c8;border-top:1px solid #c7b792;color:#957c67;font-size:10px;font-weight:750}
+@media(max-width:900px) and (orientation:landscape){
+ .arena-social-modal{width:calc(100vw - 14px);max-width:calc(100vw - 14px);
+ height:calc(100dvh - 12px);max-height:calc(100dvh - 12px);border-radius:15px}
+ .arena-social-shell{padding:5px}
+ .arena-social-heading{min-height:30px}
+ .arena-social-heading h2{font-size:18px}
+ .arena-social-close{width:29px;height:29px;top:0;right:0;font-size:16px;border-width:2px}
+ .arena-social-tabs{min-height:35px;border-width:1px}
+ .arena-social-tab{font-size:15px;padding:4px}
+ .arena-social-content{padding:5px 9px}
+ .arena-social-summary{font-size:10px;margin-bottom:1px!important}
+ .arena-social-tier-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;padding:3px}
+ .arena-social-tier{min-height:58px;padding:7px 3px 4px;border-width:1px;border-radius:9px}
+ .arena-social-tier input{width:15px;height:15px;left:5px;top:6px}
+ .arena-social-tier-name{font-size:11px;margin-left:8px}
+ .arena-social-risk{font-size:8px}
+ .arena-social-public{font-size:10px;padding:3px}
+ .arena-social-public input{width:14px;height:14px}
+ .arena-social-rule{font-size:9px;line-height:1.25;margin:2px auto 4px!important}
+ .arena-social-submit{min-height:32px;min-width:170px;font-size:15px;padding:3px 10px;border-width:1px;box-shadow:0 3px 0 #4b8745}
+ .arena-social-status{font-size:9px;margin:3px!important}
+ .arena-social-join-intro{font-size:10px;margin-bottom:2px!important}
+ .arena-social-code input{min-height:35px;font-size:21px}
+ .arena-social-paste{min-height:35px}
+ .arena-social-keypad{width:min(350px,85%);gap:3px;margin-bottom:4px}
+ .arena-social-key{min-height:27px;border-bottom-width:2px;font-size:17px;border-radius:5px}
+ .arena-social-note{font-size:9px;margin:2px 0!important}
+ .arena-social-footer{min-height:15px;font-size:8px;padding:1px}
+}
+@media(max-width:600px) and (orientation:portrait){
+ .arena-social-modal{width:calc(100vw - 12px);max-width:calc(100vw - 12px);
+ height:min(740px,calc(100dvh - 16px));max-height:calc(100dvh - 16px);border-radius:16px;border-width:2px!important}
+ .arena-social-shell{padding:5px}
+ .arena-social-heading{min-height:46px}
+ .arena-social-heading h2{font-size:21px}
+ .arena-social-close{width:32px;height:32px;font-size:17px;top:5px;right:3px}
+ .arena-social-tabs{min-height:43px}
+ .arena-social-tab{font-size:16px}
+ .arena-social-content{padding:9px 9px 4px}
+ .arena-social-summary{font-size:11px}
+ .arena-social-tier-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:5px 0}
+ .arena-social-tier{padding:8px 3px;min-height:67px}
+ .arena-social-tier input{left:6px;top:8px;width:15px;height:15px}
+ .arena-social-tier-name{margin-left:10px;font-size:12px}
+ .arena-social-risk{font-size:8px}
+ .arena-social-public{font-size:11px}
+ .arena-social-rule{font-size:10px}
+ .arena-social-submit{min-height:43px;min-width:200px;font-size:17px}
+ .arena-social-footer{font-size:9px}
+ .arena-social-keypad{gap:6px}
+ .arena-social-key{min-height:42px;font-size:25px}
+}
+@media(prefers-reduced-motion:reduce){
+ .arena-social-tier,.arena-social-tab{transition:none}
+}
