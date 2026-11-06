@@ -39,7 +39,7 @@ const item={dataset:{cardId:"7"},classList:classes(),style:{},
  getBoundingClientRect:()=>({left:0,top:0,width:50,height:75}),
  closest:sel=>sel==="[disabled]"?null:item,
  querySelector:()=>null,
- cloneNode(){return {classList:classes(),style:{},setAttribute(){},remove(){removed=true;}}}
+ cloneNode(){return {classList:classes(),style:{},setAttribute(){},removeAttribute(){},remove(){removed=true;}}}
 };
 const target={dataset:{zone:"table"},classList:classes(),
  getBoundingClientRect:()=>({left:120,top:70,width:120,height:90}),
