@@ -25,9 +25,42 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
  const status=$("tlStatus"),message=$("tlHint"),count=$("tlCount"),logs=$("tlEvents");
  const fx=createTableEffects(board,pile);
  let game=null,selected=new Set(),timer=null,epoch=0,done=false,busy=false,sortMode="rank";
+ const TURN_MS=20000;
+ let clockInterval=null,clockEnd=0,clockSeat=-1,timeoutHandled=false;
+ const clockLeft=()=>Math.max(0,Math.ceil((clockEnd-Date.now())/1000));
+ function paintClock(){
+  if(!game||!clockEnd)return;
+  const seconds=clockLeft();
+  for(const node of board.querySelectorAll(".tl-avatar-turn-clock")){
+   node.textContent=seconds+"s";
+   node.classList.toggle("urgent",seconds<=5);
+   node.style.setProperty("--elapsed",Math.min(100,(TURN_MS-(clockEnd-Date.now()))/TURN_MS*100)+"%");
+  }
+ }
+ function armClock(){
+  if(!game||done||busy||game.winner!==null)return;
+  clockEnd=Date.now()+TURN_MS;clockSeat=game.turn;timeoutHandled=false;
+  paintClock();
+ }
+ function clockTick(){
+  if(!game||done||busy||!clockEnd||root.hidden)return;
+  paintClock();
+  if(game.turn!==0||clockLeft()>0||timeoutHandled)return;
+  timeoutHandled=true;
+  if(game.last){message.textContent="⏰ Hết 20 giây · tự bỏ lượt.";skip();return;}
+  const legal=options(game.hands[0]).filter(cards=>canPlay(game,0,cards.map(c=>c.id)));
+  legal.sort((a,b)=>a.length-b.length||analyze(a).high-analyze(b).high);
+  if(legal.length){
+   selected=new Set(legal[0].map(c=>c.id));
+   message.textContent="⏰ Hết 20 giây · tự đánh bộ nhỏ nhất hợp lệ.";
+   void act();
+  }
+ }
  function stop(){
   epoch++;if(timer!==null)clearTimeout(timer);
   timer=null;busy=false;fx.cancel();
+  clockEnd=0;clockSeat=-1;timeoutHandled=false;
+  if(clockInterval!==null)clearInterval(clockInterval);clockInterval=null;
   $("tlDealNotice").hidden=true;
  }
  function exit(){stop();root.hidden=true;game=null;onExit();}
@@ -36,6 +69,7 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   stop();
   const current=epoch;game=start();selected=new Set();done=false;busy=true;sortMode="rank";
   board.dataset.fxCount="0";board.dataset.lastFx="";
+  board.dataset.fxPhase="shuffle";clockInterval=setInterval(clockTick,100);
   root.querySelector(".arena-game-result")?.remove();
   root.hidden=false;root.scrollIntoView({behavior:"smooth",block:"start"});
   $("tlDealNotice").hidden=false;
@@ -44,7 +78,7 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   catch(err){message.textContent="Không thể chạy hoạt ảnh: "+err.message;}
   if(current!==epoch||root.hidden||!game)return;
   $("tlDealNotice").hidden=true;
-  busy=false;render();schedule();
+  busy=false;render();armClock();schedule();
  }
  function finish(){
   if(done||!game||game.winner===null)return;
@@ -92,14 +126,14 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
    await flight;
    if(current!==epoch||!game||root.hidden)return;
    busy=false;render();
-   if(game.winner!==null)finish();else schedule();
+   if(game.winner!==null)finish();else {armClock();schedule();}
   }catch(err){busy=false;message.textContent="Không đánh được: "+err.message;render();}
  }
  function skip(){
   if(!game||busy||game.turn!==0||!game.last||done)return;
   try{
    pass(game,0);selected.clear();
-   fx.passer(NAMES[0],0);render();schedule();
+   fx.passer(NAMES[0],0);render();armClock();schedule();
   }catch(err){message.textContent=err.message;}
  }
  function schedule(){
@@ -123,7 +157,7 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
     }else fx.passer(NAMES[who],who);
     render();
     if(game.winner!==null)finish();
-    else schedule();
+    else {armClock();schedule();}
    }catch(err){busy=false;message.textContent="Lỗi lượt máy: "+err.message;render();}
   },550);
  }
@@ -155,8 +189,7 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   const state=el("small","tl-seat-state",done?"Đã kết thúc":game.turn===who?"🟢 ĐANG ĐÁNH":"Đang chờ");
   if(game.turn===who&&!done){
    avatarNode.classList.add("tl-avatar-turn");
-   const activeTag=el("span","tl-avatar-turn-tag","LƯỢT");
-   avatarNode.append(activeTag);
+   avatarNode.append(el("span","tl-avatar-turn-clock","20s"));
   }
   div.append(identity,fan,count,state);
   return div;
@@ -172,8 +205,8 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   mine?.classList.toggle("is-turn",game.turn===0&&!done);
   const myAvatar=mine?.querySelector(".tl-player-identity .tl-avatar");
   myAvatar?.classList.toggle("tl-avatar-turn",game.turn===0&&!done);
-  myAvatar?.querySelector(".tl-avatar-turn-tag")?.remove();
-  if(myAvatar&&game.turn===0&&!done)myAvatar.append(el("span","tl-avatar-turn-tag","LƯỢT"));
+  myAvatar?.querySelector(".tl-avatar-turn-tag,.tl-avatar-turn-clock")?.remove();
+  if(myAvatar&&game.turn===0&&!done)myAvatar.append(el("span","tl-avatar-turn-clock","20s"));
   const previous=game.last?.combo;
   pile.replaceChildren();
   if(!game.played.length)pile.append(el("p","tl-empty","Vòng mới · Chưa có bài trên bàn"));
@@ -228,6 +261,7 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
    selected.size?"Bộ bài đang chọn chưa hợp lệ.":"Chọn một hoặc nhiều lá trên tay để đánh.";
   logs.replaceChildren();
   for(const text of game.history.slice(-9).reverse())logs.append(el("p","",text));
+  paintClock();
  }
  enablePointerDrag({
   root:board,itemSelector:".tl-hand-card[data-card-id]",
