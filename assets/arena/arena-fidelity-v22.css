@@ -309,3 +309,44 @@ html.arena-embedded[data-embedded-game="estate"] .estate-pawn{
   animation:none!important;transition:none!important
  }
 }
+
+
+/* Specific animation choreography without altering the approved board layout. */
+html.arena-embedded[data-embedded-game="xiangqi"] .xq-piece.arena-v22-flip-open{
+ transform-origin:center center;backface-visibility:hidden;
+ animation:arena-v22-reveal-disc .47s cubic-bezier(.2,.76,.23,1) both!important
+}
+@keyframes arena-v22-reveal-disc{
+ 0%{opacity:.78;transform:perspective(370px) rotateY(-90deg) translateY(-3px) scale(.9)}
+ 52%{opacity:1;transform:perspective(370px) rotateY(14deg) translateY(-4px) scale(1.12)}
+ 75%{transform:perspective(370px) rotateY(-8deg) scale(1.04)}
+ 100%{transform:perspective(370px) rotateY(0deg) scale(1)}
+}
+html.arena-embedded[data-embedded-game="colors"] .arena-hand-card.playable:hover .arena-card-face,
+html.arena-embedded[data-embedded-game="colors"] .arena-pvp-hand>button:not(:disabled):hover .arena-pvp-color-card{
+ transform:translate3d(0,-8px,0) rotate(-2deg) scale(1.05)!important
+}
+html.arena-embedded[data-embedded-game="chess"] .chess-promotion-row,
+html.arena-embedded[data-embedded-game="chess"] .arena-pvp-options:not(:empty){
+ animation:arena-v22-control-in .26s cubic-bezier(.2,.75,.2,1) both
+}
+@keyframes arena-v22-control-in{
+ from{opacity:.05;transform:translate3d(0,9px,0) scale(.97)}
+ to{opacity:1;transform:translate3d(0,0,0) scale(1)}
+}
+html.arena-embedded[data-embedded-game="estate"] .estate-tile.owned{
+ transition:border-color .3s ease,box-shadow .32s ease!important
+}
+html.arena-embedded[data-embedded-game="ludo"] .ludo-pawn.legal{
+ animation:arena-v22-legal-horse .8s ease-in-out infinite alternate
+}
+@keyframes arena-v22-legal-horse{
+ to{filter:brightness(1.12) drop-shadow(0 3px 4px #0005);transform:translate3d(0,-3px,0)}
+}
+@media(prefers-reduced-motion:reduce){
+ .xq-piece.arena-v22-flip-open,.arena-v22-control-in,.ludo-pawn.legal{
+  animation:none!important
+ }
+}
+[data-arena-visuals="off"] .xq-piece.arena-v22-flip-open,
+[data-arena-visuals="off"] .ludo-pawn.legal{animation:none!important}
