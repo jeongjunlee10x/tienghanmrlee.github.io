@@ -68,7 +68,7 @@ function coordinates(who,pawn,progress){
  if(progress>=52)return LANE[who][progress-52];
  return TRACK[(STARTS[who]+progress)%52];
 }
-import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r1";
+import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r2";
 export function mountLudo({onStart,onFinish,onExit}){
  const root=$("arenaLudo"),board=$("ludoBoard"),status=$("ludoStatus"),rollBtn=$("ludoRoll"),moves=$("ludoMoves");
  const requested=Number(new URL(location.href).searchParams.get("players"));
