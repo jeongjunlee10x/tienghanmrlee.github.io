@@ -5,7 +5,8 @@
 import * as Chess from "./chess-engine.js";
 import * as TL from "./tienlen-engine.js?v=20261107-ai-r18";
 import * as Colors from "./color-engine.js?v=20261107-ai-r18";
-import {playingCard} from "./tienlen-fx.js?v=20261107-v19";
+import {playingCard,chopTitle,showChopPopup} from "./tienlen-fx.js?v=20261107-motion-v22";
+import {isDealing,showRoomDeal} from "./arena-deal-v22.js?v=20261107-motion-v22";
 import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261107-v19";
 function el(tag,cls="",content){
  const result=document.createElement(tag);
@@ -78,7 +79,11 @@ function statusBanner(room){
 }
 export function mountOnlineCanvas(root,onMove){
  let chosenSquare=-1,chosenCards=new Set(),chosenWild=null,locked=false,lastCode="",lastVersion=-1,sortBy="rank";
- let shownRoom=null,clockOffset=0;
+ let shownRoom=null,clockOffset=0,readyTimer=null,readyTimerKey="";
+ const cancelReadyTimer=()=>{
+  if(readyTimer!==null)clearTimeout(readyTimer);
+  readyTimer=null;readyTimerKey="";
+ };
  const chessClockText=(seat)=>{
   const state=shownRoom?.gameState,clock=state?.clock;
   if(!clock)return "∞";
@@ -102,6 +107,7 @@ export function mountOnlineCanvas(root,onMove){
  };
  setInterval(paintChessClock,200);
  function clear(){
+  cancelReadyTimer();
   chosenSquare=-1;chosenCards.clear();chosenWild=null;locked=false;lastCode="";lastVersion=-1;sortBy="rank";
   root.replaceChildren();shownRoom=null;
  }
@@ -252,7 +258,8 @@ export function mountOnlineCanvas(root,onMove){
   }
  }
  function renderTienLen(room){
-  const state=room.gameState,myTurn=state.turn===room.seat&&room.status==="playing";
+  const state=room.gameState,
+   myTurn=state.turn===room.seat&&room.status==="playing"&&!isDealing(state,clockOffset);
   const board=el("div","arena-pvp-card-table online-tl-board");
   renderSeats(room,state.counts,board);
   const center=el("div","arena-pvp-center"),current=el("div","arena-pvp-current");
@@ -320,6 +327,12 @@ export function mountOnlineCanvas(root,onMove){
   const events=el("div","arena-pvp-events");
   (state.history||[]).slice(-5).reverse().forEach(line=>events.append(el("p","",line)));
   root.replaceChildren(board,events);
+  // Real player hands are already server-private. Conceal ALL cards until
+  // server readyAt, draw the same 52 anonymous backs for every participant.
+  if(room.status==="playing"&&isDealing(state,clockOffset)){
+   showRoomDeal(board,{roundReadyAt:state.roundReadyAt,offset:clockOffset,
+    roundIndex:room.roundIndex||1});
+  }
  }
  function colorFace(c,small=false){
   const label=Colors.cardLabel(c);
@@ -499,10 +512,39 @@ export function mountOnlineCanvas(root,onMove){
  }
  function render(room,force=false){
   if(!room?.gameState)return;
-  if(!force&&room.version!==lastVersion)animateRemoteChess(shownRoom,room);
+  const previous=shownRoom;
+  if(!force&&room.version!==lastVersion)animateRemoteChess(previous,room);
+  // Only a NEW server-confirmed move can trigger an explosion. Polling and
+  // force-rendering the same version can never replay a settled chop.
+  if(!force&&previous?.game==="tienlen"&&room.game==="tienlen"&&
+   previous.code===room.code&&previous.roundIndex===room.roundIndex&&
+   previous.status==="playing"&&room.status==="playing"&&
+   room.version!==lastVersion&&previous.gameState?.last?.combo&&
+   room.gameState?.last?.combo){
+   const oldLast=previous.gameState.last,newLast=room.gameState.last;
+   if(oldLast.player!==newLast.player||
+      JSON.stringify(oldLast.combo)!==JSON.stringify(newLast.combo)){
+    const title=chopTitle(oldLast.combo,newLast.combo);
+    if(title)void showChopPopup(title);
+   }
+  }
   shownRoom=room;
   clockOffset=Date.parse(room.serverTime||"")-Date.now()||0;
-  if(room.code!==lastCode){chosenSquare=-1;chosenCards.clear();chosenWild=null;lastVersion=-1;}
+  if(room.code!==lastCode){
+   cancelReadyTimer();
+   chosenSquare=-1;chosenCards.clear();chosenWild=null;lastVersion=-1;
+  }
+  const readyAt=room.game==="tienlen"&&room.status==="playing"?
+   Date.parse(room.gameState?.roundReadyAt||""):NaN;
+  const key=room.code+"/"+(room.roundIndex||1)+"/"+String(room.gameState?.roundReadyAt||"");
+  if(Number.isFinite(readyAt)&&readyAt>Date.now()+clockOffset&&readyTimerKey!==key){
+   cancelReadyTimer();readyTimerKey=key;
+   readyTimer=setTimeout(()=>{
+    readyTimer=null;readyTimerKey="";
+    if(shownRoom?.code===room.code&&shownRoom?.roundIndex===room.roundIndex)
+     render(shownRoom,true);
+   },Math.max(0,readyAt-Date.now()-clockOffset)+80);
+  }
   if(!force&&room.code===lastCode&&room.version===lastVersion)return;
   if(room.version!==lastVersion&&!force){chosenSquare=-1;chosenCards.clear();chosenWild=null;}
   lastCode=room.code;lastVersion=room.version;
