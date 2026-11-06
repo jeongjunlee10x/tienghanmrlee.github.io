@@ -87,7 +87,8 @@ html.arena-pointer-moving,html.arena-pointer-moving body{cursor:grabbing!importa
 
 /* Light feedback on every confirmed move, not only on drag release. */
 #arenaTable #arenaTopCard .arena-card-face,
-#arenaPvPBoard .online-color-board .arena-pvp-current .arena-pvp-color-card{
+#arenaPvPBoard .online-color-board .arena-pvp-current .arena-pvp-color-card,
+#arenaPvPBoard .online-tl-board .arena-pvp-current .tl-real-card{
  animation:arena-card-arrive .42s cubic-bezier(.2,.95,.2,1) both;
  transform-origin:center;
 }
@@ -129,6 +130,7 @@ html.arena-pointer-moving,html.arena-pointer-moving body{cursor:grabbing!importa
 @media(prefers-reduced-motion:reduce){
  .arena-dice-rolling,#arenaTable #arenaTopCard .arena-card-face,
  #arenaPvPBoard .online-color-board .arena-pvp-current .arena-pvp-color-card,
+ #arenaPvPBoard .online-tl-board .arena-pvp-current .tl-real-card,
  #arenaChess .chess-square.chosen,.arena-pvp-chess .chess-square.chosen,
  #arenaXiangqi .xq-square.selected{
  animation:none!important;transition:none!important;
