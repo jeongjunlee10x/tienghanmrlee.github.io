@@ -145,7 +145,8 @@ async function requireGold(database:any,uid:string,game:string,tier:number){
 async function freshRoom(database:any,uid:string,game:string,visibility:string,tier:number,nickname:string){
  await requireGold(database,uid,game,tier);
  const {count,error:countError}=await database.from("mrlee_arena_rooms").select("code",{head:true,count:"exact"})
-  .in("status",["waiting","playing"]).contains("members",[{uid}]).gt("expires_at",now());
+  // JSONB array-of-objects: serialize as JSON text; a bare JS array becomes cs.{[object Object]}.
+  .in("status",["waiting","playing"]).contains("members",JSON.stringify([{uid}])).gt("expires_at",now());
  if(countError)fail("Không kiểm tra được phòng hiện có.",503);
  if((count||0)>=3)fail("Bạn đang tham gia quá nhiều phòng. Hãy rời bớt phòng trước.",429);
  for(let attempt=0;attempt<6;attempt++){
