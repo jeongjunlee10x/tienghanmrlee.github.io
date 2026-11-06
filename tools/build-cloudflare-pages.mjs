@@ -41,6 +41,53 @@ if(!/^https:\/\/[a-z0-9.-]+(?::\d+)?$/i.test(origin)){
  throw new Error('Invalid MRLEE_SITE_ORIGIN / CF_PAGES_URL: use an https:// origin without path');
 }
 
+// Search engines and social crawlers should see one stable, public URL
+// for each page explicitly listed in the sitemap, on the Cloudflare output only.
+const sourceSitemap=await readFile(join(root,'sitemap.xml'),'utf8');
+const sourceUrls=[...sourceSitemap.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)]
+  .map(match=>match[1].trim());
+if(!sourceUrls.length)throw new Error('Source sitemap.xml contains no URLs');
+const sourceOrigin=new URL(sourceUrls[0]).origin;
+const sitemapPages=[...new Set(sourceUrls.map(href=>{
+ const url=new URL(href);
+ if(url.origin!==sourceOrigin||url.search||url.hash){
+  throw new Error('Invalid source sitemap URL: '+href);
+ }
+ return decodeURI(url.pathname).replace(/^\/+/, '');
+}))];
+if(!sitemapPages.includes(''))throw new Error('Source sitemap must include homepage');
+const seoPaths=new Set(sitemapPages.map(p=>p||'index.html'));
+const escapeMeta = text => String(text).replace(/&(?!(?:#\d+|#x[0-9a-f]+|[a-z][a-z0-9]+);)/gi,'&amp;')
+  .replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function enhanceSeoHead(html,pathname){
+ if(!seoPaths.has(pathname)||!/<\/head>/i.test(html))return html;
+ const url=origin+'/'+(pathname==='index.html'?'':pathname);
+ const title=html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim()||'Tiếng Hàn MR LEE';
+ const descriptionTag=html.match(/<meta\b(?=[^>]*\bname\s*=\s*["']description["'])[^>]*>/i)?.[0]||'';
+ const description=descriptionTag.match(/\bcontent\s*=\s*(["'])([\s\S]*?)\1/i)?.[2]?.trim()||'';
+ const tags=[];
+ const add=(pattern,tag)=>{if(!pattern.test(html))tags.push(tag);};
+ add(/<link\b(?=[^>]*\brel\s*=\s*["']canonical["'])[^>]*>/i,
+   `<link rel="canonical" href="${url}">`);
+ add(/<meta\b(?=[^>]*\bproperty\s*=\s*["']og:type["'])[^>]*>/i,
+   '<meta property="og:type" content="website">');
+ add(/<meta\b(?=[^>]*\bproperty\s*=\s*["']og:site_name["'])[^>]*>/i,
+   '<meta property="og:site_name" content="Tiếng Hàn MR LEE">');
+ add(/<meta\b(?=[^>]*\bproperty\s*=\s*["']og:locale["'])[^>]*>/i,
+   '<meta property="og:locale" content="vi_VN">');
+ add(/<meta\b(?=[^>]*\bproperty\s*=\s*["']og:title["'])[^>]*>/i,
+   `<meta property="og:title" content="${escapeMeta(title)}">`);
+ if(description)add(/<meta\b(?=[^>]*\bproperty\s*=\s*["']og:description["'])[^>]*>/i,
+   `<meta property="og:description" content="${escapeMeta(description)}">`);
+ add(/<meta\b(?=[^>]*\bproperty\s*=\s*["']og:url["'])[^>]*>/i,
+   `<meta property="og:url" content="${url}">`);
+ add(/<meta\b(?=[^>]*\bproperty\s*=\s*["']og:image["'])[^>]*>/i,
+   `<meta property="og:image" content="${origin}/assets/branding/logo-mrlee.png">`);
+ add(/<meta\b(?=[^>]*\bname\s*=\s*["']twitter:card["'])[^>]*>/i,
+   '<meta name="twitter:card" content="summary_large_image">');
+ return html.replace(/<\/head>/i,tags.join('\n')+'\n</head>');
+}
+
 const maxFiles = 19500; // safety headroom below Cloudflare Free's 20,000 files
 const maxFileBytes = 25*1024*1024;
 const input=[];
@@ -88,11 +135,7 @@ const workers=Array.from({length:16},async()=>{
   let next=original.replaceAll(oldOrigin+'/',origin+'/')
                    .replaceAll(oldOrigin,origin)
                    .replaceAll(oldRoot,'/');
-  // Only Cloudflare's generated homepage gets canonical SEO metadata.
-  if(item.rel==='index.html' && !/<link\b[^>]*rel=["']canonical["']/i.test(next)){
-    next=next.replace(/<\/head>/i,
-      `<link rel="canonical" href="${origin}/">\n</head>`);
-  }
+  next=enhanceSeoHead(next,item.rel);
   // Existing GitHub Pages root is unchanged; only Cloudflare output differs.
   await writeFile(target,next,'utf8');
  }
@@ -103,22 +146,7 @@ await Promise.all(workers);
 await writeFile(join(out,'_redirects'),
   '# Old GitHub-project prefix accidentally used on Cloudflare\n'+
   '/tienghanmrlee.github.io/* /:splat 301\n','utf8');
-// Keep the Cloudflare sitemap in sync with the reviewed source sitemap.
-// Previously this build regenerated a separate hard-coded list of 9 URLs,
-// overriding updates in the root sitemap.xml during every deployment.
-const sourceSitemap=await readFile(join(root,'sitemap.xml'),'utf8');
-const sourceUrls=[...sourceSitemap.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)]
-  .map(match=>match[1].trim());
-if(!sourceUrls.length)throw new Error('Source sitemap.xml contains no URLs');
-const sourceOrigin=new URL(sourceUrls[0]).origin;
-const sitemapPages=[...new Set(sourceUrls.map(href=>{
- const url=new URL(href);
- if(url.origin!==sourceOrigin||url.search||url.hash){
-  throw new Error('Invalid source sitemap URL: '+href);
- }
- return decodeURI(url.pathname).replace(/^\/+/, '');
-}))];
-if(!sitemapPages.includes(''))throw new Error('Source sitemap must include homepage');
+// Generate the same public URL list used for Cloudflare-only SEO metadata.
 const available=new Set(input.map(x=>x.rel));
 const sitemap='<?xml version="1.0" encoding="UTF-8"?>\n'+
  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+
