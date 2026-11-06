@@ -512,8 +512,8 @@ export function mountOnlineCanvas(root,onMove){
  }
  function render(room,force=false){
   if(!room?.gameState)return;
-  const previous=shownRoom;
-  if(!force&&room.version!==lastVersion)animateRemoteChess(previous,room);
+  const previous=shownRoom,isVersionChange=room.version!==lastVersion;
+  if(!force&&isVersionChange)animateRemoteChess(previous,room);
   // Only a NEW server-confirmed move can trigger an explosion. Polling and
   // force-rendering the same version can never replay a settled chop.
   if(!force&&previous?.game==="tienlen"&&room.game==="tienlen"&&
@@ -556,7 +556,7 @@ export function mountOnlineCanvas(root,onMove){
    // pile once. Polling the same version never replays the animation.
    if(!force&&previous?.game==="colors"&&previous.status==="playing"&&
       room.status==="playing"&&previous.code===room.code&&
-      previous.roundIndex===room.roundIndex&&room.version!==lastVersion&&
+      previous.roundIndex===room.roundIndex&&isVersionChange&&
       previous.gameState?.top?.id!==room.gameState?.top?.id){
     const actor=previous.gameState?.turn;
     const from=actor===room.seat?root.querySelector(".arena-pvp-me"):
