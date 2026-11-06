@@ -68,7 +68,7 @@ let verifiedWallet=null,playingMode="",hasBooted=false,openAttempt=0,frameLoaded
 const compact=n=>Number(n).toLocaleString("vi-VN");
 const txt=(tag,value)=>{const el=document.createElement(tag);el.textContent=value;return el;};
 document.documentElement.style.setProperty("--room-cover",'url("assets/arena/covers/'+game+'.svg")');
-$("roomQuickCaption").textContent=game==="chess"?"Ghép bàn "+chessTimeSelect.value+" · đúng thời gian":localModeSelect?"Đấu máy · "+localModeSelect.selectedOptions[0]?.textContent:current.online?"Ghép bàn theo G phù hợp":"Đấu với máy · vé thử";
+$("roomQuickCaption").textContent=game==="chess"?"Ghép bàn "+chessTimeSelect.value+" · đúng thời gian":localModeSelect?"Đấu máy · "+localModeSelect.selectedOptions[0]?.textContent:current.online?"Ghép bàn theo G phù hợp":"Đấu máy miễn phí";
 for(const mode of ["friends","browse"]){
  const action=document.querySelector('[data-play-mode="'+mode+'"]');
  if(!current.online){
@@ -240,7 +240,7 @@ $("roomShowRules").addEventListener("click",()=>{
  if(current.online){
   addText("Chơi nhanh ghép vào phòng có mức G phù hợp. Chơi với bạn tạo phòng/mã mời. Chọn bàn xem phòng, giá G/lá và số người.");
   addText("Máy chủ xác minh ví, giữ G bảo đảm và kết toán sau mỗi ván.");
- }else addText("Trò này hiện hỗ trợ đấu máy bằng vé thử. Xu/EXP đấu máy là demo, không phải G xác minh.");
+ }else addText("Trò này hiện hỗ trợ đấu máy miễn phí, không giới hạn lượt. Xu/EXP đấu máy chỉ mang tính demo, không phải G xác minh.");
  const a=document.createElement("a");a.href="mrlee-game-arena.html";a.textContent="Xem Game Arena";dialogBody.append(a);
 });
 $("roomOpenExchange").addEventListener("click",()=>{
