@@ -107,3 +107,157 @@ html.arena-reference-v1.arena-embedded .arena-room-section .arena-pvp-card-table
  html.arena-reference-v1.arena-embedded .arena-next-round-dialog{
   width:min(850px,calc(100% - 32px));max-height:min(83dvh,740px)}
 }
+
+/* MR LEE RESPONSIVE ROOM R4 — six real boards, desktop and phone.
+ * Chess & Xiangqi are portrait-first: no fixed landscape grid or clipping. */
+html.arena-reference-v1.arena-embedded .arena-app,
+html.arena-reference-v1.arena-embedded .arena-app>main,
+html.arena-reference-v1.arena-embedded .arena-expanded-game{
+ box-sizing:border-box;min-width:0!important;max-width:100%!important
+}
+html.arena-reference-v1.arena-embedded .arena-table-heading{
+ min-width:0;display:flex;align-items:center;flex-wrap:wrap;gap:5px
+}
+html.arena-reference-v1.arena-embedded .arena-table-heading>div{flex:1 1 100px;min-width:0}
+html.arena-reference-v1.arena-embedded .arena-table-heading h2{
+ font-size:clamp(13px,2vw,21px)!important;line-height:1.2;
+ overflow-wrap:anywhere
+}
+html.arena-reference-v1.arena-embedded .arena-extra-layout,
+html.arena-reference-v1.arena-embedded #arenaChess .chess-layout{
+ min-width:0;width:100%;max-width:100%
+}
+html.arena-reference-v1.arena-embedded #arenaChess .chess-board,
+html.arena-reference-v1.arena-embedded #arenaPvPBoard .chess-board{
+ aspect-ratio:1;min-width:0;height:auto;max-width:100%
+}
+html.arena-reference-v1.arena-embedded #arenaXiangqi .xq-board-wrap{
+ box-sizing:border-box;width:min(100%,570px);margin-inline:auto
+}
+html.arena-reference-v1.arena-embedded #arenaLudo .ludo-board,
+html.arena-reference-v1.arena-embedded #arenaEstate .estate-board{
+ box-sizing:border-box;width:100%;max-width:100%;height:auto;aspect-ratio:1
+}
+@media (min-width:901px){
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-layout{
+  display:grid!important;grid-template-columns:minmax(0,640px) minmax(250px,1fr)!important;
+  gap:clamp(12px,2vw,24px)!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-main{
+  width:min(100%,calc(100dvh - 150px),640px);margin-inline:auto
+ }
+ html.arena-reference-v1.arena-embedded .arena-extra-layout{
+  display:grid!important;grid-template-columns:minmax(0,660px) minmax(240px,1fr)!important;
+  gap:clamp(10px,2vw,20px)!important;align-items:start
+ }
+ html.arena-reference-v1.arena-embedded .arena-extra-stage{min-width:0}
+ html.arena-reference-v1.arena-embedded #arenaXiangqi .xq-board-wrap{
+  width:min(100%,calc((100dvh - 152px)*.88),590px)
+ }
+ html.arena-reference-v1.arena-embedded #arenaLudo .ludo-board,
+ html.arena-reference-v1.arena-embedded #arenaEstate .estate-board{
+  width:min(100%,calc(100dvh - 135px),660px);margin-inline:auto
+ }
+}
+@media (max-width:900px){
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-layout,
+ html.arena-reference-v1.arena-embedded #arenaPvPBoard .arena-pvp-chess{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:7px!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-main{
+  box-sizing:border-box;width:min(100%,580px);margin-inline:auto;
+  padding:clamp(3px,1vw,9px)!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-sidebar{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  gap:7px!important;width:100%;max-width:100%;max-height:none!important;overflow:visible!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-sidebar .arena-panel{
+  margin:0!important;padding:clamp(8px,2vw,14px)!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-player{
+  padding:3px 4px;min-height:24px;align-items:center;font-size:11px
+ }
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-square .chess-white,
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-square .chess-black{
+  font-size:clamp(21px,7vw,47px)!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaPvPBoard .arena-pvp-chess .chess-board{
+  box-sizing:border-box;width:min(100%,540px)!important;margin:0 auto!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaPvPBoard .arena-pvp-chess .arena-panel{
+  max-height:none!important;overflow:visible!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaLudo .arena-extra-layout,
+ html.arena-reference-v1.arena-embedded #arenaXiangqi .arena-extra-layout,
+ html.arena-reference-v1.arena-embedded #arenaEstate .arena-extra-layout{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  grid-auto-flow:row;gap:7px!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaLudo .arena-extra-stage,
+ html.arena-reference-v1.arena-embedded #arenaXiangqi .arena-extra-stage,
+ html.arena-reference-v1.arena-embedded #arenaEstate .arena-extra-stage{
+  grid-column:1!important;grid-row:2!important;min-width:0!important;
+  width:100%!important;margin:0 auto
+ }
+ html.arena-reference-v1.arena-embedded #arenaLudo .arena-extra-side,
+ html.arena-reference-v1.arena-embedded #arenaXiangqi .arena-extra-side,
+ html.arena-reference-v1.arena-embedded #arenaEstate .arena-extra-side{
+  display:contents!important;max-height:none!important;overflow:visible!important
+ }
+ html.arena-reference-v1.arena-embedded .arena-extra-side>.arena-panel{
+  grid-column:1!important;margin:0!important;padding:clamp(6px,1.6vw,12px)!important
+ }
+ html.arena-reference-v1.arena-embedded .arena-extra-side>.arena-panel:first-child{grid-row:1!important}
+ html.arena-reference-v1.arena-embedded .arena-extra-side>.arena-panel:nth-child(2){grid-row:3!important}
+ html.arena-reference-v1.arena-embedded .arena-extra-side>.arena-panel:nth-child(3){grid-row:4!important}
+ html.arena-reference-v1.arena-embedded #arenaXiangqi .xq-board-wrap{
+  width:min(100%,540px);padding:clamp(3px,.8vw,8px)
+ }
+ html.arena-reference-v1.arena-embedded #arenaXiangqi .xq-board{
+  width:100%!important;aspect-ratio:9/10!important;height:auto!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaXiangqi .xq-piece{
+  font-size:clamp(15px,5vw,31px)!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaLudo .ludo-board,
+ html.arena-reference-v1.arena-embedded #arenaEstate .estate-board{
+  width:min(100%,550px)!important;margin:0 auto!important
+ }
+ html.arena-reference-v1.arena-embedded .arena-extra-side .arena-extra-status{
+  min-height:0!important;line-height:1.3;margin:3px 0!important
+ }
+}
+@media (max-width:600px) and (orientation:portrait){
+ html.arena-reference-v1.arena-embedded body{overflow-x:hidden;overflow-y:auto}
+ html.arena-reference-v1.arena-embedded .arena-app{padding:2px 4px!important}
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-board{
+  box-sizing:border-box;width:100%!important;max-width:100%!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-tools{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px
+ }
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-tools button{
+  min-width:0!important;min-height:37px!important;padding:5px 2px!important;font-size:11px!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-settings-row{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px
+ }
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-settings-row label{
+  min-width:0;display:flex;flex-direction:column;gap:4px
+ }
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-settings-row select{width:100%;min-width:0}
+ html.arena-reference-v1.arena-embedded #arenaXiangqi .xq-piece{
+  font-size:clamp(16px,5.6vw,29px)!important;border-width:2px
+ }
+ html.arena-reference-v1.arena-embedded #arenaLudo .ludo-pawn{
+  width:min(4.6vw,20px)!important;height:min(4.6vw,20px)!important;font-size:9px
+ }
+ html.arena-reference-v1.arena-embedded #arenaEstate .estate-center{padding:5px}
+ html.arena-reference-v1.arena-embedded #arenaEstate .estate-center strong{font-size:clamp(13px,4vw,21px)}
+ html.arena-reference-v1.arena-embedded #arenaEstate .estate-center small{font-size:clamp(8px,2.5vw,11px)}
+ html.arena-reference-v1.arena-embedded #arenaEstate .estate-tile strong{font-size:clamp(6px,1.9vw,9px)}
+ html.arena-reference-v1.arena-embedded #arenaEstate .estate-tile small{font-size:clamp(6px,1.8vw,8px)}
+ html.arena-reference-v1.arena-embedded .arena-mini-log{max-height:140px;overflow:auto}
+ html.arena-reference-v1.arena-embedded .arena-extra-side .arena-demo-rule{font-size:10px!important}
+}
