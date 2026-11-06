@@ -53,9 +53,32 @@ function statusBanner(room){
 }
 export function mountOnlineCanvas(root,onMove){
  let chosenSquare=-1,chosenCards=new Set(),chosenWild=null,locked=false,lastCode="",lastVersion=-1,sortBy="rank";
+ let shownRoom=null,clockOffset=0;
+ const chessClockText=(seat)=>{
+  const state=shownRoom?.gameState,clock=state?.clock;
+  if(!clock)return "∞";
+  let remaining=Number(clock.remaining?.[seat]||0);
+  if(shownRoom.status==="playing"&&state.turn===seat&&clock.since)
+   remaining-=Math.max(0,Date.now()+clockOffset-Date.parse(clock.since));
+  remaining=Math.max(0,Math.ceil(remaining/1000));
+  return Math.floor(remaining/60).toString().padStart(2,"0")+":"+
+   (remaining%60).toString().padStart(2,"0");
+ };
+ const paintChessClock=()=>{
+  if(!shownRoom||shownRoom.game!=="chess")return;
+  for(const node of root.querySelectorAll("[data-chess-clock-seat]")){
+   const seat=Number(node.dataset.chessClockSeat);
+   node.textContent=chessClockText(seat);
+   const remain=shownRoom.gameState?.clock?.remaining?.[seat];
+   node.classList.toggle("urgent",Number.isFinite(remain)&&remain<30000&&
+    shownRoom.status==="playing"&&shownRoom.gameState?.turn===seat);
+   node.classList.toggle("active",shownRoom.status==="playing"&&shownRoom.gameState?.turn===seat);
+  }
+ };
+ setInterval(paintChessClock,200);
  function clear(){
   chosenSquare=-1;chosenCards.clear();chosenWild=null;locked=false;lastCode="";lastVersion=-1;sortBy="rank";
-  root.replaceChildren();
+  root.replaceChildren();shownRoom=null;
  }
  async function submit(action){
   if(locked)return;
@@ -71,7 +94,7 @@ export function mountOnlineCanvas(root,onMove){
  function waiting(room,actions={}){
   // The room remains on the actual green card table while players join.
   // No hidden cards are rendered before the server creates the deal.
-  const table=el("div","arena-pvp-card-table arena-pvp-waiting");
+  const table=el("div",room.game==="chess"?"arena-chess-waiting":"arena-pvp-card-table arena-pvp-waiting");
   const count=room.players.length, max=room.capacity;
   const posFor=(seat)=>{
    if(seat===room.seat)return "bottom";
@@ -110,6 +133,17 @@ export function mountOnlineCanvas(root,onMove){
   click("📋 Sao chép mã","arena-soft",()=>actions.copy?.());
   click("🔗 Mời bạn","arena-soft",()=>actions.invite?.());
   click("↻ Làm mới","arena-soft",()=>actions.refresh?.());
+  if(room.game==="chess"){
+   const position=Chess.start(),preview=el("div","arena-chess-preview");
+   for(let rank=0;rank<8;rank++)for(let file=0;file<8;file++){
+    const p=position.b[rank*16+file];
+    preview.append(el("span",(rank+file)%2?"dark":"light",Chess.GLYPHS[p]||""));
+   }
+   middle.append(preview);
+   middle.querySelector(".arena-pvp-wait-meta").textContent=
+    room.timeControl==="none"?"♟ Không đồng hồ · "+room.minGold+"G/ván":
+    "♟ "+(room.timeControl||"10+0")+" · "+room.minGold+"G/ván";
+  }
   middle.append(controls,
    el("p","arena-pvp-wait-tip",room.game==="tienlen"?
     "Từ 2 người có thể chơi. Mọi người nhấn Sẵn sàng, chủ bàn nhấn Bắt đầu.":
@@ -161,7 +195,24 @@ export function mountOnlineCanvas(root,onMove){
   state.notation.forEach((n,i)=>log.append(el("p","",Math.floor(i/2)+1+(i%2?"... ":" . ")+n)));
   sidebar.append(el("h3","","Biên bản"),log);
   if(room.status==="finished")sidebar.append(el("p","arena-pvp-game-over",statusBanner(room)));
-  frame.append(board,sidebar);
+  const boardStack=el("div","arena-chess-board-stack");
+  const makeClockPlayer=(seat,label)=>{
+   const bar=el("div","arena-chess-player-bar"+(state.turn===seat?" active":""));
+   const identity=el("div","arena-chess-player-identity");
+   identity.append(el("span","arena-chess-player-avatar",seat===0?"♔":"♚"),
+     el("strong","",room.players.find(p=>p.seat===seat)?.name||label));
+   const clock=el("time","arena-chess-digital-clock",chessClockText(seat));
+   clock.dataset.chessClockSeat=String(seat);
+   clock.setAttribute("role","timer");
+   clock.setAttribute("aria-label","Đồng hồ "+(seat===0?"quân trắng":"quân đen"));
+   bar.append(identity,clock);return bar;
+  };
+  const topSeat=room.seat===0?1:0;
+  boardStack.append(makeClockPlayer(topSeat,"Đối thủ"),board,makeClockPlayer(room.seat,"Bạn"));
+  const timeBadge=el("div","arena-chess-time-badge","⏱ "+
+    (room.timeControl==="none"?"Luyện tập · không đồng hồ":room.timeControl));
+  sidebar.prepend(timeBadge);
+  frame.append(boardStack,sidebar);
   root.replaceChildren(frame);
  }
  function renderSeats(room,counts,board){
@@ -291,6 +342,8 @@ export function mountOnlineCanvas(root,onMove){
  }
  function render(room,force=false){
   if(!room?.gameState)return;
+  shownRoom=room;
+  clockOffset=Date.parse(room.serverTime||"")-Date.now()||0;
   if(room.code!==lastCode){chosenSquare=-1;chosenCards.clear();chosenWild=null;lastVersion=-1;}
   if(!force&&room.code===lastCode&&room.version===lastVersion)return;
   if(room.version!==lastVersion&&!force){chosenSquare=-1;chosenCards.clear();chosenWild=null;}
