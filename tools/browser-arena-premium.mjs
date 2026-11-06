@@ -53,7 +53,9 @@ try{
   await page.route("**/assets/arena/room-api.js",route=>route.fulfill({status:200,contentType:"text/javascript",body:stub}));
   try{
    await page.goto(origin+"/mrlee-game-arena.html",{waitUntil:"domcontentloaded",timeout:25000});
-   await page.locator("#arenaDailyDialog").waitFor({state:"visible",timeout:12000});
+   await page.locator("#arenaDailyOpen").click();
+   await page.locator("#arenaDailyOpen").click();
+  await page.locator("#arenaDailyDialog").waitFor({state:"visible",timeout:12000});
    await page.locator("#arenaDailyClose").click();
    await page.waitForFunction(()=>document.querySelectorAll("#arenaCatalog img.arena-cover-image").length===6,null,{timeout:12000});
    const allCovers=await page.locator("#arenaCatalog img.arena-cover-image").evaluateAll(images=>
@@ -64,7 +66,7 @@ try{
    assert.equal(await page.locator("#arenaCatalog .arena-cover-identity").count(),6);
    assert.equal(await page.locator(".arena-board-brand").count(),6);
    await page.screenshot({path:path.join(root,"artifacts","arena-premium","lobby-"+theme+"-"+width+".png"),fullPage:width>800});
-   await page.locator('[data-game="chess"]').click();
+   await page.locator('.arena-ref-play[data-ref-play="chess"]').click();
    await page.locator('#chessBoard [data-square="e2"]').waitFor({state:"visible",timeout:8000});
    assert.equal(await page.locator("#chessBoard .chess-square").count(),64);
    assert.equal(await page.locator("#chessBoard").getAttribute("data-move-index"),"0");
