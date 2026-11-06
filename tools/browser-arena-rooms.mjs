@@ -53,7 +53,7 @@ try{
    await page.locator("#roomBrowserList .arena-room-list-row").first().waitFor();
    assert.match(await page.locator("#roomBrowserList").textContent(),/EFGH2345/);
    await page.locator("#roomHubExit").click();
-   await page.locator('.arena-ref-play[data-ref-play="chess"]').click();
+   await page.evaluate(()=>document.querySelector('#arenaCatalog button[data-game="chess"]')?.click());
    await page.locator("#chessBoard").waitFor({state:"visible"});
    await page.locator('[data-fullscreen-target="arenaChess"]').click();
    await page.waitForFunction(()=>{
