@@ -19,6 +19,11 @@ assert.match(auth,/ancestor\.location\.origin===location\.origin/,"Cross-origin 
 assert.match(auth,/await import\("\.\.\/\.\.\/auth-guard\.js"\)/,
  "Top-level Arena still requires full Firebase auth");
 assert.match(shell,/function frameFailure\(/,"Iframe errors have retry/back controls");
+assert.match(ui,/nicknameLabel\.parentElement\.insertBefore\(clockPicker,nicknameLabel\)/,
+ "Chess clock picker must be inserted next to the nickname label");
+assert.doesNotMatch(ui,/insertBefore\(clockPicker,\$\("roomNickname"\)\)/,
+ "Cannot reference a nested input from the room panel; it breaks all six games");
+
 assert.match(bridge,/send\("error"/,"Iframe reports broken engine instead of hanging");
 assert.match(rooms,/className|classList|arena-card-turn-clock/,"Card avatar has server countdown");
 assert.match(rooms,/className|classList|arena-pvp-me/,"Own seat is visibly highlighted");
