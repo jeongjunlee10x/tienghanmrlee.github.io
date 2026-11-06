@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi">
+<html lang="vi" class="arena-reference-v1">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="MR LEE GAME ARENA: game chiến thuật, bài màu, cờ vua, tiến lên, cá ngựa và các trò chơi giải trí học đường.">
@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="assets/arena/discovery.css?v=1">
 <link rel="stylesheet" href="assets/arena/game-polish.css?v=1">
 <link rel="stylesheet" href="assets/arena/premium.css?v=1">
+<link rel="stylesheet" href="assets/arena/reference-v1.css?v=1">
 <style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
 <script>try{document.documentElement.dataset.mrleeTheme=localStorage.getItem("MRLEE.THEME.V1")==="future"?"future":"fresh"}catch{document.documentElement.dataset.mrleeTheme="fresh"}</script>
 <script type="module" src="auth-guard.js"></script>
@@ -27,14 +28,60 @@
 <script type="module" src="assets/arena/discovery.js?v=1"></script>
 <script type="module" src="assets/arena/premium.js?v=1"></script>
 <script type="module" src="assets/arena/premium-fx.js?v=1"></script>
+<script type="module" src="assets/arena/reference-v1.js?v=1"></script>
 </head>
 <body>
 <div class="arena-app">
-<header class="arena-header">
-  <a href="index.html" class="arena-logo"><img src="assets/branding/logo-mrlee.png" width="52" height="52" alt="MR LEE"><span><strong>MR LEE</strong><small>GAME ARENA</small></span></a>
-  <nav><button type="button" id="arenaDailyOpen" class="arena-daily-launch">🎁 Điểm danh · Quay thưởng</button><a href="tro-choi-tieng-han.html">🎓 Game học tập</a><a href="index.html">Trang chủ</a></nav>
+<header class="arena-header arena-ref-header">
+ <a href="index.html" class="arena-logo" aria-label="Về trang chủ Tiếng Hàn MR LEE"><img src="assets/branding/logo-mrlee.png" width="64" height="64" alt="Logo MR LEE"><span><strong>MR LEE</strong><small>GAME ARENA</small></span></a>
+ <nav class="arena-ref-top-nav" aria-label="Điều hướng Game Arena">
+  <a class="arena-ref-current" href="mrlee-game-arena.html" aria-current="page">🏠 <span>Trang chủ</span></a>
+  <a href="bang-diem-tuan-v12.html">🏆 <span>Bảng xếp hạng</span></a>
+  <button type="button" data-arena-panel="missions">🎁 <span>Nhiệm vụ</span></button>
+  <button type="button" data-arena-panel="convert">📚 <span>Đổi thưởng</span></button>
+  <button type="button" data-arena-panel="guide">❔ <span>Hướng dẫn</span></button>
+ </nav>
+ <div class="arena-ref-header-right">
+  <span class="arena-ref-balance" title="Vàng G được xác minh bởi máy chủ"><span aria-hidden="true">🪙</span><b id="arenaRefTopGold" aria-live="polite">—</b><button type="button" data-arena-panel="convert" aria-label="Đổi điểm học sang vàng G">＋</button></span>
+  <span class="arena-ref-points" title="Điểm học tập xác minh có thể đổi sang G"><span aria-hidden="true">📚</span><b id="arenaRefTopPoints">—</b><small>điểm</small></span>
+  <button type="button" id="arenaDailyOpen" class="arena-ref-gift-launch" aria-label="Mở phần điểm danh và vòng quay" title="Nhận thưởng mỗi ngày">🎁</button>
+  <a class="arena-ref-profile" href="trung-tam-hoc-vien.html" aria-label="Xem hồ sơ học viên"><img src="assets/branding/logo-mrlee.png" alt="" width="34" height="34"><span id="arenaRefPlayerName">Học viên MR LEE</span>⌄</a>
+ </div>
 </header>
 <main><div id="arenaToast" class="arena-toast" role="status" aria-live="polite" hidden></div>
+<div id="arenaRefHero" class="arena-ref-hero" aria-label="Game Arena và phần thưởng hằng ngày">
+ <section class="arena-ref-hero-art">
+  <div class="arena-ref-hero-rays" aria-hidden="true"></div>
+  <img class="arena-ref-hero-mascot" src="assets/branding/logo-mrlee.png" alt="" width="260" height="260">
+  <div class="arena-ref-hero-copy"><div class="arena-ref-hero-crown" aria-hidden="true">♛</div>
+   <span class="arena-ref-hero-tag">HỌC CÙNG LEE · CHƠI CÙNG BẠN</span>
+   <strong class="arena-ref-hero-small">MR LEE</strong>
+   <h1>GAME ARENA</h1>
+   <p>HỌC HAY – CHƠI CHẤT – NHẬN THƯỞNG KHỦNG!</p>
+  </div>
+  <span class="arena-ref-float-card" aria-hidden="true">🂱</span>
+  <span class="arena-ref-float-knight" aria-hidden="true">♘</span>
+  <span class="arena-ref-float-coin" aria-hidden="true">🪙</span>
+  <span class="arena-ref-float-hanok" aria-hidden="true">🏯</span>
+ </section>
+ <section class="arena-ref-reward-panel" aria-label="Điểm danh hằng ngày">
+  <h2><span aria-hidden="true">🗓️</span> Điểm danh hằng ngày</h2>
+  <p>Nhận ngay:</p>
+  <div class="arena-ref-gift-sum"><span>🪙 <b>+1.000G</b></span><span>🎓 <b>+1 điểm học tập</b></span></div>
+  <button type="button" id="arenaHeroCheckin" class="arena-ref-gold-btn">✓ Điểm danh ngay</button>
+  <small id="arenaRefCheckinStatus">Mỗi tài khoản nhận một lần mỗi ngày</small>
+ </section>
+ <section class="arena-ref-spin-panel" aria-label="Vòng quay may mắn">
+  <h2><span aria-hidden="true">🎡</span> Vòng quay may mắn</h2>
+  <div class="arena-ref-wheel-preview" aria-hidden="true">
+    <div class="arena-ref-wheel-arrow"></div>
+    <div class="arena-ref-wheel-disk" id="arenaRefWheelPreview"><span class="arena-ref-wheel-core">🎁</span></div>
+  </div>
+  <button type="button" id="arenaHeroWheel" class="arena-ref-spin-btn">Quay ngay</button>
+  <small id="arenaRefSpinStatus">10 mức thưởng · 100G–5.000G</small>
+ </section>
+</div>
+
 <section class="arena-compact-wallet" aria-label="Thông tin Game Arena">
  <div><strong>🎮 GAME ARENA</strong><small>Chọn game · Ghép bàn · Chơi</small></div>
  <div class="arena-wallet-mini"><span>🪙 G: <strong id="arenaVerifiedGold">—</strong></span>
@@ -46,28 +93,32 @@
 <section id="arenaLobby" aria-labelledby="arenaListHeading">
  <div class="arena-heading"><div><small>PHÒNG GAME</small><h2 id="arenaListHeading">Chọn chiến trường</h2></div><p>Chơi nhanh · Chơi với bạn · Chọn bàn · Đấu máy. Nhận mã phòng khi tạo bàn.</p></div>
  <div class="arena-discovery-layout">
- <aside class="arena-discovery-side" aria-label="Danh mục trò chơi">
-  <strong class="arena-discovery-side-title">🧭 KHÁM PHÁ</strong>
-  <nav class="arena-game-filters" aria-label="Lọc game">
-   <button type="button" data-arena-filter="all" aria-pressed="true">🎮 Tất cả trò chơi <span>6</span></button>
-   <button type="button" data-arena-filter="recent" aria-pressed="false">🕘 Chơi gần đây</button>
-   <button type="button" data-arena-filter="favorite" aria-pressed="false">⭐ Yêu thích</button>
-   <button type="button" data-arena-filter="online" aria-pressed="false">👥 Chơi với bạn <span>3</span></button>
-   <button type="button" data-arena-filter="card" aria-pressed="false">🃏 Game bài</button>
-   <button type="button" data-arena-filter="board" aria-pressed="false">♟️ Cờ và chiến thuật</button>
-   <button type="button" data-arena-filter="strategy" aria-pressed="false">🏙️ Chiến lược</button>
-  </nav>
-  <div class="arena-discovery-side-tip"><b>🪙 Vàng G</b><p>Điểm danh và quay thưởng mỗi ngày. Đấu máy miễn phí bằng vé thử; 3 trò đã có phòng PvP.</p></div>
+ <aside class="arena-discovery-side arena-ref-categories" aria-label="Danh mục trò chơi">
+ <strong class="arena-discovery-side-title">🎮 DANH MỤC GAME</strong>
+ <nav class="arena-game-filters" aria-label="Lọc trò chơi">
+  <button type="button" data-arena-filter="all" aria-pressed="true">🎮 <span class="arena-ref-filter-label">Tất cả trò chơi</span> <span>6</span></button>
+  <button type="button" data-arena-filter="card" aria-pressed="false">🃏 <span class="arena-ref-filter-label">Game bài</span> <span>2</span></button>
+  <button type="button" data-arena-filter="board" aria-pressed="false">♟️ <span class="arena-ref-filter-label">Cờ & chiến thuật</span> <span>3</span></button>
+  <button type="button" data-arena-filter="fun" aria-pressed="false">🎲 <span class="arena-ref-filter-label">Game giải trí</span> <span>3</span></button>
+  <button type="button" data-arena-filter="favorite" aria-pressed="false">💗 <span class="arena-ref-filter-label">Yêu thích</span></button>
+  <button type="button" data-arena-filter="recent" aria-pressed="false">🕘 <span class="arena-ref-filter-label">Chơi gần đây</span></button>
+  <button type="button" data-arena-filter="online" aria-pressed="false">👥 <span class="arena-ref-filter-label">Chơi với bạn</span> <span>3</span></button>
+  <button type="button" data-arena-filter="strategy" aria-pressed="false">🏙️ <span class="arena-ref-filter-label">Chiến lược</span></button>
+ </nav>
+ <div class="arena-ref-side-game-access">
+  <span>TRÒ CHƠI KHÁC</span>
+  <button type="button" id="arenaRefColorsAccess">🔴 Bài Màu Đại Chiến</button>
+ </div>
+ <div class="arena-ref-side-watermark" aria-hidden="true">🎮</div>
  </aside>
  <div class="arena-discovery-main">
-  <div class="arena-discovery-spotlight"><div class="arena-spotlight-symbol" aria-hidden="true">🎮</div><div>
-   <span class="arena-eyebrow">MR LEE · MINI GAMES</span><strong>Chọn game, vào bàn, chơi ngay.</strong>
-   <p>Game bài, cờ và chiến thuật trong một sảnh. Không cần cài đặt ứng dụng.</p></div>
-   <button type="button" class="arena-discovery-rewards" id="arenaDiscoverRewards">🎁 Nhận thưởng hôm nay</button>
-  </div>
-  <div class="arena-discovery-tools">
+  <div class="arena-discovery-spotlight" hidden><button type="button" id="arenaDiscoverRewards">🎁 Nhận thưởng hôm nay</button></div>
+  <div class="arena-ref-title-row">
+    <div class="arena-ref-list-title"><h2>🎮 Danh sách trò chơi</h2><span></span></div>
+    <div class="arena-discovery-tools">
     <label class="arena-discovery-search" for="arenaGameSearch"><span aria-hidden="true">⌕</span><input type="search" id="arenaGameSearch" placeholder="Tìm trò chơi, ví dụ: Tiến Lên, Cờ Vua…" autocomplete="off"></label>
     <label class="arena-discovery-sort" for="arenaGameSort">Sắp xếp <select id="arenaGameSort"><option value="featured">Đề xuất</option><option value="recent">Gần đây</option><option value="alphabetic">A–Z</option></select></label>
+  </div>
   </div>
   <div class="arena-discovery-count"><span id="arenaGameCount">6 trò có thể chơi</span><small>Yêu thích và lịch sử lưu trên thiết bị này</small></div>
   <div id="arenaGameEmpty" class="arena-discovery-empty" hidden>Không tìm thấy trò phù hợp. Thử tìm theo tên hoặc chọn “Tất cả trò chơi”.</div>
@@ -98,10 +149,32 @@
    <article class="arena-game-card playable"><div class="arena-card-banner ludo">🎲 🐎 🎯</div><div class="arena-card-body"><strong>Cờ Cá Ngựa</strong><small>4 người · Xúc xắc, bắt quân, về đích</small><div class="arena-game-actions"><button class="arena-bots" type="button" data-game="ludo">🎮 Chơi ngay · Đấu máy</button><span class="arena-soon">PvP trực tuyến: đang hoàn thiện</span></div></div></article>
    <article class="arena-game-card playable"><div class="arena-card-banner xiangqi">帥 車 馬</div><div class="arena-card-body"><strong>Cờ Tướng / Cờ Úp</strong><small>2 người · Đấu máy · 2 chế độ</small><div class="arena-game-actions"><button class="arena-bots" type="button" data-game="xiangqi">🎮 Chơi ngay · Đấu máy</button><span class="arena-soon">PvP trực tuyến: đang hoàn thiện</span></div></div></article>
    <article class="arena-game-card playable"><div class="arena-card-banner estate">🏘️ 💼 🏙️</div><div class="arena-card-body"><strong>Địa Ốc Đại Chiến</strong><small>4 người · Mua bán, thu thuê, nâng cấp</small><div class="arena-game-actions"><button class="arena-bots" type="button" data-game="estate">🎮 Chơi ngay · Đấu máy</button><span class="arena-soon">PvP trực tuyến: đang hoàn thiện</span></div></div></article>
+ <article id="arenaRefLearning" class="arena-ref-learning-card" aria-label="Game Zone Tiếng Hàn">
+  <div class="arena-ref-learning-art">
+    <span class="arena-ref-learning-brand">✦ MR LEE</span>
+    <span class="arena-ref-learning-icon" aria-hidden="true">🎓</span>
+    <strong>GAME ZONE<br>TIẾNG HÀN</strong>
+    <span class="arena-ref-learning-stars" aria-hidden="true">⭐ 가 나 다</span>
+  </div>
+  <div class="arena-ref-learning-footer"><span>📚 Học tiếng Hàn · 10 trò</span><a href="tro-choi-tieng-han.html">▶ Chơi ngay</a></div>
+</article>
  </div>
  </div>
 </div>
 </section>
+
+<nav id="arenaRefDock" class="arena-ref-dock" aria-label="Các chức năng Game Arena">
+ <a href="bang-diem-tuan-v12.html"><span class="arena-ref-dock-icon">🏆</span><span><strong>Bảng xếp hạng</strong><small>Tuần này</small></span></a>
+ <button type="button" data-arena-panel="stats"><span class="arena-ref-dock-icon">📊</span><span><strong>Thống kê</strong><small>Hoạt động của bạn</small></span></button>
+ <button type="button" data-arena-panel="convert"><span class="arena-ref-dock-icon">🪙</span><span><strong>Đổi điểm</strong><small>1 điểm = 10G</small></span></button>
+ <button type="button" data-arena-panel="missions"><span class="arena-ref-dock-icon">⭐</span><span><strong>Nhiệm vụ</strong><small>Nhận thêm G</small></span></button>
+ <button type="button" data-arena-panel="events"><span class="arena-ref-dock-icon">🎁</span><span><strong>Sự kiện</strong><small>Thông báo mới</small></span></button>
+ <button type="button" data-arena-panel="guide"><span class="arena-ref-dock-icon">❔</span><span><strong>Hướng dẫn</strong><small>Cách chơi & quy tắc</small></span></button>
+</nav>
+<dialog id="arenaRefDialog" class="arena-ref-dialog" aria-labelledby="arenaRefDialogTitle">
+ <div class="arena-ref-dialog-head"><h2 id="arenaRefDialogTitle">Game Arena</h2><button type="button" id="arenaRefDialogClose" aria-label="Đóng cửa sổ">✕</button></div>
+ <div id="arenaRefDialogBody"></div>
+</dialog>
 
 <section id="arenaRoomHub" class="arena-room-section" hidden aria-labelledby="arenaRoomHubTitle">
  <div class="arena-table-heading"><button id="roomHubExit" type="button" class="arena-soft">← Về sảnh</button>
