@@ -86,6 +86,10 @@ function refreshActive(){
  syncOrientationPrompt();
 }
 async function requestMobileLandscape(){
+ // Standalone game pages own fullscreen/orientation at the parent level.
+ // A nested iframe must not enter a second fullscreen top layer and cover
+ // the parent's safe-exit controls on touch devices.
+ if(document.documentElement.classList.contains("arena-embedded"))return;
  if(!phone())return;
  refreshActive();
  if(!currentId&&!(arena&&playing("arenaRoomLobby")))return;
