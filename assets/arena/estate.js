@@ -117,7 +117,7 @@ export function estateBotPlan(g,difficulty="normal",rng=Math.random){
   rng()<(difficulty==="normal"?.91:.62));
  return {upgrade,buy};
 }
-import {animateBoardMove} from "./drag-gestures.js?v=20261107-motion-v22";
+import {animateBoardMove} from "./drag-gestures.js?v=20261107-motion-v22b";
 import {emitArenaFX} from "./game-visuals-v19.js?v=20261107-approved-v20";
 export function mountEstate({onStart,onFinish,onExit}){
  const root=$("arenaEstate"),board=$("estateBoard"),status=$("estateStatus");
