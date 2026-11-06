@@ -20,7 +20,7 @@ assert.match(localTL,/enablePointerDrag\(/);
 assert.equal((remote.match(/enablePointerDrag\(/g)||[]).length,3,
  "All three server-validated PvP games use real drag-and-drop");
 assert.match(app,/targetSelector:"\.arena-board-center"/,"Colors vs bot accepts a real card drop");
-assert.match(fx,/visualDeals=.*24:32/,"Reduce paint work during initial 52-card dealing");
+assert.match(fx,/const visualDeals=52/,"Visually deal all 52 card backs with staggered GPU sprites");
 assert.match(estate,/animateBoardMove/,"Estate pieces animate along the map");
 assert.match(css,/arena-drag-ghost/);
 assert.match(css,/prefers-reduced-motion/,"Provide reduced-motion support");
