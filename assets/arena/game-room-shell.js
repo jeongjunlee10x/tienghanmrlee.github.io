@@ -79,6 +79,7 @@ function inviteCode(){
  return /^[A-Z2-9]{8}$/.test(code)?code:"";
 }
 function start(mode,{auto=false,code=""}={}){
+ if(mode==="quick"&&!current.online)mode="bot";
  if(mode!=="bot"&&!current.online){status("⚠️ "+current.name+" hiện mới hỗ trợ đấu máy.");return;}
  if(!["bot","quick","friends","browse"].includes(mode))return;
  playingMode=mode;hasBooted=false;frameLoaded=false;openAttempt++;
