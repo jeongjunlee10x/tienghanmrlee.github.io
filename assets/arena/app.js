@@ -194,7 +194,7 @@ function scheduleBot(){
  state.timer=setTimeout(()=>{
   state.timer=null;
   if(epoch!==state.epoch||!state.game||state.game.turn===0||state.game.winner!==null)return;
-  try{botTurn(state.game);render();}
+  try{botTurn(state.game,Math.random,$("colorsLevel")?.value||"normal");render();}
   catch(err){flash("Đối thủ tạm dừng: "+err.message);}
  },650);
 }
