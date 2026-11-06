@@ -53,6 +53,7 @@ try{
   await page.route("**/assets/arena/room-api.js",route=>route.fulfill({status:200,contentType:"text/javascript",body:stub}));
   try{
    await page.goto(origin+"/"+pageName,{waitUntil:"domcontentloaded",timeout:20000});
+   if(pageName==="mrlee-game-arena.html")await page.locator("#arenaDailyOpen").click();
    const dlg=page.locator("#arenaDailyDialog");await dlg.waitFor({state:"visible",timeout:9000});
    assert.equal(await page.locator("#arenaWheelLabels .arena-wheel-label").count(),10);
    const prizes=await page.locator("#arenaWheelLabels .arena-wheel-label").allTextContents();
