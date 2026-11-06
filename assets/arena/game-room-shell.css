@@ -358,3 +358,51 @@ body.game-room-in-play .game-room-frame-wrap iframe{background:transparent!impor
   max-height:calc(100dvh - 78px)!important;overflow:hidden}
  body.game-room-in-play .game-room-frame-wrap iframe{width:100%;height:100%}
 }
+
+/* R4: game menu and embedded table adapt independently to width and orientation. */
+.game-room-shell,.game-room-main,.game-room-play,.game-room-frame-wrap{box-sizing:border-box;min-width:0}
+.game-room-frame-wrap iframe{width:100%!important;max-width:100%!important}
+html[data-room-game="chess"] #roomTryLandscape,
+html[data-room-game="xiangqi"] #roomTryLandscape{display:none!important}
+@media (max-width:900px){
+ body.game-room-in-play .game-room-play{
+  display:grid;grid-template-rows:auto minmax(0,1fr);width:100%;
+  min-width:0;padding:3px 5px 5px!important
+ }
+ body.game-room-in-play .game-room-frame-wrap{
+  box-sizing:border-box;min-width:0;width:100%;height:auto!important;
+  max-height:none!important;min-height:0;overflow:hidden
+ }
+ body.game-room-in-play .game-room-play-head{
+  display:grid;grid-template-columns:auto minmax(0,1fr) auto;
+  gap:5px;min-width:0;min-height:43px;height:auto;padding:3px 2px
+ }
+ body.game-room-in-play .game-room-play-head>h2{
+  min-width:0;overflow:hidden;text-overflow:ellipsis;
+  white-space:nowrap;font-size:clamp(11px,2.5vw,17px)!important
+ }
+ body.game-room-in-play .game-room-play-head>div{display:flex;gap:4px;min-width:0}
+ body.game-room-in-play .game-room-play-head button{
+  white-space:nowrap;min-width:32px;min-height:34px;
+  padding:4px 6px;font-size:clamp(10px,2vw,12px)
+ }
+}
+@media (max-width:600px) and (orientation:portrait){
+ .game-room-lobby{overflow-y:auto;overscroll-behavior:contain}
+ .game-room-tiles{flex:0 0 auto;min-height:0;height:min(52dvh,430px);max-height:none!important}
+ .game-room-tile{min-width:0;min-height:0;overflow:hidden}
+ .game-room-tile strong{max-width:100%;white-space:normal;font-size:clamp(14px,4.1vw,19px)!important}
+ .game-room-tile small{max-width:100%;white-space:normal;line-height:1.2}
+ html[data-room-game="chess"] .game-room-tile,
+ html[data-room-game="xiangqi"] .game-room-tile{border-radius:16px}
+ html[data-room-game="chess"] body.game-room-in-play .game-room-frame-wrap,
+ html[data-room-game="xiangqi"] body.game-room-in-play .game-room-frame-wrap{
+  border-radius:10px!important
+ }
+}
+@media(min-width:901px) and (max-height:740px){
+ .game-room-lobby{padding-block:8px}
+ .game-room-title{margin-bottom:7px}
+ .game-room-tiles{max-height:min(58dvh,390px)}
+ .game-room-footer{min-height:48px}
+}
