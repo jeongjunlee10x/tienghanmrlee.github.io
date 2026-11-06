@@ -145,6 +145,7 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
   if(!room)return;
   const value=await roomRequest("state",{code:room.code},"GET");
   if(!room||value.room.code!==room.code)return;
+  if(value.room.serverTime)serverClockOffset=Date.parse(value.room.serverTime)-Date.now();
   if(value.room.version!==room.version||value.room.status!==room.status){
    room=value.room;
    if(room.status==="waiting")drawLobby();
@@ -244,13 +245,21 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
    });
    reveal.append(grid);dialog.append(reveal);
   }
+  const yes=room.players.filter(p=>p.continueReady).length;
+  const mine=room.players.find(p=>p.seat===room.seat);
+  const confirm=btn(mine?.continueReady?"✓ ĐÃ XÁC NHẬN":
+   "▶ TIẾP TỤC VÁN MỚI","arena-next-round-confirm",()=>void continueRound());
+  confirm.id="roomNextConfirm";
+  confirm.disabled=Boolean(mine?.continueReady);
+  dialog.append(el("p","arena-next-round-votes","Đã xác nhận: "+yes+"/"+room.players.length+
+   " người · Đủ người xác nhận sẽ chia ván mới ngay."),confirm);
   const counter=el("p","arena-next-round-count","⏳ Còn 5 giây để rời bàn");
   counter.id="roomNextClock";counter.setAttribute("role","timer");
   dialog.append(counter);
   const exit=btn("🚪 THOÁT BÀN","arena-next-round-exit",()=>void leave());
   exit.id="roomNextExit";
   dialog.append(exit,el("small","arena-next-round-help",
-   "Không thoát trong 5 giây = mặc định tiếp tục. Máy chủ tự chia ván mới cho những người còn lại và đủ G."));
+   "Không thoát trong 5 giây = mặc định đồng ý chơi tiếp. Nếu thiếu người hoặc G, bàn vẫn mở ở trạng thái chờ."));
   $("roomGameCanvas").append(dialog);
   void refreshWallet().catch(()=>{});
  }
@@ -266,6 +275,17 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
    if(error.status===409)await pull();
    throw error;
   }
+ }
+ async function continueRound(){
+  if(!room||room.status!=="finished")return;
+  await withBusy(async()=>{
+   const previous=room;
+   const response=await roomRequest("continue",{code:previous.code});
+   if(!room||room.code!==previous.code)return;
+   room=response.room;
+   if(room.status==="waiting")drawLobby();else drawGame();
+   if(room.status!=="finished")await refreshWallet();
+  });
  }
  async function leave(){
   if(!room){leaveUI();return;}
