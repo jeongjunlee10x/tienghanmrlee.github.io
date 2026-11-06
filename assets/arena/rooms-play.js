@@ -7,7 +7,7 @@ import * as TL from "./tienlen-engine.js?v=20261107-ai-r18";
 import * as Colors from "./color-engine.js?v=20261107-ai-r18";
 import {playingCard,chopTitle,showChopPopup} from "./tienlen-fx.js?v=20261107-motion-v22";
 import {isDealing,showRoomDeal} from "./arena-deal-v22.js?v=20261107-motion-v22";
-import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261107-motion-v22";
+import {enablePointerDrag,animateBoardMove,animateCardTransfer} from "./drag-gestures.js?v=20261107-motion-v22b";
 function el(tag,cls="",content){
  const result=document.createElement(tag);
  if(cls)result.className=cls;
@@ -550,7 +550,21 @@ export function mountOnlineCanvas(root,onMove){
   lastCode=room.code;lastVersion=room.version;
   if(room.game==="chess")renderChess(room);
   else if(room.game==="tienlen")renderTienLen(room);
-  else renderColors(room);
+  else{
+   renderColors(room);
+   // A fresh, verified discard from another online player travels into the
+   // pile once. Polling the same version never replays the animation.
+   if(!force&&previous?.game==="colors"&&previous.status==="playing"&&
+      room.status==="playing"&&previous.code===room.code&&
+      previous.roundIndex===room.roundIndex&&room.version!==lastVersion&&
+      previous.gameState?.top?.id!==room.gameState?.top?.id){
+    const actor=previous.gameState?.turn;
+    const from=actor===room.seat?root.querySelector(".arena-pvp-me"):
+     root.querySelector('.arena-pvp-seat[data-seat="'+actor+'"]');
+    const to=root.querySelector(".arena-pvp-current");
+    animateCardTransfer({from,to,face:to?.querySelector(".arena-pvp-color-card")});
+   }
+  }
  }
  return {render,waiting,clear};
 }
