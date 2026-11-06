@@ -103,10 +103,22 @@ await Promise.all(workers);
 await writeFile(join(out,'_redirects'),
   '# Old GitHub-project prefix accidentally used on Cloudflare\n'+
   '/tienghanmrlee.github.io/* /:splat 301\n','utf8');
-const sitemapPages=['','hoc-tieng-han.html','giao-tiep-theo-chu-de.html',
- 'kiem-tra-topik.html','van-hoa-han-quoc.html','tuyen-sinh.html',
- 'ban-do-dai-hoc-han-quoc.html','giao-tiep-phong-van.html',
- 'hoc-bong-han-quoc.html'];
+// Keep the Cloudflare sitemap in sync with the reviewed source sitemap.
+// Previously this build regenerated a separate hard-coded list of 9 URLs,
+// overriding updates in the root sitemap.xml during every deployment.
+const sourceSitemap=await readFile(join(root,'sitemap.xml'),'utf8');
+const sourceUrls=[...sourceSitemap.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)]
+  .map(match=>match[1].trim());
+if(!sourceUrls.length)throw new Error('Source sitemap.xml contains no URLs');
+const sourceOrigin=new URL(sourceUrls[0]).origin;
+const sitemapPages=[...new Set(sourceUrls.map(href=>{
+ const url=new URL(href);
+ if(url.origin!==sourceOrigin||url.search||url.hash){
+  throw new Error('Invalid source sitemap URL: '+href);
+ }
+ return decodeURI(url.pathname).replace(/^\/+/, '');
+}))];
+if(!sitemapPages.includes(''))throw new Error('Source sitemap must include homepage');
 const available=new Set(input.map(x=>x.rel));
 const sitemap='<?xml version="1.0" encoding="UTF-8"?>\n'+
  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+
