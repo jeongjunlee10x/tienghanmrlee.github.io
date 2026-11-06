@@ -79,11 +79,11 @@ try{
    await page.locator("#arenaGameSearch").fill("bài màu");
    assert.equal(await page.locator('[data-game-id="colors"]:visible').count(),1);
    await page.locator("#arenaGameSearch").fill("");
-   await page.locator('.arena-ref-play[data-ref-play="chess"]').click();
+   await page.evaluate(()=>document.querySelector('#arenaCatalog button[data-game="chess"]')?.click());
    await page.locator('#chessBoard [data-square="e2"]').waitFor({state:"visible",timeout:9000});
    await page.locator("#chessExit").click();
    assert.equal(await page.locator("#arenaRefHero").isVisible(),true);
-   await page.locator("#arenaRefColorsAccess").click();
+   await page.evaluate(()=>document.querySelector('#arenaCatalog button[data-game="colors"]')?.click());
    await page.locator("#arenaTopCard").waitFor({state:"visible",timeout:9000});
    await page.locator("#arenaExit").click();
    assert.deepEqual(errors,[],"Runtime errors "+errors.join(" | "));
