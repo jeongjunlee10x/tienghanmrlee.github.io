@@ -13,6 +13,7 @@ const GAME_PAGES=Object.freeze({
  estate:{name:"Địa Ốc Đại Chiến",online:false,description:"Xây dựng và mua bán bất động sản ảo"}
 });
 const game=document.documentElement.dataset.roomGame,current=GAME_PAGES[game];
+const portraitBoard=game==="chess"||game==="xiangqi";
 if(!current)throw Error("Mã trò chơi không hợp lệ");
 const frame=$("roomGameFrame"),lobby=$("roomLobby"),stage=$("roomPlay"),panel=$("roomModeHint");
 let verifiedWallet=null,playingMode="",hasBooted=false,openAttempt=0,frameLoaded=false;
@@ -41,7 +42,7 @@ function playStatus(message){
  node.textContent=String(message||"");
 }
 async function tryLandscape(){
- if(!activeMobile())return;
+ if(portraitBoard||!activeMobile())return;
  try{
   if(!document.fullscreenElement&&document.documentElement.requestFullscreen){
    await document.documentElement.requestFullscreen({navigationUI:"hide"});
@@ -68,8 +69,8 @@ function start(mode,{auto=false,code=""}={}){
  lobby.hidden=true;stage.hidden=false;document.body.classList.add("game-room-in-play");
  $("roomFrameLoading").hidden=false;
  frame.src=url.href;
- if(!auto)void tryLandscape();
- if(auto&&activeMobile()&&portrait())playStatus("📱 Xoay ngang để trải nghiệm tốt nhất.");
+ if(!auto&&!portraitBoard)void tryLandscape();
+ if(auto&&activeMobile()&&portrait()&&!portraitBoard)playStatus("📱 Có thể xoay ngang để mở rộng bàn chơi.");
  else playStatus("");
  const seq=openAttempt;
  setTimeout(()=>{if(seq===openAttempt&&!hasBooted&&!stage.hidden){
@@ -121,6 +122,12 @@ document.querySelectorAll("[data-play-mode]").forEach(btn=>btn.addEventListener(
 $("roomBotPlay").addEventListener("click",()=>start("bot"));
 $("roomExitGame").addEventListener("click",leave);
 $("roomTryLandscape").addEventListener("click",()=>void tryLandscape());
+if(portraitBoard){
+ const rotate=$("roomTryLandscape");rotate.hidden=true;rotate.disabled=true;
+ rotate.setAttribute("aria-hidden","true");
+ $("roomPlayHeading").title="Bàn cờ tối ưu cho màn hình dọc; không cần xoay ngang";
+ $("roomModeHint").textContent="Chơi cờ ở màn hình dọc trên điện thoại, thoải mái trên máy tính. Không cần xoay ngang.";
+}
 $("roomTryFullscreen").addEventListener("click",async()=>{
  try{
   if(document.fullscreenElement)await document.exitFullscreen();
