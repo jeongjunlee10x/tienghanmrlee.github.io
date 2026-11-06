@@ -17,6 +17,8 @@ const GOLD_TIERS=new Set([5,10,50,100,500,1000,5000,10000,50000,100000,500000,10
 const RISK_CARDS:Record<string,number>={chess:1,tienlen:13,colors:20};
 const exposure=(game:string,stake:number)=>stake*RISK_CARDS[game];
 const CODE_LETTERS="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const TIENLEN_TURN_MS=20_000;
+const nextDeadline=()=>new Date(Date.now()+TIENLEN_TURN_MS).toISOString();
 type Member={uid:string,name:string,seat:number,ready:boolean};
 type Room={code:string,game:string,visibility:string,min_gold:number,locked:boolean,status:string,
  members:Member[],state:any,version:number,expires_at:string,created_at:string,updated_at:string};
@@ -86,7 +88,7 @@ function isExpired(room:Room){return room.expires_at<=now();}
 function safeRoom(room:Room,uid:string){
  const player=membership(room,uid),game=room.game;
  const result:any={code:room.code,game,visibility:room.visibility,minGold:room.min_gold,
-  status:room.status,seat:player.seat,capacity:GAME_SLOTS[game],
+  status:room.status,seat:player.seat,capacity:GAME_SLOTS[game],serverTime:now(),
   locked:Boolean(room.locked),isHost:room.members[0]?.uid===uid,
   players:room.members.map(m=>({name:m.name,seat:m.seat,ready:m.ready,
    continueReady:room.state?.rematchVotes?.[String(m.seat)]===true})),
@@ -103,7 +105,8 @@ function safeRoom(room:Room,uid:string){
  }else if(game==="tienlen"){
   result.gameState={myHand:state.hands[player.seat],counts:state.hands.map((hand:any[])=>hand.length),
     turn:state.turn,played:state.played,last:state.last?{player:state.last.player,combo:state.last.combo}:null,
-    first:state.first,passed:state.passed,history:state.history.slice(-12),
+    first:state.first,passed:state.passed,turnDeadline:room.status==="playing"?state.turnDeadline:null,
+    history:state.history.slice(-12),
     winner:state.winner,...(room.status==="finished"?{revealedHands:state.hands}:{} )};
  }else if(game==="colors"){
   result.gameState={myHand:state.hands[player.seat],counts:state.hands.map((hand:any[])=>hand.length),
@@ -132,7 +135,51 @@ function createState(game:string,playerCount=4){
  if(game==="chess"){
   const position=Chess.start();return {history:[position],notation:[]};
  }
- return game==="tienlen"?TienLen.start(secureRandom,playerCount):Colors.newGame(secureRandom);
+ return game==="tienlen"?{...TienLen.start(secureRandom,playerCount),turnDeadline:nextDeadline()}:Colors.newGame(secureRandom);
+}
+// Each live client polls the room. A server timestamp and CAS protect the
+// 20-second deadline even if a player closes the page or changes local clocks.
+// A timeout is applied once only, on the first authenticated room request
+// after the deadline. No client may submit a timeout result or choose cards.
+async function advanceExpiredTienLen(database:any,row:Room):Promise<Room>{
+ if(row.game!=="tienlen"||row.status!=="playing")return row;
+ const deadline=Date.parse(row.state?.turnDeadline||"");
+ if(!Number.isFinite(deadline)){
+  try{return await cas(database,row,{state:{...row.state,turnDeadline:nextDeadline()}});}
+  catch(e){if((e as {status?:number}).status===409)return selectRoom(database,row.code);throw e;}
+ }
+ if(Date.now()<deadline)return row;
+ const state=structuredClone(row.state),seat=state.turn;
+ if(!Number.isInteger(seat)||!Array.isArray(state.hands?.[seat]))return row;
+ try{
+  if(state.last){
+   TienLen.pass(state,seat);
+   state.history.push("⏳ Quá 20 giây: tự động bỏ lượt.");
+  }else{
+   const card=[...state.hands[seat]].sort((a:any,b:any)=>TienLen.value(a)-TienLen.value(b))
+    .find((c:any)=>TienLen.canPlay(state,seat,[c.id]));
+   if(!card)fail("Máy chủ chưa tìm được quân mở vòng hợp lệ.",503);
+   TienLen.play(state,seat,[card.id]);
+   state.history.push("⏳ Quá 20 giây: tự đánh quân nhỏ nhất ("+TienLen.label(card)+").");
+  }
+  state.history=state.history.slice(-30);
+  if(state.winner===null){
+   state.turnDeadline=nextDeadline();
+   try{return await cas(database,row,{state,status:"playing"});}
+   catch(e){if((e as {status?:number}).status===409)return selectRoom(database,row.code);throw e;}
+  }
+  state.turnDeadline=null;
+  const winner=state.winner,remaining=state.hands.map((cards:any[])=>cards.length);
+  state.settlement={winner,remaining,rate:row.min_gold};
+  const {error}=await database.rpc("mrlee_arena_settle_match",{
+   p_code:row.code,p_expected_version:row.version,p_state:state,p_winner:winner,p_remaining:remaining
+  });
+  if(error&&error.code!=="P0001")fail("Không thể kết toán ván khi hết giờ.",503);
+  return await selectRoom(database,row.code);
+ }catch(e){
+  if((e as {status?:number}).status===409)return selectRoom(database,row.code);
+  throw e;
+ }
 }
 async function wallet(database:any,uid:string){
  const {data,error}=await database.rpc("mrlee_arena_wallet_status",{p_uid:uid});
@@ -246,7 +293,9 @@ Deno.serve(async(req:Request)=>{
    }
    if(kind==="state"){
     const row=await selectRoom(database,roomCode(url.searchParams.get("code")));
-    return reply(req,200,{ok:true,room:safeRoom(row,uid)});
+    membership(row,uid);
+    const updated=await advanceExpiredTienLen(database,row);
+    return reply(req,200,{ok:true,room:safeRoom(updated,uid)});
    }
    fail("Không tìm thấy API.",404);
   }
@@ -398,9 +447,14 @@ Deno.serve(async(req:Request)=>{
    if(room.status!=="playing")fail("Phòng chưa ở trạng thái chơi.",409);
    if(!Number.isInteger(body.version)||body.version!==room.version)
     fail("Phòng đã đổi lượt. Hãy cập nhật rồi thử lại.",409);
+   if(room.game==="tienlen"){
+    const checked=await advanceExpiredTienLen(database,room);
+    if(checked.version!==room.version)fail("Lượt đã hết 20 giây và máy chủ đã tự xử lý. Hãy cập nhật bàn.",409);
+   }
    const state=structuredClone(room.state);
    const result=room.game==="chess"?actionChess(state,me.seat,body):
     room.game==="tienlen"?actionTienLen(state,me.seat,body):actionColors(state,me.seat,body);
+   if(room.game==="tienlen")state.turnDeadline=result.finished?null:nextDeadline();
    if(result.finished){
     let winner=-1,remaining:number[];
     if(room.game==="chess"){
