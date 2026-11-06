@@ -31,7 +31,7 @@ try{
   try{
    await page.goto(origin+"/mrlee-game-arena.html",{waitUntil:"domcontentloaded",timeout:20000});
    assert.equal(await page.locator(".arena-game-card.playable").count(),6);
-   await page.locator('[data-game="chess"]').click();
+   await page.locator('.arena-ref-play[data-ref-play="chess"]').click();
    await page.locator("#chessBoard .chess-square").first().waitFor({timeout:6000});
    assert.equal(await page.locator("#chessBoard .chess-square").count(),64);
    assert.equal((await page.locator("#arenaTickets").textContent()).trim(),"2");
@@ -39,7 +39,7 @@ try{
    await page.locator('#chessBoard .chess-square[data-square="e4"]').click();
    assert.match((await page.locator('#chessBoard .chess-square[data-square="e4"]').getAttribute("aria-label"))||"",/P/);
    await page.locator("#chessExit").click();
-   await page.locator('[data-game="tienlen"]').click();
+   await page.locator('.arena-ref-play[data-ref-play="tienlen"]').click();
    await page.locator("#tlHand .tl-hand-card").first().waitFor({timeout:6000});
    assert.equal(await page.locator("#tlHand .tl-hand-card").count(),13);
    assert.equal(await page.locator("#tlOpponents .tl-opponent").count(),3);
