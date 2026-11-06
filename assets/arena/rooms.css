@@ -197,3 +197,107 @@
  .arena-table-heading{gap:7px}
  .arena-fullscreen-btn{font-size:10px;padding:6px 8px}
 }
+
+
+/* MR LEE PvP table-first waiting and multi-round result overlay.
+ * Responsive at desktop and phone landscape: no separate waiting lobby. */
+.arena-pvp-waiting{min-height:clamp(390px,calc(100dvh - 115px),760px);
+ border-radius:32%/20%;background:radial-gradient(ellipse at 50% 40%,#198e74,#076051 79%,#0c393e)}
+.arena-pvp-wait-seat{min-width:115px;max-width:205px;box-shadow:0 4px 20px #001a28a3;
+ border:2px solid #7dc8bfbd;background:#063945e8}
+.arena-pvp-wait-seat.vacant{opacity:.65;border-style:dashed}
+.arena-pvp-wait-seat.ready{border-color:#d9ff85;box-shadow:0 0 20px #8bd95755}
+.arena-pvp-wait-seat[data-position="bottom"]{display:flex!important;bottom:7px;top:auto;left:50%;
+ transform:translateX(-50%);width:max-content}
+.arena-pvp-wait-avatar{font-size:29px;line-height:1}
+.arena-pvp-wait-center{position:absolute;left:50%;top:46%;width:min(690px,75%);
+ transform:translate(-50%,-50%);z-index:5;display:flex;flex-direction:column;align-items:center;
+ gap:7px;text-align:center;padding:12px 15px;background:#063950ba;
+ border:1px solid #b3f3d458;border-radius:22px;box-shadow:0 8px 22px #00324194;color:#fff}
+.arena-pvp-wait-eyebrow{font-weight:900;letter-spacing:.1em;font-size:10px;color:#b5f9e1}
+.arena-pvp-wait-center h3{margin:0;font:1000 clamp(15px,2.4vw,29px)/1.1 "Be Vietnam Pro",system-ui,sans-serif;
+ color:#fff0a0;text-shadow:0 3px 4px #002c40}
+.arena-pvp-wait-code{font:1000 clamp(15px,2vw,24px)/1.3 ui-monospace,monospace;
+ letter-spacing:.06em;color:#fff9ee;user-select:all}
+.arena-pvp-wait-meta{margin:0!important;color:#c9f2ec;font-size:12px;font-weight:850}
+.arena-pvp-wait-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:7px;max-width:100%}
+.arena-pvp-wait-actions button{min-height:36px;padding:7px 12px;white-space:nowrap;
+ border-radius:10px;font-size:11px;font-weight:900}
+.arena-pvp-wait-actions button:disabled{opacity:.48;cursor:not-allowed}
+.arena-pvp-wait-tip{max-width:560px;margin:0!important;font-size:10px;line-height:1.35;
+ color:#d5e9ee;font-weight:750}
+.arena-next-round-dialog{position:absolute;inset:50% auto auto 50%;transform:translate(-50%,-50%);
+ z-index:250;box-sizing:border-box;width:min(760px,calc(100% - 18px));max-height:calc(100% - 10px);
+ padding:14px 17px;overflow-y:auto;overscroll-behavior:contain;
+ border:2px solid #f9d989;border-radius:20px;
+ background:linear-gradient(150deg,#142c57f9,#132a40fa 70%,#1b4251fa);
+ box-shadow:0 20px 70px #00151de0,inset 0 1px #fff5;color:#fff;
+ text-align:center}
+.arena-next-round-dialog h2{margin:0 0 4px;font:1000 clamp(18px,2.4vw,27px)/1.2 "Be Vietnam Pro",system-ui;
+ color:#ffdf95;text-shadow:0 2px #624235}
+.arena-next-round-score{margin:0 0 8px!important;font-size:13px;color:#eaf4ff}
+.arena-next-round-reveal{display:flex;flex-direction:column;gap:5px;margin:7px 0;padding:9px 7px;
+ border-radius:13px;border:1px solid #79bbdd74;background:#061b3f88}
+.arena-next-round-reveal h3{margin:0 0 3px;font-size:11px;font-weight:1000;color:#ffefae}
+.arena-next-round-hands{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.arena-next-round-player{display:flex;flex-direction:column;gap:4px;min-width:0;padding:5px 7px;
+ border:1px solid #a8cfe174;border-radius:9px;background:#244879a0}
+.arena-next-round-player strong{font-size:10px;text-align:left;color:#d4f5fa;overflow:hidden;text-overflow:ellipsis}
+.arena-next-round-cards{display:flex;align-items:center;justify-content:flex-start;
+ flex-wrap:wrap;gap:3px;max-height:75px;overflow-y:auto}
+.arena-next-round-card{display:grid;place-items:center;min-width:26px;min-height:37px;padding:2px 4px;
+ border:1px solid #d5e5f1;border-radius:5px;background:#fff;color:#192443;
+ box-shadow:0 2px 4px #00152b7b;font:1000 13px/1.1 Georgia,serif}
+.arena-next-round-card.red{color:#cb314d}
+.arena-next-round-card.color{background:#57a0d1;color:#fff}
+.arena-next-round-empty{font-size:10px;color:#ffe894}
+.arena-next-round-count{margin:8px 0!important;font-size:12px;font-weight:900;color:#b4fcda}
+.arena-next-round-confirm{display:block;min-width:210px;max-width:100%;min-height:43px;
+ margin:6px auto;padding:8px 15px;border:2px solid #a2f0a4;border-radius:15px;
+ background:linear-gradient(#9cf779,#29b94f);color:#fff;font:1000 15px/1.2 "Be Vietnam Pro",system-ui;
+ text-shadow:0 2px #1c703e;box-shadow:0 4px 9px #001d3288}
+.arena-next-round-confirm:disabled{cursor:default;background:linear-gradient(#556b81,#3f6685);
+ border-color:#91a8be}
+.arena-next-round-help{display:block;margin-top:7px;color:#c3dfe8;font-size:10px}
+@media(min-width:1100px){
+ .arena-room-section#arenaPvPBoard{width:100%;max-width:100%;overflow:hidden}
+ .arena-room-section#arenaPvPBoard .arena-room-canvas{min-height:0;width:100%;max-width:100%}
+ .arena-room-section#arenaPvPBoard .arena-pvp-card-table{width:min(100%,1340px);margin:0 auto;
+  min-height:clamp(450px,calc(100dvh - 165px),780px);border-radius:28%/18%}
+ .arena-room-section#arenaPvPBoard .arena-pvp-center{top:28%}
+ .arena-room-section#arenaPvPBoard .arena-pvp-human{bottom:10px}
+}
+@media(max-width:900px) and (orientation:landscape){
+ .arena-pvp-waiting{min-height:calc(100dvh - 85px);border-radius:28%/18%;border-width:5px}
+ .arena-pvp-wait-center{top:48%;width:min(570px,75%);gap:3px;padding:6px 9px;border-radius:11px}
+ .arena-pvp-wait-center h3{font-size:16px}
+ .arena-pvp-wait-eyebrow{font-size:8px}
+ .arena-pvp-wait-code{font-size:15px}
+ .arena-pvp-wait-meta{font-size:9px}
+ .arena-pvp-wait-actions{gap:4px}
+ .arena-pvp-wait-actions button{padding:4px 7px;min-height:27px;font-size:9px}
+ .arena-pvp-wait-seat{padding:4px 6px;min-width:80px;max-width:120px}
+ .arena-pvp-wait-seat strong{font-size:9px}
+ .arena-pvp-wait-avatar{font-size:18px}
+ .arena-pvp-wait-seat[data-position="bottom"]{bottom:3px}
+ .arena-pvp-wait-tip{font-size:8px}
+ .arena-next-round-dialog{padding:8px 10px;border-radius:12px}
+ .arena-next-round-dialog h2{font-size:18px}
+ .arena-next-round-reveal{padding:5px}
+ .arena-next-round-cards{max-height:47px}
+ .arena-next-round-card{min-width:19px;min-height:27px;font-size:10px}
+ .arena-next-round-player{padding:3px 4px}
+ .arena-next-round-confirm{min-height:32px;font-size:12px;margin:3px auto;padding:5px}
+ .arena-next-round-count{font-size:10px;margin:4px 0!important}
+}
+@media(max-width:580px) and (orientation:portrait){
+ .arena-pvp-wait-center{left:50%;width:72%;top:44%;padding:8px 6px}
+ .arena-pvp-wait-actions button{min-height:34px;padding:6px 8px;font-size:9px}
+ .arena-pvp-wait-seat[data-position="bottom"]{bottom:6px}
+ .arena-pvp-wait-seat{min-width:66px;max-width:91px}
+ .arena-pvp-wait-center h3{font-size:14px}
+ .arena-pvp-wait-code{font-size:14px}
+ .arena-next-round-dialog{width:calc(100% - 10px);padding:10px 6px}
+ .arena-next-round-hands{grid-template-columns:1fr}
+ .arena-next-round-cards{max-height:59px}
+}
