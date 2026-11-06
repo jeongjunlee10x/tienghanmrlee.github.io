@@ -42,6 +42,7 @@ const fakeAPI=[
  ' if(action==="wallet")return {ok:true,wallet:wallet()};',
  ' if(action==="daily")return {ok:true,daily:daily(),wallet:wallet()};',
  ' if(action==="quick"||action==="create")return {ok:true,room:room(p.game)};',
+ ' if(action==="join")return {ok:true,room:room(new URL(location.href).searchParams.get("game")||document.documentElement.dataset.roomGame||"tienlen")};',
  ' if(action==="list")return {ok:true,rooms:[]};',
  ' if(action==="leave")return {ok:true};',
  ' if(action==="state")return {ok:true,room:room("chess")};',
@@ -131,15 +132,20 @@ try{
  try{
   await page.goto(ORIGIN+"/game-tien-len.html",{waitUntil:"domcontentloaded"});
   await page.locator('[data-play-mode="friends"]').click();
+  await page.locator("#roomFriendsPopup").waitFor({state:"visible",timeout:7000});
+  assert.equal(await page.locator("#arenaSocialCreate input[type=radio]").count(),12);
+  await page.locator('#arenaSocialCreate input[value="10"]').check();
+  await page.locator("#arenaSocialCreate .arena-social-submit").click();
   const frame=page.frameLocator("#roomGameFrame");
-  await frame.locator("#arenaRoomHub").waitFor({state:"visible",timeout:11000});
-  await frame.locator("#roomFriends").waitFor({state:"visible",timeout:7000});
+  await frame.locator("#arenaRoomLobby").waitFor({state:"visible",timeout:12000});
+  assert.equal((await frame.locator("#roomLobbyCode").textContent()).trim(),"ABCD1234");
   await page.locator("#roomExitGame").click();
-  await page.locator("#roomLobby").waitFor({state:"visible",timeout:7000});
+  await page.locator("#roomLobby").waitFor({state:"visible",timeout:9000});
   await page.locator('[data-play-mode="browse"]').click();
-  await frame.locator("#roomBrowser").waitFor({state:"visible",timeout:10000});
-  await page.locator("#roomExitGame").click();
-  await page.locator("#roomLobby").waitFor({state:"visible",timeout:7000});
+  await page.waitForURL(/game-chon-ban\.html\?game=tienlen/,{timeout:10000});
+  await page.locator("#browserRooms .room-browser-new").waitFor({state:"visible",timeout:7000});
+  await page.locator("#browserGameReturn").click();
+  await page.waitForURL(/game-tien-len\.html/,{timeout:10000});
   await page.locator('[data-play-mode="quick"]').click();
   await frame.locator("#arenaRoomLobby").waitFor({state:"visible",timeout:10000});
   assert.equal(await frame.locator("#roomLobbyCode").textContent(),"ABCD1234");
