@@ -195,7 +195,7 @@ const sitemap='<?xml version="1.0" encoding="UTF-8"?>\n'+
  '\n</urlset>\n';
 await writeFile(join(out,'sitemap.xml'),sitemap,'utf8');
 await writeFile(join(out,'robots.txt'),
- 'User-agent: *\nAllow: /\nDisallow: /admin.html\nDisallow: /trung-tam-hoc-vien.html\n'+
+ 'User-agent: *\nAllow: /\n'+
  `Sitemap: ${origin}/sitemap.xml\n`,'utf8');
 const count=input.length+3; // _redirects, sitemap.xml, robots.txt
 if(count>maxFiles)throw new Error('Output exceeds Cloudflare free safety threshold');
