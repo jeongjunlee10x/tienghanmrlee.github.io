@@ -64,7 +64,7 @@ try{
     assert.ok(Math.abs(metrics.header.h-80)<3,"Header "+JSON.stringify(metrics.header));
     assert.ok(Math.abs(metrics.hero.h-274)<3,"Hero "+JSON.stringify(metrics.hero));
     assert.ok(Math.abs(metrics.sidebar.w-250)<3,"Sidebar "+JSON.stringify(metrics.sidebar));
-    assert.ok(metrics.dock.y>=790&&metrics.dock.y<=870,"Dock y "+metrics.dock.y);
+    assert.ok(metrics.dock.y>=817&&metrics.dock.y<=852,"Dock y "+metrics.dock.y);
    }
    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
    assert.ok(overflow<=5,"Horizontal overflow "+overflow+" at "+width);
