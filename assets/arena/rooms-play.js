@@ -19,6 +19,30 @@ function btn(label,cls,click){
 const RELATIVE=["bottom","left","top","right"];
 function relative(real,viewer){return RELATIVE[(real-viewer+4)%4];}
 const portraits=["🧑","👩🏻","🧑🏻","👩🏽"];
+function cardAvatar(room,seat,portrait){
+ const active=room.status==="playing"&&room.gameState.turn===seat;
+ const avatar=el("span","arena-card-avatar"+(active?" is-active":""));
+ avatar.append(el("span","arena-card-portrait",portrait));
+ if(active){
+  const timer=el("time","arena-card-turn-clock","20s");
+  timer.dataset.clockSeat=String(seat);
+  timer.setAttribute("role","timer");
+  timer.setAttribute("aria-label","Thời gian còn lại của "+(seat===room.seat?"bạn":"người chơi"));
+  avatar.append(timer);
+ }
+ return avatar;
+}
+function myCardHud(room,count){
+ const active=room.status==="playing"&&room.gameState.turn===room.seat;
+ const p=room.players.find(x=>x.seat===room.seat);
+ const hud=el("div","arena-pvp-me"+(active?" active":""));
+ const identity=el("div","arena-pvp-me-name");
+ identity.append(el("strong","",p?.name||"Bạn"),
+  el("small","",active?"✨ ĐANG ĐẾN LƯỢT BẠN":"Đang đợi đối thủ"));
+ hud.append(cardAvatar(room,room.seat,"🧑"),identity,
+  el("span","arena-pvp-me-count","🂠 "+count+" lá"));
+ return hud;
+}
 function seatCard(player,room,counts){
  const players=room.players.length;
  const pos=room.game==="chess"||players===2?"top":
@@ -26,7 +50,7 @@ function seatCard(player,room,counts){
   relative(player.seat,room.seat);
  const holder=el("div","arena-pvp-seat"+(room.gameState.turn===player.seat?" active":""));
  holder.dataset.position=pos;holder.dataset.seat=String(player.seat);
- holder.append(el("span","",portraits[player.seat]),el("strong","",player.name),
+ holder.append(cardAvatar(room,player.seat,portraits[player.seat]),el("strong","",player.name),
   el("small","","🂠 "+(counts[player.seat]??0)+" lá còn lại"));
  const backs=el("div","arena-pvp-backs");
  for(let i=0;i<Math.min(5,counts[player.seat]??0);i++)backs.append(el("span","arena-back-mini"));
@@ -242,7 +266,7 @@ export function mountOnlineCanvas(root,onMove){
   board.append(center);
   const bottom=el("div","arena-pvp-human");
   const name=room.players.find(p=>p.seat===room.seat)?.name||"Bạn";
-  bottom.append(el("div","arena-pvp-human-hud","🧑 "+name+" · Bàn "+room.minGold+"G/lá · 🂠 "+state.myHand.length+" lá"));
+  bottom.append(myCardHud(room,state.myHand.length));
   const hand=el("div","arena-pvp-hand");
   const dummy={winner:state.winner,turn:state.turn,first:state.first,last:state.last,
    hands:[[],[],[],[]]};
@@ -281,7 +305,12 @@ export function mountOnlineCanvas(root,onMove){
    chosenCards.clear();render(room,true);
   });
   clearSelection.disabled=chosenCards.size===0||locked;
-  actions.append(play,pass,suggest,sort,clearSelection);bottom.append(actions);
+  actions.append(play,pass,suggest,sort,clearSelection);
+  if(myTurn&&!locked){
+   const popup=el("div","arena-card-turn-popup");
+   popup.append(el("strong","arena-card-turn-title","🃏 LƯỢT CỦA BẠN · CHỌN BÀI RỒI ĐÁNH"),actions);
+   bottom.append(popup);
+  }
   board.append(bottom);
   const events=el("div","arena-pvp-events");
   (state.history||[]).slice(-5).reverse().forEach(line=>events.append(el("p","",line)));
@@ -306,7 +335,7 @@ export function mountOnlineCanvas(root,onMove){
   board.append(center);
   const hand=el("div","arena-pvp-hand"),bottom=el("div","arena-pvp-human");
   const me=room.players.find(p=>p.seat===room.seat)?.name||"Bạn";
-  bottom.append(el("div","arena-pvp-human-hud","🧑 "+me+" • Bàn "+room.minGold+"G/lá • 🃏 "+state.myHand.length+" lá"));
+  bottom.append(myCardHud(room,state.myHand.length));
   const dummy={winner:state.winner,turn:state.turn,hands:[[],[],[],[]],
    discard:[state.top],activeColor:state.activeColor,drawnCardId:state.drawnCardId};
   dummy.hands[room.seat]=state.myHand;
@@ -323,7 +352,7 @@ export function mountOnlineCanvas(root,onMove){
    hand.append(b);
   }
   bottom.append(hand);
-  if(chosenWild!==null){
+  if(chosenWild!==null&&myTurn&&!locked){
    const choices=el("div","arena-pvp-options");
    choices.append(el("strong","","Chọn màu:"));
    for(const color of Colors.COLORS){
@@ -331,14 +360,19 @@ export function mountOnlineCanvas(root,onMove){
     choices.append(b);
    }
    choices.append(btn("Hủy","arena-soft",()=>{chosenWild=null;render(room,true);}));
-   bottom.append(choices);
-  }else{
+   const popup=el("div","arena-card-turn-popup");
+   popup.append(el("strong","arena-card-turn-title","🎨 CHỌN MÀU ĐỂ ĐÁNH"),choices);
+   bottom.append(popup);
+  }else if(myTurn&&!locked){
    const actions=el("div","arena-pvp-actions");
    const draw=btn("🃏 Rút 1 lá","arena-primary",()=>void submit({kind:"draw"}));
    draw.disabled=!myTurn||state.drawnCardId!==null||locked;
    const pass=btn("Qua lượt","arena-soft",()=>void submit({kind:"pass"}));
    pass.disabled=!myTurn||state.drawnCardId===null||locked;
-   actions.append(draw,pass);bottom.append(actions);
+   actions.append(draw,pass);
+   const popup=el("div","arena-card-turn-popup");
+   popup.append(el("strong","arena-card-turn-title","🃏 LƯỢT CỦA BẠN · ĐÁNH HOẶC RÚT BÀI"),actions);
+   bottom.append(popup);
   }
   board.append(bottom);
   const log=el("div","arena-pvp-events");
