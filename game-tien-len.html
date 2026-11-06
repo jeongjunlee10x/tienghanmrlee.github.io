@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="vi" data-room-game="tienlen">
+<html lang="vi" class="arena-reference-v1" data-room-game="tienlen">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -8,9 +8,11 @@
 <title>Tiến Lên Miền Nam | MR LEE GAME ARENA</title>
 <link rel="icon" href="assets/branding/logo-mrlee.png">
 <link rel="stylesheet" href="assets/arena/game-room-shell.css?v=1">
+<link rel="stylesheet" href="assets/arena/daily-rewards.css?v=1">
 <style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
 <script type="module" src="auth-guard.js"></script>
 <script type="module" src="assets/arena/game-room-shell.js?v=1"></script>
+<script type="module" src="assets/arena/daily-rewards.js?v=1"></script>
 </head>
 <body>
 <div class="game-room-shell">
@@ -46,5 +48,6 @@
 <footer class="game-room-footer"><button id="roomBotPlay" type="button">🤖 Đấu với máy <small>Vé thử · không dùng G thật</small></button><button id="roomDaily" type="button">🎁 Thưởng mỗi ngày</button><a href="mrlee-game-arena.html">🎮 Sảnh trò chơi</a><a href="tro-choi-tieng-han.html">📚 Game học tập</a><span class="game-room-note">G là điểm ảo trong website · không đổi tiền thật</span></footer>
 </div>
 <dialog id="roomDialog" class="game-room-dialog" aria-labelledby="roomDialogTitle"><header><h2 id="roomDialogTitle">MR LEE</h2><button id="roomDialogClose" type="button" aria-label="Đóng">✕</button></header><div id="roomDialogContent"></div></dialog>
+<button id="arenaDailyOpen" type="button" hidden aria-label="Mở phần điểm danh và vòng quay"></button>
 </body>
 </html>
