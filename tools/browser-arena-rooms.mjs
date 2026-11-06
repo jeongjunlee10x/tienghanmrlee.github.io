@@ -43,11 +43,11 @@ try{
    await page.waitForFunction(()=>document.getElementById("roomVerifiedPoints")?.textContent==="38");
    await page.locator("#roomMinGold").selectOption("10");
    await page.locator("#roomCreate").click();
-   await page.locator("#arenaRoomLobby").waitFor({state:"visible"});
+   await page.locator("#arenaPvPBoard .arena-pvp-waiting").waitFor({state:"visible"});
    assert.equal((await page.locator("#roomLobbyCode").textContent()).trim(),"ABCDEFGH");
-   await page.locator("#roomToggleReady").click();
+   await page.locator("#arenaPvPBoard .arena-pvp-wait-actions button").filter({hasText:"Sẵn sàng"}).click();
    await page.waitForFunction(()=>document.getElementById("roomToggleReady")?.textContent==="Bỏ sẵn sàng");
-   await page.locator("#roomLobbyExit").click();
+   await page.locator("#roomBoardExit").click();
    await page.locator('[data-game-id="chess"] .arena-ref-more').click();
    await page.locator('[data-room-game="chess"][data-room-action="browse"]').click();
    await page.locator("#roomBrowserList .arena-room-list-row").first().waitFor();
