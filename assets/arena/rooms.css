@@ -301,3 +301,17 @@
  .arena-next-round-hands{grid-template-columns:1fr}
  .arena-next-round-cards{max-height:59px}
 }
+
+/* Authenticated 20s clock floats on board and never pushes it down the page. */
+.arena-room-canvas{position:relative!important;isolation:isolate}
+.arena-turn-clock{position:absolute;top:9px;right:18px;z-index:70;min-width:78px;
+ padding:6px 11px;border:2px solid #c9faee;border-radius:999px;
+ background:linear-gradient(135deg,#0c5749e8,#173963e8);color:#fafff2;
+ font:1000 15px/1.15 "Be Vietnam Pro",system-ui,sans-serif;
+ font-variant-numeric:tabular-nums;text-align:center;pointer-events:none;
+ box-shadow:0 3px 14px #002c3d90}
+.arena-turn-clock.urgent{border-color:#ffd19a;background:#8d2431f0;color:#fff2e4;
+ animation:arena-timer-pulse .7s ease-in-out infinite alternate}
+@keyframes arena-timer-pulse{to{box-shadow:0 0 20px #ffbf6277;transform:scale(1.035)}}
+@media(max-width:900px){.arena-turn-clock{font-size:12px;padding:4px 7px;top:6px;right:8px}}
+@media(prefers-reduced-motion:reduce){.arena-turn-clock.urgent{animation:none}}
