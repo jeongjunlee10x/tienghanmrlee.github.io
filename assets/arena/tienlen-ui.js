@@ -141,6 +141,15 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
    back.style.setProperty("--fan",String(i-(layers-1)/2));
    fan.append(back);
   }
+  if(done){
+   // The computer's actual remaining cards become visible once this round ends.
+   fan.replaceChildren();
+   fan.classList.add("arena-bot-revealed-hand");
+   for(const card of game.hands[who]){
+    fan.append(el("span","arena-next-round-card"+(card.suit>=2?" red":""),label(card)));
+   }
+   if(!fan.children.length)fan.append(el("small","tl-seat-count","✓ Hết bài"));
+  }
   const count=el("small","tl-seat-count","🂠 ×"+game.hands[who].length+" lá");
   const state=el("small","tl-seat-state",done?"Đã kết thúc":game.turn===who?"⏳ Đang suy nghĩ":"Đang chờ");
   div.append(identity,fan,count,state);
