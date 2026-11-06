@@ -333,3 +333,13 @@ html[data-room-game="estate"] .game-room-footer{
  .arena-game-mode-select{font-size:11px;padding:7px}
  .arena-game-mode-select select{flex:1 1 100%;width:100%}
 }
+
+/* Opposing corners in two-player Ludo; unused camps are intentionally inactive. */
+#arenaLudo .ludo-board[data-active-players="2"] .ludo-cell.base-blue,
+#arenaLudo .ludo-board[data-active-players="2"] .ludo-cell.base-green,
+#arenaLudo .ludo-board[data-active-players="3"] .ludo-cell.base-green{
+ background:#e8edf5!important;filter:saturate(.45)
+}
+#arenaLudo .ludo-board[data-active-players="2"] .ludo-cell.base-yellow{
+ box-shadow:inset 0 0 0 2px #e4bf57
+}
