@@ -121,6 +121,23 @@ for(const guidePath of publicTopicGuides){
   'Topic guide has no learning account entry point: '+guidePath);
 }
 
+// Verify editorial metadata is aligned to the declared canonical path.
+for(const guidePath of [...publicGuidePages,...publicTopicGuides]){
+ const html=await readFile(join(dist,guidePath),'utf8');
+ const match=html.match(/<script type="application\/ld\+json" data-mrlee-editorial-jsonld="v1">([\s\S]*?)<\/script>/);
+ assert(match,'Editorial structured data is missing: '+guidePath);
+ const data=JSON.parse(match[1]);
+ assert(data['@context']==='https://schema.org','Wrong schema context: '+guidePath);
+ const article=data['@graph']?.find(x=>x['@type']==='Article');
+ const breadcrumb=data['@graph']?.find(x=>x['@type']==='BreadcrumbList');
+ const canonical=`${expectedOrigin}/${guidePath}`;
+ assert(article?.mainEntityOfPage?.['@id']===canonical,'Article URL mismatch: '+guidePath);
+ assert(Array.isArray(breadcrumb?.itemListElement) &&
+   breadcrumb.itemListElement[0]?.item===expectedOrigin+'/' &&
+   breadcrumb.itemListElement.at(-1)?.item===canonical,
+  'Invalid BreadcrumbList: '+guidePath);
+}
+
 for(const guidePath of publicGuidePages){
  const guideUrl=`${expectedOrigin}/${guidePath}`;
  assert(sitemapUrls.includes(guideUrl),'Missing public learning guide in sitemap: '+guidePath);
