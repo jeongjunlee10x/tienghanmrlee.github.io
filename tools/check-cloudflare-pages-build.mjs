@@ -77,6 +77,23 @@ const publicGuidePages=[
  'lo-trinh-cao-cap-1.html','lo-trinh-cao-cap-2.html'
 ];
 assert(sitemapUrls.length>=24,'Public sitemap lost the seven new learning guides');
+assert(sitemapUrls.length>=28,'Public sitemap lost the four additional study guides');
+const publicTopicGuides=[
+ 'huong-dan-on-thi-topik-i.html','huong-dan-on-thi-topik-ii.html',
+ 'ngu-phap-tieng-han-co-ban.html','cau-hoi-phong-van-du-hoc-han-quoc.html'
+];
+for(const guidePath of publicTopicGuides){
+ assert(sitemapUrls.includes(`${expectedOrigin}/${guidePath}`),'Topic guide omitted from sitemap: '+guidePath);
+ assert(paths.has(guidePath),'Topic guide missing from output: '+guidePath);
+ const guide=await readFile(join(dist,guidePath),'utf8');
+ assert(guide.includes('<main id="main"')&&guide.includes('<h1>'),
+  'Topic guide missing semantic readable content: '+guidePath);
+ assert(!guide.includes('auth-guard.js')&&!guide.includes('mrlee-auth-hide'),
+  'Topic guide must remain a public preview: '+guidePath);
+ assert(guide.includes('dang-nhap.html'),
+  'Topic guide has no learning account entry point: '+guidePath);
+}
+
 for(const guidePath of publicGuidePages){
  const guideUrl=`${expectedOrigin}/${guidePath}`;
  assert(sitemapUrls.includes(guideUrl),'Missing public learning guide in sitemap: '+guidePath);
