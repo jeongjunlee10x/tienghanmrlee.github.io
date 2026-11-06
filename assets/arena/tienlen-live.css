@@ -120,3 +120,18 @@
 #arenaTienLen .tl-hand-card{transition:none}
 #arenaTienLen .tl-chop-title,#arenaTienLen .tl-shockwave,#arenaTienLen .tl-chop-spark,#arenaTienLen .tl-chop-shake,#arenaTienLen .tl-shuffle-card{animation:none!important}
 }
+
+/* Only after an actual local round ends: show real remaining cards on bot seats. */
+#arenaTienLen .tl-back-fan.arena-bot-revealed-hand{
+ box-sizing:border-box;display:flex;flex-wrap:wrap;justify-content:center;align-content:start;
+ gap:2px;width:min(200px,100%);height:auto;max-height:110px;min-height:28px;overflow-y:auto}
+#arenaTienLen .tl-opponent:has(.arena-bot-revealed-hand){max-width:220px}
+#arenaTienLen .arena-bot-revealed-hand .arena-next-round-card{
+ min-width:20px;min-height:29px;padding:2px;
+ border:1px solid #dce7f2;border-radius:4px;background:#fff;color:#1b2843;
+ font:900 11px/1 Georgia,serif}
+#arenaTienLen .arena-bot-revealed-hand .arena-next-round-card.red{color:#c52643}
+@media(max-width:900px){
+ #arenaTienLen .tl-opponent:has(.arena-bot-revealed-hand){max-width:126px}
+ #arenaTienLen .arena-bot-revealed-hand .arena-next-round-card{min-width:15px;min-height:22px;font-size:9px}
+}
