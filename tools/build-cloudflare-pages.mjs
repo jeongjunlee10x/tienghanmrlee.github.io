@@ -29,9 +29,9 @@ const textExt = new Set(['.html','.htm','.js','.mjs','.json','.css','.xml','.web
 const denyName = /(?:^\.(?!well-known)|(?:^|[-_.])(?:secret|credentials|private-key|service-account)(?:[-_.]|$)|\.env(?:\.|$)|\.(?:pem|key|p12|pfx|sqlite|db|bak|zip|sql|rules|ps1|cmd|md)$)/i;
 const oldOrigin = 'https://jeongjunlee10x.github.io/tienghanmrlee.github.io';
 const oldRoot = '/tienghanmrlee.github.io/';
-// CF_PAGES_URL is set by Cloudflare on both production and previews.
-// MRLEE_SITE_ORIGIN overrides it when a final domain is assigned.
-const configuredOrigin = String(process.env.MRLEE_SITE_ORIGIN || process.env.CF_PAGES_URL ||
+// Keep canonical links on the stable production domain even when Cloudflare
+// builds a preview URL. Only MRLEE_SITE_ORIGIN may override it after domain setup.
+const configuredOrigin = String(process.env.MRLEE_SITE_ORIGIN ||
   'https://mrlee-b6a.pages.dev').replace(/\/+$/,'');
 // Cloudflare assigned mrlee-b6a.pages.dev; preserve the legacy mistaken dashboard
 // value until an administrator edits it, without modifying the GitHub site.
