@@ -69,6 +69,7 @@ function coordinates(who,pawn,progress){
  return TRACK[(STARTS[who]+progress)%52];
 }
 import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r2";
+import {emitArenaFX} from "./game-visuals-v19.js?v=20261107-v19";
 // AI choices are calculated from real board state; easy is random,
 // normal prioritizes exit/capture, hard additionally avoids exposed horses.
 export function ludoBotChoice(g,difficulty="normal",rng=Math.random){
@@ -133,7 +134,11 @@ export function mountLudo({onStart,onFinish,onExit}){
    const from=board.querySelector('[data-pawn="0-'+i+'"]');
    const to=board.querySelector('[data-cell="'+dest+'"]');
    animateBoardMove({from,to,piece:from,kind:"ludo-piece"});
-   moveLudo(game,i);render();if(game.winner!==null)finish();else schedule();
+   const historyCount=game.history.length;
+   moveLudo(game,i);render();
+   if(game.history.slice(historyCount).some(entry=>entry.includes("Bắt ngựa")))
+    emitArenaFX("ludo",board.querySelector('[data-pawn="0-'+i+'"]'),"BẮT NGỰA!");
+   if(game.winner!==null)finish();else schedule();
   }
   catch(err){status.textContent=err.message;}
  }
@@ -153,7 +158,10 @@ export function mountLudo({onStart,onFinish,onExit}){
      const dest=coordinates(who,idx,next).join("-");
      const to=board.querySelector('[data-cell="'+dest+'"]');
      animateBoardMove({from,to,piece:from,kind:"ludo-piece"});
+     const historyCount=game.history.length;
      moveLudo(game,idx);
+     if(game.history.slice(historyCount).some(entry=>entry.includes("Bắt ngựa")))
+      emitArenaFX("ludo",board.querySelector('[data-cell="'+dest+'"]'));
     }
    }
    render();bumpDice();if(game.winner!==null)finish();else schedule();
