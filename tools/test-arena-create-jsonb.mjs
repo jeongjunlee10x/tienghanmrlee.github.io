@@ -19,6 +19,6 @@ assert.ok(!url.href.includes("%5Bobject+Object%5D"),"Invalid PostgREST query sha
 assert.match(code,/async function freshRoom\(/);
 assert.match(code,/await requireGold\(database,uid,game,tier\)/);
 assert.match(code,/if\(\(count\|\|0\)>=3\)/);
-assert.match(code,/visibility,min_gold:tier,status:"waiting"/);
+assert.match(code,/visibility,locked:false,min_gold:tier,status:"waiting"/);
 assert.match(code,/return reply\(req,200,\{ok:true,room:safeRoom\(row,uid\)\}\)/);
 console.log("PASS: JSONB membership filter serializes to cs.JSON; create-room auth, gold, room cap preserved");
