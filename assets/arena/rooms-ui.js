@@ -238,7 +238,7 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
   dialog.append(el("h2","",drawn?"🤝 HÒA":winner?"🏆 BẠN THẮNG!":"💫 KẾT THÚC VÁN"),
    el("p","arena-next-round-score",drawn?"Đã hoàn G giữ cược":
     winner?"+"+formatG(gain)+" vào ví G":
-    "Còn "+cardCount+" lá · -"+formatG(loss)));
+    room.game==="chess"?"Thua ván · -"+formatG(loss):"Còn "+cardCount+" lá · -"+formatG(loss)));
   const revealed=room.gameState?.revealedHands;
   if(Array.isArray(revealed)&&room.game!=="chess"){
    const reveal=el("div","arena-next-round-reveal");
