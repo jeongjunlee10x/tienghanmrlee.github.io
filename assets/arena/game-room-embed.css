@@ -94,3 +94,16 @@ html.arena-reference-v1.arena-embedded .arena-room-section .arena-pvp-card-table
   height:min(76dvh,760px)!important;min-height:480px!important;
   border-radius:29%/17%!important}
 }
+
+/* Desktop iframe height belongs to the parent room; never force an oversized board. */
+@media (min-width:1000px){
+ html.arena-reference-v1.arena-embedded #arenaPvPBoard{box-sizing:border-box;width:100%!important;max-width:100%!important}
+ html.arena-reference-v1.arena-embedded #arenaPvPBoard .arena-room-canvas{width:100%!important;min-width:0}
+ html.arena-reference-v1.arena-embedded #arenaPvPBoard .arena-pvp-card-table{
+  box-sizing:border-box;width:min(100%,1320px)!important;
+  height:clamp(430px,calc(100dvh - 142px),720px)!important;
+  min-height:0!important;max-height:calc(100dvh - 118px)!important;
+  border-radius:27%/18%!important}
+ html.arena-reference-v1.arena-embedded .arena-next-round-dialog{
+  width:min(850px,calc(100% - 32px));max-height:min(83dvh,740px)}
+}
