@@ -74,14 +74,6 @@ function showLobby(){
  $("arenaLobby").scrollIntoView({behavior:"smooth",block:"start"});
 }
 function start(){
- if(state.tickets<1){
-  $("arenaLobby").scrollIntoView({behavior:"smooth",block:"start"});
-  const alert=el("p","arena-empty-tickets",
-   "Đã dùng hết 3 vé thử trong phiên này. Chưa hỗ trợ đổi điểm học tập thành vé. Hãy quay về học để tiếp tục.");
-  $("arenaCatalog").after(alert);
-  setTimeout(()=>alert.remove(),7000);
-  return;
- }
  if(state.timer)clearTimeout(state.timer);
  state.epoch++;
  /* Đấu máy luyện tập miễn phí: không trừ vé chơi thử. */
@@ -111,7 +103,7 @@ function settle(){
  if(!state.game||state.settled||state.game.winner===null)return;
  state.settled=true;
  const won=state.game.winner===0;
- if(won){state.gold+=100;state.xp+=50;state.tickets++;state.wins++;}
+ if(won){state.gold+=100;state.xp+=50;state.wins++;}
  else {state.xp+=10;state.losses++;}
  updateWallet();
  const winName=PLAYER_NAMES[state.game.winner];
@@ -121,7 +113,7 @@ function settle(){
    "Bạn đã hết bài trước cả 3 đối thủ. +100 vàng và +50 EXP demo. Có thể chơi tiếp miễn phí.":
    winName+" đã về nhất. Bạn nhận +10 EXP demo và có thể chơi tiếp miễn phí.");
  const caution=el("p","arena-disclaimer",
-   "Không trừ điểm học tập; vàng, EXP và vé chỉ tồn tại trong phiên này. Không có chuyển đổi tiền thật.");
+   "Không trừ điểm học tập; vàng và EXP chỉ là điểm demo trong phiên. Không có chuyển đổi tiền thật.");
  const actions=el("div","arena-outcome-actions");
  const replay=button("🔄 Chơi tiếp","arena-primary",start);
  const exit=button("Về sảnh","arena-soft",showLobby);
@@ -257,12 +249,6 @@ updateWallet();
 
 // Independent strategy games share only the demo wallet; no grade/SQL writes.
 function startStrategy(mode){
- if(state.tickets<1){
-  const warn=document.createElement("p");warn.className="arena-empty-tickets";
-  warn.textContent="Bạn đã dùng hết vé demo. Không trừ điểm học tập để mua thêm.";
-  $("arenaCatalog").after(warn);setTimeout(()=>warn.remove(),7000);
-  showLobby();return false;
- }
  if(state.timer!==null)clearTimeout(state.timer);state.timer=null;
  state.epoch++;/* Đấu máy luyện tập miễn phí: không trừ vé chơi thử. */state.pending=null;state.game=null;
  $("arenaLobby").hidden=true;$("arenaTable").hidden=true;
@@ -275,7 +261,7 @@ function startStrategy(mode){
 }
 function settleStrategy(result,label,root){
  if(root.querySelector(".arena-game-result"))return;
- if(result==="win"){state.gold+=100;state.xp+=50;state.tickets++;state.wins++;}
+ if(result==="win"){state.gold+=100;state.xp+=50;state.wins++;}
  else if(result==="draw"){state.xp+=20;}
  else {state.xp+=10;state.losses++;}
  updateWallet();
