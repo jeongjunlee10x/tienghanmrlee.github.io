@@ -322,3 +322,23 @@ html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-card
   animation:none!important;transition:none!important
  }
 }
+
+/* Global Arena visuals-off really disables legacy board animation as well. */
+[data-arena-visuals="off"] :is(#arenaTable,#arenaChess,#arenaTienLen,#arenaXiangqi,#arenaLudo,#arenaEstate,#arenaPvPBoard) *,
+[data-arena-visuals="off"] :is(#arenaTable,#arenaChess,#arenaTienLen,#arenaXiangqi,#arenaLudo,#arenaEstate,#arenaPvPBoard) *::before,
+[data-arena-visuals="off"] :is(#arenaTable,#arenaChess,#arenaTienLen,#arenaXiangqi,#arenaLudo,#arenaEstate,#arenaPvPBoard) *::after{
+ animation:none!important;transition:none!important;scroll-behavior:auto!important
+}
+[data-arena-visuals="lite"] #arenaChess .chess-square,
+[data-arena-visuals="lite"] #arenaXiangqi .xq-piece,
+[data-arena-visuals="lite"] #arenaEstate .estate-tile,
+[data-arena-visuals="lite"] #arenaLudo .ludo-pawn{
+ filter:none!important;
+}
+@media(prefers-reduced-motion:reduce){
+ [data-arena-visuals] :is(#arenaTable,#arenaChess,#arenaTienLen,#arenaXiangqi,#arenaLudo,#arenaEstate,#arenaPvPBoard) *,
+ [data-arena-visuals] :is(#arenaTable,#arenaChess,#arenaTienLen,#arenaXiangqi,#arenaLudo,#arenaEstate,#arenaPvPBoard) *::before,
+ [data-arena-visuals] :is(#arenaTable,#arenaChess,#arenaTienLen,#arenaXiangqi,#arenaLudo,#arenaEstate,#arenaPvPBoard) *::after{
+  animation:none!important;transition:none!important
+ }
+}
