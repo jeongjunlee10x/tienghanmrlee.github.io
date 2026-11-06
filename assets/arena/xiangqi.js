@@ -141,7 +141,7 @@ export function xiangqiBotMove(g,difficulty="normal"){
  return chosen;
 }
 import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261107-v19";
-import {emitArenaFX} from "./game-visuals-v19.js?v=20261107-v19";
+import {emitArenaFX} from "./game-visuals-v19.js?v=20261107-approved-v20";
 export function mountXiangqi({onStart,onFinish,onExit}){
  const root=$("arenaXiangqi"),board=$("xqBoard"),status=$("xqStatus");
  const requested=new URL(location.href).searchParams.get("variant");
