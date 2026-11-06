@@ -406,3 +406,35 @@ html[data-room-game="xiangqi"] #roomTryLandscape{display:none!important}
  .game-room-tiles{max-height:min(58dvh,390px)}
  .game-room-footer{min-height:48px}
 }
+
+/* Critical: the author-level display:grid above overrides HTML [hidden] on
+ * Chromium. Without this rule, a loaded game remains covered by the loader. */
+#roomFrameLoading[hidden],.game-room-loading[hidden]{
+ display:none!important;visibility:hidden!important;pointer-events:none!important
+}
+#roomFrameLoading:not([hidden]){
+ display:flex!important;flex-direction:column;align-items:center;justify-content:center;
+ gap:12px;padding:clamp(12px,4vw,30px);line-height:1.55;
+ text-wrap:balance;color:#f8f2e7!important;text-align:center
+}
+.game-room-error-detail{font-size:clamp(13px,1.8vw,18px);max-width:500px;color:#fff1c8}
+.game-room-recovery-actions{
+ display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:10px
+}
+.game-room-recovery-actions button{
+ min-height:44px;min-width:125px;border-radius:12px;
+ padding:10px 16px;border:1px solid #d9c68e;
+ background:linear-gradient(135deg,#f5df9c,#daaf62);color:#1c3046;
+ font:900 13px/1.2 system-ui;cursor:pointer;
+ box-shadow:0 4px 16px #0006
+}
+.game-room-recovery-actions button:last-child{
+ color:#e8f1fe;background:#1a4269;border-color:#629dcc
+}
+.game-room-recovery-actions button:focus-visible{
+ outline:3px solid #ffde7f;outline-offset:3px
+}
+@media(max-width:490px){
+ .game-room-recovery-actions{width:100%}
+ .game-room-recovery-actions button{flex:1 1 135px;max-width:210px;font-size:12px}
+}
