@@ -141,6 +141,7 @@ export function xiangqiBotMove(g,difficulty="normal"){
  return chosen;
 }
 import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r2";
+import {emitArenaFX} from "./game-visuals-v19.js?v=20261107-v19";
 export function mountXiangqi({onStart,onFinish,onExit}){
  const root=$("arenaXiangqi"),board=$("xqBoard"),status=$("xqStatus");
  const requested=new URL(location.href).searchParams.get("variant");
@@ -197,8 +198,11 @@ export function mountXiangqi({onStart,onFinish,onExit}){
   if(selected>=0&&xiangqiLegal(g,1).some(m=>m[0]===selected&&m[1]===i)){
    try{
     const from=board.querySelector('[data-index="'+selected+'"]'),to=board.querySelector('[data-index="'+i+'"]');
+    const captured=Boolean(g.b[i]);
     animateBoardMove({from,to,piece:from?.querySelector(".xq-piece"),kind:"xiangqi-piece"});
-    xiangqiMove(g,selected,i);selected=-1;render();if(g.winner!==null)finish();else schedule();
+    xiangqiMove(g,selected,i);selected=-1;render();
+    if(captured)emitArenaFX("xiangqi",board.querySelector('[data-index="'+i+'"]'),"ĂN QUÂN");
+    if(g.winner!==null)finish();else schedule();
    }
    catch(err){status.textContent=err.message;}
   }else{selected=camp(g.b[i])===1?(selected===i?-1:i):-1;render();}
@@ -212,8 +216,10 @@ export function mountXiangqi({onStart,onFinish,onExit}){
    if(stamp!==epoch||g!==snapshot||root.hidden||finished)return;
    if(!move){g.winner=1;}else{
     const from=board.querySelector('[data-index="'+move[0]+'"]'),to=board.querySelector('[data-index="'+move[1]+'"]');
+    const captured=Boolean(g.b[move[1]]);
     animateBoardMove({from,to,piece:from?.querySelector(".xq-piece"),kind:"xiangqi-piece"});
     xiangqiMove(g,...move);
+    if(captured)emitArenaFX("xiangqi",board.querySelector('[data-index="'+move[1]+'"]'));
    }
    render();if(g.winner!==null)finish();
   },480);
