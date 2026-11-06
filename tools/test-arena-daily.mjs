@@ -29,6 +29,6 @@ assert.match(api,/mrlee_arena_daily_status/);
 for(const html of [arena,zone]){
  assert.match(html,/daily-rewards\.js/);
  assert.match(html,/daily-rewards\.css/);
- assert.match(html,/class="arena-daily-launch"/);
+ assert.match(html,/class="arena-daily-launch"|id="arenaDailyOpen" class="arena-ref-gift-launch"/);
 }
 console.log("PASS 100 alternating wheels, server-only daily limits, daily points/1:10 G contract and both entry pages.");
