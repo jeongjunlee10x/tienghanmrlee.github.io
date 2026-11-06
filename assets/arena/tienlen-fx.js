@@ -40,14 +40,43 @@ export function cardBack(){
  return back;
 }
 export function chopTitle(previous,next){
- if(!previous||!next)return "";
- const bomb=next.type==="quad"||next.type==="pair-run";
- if(!bomb)return "";
+ if(!previous||!next||!(next.type==="quad"||next.type==="pair-run"))return "";
  const two=previous.high===15&&(previous.type==="single"||previous.type==="pair");
  const special=previous.type==="quad"||previous.type==="pair-run";
  if(!two&&!special)return "";
- if(next.type===previous.type&&next.size===previous.size)return "";
- return two?"CHẶT HEO!":next.type==="quad"?"TỨ QUÝ CHẶT!":"ĐÔI THÔNG CHẶT!";
+ // Only the caller/engine may decide whether a combination really beats
+ // another; never infer a bomb from an invalid or repeated non-move.
+ return next.type==="quad"?"TỨ QUÝ CHẶT!":next.type==="pair-run"?"ĐÔI THÔNG CHẶT!":"CHẶT HEO!";
+}
+/** Screen-centered, noninteractive blast, also used by authenticated PvP.
+ * Does not alter deck, clocks, moves or G. */
+export function showChopPopup(message,{duration=980,signal}={}){
+ if(!message||typeof document==="undefined"||signal?.aborted)return Promise.resolve();
+ const overlay=document.createElement("div");
+ overlay.className="arena-chop-v22";
+ overlay.setAttribute("role","presentation");
+ overlay.setAttribute("aria-hidden","true");
+ const ring=document.createElement("div");ring.className="arena-chop-v22-ring";
+ const title=document.createElement("strong");title.className="arena-chop-v22-title";
+ title.textContent=String(message).slice(0,45);
+ overlay.append(ring,title);
+ for(let i=0;i<18;i++){
+  const spark=document.createElement("i");spark.className="arena-chop-v22-spark";
+  spark.style.setProperty("--a",i*20+"deg");
+  spark.style.setProperty("--d",(75+(i%4)*19)+"px");
+  overlay.append(spark);
+ }
+ document.body.append(overlay);
+ return new Promise(resolve=>{
+  let finished=false;
+  const stop=()=>{
+   if(finished)return;finished=true;
+   clearTimeout(timer);overlay.remove();
+   signal?.removeEventListener("abort",stop);resolve();
+  };
+  signal?.addEventListener("abort",stop,{once:true});
+  const timer=setTimeout(stop,document.documentElement.dataset.arenaVisuals==="off"?100:duration);
+ });
 }
 export function createTableEffects(board,area){
  const overlay=document.createElement("div");
@@ -55,6 +84,7 @@ export function createTableEffects(board,area){
  board.append(overlay);
  let serial=0;
  const animations=new Set(),timers=new Map();
+ let chopController=null;
  const reduced=()=>document.documentElement.dataset.arenaVisuals==="off"||
   window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches===true;
  const wait=ms=>new Promise(resolve=>{
@@ -63,6 +93,7 @@ export function createTableEffects(board,area){
  });
  function cancel(){
   serial++;
+  chopController?.abort();chopController=null;
   for(const a of animations)try{a.cancel();}catch{}
   animations.clear();
   for(const [id,resolve] of timers){clearTimeout(id);resolve();}
@@ -115,17 +146,22 @@ export function createTableEffects(board,area){
   const flights=[];
   // 52 cards are still dealt by the real game engine. Only a sampled set
   // of visual sprites is flown, reducing paint/animation work on phones.
-  const visualDeals=document.documentElement.dataset.arenaVisuals==="lite"?12:
-   window.matchMedia?.("(max-width: 680px)")?.matches?24:32;
+  // Every one of the 52 backs is visibly delivered, in seat order.
+  // Flight duration (~275ms) and 36ms stagger keep < 9 sprites active,
+  // including slower phones. Engine has already dealt the private real cards.
+  const visualDeals=52;
   for(let i=0;i<visualDeals;i++){
    const seat=i%4,which=Math.floor(i/4);
    const destination=localRect(seats[seat]||area);
    const spread=seat===0?(which-6)*8:((which%3)-1)*5;
    const extraX=(seat===0||seat===1)?spread:seat===3?-spread:spread;
    const start=spawn(cardBack(),origin.x,origin.y,"tl-deal-sprite");
-   flights.push(animate(start,{x:destination.x-origin.x+extraX,y:destination.y-origin.y},340,i*23,seat===2?88:seat===3?-88:((which%3)-1)*9,.55));
+   flights.push(animate(start,{x:destination.x-origin.x+extraX,y:destination.y-origin.y},275,i*36,seat===2?64:seat===3?-64:((which%3)-1)*7,.55));
   }
   await Promise.all(flights);
+  if(serial!==stamp)return;
+  board.dataset.fxPhase="spread";
+  await wait(360);
   if(serial!==stamp)return;
   board.classList.remove("tl-is-dealing");board.dataset.fxPhase="ready";
  }
@@ -166,24 +202,9 @@ export function createTableEffects(board,area){
   const stamp=serial;
   board.classList.add("tl-chop-shake");
   board.dataset.lastFx="chop";
-  const origin=localRect(area);
-  const label=document.createElement("div");label.className="tl-chop-title";
-  label.textContent=message;label.style.left=origin.x+"px";label.style.top=origin.y+"px";
-  overlay.append(label);
-  const shock=document.createElement("span");shock.className="tl-shockwave";
-  shock.style.left=origin.x+"px";shock.style.top=origin.y+"px";overlay.append(shock);
-  for(let i=0;i<18;i++){
-   const spark=document.createElement("span");spark.className="tl-chop-spark";
-   spark.style.left=origin.x+"px";spark.style.top=origin.y+"px";
-   spark.style.setProperty("--angle",(i*20)+"deg");
-   spark.style.setProperty("--distance",(65+(i%5)*16)+"px");overlay.append(spark);
-  }
-  await wait(reduced()?80:850);
-  if(stamp===serial){
-   board.classList.remove("tl-chop-shake");
-   label.remove();shock.remove();
-   overlay.querySelectorAll(".tl-chop-spark").forEach(x=>x.remove());
-  }
+  chopController?.abort();chopController=new AbortController();
+  await showChopPopup(message,{signal:chopController.signal});
+  if(stamp===serial){board.classList.remove("tl-chop-shake");chopController=null;}
  }
  function passer(name,seat){
   const target=seat===0?board.querySelector(".tl-player-hud"):
