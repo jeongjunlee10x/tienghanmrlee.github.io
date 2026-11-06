@@ -244,19 +244,13 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
    });
    reveal.append(grid);dialog.append(reveal);
   }
-  const confirmed=room.players.filter(p=>p.continueReady).length;
-  dialog.append(el("p","arena-next-round-count",confirmed+"/"+room.players.length+
-   " người đã nhấn Tiếp tục"));
-  const myVote=room.players.find(p=>p.seat===room.seat)?.continueReady;
-  const next=btn(myVote?"✓ ĐÃ XÁC NHẬN · ĐỢI NGƯỜI KHÁC":"▶ TIẾP TỤC","arena-next-round-confirm",()=>void withBusy(async()=>{
-   if(!room||room.status!=="finished")return;
-   const result=await roomRequest("continue",{code:room.code,version:room.version});
-   room=result.room;drawGame();
-   await refreshWallet();
-  }));
-  next.disabled=!!myVote;
-  dialog.append(next,el("small","arena-next-round-help",
-   "Khi tất cả nhấn Tiếp tục, bàn sẽ tự chia bài ván sau, không về sảnh."));
+  const counter=el("p","arena-next-round-count","⏳ Còn 5 giây để rời bàn");
+  counter.id="roomNextClock";counter.setAttribute("role","timer");
+  dialog.append(counter);
+  const exit=btn("🚪 THOÁT BÀN","arena-next-round-exit",()=>void leave());
+  exit.id="roomNextExit";
+  dialog.append(exit,el("small","arena-next-round-help",
+   "Không thoát trong 5 giây = mặc định tiếp tục. Máy chủ tự chia ván mới cho những người còn lại và đủ G."));
   $("roomGameCanvas").append(dialog);
   void refreshWallet().catch(()=>{});
  }
@@ -279,7 +273,8 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
   if(value.status==="playing"&&!window.confirm(
    "Rời giữa ván sẽ hủy trận và hoàn G đã giữ cho mọi người. Bạn chắc chắn?"))return;
   await withBusy(async()=>{
-   try{await roomRequest("leave",{code:value.code});}finally{leaveUI();}
+   await roomRequest("leave",{code:value.code});
+   leaveUI();
   });
  }
  function tryInvite(){
@@ -357,6 +352,22 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
   const seconds=Math.max(0,Math.ceil((deadline-Date.now()-serverClockOffset)/1000));
   node.textContent="⏱ "+seconds+"s"+(seconds===0?" · Đang tự xử lý...":"");
   node.classList.toggle("urgent",seconds<=5);
+ },200);
+ setInterval(()=>{
+  const node=$("roomNextClock");
+  if(!node||!room||room.status!=="finished")return;
+  const deadline=Date.parse(room.nextRoundDeadline||"");
+  if(!Number.isFinite(deadline)){
+   node.textContent="⏳ Đang kiểm tra trạng thái bàn...";
+   return;
+  }
+  const seconds=Math.max(0,Math.ceil((deadline-Date.now()-serverClockOffset)/1000));
+  node.textContent=seconds>0?
+   "⏳ Còn "+seconds+" giây để thoát bàn":
+   "✓ Mặc định tiếp tục · đang chia ván mới...";
+  node.classList.toggle("urgent",seconds<=2);
+  const exit=$("roomNextExit");
+  if(exit)exit.disabled=seconds===0;
  },200);
  // A valid invitation link can deep-link into the hub; Firebase auth still gates API.
  tryInvite();
