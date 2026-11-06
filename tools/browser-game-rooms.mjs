@@ -132,6 +132,33 @@ try{
      assert.equal(await iframe.locator("#arenaTickets").textContent(),"∞",
       "Bot practice no longer runs out of tickets");
     }
+    if(width===390&&game==="ludo"){
+     // Deterministic test die, only inside the isolated browser QA iframe.
+     await iframe.locator("#ludoBoard").evaluate(()=>{Math.random=()=>.999999;});
+     await iframe.locator("#ludoRoll").click();
+     await iframe.locator('#ludoBoard .ludo-pawn.legal[data-pawn="0-0"]').dragTo(
+      iframe.locator('#ludoBoard .ludo-cell[data-cell="0-0"]'),{timeout:10000});
+     assert.equal(await iframe.locator('#ludoBoard .ludo-pawn[data-pawn="0-0"]').getAttribute("data-progress"),"0",
+      "Cờ Cá Ngựa: physically drag the released horse to its exact target square");
+    }
+    if(width===1440&&game==="colors"){
+     const playable=iframe.locator('#arenaHand .arena-hand-card.playable:not(:has(.arena-card-wild))');
+     if(await playable.count()){
+      await playable.first().dragTo(iframe.locator(".arena-board-center"),{timeout:10000});
+      assert.equal(await iframe.locator("#arenaHand .arena-hand-card").count(),6,
+       "Bài Màu: dragging a playable colored card must actually play it");
+     }
+    }
+    if(width===1440&&game==="tienlen"){
+     // Bot may own the 3♠ and start first; verify pickup only when user opens.
+     await iframe.locator("#tlDealNotice").waitFor({state:"hidden",timeout:12000});
+     const hand=iframe.locator("#tlHand .tl-hand-card:not(:disabled)");
+     if(await hand.count()){
+      await hand.first().dragTo(iframe.locator("#tlPile"),{timeout:10000});
+      assert.ok(await iframe.locator("#tlPile .tl-real-card").count()>=1,
+       "Tiến Lên: dropping the first legal lead into the pile is a real move");
+     }
+    }
     if(width===390&&game==="xiangqi"){
      await iframe.locator('#xqBoard .xq-square[data-index="54"]').dragTo(
       iframe.locator('#xqBoard .xq-square[data-index="45"]'),{timeout:10000});
