@@ -137,7 +137,7 @@ try{
   await page.locator('#arenaSocialCreate input[value="10"]').check();
   await page.locator("#arenaSocialCreate .arena-social-submit").click();
   const frame=page.frameLocator("#roomGameFrame");
-  await frame.locator("#arenaRoomLobby").waitFor({state:"visible",timeout:12000});
+  await frame.locator("#arenaPvPBoard .arena-pvp-waiting").waitFor({state:"visible",timeout:12000});
   assert.equal((await frame.locator("#roomLobbyCode").textContent()).trim(),"ABCD2345");
   await page.locator("#roomExitGame").click();
   await page.locator("#roomLobby").waitFor({state:"visible",timeout:9000});
@@ -147,7 +147,7 @@ try{
   await page.locator("#browserGameReturn").click();
   await page.waitForURL(/game-tien-len\.html/,{timeout:10000});
   await page.locator('[data-play-mode="quick"]').click();
-  await frame.locator("#arenaRoomLobby").waitFor({state:"visible",timeout:10000});
+  await frame.locator("#arenaPvPBoard .arena-pvp-waiting").waitFor({state:"visible",timeout:10000});
   assert.equal(await frame.locator("#roomLobbyCode").textContent(),"ABCD2345");
   await page.locator("#roomExitGame").click();
   await page.locator("#roomLobby").waitFor({state:"visible",timeout:8000});
