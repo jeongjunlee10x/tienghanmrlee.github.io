@@ -69,6 +69,33 @@ const sitemap=await readFile(join(dist,'sitemap.xml'),'utf8');
 assert(robots.includes(`Sitemap: ${expectedOrigin}/sitemap.xml`), 'robots.txt sitemap mismatch');
 assert(sitemap.includes(`<loc>${expectedOrigin}/</loc>`), 'sitemap root URL mismatch');
 
+const noindexOnlyPaths=[
+ 'hoc-tieng-han.html','kiem-tra-online.html','mrlee-bai-tap-pro.html',
+ 'giao-tiep-theo-chu-de.html','giao-tiep-phong-van.html',
+ 'on-luyen-phong-van.html','mrlee-game-arena.html',
+ 'admin.html','trung-tam-hoc-vien.html','dang-nhap.html'
+];
+for(const privatePath of noindexOnlyPaths){
+ assert(!sitemap.includes(`<loc>${expectedOrigin}/${privatePath}</loc>`),
+  'Login-restricted page leaked into public sitemap: '+privatePath);
+ assert(paths.has(privatePath),'Protected page omitted from Cloudflare output: '+privatePath);
+ const content=await readFile(join(dist,privatePath),'utf8');
+ const robotsMeta=content.match(/<meta\b(?=[^>]*\bname\s*=\s*["']robots["'])[^>]*>/gi)||[];
+ assert(robotsMeta.some(tag=>/noindex/i.test(tag)),
+  'Protected page missing noindex metadata: '+privatePath);
+}
+assert(!/Disallow:\s*\/(?:admin\.html|trung-tam-hoc-vien\.html)/i.test(robots),
+ 'robots.txt must not prevent crawlers seeing the noindex directive');
+const brandMatch=index.match(/<script type="application\/ld\+json" data-mrlee-brand-jsonld="v1">([\s\S]*?)<\/script>/);
+assert(brandMatch,'Homepage missing MR LEE structured data');
+const brandGraph=JSON.parse(brandMatch[1]);
+assert(brandGraph['@context']==='https://schema.org','Structured data has invalid context');
+assert(brandGraph['@graph'].some(x=>x['@type']==='Organization' && x.url===expectedOrigin+'/'),
+ 'Missing correctly linked MR LEE organization');
+assert(brandGraph['@graph'].some(x=>x['@type']==='WebSite' && x.url===expectedOrigin+'/'),
+ 'Missing correctly linked MR LEE website');
+
+
 const sitemapUrls=[...sitemap.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map(m=>m[1].trim());
 const publicGuidePages=[
  'huong-dan-hoc-tieng-han.html',
