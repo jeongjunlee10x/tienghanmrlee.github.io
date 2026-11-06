@@ -467,3 +467,10 @@ html.arena-reference-v1 body{background:radial-gradient(ellipse 110% 80% at 60% 
  .arena-reference-v1 .arena-ref-categories .arena-game-filters button[data-arena-filter="online"],
  .arena-reference-v1 .arena-ref-categories .arena-game-filters button[data-arena-filter="strategy"]{display:flex!important}
 }
+
+/* In the master Game Arena, choose a game first. Room actions belong to the
+   dedicated game landing page, never as one-click outside-lobby wagers. */
+.arena-reference-v1 #arenaCatalog .arena-game-actions{display:none!important}
+.arena-reference-v1 #arenaCatalog .arena-ref-more{display:none!important}
+.arena-reference-v1 #arenaCatalog>.arena-game-card .arena-ref-card-footer{
+ justify-content:space-between!important}
