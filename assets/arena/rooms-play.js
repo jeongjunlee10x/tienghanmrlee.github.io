@@ -29,7 +29,20 @@ function seatCard(player,room,counts){
   el("small","","🂠 "+(counts[player.seat]??0)+" lá còn lại"));
  const backs=el("div","arena-pvp-backs");
  for(let i=0;i<Math.min(5,counts[player.seat]??0);i++)backs.append(el("span","arena-back-mini"));
- holder.append(backs);
+ if(room.status==="finished"&&Array.isArray(room.gameState?.revealedHands)){
+  // The server reveals hidden cards only AFTER a verified settlement.
+  backs.remove();
+  const revealed=el("div","arena-pvp-seat-revealed");
+  for(const card of room.gameState.revealedHands[player.seat]||[]){
+   const label=room.game==="tienlen"?TL.label(card):Colors.cardLabel(card);
+   const face=el("span","arena-next-round-card"+
+    (room.game==="tienlen"&&card.suit>=2?" red":"")+
+    (room.game==="colors"?" color":""),label);
+   revealed.append(face);
+  }
+  if(!revealed.children.length)revealed.append(el("small","","✓ Hết bài"));
+  holder.append(revealed);
+ }else holder.append(backs);
  return holder;
 }
 function statusBanner(room){
