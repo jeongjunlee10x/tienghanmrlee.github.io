@@ -173,7 +173,7 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   if(!done)status.textContent=busy?
    board.dataset.fxPhase==="shuffle"?"🃏 Đang xáo bài…":
     board.dataset.fxPhase==="deal"?"🃏 Đang chia bài…":"🃏 Đang đánh bài ra giữa bàn…":
-   playable?(game.first?"Bạn có 3♠, lượt mở đầu phải dùng lá này.":"✨ Lượt của bạn · chọn bài và đánh ra giữa bàn.") :
+   playable?(game.first?"Bạn có 3♠, lượt mở đầu phải dùng lá này.":"✨ Giữ kéo lá bài vào giữa bàn; với bộ nhiều lá, chạm chọn trước rồi kéo.") :
     "⏳ Đến lượt "+NAMES[game.turn]+"…";
   hand.replaceChildren();
   const sortedHand=[...game.hands[0]].sort((a,b)=>sortMode==="suit"?
