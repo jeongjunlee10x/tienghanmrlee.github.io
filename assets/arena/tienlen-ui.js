@@ -3,6 +3,7 @@
  */
 import {start,label,analyze,canPlay,play,pass,botTurn,options,NAMES} from "./tienlen-engine.js";
 import {playingCard,cardBack,chopTitle,createTableEffects} from "./tienlen-fx.js";
+import {enablePointerDrag} from "./drag-gestures.js?v=20261106-drag-r1";
 const $=id=>document.getElementById(id);
 const el=(tag,cl,text)=>{
  const node=document.createElement(tag);if(cl)node.className=cl;
@@ -199,6 +200,25 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   logs.replaceChildren();
   for(const text of game.history.slice(-9).reverse())logs.append(el("p","",text));
  }
+ enablePointerDrag({
+  root:board,itemSelector:".tl-hand-card[data-card-id]",
+  targetSelector:".tl-center",previewSelector:".tl-real-card",
+  canStart:item=>Boolean(game&&!busy&&!done&&game.turn===0&&
+   game.hands[0].some(card=>card.id===Number(item.dataset.cardId))),
+  canDrop:()=>Boolean(game&&!busy&&!done&&game.turn===0),
+  onDrop:item=>{
+   const id=Number(item.dataset.cardId);
+   if(!game||busy||done||!game.hands[0].some(card=>card.id===id))return false;
+   // Hold several cards by tapping them, then drag any one selected card
+   // onto the central pile. An unselected card joins the chosen combination.
+   selected.add(id);
+   if(!selectedValid()){
+    message.textContent="Bộ bài đang cầm chưa hợp lệ. Hãy chọn thêm/bỏ bớt lá trước khi thả vào bàn.";
+    render();return false;
+   }
+   void act();return true;
+  }
+ });
  $("tlPlay").addEventListener("click",act);
  $("tlPass").addEventListener("click",skip);
  $("tlSuggest").addEventListener("click",suggest);
