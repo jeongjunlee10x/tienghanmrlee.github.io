@@ -4,12 +4,13 @@
 import assert from "node:assert/strict";
 import {readFile} from "node:fs/promises";
 const read=rel=>readFile(new URL("../"+rel,import.meta.url),"utf8");
-const [html,auth,shell,bridge,rooms,ui,tl,color,css,qa]=await Promise.all([
+const [html,auth,shell,bridge,rooms,ui,tl,color,css,qa,shellCss]=await Promise.all([
  "mrlee-game-arena.html","assets/arena/embedded-auth.js",
  "assets/arena/game-room-shell.js","assets/arena/game-room-embed.js",
  "assets/arena/rooms-play.js","assets/arena/rooms-ui.js",
  "assets/arena/tienlen-ui.js","assets/arena/app.js",
- "assets/arena/card-turn-v2.css","tools/browser-game-rooms.mjs"
+ "assets/arena/card-turn-v2.css","tools/browser-game-rooms.mjs",
+ "assets/arena/game-room-shell.css"
 ].map(read));
 assert.match(html,/embedded-auth\.js\?v=/,"Arena has dedicated embedded authentication guard");
 assert.match(html,/card-turn-v2\.css\?v=/,"Card UI stylesheet is included");
@@ -19,6 +20,10 @@ assert.match(auth,/ancestor\.location\.origin===location\.origin/,"Cross-origin 
 assert.match(auth,/await import\("\.\.\/\.\.\/auth-guard\.js"\)/,
  "Top-level Arena still requires full Firebase auth");
 assert.match(shell,/function frameFailure\(/,"Iframe errors have retry/back controls");
+assert.match(shellCss,/#roomFrameLoading\[hidden\]/,
+ "Once a game is started, its blue iframe loader must be CSS-hidden");
+assert.match(qa,/roomFrameLoading"\)\.waitFor\(\{state:"hidden"/,
+ "Chromium explicitly tests that the loading mask disappears");
 assert.match(ui,/nicknameLabel\.parentElement\.insertBefore\(clockPicker,nicknameLabel\)/,
  "Chess clock picker must be inserted next to the nickname label");
 assert.doesNotMatch(ui,/insertBefore\(clockPicker,\$\("roomNickname"\)\)/,
