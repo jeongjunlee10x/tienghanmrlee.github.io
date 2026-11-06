@@ -14,13 +14,36 @@ const GAME_PAGES=Object.freeze({
 });
 const game=document.documentElement.dataset.roomGame,current=GAME_PAGES[game];
 const portraitBoard=game==="chess"||game==="xiangqi";
+const CHESS_TIMES=[
+ ["1+0","Bullet · 1 phút"],["2+1","Bullet · 2 phút + 1 giây"],
+ ["3+0","Blitz · 3 phút"],["3+2","Blitz · 3 phút + 2 giây"],
+ ["5+0","Blitz · 5 phút"],["5+3","Blitz · 5 phút + 3 giây"],
+ ["10+0","Rapid · 10 phút"],["10+5","Rapid · 10 phút + 5 giây"],
+ ["15+10","Rapid · 15 phút + 10 giây"],["30+0","Rapid · 30 phút"],
+ ["none","Luyện tập · không đồng hồ"]
+];
+let chessTimeSelect=null;
+if(game==="chess"){
+ const box=document.createElement("label");box.className="room-chess-time-picker";
+ const title=document.createElement("span");title.textContent="♟ CHỌN THỜI GIAN CỜ VUA";
+ chessTimeSelect=document.createElement("select");chessTimeSelect.id="roomChessTime";
+ for(const [value,label] of CHESS_TIMES)chessTimeSelect.append(new Option(label,value));
+ const cached=localStorage.getItem("mrlee.chess.time");
+ chessTimeSelect.value=CHESS_TIMES.some(x=>x[0]===cached)?cached:"10+0";
+ chessTimeSelect.addEventListener("change",()=>{
+  localStorage.setItem("mrlee.chess.time",chessTimeSelect.value);
+  document.getElementById("roomQuickCaption").textContent="Ghép bàn "+chessTimeSelect.value+" · đúng thời gian";
+ });
+ box.append(title,chessTimeSelect);
+ const menu=document.getElementById("roomMenu");menu.parentElement.insertBefore(box,menu);
+}
 if(!current)throw Error("Mã trò chơi không hợp lệ");
 const frame=$("roomGameFrame"),lobby=$("roomLobby"),stage=$("roomPlay"),panel=$("roomModeHint");
 let verifiedWallet=null,playingMode="",hasBooted=false,openAttempt=0,frameLoaded=false;
 const compact=n=>Number(n).toLocaleString("vi-VN");
 const txt=(tag,value)=>{const el=document.createElement(tag);el.textContent=value;return el;};
 document.documentElement.style.setProperty("--room-cover",'url("assets/arena/covers/'+game+'.svg")');
-$("roomQuickCaption").textContent=current.online?"Ghép bàn theo G phù hợp":"Đấu với máy · vé thử";
+$("roomQuickCaption").textContent=game==="chess"?"Ghép bàn "+chessTimeSelect.value+" · đúng thời gian":current.online?"Ghép bàn theo G phù hợp":"Đấu với máy · vé thử";
 for(const mode of ["friends","browse"]){
  const action=document.querySelector('[data-play-mode="'+mode+'"]');
  if(!current.online){
@@ -63,6 +86,7 @@ function start(mode,{auto=false,code=""}={}){
  url.searchParams.set("embed","1");
  url.searchParams.set("game",game);
  url.searchParams.set("mode",mode);
+  if(game==="chess")url.searchParams.set("time",chessTimeSelect.value);
  const invite=code||inviteCode();
  if(invite&&current.online)url.searchParams.set("room",invite);
  $("roomPlayHeading").textContent=current.name+" · "+(mode==="bot"?"Đấu máy":mode==="quick"?"Chơi nhanh":mode==="browse"?"Chọn bàn":"Chơi với bạn");
@@ -108,6 +132,7 @@ window.addEventListener("message",event=>{
 const friendPopup=current.online?mountArenaFriendPopup({
  game,gameName:current.name,
  getWallet:()=>verifiedWallet,
+  getTimeControl:()=>chessTimeSelect?.value||"10+0",
  nickname:()=>($("roomPlayer")?.textContent||"Học viên").trim().slice(0,24)||"Học viên",
  onWallet:updateWallet,
  onAccepted:room=>{void loadWallet();start("friends",{code:room.code});}
