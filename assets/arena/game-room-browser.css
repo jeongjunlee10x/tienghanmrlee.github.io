@@ -1,0 +1,203 @@
+/* MR LEE original game table browser: wooden background inspired by arcade
+ * room selection patterns; all room entries are verified API data.
+ */
+:root{font-family:"Be Vietnam Pro",system-ui,sans-serif;color-scheme:dark;--paper:#efd8b4;--wood:#7d4d30}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;min-width:0;overflow-x:hidden}
+body{font:700 14px/1.35 "Be Vietnam Pro",system-ui,sans-serif;color:#fff3d5;background:#58331c}
+button,a{font:inherit;cursor:pointer;color:inherit;-webkit-tap-highlight-color:transparent}
+button{touch-action:manipulation}button:disabled{cursor:not-allowed}
+a{text-decoration:none}
+button:focus-visible,a:focus-visible{outline:3px solid #fff39a;outline-offset:3px}
+[hidden]{display:none!important}
+.room-browser-shell{isolation:isolate;display:grid;grid-template-rows:auto minmax(0,1fr) auto;
+ width:100%;height:100dvh;min-height:360px;overflow:hidden;position:relative;
+ background:repeating-linear-gradient(0deg,#6c4128 0 7px,#774c30 8px 15px,#845335 16px 17px,#6d422c 18px 31px,#6c4128 32px 45px)}
+.room-browser-shell::before{content:"";position:absolute;z-index:-1;inset:0;pointer-events:none;
+ background:radial-gradient(ellipse at 20% 10%,#f6d3a43a,transparent 58%),
+ radial-gradient(ellipse at 70% 80%,#170d0699,transparent 80%),
+ repeating-linear-gradient(90deg,transparent 0 115px,#f6d5ad11 116px 118px,transparent 120px 235px)}
+.room-browser-header{display:flex;align-items:center;gap:clamp(6px,1.1vw,16px);height:78px;min-height:78px;
+ padding:6px clamp(8px,1.7vw,26px);background:linear-gradient(#4c3025dd,#795239a9);
+ box-shadow:0 3px 13px #1e100c90,inset 0 2px #ffffff37;border-bottom:1px solid #e8cc9f67;position:relative;z-index:4}
+.room-browser-back{flex:0 0 47px;display:grid;place-items:center;width:47px;height:47px;border-radius:50%;
+ background:linear-gradient(#d28ff4,#8430b1 66%,#59227b);border:2px solid #efb6ff;
+ box-shadow:0 3px 0 #552165,0 5px 11px #20133d9a;font-size:42px;line-height:1;color:#fff}
+.room-browser-brand{display:flex;align-items:center;gap:7px;min-width:0;flex:0 0 clamp(140px,15vw,220px)}
+.room-browser-brand img{width:clamp(40px,5vw,60px);height:55px;object-fit:contain}
+.room-browser-brand strong{display:flex;flex-direction:column;color:#fff;font:1000 clamp(16px,1.65vw,24px)/1.1 system-ui,sans-serif;
+ text-shadow:0 2px 1px #483557,0 3px 8px #1b0e1b;white-space:nowrap}
+.room-browser-brand small{font-size:10px;color:#ffe084}
+.room-browser-player{display:flex;flex:1 1 auto;align-items:center;gap:9px;min-width:0;
+ padding:4px 10px;border:1px solid #f6f4df78;border-radius:15px;background:#e8f9ff31}
+.room-browser-avatar{width:41px;height:41px;display:grid;place-items:center;flex:0 0 41px;border-radius:10px;
+ background:#bf723e;border:2px solid #ffe4bd;font-size:23px}
+.room-browser-avatar img{width:100%;height:100%;object-fit:cover}
+.room-browser-player>div{display:flex;flex-direction:column;gap:3px;min-width:0}
+.room-browser-player strong{font-size:clamp(11px,1.3vw,17px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.room-browser-player small{font-size:10px;color:#f2dac1}
+.room-browser-gold,.room-browser-points{display:flex;align-items:center;gap:5px;min-height:39px;padding:5px 12px;
+ border:1px solid #e7b86a;border-radius:24px;color:#ffe281;background:#38272acd;
+ font-weight:1000;font-variant-numeric:tabular-nums;white-space:nowrap}
+.room-browser-gold output{font-size:clamp(12px,1.6vw,21px)}
+.room-browser-points{border-color:#b3c9f3;color:#edf2ff;font-size:12px}
+.room-browser-refresh,.room-browser-create-top{min-height:41px;padding:6px 14px;border:1px solid #b4e9fd;border-radius:14px;
+ background:linear-gradient(#60c9e9,#1668ad);color:#fff;font-weight:900;white-space:nowrap}
+.room-browser-refresh:disabled{opacity:.7}
+.room-browser-main{min-width:0;min-height:0;display:grid;grid-template-columns:235px minmax(0,1fr);gap:0;
+ margin:12px 15px 0;border:2px solid #efe1caa1;border-radius:20px;overflow:hidden;
+ background:#e4d2b5c9;box-shadow:0 3px 20px #201007a1}
+.room-browser-sidebar{display:flex;flex-direction:column;gap:9px;min-width:0;padding:14px 11px;
+ background:linear-gradient(#d5bb97e8,#c9af8be8);color:#88513e;border-right:2px solid #d7c29f}
+.room-browser-sidebar h1{font-size:clamp(15px,1.6vw,23px);font-weight:1000;text-align:center;margin:3px 0 7px;
+ color:#764836;text-shadow:0 1px #fff8}
+.room-browser-filter{display:flex;flex-direction:column;gap:8px}
+.room-browser-filter button{min-height:61px;padding:9px 8px;border:2px solid #e9d7ba;border-radius:12px;
+ background:linear-gradient(#fff5dc,#e3cda8);color:#8c4e3d;box-shadow:0 4px 5px #79523a5b;
+ font:1000 clamp(12px,1.5vw,21px)/1.25 "Be Vietnam Pro",system-ui,sans-serif}
+.room-browser-filter button[aria-pressed="true"]{background:linear-gradient(#67d65e,#1cb746);
+ border-color:#acffa4;color:#fff;text-shadow:0 2px 3px #416839}
+.room-browser-location{display:flex;flex-direction:column;gap:7px;margin-top:auto;min-height:165px;padding:13px 10px;
+ border-radius:14px;background:linear-gradient(#f6e8cf,#e2c39d);
+ box-shadow:0 4px 10px #81553775;color:#995e43;text-align:center;border:2px solid #fff3d8}
+.room-browser-location>span{font-size:10px;color:#9a7454;font-weight:1000;letter-spacing:.08em}
+.room-browser-location strong{font-size:clamp(12px,1.3vw,18px)}
+.room-browser-location small{font-size:12px;color:#8e624d}
+.room-browser-location p{margin:3px 0;font-size:10px;font-weight:700;line-height:1.5}
+.room-browser-content{min-width:0;min-height:0;display:flex;flex-direction:column;padding:10px 14px;
+ overflow:hidden;background:linear-gradient(135deg,#6247347a,#9f897583)}
+.room-browser-title{display:flex;align-items:center;justify-content:space-between;gap:12px;
+ min-height:62px;padding:3px 11px;border-bottom:1px solid #efe1be8c}
+.room-browser-title>div{min-width:0}
+.room-browser-title small{display:block;color:#ffe9ad;font-size:9px;letter-spacing:.11em}
+.room-browser-title h2{margin:3px 0;color:#fff5dd;text-shadow:0 3px 4px #5a3923;
+ font:1000 clamp(15px,1.8vw,25px)/1.2 "Be Vietnam Pro",system-ui,sans-serif}
+.room-browser-create-top{background:linear-gradient(#79d66c,#2ea438);border-color:#c0ffa8;flex:0 0 auto}
+#browserStatus{min-height:20px;margin:7px 7px 5px;font-size:11px;color:#f9e8bf}
+.room-browser-grid{min-height:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+ grid-auto-rows:minmax(135px,auto);align-content:start;gap:12px;padding:8px 10px 13px;overflow-y:auto;
+ overscroll-behavior:contain;scrollbar-color:#f4ead7a6 #7b624e70;scrollbar-width:thin}
+.room-browser-tile{position:relative;display:flex;flex-direction:column;align-items:center;
+ justify-content:flex-start;gap:6px;min-width:0;min-height:136px;padding:11px 8px 8px;
+ background:#dcc3a34d;border:1px solid #f8e9cc35;border-radius:11px;
+ text-align:center;color:#fff5db;box-shadow:inset 0 1px #fff3}
+.room-browser-new{background:linear-gradient(#decfac22,#f2d7a535);border:1px dashed #eaddb894}
+.room-browser-new .room-browser-tile-graphic{display:grid;place-items:center;width:73px;height:67px;border:5px solid #97601f;
+ border-radius:12px;background:linear-gradient(#5df1a4,#0a8d6b);box-shadow:inset 0 3px #b2ffc3,0 6px #5c381d;
+ color:#fff3bb;font:1000 52px/1 system-ui;transform:perspective(90px) rotateX(12deg)}
+.room-browser-new strong{font-size:15px}
+.room-browser-new small{font-size:10px;color:#ffefc4}
+.room-browser-new:hover{background:#a8dbb24a}
+.room-browser-table-art{position:relative;width:100%;height:75px;display:grid;place-items:end center}
+.room-browser-board-icon{position:relative;width:min(110px,85%);height:48px;border-radius:10px;
+ transform:perspective(130px) rotateX(24deg) rotateZ(-5deg);
+ border:5px solid #8e541f;box-shadow:0 6px 0 #482819,0 7px 10px #2814079c,inset 0 2px #b0efa1;
+ background:linear-gradient(145deg,#26b458,#16a33a);overflow:visible}
+.room-browser-board-icon::after{content:"";position:absolute;inset:4px;
+ background:linear-gradient(28deg,transparent 41%,#085a95 42% 48%,transparent 49%),
+ linear-gradient(-28deg,transparent 41%,#103d89 42% 48%,transparent 49%)}
+.room-browser-stake{position:absolute;z-index:3;top:0;right:calc(50% - 60px);
+ display:block;padding:2px 7px;border:1px solid #ffc259;background:#34261dcf;border-radius:7px;
+ font-size:clamp(9px,1.1vw,14px);white-space:nowrap;color:#ffe39c}
+.room-browser-players-icon{position:absolute;z-index:3;left:0;bottom:-1px;white-space:nowrap;
+ padding:2px 7px;border-radius:9px;background:#49321dbc;font-size:10px;color:#fff2c8}
+.room-browser-padlock{position:absolute;right:-16px;top:-30px;z-index:8;font-size:24px}
+.room-browser-locked{opacity:.65;filter:saturate(.72)}
+.room-browser-host{font-size:clamp(11px,1.2vw,15px);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.room-browser-table-meta{font-size:10px;color:#ffefce;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.room-browser-enter{min-height:32px;width:100%;padding:4px 7px;
+ color:#fff;background:linear-gradient(#63dc66,#199e36);border:1px solid #c5fcb1;border-radius:10px;
+ box-shadow:inset 0 1px #fffc,0 2px #236a25;font:950 10px/1.25 "Be Vietnam Pro",system-ui,sans-serif}
+.room-browser-enter:disabled{background:#755951;border-color:#c29f86;color:#f9d9c4;box-shadow:none}
+.room-browser-empty{grid-column:span 2;display:flex;flex-direction:column;justify-content:center;gap:6px;
+ padding:16px;border:1px dashed #f1e6d0;border-radius:13px;background:#5c48367a;
+ color:#fff5e5;text-align:center;min-height:136px}
+.room-browser-empty strong{font-size:15px}.room-browser-empty p{font-size:11px;margin:0}
+.room-browser-join-link{display:inline-grid;place-items:center;margin:4px auto 0;padding:8px 12px;
+ border-radius:10px;border:1px solid #b9d9ff;background:#2766a8;color:#fff;font-size:11px}
+.room-browser-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 22px;
+ min-height:64px;color:#fff7db}
+.room-browser-footer>a,.room-browser-footer>button{min-height:38px;padding:7px clamp(10px,1.2vw,18px);border:1px solid #ffdf8c;
+ border-radius:25px;background:linear-gradient(#a5e97c,#35ac35);color:#fff;font-weight:1000;font-size:14px;
+ text-shadow:0 2px #496e1b;box-shadow:0 4px 8px #2b1c1099}
+.room-browser-footer>a:first-child{background:linear-gradient(#bb83df,#74349e);border-color:#e1bff0}
+.room-browser-footer span{margin-left:auto;font-size:10px;color:#ffe2bf}
+.room-browser-error{margin:30px;text-align:center;color:#fff5db}
+@media(max-width:1100px){
+ .room-browser-main{grid-template-columns:165px minmax(0,1fr);margin:7px 8px 0}
+ .room-browser-header{height:62px;min-height:62px;padding:4px 8px}
+ .room-browser-brand{flex-basis:126px}
+ .room-browser-brand img{width:36px;height:43px}
+ .room-browser-brand strong{font-size:15px}.room-browser-brand small{font-size:8px}
+ .room-browser-back{width:36px;height:36px;flex-basis:36px;font-size:33px}
+ .room-browser-avatar{width:32px;height:32px;flex-basis:32px;font-size:17px}
+ .room-browser-points{display:none}
+ .room-browser-grid{gap:8px;grid-auto-rows:minmax(125px,auto);padding:5px}
+ .room-browser-tile{min-height:125px}
+ .room-browser-filter button{min-height:52px;font-size:14px}
+ .room-browser-footer{min-height:49px;padding:5px 12px}
+ .room-browser-footer>a,.room-browser-footer>button{min-height:34px;font-size:12px}
+ .room-browser-footer span{display:none}
+}
+@media(max-width:800px){
+ .room-browser-player small{display:none}
+ .room-browser-brand{flex-basis:102px}
+ .room-browser-brand img{width:30px}
+ .room-browser-brand strong{font-size:12px}
+ .room-browser-gold{padding:4px 6px}
+ .room-browser-gold output{font-size:13px}
+ .room-browser-refresh{padding:6px 7px}
+ .room-browser-refresh span{display:none}
+ .room-browser-main{grid-template-columns:124px minmax(0,1fr)}
+ .room-browser-sidebar{padding:8px 5px}
+ .room-browser-sidebar h1{font-size:13px}
+ .room-browser-filter button{font-size:11px;min-height:42px;padding:5px}
+ .room-browser-location{padding:7px 4px;min-height:116px}
+ .room-browser-location strong{font-size:11px}
+ .room-browser-location p{font-size:9px}
+ .room-browser-grid{grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(112px,auto)}
+ .room-browser-tile{min-height:112px;padding:7px 4px}
+ .room-browser-table-art{height:56px}
+ .room-browser-board-icon{height:35px;width:min(75px,83%)}
+ .room-browser-new .room-browser-tile-graphic{height:50px;width:56px;font-size:33px}
+ .room-browser-stake{right:0;font-size:9px;padding:1px 3px}
+ .room-browser-host{font-size:11px}
+ .room-browser-table-meta{font-size:8px}
+ .room-browser-enter{min-height:27px;font-size:9px}
+ .room-browser-empty{grid-column:span 2;padding:7px}
+}
+@media(max-width:600px) and (orientation:portrait){
+ .room-browser-header{gap:4px}
+ .room-browser-brand{flex-basis:83px}
+ .room-browser-brand img{display:none}
+ .room-browser-player{min-width:0;padding:2px 4px}
+ .room-browser-player strong{font-size:10px}
+ .room-browser-avatar{width:26px;height:26px;flex-basis:26px;font-size:14px}
+ .room-browser-gold{min-height:31px;padding:2px 4px;font-size:10px}
+ .room-browser-gold output{font-size:10px}
+ .room-browser-back{width:30px;height:30px;flex-basis:30px;font-size:26px}
+ .room-browser-refresh{min-height:31px;padding:3px 6px;font-size:16px}
+ .room-browser-main{display:flex;flex-direction:column;gap:0;margin:5px 6px 0}
+ .room-browser-sidebar{flex:0 0 auto;display:flex;flex-direction:column;padding:5px}
+ .room-browser-sidebar h1{display:none}
+ .room-browser-filter{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+ .room-browser-filter button{min-height:37px;font-size:10px;padding:4px}
+ .room-browser-location{display:none}
+ .room-browser-content{flex:1 1 auto;padding:5px;min-height:0}
+ .room-browser-title{min-height:40px;padding:4px}
+ .room-browser-title h2{font-size:16px}
+ .room-browser-title small{font-size:8px}
+ .room-browser-create-top{min-height:30px;font-size:10px;padding:5px 8px}
+ .room-browser-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;grid-auto-rows:minmax(130px,auto)}
+ .room-browser-tile{min-height:130px}
+ .room-browser-table-art{height:65px}
+ .room-browser-board-icon{height:42px;width:70px}
+ .room-browser-new .room-browser-tile-graphic{height:61px;width:67px}
+ .room-browser-stake{font-size:10px}
+ .room-browser-host{font-size:12px}
+ .room-browser-table-meta{font-size:9px}
+ .room-browser-enter{min-height:30px}
+ .room-browser-footer{padding:5px;gap:6px;min-height:47px}
+ .room-browser-footer>a,.room-browser-footer>button{font-size:10px;min-height:32px;padding:5px 8px}
+}
+@media(prefers-reduced-motion:reduce){button,a{scroll-behavior:auto}}
