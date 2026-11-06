@@ -1,0 +1,324 @@
+/* MR LEE card-table interaction V2: clear physical hands, active avatars,
+ * turn-only non-blocking action popups. No game logic or opponent hand leak.
+ * Loaded last to supersede older condensed card-hand rules on phones.
+ */
+#arenaTienLen .tl-opponent.active,#arenaPvPBoard .arena-pvp-seat.active,
+#arenaTable .arena-opponent.active{
+ border-color:#ffe5a0!important;
+ box-shadow:0 0 0 2px #ffd776bb,0 4px 26px #ffd46d73,0 10px 18px #0016256c!important;
+ background:linear-gradient(145deg,#145a57f2,#133c56f2)!important;
+ z-index:6!important;
+}
+#arenaTienLen .tl-opponent.active .tl-seat-meta strong,
+#arenaPvPBoard .arena-pvp-seat.active>strong,
+#arenaTable .arena-opponent.active .arena-opponent-info strong{
+ color:#ffebac!important;font-weight:950!important
+}
+#arenaTienLen .tl-opponent:not(.active),
+#arenaPvPBoard .arena-pvp-seat:not(.active),
+#arenaTable .arena-opponent:not(.active){
+ filter:saturate(.83);
+}
+#arenaTienLen .tl-avatar-turn,
+#arenaTable .arena-avatar-active{
+ position:relative!important;
+ border:2px solid #ffd877!important;
+ box-shadow:0 0 0 3px #ffc95367,0 0 14px #ffd36c80!important;
+ overflow:visible!important
+}
+#arenaTienLen .tl-avatar-turn-tag,
+#arenaTable .arena-avatar-turn-sign{
+ position:absolute;inset:-2px;border-radius:inherit;
+ background:#122a48df;color:#ffe596;
+ font:900 9px/1.1 "Be Vietnam Pro",system-ui,sans-serif;
+ display:grid;place-items:center;text-shadow:0 1px 2px #000;
+ letter-spacing:.02em
+}
+#arenaTienLen .tl-player-hud.is-turn,
+#arenaTable .arena-player-label.is-turn{
+ border-color:#ffdc81!important;box-shadow:0 0 0 2px #ffdb878c,0 4px 20px #ffcb4250!important;
+ background:linear-gradient(120deg,#245956,#1b4962)!important;
+ color:#fff4c7!important
+}
+#arenaTable .arena-player-label.is-turn>strong:before{
+ content:"● ";color:#f6d16e
+}
+/* PvP player avatars: active server clock is exactly in the avatar center. */
+#arenaPvPBoard .arena-card-avatar{
+ position:relative;display:grid;place-items:center;flex:0 0 auto;
+ width:46px;height:46px;border-radius:50%;
+ border:2px solid #bdd4e48c;
+ background:linear-gradient(135deg,#23465b,#10273b);
+ box-shadow:0 4px 9px #0007;
+ isolation:isolate
+}
+#arenaPvPBoard .arena-card-portrait{font-size:25px;line-height:1}
+#arenaPvPBoard .arena-card-avatar.is-active{
+ border-color:#ffde82;
+ box-shadow:0 0 0 3px #ffc65c47,0 0 13px #f7b948a9;
+}
+#arenaPvPBoard .arena-card-avatar.is-active:before{
+ position:absolute;content:"";inset:-5px;border-radius:50%;pointer-events:none;
+ background:conic-gradient(#ffdf7a var(--turn-elapsed,0%),#ffffff24 0);
+ z-index:-1;
+}
+#arenaPvPBoard .arena-card-turn-clock{
+ position:absolute!important;inset:1px;display:grid;place-items:center;
+ border-radius:50%;background:#182940f2;
+ color:#fff0c5;text-shadow:0 1px 3px #000;
+ font:950 13px/1 ui-monospace,Consolas,monospace;
+ letter-spacing:.02em;font-variant-numeric:tabular-nums;
+ padding:0!important;min-width:0!important;z-index:2
+}
+#arenaPvPBoard .arena-card-turn-clock.urgent{
+ background:#af344e!important;color:white!important;
+ animation:arena-countdown-alert .55s ease-in-out infinite alternate
+}
+@keyframes arena-countdown-alert{to{filter:brightness(1.35)}}
+#arenaPvPBoard .arena-pvp-seat{
+ min-width:100px!important;max-width:162px!important;
+ padding:7px 9px!important;
+ color:white
+}
+#arenaPvPBoard .arena-pvp-seat strong{font-size:clamp(11px,1.35vw,14px)!important}
+#arenaPvPBoard .arena-pvp-seat>small{font-size:11px!important;color:#e9eff7!important}
+#arenaPvPBoard .arena-pvp-me{
+ display:flex;align-items:center;gap:10px;flex-wrap:nowrap;
+ min-width:0;padding:6px 11px;
+ border-radius:13px;border:1px solid #ffffff67;
+ background:linear-gradient(110deg,#10263b,#1b4255);
+ box-shadow:0 5px 16px #0007
+}
+#arenaPvPBoard .arena-pvp-me.active{
+ border-color:#ffe69d!important;background:linear-gradient(110deg,#23554f,#235a65)!important;
+ box-shadow:0 0 0 2px #ffe69a7a,0 5px 18px #ffcc5e5d!important
+}
+#arenaPvPBoard .arena-pvp-me-name{
+ display:flex;flex-direction:column;min-width:0;line-height:1.38
+}
+#arenaPvPBoard .arena-pvp-me-name strong{
+ font-size:clamp(12px,1.7vw,15px);color:#fff;
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap
+}
+#arenaPvPBoard .arena-pvp-me-name small{font-size:10px;color:#d4e8ef;font-weight:800}
+#arenaPvPBoard .arena-pvp-me.active .arena-pvp-me-name small{
+ color:#ffe29c;font-weight:950
+}
+#arenaPvPBoard .arena-pvp-me-count{
+ margin-left:auto;white-space:nowrap;
+ background:#ffffff24;border-radius:99px;padding:5px 9px;
+ font-weight:850;font-size:11px
+}
+/* A turn popup, not fixed action bars or blocking modal dialogs. */
+#arenaPvPBoard .arena-card-turn-popup,
+#arenaTienLen .tl-controls.arena-card-turn-popup,
+#arenaTable .arena-turn-controls.arena-card-turn-popup{
+ position:relative;z-index:12;
+ width:max-content;max-width:min(100%,680px);
+ display:flex;flex-direction:column;align-items:center;justify-content:center;
+ gap:5px;margin:5px auto 2px;padding:8px 12px;
+ background:linear-gradient(145deg,#0c2848f5,#244568f4)!important;
+ color:#fef4dc;border:2px solid #f1d28bae!important;
+ border-radius:16px;box-shadow:0 9px 25px #0009,0 0 16px #ffdd8b33;
+ animation:arena-turn-popup-in .26s cubic-bezier(.15,.85,.2,1) both
+}
+#arenaPvPBoard .arena-card-turn-popup[hidden],
+#arenaTienLen .tl-controls.arena-card-turn-popup[hidden],
+#arenaTable .arena-turn-controls.arena-card-turn-popup[hidden]{
+ display:none!important
+}
+#arenaPvPBoard .arena-card-turn-title{
+ color:#ffe6a6!important;font:950 11px/1.35 system-ui!important;
+ letter-spacing:.025em;text-align:center
+}
+#arenaPvPBoard .arena-card-turn-popup>.arena-pvp-actions,
+#arenaPvPBoard .arena-card-turn-popup>.arena-pvp-options{
+ display:flex;justify-content:center;align-items:center;gap:6px;flex-wrap:wrap;
+ margin:0;padding:0
+}
+#arenaPvPBoard .arena-card-turn-popup button,
+#arenaTienLen .tl-controls.arena-card-turn-popup button,
+#arenaTable .arena-turn-controls.arena-card-turn-popup button{
+ min-height:38px;border-radius:10px;
+ font-weight:900;box-shadow:0 2px 6px #0004;
+ white-space:nowrap
+}
+@keyframes arena-turn-popup-in{
+ from{opacity:.25;transform:translateY(11px) scale(.96)}
+ to{opacity:1;transform:translateY(0) scale(1)}
+}
+/* Human card faces: show ranks and suits, never blur or shrink card faces
+ * just because it is the opponent's turn. Full size on desktop.
+ */
+#arenaTienLen .tl-hand,#arenaPvPBoard .arena-pvp-hand{
+ display:flex!important;align-items:flex-end!important;justify-content:center!important;
+ gap:5px!important;max-width:100%;
+ min-height:94px!important;
+ overflow-x:auto!important;overflow-y:visible;
+ padding:12px 4px 6px!important;
+ scroll-snap-type:x proximity;
+ scrollbar-width:thin;
+ scrollbar-color:#dbc48c #ffffff17;
+}
+#arenaTienLen .tl-hand .tl-hand-card{
+ box-sizing:border-box;
+ flex:0 0 var(--cw)!important;width:var(--cw)!important;
+ height:var(--ch)!important;
+ scroll-snap-align:start;
+ opacity:1!important;
+}
+#arenaTienLen .tl-hand .tl-real-card{
+ box-sizing:border-box;
+ width:var(--cw)!important;min-width:var(--cw)!important;
+ height:var(--ch)!important;min-height:var(--ch)!important;
+}
+#arenaPvPBoard .arena-pvp-hand>button{
+ box-sizing:border-box;flex:0 0 56px!important;
+ width:56px!important;height:81px!important;
+ scroll-snap-align:start;opacity:1!important
+}
+#arenaPvPBoard .arena-pvp-hand .tl-real-card{
+ box-sizing:border-box;width:55px!important;min-width:55px!important;
+ height:78px!important;min-height:78px!important
+}
+#arenaPvPBoard .arena-pvp-hand .arena-pvp-color-card{
+ box-sizing:border-box;width:54px!important;min-width:54px!important;
+ height:78px!important
+}
+#arenaTienLen .tl-hand .tl-card-corner,
+#arenaPvPBoard .arena-pvp-hand .tl-card-corner{
+ font-size:clamp(12px,1.2vw,15px)!important;line-height:1!important
+}
+#arenaTienLen .tl-hand .tl-card-art-suit{font-size:calc(var(--cw)*.66)!important}
+#arenaPvPBoard .arena-pvp-hand .tl-card-art-suit{font-size:31px!important}
+#arenaTienLen .tl-hand .tl-hand-card.selected,
+#arenaPvPBoard .arena-pvp-hand>button.selected{
+ transform:translateY(-8px) scale(1.04)!important;
+ filter:drop-shadow(0 5px 7px #000a)
+}
+#arenaTable .arena-hand{
+ flex-wrap:wrap!important;overflow-x:auto!important;
+ gap:8px!important;align-items:flex-end;
+ padding:13px 5px 9px!important
+}
+#arenaTable .arena-hand-card{opacity:1!important}
+#arenaTable .arena-hand-card .arena-card-face{
+ filter:none!important;opacity:1!important;
+}
+#arenaTable .arena-hand-card:not(.playable) .arena-card-face{
+ opacity:.9!important;filter:saturate(.82)!important
+}
+#arenaTable .arena-hand-card.playable .arena-card-face{
+ outline:2px solid #ffe6a0;outline-offset:1px
+}
+#arenaTable .arena-turn-controls{min-height:0;min-width:0}
+#arenaTable .arena-color-picker{position:relative;z-index:15}
+/* Center table must not collide with the longer, readable hand. */
+#arenaPvPBoard .arena-pvp-card-table{
+ min-height:clamp(650px,80dvh,870px)!important;
+ border-radius:26%/12%!important;
+}
+#arenaPvPBoard .arena-pvp-center{
+ top:22%!important;left:16%!important;right:16%!important;
+ min-height:145px!important
+}
+#arenaPvPBoard .arena-pvp-human{
+ position:absolute;bottom:11px!important;left:12px!important;right:12px!important;
+ gap:5px!important;z-index:10
+}
+#arenaTienLen .tl-board{min-height:clamp(650px,83dvh,830px)!important}
+#arenaTienLen .tl-center{top:26%!important;height:24%!important;min-height:135px}
+#arenaTienLen .tl-bottom{z-index:10}
+#arenaTienLen .tl-selected{font-size:11px;margin:4px auto;text-align:center}
+#arenaTable .arena-board{min-height:570px}
+#arenaTable .arena-player-label{margin-top:7px}
+@media(max-width:720px){
+ #arenaPvPBoard .arena-pvp-seat{min-width:85px!important;max-width:116px!important;padding:4px 5px!important}
+ #arenaPvPBoard .arena-pvp-seat strong{font-size:10px!important}
+ #arenaPvPBoard .arena-pvp-seat>small{font-size:9px!important}
+ #arenaPvPBoard .arena-card-avatar{width:37px;height:37px}
+ #arenaPvPBoard .arena-card-portrait{font-size:20px}
+ #arenaPvPBoard .arena-card-turn-clock{font-size:12px}
+ #arenaPvPBoard .arena-pvp-card-table{min-height:clamp(625px,85dvh,790px)!important}
+ #arenaPvPBoard .arena-pvp-center{top:22%!important;left:16%!important;right:16%!important;min-height:118px!important}
+ #arenaPvPBoard .arena-pvp-human{left:6px!important;right:6px!important;bottom:6px!important}
+ #arenaPvPBoard .arena-pvp-me{padding:4px 8px}
+ #arenaPvPBoard .arena-pvp-me-count{font-size:10px}
+ #arenaPvPBoard .arena-pvp-hand{
+  display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr))!important;
+  align-items:start!important;justify-content:stretch!important;
+  gap:4px!important;min-height:0!important;
+  max-height:174px;overflow-x:hidden!important;overflow-y:auto!important;
+  padding:13px 4px 5px!important
+ }
+ #arenaPvPBoard .arena-pvp-hand>button{
+  flex:none!important;width:100%!important;min-width:0!important;height:70px!important
+ }
+ #arenaPvPBoard .arena-pvp-hand .tl-real-card,
+ #arenaPvPBoard .arena-pvp-hand .arena-pvp-color-card{
+  width:100%!important;min-width:0!important;height:69px!important;min-height:69px!important;
+  border-width:2px!important
+ }
+ #arenaPvPBoard .arena-pvp-hand .tl-card-art-suit{font-size:clamp(19px,5.5vw,27px)!important}
+ #arenaPvPBoard .arena-pvp-hand .tl-card-corner{font-size:12px!important}
+ #arenaPvPBoard .arena-pvp-human .arena-pvp-color-card{font-size:clamp(9px,2.6vw,13px)!important}
+ #arenaPvPBoard .arena-card-turn-popup{
+  max-width:calc(100% - 4px)!important;padding:6px 7px!important
+ }
+ #arenaPvPBoard .arena-card-turn-popup button{
+  min-height:35px!important;padding:5px 8px!important;font-size:11px!important
+ }
+ #arenaPvPBoard .arena-card-turn-title{font-size:10px!important}
+ #arenaTienLen .tl-board{--cw:clamp(40px,9.7vw,55px);min-height:clamp(625px,86dvh,790px)!important}
+ #arenaTienLen .tl-hand{
+  display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr))!important;
+  align-items:start!important;justify-content:stretch!important;gap:5px!important;
+  height:auto!important;min-height:0!important;
+  max-height:160px;overflow-x:hidden!important;overflow-y:auto!important;
+  padding:12px 3px 5px!important
+ }
+ #arenaTienLen .tl-hand .tl-hand-card{
+  flex:none!important;width:100%!important;height:63px!important
+ }
+ #arenaTienLen .tl-hand .tl-real-card{
+  width:100%!important;min-width:0!important;height:62px!important;min-height:62px!important
+ }
+ #arenaTienLen .tl-hand .tl-card-corner{font-size:12px!important}
+ #arenaTienLen .tl-hand .tl-card-art-suit{font-size:clamp(20px,5.5vw,27px)!important}
+ #arenaTienLen .tl-center{top:27%!important;height:23%!important;min-height:110px!important}
+ #arenaTienLen .tl-bottom{left:6px!important;right:6px!important;bottom:6px!important}
+ #arenaTienLen .tl-controls.arena-card-turn-popup{
+  display:flex;flex-direction:row;flex-wrap:wrap;
+  gap:4px!important;max-width:100%!important;padding:7px!important;
+ }
+ #arenaTienLen .tl-controls.arena-card-turn-popup button{
+  padding:5px 7px!important;font-size:10px!important;min-height:33px!important
+ }
+ #arenaTable .arena-hand{
+  display:grid!important;grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  justify-content:center!important;gap:5px!important;
+  min-height:0!important;max-height:204px;overflow-y:auto!important;overflow-x:hidden!important
+ }
+ #arenaTable .arena-hand-card{width:100%;min-width:0!important}
+ #arenaTable .arena-hand-card .arena-card-face{
+  box-sizing:border-box;width:100%!important;min-width:0!important;
+  height:clamp(63px,18vw,83px)!important;min-height:0!important;border-width:2px!important
+ }
+ #arenaTable .arena-card-symbol{font-size:clamp(11px,3.5vw,17px)!important;padding:2px!important}
+ #arenaTable .arena-card-motif{font-size:clamp(35px,9vw,55px)!important}
+ #arenaTable .arena-board-center{min-height:165px!important}
+ #arenaTable .arena-turn-controls.arena-card-turn-popup{padding:8px!important;max-width:calc(100% - 4px)!important}
+}
+@media(max-width:410px){
+ #arenaPvPBoard .arena-pvp-hand{grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:3px!important}
+ #arenaPvPBoard .arena-pvp-hand .tl-card-corner{font-size:10px!important}
+ #arenaTienLen .tl-hand{gap:3px!important}
+ #arenaTienLen .tl-hand .tl-card-corner{font-size:10px!important}
+ #arenaTable .arena-hand{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+}
+@media(prefers-reduced-motion:reduce){
+ #arenaPvPBoard .arena-card-turn-clock.urgent{animation:none!important}
+ #arenaPvPBoard .arena-card-turn-popup,
+ #arenaTienLen .tl-controls.arena-card-turn-popup,
+ #arenaTable .arena-turn-controls.arena-card-turn-popup{animation:none!important}
+}
