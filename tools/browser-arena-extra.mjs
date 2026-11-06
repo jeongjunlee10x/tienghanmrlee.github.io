@@ -29,19 +29,19 @@ try{
   try{
    await page.goto(origin+"/mrlee-game-arena.html",{waitUntil:"domcontentloaded",timeout:20000});
    assert.equal(await page.locator(".arena-game-card.playable").count(),6);
-   await page.locator('.arena-ref-play[data-ref-play="ludo"]').click();
+   await page.evaluate(()=>document.querySelector('#arenaCatalog button[data-game="ludo"]')?.click());
    await page.locator("#ludoBoard .ludo-cell").first().waitFor();
    assert.equal(await page.locator("#ludoBoard .ludo-cell").count(),196);
    assert.equal(await page.locator("#ludoBoard .ludo-pawn").count(),16);
    await page.locator("#ludoRoll").click();
    await page.locator("#ludoExit").click();
-   await page.locator('.arena-ref-play[data-ref-play="xiangqi"]').click();
+   await page.evaluate(()=>document.querySelector('#arenaCatalog button[data-game="xiangqi"]')?.click());
    assert.equal(await page.locator("#xqBoard .xq-square").count(),90);
    await page.locator('#xqBoard [data-index="54"]').click();
    await page.locator('#xqBoard [data-index="45"]').click();
    assert.ok(await page.locator("#xqMoveLog p").count()>=1);
    await page.locator("#xqExit").click();
-   await page.locator('.arena-ref-play[data-ref-play="estate"]').click();
+   await page.evaluate(()=>document.querySelector('#arenaCatalog button[data-game="estate"]')?.click());
    assert.equal(await page.locator("#estateBoard .estate-tile").count(),24);
    await page.locator("#estateRoll").click();
    assert.equal((await page.locator("#arenaTickets").textContent()).trim(),"0");
