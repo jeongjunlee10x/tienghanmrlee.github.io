@@ -1,0 +1,536 @@
+/* MR LEE GAME ARENA V20 — APPROVED LANDSCAPE CARD TABLE
+ * Mirrors design: centered active opponent, two side opponents, own face-up
+ * cards and avatar along bottom, compact actions on right. Original CSS.
+ * This is last stylesheet for standalone iframe to beat old portrait grid.
+ */
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"],
+html.arena-reference-v1.arena-embedded[data-embedded-game="colors"]{
+ --v20-felt:#0a584d;--v20-ivory:#fce8bd;--v20-edge:#c99e58;
+ background:#100f2a!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"]{
+ background:radial-gradient(ellipse at center,#3c2352 0,#140d2a 75%)!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="colors"]{
+ background:radial-gradient(ellipse at center,#362067 0,#0e1234 74%)!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] body,
+html.arena-reference-v1.arena-embedded[data-embedded-game="colors"] body{
+ background:transparent!important;color:#fff5de!important;min-height:100dvh!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] :is(#arenaTienLen,#arenaPvPBoard),
+html.arena-embedded[data-embedded-game="colors"] :is(#arenaTable,#arenaPvPBoard){
+ padding:0!important;margin:0!important;min-width:0;
+}
+html.arena-embedded[data-embedded-game="tienlen"] :is(#arenaTienLen,#arenaPvPBoard)>.arena-table-heading,
+html.arena-embedded[data-embedded-game="colors"] :is(#arenaTable,#arenaPvPBoard)>.arena-table-heading{
+ min-height:38px!important;max-height:48px;margin:0 0 3px!important;
+ padding:3px 10px!important;gap:8px!important;
+ display:flex!important;align-items:center;justify-content:space-between;
+ flex-wrap:nowrap!important;
+ background:linear-gradient(90deg,#161a3ce8,#292045e5,#181331e9)!important;
+ border:1px solid #cdae7272;border-radius:11px!important;
+ box-shadow:0 4px 11px #0007!important;color:#fff2d7!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] .arena-table-heading>div,
+html.arena-embedded[data-embedded-game="colors"] .arena-table-heading>div{
+ flex:1 1 0!important;min-width:0!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] .arena-table-heading .arena-eyebrow,
+html.arena-embedded[data-embedded-game="colors"] .arena-table-heading .arena-eyebrow{
+ display:none!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] .arena-table-heading h2,
+html.arena-embedded[data-embedded-game="colors"] .arena-table-heading h2{
+ font-size:clamp(11px,1.4vw,16px)!important;white-space:nowrap;
+ overflow:hidden;text-overflow:ellipsis;color:#ffebc0!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] .arena-table-heading button,
+html.arena-embedded[data-embedded-game="colors"] .arena-table-heading button{
+ min-height:31px!important;padding:5px 9px!important;font-size:10px!important;
+ border:1px solid #9ca8da8a!important;border-radius:10px!important;
+ background:linear-gradient(135deg,#213958,#151e43)!important;
+ color:#fff1d3!important;box-shadow:inset 0 1px #fff3!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] .arena-table-heading .arena-bot-level,
+html.arena-embedded[data-embedded-game="colors"] .arena-table-heading .arena-bot-level{
+ min-height:31px;padding:3px 6px!important
+}
+/* TIẾN LÊN premium emerald / red casino felt. */
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-board{
+ --cw:clamp(43px,4.2vw,67px);--ch:calc(var(--cw)*1.44);
+ position:relative!important;display:block!important;
+ box-sizing:border-box!important;isolation:isolate;
+ height:clamp(490px,calc(100dvh - 57px),850px)!important;
+ min-height:490px!important;max-height:none!important;width:min(100%,1450px)!important;
+ margin:0 auto!important;padding:0!important;overflow:hidden!important;
+ border:9px ridge #a57b49!important;border-radius:32%/16%!important;
+ background:
+ radial-gradient(ellipse at 50% 45%,#367a6c9c,transparent 62%),
+ repeating-linear-gradient(90deg,#fff1 0 1px,transparent 2px 8px),
+ linear-gradient(145deg,#0e6158,#073c36 66%,#092a2e)!important;
+ box-shadow:inset 0 0 0 3px #e4c88999,inset 0 0 70px #001c1fa8,
+ 0 22px 41px #020817b3!important;color:#fff4dd!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-board:before{
+ inset:17px!important;border:2px solid #e1c78061!important;border-radius:35%/16%!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-opponent{
+ z-index:6!important;min-width:100px!important;max-width:170px!important;
+ border:2px solid #d9b36aa8!important;border-radius:16px!important;
+ background:linear-gradient(155deg,#103144f0,#0c2c39e9)!important;
+ box-shadow:0 7px 18px #000a!important;padding:6px 10px!important;
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-opponent.active{
+ border-color:#ffe894!important;box-shadow:0 0 0 3px #f6d88a63,0 0 24px #ffd36c71!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-opponent[data-seat="top"]{
+ top:5px!important;left:50%!important;transform:translateX(-50%)!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-opponent[data-seat="left"]{
+ top:27%!important;left:10px!important;right:auto!important;transform:translateY(-50%)!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-opponent[data-seat="right"]{
+ top:27%!important;right:10px!important;left:auto!important;transform:translateY(-50%)!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-center{
+ z-index:3!important;position:absolute!important;top:26%!important;height:28%!important;
+ left:18%!important;right:18%!important;min-height:100px!important;
+ gap:3px!important;pointer-events:auto!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-table-watermark{
+ color:#fff3d618!important;top:44%!important;font-size:clamp(24px,6vw,68px)!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen #tlPile{
+ min-height:65px!important;max-height:130px!important;
+ display:flex!important;justify-content:center!important;align-items:center!important;
+ flex-wrap:nowrap!important;overflow:visible!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen #tlPile>.tl-real-card{
+ width:var(--cw)!important;height:var(--ch)!important;
+ min-width:var(--cw)!important;flex-shrink:0!important;
+ margin-left:-7px!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-bottom{
+ position:absolute!important;left:12px!important;right:12px!important;bottom:7px!important;
+ display:grid!important;grid-template-columns:minmax(115px,165px) minmax(0,1fr) minmax(162px,235px);
+ grid-template-rows:auto auto!important;align-items:end;gap:4px 6px!important;
+ z-index:13!important;width:auto!important;min-height:0!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-player-hud{
+ grid-column:1!important;grid-row:1 / span 2!important;
+ width:100%!important;max-width:165px!important;margin:0!important;
+ padding:7px 8px!important;align-self:end!important;
+ flex-direction:column!important;align-items:flex-start!important;gap:5px!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-hand{
+ grid-column:2!important;grid-row:1 / span 2!important;
+ display:flex!important;justify-content:center!important;align-items:flex-end!important;
+ flex-wrap:nowrap!important;gap:0!important;max-height:none!important;
+ height:calc(var(--ch) + 28px)!important;min-height:0!important;
+ width:100%!important;padding:15px 5px 5px!important;
+ overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:thin;
+ scroll-snap-type:x proximity
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-hand-card{
+ flex:0 0 clamp(20px,2.9vw,40px)!important;width:clamp(20px,2.9vw,40px)!important;
+ height:var(--ch)!important;scroll-snap-align:start
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-hand-card:last-child{
+ flex-basis:var(--cw)!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-hand .tl-real-card{
+ width:var(--cw)!important;min-width:var(--cw)!important;height:var(--ch)!important;
+ min-height:var(--ch)!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-selected{
+ grid-column:3!important;grid-row:1!important;white-space:normal!important;
+ font-size:10px!important;max-height:35px;overflow:hidden
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-controls.arena-card-turn-popup{
+ grid-column:3!important;grid-row:2!important;width:100%!important;max-width:100%!important;
+ display:flex!important;flex-direction:row!important;align-items:center!important;
+ flex-wrap:wrap!important;gap:4px!important;padding:6px!important;
+ margin:0!important;max-height:125px;overflow-y:auto!important;
+ background:linear-gradient(125deg,#203b4d,#1b2a48)!important;
+ border-color:#e0c275!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-controls.arena-card-turn-popup[hidden]{
+ display:none!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-controls button{
+ min-height:33px!important;padding:5px 9px!important;font-size:11px!important;
+ flex:1 1 auto!important
+}
+/* BÀI MÀU — purple luminous game table, all three opponents distinct. */
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-board{
+ position:relative!important;box-sizing:border-box!important;
+ display:block!important;width:min(100%,1430px)!important;
+ min-height:510px!important;height:clamp(510px,calc(100dvh - 56px),850px)!important;
+ margin:0 auto!important;padding:0!important;overflow:hidden!important;
+ border:8px ridge #ac80dc!important;border-radius:34%/17%!important;
+ background:
+ radial-gradient(ellipse at 51% 48%,#a35ec65e,transparent 58%),
+ radial-gradient(ellipse at 70% 15%,#ce7ae734,transparent 40%),
+ linear-gradient(130deg,#40257c,#24165c 70%,#151a4d)!important;
+ box-shadow:inset 0 0 0 3px #cfa5fa99,inset 0 0 60px #11092ea1,0 24px 41px #060921a3!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-opponents{display:contents!important}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-opponent{
+ position:absolute!important;z-index:6!important;
+ display:flex!important;flex-direction:column!important;gap:3px!important;
+ min-width:105px!important;max-width:160px!important;padding:6px 9px!important;
+ border:2px solid #b9a8f4a0!important;border-radius:15px!important;
+ background:linear-gradient(145deg,#1a1c56df,#35226be9)!important;
+ box-shadow:0 8px 17px #060b24a8!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-opponent:nth-child(1){
+ top:5px!important;left:50%!important;transform:translateX(-50%)!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-opponent:nth-child(2){
+ top:29%!important;left:9px!important;right:auto!important;transform:translateY(-50%)!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-opponent:nth-child(3){
+ top:29%!important;right:9px!important;left:auto!important;transform:translateY(-50%)!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-opponent.active{
+ border-color:#ffe6a1!important;box-shadow:0 0 0 2px #ffdf9990,0 0 21px #ffce82c0!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-board-center{
+ position:absolute!important;top:25%!important;left:17%!important;right:17%!important;
+ min-height:180px!important;height:36%!important;z-index:4!important;
+ gap:5px!important;justify-content:center!important;padding:4px!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-deck{
+ display:flex!important;justify-content:center!important;gap:clamp(7px,1.4vw,19px)!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-cardback{
+ width:clamp(51px,6.5vw,88px)!important;height:clamp(74px,9.6vw,129px)!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-card-face{
+ width:clamp(50px,6.5vw,88px)!important;min-width:0!important;
+ height:clamp(74px,9.6vw,129px)!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-playing-card{min-height:0!important}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-active-color{
+ color:#efe6ff!important;font-weight:850!important;padding:4px!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-player-label{
+ position:absolute!important;z-index:8!important;bottom:calc(clamp(74px,9.6vw,129px) + 19px)!important;
+ left:12px!important;right:auto!important;width:min(175px,35%)!important;
+ display:flex!important;flex-direction:column!important;align-items:flex-start!important;
+ gap:4px!important;padding:7px 12px!important;border:1px solid #d4b4f9b9!important;
+ border-radius:14px!important;background:#17154bdc!important;
+ color:#fff3dd!important;box-shadow:0 7px 16px #0006!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-hand{
+ position:absolute!important;z-index:9!important;bottom:5px!important;
+ left:13%!important;right:24%!important;width:auto!important;
+ display:flex!important;justify-content:center!important;align-items:flex-end!important;
+ flex-wrap:nowrap!important;gap:clamp(2px,.3vw,6px)!important;
+ height:clamp(95px,12vw,145px)!important;min-height:0!important;max-height:none!important;
+ padding:12px 4px 4px!important;overflow-x:auto!important;overflow-y:hidden!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-hand-card{
+ flex:0 0 auto!important;width:clamp(45px,5.4vw,75px)!important;
+ min-width:0!important;height:auto!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-hand-card .arena-card-face{
+ box-sizing:border-box!important;width:100%!important;min-width:0!important;
+ height:clamp(76px,9vw,120px)!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-turn-controls.arena-card-turn-popup{
+ position:absolute!important;z-index:10!important;bottom:13px!important;right:8px!important;
+ left:auto!important;width:min(230px,26%)!important;max-width:none!important;
+ display:flex!important;flex-wrap:wrap!important;flex-direction:row!important;
+ gap:5px!important;margin:0!important;padding:7px!important;
+ border-color:#d5beff!important;background:linear-gradient(135deg,#2b2457,#3f2863)!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-turn-controls.arena-card-turn-popup[hidden]{
+ display:none!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-turn-controls.arena-card-turn-popup button{
+ flex:1 1 auto!important;font-size:11px!important;min-height:36px!important;padding:6px!important
+}
+/* PvP: the exact four player seats and dealer scene from the approved composition. */
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-card-table,
+html.arena-embedded[data-embedded-game="colors"] #arenaPvPBoard .arena-pvp-card-table{
+ position:relative!important;box-sizing:border-box!important;
+ width:min(100%,1450px)!important;height:clamp(490px,calc(100dvh - 64px),850px)!important;
+ min-height:490px!important;max-height:none!important;overflow:hidden!important;
+ margin:0 auto!important;border:8px ridge #ab8653!important;border-radius:33%/17%!important;
+ box-shadow:inset 0 0 0 3px #eac88979,inset 0 0 58px #0009,0 19px 33px #0008!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaPvPBoard .arena-pvp-card-table{
+ border-color:#a886e0!important;
+ background:radial-gradient(ellipse at 45% 45%,#674bab,#201b60 70%,#101a47)!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-card-table{
+ background:radial-gradient(ellipse at 50% 45%,#2b745f,#095345 69%,#063a38)!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-seat,
+html.arena-embedded[data-embedded-game="colors"] #arenaPvPBoard .arena-pvp-seat{
+ z-index:6!important;min-width:95px!important;max-width:165px!important;
+ border-radius:15px!important;padding:5px 7px!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-seat[data-position="top"],
+html.arena-embedded[data-embedded-game="colors"] #arenaPvPBoard .arena-pvp-seat[data-position="top"]{
+ top:4px!important;left:50%!important;transform:translateX(-50%)!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-seat[data-position="left"],
+html.arena-embedded[data-embedded-game="colors"] #arenaPvPBoard .arena-pvp-seat[data-position="left"]{
+ top:28%!important;left:7px!important;right:auto!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-seat[data-position="right"],
+html.arena-embedded[data-embedded-game="colors"] #arenaPvPBoard .arena-pvp-seat[data-position="right"]{
+ top:28%!important;right:7px!important;left:auto!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-center,
+html.arena-embedded[data-embedded-game="colors"] #arenaPvPBoard .arena-pvp-center{
+ z-index:4!important;top:27%!important;left:18%!important;right:18%!important;
+ min-height:94px!important;max-height:40%!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-human,
+html.arena-embedded[data-embedded-game="colors"] #arenaPvPBoard .arena-pvp-human{
+ left:10px!important;right:10px!important;bottom:6px!important;
+ display:grid!important;
+ grid-template-columns:minmax(112px,150px) minmax(0,1fr) minmax(160px,225px)!important;
+ grid-template-rows:auto auto;align-items:end;gap:5px!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-me,
+html.arena-embedded[data-embedded-game="colors"] #arenaPvPBoard .arena-pvp-me{
+ grid-column:1!important;grid-row:1 / span 2!important;
+ flex-wrap:wrap!important;align-self:end!important;gap:4px!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-hand,
+html.arena-embedded[data-embedded-game="colors"] #arenaPvPBoard .arena-pvp-hand{
+ grid-column:2!important;grid-row:1 / span 2!important;
+ display:flex!important;justify-content:center!important;align-items:flex-end!important;
+ flex-wrap:nowrap!important;gap:3px!important;
+ min-height:80px!important;max-height:none!important;
+ padding:12px 5px 3px!important;overflow-x:auto!important;overflow-y:hidden!important;
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-hand>button,
+html.arena-embedded[data-embedded-game="colors"] #arenaPvPBoard .arena-pvp-hand>button{
+ flex:0 0 clamp(25px,3vw,44px)!important;width:clamp(25px,3vw,44px)!important;
+ height:clamp(68px,8.5vw,101px)!important;min-width:0!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-hand .tl-real-card,
+html.arena-embedded[data-embedded-game="colors"] #arenaPvPBoard .arena-pvp-hand .arena-pvp-color-card{
+ width:clamp(46px,5vw,71px)!important;min-width:0!important;
+ height:clamp(67px,8.1vw,100px)!important;min-height:0!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-card-turn-popup,
+html.arena-embedded[data-embedded-game="colors"] #arenaPvPBoard .arena-card-turn-popup{
+ grid-column:3!important;grid-row:2!important;
+ width:100%!important;max-width:100%!important;max-height:120px;
+ overflow-y:auto!important;margin:0!important;
+ padding:6px 5px!important;gap:3px!important;
+ background:linear-gradient(145deg,#132c45,#2c2856)!important
+}
+/* Landscape mobile: mockup-equivalent layout without scrolling or overlapping. */
+@media(orientation:landscape) and (max-height:620px) and (max-width:1080px){
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-board,
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-board,
+ html.arena-embedded:is([data-embedded-game="tienlen"],[data-embedded-game="colors"])
+ #arenaPvPBoard .arena-pvp-card-table{
+  height:calc(100dvh - 47px)!important;min-height:290px!important;
+  max-height:calc(100dvh - 47px)!important;
+  border-width:4px!important;border-radius:31%/21%!important
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-board{
+  --cw:clamp(31px,4.6vw,44px);--ch:calc(var(--cw)*1.43)
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-opponent,
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-opponent,
+ html.arena-embedded:is([data-embedded-game="tienlen"],[data-embedded-game="colors"])
+ #arenaPvPBoard .arena-pvp-seat{
+  min-width:68px!important;max-width:100px!important;padding:3px 5px!important;
+  gap:1px!important;border-width:1px!important
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-opponent[data-seat="top"],
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-opponent:nth-child(1){
+  top:1px!important
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-opponent[data-seat="left"],
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-opponent[data-seat="right"],
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-opponent:nth-child(2),
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-opponent:nth-child(3){
+  top:24%!important
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-seat-id .tl-avatar{
+  width:23px!important;height:23px!important;font-size:15px!important
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-seat-meta strong,
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-opponent strong{
+  font-size:9px!important
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-seat-meta small,
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-opponent small{font-size:8px!important}
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-back-fan{
+  display:none!important
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-center{
+  top:23%!important;height:34%!important;min-height:0!important;gap:0!important
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-center p{
+  font-size:10px!important;margin:1px!important;max-width:100%
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen #tlPile{
+  min-height:45px!important;max-height:80px!important;padding:1px!important
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-bottom{
+  left:5px!important;right:5px!important;bottom:1px!important;
+  grid-template-columns:94px minmax(0,1fr) minmax(135px,170px)!important;
+  grid-template-rows:10px auto!important;gap:2px!important
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-player-hud{
+  max-width:94px!important;padding:4px!important;
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-player-details strong{font-size:9px!important}
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-player-gold,
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-player-count{font-size:8px!important}
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-hand{
+  height:calc(var(--ch) + 12px)!important;padding:6px 2px 1px!important;
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-hand-card{
+  flex-basis:clamp(15px,2.5vw,27px)!important;width:clamp(15px,2.5vw,27px)!important
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-hand .tl-real-card{
+  width:var(--cw)!important;min-width:var(--cw)!important;height:var(--ch)!important
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-selected{
+  grid-row:1!important;font-size:8px!important;max-height:10px
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-controls.arena-card-turn-popup{
+  grid-row:2!important;max-height:84px!important;padding:2px!important;gap:2px!important
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-controls button{
+  min-height:26px!important;padding:3px 5px!important;font-size:9px!important
+ }
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-board-center{
+  top:21%!important;height:37%!important;min-height:0!important;gap:2px!important
+ }
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-cardback{
+  width:43px!important;height:65px!important;font-size:9px!important
+ }
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-card-face{
+  width:43px!important;height:65px!important
+ }
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-hand{
+  left:12%!important;right:24%!important;
+  height:75px!important;padding:5px 1px 1px!important
+ }
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-hand-card{
+  width:clamp(37px,4.9vw,54px)!important
+ }
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-hand-card .arena-card-face{
+  height:69px!important;min-height:69px!important
+ }
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-player-label{
+  bottom:82px!important;padding:3px 6px!important;font-size:10px!important
+ }
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-turn-controls.arena-card-turn-popup{
+  bottom:3px!important;right:4px!important;width:23%!important;
+  padding:3px!important;gap:2px!important
+ }
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-turn-controls button{
+  min-height:27px!important;font-size:9px!important;padding:3px!important
+ }
+ html.arena-embedded:is([data-embedded-game="tienlen"],[data-embedded-game="colors"])
+ #arenaPvPBoard .arena-pvp-center{top:22%!important;min-height:80px!important}
+ html.arena-embedded:is([data-embedded-game="tienlen"],[data-embedded-game="colors"])
+ #arenaPvPBoard .arena-pvp-human{
+  left:5px!important;right:5px!important;bottom:2px!important;
+  grid-template-columns:90px minmax(0,1fr) minmax(120px,150px)!important;
+  gap:2px!important
+ }
+ html.arena-embedded:is([data-embedded-game="tienlen"],[data-embedded-game="colors"])
+ #arenaPvPBoard .arena-pvp-hand{min-height:0!important;padding:8px 2px 1px!important}
+ html.arena-embedded:is([data-embedded-game="tienlen"],[data-embedded-game="colors"])
+ #arenaPvPBoard .arena-pvp-hand>button{
+  flex-basis:clamp(19px,2.7vw,29px)!important;
+  height:66px!important
+ }
+ html.arena-embedded:is([data-embedded-game="tienlen"],[data-embedded-game="colors"])
+ #arenaPvPBoard .arena-pvp-hand .tl-real-card,
+ html.arena-embedded:is([data-embedded-game="tienlen"],[data-embedded-game="colors"])
+ #arenaPvPBoard .arena-pvp-hand .arena-pvp-color-card{
+  width:clamp(35px,4.6vw,52px)!important;height:64px!important
+ }
+ html.arena-embedded:is([data-embedded-game="tienlen"],[data-embedded-game="colors"])
+ #arenaPvPBoard .arena-card-turn-popup{
+  max-height:80px!important;padding:3px!important;gap:2px!important
+ }
+ html.arena-embedded:is([data-embedded-game="tienlen"],[data-embedded-game="colors"])
+ #arenaPvPBoard .arena-card-turn-popup button{
+  min-height:26px!important;padding:3px 4px!important;font-size:9px!important
+ }
+}
+/* Portrait card fallback: the official mobile design remains landscape,
+ * but browser rotation denial must not strand the user. */
+@media(orientation:portrait) and (max-width:720px){
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-board,
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-board,
+ html.arena-embedded:is([data-embedded-game="tienlen"],[data-embedded-game="colors"])
+ #arenaPvPBoard .arena-pvp-card-table{
+  min-height:590px!important;height:calc(100dvh - 53px)!important;
+  border-radius:23%/12%!important;border-width:4px!important
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-bottom{
+  display:flex!important;flex-direction:column!important;gap:3px!important;
+  left:5px!important;right:5px!important;align-items:center!important
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-player-hud{
+  max-width:100%!important;flex-direction:row!important;padding:4px 8px!important
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-hand{
+  display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr))!important;
+  gap:3px!important;max-height:165px!important;
+  height:auto!important;padding:7px 4px!important
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-hand-card{
+  width:100%!important;min-width:0!important;flex:none!important;height:63px!important
+ }
+ html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-controls.arena-card-turn-popup{
+  width:100%!important;max-height:85px!important;overflow:auto!important
+ }
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-hand{
+  left:6px!important;right:6px!important;bottom:6px!important;
+  width:auto!important;display:grid!important;
+  grid-template-columns:repeat(6,minmax(0,1fr))!important;
+  max-height:178px!important;overflow-y:auto!important
+ }
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-player-label{
+  bottom:185px!important;width:auto!important;right:6px!important
+ }
+ html.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-turn-controls.arena-card-turn-popup{
+  right:8px!important;bottom:183px!important;width:auto!important;max-width:60%!important
+ }
+ html.arena-embedded:is([data-embedded-game="tienlen"],[data-embedded-game="colors"])
+ #arenaPvPBoard .arena-pvp-human{
+  display:flex!important;flex-direction:column!important;
+  left:5px!important;right:5px!important;gap:3px!important
+ }
+ html.arena-embedded:is([data-embedded-game="tienlen"],[data-embedded-game="colors"])
+ #arenaPvPBoard .arena-pvp-hand{
+  display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr))!important;
+  gap:3px!important;max-height:150px!important;overflow-y:auto!important
+ }
+ html.arena-embedded:is([data-embedded-game="tienlen"],[data-embedded-game="colors"])
+ #arenaPvPBoard .arena-pvp-hand>button{
+  width:100%!important;min-width:0!important;flex:none!important
+ }
+ html.arena-embedded:is([data-embedded-game="tienlen"],[data-embedded-game="colors"])
+ #arenaPvPBoard .arena-card-turn-popup{
+  position:relative!important;width:100%!important;max-height:75px!important;
+  overflow:auto!important;flex:0 0 auto!important
+ }
+}
+/* No animation is essential for game logic. */
+@media(prefers-reduced-motion:reduce){
+ html.arena-embedded:is([data-embedded-game="tienlen"],[data-embedded-game="colors"])
+ :is(.tl-hand-card,.arena-hand-card,.arena-pvp-hand>button){
+  animation:none!important;transition:none!important
+ }
+}
