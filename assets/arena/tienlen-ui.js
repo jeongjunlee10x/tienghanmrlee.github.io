@@ -152,7 +152,12 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
    if(!fan.children.length)fan.append(el("small","tl-seat-count","✓ Hết bài"));
   }
   const count=el("small","tl-seat-count","🂠 ×"+game.hands[who].length+" lá");
-  const state=el("small","tl-seat-state",done?"Đã kết thúc":game.turn===who?"⏳ Đang suy nghĩ":"Đang chờ");
+  const state=el("small","tl-seat-state",done?"Đã kết thúc":game.turn===who?"🟢 ĐANG ĐÁNH":"Đang chờ");
+  if(game.turn===who&&!done){
+   avatarNode.classList.add("tl-avatar-turn");
+   const activeTag=el("span","tl-avatar-turn-tag","LƯỢT");
+   avatarNode.append(activeTag);
+  }
   div.append(identity,fan,count,state);
   return div;
  }
@@ -163,6 +168,12 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   $("tlRoundBadge").textContent="Lượt "+(game.rounds+1);
   $("tlTableEvent").textContent=game.history.at(-1)||"Ván đấu đã sẵn sàng";
   board.dataset.currentTurn=String(game.turn);
+  const mine=board.querySelector(".tl-player-hud");
+  mine?.classList.toggle("is-turn",game.turn===0&&!done);
+  const myAvatar=mine?.querySelector(".tl-player-identity .tl-avatar");
+  myAvatar?.classList.toggle("tl-avatar-turn",game.turn===0&&!done);
+  myAvatar?.querySelector(".tl-avatar-turn-tag")?.remove();
+  if(myAvatar&&game.turn===0&&!done)myAvatar.append(el("span","tl-avatar-turn-tag","LƯỢT"));
   const previous=game.last?.combo;
   pile.replaceChildren();
   if(!game.played.length)pile.append(el("p","tl-empty","Vòng mới · Chưa có bài trên bàn"));
@@ -193,6 +204,12 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   $("tlSort").disabled=busy||done;
   $("tlSort").textContent=sortMode==="rank"?"⇅ Xếp theo chất":"⇅ Xếp theo giá trị";
   $("tlClear").disabled=!selected.size||!playable;
+  // Contextual action tray: only opens when this player can act.
+  const controls=$("tlPlay").closest(".tl-controls");
+  controls.classList.add("arena-card-turn-popup");
+  controls.hidden=!playable;
+  controls.setAttribute("aria-label","Thao tác trong lượt của bạn");
+  controls.dataset.isTurn=String(playable);
   $("tlSelected").textContent=combo?
    "Đã chọn: "+kind[combo.type]+" ("+selected.size+" lá)"+
     (selectedValid()?" · ĐỦ ĐIỀU KIỆN ĐÁNH":" · chưa hợp lệ/chưa đủ mạnh"):
