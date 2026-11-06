@@ -429,14 +429,14 @@ export function mountOnlineCanvas(root,onMove){
    const room=shownRoom;
    return Boolean(room?.game==="tienlen"&&room.status==="playing"&&!locked&&
     room.gameState.turn===room.seat&&
-    room.gameState.myHand.some(c=>c.id===Number(item.dataset.cardId)));
+    room.gameState.myHand.some(c=>c.id===item.dataset.cardId));
   },
   canDrop:()=>Boolean(shownRoom?.game==="tienlen"&&shownRoom.status==="playing"&&!locked&&
    shownRoom.gameState.turn===shownRoom.seat),
   onDrop:item=>{
    const room=shownRoom;
    if(!room||room.game!=="tienlen"||locked)return false;
-   const id=Number(item.dataset.cardId),state=room.gameState;
+   const id=item.dataset.cardId,state=room.gameState;
    if(!state.myHand.some(c=>c.id===id))return false;
    chosenCards.add(id);
    const dummy={winner:state.winner,turn:state.turn,first:state.first,last:state.last,
