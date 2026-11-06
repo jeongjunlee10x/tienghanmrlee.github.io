@@ -96,7 +96,7 @@ function endTurn(g){
  do{g.turn=(g.turn+1)%4;}while(g.players[g.turn].bankrupt);
  g.phase="roll";g.roll=[0,0];g.offer=-1;
 }
-import {animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r1";
+import {animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r2";
 export function mountEstate({onStart,onFinish,onExit}){
  const root=$("arenaEstate"),board=$("estateBoard"),status=$("estateStatus");
  const requested=Number(new URL(location.href).searchParams.get("rounds"));
