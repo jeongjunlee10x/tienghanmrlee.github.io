@@ -13,6 +13,9 @@ on:
       - 'assets/arena/game-art-direction.css'
       - 'assets/arena/drag-gestures.js'
       - 'assets/arena/gesture-motion.css'
+      - 'assets/arena/card-turn-v2.css'
+      - 'assets/arena/embedded-auth.js'
+      - 'assets/arena/game-room-embed.js'
       - 'assets/arena/tienlen-ui.js'
       - 'assets/arena/rooms-play.js'
       - 'assets/arena/app.js'
@@ -21,6 +24,7 @@ on:
       - 'assets/arena/chess-ui.js'
       - 'tools/test-arena-game-modes.mjs'
       - 'tools/test-arena-gestures.mjs'
+      - 'tools/test-arena-card-turn-v2.mjs'
       - 'assets/arena/game-room-browser.js'
       - 'assets/arena/game-room-browser.css'
       - 'tools/browser-arena-social.mjs'
@@ -56,6 +60,10 @@ jobs:
           node tools/test-arena-game-modes.mjs
           node --check tools/test-arena-gestures.mjs
           node tools/test-arena-gestures.mjs
+          node --check assets/arena/embedded-auth.js
+          node --check assets/arena/game-room-embed.js
+          node --check tools/test-arena-card-turn-v2.mjs
+          node tools/test-arena-card-turn-v2.mjs
           node --check tools/browser-arena-social.mjs
           node --check tools/test-arena-create-jsonb.mjs
           node tools/test-arena-create-jsonb.mjs
