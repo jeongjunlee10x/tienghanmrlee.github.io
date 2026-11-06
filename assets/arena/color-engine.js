@@ -141,26 +141,32 @@ export function pass(game,player){
  log(game,PLAYER_NAMES[player]+" qua lượt.");
  doneOrPass(game,player,advance(player,game.direction));
 }
-export function chooseBotMove(game){
+export function chooseBotMove(game,difficulty="normal",rng=Math.random){
  const player=game.turn;
  if(player===0)throw Error("Đây là lượt người chơi.");
  const hand=game.hands[player];
  const playable=hand.filter(x=>canPlay(game,x,player));
  if(!playable.length)return null;
+ if(difficulty==="easy")return playable[Math.floor(rng()*playable.length)];
  const scores=playable.map(card=>{
   const same=hand.filter(x=>x.color===card.color).length;
   const danger=game.hands[advance(player,game.direction)].length<=2;
   const action=card.type==="skip"||card.type==="draw2"?danger?7:2:card.type==="reverse"?2:0;
   const wild=card.type==="wild"||card.type==="wild4"?-8:0;
-  return {card,score:same*3+action+wild+(card.type==="number"?1:0)};
+  const next=game.hands[advance(player,game.direction)].length;
+  const tactical=difficulty==="hard"?
+   (next<=2&&(card.type==="draw2"||card.type==="skip")?14:0)+
+   (card.type==="wild4"&&hand.length>=4?-13:0)+
+   (card.type==="number"&&hand.length<=3?3:0):0;
+  return {card,score:same*3+action+wild+tactical+(card.type==="number"?1:0)};
  });
  scores.sort((a,b)=>b.score-a.score);
  return scores[0].card;
 }
-export function botTurn(game,random=Math.random){
+export function botTurn(game,random=Math.random,difficulty="normal"){
  const player=game.turn;
  if(player===0||game.winner!==null)return false;
- let card=chooseBotMove(game);
+ let card=chooseBotMove(game,difficulty,random);
  if(!card){
   const drawn=beginDraw(game,player,random);
   if(drawn&&canPlay(game,drawn,player))card=drawn;
