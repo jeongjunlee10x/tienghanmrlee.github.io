@@ -365,11 +365,17 @@
 
 
 <section id="arenaLudo" class="arena-expanded-game" hidden aria-labelledby="ludoTitle">
- <div class="arena-table-heading"><button id="ludoExit" class="arena-soft" type="button">← Về sảnh</button><div><span class="arena-eyebrow">CỜ CÁ NGỰA · 4 NGƯỜI</span><h2 id="ludoTitle">Cờ Cá Ngựa 🎲</h2></div><button type="button" class="arena-soft arena-fullscreen-btn" data-fullscreen-target="arenaLudo">⛶ Toàn màn hình</button><button id="ludoNew" class="arena-action" type="button">↻ Ván mới (1 vé)</button></div>
+ <div class="arena-table-heading"><button id="ludoExit" class="arena-soft" type="button">← Về sảnh</button><div><span class="arena-eyebrow">CỜ CÁ NGỰA · 2–4 NGƯỜI</span><h2 id="ludoTitle">Cờ Cá Ngựa 🎲</h2></div><button type="button" class="arena-soft arena-fullscreen-btn" data-fullscreen-target="arenaLudo">⛶ Toàn màn hình</button><button id="ludoNew" class="arena-action" type="button">↻ Ván mới (1 vé)</button></div>
  <div class="arena-extra-layout">
   <div class="arena-extra-stage"><div id="ludoBoard" class="ludo-board arena-extra-board" aria-label="Bàn cờ cá ngựa 4 màu"></div></div>
   <aside class="arena-extra-side">
-   <div class="arena-panel"><h3>🎲 Lượt chơi</h3><p id="ludoStatus" class="arena-extra-status" role="status" aria-live="polite"></p><div class="arena-extra-bar"><strong id="ludoDie" class="ludo-dice" aria-live="polite">🎲</strong><button id="ludoRoll" type="button" class="arena-primary">Tung xúc xắc</button></div><div id="ludoMoves" class="ludo-score"></div><p class="arena-demo-rule">Tung 6 để xuất quân; đi đúng số ô; bắt quân ở ô không an toàn; đưa đủ 4 ngựa về đích để thắng.</p></div>
+   <div class="arena-panel"><h3>🎲 Lượt chơi</h3>
+<label class="arena-game-mode-select">Chế độ Cờ Cá Ngựa
+<select id="ludoPlayers" aria-label="Số người chơi Cờ Cá Ngựa">
+<option value="2">Đối kháng · 2 người</option>
+<option value="3">Chiến thuật · 3 người</option>
+<option value="4" selected>Đại chiến · 4 người</option>
+</select></label><p id="ludoStatus" class="arena-extra-status" role="status" aria-live="polite"></p><div class="arena-extra-bar"><strong id="ludoDie" class="ludo-dice" aria-live="polite">🎲</strong><button id="ludoRoll" type="button" class="arena-primary">Tung xúc xắc</button></div><div id="ludoMoves" class="ludo-score"></div><p class="arena-demo-rule">Tung 6 để xuất quân; đi đúng số ô; bắt quân ở ô không an toàn; đưa đủ 4 ngựa về đích để thắng.</p></div>
    <div class="arena-panel"><h3>Diễn biến</h3><div id="ludoHistory" class="arena-mini-log" aria-live="polite"></div><p class="arena-demo-rule">Chơi với máy bằng vé demo, không trừ ví G hay điểm học tập.</p></div>
   </aside>
  </div>
@@ -389,7 +395,13 @@
  <div class="arena-extra-layout">
   <div class="arena-extra-stage"><div id="estateBoard" class="estate-board arena-extra-board" aria-label="Bàn địa ốc 24 ô"></div></div>
   <aside class="arena-extra-side">
-   <div class="arena-panel"><h3>💼 Quyết định</h3><p id="estateStatus" class="arena-extra-status" role="status" aria-live="polite"></p><div class="arena-extra-bar"><strong id="estateRound">Vòng 1/16</strong><span id="estateDice">🎲 🎲</span><button id="estateRoll" type="button" class="arena-primary">Tung 2 xúc xắc</button></div><div id="estateOffer" class="estate-prompt" hidden><p id="estateOfferText"></p><div class="arena-extra-bar"><button id="estateBuy" class="arena-primary" type="button">🏠 Mua đất</button><button id="estateSkip" class="arena-soft" type="button">Bỏ qua</button></div></div><div id="estateUpgrades" class="estate-upgrades"></div><p class="arena-demo-rule">Mỗi người khởi đầu 1.800 xu demo. Qua xuất phát nhận 200 xu; thắng theo tổng tài sản sau 16 vòng hoặc khi các đối thủ phá sản.</p></div>
+   <div class="arena-panel"><h3>💼 Quyết định</h3>
+<label class="arena-game-mode-select">Thời lượng trận Địa Ốc
+<select id="estateDuration" aria-label="Số vòng chơi Địa Ốc">
+<option value="8">Nhanh · 8 vòng</option>
+<option value="16" selected>Tiêu chuẩn · 16 vòng</option>
+<option value="24">Chiến lược dài · 24 vòng</option>
+</select></label><p id="estateStatus" class="arena-extra-status" role="status" aria-live="polite"></p><div class="arena-extra-bar"><strong id="estateRound">Vòng 1/16</strong><span id="estateDice">🎲 🎲</span><button id="estateRoll" type="button" class="arena-primary">Tung 2 xúc xắc</button></div><div id="estateOffer" class="estate-prompt" hidden><p id="estateOfferText"></p><div class="arena-extra-bar"><button id="estateBuy" class="arena-primary" type="button">🏠 Mua đất</button><button id="estateSkip" class="arena-soft" type="button">Bỏ qua</button></div></div><div id="estateUpgrades" class="estate-upgrades"></div><p class="arena-demo-rule">Mỗi người khởi đầu 1.800 xu demo. Qua xuất phát nhận 200 xu; thắng theo tổng tài sản khi kết thúc số vòng đã chọn hoặc khi các đối thủ phá sản.</p></div>
    <div class="arena-panel"><h3>🏆 Tài sản</h3><div id="estatePlayers" class="estate-players"></div></div>
    <div class="arena-panel"><h3>Diễn biến</h3><div id="estateHistory" class="arena-mini-log" aria-live="polite"></div><p class="arena-demo-rule">Xu bất động sản chỉ dùng trong ván đấu máy; không phải vàng G hoặc điểm học tập.</p></div>
   </aside>
