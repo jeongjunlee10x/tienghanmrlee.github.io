@@ -15,6 +15,24 @@ const sections=["arenaRoomHub","arenaRoomLobby","arenaPvPBoard"];
 export function mountArenaRooms({onEnter,onExit,onWallet}){
  let game="chess",mode="friends",room=null,account=null,poll=null,working=false,epoch=0,serverClockOffset=0;
  const canvas=mountOnlineCanvas($("roomGameCanvas"),move);
+ const clockPicker=el("label","arena-room-label arena-chess-mode-field","♟ CHẾ ĐỘ THỜI GIAN");
+ const clockSelect=el("select");clockSelect.id="roomChessTimeControl";
+ const presetGroups={Bullet:["1+0","2+1"],Blitz:["3+0","3+2","5+0","5+3"],
+  Rapid:["10+0","10+5","15+10","30+0"],"Không giới hạn":["none"]};
+ Object.entries(presetGroups).forEach(([label,items])=>{
+  const group=el("optgroup");group.label=label;
+  items.forEach(value=>{const option=el("option","",value==="none"?"Không đồng hồ":value);option.value=value;group.append(option);});
+  clockSelect.append(group);
+ });
+ const requestedTime=new URL(location.href).searchParams.get("time");
+ const savedTime=localStorage.getItem("mrlee.chess.time");
+ clockSelect.value=Object.values(presetGroups).flat().includes(requestedTime)?requestedTime:
+  Object.values(presetGroups).flat().includes(savedTime)?savedTime:"10+0";
+ clockSelect.addEventListener("change",()=>localStorage.setItem("mrlee.chess.time",clockSelect.value));
+ clockPicker.append(clockSelect);
+ $("arenaRoomHub").querySelector(".arena-room-panel").insertBefore(clockPicker,$("roomNickname"));
+ clockPicker.hidden=true;
+ const timeControl=()=>clockSelect.value;
  const show=active=>sections.forEach(id=>$(id).hidden=id!==active);
  const name=()=>String($("roomNickname").value||"Học viên").trim().slice(0,24)||"Học viên";
  const status=(target,message,error=false)=>{
@@ -41,7 +59,7 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
   const select=$("roomMinGold");
   for(const option of select.options){
    const stake=Number(option.value),minimum=risk(stake);
-   option.textContent=formatG(stake)+" / lá · cần "+formatG(minimum)+" bảo đảm";
+   option.textContent=formatG(stake)+(game==="chess"?" / ván":" / lá")+" · cần "+formatG(minimum)+" bảo đảm";
    option.disabled=account.gold<minimum;
   }
   if(!GOLD_TIERS.some(s=>risk(s)<=account.gold))select.selectedIndex=0;
@@ -72,6 +90,7 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
  function openHub(selectedGame,nextMode="friends"){
   if(!(selectedGame in GAME_LABELS))return;
   stop();game=selectedGame;
+  clockPicker.hidden=game!=="chess";
   onEnter();show("arenaRoomHub");
   $("arenaRoomHubTitle").textContent=gameName()+" · Chọn chế độ";
   $("roomGamePill").textContent=gameName();
@@ -100,7 +119,7 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
    for(const item of listed){
     const row=el("div","arena-room-list-row"),info=el("div");
     info.append(el("strong","",item.host+" · "+item.code),
-     el("small","",formatG(item.minGold)+"/lá · "+item.count+"/"+item.capacity+
+     el("small","",formatG(item.minGold)+(game==="chess"?"/ván · "+(item.timeControl||"10+0"):"/lá")+" · "+item.count+"/"+item.capacity+
        " người · cần "+formatG(requiredGold(game,item.minGold))));
     const enter=btn(item.alreadyIn?"Trở lại":"Vào bàn","arena-action",
       ()=>void withBusy(async()=>{await join(item.code);}));
@@ -115,7 +134,7 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
   if(!account||account.gold<lowest)
    throw new Error("Ví cần tối thiểu "+formatG(lowest)+". Hãy đổi điểm học tập xác minh sang G.");
   status("roomHubStatus","⚡ Đang tìm bàn phù hợp với "+formatG(account.gold)+"...");
-  const result=await roomRequest("quick",{game,nickname:name()});
+  const result=await roomRequest("quick",{game,nickname:name(),...(game==="chess"?{timeControl:timeControl()}:{})});
   acceptRoom(result.room);
  }
  async function quick(){await withBusy(async()=>{await refreshWallet();await quickAction();});}
@@ -330,9 +349,10 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
   const stake=Number($("roomMinGold").value);
   if(!GOLD_TIERS.includes(stake))throw new Error("Mức bàn G không hợp lệ.");
   if(account.gold<risk(stake))throw new Error("Cần "+formatG(risk(stake))+
-   "G để vào bàn "+formatG(stake)+"/lá.");
+   "G để vào bàn "+formatG(stake)+(game==="chess"?"/ván.":"/lá."));
   const result=await roomRequest("create",{
-   game,nickname:name(),minGold:stake,visibility:$("roomPublic").checked?"public":"private"
+   game,nickname:name(),minGold:stake,visibility:$("roomPublic").checked?"public":"private",
+   ...(game==="chess"?{timeControl:timeControl()}:{})
   });
   acceptRoom(result.room);
  }));
