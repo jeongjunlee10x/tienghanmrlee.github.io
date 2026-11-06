@@ -88,8 +88,10 @@ function safeRoom(room:Room,uid:string){
  const result:any={code:room.code,game,visibility:room.visibility,minGold:room.min_gold,
   status:room.status,seat:player.seat,capacity:GAME_SLOTS[game],
   locked:Boolean(room.locked),isHost:room.members[0]?.uid===uid,
-  players:room.members.map(m=>({name:m.name,seat:m.seat,ready:m.ready})),
-  version:room.version,expiresAt:room.expires_at,requiredGold:exposure(game,room.min_gold)};
+  players:room.members.map(m=>({name:m.name,seat:m.seat,ready:m.ready,
+   continueReady:room.state?.rematchVotes?.[String(m.seat)]===true})),
+  version:room.version,roundIndex:Number(room.state?.roundIndex)||1,
+  expiresAt:room.expires_at,requiredGold:exposure(game,room.min_gold)};
  if(room.status!=="playing"&&room.status!=="finished")return result;
  const state=room.state;
  if(room.status==="finished"&&state.settlement)result.settlement=state.settlement;
@@ -102,12 +104,13 @@ function safeRoom(room:Room,uid:string){
   result.gameState={myHand:state.hands[player.seat],counts:state.hands.map((hand:any[])=>hand.length),
     turn:state.turn,played:state.played,last:state.last?{player:state.last.player,combo:state.last.combo}:null,
     first:state.first,passed:state.passed,history:state.history.slice(-12),
-    winner:state.winner};
+    winner:state.winner,...(room.status==="finished"?{revealedHands:state.hands}:{} )};
  }else if(game==="colors"){
   result.gameState={myHand:state.hands[player.seat],counts:state.hands.map((hand:any[])=>hand.length),
     turn:state.turn,top:Colors.topCard(state),activeColor:state.activeColor,
     drawnCardId:state.turn===player.seat?state.drawnCardId:null,
-    events:state.events.slice(-12),direction:state.direction,winner:state.winner};
+    events:state.events.slice(-12),direction:state.direction,winner:state.winner,
+    ...(room.status==="finished"?{revealedHands:state.hands}:{} )};
  }
  return result;
 }
@@ -327,6 +330,22 @@ Deno.serve(async(req:Request)=>{
     if(error||data!==true)fail("Bàn đã đổi trạng thái. Hãy cập nhật trước khi rời.",409);
    }
    return reply(req,200,{ok:true,left:true});
+  }
+  if(kind==="continue"){
+   if(room.status!=="finished")fail("Ván chưa kết thúc. Hãy tiếp tục đánh.",409);
+   if(!Number.isInteger(body.version)||body.version!==room.version)
+    fail("Trạng thái bàn vừa đổi. Hãy cập nhật rồi nhấn Tiếp tục.",409);
+   const {error}=await database.rpc("mrlee_arena_continue_match",{
+    p_code:code,p_uid:uid,p_expected_version:room.version,
+    p_state:createState(room.game,room.members.length)
+   });
+   if(error){
+    if(error.code==="P0001")
+     fail("Chưa thể bắt đầu ván mới: bàn vừa đổi, thiếu G bảo đảm hoặc có người chưa sẵn sàng. Hãy cập nhật bàn.",409);
+    fail("Không xác nhận được ván tiếp theo. Hãy thử lại.",503);
+   }
+   const next=await selectRoom(database,code);
+   return reply(req,200,{ok:true,room:safeRoom(next,uid)});
   }
   if(kind==="lock"){
    if(room.status!=="waiting")fail("Chỉ được khóa hoặc mở khóa khi bàn đang chờ.",409);
