@@ -50,6 +50,20 @@ for(const card of cards){
  more.setAttribute("aria-expanded","false");
  footer.append(info,play,more);
  card.append(footer);
+ // Catalog cards only select a game. Match setup happens on that game's
+ // dedicated screen, never as a create-room action in the shared catalog.
+ card.addEventListener("click",event=>{
+  if(event.target.closest("button,a,input,select,textarea"))return;
+  location.assign(gamePages[id]);
+ });
+ card.addEventListener("keydown",event=>{
+  if((event.key==="Enter"||event.key===" ")&&event.target===card){
+   event.preventDefault();location.assign(gamePages[id]);
+  }
+ });
+ card.tabIndex=0;
+ card.setAttribute("role","link");
+ card.setAttribute("aria-label","Mở trò chơi "+(card.querySelector(".arena-card-body>strong")?.textContent||id));
  const banner=card.querySelector(".arena-card-banner");
  if(banner&&(id==="tienlen"||id==="chess")){
   banner.append(text("span","arena-ref-feature-label",id==="tienlen"?"🔥 HOT":"♟️ CHIẾN THUẬT"));
@@ -234,7 +248,7 @@ function panel(mode){
    break;
   }
   default:{
-   modalBody.append(paragraph("🎮 Chọn trò trong danh mục và nhấn Chơi ngay để đấu máy. Bấm dấu ⋮ trên thẻ game để dùng Chơi nhanh, Chơi với bạn hoặc Chọn bàn (ở các trò hỗ trợ PvP)."));
+   modalBody.append(paragraph("🎮 Chọn một game trong sảnh. Ngay trong phòng của game đó, bạn có thể chọn Chơi nhanh, Chơi với bạn, Chọn bàn hoặc Đấu máy khi trò chơi hỗ trợ."));
    const list=text("ul","");
    for(const msg of ["♟️ Cờ Vua / Cờ Tướng: chọn quân rồi chọn ô đích. Nước đi được kiểm tra đúng luật.",
     "🃏 Tiến Lên: chọn lá, đánh bài hoặc bỏ lượt; bàn PvP tính mức G/lá theo quy tắc phòng.",
