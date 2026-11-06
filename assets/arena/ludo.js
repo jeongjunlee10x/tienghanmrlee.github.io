@@ -171,6 +171,19 @@ export function mountLudo({onStart,onFinish,onExit}){
   if(!game||root.hidden)return;
   const g=game,canChoose=g.turn===0&&g.phase==="choose",allowed=canChoose?ludoMoves(g):[];
   board.dataset.activePlayers=String(g.activePlayers);
+  const oppBar=$("ludoOppBar"),meBar=$("ludoMeBar");
+  const activeOpp=g.turn!==0&&g.winner===null,activeMe=g.turn===0&&g.winner===null;
+  oppBar?.classList.toggle("is-turn",activeOpp);
+  meBar?.classList.toggle("is-turn",activeMe);
+  if(oppBar){
+   const title=oppBar.querySelector("strong");
+   if(title)title.textContent="🤖 "+(activeOpp?NAMES[g.turn]+" ĐANG CHƠI":
+    (g.activePlayers-1)+" ĐỐI THỦ MÁY");
+   const badge=oppBar.querySelector(".arena-v20-turn-badge");
+   if(badge)badge.textContent=g.winner!==null?"KẾT THÚC":activeOpp?"● ĐANG ĐÁNH":"ĐANG CHỜ";
+  }
+  const myBadge=meBar?.querySelector(".arena-v20-turn-badge");
+  if(myBadge)myBadge.textContent=g.winner!==null?"KẾT THÚC":activeMe?"● LƯỢT CỦA BẠN":"ĐANG CHỜ";
   status.textContent=g.winner!==null?"🏆 "+NAMES[g.winner]+" chiến thắng!":
    g.turn===0?(g.phase==="roll"?"Đến lượt bạn · tung xúc xắc.":"Bạn tung "+g.die+" · chọn ngựa để đi."):
    "⏳ "+NAMES[g.turn]+" đang chơi.";
