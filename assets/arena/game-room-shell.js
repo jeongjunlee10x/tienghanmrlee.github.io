@@ -115,7 +115,7 @@ document.querySelectorAll("[data-play-mode]").forEach(btn=>btn.addEventListener(
  if(btn.disabled)return;
  const mode=btn.dataset.playMode;
  if(mode==="friends"){friendPopup?.open("create");return;}
- if(mode==="browse"){location.assign("game-chon-ban.html?game="+encodeURIComponent(game));return;}
+ if(mode==="browse"){start("browse");return;}
  start(mode);
 }));
 $("roomBotPlay").addEventListener("click",()=>start("bot"));
@@ -221,7 +221,7 @@ const mode=new URL(location.href).searchParams.get("mode");
 const popup=new URL(location.href).searchParams.get("popup");
 if(inviteCode()&&current.online)start("friends",{auto:true});
 else if(mode==="friends"&&current.online)friendPopup?.open("create");
-else if(mode==="browse"&&current.online)location.replace("game-chon-ban.html?game="+encodeURIComponent(game));
+else if(mode==="browse"&&current.online)start("browse",{auto:true});
 else if(["quick","bot"].includes(mode))start(mode,{auto:true});
 else if(popup==="create"&&current.online)friendPopup?.open("create");
 else if(popup==="join"&&current.online)friendPopup?.open("join");
