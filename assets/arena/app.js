@@ -105,8 +105,8 @@ function settle(){
  const outcome=$("arenaOutcome");outcome.hidden=false;outcome.replaceChildren();
  const headline=el("h2","",won?"🏆 CHIẾN THẮNG!":"💫 KẾT THÚC VÁN");
  const summary=el("p","",won?
-   "Bạn đã hết bài trước cả 3 đối thủ. +100 vàng, +50 EXP và hoàn lại 1 vé (demo).":
-   winName+" đã về nhất. Bạn nhận +10 EXP luyện tập (demo). Vé thử đã sử dụng không được hoàn lại.");
+   "Bạn đã hết bài trước cả 3 đối thủ. +100 vàng và +50 EXP demo. Có thể chơi tiếp miễn phí.":
+   winName+" đã về nhất. Bạn nhận +10 EXP demo và có thể chơi tiếp miễn phí.");
  const caution=el("p","arena-disclaimer",
    "Không trừ điểm học tập; vàng, EXP và vé chỉ tồn tại trong phiên này. Không có chuyển đổi tiền thật.");
  const actions=el("div","arena-outcome-actions");
@@ -255,7 +255,7 @@ function settleStrategy(result,label,root){
  const title=document.createElement("h2");title.textContent=result==="win"?"🏆 BẠN CHIẾN THẮNG":
   result==="draw"?"🤝 VÁN HÒA":"💫 HẾT VÁN";
  const note=document.createElement("p");note.textContent=label+" · "+
-  (result==="win"?"+100 vàng demo, +50 EXP demo, hoàn 1 vé":
+  (result==="win"?"+100 vàng demo, +50 EXP demo · chơi tiếp miễn phí":
    result==="draw"?"+20 EXP demo":" +10 EXP demo");
  const caution=document.createElement("p");caution.className="arena-disclaimer";
  caution.textContent="Vàng và EXP chỉ dùng trong phiên. Không ảnh hưởng điểm kiểm tra, TOPIK Spark hoặc điểm thưởng học tập.";
