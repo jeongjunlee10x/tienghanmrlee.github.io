@@ -212,9 +212,10 @@ async function advanceExpiredTienLen(database:any,row:Room):Promise<Room>{
 // Concurrent browser polls cannot double-play a move (row version CAS).
 async function advanceExpiredOther(database:any,row:Room):Promise<Room>{
  if(!["chess","colors"].includes(row.game)||row.status!=="playing")return row;
+ if(row.game==="chess"&&!row.state?.clock)return row; // no-clock mode
  const deadline=Date.parse(row.state?.turnDeadline||"");
  if(!Number.isFinite(deadline)){
-  try{return await cas(database,row,{state:{...row.state,turnDeadline:nextDeadline()}});}
+  try{return await cas(database,row,{state:{...row.state,turnDeadline:row.game==="chess"?chessDeadline(row.state):nextDeadline()}});}
   catch(e){if((e as {status?:number}).status===409)return selectRoom(database,row.code);throw e;}
  }
  if(Date.now()<deadline)return row;
@@ -222,18 +223,12 @@ async function advanceExpiredOther(database:any,row:Room):Promise<Room>{
  let finished=false,winner=-1,remaining:number[]=[];
  try{
   if(row.game==="chess"){
-   const pos=state.history.at(-1),available=Chess.legal(pos);
-   const selected=available.sort((a:any,b:any)=>Chess.uci(a).localeCompare(Chess.uci(b)))[0];
-   if(!selected)return row;
-   state.notation.push(Chess.san(pos,selected));
-   state.history.push(Chess.apply(pos,selected));
-   if(state.history.length>350){
-    state.history=state.history.slice(-200);state.notation=state.notation.slice(-200);
-   }
-   const ended=Chess.status(state.history);
-   finished=ended.done;
-   winner=ended.winner===1?0:ended.winner===-1?1:-1;
-   remaining=[0,0];
+   // Whole-game chess clock: running out of time loses the match.
+   // Never auto-pick a chess move (unlike the 20s card-game timeout).
+   const seat=state.history.at(-1).t===1?0:1;
+   state.clock.remaining[seat]=0;state.clock.since=null;
+   winner=1-seat;remaining=[0,0];finished=true;
+   state.settlement={winner,remaining,rate:row.min_gold,reason:"Hết giờ"};
   }else{
    const seat=state.turn;
    if(!Number.isInteger(seat)||!Array.isArray(state.hands?.[seat]))return row;
@@ -258,7 +253,7 @@ async function advanceExpiredOther(database:any,row:Room):Promise<Room>{
    try{return await cas(database,row,{state,status:"playing"});}
    catch(e){if((e as {status?:number}).status===409)return selectRoom(database,row.code);throw e;}
   }
-  state.settlement={winner,remaining,rate:row.min_gold};
+  if(!state.settlement)state.settlement={winner,remaining,rate:row.min_gold};
   const {error}=await database.rpc("mrlee_arena_settle_match",{
    p_code:row.code,p_expected_version:row.version,p_state:state,
    p_winner:winner,p_remaining:remaining
@@ -593,7 +588,7 @@ Deno.serve(async(req:Request)=>{
     const checked=room.game==="tienlen"?await advanceExpiredTienLen(database,room):
      await advanceExpiredOther(database,room);
     if(checked.version!==room.version||checked.status!=="playing")
-     fail("Lượt đã hết 20 giây và máy chủ đã tự xử lý. Hãy cập nhật bàn.",409);
+     fail("Lượt hoặc thời gian thi đấu đã kết thúc. Hãy cập nhật bàn.",409);
    }
    const state=structuredClone(room.state);
    const result=room.game==="chess"?actionChess(state,me.seat,body):
