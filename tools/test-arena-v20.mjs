@@ -70,9 +70,9 @@ for(const id of ["xqOppBar","ludoOppBar","estateOppBar"]){
 check(html.includes('gameplay-cards-v20.css?v=20261107-approved-v20')&&
  html.includes('gameplay-boards-v20.css?v=20261107-approved-v20'),
  "Standalone iframe loads both approved design layers last");
-check(app.includes("xiangqi.js?v=20261107-approved-v20b")&&
- app.includes("ludo.js?v=20261107-approved-v20b")&&
- app.includes("estate.js?v=20261107-approved-v20b"),
+check(app.includes("xiangqi.js?v=20261107-motion-v22")&&
+ app.includes("ludo.js?v=20261107-motion-v22")&&
+ app.includes("estate.js?v=20261107-motion-v22"),
  "HUD engine JavaScript cannot remain stale in browser cache");
 for(const name of ["game-bai-mau.html","game-tien-len.html","game-co-vua.html",
  "game-co-tuong.html","game-co-ca-ngua.html","game-dia-oc.html"]){
