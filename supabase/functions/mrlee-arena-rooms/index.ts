@@ -18,7 +18,8 @@ const RISK_CARDS:Record<string,number>={chess:1,tienlen:13,colors:20};
 const exposure=(game:string,stake:number)=>stake*RISK_CARDS[game];
 const CODE_LETTERS="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const TIENLEN_TURN_MS=20_000;
-const nextDeadline=()=>new Date(Date.now()+TIENLEN_TURN_MS).toISOString();
+const TIENLEN_DEAL_MS=3_700;
+const nextDeadline=(delay=0)=>new Date(Date.now()+delay+TIENLEN_TURN_MS).toISOString();
 const CHESS_TIME_PRESETS:Record<string,[number,number]>=Object.freeze({
  "1+0":[60,0],"2+1":[120,1],"3+0":[180,0],"3+2":[180,2],
  "5+0":[300,0],"5+3":[300,3],"10+0":[600,0],"10+5":[600,5],
@@ -127,7 +128,9 @@ function safeRoom(room:Room,uid:string){
  }else if(game==="tienlen"){
   result.gameState={myHand:state.hands[player.seat],counts:state.hands.map((hand:any[])=>hand.length),
     turn:state.turn,played:state.played,last:state.last?{player:state.last.player,combo:state.last.combo}:null,
-    first:state.first,passed:state.passed,turnDeadline:room.status==="playing"?state.turnDeadline:null,
+    first:state.first,passed:state.passed,
+    roundReadyAt:state.roundReadyAt||null,
+    turnDeadline:room.status==="playing"?state.turnDeadline:null,
     history:state.history.slice(-12),
     winner:state.winner,...(room.status==="finished"?{revealedHands:state.hands}:{} )};
  }else if(game==="colors"){
@@ -160,8 +163,12 @@ function createState(game:string,playerCount=4,timeControl="10+0"){
   return {history:[position],notation:[],timeControl:selected,clock,
    turnDeadline:clock?chessDeadline({history:[position],clock}):null};
  }
- return game==="tienlen"?{...TienLen.start(secureRandom,playerCount),turnDeadline:nextDeadline()}:
-    {...Colors.newGame(secureRandom),turnDeadline:nextDeadline()};
+ if(game==="tienlen"){
+  const roundReadyAt=new Date(Date.now()+TIENLEN_DEAL_MS).toISOString();
+  return {...TienLen.start(secureRandom,playerCount),
+   roundReadyAt,turnDeadline:nextDeadline(TIENLEN_DEAL_MS)};
+ }
+ return {...Colors.newGame(secureRandom),turnDeadline:nextDeadline()};
 }
 // Each live client polls the room. A server timestamp and CAS protect the
 // 20-second deadline even if a player closes the page or changes local clocks.
@@ -582,6 +589,8 @@ Deno.serve(async(req:Request)=>{
   }
   if(kind==="move"){
    if(room.status!=="playing")fail("Phòng chưa ở trạng thái chơi.",409);
+   if(room.game==="tienlen"&&Date.parse(room.state?.roundReadyAt||"")>Date.now())
+    fail("Ván đang xáo và chia bài; chỉ được đánh sau khi chia xong.",409);
    if(!Number.isInteger(body.version)||body.version!==room.version)
     fail("Phòng đã đổi lượt. Hãy cập nhật rồi thử lại.",409);
    {
