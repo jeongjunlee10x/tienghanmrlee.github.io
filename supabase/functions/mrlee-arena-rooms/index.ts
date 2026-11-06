@@ -18,7 +18,7 @@ const RISK_CARDS:Record<string,number>={chess:1,tienlen:13,colors:20};
 const exposure=(game:string,stake:number)=>stake*RISK_CARDS[game];
 const CODE_LETTERS="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 type Member={uid:string,name:string,seat:number,ready:boolean};
-type Room={code:string,game:string,visibility:string,min_gold:number,status:string,
+type Room={code:string,game:string,visibility:string,min_gold:number,locked:boolean,status:string,
  members:Member[],state:any,version:number,expires_at:string,created_at:string,updated_at:string};
 type Body=Record<string,any>;
 function headers(req:Request){
@@ -87,6 +87,7 @@ function safeRoom(room:Room,uid:string){
  const player=membership(room,uid),game=room.game;
  const result:any={code:room.code,game,visibility:room.visibility,minGold:room.min_gold,
   status:room.status,seat:player.seat,capacity:GAME_SLOTS[game],
+  locked:Boolean(room.locked),isHost:room.members[0]?.uid===uid,
   players:room.members.map(m=>({name:m.name,seat:m.seat,ready:m.ready})),
   version:room.version,expiresAt:room.expires_at,requiredGold:exposure(game,room.min_gold)};
  if(room.status!=="playing"&&room.status!=="finished")return result;
@@ -124,11 +125,11 @@ async function cas(database:any,row:Room,patch:Partial<Room>):Promise<Room>{
  if(!data)fail("Phòng vừa thay đổi. Tải lại rồi thao tác tiếp.",409);
  return data as Room;
 }
-function createState(game:string){
+function createState(game:string,playerCount=4){
  if(game==="chess"){
   const position=Chess.start();return {history:[position],notation:[]};
  }
- return game==="tienlen"?TienLen.start(secureRandom):Colors.newGame(secureRandom);
+ return game==="tienlen"?TienLen.start(secureRandom,playerCount):Colors.newGame(secureRandom);
 }
 async function wallet(database:any,uid:string){
  const {data,error}=await database.rpc("mrlee_arena_wallet_status",{p_uid:uid});
@@ -152,7 +153,7 @@ async function freshRoom(database:any,uid:string,game:string,visibility:string,t
  for(let attempt=0;attempt<6;attempt++){
   const code=randomCode();
   const {data,error}=await database.from("mrlee_arena_rooms").insert({
-   code,game,visibility,min_gold:tier,status:"waiting",
+   code,game,visibility,locked:false,min_gold:tier,status:"waiting",
    members:[{uid,name:nickname,seat:0,ready:false}],state:{}
   }).select("*").maybeSingle();
   if(!error&&data)return data as Room;
@@ -163,6 +164,7 @@ async function freshRoom(database:any,uid:string,game:string,visibility:string,t
 async function joinRoom(database:any,row:Room,uid:string,nickname:string){
  if(row.members.some(x=>x.uid===uid))return row;
  if(row.status!=="waiting")fail("Bàn này đã bắt đầu hoặc đóng.",409);
+ if(row.locked)fail("Chủ bàn đã khóa phòng. Hãy đợi mở khóa trước khi tham gia.",423);
  if(row.members.length>=GAME_SLOTS[row.game])fail("Bàn đã đủ số người.",409);
  await requireGold(database,uid,row.game,row.min_gold);
  const members=[...row.members,{uid,name:nickname,seat:row.members.length,ready:false}];
@@ -170,11 +172,11 @@ async function joinRoom(database:any,row:Room,uid:string,nickname:string){
 }
 async function listRooms(database:any,game:string,uid:string){
  const {data,error}=await database.from("mrlee_arena_rooms")
- .select("code,game,visibility,min_gold,status,members,created_at,expires_at")
- .eq("game",game).eq("visibility","public").eq("status","waiting")
+ .select("code,game,visibility,locked,min_gold,status,members,created_at,expires_at")
+ .eq("game",game).eq("visibility","public").eq("locked",false).eq("status","waiting")
  .gt("expires_at",now()).order("created_at",{ascending:true}).limit(60);
  if(error)fail("Không lấy được danh sách bàn.",503);
- return (data||[]).filter((r:Room)=>r.members.length<GAME_SLOTS[r.game]).map((r:Room)=>({
+ return (data||[]).filter((r:Room)=>!r.locked&&r.members.length<GAME_SLOTS[r.game]).map((r:Room)=>({
   code:r.code,game:r.game,minGold:r.min_gold,status:r.status,
   capacity:GAME_SLOTS[r.game],count:r.members.length,
   host:r.members[0]?.name||"Học viên",alreadyIn:r.members.some(m=>m.uid===uid)
@@ -293,7 +295,7 @@ Deno.serve(async(req:Request)=>{
      const joined=await joinRoom(database,current,uid,nickname);
      return reply(req,200,{ok:true,room:safeRoom(joined,uid),match:"joined"});
     }catch(e){
-     if(![404,409].includes((e as {status?:number}).status||0))throw e;
+     if(![404,409,423].includes((e as {status?:number}).status||0))throw e;
     }
    }
    const suitable=[...GOLD_TIERS].filter(x=>exposure(game,x)<=balance)
@@ -326,16 +328,41 @@ Deno.serve(async(req:Request)=>{
    }
    return reply(req,200,{ok:true,left:true});
   }
+  if(kind==="lock"){
+   if(room.status!=="waiting")fail("Chỉ được khóa hoặc mở khóa khi bàn đang chờ.",409);
+   if(room.members[0]?.uid!==uid)fail("Chỉ chủ bàn mới có quyền khóa hoặc mở khóa.",403);
+   if(typeof body.locked!=="boolean")fail("Trạng thái khóa bàn không hợp lệ.");
+   const changed=await cas(database,room,{locked:body.locked});
+   return reply(req,200,{ok:true,room:safeRoom(changed,uid)});
+  }
+  if(kind==="start"){
+   if(room.game!=="tienlen")fail("Bắt đầu thủ công chỉ dùng cho Tiến Lên.",400);
+   if(room.status!=="waiting")fail("Bàn đã bắt đầu.",409);
+   if(room.members[0]?.uid!==uid)fail("Chỉ chủ bàn mới được bắt đầu ván.",403);
+   if(room.members.length<2||room.members.length>4)
+    fail("Tiến Lên cần ít nhất 2 người trong bàn.",409);
+   if(!room.members.every(m=>m.ready))
+    fail("Mọi người đang ngồi bàn cần nhấn Sẵn sàng trước.",409);
+   const {error}=await database.rpc("mrlee_arena_start_match",{
+    p_code:code,p_expected_version:room.version,p_state:createState(room.game,room.members.length)
+   });
+   if(error){
+    if(error.code==="P0001")fail("Bàn vừa thay đổi hoặc có người chưa đủ G bảo đảm. Hãy cập nhật rồi thử lại.",409);
+    fail("Không thể bắt đầu ván. Hãy thử cập nhật bàn.",503);
+   }
+   const started=await selectRoom(database,code);
+   return reply(req,200,{ok:true,room:safeRoom(started,uid)});
+  }
   if(kind==="ready"){
    if(room.status!=="waiting")fail("Bàn đã bắt đầu, không thể đổi sẵn sàng.",409);
    if(typeof body.ready!=="boolean")fail("Trạng thái sẵn sàng không hợp lệ.");
    const members=room.members.map(m=>m.uid===uid?{...m,ready:body.ready}:m);
-   const allReady=members.length===GAME_SLOTS[room.game]&&members.every(m=>m.ready);
+   const allReady=room.game!=="tienlen"&&members.length===GAME_SLOTS[room.game]&&members.every(m=>m.ready);
    await requireGold(database,uid,room.game,room.min_gold);
    const changed=await cas(database,room,{members});
    if(allReady){
     const {error}=await database.rpc("mrlee_arena_start_match",{
-     p_code:code,p_expected_version:changed.version,p_state:createState(room.game)
+     p_code:code,p_expected_version:changed.version,p_state:createState(room.game,changed.members.length)
     });
     if(error){
      // Prevent a room from remaining stuck with all ready after insufficient funds.
