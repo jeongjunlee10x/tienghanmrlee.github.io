@@ -315,3 +315,22 @@
 @keyframes arena-timer-pulse{to{box-shadow:0 0 20px #ffbf6277;transform:scale(1.035)}}
 @media(max-width:900px){.arena-turn-clock{font-size:12px;padding:4px 7px;top:6px;right:8px}}
 @media(prefers-reduced-motion:reduce){.arena-turn-clock.urgent{animation:none}}
+
+/* Five-second decision window: leave explicitly, continue by default.
+ * The countdown is a visual echo of the verified server deadline. */
+.arena-next-round-count{font-variant-numeric:tabular-nums!important;font-size:clamp(14px,1.9vw,22px)!important;
+ padding:7px 10px;margin:8px auto!important;max-width:370px;border-radius:12px;
+ border:1px solid #aef5d7;background:linear-gradient(120deg,#174867,#156355)!important;
+ color:#ffefb5!important;text-shadow:0 2px #14353c;font-weight:1000!important}
+.arena-next-round-count.urgent{background:linear-gradient(120deg,#9c2b41,#6d3049)!important;
+ border-color:#ffe0ae;color:#fff!important}
+.arena-next-round-exit{display:block;min-width:180px;max-width:100%;min-height:43px;
+ margin:7px auto;padding:8px 16px;border-radius:14px;
+ border:2px solid #ffccbf;background:linear-gradient(#ff8186,#c83c51);color:#fff;
+ font:1000 15px/1.2 "Be Vietnam Pro",system-ui,sans-serif;
+ box-shadow:0 3px 10px #23071c88;text-shadow:0 2px #692437;touch-action:manipulation}
+.arena-next-round-exit:disabled{opacity:.52;filter:grayscale(.6);cursor:not-allowed}
+@media(orientation:landscape) and (max-height:550px){
+ .arena-next-round-count{font-size:12px!important;padding:4px!important;margin:2px auto!important}
+ .arena-next-round-exit{min-height:30px;font-size:11px;margin:3px auto;padding:5px}
+}
