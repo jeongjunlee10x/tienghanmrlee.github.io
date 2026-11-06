@@ -307,3 +307,20 @@ body.game-room-in-play .game-room-main{height:100dvh}
 .game-room-play-head button{position:relative;z-index:52;touch-action:manipulation}
 .game-room-frame-wrap{position:relative;z-index:1;min-height:0}
 .game-room-frame-wrap iframe{position:relative;z-index:1}
+
+/* Portrait viewport containment: prevent 2-column grid from expanding to
+ * its intrinsic card minimum width and being clipped on 360–430px phones. */
+@media(orientation:portrait) and (max-width:700px){
+ .game-room-main{box-sizing:border-box;width:100vw!important;min-width:0!important;max-width:100vw!important}
+ .game-room-lobby{box-sizing:border-box;width:100vw!important;min-width:0!important;
+  max-width:100vw!important;padding-inline:10px!important;overflow:hidden}
+ .game-room-tiles{box-sizing:border-box;width:calc(100vw - 20px)!important;
+  min-width:0!important;max-width:calc(100vw - 20px)!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+ .game-room-tile{box-sizing:border-box;min-width:0!important;width:100%;max-width:100%;overflow:hidden}
+ .game-room-footer{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  grid-auto-rows:minmax(30px,auto);gap:4px!important;min-height:74px!important;padding:5px 8px!important}
+ .game-room-footer>a,.game-room-footer>button{display:flex;min-width:0;max-width:100%;width:100%;
+  min-height:31px!important;padding:5px 6px!important;justify-content:center;
+  overflow:hidden;text-overflow:ellipsis;font-size:9px!important}
+}
