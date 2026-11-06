@@ -52,6 +52,56 @@ export function mountOnlineCanvas(root,onMove){
     console.warn("Arena move rejected:",error?.message||error);
   }finally{locked=false;}
  }
+ function waiting(room,actions={}){
+  // The room remains on the actual green card table while players join.
+  // No hidden cards are rendered before the server creates the deal.
+  const table=el("div","arena-pvp-card-table arena-pvp-waiting");
+  const count=room.players.length, max=room.capacity;
+  const posFor=(seat)=>{
+   if(seat===room.seat)return "bottom";
+   const offset=(seat-room.seat+max)%max;
+   if(max===2)return "top";
+   if(max===3)return offset===1?"left":"right";
+   return RELATIVE[offset]||"top";
+  };
+  for(let seat=0;seat<max;seat++){
+   const player=room.players.find(p=>p.seat===seat),mine=seat===room.seat;
+   const slot=el("div","arena-pvp-seat arena-pvp-wait-seat"+(player?.ready?" ready":"")+
+    (!player?" vacant":""));
+   slot.dataset.position=posFor(seat);
+   slot.append(el("span","arena-pvp-wait-avatar",player?(mine?"🧑":"👤"):"＋"),
+    el("strong","",player?.name||(room.locked?"Ghế đã khóa":"Đang chờ người...")),
+    el("small","",player?(player.ready?"✓ Sẵn sàng":"Chưa sẵn sàng"):"Ghế "+(seat+1)));
+   table.append(slot);
+  }
+  const middle=el("div","arena-pvp-wait-center");
+  middle.append(el("div","arena-pvp-wait-eyebrow","🃏 PHÒNG ĐẤU TRỰC TUYẾN"),
+   el("h3","",room.game==="tienlen"?"TIẾN LÊN MIỀN NAM":room.game==="chess"?"CỜ VUA":"BÀI MÀU"),
+   el("div","arena-pvp-wait-code","Mã bàn: "+room.code),
+   el("p","arena-pvp-wait-meta",count+"/"+max+" người · "+room.minGold+
+    "G"+(room.game==="chess"?"/ván":"/lá")+(room.locked?" · 🔒 Đã khóa":" · 🔓 Đang mở")));
+  const controls=el("div","arena-pvp-wait-actions");
+  const click=(label,cls,handler,disabled=false)=>{
+   const b=btn(label,cls,handler);b.disabled=disabled;controls.append(b);return b;
+  };
+  const mine=room.players.find(p=>p.seat===room.seat);
+  click(mine?.ready?"↩ Bỏ sẵn sàng":"✓ Sẵn sàng","arena-primary",()=>actions.ready?.());
+  if(room.game==="tienlen"&&room.isHost){
+   click("▶ Bắt đầu ("+count+" người)","arena-action",()=>actions.start?.(),
+    count<2||!room.players.every(p=>p.ready));
+  }
+  if(room.isHost)click(room.locked?"🔓 Mở khóa bàn":"🔒 Khóa bàn","arena-soft",()=>actions.lock?.());
+  click("📋 Sao chép mã","arena-soft",()=>actions.copy?.());
+  click("🔗 Mời bạn","arena-soft",()=>actions.invite?.());
+  click("↻ Làm mới","arena-soft",()=>actions.refresh?.());
+  middle.append(controls,
+   el("p","arena-pvp-wait-tip",room.game==="tienlen"?
+    "Từ 2 người có thể chơi. Mọi người nhấn Sẵn sàng, chủ bàn nhấn Bắt đầu.":
+    "Mọi người nhấn Sẵn sàng. Khi đủ người, trận sẽ bắt đầu."));
+  table.append(middle);
+  root.replaceChildren(table);
+  lastCode=room.code;lastVersion=room.version;
+ }
  function renderChess(room){
   const state=room.gameState,position=state.position;
   const myColor=room.seat===0?1:-1,mine=state.turn===room.seat&&room.status==="playing";
@@ -233,5 +283,5 @@ export function mountOnlineCanvas(root,onMove){
   else if(room.game==="tienlen")renderTienLen(room);
   else renderColors(room);
  }
- return {render,clear};
+ return {render,waiting,clear};
 }
