@@ -78,11 +78,11 @@ html[data-room-game] .game-room-tiles .game-room-tile:hover:not(:disabled){
 #arenaChess .chess-square.chosen,.arena-pvp-chess .chess-square.chosen{
  background:#d5c875!important;box-shadow:inset 0 0 0 3px #ffee9e!important
 }
-#arenaChess .chess-square.target:not(.chosen):after,
-.arena-pvp-chess .chess-square.target:not(.chosen):after{
- content:"";position:absolute;left:50%;top:50%;width:26%;aspect-ratio:1;
- background:#173d3799;border-radius:50%;transform:translate(-50%,-50%);
- pointer-events:none;box-shadow:0 1px 3px #0003
+#arenaChess .chess-square.target:not(.chosen) .chess-dot,
+.arena-pvp-chess .chess-square.target:not(.chosen) .chess-dot{
+ width:26%;aspect-ratio:1;
+ background:#173d3799;border-radius:50%;
+ box-shadow:0 1px 3px #0003;pointer-events:none
 }
 #arenaChess .chess-white,.arena-pvp-chess .chess-white{
  color:#fff7e7!important;-webkit-text-stroke:clamp(.4px,.11vw,1.2px) #554532;
