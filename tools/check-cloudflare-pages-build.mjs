@@ -54,7 +54,7 @@ const index=await readFile(join(dist,'index.html'),'utf8');
 const share=await readFile(join(dist,'mrlee-engagement.js'),'utf8');
 const redirects=await readFile(join(dist,'_redirects'),'utf8');
 assert(index.includes('<html')&&index.includes('mrleeNewHome'),'Homepage lost functionality');
-const configuredOrigin=String(process.env.MRLEE_SITE_ORIGIN||process.env.CF_PAGES_URL||
+const configuredOrigin=String(process.env.MRLEE_SITE_ORIGIN||
  'https://mrlee-b6a.pages.dev').replace(/\/+$/,'');
 const expectedOrigin=configuredOrigin==='https://mrlee.pages.dev'
  ? 'https://mrlee-b6a.pages.dev' : configuredOrigin;
