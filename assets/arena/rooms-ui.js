@@ -13,7 +13,7 @@ const btn=(text,cl,handler)=>{
 };
 const sections=["arenaRoomHub","arenaRoomLobby","arenaPvPBoard"];
 export function mountArenaRooms({onEnter,onExit,onWallet}){
- let game="chess",mode="friends",room=null,account=null,poll=null,working=false,epoch=0;
+ let game="chess",mode="friends",room=null,account=null,poll=null,working=false,epoch=0,serverClockOffset=0;
  const canvas=mountOnlineCanvas($("roomGameCanvas"),move);
  const show=active=>sections.forEach(id=>$(id).hidden=id!==active);
  const name=()=>String($("roomNickname").value||"Học viên").trim().slice(0,24)||"Học viên";
@@ -192,10 +192,16 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
  }
  function drawGame(){
   if(!room)return;
+  if(room.serverTime)serverClockOffset=Date.parse(room.serverTime)-Date.now();
   show("arenaPvPBoard");
   $("roomBoardTitle").textContent=gameName()+" · "+(room.status==="finished"?"Kết thúc · Đợi ván sau":"Đang đấu PvP");
   $("roomBoardCode").textContent=room.code;
   canvas.render(room);
+  if(room.game==="tienlen"&&room.status==="playing"&&room.gameState?.turnDeadline){
+   const hud=el("div","arena-turn-clock");hud.id="roomTurnClock";
+   hud.setAttribute("role","timer");hud.setAttribute("aria-label","Thời gian còn lại trong lượt đánh");
+   $("roomGameCanvas").append(hud);
+  }
   status("roomBoardStatus",room.status==="finished"?"Ván đã được máy chủ kết toán G; xem bài và chọn Tiếp tục.":
    "Đang chơi ván "+(room.roundIndex||1)+" · "+formatG(room.minGold)+"/lá");
   $("roomGameCanvas").querySelector(".arena-next-round-dialog")?.remove();
@@ -341,6 +347,17 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
   await refreshWallet();
   status("roomHubStatus","Đã đổi "+points+" điểm thành "+formatG(points*10)+".");
  }));
+ // The display is informational. Only the verified Supabase Edge Function
+ // decides when a turn expires and performs the legal automatic action.
+ setInterval(()=>{
+  const node=$("roomTurnClock");
+  if(!node||!room||room.game!=="tienlen"||room.status!=="playing")return;
+  const deadline=Date.parse(room.gameState?.turnDeadline||"");
+  if(!Number.isFinite(deadline)){node.textContent="⏱ Đang đồng bộ...";return;}
+  const seconds=Math.max(0,Math.ceil((deadline-Date.now()-serverClockOffset)/1000));
+  node.textContent="⏱ "+seconds+"s"+(seconds===0?" · Đang tự xử lý...":"");
+  node.classList.toggle("urgent",seconds<=5);
+ },200);
  // A valid invitation link can deep-link into the hub; Firebase auth still gates API.
  tryInvite();
  return {openHub,stop,refreshWallet};
