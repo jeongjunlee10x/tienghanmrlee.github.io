@@ -41,7 +41,7 @@ export function mountArenaFriendPopup({game,gameName,getWallet,onAccepted,onWall
  const isPublic=mk("input");isPublic.type="checkbox";isPublic.id="arenaSocialPublic";
  add(visibilityLabel,isPublic,mk("span","","Công khai bàn cho người khác tìm thấy"));
  const tierFoot=mk("p","arena-social-rule","Mức bàn tính bằng G; khi đủ người và sẵn sàng, máy chủ sẽ kiểm tra và giữ G bảo đảm theo luật chơi.");
- const createButton=mk("button","arena-social-submit","TẠO BÀN");createButton.type="button";
+ const createButton=mk("button","arena-social-submit","TẠO BÀN");createButton.type="button";createButton.disabled=true;
  const createStatus=mk("p","arena-social-status","");createStatus.setAttribute("role","status");
  add(create,walletInfo,group,visibilityLabel,tierFoot,createButton,createStatus);
  const join=mk("section","arena-social-content");join.id="arenaSocialJoin";join.setAttribute("role","tabpanel");
@@ -117,7 +117,15 @@ export function mountArenaFriendPopup({game,gameName,getWallet,onAccepted,onWall
  }
  function accepted(room){
   if(!room||!legalCode(room.code))throw new Error("Máy chủ chưa trả mã bàn hợp lệ.");
-  if(room.game!==game)throw new Error("Mã bàn thuộc trò khác, hãy vào đúng game.");
+  if(room.game!==game){
+   // Joining a valid invite adds the user to that server-owned room.
+   // Navigate to its actual game instead of leaving a hidden membership.
+   const page={tienlen:"game-tien-len.html",chess:"game-co-vua.html",colors:"game-bai-mau.html"}[room.game];
+   if(!page)throw new Error("Không nhận diện được trò chơi của mã bàn.");
+   if(dialog.open)dialog.close();
+   const url=new URL(page,location.href);url.searchParams.set("room",room.code);
+   location.assign(url.href);return;
+  }
   if(dialog.open)dialog.close();
   onAccepted(room);
  }
