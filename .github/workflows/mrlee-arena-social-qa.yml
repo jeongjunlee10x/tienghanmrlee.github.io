@@ -5,6 +5,9 @@ on:
     paths:
       - 'game-*.html'
       - 'assets/arena/game-room-shell.js'
+      - 'assets/arena/game-room-shell.css'
+      - 'assets/arena/game-room-embed.css'
+      - 'assets/arena/mobile-live.js'
       - 'assets/arena/game-room-social.js'
       - 'assets/arena/game-room-social.css'
       - 'assets/arena/game-room-browser.js'
@@ -29,6 +32,8 @@ jobs:
           node --check assets/arena/game-room-social.js
           node --check assets/arena/game-room-browser.js
           node --check assets/arena/game-room-shell.js
+          node --check assets/arena/mobile-live.js
+          node --check tools/browser-game-rooms.mjs
           node --check tools/browser-arena-social.mjs
           node --check tools/test-arena-create-jsonb.mjs
           node tools/test-arena-create-jsonb.mjs
@@ -41,10 +46,14 @@ jobs:
           npx playwright install chromium --with-deps
       - name: Test popup Create / Join and dedicated real room listing
         run: node tools/browser-arena-social.mjs
+      - name: Test six game rooms at 390 portrait, 844 landscape and 1440 desktop
+        run: node tools/browser-game-rooms.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: mrlee-popup-and-room-list-ui
-          path: artifacts/arena-social/*.png
+          path: |
+            artifacts/arena-social/*.png
+            artifacts/game-rooms/*.png
           if-no-files-found: ignore
           retention-days: 14
