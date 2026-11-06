@@ -14,6 +14,8 @@ if(params.get("embed")==="1"&&window.parent!==window){
  const send=(event,message)=>{
   window.parent.postMessage({marker,event,game,message},location.origin);
  };
+ // The embedded board shares its parent game's exact cover image.
+ if(game in ids)document.documentElement.style.setProperty("--arena-cover",'url("assets/arena/covers/'+game+'.svg")');
  const lobby=document.getElementById("arenaLobby");
  let launched=false,hasGoneIn=false,attempted=false;
  const active=()=>[...Object.values(ids),"arenaRoomHub","arenaRoomLobby","arenaPvPBoard"]
