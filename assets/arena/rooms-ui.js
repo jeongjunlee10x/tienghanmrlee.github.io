@@ -2,7 +2,7 @@
    server-authoritative moves and short on-board overlays. */
 import {roomRequest,normalizeRoomCode,GOLD_TIERS,GOLD_PER_POINT,formatG,requiredGold,
  GAME_LABELS,gameCapacity,affordableTier} from "./room-api.js";
-import {mountOnlineCanvas} from "./rooms-play.js?v=20261106-turn-v16";
+import {mountOnlineCanvas} from "./rooms-play.js?v=20261107-ai-r18";
 const $=id=>document.getElementById(id);
 const el=(tag,cl="",text)=>{
  const node=document.createElement(tag);if(cl)node.className=cl;
