@@ -11,6 +11,11 @@ on:
       - 'assets/arena/game-room-social.js'
       - 'assets/arena/game-room-social.css'
       - 'assets/arena/game-art-direction.css'
+      - 'assets/arena/drag-gestures.js'
+      - 'assets/arena/gesture-motion.css'
+      - 'assets/arena/tienlen-ui.js'
+      - 'assets/arena/rooms-play.js'
+      - 'assets/arena/app.js'
       - 'assets/arena/ludo.js'
       - 'assets/arena/estate.js'
       - 'assets/arena/chess-ui.js'
@@ -35,6 +40,10 @@ jobs:
       - name: Static / API usage / Cloudflare build checks
         run: |
           node --check assets/arena/game-room-social.js
+          node --check assets/arena/drag-gestures.js
+          node --check assets/arena/tienlen-ui.js
+          node --check assets/arena/rooms-play.js
+          node --check assets/arena/app.js
           node --check assets/arena/game-room-browser.js
           node --check assets/arena/game-room-shell.js
           node --check assets/arena/mobile-live.js
