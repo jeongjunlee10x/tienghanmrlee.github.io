@@ -5,6 +5,22 @@
 const preciseEvent=event=>event.isPrimary&&event.button===0;
 const reduceMotion=()=>window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches===true;
 function centerOf(rect){return {x:rect.left+rect.width/2,y:rect.top+rect.height/2};}
+// A floating clone moves outside the original board's CSS scope. Preserve its
+// computed piece/card styling (including nested rank/suit glyphs) so it never
+// turns into a plain rectangle or shrinks to default text when lifted.
+function snapshotVisual(source,copy){
+ if(typeof window.getComputedStyle!=="function")return;
+ const properties=["fontFamily","fontSize","fontWeight","lineHeight","color",
+  "backgroundColor","backgroundImage","backgroundSize","backgroundPosition",
+  "border","borderRadius","boxShadow","textShadow","padding","display",
+  "alignItems","justifyContent","position","inset","opacity"];
+ const originals=[source,...source.querySelectorAll("*")];
+ const duplicates=[copy,...copy.querySelectorAll("*")];
+ for(let i=0;i<Math.min(originals.length,duplicates.length);i++){
+  const computed=window.getComputedStyle(originals[i]);
+  for(const prop of properties)duplicates[i].style[prop]=computed[prop];
+ }
+}
 function easeOut(ms){return {duration:ms,easing:"cubic-bezier(.18,.85,.28,1)",fill:"forwards"};}
 function moveGhost(node,rect,x,y){
  const left=x-rect.width/2,top=y-rect.height/2;
@@ -63,6 +79,7 @@ export function enablePointerDrag({
    if(Math.hypot(g.x-g.startX,g.y-g.startY)<(event.pointerType==="touch"?9:5))return;
    if(event.cancelable)event.preventDefault();
    const clone=(previewSelector?g.item.querySelector(previewSelector)||g.item:g.item).cloneNode(true);
+   snapshotVisual(previewSelector?g.item.querySelector(previewSelector)||g.item:g.item,clone);
    clone.classList.add("arena-drag-ghost");
    clone.removeAttribute("id");
    clone.style.width=g.rect.width+"px";clone.style.height=g.rect.height+"px";
@@ -106,7 +123,7 @@ export function animateBoardMove({from,to,piece,kind="piece"}){
  if(!from||!to||!piece||reduceMotion()||!piece.animate)return;
  const before=from.getBoundingClientRect(),after=to.getBoundingClientRect();
  const r=piece.getBoundingClientRect();if(!r.width||!r.height)return;
- const clone=piece.cloneNode(true);clone.classList.add("arena-move-sprite",kind);
+ const clone=piece.cloneNode(true);snapshotVisual(piece,clone);clone.classList.add("arena-move-sprite",kind);
  clone.setAttribute("aria-hidden","true");
  clone.style.width=r.width+"px";clone.style.height=r.height+"px";
  clone.style.left=r.left+"px";clone.style.top=r.top+"px";
