@@ -94,9 +94,27 @@ try{
     if(game==="tienlen"||game==="chess"){
      await page.screenshot({path:path.join(ROOT,"artifacts","game-rooms",game+"-"+width+".png")});
     }
+    if(game==="chess")await page.locator("#roomChessTime").selectOption("3+2");
+    if(game==="ludo")await page.locator("#roomLocalMode").selectOption("2");
+    if(game==="xiangqi")await page.locator("#roomLocalMode").selectOption("up");
+    if(game==="estate")await page.locator("#roomLocalMode").selectOption("8");
     await page.locator("#roomBotPlay").click();
     const iframe=page.frameLocator("#roomGameFrame");
     await iframe.locator("#"+section).waitFor({state:"visible",timeout:14000});
+    if(game==="chess")assert.equal(await iframe.locator("#chessTime").inputValue(),"3+2",
+     "Chess game received the exact Blitz increment");
+    if(game==="ludo"){
+     assert.equal(await iframe.locator("#ludoPlayers").inputValue(),"2");
+     assert.equal(await iframe.locator("#ludoMoves .ludo-player").count(),2,
+      "Two-player Ludo hides extra opponents");
+    }
+    if(game==="xiangqi")assert.equal(await iframe.locator("#xqVariant").inputValue(),"up",
+     "Cờ Úp must be selected from standalone lobby");
+    if(game==="estate"){
+     assert.equal(await iframe.locator("#estateDuration").inputValue(),"8");
+     assert.match(await iframe.locator("#estateRound").textContent(),/1\\/8/,
+      "Estate fast mode uses eight rounds");
+    }
     assert.equal(await page.locator("#roomLobby").isVisible(),false);
     assert.equal(await page.locator("#roomPlay").isVisible(),true);
     assert.equal(await iframe.locator("html").evaluate(el=>el.classList.contains("arena-embedded")),true);
