@@ -124,6 +124,8 @@ function pickBot(g){
 }
 export function mountXiangqi({onStart,onFinish,onExit}){
  const root=$("arenaXiangqi"),board=$("xqBoard"),status=$("xqStatus");
+ const requested=new URL(location.href).searchParams.get("variant");
+ if(["xiangqi","up"].includes(requested))$("xqVariant").value=requested;
  let g=null,selected=-1,timer=null,epoch=0,finished=false;
  function stop(){epoch++;if(timer!==null)clearTimeout(timer);timer=null;}
  function exit(){stop();g=null;root.hidden=true;onExit();}
