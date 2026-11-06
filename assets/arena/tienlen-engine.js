@@ -189,10 +189,9 @@ export function botDecision(g,difficulty="normal",rng=Math.random){
    const groups=new Map();
    for(const c of remaining)groups.set(c.rank,(groups.get(c.rank)||0)+1);
    const pairs=[...groups.values()].filter(n=>n>=2).length;
-   const tempo=g.last?0:cards.length*15;
    const pressure=difficulty==="hard"?
     cards.length*6+pairs*2+(remaining.length<=3?30:0):0;
-   return shed+tempo*.0+pressure-(bombs?g.last?4:20:0)-(two?g.last?0:17:0)
+   return shed+pressure-(bombs?g.last?4:20:0)-(two?g.last?0:17:0)
     -combo.high*.7-combo.suit*.05;
   }
   return score(b,B)-score(a,A);
