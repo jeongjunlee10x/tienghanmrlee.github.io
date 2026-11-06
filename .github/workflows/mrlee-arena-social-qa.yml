@@ -33,6 +33,10 @@ on:
       - 'assets/arena/game-room-v20.css'
       - 'assets/arena/gameplay-cards-v20.css'
       - 'assets/arena/gameplay-boards-v20.css'
+      - 'assets/arena/arena-fidelity-v22.css'
+      - 'assets/arena/arena-deal-v22.js'
+      - 'tools/test-arena-v22.mjs'
+      - 'tools/browser-motion-v22.mjs'
       - 'tools/test-arena-v20.mjs'
       - 'assets/arena/premium-fx.js'
       - 'assets/arena/tienlen-fx.js'
@@ -89,6 +93,11 @@ jobs:
           node tools/test-arena-v19.mjs
           node --check tools/test-arena-v20.mjs
           node tools/test-arena-v20.mjs
+          node --check assets/arena/tienlen-fx.js
+          node --check assets/arena/arena-deal-v22.js
+          node --check tools/test-arena-v22.mjs
+          node --check tools/browser-motion-v22.mjs
+          node tools/test-arena-v22.mjs
           node tools/test-arena-game-modes.mjs
           node --check tools/test-arena-gestures.mjs
           node tools/test-arena-gestures.mjs
@@ -110,6 +119,8 @@ jobs:
         run: node tools/browser-arena-social.mjs
       - name: Verify V19 2.5D six-game graphics and animation on desktop/mobile
         run: node tools/browser-arena-v19.mjs
+      - name: Verify V22 real 52-card deal, center chop and server-ready mask on desktop/mobile
+        run: node tools/browser-motion-v22.mjs
       - name: Test real card-game turn popups and centered avatar clocks
         run: node tools/browser-card-turns.mjs
       - name: Test six game rooms at 390 portrait, 844 landscape and 1440 desktop
