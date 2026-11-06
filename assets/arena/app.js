@@ -2,7 +2,7 @@
 import {newGame,canPlay,play,beginDraw,pass,botTurn,cardLabel,topCard,
   COLOR_VI,COLORS,PLAYER_NAMES} from "./color-engine.js";
 import {mountChess} from "./chess-ui.js";
-import {mountTienLen} from "./tienlen-ui.js";
+import {mountTienLen} from "./tienlen-ui.js?v=20261106-r3";
 import {mountArenaRooms} from "./rooms-ui.js?v=20261106-r2";
 import {mountLudo} from "./ludo.js";
 import {mountXiangqi} from "./xiangqi.js";
