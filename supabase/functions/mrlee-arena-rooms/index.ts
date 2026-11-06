@@ -186,11 +186,11 @@ async function advanceExpiredTienLen(database:any,row:Room):Promise<Room>{
 }
 // Auto-continue on the first authenticated table poll after the five-second
 // server-defined exit window. Only surviving room members are eligible.
-async function advanceExpiredFinished(database:any,row:Room):Promise<Room>{
+async function advanceExpiredFinished(database:any,row:Room,allVoted=false):Promise<Room>{
  if(row.status!=="finished")return row;
  const end=Date.parse(row.state?.nextRoundDeadline||"");
  const deadline=Number.isFinite(end)?end:Date.parse(row.updated_at)+5000;
- if(!Number.isFinite(deadline)||Date.now()<deadline)return row;
+ if(!Number.isFinite(deadline)||Date.now()<deadline&&!allVoted)return row;
  const exits=new Set<string>(Array.isArray(row.state?.exitUids)?row.state.exitUids:[]);
  const remaining=row.members.filter(m=>!exits.has(m.uid));
  // If too few players remain, PostgreSQL moves to the same table's WAITING
@@ -417,12 +417,32 @@ Deno.serve(async(req:Request)=>{
    return reply(req,200,{ok:true,left:true});
   }
   if(kind==="continue"){
-   if(room.status!=="finished")fail("Ván đã bắt đầu hoặc phòng đang chờ.",409);
-   const until=Date.parse(room.state?.nextRoundDeadline||"");
-   if(Number.isFinite(until)&&Date.now()<until)
-     fail("Bạn có 5 giây để rời bàn. Nếu không rời, ván kế tiếp tự bắt đầu.",409);
-   const updated=await advanceExpiredFinished(database,room);
-   return reply(req,200,{ok:true,room:safeRoom(updated,uid)});
+   // Continue is an authenticated per-player vote, never a client-issued deal.
+   // All surviving players can start early by voting; otherwise the same table
+   // auto-continues after the server-owned five-second exit window.
+   if(room.status!=="finished")return reply(req,200,{ok:true,room:safeRoom(room,uid)});
+   for(let attempt=0;attempt<4;attempt++){
+    const current=attempt===0?room:await selectRoom(database,code);
+    if(current.status!=="finished")return reply(req,200,{ok:true,room:safeRoom(current,uid)});
+    const member=membership(current,uid);
+    const deadline=Date.parse(current.state?.nextRoundDeadline||"");
+    if(Number.isFinite(deadline)&&Date.now()>=deadline){
+     const updated=await advanceExpiredFinished(database,current);
+     return reply(req,200,{ok:true,room:safeRoom(updated,uid)});
+    }
+    const votes={...(current.state?.rematchVotes||{}),[String(member.seat)]:true};
+    let changed=current;
+    if(current.state?.rematchVotes?.[String(member.seat)]!==true){
+     try{changed=await cas(database,current,{state:{...current.state,rematchVotes:votes}});}
+     catch(e){if((e as {status?:number}).status===409)continue;throw e;}
+    }
+    const exits=new Set<string>(Array.isArray(changed.state?.exitUids)?changed.state.exitUids:[]);
+    const remaining=changed.members.filter(m=>!exits.has(m.uid));
+    const allReady=remaining.length>0&&remaining.every(m=>changed.state?.rematchVotes?.[String(m.seat)]===true);
+    const updated=allReady?await advanceExpiredFinished(database,changed,true):changed;
+    return reply(req,200,{ok:true,room:safeRoom(updated,uid)});
+   }
+   fail("Bàn vừa có người thao tác. Vui lòng nhấn Tiếp tục lần nữa.",409);
   }
   if(kind==="lock"){
    if(room.status!=="waiting")fail("Chỉ được khóa hoặc mở khóa khi bàn đang chờ.",409);
