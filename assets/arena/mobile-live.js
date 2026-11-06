@@ -19,6 +19,11 @@ const playing=id=>!!$(id)&&!$(id).hidden;
 const phone=()=>matchMedia("(pointer: coarse)").matches&&
   (matchMedia("(max-width: 980px)").matches||/Android|iPhone|iPad|iPod/i.test(navigator.userAgent));
 const portrait=()=>matchMedia("(orientation: portrait)").matches;
+const portraitPreferred=()=>currentId==="arenaChess"||currentId==="arenaXiangqi"||
+ (currentId==="arenaPvPBoard"&&(
+  document.documentElement.dataset.embeddedGame==="chess"||
+  /Cờ vua/i.test($("roomBoardTitle")?.textContent||"")));
+
 const shade=(message,kind)=>{
  if(kind==="win"||/thắng|chiến thắng|hoàn thành/i.test(message))return "success";
  if(kind==="error"||/lỗi|thua|không thể|không đủ|không hợp lệ|thất bại/i.test(message))return "error";
@@ -52,7 +57,7 @@ function announce(id,text,kind){
  timeouts.set(id,setTimeout(()=>{hud.hidden=true;hud.dataset.message="";},/thắng|thua|hòa|hoàn thành/i.test(content)?5500:3000));
 }
 function syncOrientationPrompt(){
- const show=phone()&&portrait()&&!!currentId&&!rotateDismissed;
+ const show=phone()&&portrait()&&!!currentId&&!rotateDismissed&&!portraitPreferred();
  if(!show){portraitPrompt?.remove();portraitPrompt=null;return;}
  if(!portraitPrompt){
   portraitPrompt=document.createElement("div");
@@ -92,6 +97,7 @@ async function requestMobileLandscape(){
  if(document.documentElement.classList.contains("arena-embedded"))return;
  if(!phone())return;
  refreshActive();
+ if(portraitPreferred())return;
  if(!currentId&&!(arena&&playing("arenaRoomLobby")))return;
  try{
   if(!document.fullscreenElement&&document.documentElement.requestFullscreen){
@@ -156,7 +162,7 @@ document.addEventListener("click",event=>{
  }
 });
 document.addEventListener("fullscreenchange",()=>{
- if(document.fullscreenElement&&phone()){
+ if(document.fullscreenElement&&phone()&&!portraitPreferred()){
   try{void screen.orientation?.lock?.("landscape").catch(()=>{});}catch{}
  }
  refreshActive();
