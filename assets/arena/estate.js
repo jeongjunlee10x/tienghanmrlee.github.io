@@ -96,6 +96,7 @@ function endTurn(g){
  do{g.turn=(g.turn+1)%4;}while(g.players[g.turn].bankrupt);
  g.phase="roll";g.roll=[0,0];g.offer=-1;
 }
+import {animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r1";
 export function mountEstate({onStart,onFinish,onExit}){
  const root=$("arenaEstate"),board=$("estateBoard"),status=$("estateStatus");
  const requested=Number(new URL(location.href).searchParams.get("rounds"));
@@ -116,7 +117,20 @@ export function mountEstate({onStart,onFinish,onExit}){
  }
  function roll(){
   if(!g||g.turn!==0||g.phase!=="roll"||done)return;
-  estateRoll(g);render();if(g.winner!==null)finish();else schedule();
+  const actor=g.turn,from=board.querySelector('[data-player="'+actor+'"]');
+  estateRoll(g);
+  if(g.players[actor].at!==Number(from?.dataset.position)){
+   const to=board.querySelector('[data-path-index="'+g.players[actor].at+'"]');
+   animateBoardMove({from,to,piece:from,kind:"estate-pawn"});
+  }
+  render();bumpDice();if(g.winner!==null)finish();else schedule();
+ }
+ function bumpDice(){
+  for(const target of [$("estateDice"),board.querySelector(".estate-middle-dice")]){
+   if(!target)return;
+   target.classList.remove("arena-dice-rolling");
+   void target.offsetWidth;target.classList.add("arena-dice-rolling");
+  }
  }
  function buy(yes){
   if(!g||g.turn!==0||g.phase!=="offer"||done)return;
@@ -131,13 +145,18 @@ export function mountEstate({onStart,onFinish,onExit}){
    if(g.phase==="roll"){
     const upgrade=g.tiles.findIndex(t=>t.owner===who&&t.level<2&&p.cash>1300);
     if(upgrade>=0&&Math.random()<.25)estateUpgrade(g,upgrade);
+    const from=board.querySelector('[data-player="'+who+'"]');
     estateRoll(g);
+    if(g.players[who].at!==Number(from?.dataset.position)){
+     const to=board.querySelector('[data-path-index="'+g.players[who].at+'"]');
+     animateBoardMove({from,to,piece:from,kind:"estate-pawn"});
+    }
    }
    if(g.phase==="offer"){
     const land=g.tiles[g.offer];
     estateBuy(g,p.cash>land.price+240&&(Math.random()<.88));
    }
-   render();if(g.winner!==null)finish();else schedule();
+   render();bumpDice();if(g.winner!==null)finish();else schedule();
   },360);
  }
  function render(){
