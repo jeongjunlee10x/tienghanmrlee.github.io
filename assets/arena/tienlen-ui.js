@@ -162,7 +162,7 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   },550);
  }
  function renderSeat(who){
-  const div=el("div","tl-opponent"+(game.turn===who?" active":""));
+  const div=el("div","tl-opponent"+(game.turn===who&&!busy&&!done?" active":""));
   div.dataset.seat=seat[who];div.dataset.player=String(who);
   const identity=el("div","tl-seat-id"),avatarNode=el("span","tl-avatar",avatar[who]);
   const info=el("span","tl-seat-meta");
@@ -187,7 +187,7 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   }
   const count=el("small","tl-seat-count","🂠 ×"+game.hands[who].length+" lá");
   const state=el("small","tl-seat-state",done?"Đã kết thúc":game.turn===who?"🟢 ĐANG ĐÁNH":"Đang chờ");
-  if(game.turn===who&&!done){
+  if(game.turn===who&&!done&&!busy){
    avatarNode.classList.add("tl-avatar-turn");
    avatarNode.append(el("span","tl-avatar-turn-clock","20s"));
   }
@@ -202,11 +202,11 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   $("tlTableEvent").textContent=game.history.at(-1)||"Ván đấu đã sẵn sàng";
   board.dataset.currentTurn=String(game.turn);
   const mine=board.querySelector(".tl-player-hud");
-  mine?.classList.toggle("is-turn",game.turn===0&&!done);
+  mine?.classList.toggle("is-turn",game.turn===0&&!done&&!busy);
   const myAvatar=mine?.querySelector(".tl-player-identity .tl-avatar");
-  myAvatar?.classList.toggle("tl-avatar-turn",game.turn===0&&!done);
+  myAvatar?.classList.toggle("tl-avatar-turn",game.turn===0&&!done&&!busy);
   myAvatar?.querySelector(".tl-avatar-turn-tag,.tl-avatar-turn-clock")?.remove();
-  if(myAvatar&&game.turn===0&&!done)myAvatar.append(el("span","tl-avatar-turn-clock","20s"));
+  if(myAvatar&&game.turn===0&&!done&&!busy)myAvatar.append(el("span","tl-avatar-turn-clock","20s"));
   const previous=game.last?.combo;
   pile.replaceChildren();
   if(!game.played.length)pile.append(el("p","tl-empty","Vòng mới · Chưa có bài trên bàn"));
