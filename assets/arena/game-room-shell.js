@@ -2,6 +2,7 @@
  * G/points are read exclusively from the Firebase-verified Arena Edge API.
  */
 import {roomRequest,formatG} from "./room-api.js";
+import {mountArenaFriendPopup} from "./game-room-social.js";
 const $=id=>document.getElementById(id);
 const GAME_PAGES=Object.freeze({
  colors:{name:"Bài Màu Đại Chiến",online:true,description:"Trò chơi sắc màu bốn người"},
@@ -53,7 +54,7 @@ function inviteCode(){
  const code=String(new URL(location.href).searchParams.get("room")||"").trim().toUpperCase();
  return /^[A-Z2-9]{8}$/.test(code)?code:"";
 }
-function start(mode,{auto=false}={}){
+function start(mode,{auto=false,code=""}={}){
  if(mode!=="bot"&&!current.online){status("⚠️ "+current.name+" hiện mới hỗ trợ đấu máy.");return;}
  if(!["bot","quick","friends","browse"].includes(mode))return;
  playingMode=mode;hasBooted=false;frameLoaded=false;openAttempt++;
@@ -61,7 +62,7 @@ function start(mode,{auto=false}={}){
  url.searchParams.set("embed","1");
  url.searchParams.set("game",game);
  url.searchParams.set("mode",mode);
- const invite=inviteCode();
+ const invite=code||inviteCode();
  if(invite&&current.online)url.searchParams.set("room",invite);
  $("roomPlayHeading").textContent=current.name+" · "+(mode==="bot"?"Đấu máy":mode==="quick"?"Chơi nhanh":mode==="browse"?"Chọn bàn":"Chơi với bạn");
  lobby.hidden=true;stage.hidden=false;document.body.classList.add("game-room-in-play");
@@ -103,8 +104,19 @@ window.addEventListener("message",event=>{
  if(msg.event==="returned")reset();
  if(msg.event==="error"){$("roomFrameLoading").hidden=true;playStatus(msg.message||"Không thể mở bàn chơi.");}
 });
+const friendPopup=current.online?mountArenaFriendPopup({
+ game,gameName:current.name,
+ getWallet:()=>verifiedWallet,
+ nickname:()=>($("roomPlayer")?.textContent||"Học viên").trim().slice(0,24)||"Học viên",
+ onWallet:updateWallet,
+ onAccepted:room=>{void loadWallet();start("friends",{code:room.code});}
+}):null;
 document.querySelectorAll("[data-play-mode]").forEach(btn=>btn.addEventListener("click",()=>{
- if(!btn.disabled)start(btn.dataset.playMode);
+ if(btn.disabled)return;
+ const mode=btn.dataset.playMode;
+ if(mode==="friends"){friendPopup?.open("create");return;}
+ if(mode==="browse"){location.assign("game-chon-ban.html?game="+encodeURIComponent(game));return;}
+ start(mode);
 }));
 $("roomBotPlay").addEventListener("click",()=>start("bot"));
 $("roomExitGame").addEventListener("click",leave);
@@ -206,5 +218,10 @@ $("roomDaily").addEventListener("click",()=>{
  $("arenaDailyOpen")?.click();
 });
 const mode=new URL(location.href).searchParams.get("mode");
+const popup=new URL(location.href).searchParams.get("popup");
 if(inviteCode()&&current.online)start("friends",{auto:true});
-else if(["quick","friends","browse","bot"].includes(mode))start(mode,{auto:true});
+else if(mode==="friends"&&current.online)friendPopup?.open("create");
+else if(mode==="browse"&&current.online)location.replace("game-chon-ban.html?game="+encodeURIComponent(game));
+else if(["quick","bot"].includes(mode))start(mode,{auto:true});
+else if(popup==="create"&&current.online)friendPopup?.open("create");
+else if(popup==="join"&&current.online)friendPopup?.open("join");
