@@ -25,6 +25,7 @@ on:
       - 'tools/test-arena-game-modes.mjs'
       - 'tools/test-arena-gestures.mjs'
       - 'tools/test-arena-card-turn-v2.mjs'
+      - 'tools/browser-card-turns.mjs'
       - 'assets/arena/game-room-browser.js'
       - 'assets/arena/game-room-browser.css'
       - 'tools/browser-arena-social.mjs'
@@ -53,6 +54,7 @@ jobs:
           node --check assets/arena/game-room-shell.js
           node --check assets/arena/mobile-live.js
           node --check tools/browser-game-rooms.mjs
+          node --check tools/browser-card-turns.mjs
           node --check tools/test-arena-game-modes.mjs
           node --check assets/arena/ludo.js
           node --check assets/arena/estate.js
@@ -76,6 +78,8 @@ jobs:
           npx playwright install chromium --with-deps
       - name: Test popup Create / Join and dedicated real room listing
         run: node tools/browser-arena-social.mjs
+      - name: Test real card-game turn popups and centered avatar clocks
+        run: node tools/browser-card-turns.mjs
       - name: Test six game rooms at 390 portrait, 844 landscape and 1440 desktop
         run: node tools/browser-game-rooms.mjs
       - uses: actions/upload-artifact@v4
