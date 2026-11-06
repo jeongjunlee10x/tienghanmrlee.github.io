@@ -2,8 +2,8 @@
 import {newGame,canPlay,play,beginDraw,pass,botTurn,cardLabel,topCard,
   COLOR_VI,COLORS,PLAYER_NAMES} from "./color-engine.js";
 import {mountChess} from "./chess-ui.js?v=20261106-gesture-r13";
-import {mountTienLen} from "./tienlen-ui.js?v=20261106-gesture-r13";
-import {mountArenaRooms} from "./rooms-ui.js?v=20261106-gesture-r13";
+import {mountTienLen} from "./tienlen-ui.js?v=20261106-turn-v14";
+import {mountArenaRooms} from "./rooms-ui.js?v=20261106-turn-v14";
 import {mountLudo} from "./ludo.js?v=20261106-gesture-r13";
 import {mountXiangqi} from "./xiangqi.js?v=20261106-gesture-r13";
 import {mountEstate} from "./estate.js?v=20261106-gesture-r13";
