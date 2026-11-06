@@ -92,7 +92,19 @@ try{
     assert.equal(await page.locator("#roomLobby").isVisible(),false);
     assert.equal(await page.locator("#roomPlay").isVisible(),true);
     assert.equal(await iframe.locator("html").evaluate(el=>el.classList.contains("arena-embedded")),true);
-    await page.locator("#roomExitGame").click();
+    if(game==="colors"&&width===844){
+     const layout=await page.evaluate(()=>{
+      const r=el=>{const b=el.getBoundingClientRect();return {x:b.x,y:b.y,w:b.width,h:b.height}};
+      const button=document.getElementById("roomExitGame"),iframe=document.getElementById("roomGameFrame");
+      const b=button.getBoundingClientRect();
+      return {fullscreen:document.fullscreenElement?.tagName||null,
+       childFullscreen:iframe.contentDocument?.fullscreenElement?.tagName||null,
+       exit:r(button),frame:r(iframe),
+       atExit:document.elementFromPoint(b.x+b.width/2,b.y+b.height/2)?.tagName};
+     });
+     console.log("ROOM MOBILE LAYERS",JSON.stringify(layout));
+    }
+    await page.locator("#roomExitGame").click({timeout:9000});
     await page.locator("#roomLobby").waitFor({state:"visible",timeout:10000});
     assert.equal(await page.locator("#roomPlay").isVisible(),false);
     assert.deepEqual(errors,[],"JS exceptions for "+pageFile+": "+errors.join(" | "));
