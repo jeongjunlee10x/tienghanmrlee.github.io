@@ -474,3 +474,9 @@ html.arena-reference-v1 body{background:radial-gradient(ellipse 110% 80% at 60% 
 .arena-reference-v1 #arenaCatalog .arena-ref-more{display:none!important}
 .arena-reference-v1 #arenaCatalog>.arena-game-card .arena-ref-card-footer{
  justify-content:space-between!important}
+
+/* On the Arena catalog only choose a game; room creation belongs inside it. */
+#arenaCatalog .arena-game-card .arena-game-actions,
+#arenaCatalog .arena-game-card .arena-ref-more{display:none!important}
+#arenaCatalog .arena-game-card{cursor:pointer}
+#arenaCatalog .arena-ref-card-footer{grid-template-columns:minmax(0,1fr) auto}
