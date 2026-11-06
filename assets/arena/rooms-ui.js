@@ -154,24 +154,41 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
  }
  function drawLobby(){
   if(!room)return;
-  show("arenaRoomLobby");
+  // Waiting is an in-table state, not a separate lobby screen.
+  show("arenaPvPBoard");
+  $("roomBoardTitle").textContent=gameName()+" · Đang chờ "+room.players.length+"/"+room.capacity;
+  $("roomBoardCode").textContent=room.code;
   $("roomLobbyCode").textContent=room.code;
   $("roomLobbyGame").textContent=gameName();
   $("roomLobbyGold").textContent=formatG(room.minGold)+"/lá · Bảo đảm "+formatG(room.requiredGold);
   $("roomLobbyCount").textContent=room.players.length+"/"+room.capacity+" người";
-  const players=$("roomLobbyPlayers");players.replaceChildren();
   const mine=room.players.find(p=>p.seat===room.seat);
-  for(let index=0;index<room.capacity;index++){
-   const current=room.players.find(p=>p.seat===index);
-   const block=el("div","arena-room-player"+(current?.ready?" ready":""));
-   block.append(el("span","",current?"🧑":"◌"),
-    el("strong","",current?.name||"Đang đợi..."),
-    el("small","",current?(current.ready?"✓ Sẵn sàng":"Chưa sẵn sàng"):"Ghế "+(index+1)));
-   players.append(block);
-  }
   $("roomToggleReady").textContent=mine?.ready?"Bỏ sẵn sàng":"✓ Tôi đã sẵn sàng";
-  status("roomLobbyStatus","Chờ "+(room.capacity-room.players.length)+
-   " người nữa. Tất cả cần có đủ "+formatG(room.requiredGold)+" và nhấn sẵn sàng.");
+  canvas.waiting(room,{
+   ready:()=>$("roomToggleReady").click(),
+   lock:()=>void withBusy(async()=>{
+    if(!room?.isHost)throw Error("Chỉ chủ bàn được khóa hoặc mở khóa.");
+    const response=await roomRequest("lock",{code:room.code,locked:!room.locked});
+    room=response.room;drawLobby();
+   }),
+   start:()=>void withBusy(async()=>{
+    if(!room?.isHost||room.game!=="tienlen")throw Error("Chỉ chủ bàn Tiến Lên mới bắt đầu được.");
+    const response=await roomRequest("start",{code:room.code});
+    room=response.room;
+    if(room.status==="playing")drawGame();else drawLobby();
+    await refreshWallet();
+   }),
+   copy:()=>void navigator.clipboard?.writeText(room.code).catch(e=>
+    status("roomBoardStatus",e?.message||"Không sao chép được mã.",true)),
+   invite:()=>void navigator.clipboard?.writeText(new URL(({
+    chess:"game-co-vua.html",tienlen:"game-tien-len.html",colors:"game-bai-mau.html"
+   })[room.game]+"?room="+room.code,location.href).href).catch(e=>
+    status("roomBoardStatus",e?.message||"Không sao chép được liên kết.",true)),
+   refresh:()=>void withBusy(pull)
+  });
+  status("roomBoardStatus",room.locked?"🔒 Chủ bàn đã khóa. Người đang ngồi vẫn có thể chơi.":
+   room.game==="tienlen"?"Từ 2 người có thể chơi: mọi người Sẵn sàng, chủ bàn Bắt đầu.":
+   "Chờ mọi người sẵn sàng để bắt đầu ván.");
  }
  function drawGame(){
   if(!room)return;
