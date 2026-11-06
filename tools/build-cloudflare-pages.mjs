@@ -57,6 +57,45 @@ const sitemapPages=[...new Set(sourceUrls.map(href=>{
 }))];
 if(!sitemapPages.includes(''))throw new Error('Source sitemap must include homepage');
 const seoPaths=new Set(sitemapPages.map(p=>p||'index.html'));
+
+const authSource=await readFile(join(root,'auth-status.js'),'utf8');
+const protectedMatch=authSource.match(/const MRLEE_PROTECTED_PAGES = new Set\((\[[\s\S]*?\])\);/);
+if(!protectedMatch)throw new Error('Protected lesson page list not found; refusing unsafe SEO build');
+const privatePaths=new Set([
+ ...JSON.parse(protectedMatch[1]),
+ 'admin.html','dang-nhap.html','mrlee-game-arena.html'
+]);
+for(const path of seoPaths){
+ if(privatePaths.has(path))throw new Error('Private page must not be in sitemap: '+path);
+}
+// Robots metadata is not an authentication mechanism: actual access stays
+// enforced by the existing application guard and backend permissions.
+function protectSearchIndex(html,pathname){
+ if(!privatePaths.has(pathname)||!/<\/head>/i.test(html))return html;
+ const robotsTags=html.match(/<meta\b(?=[^>]*\bname\s*=\s*["']robots["'])[^>]*>/gi)||[];
+ if(robotsTags.some(tag=>/noindex/i.test(tag)))return html;
+ return html.replace(/<\/head>/i,'<meta name="robots" content="noindex,follow">\n</head>');
+}
+function addBrandStructuredData(html,pathname){
+ if(pathname!=='index.html'||!/<\/head>/i.test(html))return html;
+ if(/data-mrlee-brand-jsonld/.test(html))return html;
+ const graph={
+  '@context':'https://schema.org',
+  '@graph':[
+   {'@type':'Organization','@id':origin+'/#organization',
+    'name':'Tiếng Hàn MR LEE','url':origin+'/',
+    'logo':origin+'/assets/branding/logo-mrlee.png',
+    'sameAs':['https://www.tiktok.com/@hankuc_chemi']},
+   {'@type':'WebSite','@id':origin+'/#website',
+    'name':'Tiếng Hàn MR LEE','url':origin+'/',
+    'inLanguage':'vi-VN','publisher':{'@id':origin+'/#organization'}}
+  ]
+ };
+ const json=JSON.stringify(graph).replace(/</g,'\\u003c');
+ return html.replace(/<\/head>/i,
+  '<script type="application/ld+json" data-mrlee-brand-jsonld="v1">'+json+'</script>\n</head>');
+}
+
 const escapeMeta = text => String(text).replace(/&(?!(?:#\d+|#x[0-9a-f]+|[a-z][a-z0-9]+);)/gi,'&amp;')
   .replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 function enhanceSeoHead(html,pathname){
@@ -136,6 +175,8 @@ const workers=Array.from({length:16},async()=>{
                    .replaceAll(oldOrigin,origin)
                    .replaceAll(oldRoot,'/');
   next=enhanceSeoHead(next,item.rel);
+  next=protectSearchIndex(next,item.rel);
+  next=addBrandStructuredData(next,item.rel);
   // Existing GitHub Pages root is unchanged; only Cloudflare output differs.
   await writeFile(target,next,'utf8');
  }
