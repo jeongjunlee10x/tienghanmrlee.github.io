@@ -112,7 +112,7 @@ try{
      "Cờ Úp must be selected from standalone lobby");
     if(game==="estate"){
      assert.equal(await iframe.locator("#estateDuration").inputValue(),"8");
-     assert.match(await iframe.locator("#estateRound").textContent(),/1\\/8/,
+     assert.ok((await iframe.locator("#estateRound").textContent()).includes("1/8"),
       "Estate fast mode uses eight rounds");
     }
     assert.equal(await page.locator("#roomLobby").isVisible(),false);
