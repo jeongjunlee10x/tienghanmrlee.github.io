@@ -429,3 +429,40 @@ html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-card
 #arenaChess .chess-board,#arenaLudo .ludo-board,#arenaEstate .estate-board{
  width:100%!important
 }
+
+/* Reuse the six existing original MR LEE SVG game-cover illustrations.
+ * Crisp at every DPI, never a stock image or an external copyrighted skin. */
+#arenaLobby .arena-game-card .arena-card-banner{
+ background-size:cover!important;background-position:center!important;
+ background-repeat:no-repeat!important;
+ font-size:0!important;text-shadow:none!important;
+}
+#arenaLobby .arena-game-card .arena-card-banner.colors{
+ background:linear-gradient(90deg,#22184d4d,transparent 70%),url("./covers/colors.svg") center/cover no-repeat,
+ linear-gradient(135deg,#33226d,#6d4189)!important
+}
+#arenaLobby .arena-game-card .arena-card-banner.chess{
+ background:linear-gradient(90deg,#172f4561,transparent 70%),url("./covers/chess.svg") center/cover no-repeat,
+ linear-gradient(135deg,#1c415e,#45686c)!important
+}
+#arenaLobby .arena-game-card .arena-card-banner.tienlen{
+ background:linear-gradient(90deg,#391c3577,transparent 70%),url("./covers/tienlen.svg") center/cover no-repeat,
+ linear-gradient(135deg,#5b2041,#8d4151)!important
+}
+#arenaLobby .arena-game-card .arena-card-banner.xiangqi{
+ background:linear-gradient(90deg,#5733225b,transparent 70%),url("./covers/xiangqi.svg") center/cover no-repeat,
+ linear-gradient(135deg,#6d412d,#a26c4a)!important
+}
+#arenaLobby .arena-game-card .arena-card-banner.ludo{
+ background:linear-gradient(90deg,#184a5480,transparent 70%),url("./covers/ludo.svg") center/cover no-repeat,
+ linear-gradient(135deg,#235963,#73ab7d)!important
+}
+#arenaLobby .arena-game-card .arena-card-banner.estate{
+ background:linear-gradient(90deg,#18385c61,transparent 70%),url("./covers/estate.svg") center/cover no-repeat,
+ linear-gradient(135deg,#254b77,#4b80ad)!important
+}
+#arenaLobby .arena-card-banner.colors>span{display:none!important}
+#arenaLobby .arena-game-card .arena-card-banner::before{opacity:.28}
+@media(max-width:700px){
+ #arenaLobby .arena-game-card .arena-card-banner{background-position:58% center!important}
+}
