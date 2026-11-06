@@ -12,6 +12,7 @@ const btn=(name,cl,click)=>{
  const b=make("button",cl,name);b.type="button";if(click)b.addEventListener("click",click);return b;
 };
 const formatClock=n=>{
+ if(!Number.isFinite(n))return "∞";
  const total=Math.max(0,Math.ceil(n));
  return Math.floor(total/60).toString().padStart(2,"0")+":"+(total%60).toString().padStart(2,"0");
 };
@@ -21,9 +22,14 @@ export function mountChess({onStart,onFinish,onExit}){
  const clockWhite=$("chessWhiteClock"),clockBlack=$("chessBlackClock");
  const clockMode=$("chessTime"),boardTheme=$("chessBoardTheme");
  let history=[],labels=[],traces=[],picked=-1,timer=null,token=0,done=false,pending=null,flip=false;
- let clockTicker=null,clockLast=0,clockRemaining={1:600,"-1":600},hintText="";
+ let clockTicker=null,clockLast=0,clockRemaining={1:600,"-1":600},hintText="",clockBonus=0;
+ const requestedClock=new URL(location.href).searchParams.get("time");
+ if([...clockMode.options].some(o=>o.value===requestedClock))clockMode.value=requestedClock;
  const resetClocks=()=>{
-  const seconds=Number(clockMode.value)||600;
+  const [minutes,bonus]=clockMode.value==="none"?[Infinity,0]:
+   clockMode.value.includes("+")?clockMode.value.split("+").map(Number):
+   [Number(clockMode.value)/60||10,0];
+  const seconds=minutes*60;clockBonus=bonus;
   clockRemaining={1:seconds,"-1":seconds};
   clockWhite.textContent=formatClock(seconds);clockBlack.textContent=formatClock(seconds);
  };
@@ -51,6 +57,7 @@ export function mountChess({onStart,onFinish,onExit}){
   const stamp=Date.now(),delta=Math.min(30,(stamp-clockLast)/1000);clockLast=stamp;
   if(!Number.isFinite(delta)||delta<=0)return;
   const turn=history.at(-1).t;
+  if(!Number.isFinite(clockRemaining[turn]))return;
   clockRemaining[turn]=Math.max(0,clockRemaining[turn]-delta);
   paintClocks();
   if(clockRemaining[turn]===0)finish({winner:-turn,reason:"Hết giờ"});
@@ -81,7 +88,9 @@ export function mountChess({onStart,onFinish,onExit}){
   const s=history.at(-1),allowed=legal(s);
   const actual=allowed.find(m=>m[0]===move[0]&&m[1]===move[1]&&m[2]===move[2]);
   if(!actual)return;
+  clockStep();if(!active())return;
   labels.push((s.t===1?s.full+". ":s.full+"... ")+san(s,actual));
+  if(Number.isFinite(clockRemaining[s.t]))clockRemaining[s.t]+=clockBonus;
   traces.push([actual[0],actual[1]]);
   history.push(apply(s,actual));picked=-1;hintText="";
   clockLast=Date.now();
@@ -169,7 +178,9 @@ export function mountChess({onStart,onFinish,onExit}){
    try{
     const s=history.at(-1),move=bestBotMove(s,level.value);
     if(!move){finish(status(history));return;}
+    clockStep();if(!active())return;
     labels.push(s.full+"... "+san(s,move));
+    if(Number.isFinite(clockRemaining[s.t]))clockRemaining[s.t]+=clockBonus;
     traces.push([move[0],move[1]]);
     history.push(apply(s,move));
     clockLast=Date.now();hintText="";
