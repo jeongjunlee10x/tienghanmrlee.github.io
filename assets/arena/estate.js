@@ -98,6 +98,8 @@ function endTurn(g){
 }
 export function mountEstate({onStart,onFinish,onExit}){
  const root=$("arenaEstate"),board=$("estateBoard"),status=$("estateStatus");
+ const requested=Number(new URL(location.href).searchParams.get("rounds"));
+ if([8,16,24].includes(requested)&&$("estateDuration"))$("estateDuration").value=String(requested);
  let g=null,timer=null,epoch=0,done=false;
  function stop(){epoch++;if(timer!==null)clearTimeout(timer);timer=null;if($("estateDuration"))$("estateDuration").disabled=false;}
  function exit(){stop();g=null;root.hidden=true;onExit();}
