@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="vi" data-room-game="xiangqi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#142248">
+<meta name="description" content="Cờ Tướng / Cờ Úp tại MR LEE GAME ARENA. Bàn cờ trí tuệ. Chơi với máy, quản lý vàng G và các chế độ PvP nếu được hỗ trợ.">
+<title>Cờ Tướng / Cờ Úp | MR LEE GAME ARENA</title>
+<link rel="icon" href="assets/branding/logo-mrlee.png">
+<link rel="stylesheet" href="assets/arena/game-room-shell.css?v=1">
+<style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
+<script type="module" src="auth-guard.js"></script>
+<script type="module" src="assets/arena/game-room-shell.js?v=1"></script>
+</head>
+<body>
+<div class="game-room-shell">
+<header class="game-room-header">
+ <a class="game-room-back" href="mrlee-game-arena.html" aria-label="Quay về Game Arena">‹</a>
+ <a class="game-room-brand" href="mrlee-game-arena.html"><img src="assets/branding/logo-mrlee.png" alt="" width="60" height="60"><span>MR LEE<small>GAME ARENA</small></span></a>
+ <div class="game-room-player"><span class="game-room-avatar">♜</span><div class="game-room-player-name"><strong id="roomPlayer">Học viên MR LEE</strong><small id="roomCaption">Bàn cờ trí tuệ</small></div></div>
+ <div class="game-room-money" aria-label="Ví vàng G đã xác minh"><span aria-hidden="true">🪙</span><output id="roomWalletGold" aria-live="polite">—</output><button id="roomOpenExchange" type="button" title="Đổi điểm học tập lấy vàng G">＋</button></div>
+ <div class="game-room-points" title="Điểm học tập có thể đổi"><span>🎓</span><b id="roomWalletPoints">—</b><small>điểm</small></div>
+ <nav class="game-room-header-actions" aria-label="Tiện ích"><button type="button" id="roomShowRules" aria-label="Hướng dẫn">❔</button><a href="bang-diem-tuan-v12.html" aria-label="Bảng xếp hạng">🏆</a><button type="button" id="roomMoreGames" aria-label="Game khác">☰</button></nav>
+</header>
+<main class="game-room-main">
+ <section id="roomLobby" class="game-room-lobby" aria-labelledby="gameRoomTitle">
+  <div class="game-room-scene" aria-hidden="true"><span class="game-room-spark spark-a">✦</span><span class="game-room-spark spark-b">✧</span><span class="game-room-spark spark-c">✦</span></div>
+  <div class="game-room-title"><span class="game-room-eyebrow">✦ MR LEE · PHÒNG TRÒ CHƠI</span><h1 id="gameRoomTitle">Cờ Tướng / Cờ Úp</h1><p id="gameRoomSubtitle">Bàn cờ trí tuệ · Chọn chế độ để vào bàn</p></div>
+  <div id="roomMenu" class="game-room-tiles" role="group" aria-label="Chọn chế độ chơi">
+   <button type="button" class="game-room-tile tile-quick" data-play-mode="quick"><span class="tile-emoji">🂡</span><span class="tile-graphic" aria-hidden="true">⚡</span><strong>Chơi nhanh</strong><small id="roomQuickCaption">Vào bàn phù hợp ngay</small></button>
+   <button type="button" class="game-room-tile tile-friends" data-play-mode="friends"><span class="tile-emoji">👥</span><span class="tile-graphic" aria-hidden="true">VS</span><strong>Chơi với bạn</strong><small id="roomFriendsCaption">Tạo phòng · nhập mã</small></button>
+   <button type="button" class="game-room-tile tile-rooms" data-play-mode="browse"><span class="tile-emoji">🃏</span><span class="tile-graphic" aria-hidden="true">♠ ♥</span><strong>Chọn bàn</strong><small id="roomBrowseCaption">Xem phòng và mức G</small></button>
+   <a class="game-room-tile tile-more" href="mrlee-game-arena.html"><span class="tile-emoji">🎲</span><span class="tile-graphic" aria-hidden="true">✦</span><strong>Game khác</strong><small>Khám phá trò mới</small></a>
+  </div>
+  <p class="game-room-hint" id="roomModeHint" role="status" aria-live="polite"></p>
+ </section>
+ <section id="roomPlay" class="game-room-play" hidden aria-labelledby="roomPlayHeading">
+  <div class="game-room-play-head">
+   <button id="roomExitGame" type="button">← Về chọn chế độ</button>
+   <h2 id="roomPlayHeading">Cờ Tướng / Cờ Úp</h2>
+   <div><button id="roomTryLandscape" type="button" title="Đề nghị trình duyệt xoay ngang">↻ Xoay ngang</button><button id="roomTryFullscreen" type="button" title="Toàn màn hình">⛶</button></div>
+  </div>
+  <div class="game-room-frame-wrap"><div id="roomFrameLoading" class="game-room-loading" role="status">Đang mở bàn chơi…</div><iframe id="roomGameFrame" title="Bàn Cờ Tướng / Cờ Úp" allow="fullscreen; screen-wake-lock" allowfullscreen referrerpolicy="same-origin" loading="eager"></iframe></div>
+ </section>
+</main>
+<footer class="game-room-footer"><button id="roomBotPlay" type="button">🤖 Đấu với máy <small>Vé thử · không dùng G thật</small></button><button id="roomDaily" type="button">🎁 Thưởng mỗi ngày</button><a href="mrlee-game-arena.html">🎮 Sảnh trò chơi</a><a href="tro-choi-tieng-han.html">📚 Game học tập</a><span class="game-room-note">G là điểm ảo trong website · không đổi tiền thật</span></footer>
+</div>
+<dialog id="roomDialog" class="game-room-dialog" aria-labelledby="roomDialogTitle"><header><h2 id="roomDialogTitle">MR LEE</h2><button id="roomDialogClose" type="button" aria-label="Đóng">✕</button></header><div id="roomDialogContent"></div></dialog>
+</body>
+</html>
