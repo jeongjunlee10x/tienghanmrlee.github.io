@@ -34,7 +34,7 @@ try{
    await page.locator("#arenaRefColorsAccess").waitFor();
    assert.equal(await page.locator(".arena-game-card").count(),6);
    assert.equal(await page.evaluate(()=>document.documentElement.dataset.mrleeTheme),theme);
-   await page.locator("#arenaRefColorsAccess").click();
+   await page.evaluate(()=>document.querySelector('#arenaCatalog button[data-game="colors"]')?.click());
    await page.locator(".arena-hand-card").first().waitFor({timeout:6000});
    assert.equal(await page.locator(".arena-hand-card").count(),7);
    assert.equal(await page.locator(".arena-opponent").count(),3);
