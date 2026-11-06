@@ -198,9 +198,14 @@ export function mountXiangqi({onStart,onFinish,onExit}){
   if(selected>=0&&xiangqiLegal(g,1).some(m=>m[0]===selected&&m[1]===i)){
    try{
     const from=board.querySelector('[data-index="'+selected+'"]'),to=board.querySelector('[data-index="'+i+'"]');
-    const captured=Boolean(g.b[i]);
+    const captured=Boolean(g.b[i]),wasCovered=Boolean(g.b[selected]?.covered);
     animateBoardMove({from,to,piece:from?.querySelector(".xq-piece"),kind:"xiangqi-piece"});
     xiangqiMove(g,selected,i);selected=-1;render();
+    if(wasCovered){
+     const piece=board.querySelector('[data-index="'+i+'"] .xq-piece');
+     if(piece&&document.documentElement.dataset.arenaVisuals!=="off")
+      piece.classList.add("arena-v22-flip-open");
+    }
     if(captured)emitArenaFX("xiangqi",board.querySelector('[data-index="'+i+'"]'),"ĂN QUÂN");
     if(g.winner!==null)finish();else schedule();
    }
@@ -216,9 +221,10 @@ export function mountXiangqi({onStart,onFinish,onExit}){
    if(stamp!==epoch||g!==snapshot||root.hidden||finished)return;
    if(!move){g.winner=1;}else{
     const from=board.querySelector('[data-index="'+move[0]+'"]'),to=board.querySelector('[data-index="'+move[1]+'"]');
-    const captured=Boolean(g.b[move[1]]);
+    const captured=Boolean(g.b[move[1]]),wasCovered=Boolean(g.b[move[0]]?.covered);
     animateBoardMove({from,to,piece:from?.querySelector(".xq-piece"),kind:"xiangqi-piece"});
     xiangqiMove(g,...move);
+    if(wasCovered)board.dataset.v22FlipTarget=String(move[1]);
     if(captured)emitArenaFX("xiangqi",board.querySelector('[data-index="'+move[1]+'"]'));
    }
    render();if(g.winner!==null)finish();
@@ -251,6 +257,12 @@ export function mountXiangqi({onStart,onFinish,onExit}){
   status.textContent=g.winner!==null?(g.winner===1?"🏆 Bạn thắng!":"🏆 Máy thắng!"):
    g.turn===1?(isXiangqiCheck(g,1)?"⚠️ Tướng đang bị chiếu! Chọn nước cứu tướng.":"🔴 Lượt bạn · giữ kéo quân đỏ đến ô đích hoặc chạm hai ô."):
    "⏳ Máy đang suy nghĩ nước đi...";
+  if(board.dataset.v22FlipTarget){
+   const piece=board.querySelector('[data-index="'+board.dataset.v22FlipTarget+'"] .xq-piece');
+   if(piece&&document.documentElement.dataset.arenaVisuals!=="off")
+    piece.classList.add("arena-v22-flip-open");
+   delete board.dataset.v22FlipTarget;
+  }
   board.dataset.lastMove=g.last?g.last.join(","):"";
   board.dataset.moveIndex=String(g.moves.length);
   board.append(node("div","arena-extra-ticker xq-ticker",g.last?
