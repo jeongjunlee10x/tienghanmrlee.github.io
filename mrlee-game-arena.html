@@ -269,7 +269,7 @@
 </section>
 
 <section id="arenaTable" hidden aria-labelledby="arenaTableHeading">
- <div class="arena-table-heading"><button id="arenaExit" class="arena-soft" type="button">← Về sảnh</button><div><span class="arena-eyebrow">BÀI MÀU • ĐẤU VỚI MÁY</span><h2 id="arenaTableHeading">Sắc Màu Đại Chiến</h2></div><button class="arena-soft arena-fullscreen-btn" type="button" data-fullscreen-target="arenaTable" title="Chơi toàn màn hình">⛶ Toàn màn hình</button><button id="arenaRules" class="arena-soft" type="button">❔ Luật</button></div>
+ <div class="arena-table-heading"><button id="arenaExit" class="arena-soft" type="button">← Về sảnh</button><div><span class="arena-eyebrow">BÀI MÀU • ĐẤU VỚI MÁY</span><h2 id="arenaTableHeading">Sắc Màu Đại Chiến</h2></div><button class="arena-soft arena-fullscreen-btn" type="button" data-fullscreen-target="arenaTable" title="Chơi toàn màn hình">⛶ Toàn màn hình</button><label class="arena-difficulty arena-bot-level">AI <select id="colorsLevel" aria-label="Độ khó máy Bài Màu"><option value="easy">Thư giãn</option><option value="normal" selected>Cân bằng</option><option value="hard">Thử thách</option></select></label><button id="arenaRules" class="arena-soft" type="button">❔ Luật</button></div>
  <div class="arena-board" aria-label="Bàn bài bốn người">
    <div id="arenaOpponents" class="arena-opponents"></div>
    <div class="arena-board-center"><div class="arena-deck">
@@ -329,7 +329,7 @@
  <div class="arena-table-heading">
    <button id="tlExit" type="button" class="arena-soft">← Về sảnh</button>
    <div><span class="arena-eyebrow">TIẾN LÊN MIỀN NAM • 4 NGƯỜI</span><h2 id="tlTitle">Đại Chiến Tiến Lên 🂡</h2></div>
-   <button class="arena-soft arena-fullscreen-btn" type="button" data-fullscreen-target="arenaTienLen" title="Chơi toàn màn hình">⛶ Toàn màn hình</button><button id="tlNew" type="button" class="arena-action">↻ Ván mới · miễn phí</button>
+   <button class="arena-soft arena-fullscreen-btn" type="button" data-fullscreen-target="arenaTienLen" title="Chơi toàn màn hình">⛶ Toàn màn hình</button><label class="arena-difficulty arena-bot-level">AI <select id="tlLevel" aria-label="Độ khó máy Tiến Lên"><option value="easy">Thư giãn</option><option value="normal" selected>Chiến thuật</option><option value="hard">Thử thách</option></select></label><button id="tlNew" type="button" class="arena-action">↻ Ván mới · miễn phí</button>
  </div>
  <div id="tlBoard" class="tl-board" data-fx-phase="idle" data-fx-count="0" aria-label="Bàn chơi 4 người, ba đối thủ ngồi trên, trái và phải">
   <span class="tl-table-watermark" aria-hidden="true">MR LEE</span><div class="tl-room-badge" aria-hidden="true">♠ MR LEE · TIẾN LÊN MIỀN NAM · ♥</div>
@@ -403,7 +403,7 @@
 <option value="8">Nhanh · 8 vòng</option>
 <option value="16" selected>Tiêu chuẩn · 16 vòng</option>
 <option value="24">Chiến lược dài · 24 vòng</option>
-</select></label><p id="estateStatus" class="arena-extra-status" role="status" aria-live="polite"></p><div class="arena-extra-bar"><strong id="estateRound">Vòng 1/16</strong><span id="estateDice">🎲 🎲</span><button id="estateRoll" type="button" class="arena-primary">Tung 2 xúc xắc</button></div><div id="estateOffer" class="estate-prompt" hidden><p id="estateOfferText"></p><div class="arena-extra-bar"><button id="estateBuy" class="arena-primary" type="button">🏠 Mua đất</button><button id="estateSkip" class="arena-soft" type="button">Bỏ qua</button></div></div><div id="estateUpgrades" class="estate-upgrades"></div><p class="arena-demo-rule">Mỗi người khởi đầu 1.800 xu demo. Qua xuất phát nhận 200 xu; thắng theo tổng tài sản khi kết thúc số vòng đã chọn hoặc khi các đối thủ phá sản.</p></div>
+</select></label><label class="arena-difficulty arena-bot-level">AI <select id="estateLevel" aria-label="Độ khó máy Địa Ốc"><option value="easy">Thư giãn</option><option value="normal" selected>Cân bằng</option><option value="hard">Đầu tư thông minh</option></select></label><p id="estateStatus" class="arena-extra-status" role="status" aria-live="polite"></p><div class="arena-extra-bar"><strong id="estateRound">Vòng 1/16</strong><span id="estateDice">🎲 🎲</span><button id="estateRoll" type="button" class="arena-primary">Tung 2 xúc xắc</button></div><div id="estateOffer" class="estate-prompt" hidden><p id="estateOfferText"></p><div class="arena-extra-bar"><button id="estateBuy" class="arena-primary" type="button">🏠 Mua đất</button><button id="estateSkip" class="arena-soft" type="button">Bỏ qua</button></div></div><div id="estateUpgrades" class="estate-upgrades"></div><p class="arena-demo-rule">Mỗi người khởi đầu 1.800 xu demo. Qua xuất phát nhận 200 xu; thắng theo tổng tài sản khi kết thúc số vòng đã chọn hoặc khi các đối thủ phá sản.</p></div>
    <div class="arena-panel"><h3>🏆 Tài sản</h3><div id="estatePlayers" class="estate-players"></div></div>
    <div class="arena-panel"><h3>Diễn biến</h3><div id="estateHistory" class="arena-mini-log" aria-live="polite"></div><p class="arena-demo-rule">Xu bất động sản chỉ dùng trong ván đấu máy; không phải vàng G hoặc điểm học tập.</p></div>
   </aside>
