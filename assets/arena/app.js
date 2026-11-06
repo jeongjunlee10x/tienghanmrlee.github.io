@@ -8,12 +8,12 @@ import {mountLudo} from "./ludo.js?v=20261106-modes-r9";
 import {mountXiangqi} from "./xiangqi.js?v=20261106-modes-r9";
 import {mountEstate} from "./estate.js?v=20261106-modes-r9";
 const $=id=>document.getElementById(id);
-const state={game:null,tickets:3,gold:0,xp:0,wins:0,losses:0,pending:null,
+const state={game:null,tickets:Infinity,gold:0,xp:0,wins:0,losses:0,pending:null,
   timer:null,epoch:0,settled:false,leaving:false};
 function updateWallet(){
  $("arenaGold").textContent=state.gold.toLocaleString("vi-VN");
  $("arenaXp").textContent=state.xp.toLocaleString("vi-VN");
- $("arenaTickets").textContent=String(state.tickets);
+ $("arenaTickets").textContent="∞";
  $("arenaRecord").textContent=state.wins+" / "+state.losses;
 }
 function el(tag,cl,text){
@@ -70,7 +70,7 @@ function start(){
  }
  if(state.timer)clearTimeout(state.timer);
  state.epoch++;
- state.tickets--;
+ /* Đấu máy luyện tập miễn phí: không trừ vé chơi thử. */
  state.pending=null;
  state.game=newGame();
  state.settled=false;
@@ -208,7 +208,7 @@ function startStrategy(mode){
   showLobby();return false;
  }
  if(state.timer!==null)clearTimeout(state.timer);state.timer=null;
- state.epoch++;state.tickets--;state.pending=null;state.game=null;
+ state.epoch++;/* Đấu máy luyện tập miễn phí: không trừ vé chơi thử. */state.pending=null;state.game=null;
  $("arenaLobby").hidden=true;$("arenaTable").hidden=true;
  $("arenaChess").hidden=mode!=="chess";$("arenaTienLen").hidden=mode!=="tienlen";
  extraSections.forEach(id=>$(id).hidden=id!=="arena"+({ludo:"Ludo",xiangqi:"Xiangqi",estate:"Estate"}[mode]||"__none__"));
