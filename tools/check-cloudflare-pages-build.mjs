@@ -70,7 +70,33 @@ assert(robots.includes(`Sitemap: ${expectedOrigin}/sitemap.xml`), 'robots.txt si
 assert(sitemap.includes(`<loc>${expectedOrigin}/</loc>`), 'sitemap root URL mismatch');
 
 const sitemapUrls=[...sitemap.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map(m=>m[1].trim());
-assert(sitemapUrls.length>=17,'Public sitemap lost previously verified pages');
+const publicGuidePages=[
+ 'huong-dan-hoc-tieng-han.html',
+ 'lo-trinh-so-cap-1.html','lo-trinh-so-cap-2.html',
+ 'lo-trinh-trung-cap-1.html','lo-trinh-trung-cap-2.html',
+ 'lo-trinh-cao-cap-1.html','lo-trinh-cao-cap-2.html'
+];
+assert(sitemapUrls.length>=24,'Public sitemap lost the seven new learning guides');
+for(const guidePath of publicGuidePages){
+ const guideUrl=`${expectedOrigin}/${guidePath}`;
+ assert(sitemapUrls.includes(guideUrl),'Missing public learning guide in sitemap: '+guidePath);
+ assert(paths.has(guidePath),'Missing generated public learning guide: '+guidePath);
+ const guide=await readFile(join(dist,guidePath),'utf8');
+ assert(guide.includes('<main id="main"')&&guide.includes('<h1>'),
+  'Learning guide missing semantic public content: '+guidePath);
+ assert(!guide.includes('auth-guard.js')&&!guide.includes('mrlee-auth-hide'),
+  'Public learning preview is incorrectly gated: '+guidePath);
+ assert(guide.includes('hoc-theo-bai.html?cap=')||guidePath==='huong-dan-hoc-tieng-han.html',
+  'Public learning preview does not lead to the protected lesson route');
+ if(guidePath!=='huong-dan-hoc-tieng-han.html'){
+  assert((guide.match(/class="seo-lesson-card"/g)||[]).length===15,
+   'Expected exactly 15 lesson previews: '+guidePath);
+ }
+}
+const publicGuideHome=await readFile(join(dist,'index.html'),'utf8');
+assert(publicGuideHome.includes('href="huong-dan-hoc-tieng-han.html"'),
+ 'Homepage missing public learning guide link');
+
 const seenSeoPaths=new Set();
 for(const href of sitemapUrls){
  const url=new URL(href);
