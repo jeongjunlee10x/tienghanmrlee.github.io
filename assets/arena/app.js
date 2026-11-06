@@ -233,7 +233,15 @@ $("arenaCatalog").querySelector("[data-game=colors]").addEventListener("click",s
 $("arenaExit").addEventListener("click",showLobby);
 $("arenaDraw").addEventListener("click",()=>{
  const g=state.game;if(!g||g.turn!==0||state.pending!==null)return;
- try{beginDraw(g,0);render();}catch(err){flash(err.message);}
+ try{
+  const before=g.hands[0].length;
+  beginDraw(g,0);render();
+  if(g.hands[0].length>before){
+   const pile=$("arenaTable").querySelector(".arena-cardback");
+   const last=$("arenaHand").lastElementChild;
+   animateBoardMove({from:pile,to:last,piece:pile,kind:"color-card"});
+  }
+ }catch(err){flash(err.message);}
 });
 $("arenaPass").addEventListener("click",()=>{
  const g=state.game;if(!g||g.turn!==0||state.pending!==null)return;
