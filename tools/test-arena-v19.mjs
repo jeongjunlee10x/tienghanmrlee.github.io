@@ -49,7 +49,7 @@ check(fx.includes('dataset.arenaVisuals==="off"'),"Card dealing honors Off setti
 check(premium.includes('dataset.arenaVisuals==="off"'),"Older FLIP visuals honor Off");
 check(tl.includes('card.id===item.dataset.cardId')&&card.includes('c.id===item.dataset.cardId'),
  "Drag-and-drop keeps original string card IDs for local and PvP games");
-check(/rooms-play\\.js\\?v=20261107-(v19|motion-v22)/.test(room),"PvP module cache refreshed");
+check(/rooms-play\.js\?v=20261107-(v19|motion-v22)/.test(room),"PvP module cache refreshed");
 check(chess.includes('emitArenaFX("capture"'),"Cờ vua only sparks on real captures");
 check(xq.includes('emitArenaFX("xiangqi"'),"Cờ Tướng only sparks on real captures");
 check(ludo.includes('emitArenaFX("ludo"'),"Cờ Cá Ngựa captures play the right visual cue");
