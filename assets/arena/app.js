@@ -1,14 +1,14 @@
 /* MR LEE Game Arena — local sandbox. Wins/XP/gold here are not official rewards. */
 import {newGame,canPlay,play,beginDraw,pass,botTurn,cardLabel,topCard,
   COLOR_VI,COLORS,PLAYER_NAMES} from "./color-engine.js?v=20261107-ai-r18";
-import {mountChess} from "./chess-ui.js?v=20261107-v19";
+import {mountChess} from "./chess-ui.js?v=20261107-approved-v20b";
 import {mountTienLen} from "./tienlen-ui.js?v=20261107-v19";
 import {mountArenaRooms} from "./rooms-ui.js?v=20261107-v19";
-import {mountLudo} from "./ludo.js?v=20261107-approved-v20";
-import {mountXiangqi} from "./xiangqi.js?v=20261107-approved-v20";
-import {mountEstate} from "./estate.js?v=20261107-approved-v20";
+import {mountLudo} from "./ludo.js?v=20261107-approved-v20b";
+import {mountXiangqi} from "./xiangqi.js?v=20261107-approved-v20b";
+import {mountEstate} from "./estate.js?v=20261107-approved-v20b";
 import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261107-v19";
-import {emitArenaFX} from "./game-visuals-v19.js?v=20261107-v19";
+import {emitArenaFX} from "./game-visuals-v19.js?v=20261107-approved-v20";
 const $=id=>document.getElementById(id);
 // AI difficulty is a visual preference only; it is never trusted for G scoring
 // or sent to the real-money-free multiplayer settlement API.
