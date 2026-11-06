@@ -31,7 +31,7 @@ try {
   }));
   try{
    await page.goto(origin+"/mrlee-game-arena.html",{waitUntil:"domcontentloaded",timeout:20000});
-   await page.locator('[data-game="tienlen"]').click();
+   await page.locator('.arena-ref-play[data-ref-play="tienlen"]').click();
    await page.locator("#tlHand .tl-hand-card").first().waitFor({timeout:7000});
    assert.equal(await page.locator("#tlHand .tl-hand-card").count(),13);
    assert.equal(await page.locator("#tlOpponents .tl-opponent").count(),3);
