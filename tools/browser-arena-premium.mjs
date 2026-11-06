@@ -54,8 +54,7 @@ try{
   try{
    await page.goto(origin+"/mrlee-game-arena.html",{waitUntil:"domcontentloaded",timeout:25000});
    await page.locator("#arenaDailyOpen").click();
-   await page.locator("#arenaDailyOpen").click();
-  await page.locator("#arenaDailyDialog").waitFor({state:"visible",timeout:12000});
+   await page.locator("#arenaDailyDialog").waitFor({state:"visible",timeout:12000});
    await page.locator("#arenaDailyClose").click();
    await page.waitForFunction(()=>document.querySelectorAll("#arenaCatalog img.arena-cover-image").length===6,null,{timeout:12000});
    const allCovers=await page.locator("#arenaCatalog img.arena-cover-image").evaluateAll(images=>
@@ -91,6 +90,7 @@ try{
  await page.route("**/assets/arena/room-api.js",route=>route.fulfill({status:200,contentType:"text/javascript",body:stub}));
  try{
   await page.goto(origin+"/mrlee-game-arena.html",{waitUntil:"domcontentloaded",timeout:25000});
+  await page.locator("#arenaDailyOpen").click();
   await page.locator("#arenaDailyDialog").waitFor({state:"visible",timeout:12000});
   await page.locator("#arenaDailySpinButton").waitFor({state:"visible",timeout:10000});
   await page.locator("#arenaDailySpinButton").click();
