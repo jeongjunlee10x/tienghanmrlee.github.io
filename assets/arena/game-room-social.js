@@ -6,7 +6,7 @@ import {roomRequest,GOLD_TIERS,requiredGold,formatG,normalizeRoomCode} from "./r
 const mk=(tag,cls="",value)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(value!==undefined)e.textContent=String(value);return e;};
 function add(parent,...children){parent.append(...children);return parent;}
 const legalCode=code=>/^[A-Z2-9]{8}$/.test(code);
-export function mountArenaFriendPopup({game,gameName,getWallet,onAccepted,onWallet,nickname}){
+export function mountArenaFriendPopup({game,gameName,getWallet,getTimeControl=()=>"10+0",onAccepted,onWallet,nickname}){
  const dialog=mk("dialog","arena-social-modal");dialog.id="roomFriendsPopup";
  dialog.setAttribute("aria-labelledby","arenaSocialTitle");
  const shell=mk("div","arena-social-shell");
@@ -26,6 +26,22 @@ export function mountArenaFriendPopup({game,gameName,getWallet,onAccepted,onWall
  create.setAttribute("role","tabpanel");
  const walletInfo=mk("p","arena-social-summary","Đang kiểm tra số dư G...");
  walletInfo.setAttribute("aria-live","polite");
+ const chessSelect=game==="chess"?mk("select","arena-chess-time-select"):null;
+ const chessPicker=game==="chess"?mk("label","arena-chess-time-picker"):null;
+ if(chessSelect){
+  chessSelect.id="arenaSocialChessTime";
+  const groups={Bullet:[["1+0","1+0"],["2+1","2+1"]],
+   Blitz:[["3+0","3+0"],["3+2","3+2"],["5+0","5+0"],["5+3","5+3"]],
+   Rapid:[["10+0","10+0"],["10+5","10+5"],["15+10","15+10"],["30+0","30+0"]],
+   "Luyện tập":[["none","Không đồng hồ"]]};
+  Object.entries(groups).forEach(([title,options])=>{
+   const group=mk("optgroup");group.label=title;
+   options.forEach(([value,label])=>{const opt=mk("option","",label);opt.value=value;group.append(opt);});
+   chessSelect.append(group);
+  });
+  chessSelect.value=getTimeControl();
+  add(chessPicker,mk("span","","♟ THỜI GIAN MỖI BÊN"),chessSelect);
+ }
  const group=mk("div","arena-social-tier-grid");
  group.setAttribute("role","radiogroup");group.setAttribute("aria-label","Mức G mỗi lá hoặc mỗi ván");
  const radios=[];
@@ -43,7 +59,7 @@ export function mountArenaFriendPopup({game,gameName,getWallet,onAccepted,onWall
  const tierFoot=mk("p","arena-social-rule","Mức bàn tính bằng G; khi đủ người và sẵn sàng, máy chủ sẽ kiểm tra và giữ G bảo đảm theo luật chơi.");
  const createButton=mk("button","arena-social-submit","TẠO BÀN");createButton.type="button";createButton.disabled=true;
  const createStatus=mk("p","arena-social-status","");createStatus.setAttribute("role","status");
- add(create,walletInfo,group,visibilityLabel,tierFoot,createButton,createStatus);
+ add(create,walletInfo,...(chessPicker?[chessPicker]:[]),group,visibilityLabel,tierFoot,createButton,createStatus);
  const join=mk("section","arena-social-content");join.id="arenaSocialJoin";join.setAttribute("role","tabpanel");
  const joinIntro=mk("p","arena-social-join-intro","Nhập mã bàn 8 ký tự gồm chữ và số. Có thể dán mã bạn bè gửi.");
  const entry=mk("div","arena-social-code");
@@ -110,6 +126,7 @@ export function mountArenaFriendPopup({game,gameName,getWallet,onAccepted,onWall
  function open(tab="create"){
   if(!dialog.open)dialog.showModal();
   chooseTab(tab);
+  if(chessSelect)chessSelect.value=getTimeControl();
   void refreshWallet();
  }
  function closeDialog(){
@@ -137,7 +154,8 @@ export function mountArenaFriendPopup({game,gameName,getWallet,onAccepted,onWall
   setBusy(true);createStatus.textContent="Đang tạo bàn và nhận mã từ máy chủ...";
   try{
    const result=await roomRequest("create",{
-    game,nickname:nickname(),minGold:tier,visibility:isPublic.checked?"public":"private"
+    game,nickname:nickname(),minGold:tier,visibility:isPublic.checked?"public":"private",
+     ...(chessSelect?{timeControl:chessSelect.value}:{})
    });
    accepted(result.room);
   }catch(error){createStatus.textContent=error?.message||"Không thể tạo bàn.";}
