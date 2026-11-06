@@ -106,9 +106,10 @@ export function xiangqiMove(g,from,to){
  if(captured?.p.toLowerCase()==="k"||!xiangqiLegal(g).length)g.winner=last;
  return g;
 }
-function pickBot(g){
+export function xiangqiBotMove(g,difficulty="normal"){
  const legal=xiangqiLegal(g),me=g.turn;
  if(!legal.length)return null;
+ if(difficulty==="easy")return legal[Math.floor(Math.random()*legal.length)];
  let best=-Infinity,chosen=legal[0];
  for(const [from,to] of legal){
   const a=g.b[from],c=g.b[to],t=clonedMove(g,from,to);
@@ -116,8 +117,25 @@ function pickBot(g){
   const self=VALUES[a.p.toLowerCase()]||0;
   let threatened=false;
   for(let i=0;i<90&&!threatened;i++)if(camp(t.b[i])===-me&&pseudo(t,i).includes(to))threatened=true;
-  const score=capture*1.3-(threatened?self*.85:0)+
-   (to%9>=3&&to%9<=5?7:0)+Math.random()*28+(isXiangqiCheck(t,-me)?40:0);
+  let score=capture*1.3-(threatened?self*.85:0)+
+   (to%9>=3&&to%9<=5?7:0)+Math.random()*(difficulty==="hard"?4:28)+
+   (isXiangqiCheck(t,-me)?40:0);
+  if(difficulty==="hard"){
+   // Penalize exposed major pieces and favor protection without peeking at
+   // hidden Cờ Úp identities beyond the engine's existing legal knowledge.
+   const next={...t,turn:-me};
+   const replies=xiangqiLegal(next,-me);
+   let danger=0;
+   for(const [,dest] of replies){
+    const victim=next.b[dest];
+    if(victim&&camp(victim)===me){
+     const val=VALUES[victim.p.toLowerCase()]||0;
+     danger=Math.max(danger,val);
+    }
+   }
+   score-=danger*.46;
+   if(!threatened&&self>=400)score+=20;
+  }
   if(score>best){best=score;chosen=[from,to];}
  }
  return chosen;
@@ -127,8 +145,41 @@ export function mountXiangqi({onStart,onFinish,onExit}){
  const root=$("arenaXiangqi"),board=$("xqBoard"),status=$("xqStatus");
  const requested=new URL(location.href).searchParams.get("variant");
  if(["xiangqi","up"].includes(requested))$("xqVariant").value=requested;
- let g=null,selected=-1,timer=null,epoch=0,finished=false;
- function stop(){epoch++;if(timer!==null)clearTimeout(timer);timer=null;}
+ let g=null,selected=-1,timer=null,epoch=0,finished=false,worker=null,thinking=null,resolveThinking=null;
+ function stop(){
+  epoch++;if(timer!==null)clearTimeout(timer);timer=null;
+  if(thinking!==null)clearTimeout(thinking);thinking=null;
+  worker?.terminate();worker=null;
+  if(resolveThinking){const release=resolveThinking;resolveThinking=null;release(null);}
+ }
+ function calculateBot(position,difficulty){
+  const moves=xiangqiLegal(position);
+  if(!moves.length)return Promise.resolve(null);
+  const fallback=moves[Math.floor(Math.random()*moves.length)];
+  if(typeof Worker==="undefined")return Promise.resolve(fallback);
+  return new Promise(resolve=>{
+   try{
+    worker?.terminate();
+    worker=new Worker(new URL("./xiangqi-ai-worker.js?v=20261107-ai-r1",import.meta.url),{type:"module"});
+    const w=worker;let completed=false;
+    const finishMove=move=>{
+     if(completed)return;completed=true;
+     if(thinking!==null)clearTimeout(thinking);thinking=null;
+     if(resolveThinking===cancel)resolveThinking=null;
+     if(worker===w){w.terminate();worker=null;}
+     resolve(move);
+    };
+    const cancel=()=>finishMove(null);resolveThinking=cancel;
+    w.onmessage=event=>{
+     const m=event.data?.move;
+     finishMove(Array.isArray(m)&&moves.some(a=>a[0]===m[0]&&a[1]===m[1])?m:fallback);
+    };
+    w.onerror=()=>finishMove(fallback);
+    thinking=setTimeout(()=>finishMove(fallback),difficulty==="hard"?6500:3500);
+    w.postMessage({position,difficulty});
+   }catch{worker?.terminate();worker=null;resolveThinking=null;resolve(fallback);}
+  });
+ }
  function exit(){stop();g=null;root.hidden=true;onExit();}
  function finish(){
   if(finished||!g||g.winner===null)return;
@@ -155,9 +206,10 @@ export function mountXiangqi({onStart,onFinish,onExit}){
  function schedule(){
   if(!g||g.turn!==-1||finished||timer!==null)return;
   const stamp=epoch;
-  timer=setTimeout(()=>{
+  timer=setTimeout(async()=>{
    timer=null;if(stamp!==epoch||!g||root.hidden||finished)return;
-   const move=pickBot(g);
+   const snapshot=g,move=await calculateBot(snapshot,$("xqLevel")?.value||"normal");
+   if(stamp!==epoch||g!==snapshot||root.hidden||finished)return;
    if(!move){g.winner=1;}else{
     const from=board.querySelector('[data-index="'+move[0]+'"]'),to=board.querySelector('[data-index="'+move[1]+'"]');
     animateBoardMove({from,to,piece:from?.querySelector(".xq-piece"),kind:"xiangqi-piece"});
