@@ -3,6 +3,7 @@
  * Not affiliated with chess.com. No third-party imagery, brand assets or copied source.
  */
 import {GLYPHS,start,legal,apply,san,side,square,status,bestBotMove} from "./chess-engine.js";
+import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r1";
 const $=id=>document.getElementById(id);
 const make=(tag,cl,text)=>{
  const x=document.createElement(tag);if(cl)x.className=cl;
@@ -89,6 +90,9 @@ export function mountChess({onStart,onFinish,onExit}){
   const actual=allowed.find(m=>m[0]===move[0]&&m[1]===move[1]&&m[2]===move[2]);
   if(!actual)return;
   clockStep();if(!active())return;
+  const from=board.querySelector('[data-index="'+actual[0]+'"]');
+  const to=board.querySelector('[data-index="'+actual[1]+'"]');
+  animateBoardMove({from,to,piece:from?.querySelector(".chess-white,.chess-black"),kind:"chess-piece"});
   labels.push((s.t===1?s.full+". ":s.full+"... ")+san(s,actual));
   if(Number.isFinite(clockRemaining[s.t]))clockRemaining[s.t]+=clockBonus;
   traces.push([actual[0],actual[1]]);
@@ -138,7 +142,7 @@ export function mountChess({onStart,onFinish,onExit}){
    const tile=btn("","chess-square"+(((actualRow+actualCol)%2)?" dark":" light")+
      (isPicked?" chosen":"")+(target?" target":"")+
      (last.includes(index)?" last-move":""),()=>choose(index));
-   tile.dataset.square=square(index);
+   tile.dataset.square=square(index);tile.dataset.index=String(index);
    tile.setAttribute("aria-label",square(index)+": "+(piece==="."?"trống":piece));
    tile.setAttribute("aria-pressed",String(isPicked));
    if(piece!=="."){
@@ -179,6 +183,9 @@ export function mountChess({onStart,onFinish,onExit}){
     const s=history.at(-1),move=bestBotMove(s,level.value);
     if(!move){finish(status(history));return;}
     clockStep();if(!active())return;
+    const from=board.querySelector('[data-index="'+move[0]+'"]');
+    const to=board.querySelector('[data-index="'+move[1]+'"]');
+    animateBoardMove({from,to,piece:from?.querySelector(".chess-white,.chess-black"),kind:"chess-piece"});
     labels.push(s.full+"... "+san(s,move));
     if(Number.isFinite(clockRemaining[s.t]))clockRemaining[s.t]+=clockBonus;
     traces.push([move[0],move[1]]);
@@ -211,6 +218,21 @@ export function mountChess({onStart,onFinish,onExit}){
   hintText="💡 Gợi ý nước hợp lệ: "+square(valued[0][0])+" → "+square(valued[0][1])+" (không phải phân tích từ engine mạnh).";
   draw();
  }
+ enablePointerDrag({
+  root:board,itemSelector:".chess-square[data-index]",
+  targetSelector:".chess-square[data-index]",previewSelector:".chess-white,.chess-black",
+  canStart:item=>{
+   if(!active()||history.at(-1).t!==1||pending)return false;
+   return side(history.at(-1).b[Number(item.dataset.index)])===1;
+  },
+  canDrop:(from,to)=>active()&&legal(history.at(-1)).some(m=>
+   m[0]===Number(from.dataset.index)&&m[1]===Number(to.dataset.index)),
+  onDrop:(from,to)=>{
+   const src=Number(from.dataset.index),dst=Number(to.dataset.index);
+   if(!legal(history.at(-1)).some(m=>m[0]===src&&m[1]===dst))return false;
+   picked=src;choose(dst);return true;
+  }
+ });
  $("chessExit").addEventListener("click",exit);
  $("chessRestart").addEventListener("click",begin);
  $("chessFlip").addEventListener("click",()=>{flip=!flip;draw();});
