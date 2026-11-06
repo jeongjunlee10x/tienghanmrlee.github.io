@@ -13,7 +13,8 @@ const GAME_PAGES=Object.freeze({
  estate:{name:"Địa Ốc Đại Chiến",online:false,description:"Xây dựng và mua bán bất động sản ảo"}
 });
 const game=document.documentElement.dataset.roomGame,current=GAME_PAGES[game];
-const portraitBoard=game==="chess"||game==="xiangqi";
+const portraitBoard=!["tienlen","colors"].includes(game);
+document.documentElement.dataset.roomLayout=portraitBoard?"portrait":"landscape";
 const CHESS_TIMES=[
  ["1+0","Bullet · 1 phút"],["2+1","Bullet · 2 phút + 1 giây"],
  ["3+0","Blitz · 3 phút"],["3+2","Blitz · 3 phút + 2 giây"],
@@ -64,6 +65,23 @@ if(LOCAL_GAME_MODES[game]){
 }
 if(!current)throw Error("Mã trò chơi không hợp lệ");
 const frame=$("roomGameFrame"),lobby=$("roomLobby"),stage=$("roomPlay"),panel=$("roomModeHint");
+// Layout advice stays outside the iframe, so auth/loading issues never hide it.
+const orientationTip=document.createElement("aside");
+orientationTip.id="roomOrientationTip";
+orientationTip.className="arena-v20-orientation";
+orientationTip.setAttribute("role","status");
+orientationTip.setAttribute("aria-label","Gợi ý hướng màn hình cho game bài");
+const orientationIcon=document.createElement("span");
+orientationIcon.className="arena-v20-orientation-icon";
+orientationIcon.textContent="↻";
+const orientationText=document.createElement("span");
+orientationText.innerHTML="<strong>Xoay ngang điện thoại</strong><small>Bàn bài, avatar và tay bài được tối ưu theo tỷ lệ ngang 16:9.</small>";
+const orientationButton=document.createElement("button");
+orientationButton.type="button";
+orientationButton.textContent="⛶ Toàn màn hình ngang";
+orientationButton.addEventListener("click",()=>void tryLandscape());
+orientationTip.append(orientationIcon,orientationText,orientationButton);
+stage.append(orientationTip);
 let verifiedWallet=null,playingMode="",hasBooted=false,openAttempt=0,frameLoaded=false;
 const compact=n=>Number(n).toLocaleString("vi-VN");
 const txt=(tag,value)=>{const el=document.createElement(tag);el.textContent=value;return el;};
@@ -134,7 +152,9 @@ function start(mode,{auto=false,code=""}={}){
  $("roomFrameLoading").textContent="Đang mở bàn chơi…";
  $("roomFrameLoading").hidden=false;
  frame.src=url.href;
- if(!auto&&!portraitBoard)void tryLandscape();
+ // Automatic rotation is requested only from an explicit user gesture.
+ // If the browser refuses orientation lock, the interface stays playable.
+ if(!auto&&!portraitBoard&&activeMobile()&&portrait())void tryLandscape();
  if(auto&&activeMobile()&&portrait()&&!portraitBoard)playStatus("📱 Có thể xoay ngang để mở rộng bàn chơi.");
  else playStatus("");
  const seq=openAttempt;
@@ -200,7 +220,7 @@ if(portraitBoard){
  const rotate=$("roomTryLandscape");rotate.hidden=true;rotate.disabled=true;
  rotate.setAttribute("aria-hidden","true");
  $("roomPlayHeading").title="Bàn cờ tối ưu cho màn hình dọc; không cần xoay ngang";
- $("roomModeHint").textContent="Chơi cờ ở màn hình dọc trên điện thoại, thoải mái trên máy tính. Không cần xoay ngang.";
+ $("roomModeHint").textContent="Bàn cờ ưu tiên chiều dọc, không bắt buộc xoay điện thoại. Giữ nguyên luật và thao tác kéo-thả.";
 }
 $("roomTryFullscreen").addEventListener("click",async()=>{
  try{
