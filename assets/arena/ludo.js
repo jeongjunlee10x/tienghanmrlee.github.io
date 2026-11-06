@@ -70,6 +70,8 @@ function coordinates(who,pawn,progress){
 }
 export function mountLudo({onStart,onFinish,onExit}){
  const root=$("arenaLudo"),board=$("ludoBoard"),status=$("ludoStatus"),rollBtn=$("ludoRoll"),moves=$("ludoMoves");
+ const requested=Number(new URL(location.href).searchParams.get("players"));
+ if([2,3,4].includes(requested)&&$("ludoPlayers"))$("ludoPlayers").value=String(requested);
  let game=null,timer=null,epoch=0,done=false;
  function stop(){epoch++;if(timer!==null)clearTimeout(timer);timer=null;if($("ludoPlayers"))$("ludoPlayers").disabled=false;}
  function exit(){stop();root.hidden=true;game=null;onExit();}
