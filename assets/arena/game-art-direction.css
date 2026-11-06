@@ -315,3 +315,21 @@ html[data-room-game="estate"] .game-room-footer{
  html[data-room-game="chess"] .room-chess-time-picker{padding:4px 8px;margin-bottom:4px;min-height:32px}
  html[data-room-game="chess"] .room-chess-time-picker select{min-height:30px}
 }
+
+/* Game-specific options: selected before the match, never hidden behind the felt. */
+.arena-game-mode-select{
+ display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+ gap:7px;background:color-mix(in srgb,var(--bg) 78%,#f5ecd7);
+ border:1px solid var(--line);border-radius:11px;padding:9px 11px;
+ margin:7px 0;color:var(--ink);font-weight:850;font-size:12px
+}
+.arena-game-mode-select select{
+ flex:1 1 185px;max-width:100%;min-width:0;
+ background:var(--surface);color:var(--ink);border:1px solid var(--line);
+ padding:8px 12px;min-height:39px;border-radius:9px;font:800 12px/1.3 system-ui
+}
+.arena-game-mode-select select:disabled{opacity:.8;cursor:not-allowed}
+@media(max-width:530px){
+ .arena-game-mode-select{font-size:11px;padding:7px}
+ .arena-game-mode-select select{flex:1 1 100%;width:100%}
+}
