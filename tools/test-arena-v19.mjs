@@ -35,7 +35,7 @@ check(!/(?:fetch\(|roomRequest\(|supabase\.|walletState|goldBalance)/.test(visua
 check(visual.includes("MODES=[\"full\",\"lite\",\"off\"]"),"Quality selector has all three levels");
 check(visual.includes("requestAnimationFrame")||visual.includes("spark.animate"),
  "Effect renderer uses compositor animation instead of blocking UI");
-check(visual.includes("active>40"),"Animation object budget is capped");
+check(visual.includes("active>=40")&&visual.includes("40-active"),"Animation object budget is capped");
 check(visual.includes("document.hidden"),"Inactive browser tabs do not create effects");
 check(drag.includes('dataset.arenaVisuals==="off"'),"Drag visuals honor the Off setting");
 check(fx.includes('dataset.arenaVisuals==="lite"?12'),"Card dealing reduces decorative sprites on lite mode");
