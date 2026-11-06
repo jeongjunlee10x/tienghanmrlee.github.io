@@ -81,7 +81,8 @@ const now=()=>new Date().toISOString();
 const expires=()=>new Date(Date.now()+90*60*1000).toISOString();
 function membership(room:Room,uid:string){
  const m=room.members.find(x=>x.uid===uid);
- if(!m)fail("Bạn không thuộc phòng này.",403);
+ if(!m||room.status==="finished"&&Array.isArray(room.state?.exitUids)&&
+   room.state.exitUids.includes(uid))fail("Bạn đã rời phòng này.",403);
  return m;
 }
 function isExpired(room:Room){return room.expires_at<=now();}
@@ -93,6 +94,8 @@ function safeRoom(room:Room,uid:string){
   players:room.members.map(m=>({name:m.name,seat:m.seat,ready:m.ready,
    continueReady:room.state?.rematchVotes?.[String(m.seat)]===true})),
   version:room.version,roundIndex:Number(room.state?.roundIndex)||1,
+  nextRoundDeadline:room.status==="finished"?
+    room.state?.nextRoundDeadline||new Date(Date.parse(room.updated_at)+5000).toISOString():null,
   expiresAt:room.expires_at,requiredGold:exposure(game,room.min_gold)};
  if(room.status!=="playing"&&room.status!=="finished")return result;
  const state=room.state;
@@ -180,6 +183,27 @@ async function advanceExpiredTienLen(database:any,row:Room):Promise<Room>{
   if((e as {status?:number}).status===409)return selectRoom(database,row.code);
   throw e;
  }
+}
+// Auto-continue on the first authenticated table poll after the five-second
+// server-defined exit window. Only surviving room members are eligible.
+async function advanceExpiredFinished(database:any,row:Room):Promise<Room>{
+ if(row.status!=="finished")return row;
+ const end=Date.parse(row.state?.nextRoundDeadline||"");
+ const deadline=Number.isFinite(end)?end:Date.parse(row.updated_at)+5000;
+ if(!Number.isFinite(deadline)||Date.now()<deadline)return row;
+ const exits=new Set<string>(Array.isArray(row.state?.exitUids)?row.state.exitUids:[]);
+ const remaining=row.members.filter(m=>!exits.has(m.uid));
+ // If too few players remain, PostgreSQL moves to the same table's WAITING
+ // state rather than reserving G or attempting a one-player match.
+ const fresh=createState(row.game,Math.max(2,remaining.length));
+ const {error}=await database.rpc("mrlee_arena_auto_next",{
+  p_code:row.code,p_expected_version:row.version,p_state:fresh
+ });
+ if(error){
+  if(error.code==="P0001")return selectRoom(database,row.code);
+  fail("Chưa thể chuyển sang ván sau. Hãy cập nhật lại bàn.",503);
+ }
+ return selectRoom(database,row.code);
 }
 async function wallet(database:any,uid:string){
  const {data,error}=await database.rpc("mrlee_arena_wallet_status",{p_uid:uid});
@@ -294,7 +318,9 @@ Deno.serve(async(req:Request)=>{
    if(kind==="state"){
     const row=await selectRoom(database,roomCode(url.searchParams.get("code")));
     membership(row,uid);
-    const updated=await advanceExpiredTienLen(database,row);
+    const updated=row.status==="finished"?
+      await advanceExpiredFinished(database,row):
+      await advanceExpiredTienLen(database,row);
     return reply(req,200,{ok:true,room:safeRoom(updated,uid)});
    }
    fail("Không tìm thấy API.",404);
@@ -364,6 +390,16 @@ Deno.serve(async(req:Request)=>{
   }
   const me=membership(room,uid);
   if(kind==="leave"){
+   if(room.status==="finished"){
+    const {error}=await database.rpc("mrlee_arena_finish_exit",{
+     p_code:code,p_uid:uid,p_expected_version:room.version
+    });
+    if(error){
+     if(error.code==="P0001")fail("Đã hết 5 giây rời bàn hoặc trạng thái bàn đã đổi. Hãy cập nhật.",409);
+     fail("Chưa thể rời bàn sau ván. Hãy thử lại.",503);
+    }
+    return reply(req,200,{ok:true,left:true});
+   }
    if(room.status==="waiting"){
     const members=room.members.filter(x=>x.uid!==uid).map((m,seat)=>({...m,seat}));
     if(!members.length){
@@ -381,20 +417,12 @@ Deno.serve(async(req:Request)=>{
    return reply(req,200,{ok:true,left:true});
   }
   if(kind==="continue"){
-   if(room.status!=="finished")fail("Ván chưa kết thúc. Hãy tiếp tục đánh.",409);
-   if(!Number.isInteger(body.version)||body.version!==room.version)
-    fail("Trạng thái bàn vừa đổi. Hãy cập nhật rồi nhấn Tiếp tục.",409);
-   const {error}=await database.rpc("mrlee_arena_continue_match",{
-    p_code:code,p_uid:uid,p_expected_version:room.version,
-    p_state:createState(room.game,room.members.length)
-   });
-   if(error){
-    if(error.code==="P0001")
-     fail("Chưa thể bắt đầu ván mới: bàn vừa đổi, thiếu G bảo đảm hoặc có người chưa sẵn sàng. Hãy cập nhật bàn.",409);
-    fail("Không xác nhận được ván tiếp theo. Hãy thử lại.",503);
-   }
-   const next=await selectRoom(database,code);
-   return reply(req,200,{ok:true,room:safeRoom(next,uid)});
+   if(room.status!=="finished")fail("Ván đã bắt đầu hoặc phòng đang chờ.",409);
+   const until=Date.parse(room.state?.nextRoundDeadline||"");
+   if(Number.isFinite(until)&&Date.now()<until)
+     fail("Bạn có 5 giây để rời bàn. Nếu không rời, ván kế tiếp tự bắt đầu.",409);
+   const updated=await advanceExpiredFinished(database,room);
+   return reply(req,200,{ok:true,room:safeRoom(updated,uid)});
   }
   if(kind==="lock"){
    if(room.status!=="waiting")fail("Chỉ được khóa hoặc mở khóa khi bàn đang chờ.",409);
