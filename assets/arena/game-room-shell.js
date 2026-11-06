@@ -103,6 +103,19 @@ function inviteCode(){
  const code=String(new URL(location.href).searchParams.get("room")||"").trim().toUpperCase();
  return /^[A-Z2-9]{8}$/.test(code)?code:"";
 }
+function frameFailure(message){
+ const loader=$("roomFrameLoading");
+ loader.hidden=false;
+ loader.replaceChildren();
+ const p=txt("strong",message||"Không thể tải bàn chơi.");p.className="game-room-error-detail";
+ const row=document.createElement("div");row.className="game-room-recovery-actions";
+ const retry=txt("button","↻ Thử tải lại");retry.type="button";
+ retry.addEventListener("click",()=>start(playingMode||"bot",{code:inviteCode()}));
+ const back=txt("button","← Chọn chế độ");back.type="button";
+ back.addEventListener("click",reset);
+ row.append(retry,back);loader.append(p,row);
+ playStatus("Bàn chơi chưa mở được. Có thể thử lại mà không bị trừ G.");
+}
 function start(mode,{auto=false,code=""}={}){
  if(mode==="quick"&&!current.online)mode="bot";
  if(mode!=="bot"&&!current.online){status("⚠️ "+current.name+" hiện mới hỗ trợ đấu máy.");return;}
@@ -118,6 +131,7 @@ function start(mode,{auto=false,code=""}={}){
  if(invite&&current.online)url.searchParams.set("room",invite);
  $("roomPlayHeading").textContent=current.name+" · "+(mode==="bot"?"Đấu máy":mode==="quick"?"Chơi nhanh":mode==="browse"?"Chọn bàn":"Chơi với bạn");
  lobby.hidden=true;stage.hidden=false;document.body.classList.add("game-room-in-play");
+ $("roomFrameLoading").textContent="Đang mở bàn chơi…";
  $("roomFrameLoading").hidden=false;
  frame.src=url.href;
  if(!auto&&!portraitBoard)void tryLandscape();
@@ -125,7 +139,7 @@ function start(mode,{auto=false,code=""}={}){
  else playStatus("");
  const seq=openAttempt;
  setTimeout(()=>{if(seq===openAttempt&&!hasBooted&&!stage.hidden){
-  $("roomFrameLoading").textContent="Đang xác minh đăng nhập hoặc kết nối trò chơi. Nếu lâu, hãy trở lại chọn chế độ.";
+  frameFailure("Bàn chơi chưa phản hồi. Hãy thử tải lại hoặc quay về chọn chế độ.");
  }},11000);
 }
 function reset(){
@@ -146,6 +160,14 @@ function leave(){
 }
 frame.addEventListener("load",()=>{
  frameLoaded=true;
+ if(hasBooted)return;
+ try{
+  const child=frame.contentWindow?.location;
+  if(child?.pathname.endsWith("/dang-nhap.html")){
+   frameFailure("Phiên đăng nhập cần xác minh lại. Vui lòng đăng nhập ở trang chính.");
+   return;
+  }
+ }catch{}
  if(frame.src==="about:blank")return;
  playStatus("Đang chuẩn bị luật chơi và kiểm tra quyền truy cập…");
 });
@@ -154,7 +176,7 @@ window.addEventListener("message",event=>{
  const msg=event.data;if(msg?.marker!=="mrlee-game-room"||msg.game!==game)return;
  if(msg.event==="started"){hasBooted=true;$("roomFrameLoading").hidden=true;playStatus("");}
  if(msg.event==="returned")reset();
- if(msg.event==="error"){$("roomFrameLoading").hidden=true;playStatus(msg.message||"Không thể mở bàn chơi.");}
+ if(msg.event==="error"&&!hasBooted)frameFailure(msg.message||"Không thể mở bàn chơi.");
 });
 const friendPopup=current.online?mountArenaFriendPopup({
  game,gameName:current.name,
