@@ -324,3 +324,22 @@ body.game-room-in-play .game-room-main{height:100dvh}
   min-height:31px!important;padding:5px 6px!important;justify-content:center;
   overflow:hidden;text-overflow:ellipsis;font-size:9px!important}
 }
+
+/* Keep the same game's photographic identity through its entire session,
+   including menu, room selection, waiting and live board. */
+body.game-room-in-play .game-room-shell{
+ background:radial-gradient(ellipse at 10% 27%,#bfeffff0 -12%,transparent 54%),
+ radial-gradient(ellipse at 92% 82%,#fed587ba -25%,transparent 54%),
+ linear-gradient(145deg,#84cafa 0%,#288cd0 33%,#7dc6d7 55%,#f3c975 92%)!important}
+body.game-room-in-play .game-room-shell::before,
+body.game-room-in-play .game-room-shell::after{display:block!important}
+body.game-room-in-play .game-room-play{
+ background:transparent!important;padding:3px 7px 8px!important}
+body.game-room-in-play .game-room-frame-wrap{background:#ffffff0e!important;
+ border:1px solid #deffff8f!important;border-radius:14px!important;box-shadow:0 8px 25px #16355755}
+body.game-room-in-play .game-room-frame-wrap iframe{background:transparent!important}
+@media(min-width:1100px){
+ body.game-room-in-play .game-room-play{padding:8px clamp(12px,1.7vw,30px) 16px!important}
+ body.game-room-in-play .game-room-play-head{height:51px}
+ body.game-room-in-play .game-room-frame-wrap{height:calc(100dvh - 76px)!important}
+}
