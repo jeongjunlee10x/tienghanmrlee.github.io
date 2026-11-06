@@ -334,3 +334,22 @@
  .arena-next-round-count{font-size:12px!important;padding:4px!important;margin:2px auto!important}
  .arena-next-round-exit{min-height:30px;font-size:11px;margin:3px auto;padding:5px}
 }
+
+/* Revealed seats after settlement, and a clear unanimous-continue action. */
+.arena-pvp-seat-revealed{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;
+ gap:2px;max-width:100%;max-height:90px;overflow-y:auto;overscroll-behavior:contain}
+.arena-pvp-seat-revealed .arena-next-round-card{min-width:20px;min-height:28px;
+ padding:1px 2px;font-size:11px;line-height:1}
+.arena-next-round-votes{margin:6px auto 3px!important;font-size:clamp(11px,1.2vw,14px);
+ color:#e5faff;font-weight:850}
+.arena-next-round-confirm{color:#163e28!important;text-shadow:none!important}
+@media (min-width:1000px){
+ .arena-room-section#arenaPvPBoard{min-width:0}
+ .arena-room-section#arenaPvPBoard .arena-pvp-card-table{max-width:min(100%,1320px)}
+ .arena-next-round-dialog{max-height:min(82dvh,740px)}
+ .arena-next-round-hands{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-height:650px){
+ .arena-next-round-dialog{max-height:calc(100dvh - 75px);padding:7px 10px}
+ .arena-next-round-votes{font-size:10px}
+}
