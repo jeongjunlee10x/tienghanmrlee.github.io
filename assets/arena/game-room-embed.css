@@ -1,0 +1,68 @@
+/* Lightweight standalone game host: retain the actual game engine,
+ * suppress duplicate main lobby, hero and nav in the embedded frame only.
+ */
+html.arena-reference-v1.arena-embedded{background:#081731}
+html.arena-reference-v1.arena-embedded body{margin:0!important;padding:0!important;min-height:100dvh!important;
+ background:radial-gradient(ellipse at 50% 10%,#1d427c,#07162d 73%)!important;
+ overflow-x:hidden}
+html.arena-reference-v1.arena-embedded .arena-app{padding:2px 5px!important;margin:0!important;width:100%!important;
+ max-width:100%!important;min-height:100dvh!important}
+html.arena-reference-v1.arena-embedded .arena-app>main{padding:0!important;max-width:none!important;width:100%}
+html.arena-reference-v1.arena-embedded .arena-header,
+html.arena-reference-v1.arena-embedded .arena-footer,
+html.arena-reference-v1.arena-embedded #arenaRefHero,
+html.arena-reference-v1.arena-embedded #arenaRefDock,
+html.arena-reference-v1.arena-embedded #arenaLobby,
+html.arena-reference-v1.arena-embedded .arena-compact-wallet{display:none!important}
+html.arena-reference-v1.arena-embedded #arenaTable,
+html.arena-reference-v1.arena-embedded #arenaChess,
+html.arena-reference-v1.arena-embedded #arenaTienLen,
+html.arena-reference-v1.arena-embedded #arenaLudo,
+html.arena-reference-v1.arena-embedded #arenaXiangqi,
+html.arena-reference-v1.arena-embedded #arenaEstate,
+html.arena-reference-v1.arena-embedded #arenaRoomHub,
+html.arena-reference-v1.arena-embedded #arenaRoomLobby,
+html.arena-reference-v1.arena-embedded #arenaPvPBoard{max-width:none!important;
+ margin:0!important;padding:4px!important;border-radius:0!important}
+html.arena-reference-v1.arena-embedded #arenaTable[hidden],
+html.arena-reference-v1.arena-embedded #arenaChess[hidden],
+html.arena-reference-v1.arena-embedded #arenaTienLen[hidden],
+html.arena-reference-v1.arena-embedded #arenaLudo[hidden],
+html.arena-reference-v1.arena-embedded #arenaXiangqi[hidden],
+html.arena-reference-v1.arena-embedded #arenaEstate[hidden],
+html.arena-reference-v1.arena-embedded #arenaRoomHub[hidden],
+html.arena-reference-v1.arena-embedded #arenaRoomLobby[hidden],
+html.arena-reference-v1.arena-embedded #arenaPvPBoard[hidden]{display:none!important}
+html.arena-reference-v1.arena-embedded .arena-expanded-game .arena-table-heading{margin-bottom:6px!important;padding:4px 7px!important}
+html.arena-reference-v1.arena-embedded .arena-expanded-game .arena-table-heading h2{font-size:clamp(13px,1.8vw,23px)}
+html.arena-reference-v1.arena-embedded .arena-extra-layout{gap:10px}
+html.arena-reference-v1.arena-embedded .arena-room-section{margin-top:0!important}
+html.arena-reference-v1.arena-embedded #arenaTable .arena-board{margin:0 auto}
+html.arena-reference-v1.arena-embedded .arena-pvp-card-table{min-height:calc(100dvh - 100px)!important}
+html.arena-reference-v1.arena-embedded #arenaRulesDialog{max-height:85dvh}
+@media(orientation:landscape) and (max-height:650px){
+ html.arena-reference-v1.arena-embedded .arena-app{padding:0 2px!important}
+ html.arena-reference-v1.arena-embedded #arenaTable,
+ html.arena-reference-v1.arena-embedded #arenaChess,
+ html.arena-reference-v1.arena-embedded #arenaTienLen,
+ html.arena-reference-v1.arena-embedded #arenaLudo,
+ html.arena-reference-v1.arena-embedded #arenaXiangqi,
+ html.arena-reference-v1.arena-embedded #arenaEstate,
+ html.arena-reference-v1.arena-embedded #arenaRoomHub,
+ html.arena-reference-v1.arena-embedded #arenaRoomLobby,
+ html.arena-reference-v1.arena-embedded #arenaPvPBoard{padding:2px!important}
+ html.arena-reference-v1.arena-embedded .arena-expanded-game .arena-table-heading{margin-bottom:2px!important}
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-main{padding:4px!important}
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-board{
+  width:min(calc(100dvh - 95px),calc(100vw - 220px))!important;max-width:100%!important;margin:auto}
+ html.arena-reference-v1.arena-embedded #arenaTienLen .tl-board{min-height:270px!important;height:calc(100dvh - 70px)!important}
+ html.arena-reference-v1.arena-embedded #arenaTienLen .tl-center{top:26%!important}
+ html.arena-reference-v1.arena-embedded .arena-extra-board{max-height:calc(100dvh - 90px)!important}
+ html.arena-reference-v1.arena-embedded .arena-pvp-card-table{min-height:calc(100dvh - 82px)!important}
+}
+@media(max-width:600px) and (orientation:portrait){
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-board{width:min(100%,calc(100vw - 20px))!important}
+ html.arena-reference-v1.arena-embedded .arena-extra-layout{display:block!important}
+ html.arena-reference-v1.arena-embedded .arena-extra-side{max-height:35dvh;overflow-y:auto}
+ html.arena-reference-v1.arena-embedded .arena-extra-stage{margin:0 auto}
+}
