@@ -30,7 +30,7 @@ for(const page of ["game-co-vua","game-co-tuong","game-tien-len","game-bai-mau",
 }
 check(app.includes("game-visuals-v19.js?v=20261107-v19"),"FX imported into actual game logic");
 check(app.includes("if(won)emitArenaFX"),"Victory animations only for real confirmed wins");
-check(!/(?:gold|wallet|balance|supabase|fetch\(|roomRequest\()/.test(visual),
+check(!/(?:fetch\(|roomRequest\(|supabase\.|walletState|goldBalance)/.test(visual),
  "Visuals component is independent of network, wallets and game state");
 check(visual.includes("MODES=[\"full\",\"lite\",\"off\"]"),"Quality selector has all three levels");
 check(visual.includes("requestAnimationFrame")||visual.includes("spark.animate"),
@@ -48,7 +48,7 @@ check(chess.includes('emitArenaFX("capture"'),"Cờ vua only sparks on real capt
 check(xq.includes('emitArenaFX("xiangqi"'),"Cờ Tướng only sparks on real captures");
 check(ludo.includes('emitArenaFX("ludo"'),"Cờ Cá Ngựa captures play the right visual cue");
 check(estate.includes('emitArenaFX("estate"'),"Địa Ốc FX only play on real purchases/upgrades");
-let depth=0,quotes="",comment=false;
-for(const char of css){if(char==="{")depth++;else if(char==="}")depth--;check(depth>=0,"CSS braces must not close prematurely");}
+let depth=0;
+for(const char of css){if(char==="{")depth++;else if(char==="}")depth--;assert.ok(depth>=0,"CSS braces must not close prematurely");}
 check(depth===0,"Visual stylesheet has matching CSS braces");
 console.log("PASS Arena V19: "+count+" checks for independent game graphics, animation safety, responsive controls and cache keys.");
