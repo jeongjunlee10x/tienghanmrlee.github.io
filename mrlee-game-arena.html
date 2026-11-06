@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="assets/arena/reference-v1.css?v=20261106-r2">
 <link rel="stylesheet" href="assets/arena/game-room-embed.css?v=20261106-layout-r6">
 <link rel="stylesheet" href="assets/arena/game-art-direction.css?v=20261106-art-r3">
+<link rel="stylesheet" href="assets/arena/gesture-motion.css?v=20261106-drag-r1">
 <style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
 <script>try{document.documentElement.dataset.mrleeTheme=localStorage.getItem("MRLEE.THEME.V1")==="future"?"future":"fresh"}catch{document.documentElement.dataset.mrleeTheme="fresh"}</script>
 <script type="module" src="auth-guard.js"></script>
@@ -90,7 +91,7 @@
  <div><strong>🎮 GAME ARENA</strong><small>Chọn game · Ghép bàn · Chơi</small></div>
  <div class="arena-wallet-mini"><span>🪙 G: <strong id="arenaVerifiedGold">—</strong></span>
  <span>✨ EXP demo <strong id="arenaXp">0</strong></span>
- <span>🎫 Vé máy <strong id="arenaTickets">3</strong></span>
+ <span>🎫 Đấu máy <strong id="arenaTickets">∞</strong></span>
  <span>🏆 <strong id="arenaRecord">0 / 0</strong></span>
  <span class="arena-demo-gold">Vàng máy: <strong id="arenaGold">0</strong></span></div>
 </section>
@@ -316,7 +317,7 @@
      <p id="chessStatus" class="chess-status-indicator" role="status" aria-live="polite">Bạn được đi trước.</p>
      <div class="chess-tools"><button id="chessFlip" class="arena-soft" type="button">🔄 Xoay bàn</button><button id="chessUndo" class="arena-soft" type="button" disabled>↶ Đi lại</button><button id="chessHint" class="arena-soft" type="button">💡 Gợi ý</button></div>
      <div class="arena-inline-actions"><button type="button" id="chessClaim" class="arena-soft" hidden>Xin hòa hợp lệ</button>
-     <button type="button" id="chessRestart" class="arena-action">↻ Ván mới (1 vé)</button></div></div>
+     <button type="button" id="chessRestart" class="arena-action">↻ Ván mới · miễn phí</button></div></div>
    <div class="arena-panel"><h3>Biên bản nước đi</h3><div id="chessMoves" class="chess-moves" aria-live="polite"></div>
      <p class="arena-game-note">Nhập thành, bắt tốt qua đường, phong cấp và chiếu hết đều được kiểm tra theo luật.</p></div>
    <p class="arena-game-note">AI chơi tại trình duyệt, không ghi Elo chính thức. Nhập thành, bắt tốt qua đường, phong cấp và chiếu hết được kiểm tra trong lõi luật.</p>
@@ -327,7 +328,7 @@
  <div class="arena-table-heading">
    <button id="tlExit" type="button" class="arena-soft">← Về sảnh</button>
    <div><span class="arena-eyebrow">TIẾN LÊN MIỀN NAM • 4 NGƯỜI</span><h2 id="tlTitle">Đại Chiến Tiến Lên 🂡</h2></div>
-   <button class="arena-soft arena-fullscreen-btn" type="button" data-fullscreen-target="arenaTienLen" title="Chơi toàn màn hình">⛶ Toàn màn hình</button><button id="tlNew" type="button" class="arena-action">↻ Ván mới (1 vé)</button>
+   <button class="arena-soft arena-fullscreen-btn" type="button" data-fullscreen-target="arenaTienLen" title="Chơi toàn màn hình">⛶ Toàn màn hình</button><button id="tlNew" type="button" class="arena-action">↻ Ván mới · miễn phí</button>
  </div>
  <div id="tlBoard" class="tl-board" data-fx-phase="idle" data-fx-count="0" aria-label="Bàn chơi 4 người, ba đối thủ ngồi trên, trái và phải">
   <span class="tl-table-watermark" aria-hidden="true">MR LEE</span><div class="tl-room-badge" aria-hidden="true">♠ MR LEE · TIẾN LÊN MIỀN NAM · ♥</div>
@@ -365,7 +366,7 @@
 
 
 <section id="arenaLudo" class="arena-expanded-game" hidden aria-labelledby="ludoTitle">
- <div class="arena-table-heading"><button id="ludoExit" class="arena-soft" type="button">← Về sảnh</button><div><span class="arena-eyebrow">CỜ CÁ NGỰA · 2–4 NGƯỜI</span><h2 id="ludoTitle">Cờ Cá Ngựa 🎲</h2></div><button type="button" class="arena-soft arena-fullscreen-btn" data-fullscreen-target="arenaLudo">⛶ Toàn màn hình</button><button id="ludoNew" class="arena-action" type="button">↻ Ván mới (1 vé)</button></div>
+ <div class="arena-table-heading"><button id="ludoExit" class="arena-soft" type="button">← Về sảnh</button><div><span class="arena-eyebrow">CỜ CÁ NGỰA · 2–4 NGƯỜI</span><h2 id="ludoTitle">Cờ Cá Ngựa 🎲</h2></div><button type="button" class="arena-soft arena-fullscreen-btn" data-fullscreen-target="arenaLudo">⛶ Toàn màn hình</button><button id="ludoNew" class="arena-action" type="button">↻ Ván mới · miễn phí</button></div>
  <div class="arena-extra-layout">
   <div class="arena-extra-stage"><div id="ludoBoard" class="ludo-board arena-extra-board" aria-label="Bàn cờ cá ngựa 4 màu"></div></div>
   <aside class="arena-extra-side">
@@ -376,22 +377,22 @@
 <option value="3">Chiến thuật · 3 người</option>
 <option value="4" selected>Đại chiến · 4 người</option>
 </select></label><p id="ludoStatus" class="arena-extra-status" role="status" aria-live="polite"></p><div class="arena-extra-bar"><strong id="ludoDie" class="ludo-dice" aria-live="polite">🎲</strong><button id="ludoRoll" type="button" class="arena-primary">Tung xúc xắc</button></div><div id="ludoMoves" class="ludo-score"></div><p class="arena-demo-rule">Tung 6 để xuất quân; đi đúng số ô; bắt quân ở ô không an toàn; đưa đủ 4 ngựa về đích để thắng.</p></div>
-   <div class="arena-panel"><h3>Diễn biến</h3><div id="ludoHistory" class="arena-mini-log" aria-live="polite"></div><p class="arena-demo-rule">Chơi với máy bằng vé demo, không trừ ví G hay điểm học tập.</p></div>
+   <div class="arena-panel"><h3>Diễn biến</h3><div id="ludoHistory" class="arena-mini-log" aria-live="polite"></div><p class="arena-demo-rule">Chơi với máy không giới hạn lượt, không trừ ví G hay điểm học tập.</p></div>
   </aside>
  </div>
 </section>
 <section id="arenaXiangqi" class="arena-expanded-game" hidden aria-labelledby="xqTitle">
- <div class="arena-table-heading"><button id="xqExit" class="arena-soft" type="button">← Về sảnh</button><div><span class="arena-eyebrow">CHIẾN THUẬT · 2 NGƯỜI</span><h2 id="xqTitle">Cờ Tướng / Cờ Úp 帥</h2></div><button type="button" class="arena-soft arena-fullscreen-btn" data-fullscreen-target="arenaXiangqi">⛶ Toàn màn hình</button><button id="xqNew" class="arena-action" type="button">↻ Ván mới (1 vé)</button></div>
+ <div class="arena-table-heading"><button id="xqExit" class="arena-soft" type="button">← Về sảnh</button><div><span class="arena-eyebrow">CHIẾN THUẬT · 2 NGƯỜI</span><h2 id="xqTitle">Cờ Tướng / Cờ Úp 帥</h2></div><button type="button" class="arena-soft arena-fullscreen-btn" data-fullscreen-target="arenaXiangqi">⛶ Toàn màn hình</button><button id="xqNew" class="arena-action" type="button">↻ Ván mới · miễn phí</button></div>
  <div class="arena-extra-layout">
   <div class="arena-extra-stage"><div class="xq-board-wrap arena-extra-board"><div id="xqBoard" class="xq-board" aria-label="Bàn cờ tướng 9 cột, 10 hàng"></div><div class="xq-river-label">楚 河　·　漢 界</div></div></div>
   <aside class="arena-extra-side">
    <div class="arena-panel"><h3>♜ Chế độ đấu máy</h3><label class="arena-difficulty" for="xqVariant">Luật <select id="xqVariant"><option value="xiangqi">Cờ Tướng</option><option value="up">Cờ Úp</option></select></label><p id="xqStatus" class="arena-extra-status" role="status" aria-live="polite"></p><p class="arena-demo-rule">Bạn điều khiển quân đỏ, máy cầm quân đen. Chọn quân rồi chọn ô. Hệ thống chặn các nước khiến tướng bị chiếu. Cờ Úp: quân úp dùng cách đi của vị trí gốc ở lượt mở đầu, sau đó lật quân đã xáo.</p></div>
-   <div class="arena-panel"><h3>Biên bản · <span id="xqMoveCount">0 nước</span></h3><div id="xqMoveLog" class="arena-mini-log" aria-live="polite"></div><p class="arena-demo-rule">Đấu máy bằng vé demo, không tính Elo hay dùng G thật.</p></div>
+   <div class="arena-panel"><h3>Biên bản · <span id="xqMoveCount">0 nước</span></h3><div id="xqMoveLog" class="arena-mini-log" aria-live="polite"></div><p class="arena-demo-rule">Đấu máy miễn phí, không tính Elo hay dùng G thật.</p></div>
   </aside>
  </div>
 </section>
 <section id="arenaEstate" class="arena-expanded-game" hidden aria-labelledby="estateTitle">
- <div class="arena-table-heading"><button id="estateExit" class="arena-soft" type="button">← Về sảnh</button><div><span class="arena-eyebrow">ĐỊA ỐC · 4 NGƯỜI</span><h2 id="estateTitle">Địa Ốc Đại Chiến 🏘️</h2></div><button type="button" class="arena-soft arena-fullscreen-btn" data-fullscreen-target="arenaEstate">⛶ Toàn màn hình</button><button id="estateNew" class="arena-action" type="button">↻ Ván mới (1 vé)</button></div>
+ <div class="arena-table-heading"><button id="estateExit" class="arena-soft" type="button">← Về sảnh</button><div><span class="arena-eyebrow">ĐỊA ỐC · 4 NGƯỜI</span><h2 id="estateTitle">Địa Ốc Đại Chiến 🏘️</h2></div><button type="button" class="arena-soft arena-fullscreen-btn" data-fullscreen-target="arenaEstate">⛶ Toàn màn hình</button><button id="estateNew" class="arena-action" type="button">↻ Ván mới · miễn phí</button></div>
  <div class="arena-extra-layout">
   <div class="arena-extra-stage"><div id="estateBoard" class="estate-board arena-extra-board" aria-label="Bàn địa ốc 24 ô"></div></div>
   <aside class="arena-extra-side">
