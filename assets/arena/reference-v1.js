@@ -6,6 +6,9 @@ import {roomRequest,formatG} from "./room-api.js";
 const $=id=>document.getElementById(id);
 const root=document.documentElement;
 const cards=[...document.querySelectorAll("#arenaCatalog .arena-game-card[data-game-id]")];
+const gamePages=Object.freeze({colors:"game-bai-mau.html",chess:"game-co-vua.html",
+ tienlen:"game-tien-len.html",ludo:"game-co-ca-ngua.html",
+ xiangqi:"game-co-tuong.html",estate:"game-dia-oc.html"});
 const labels=Object.freeze({
  tienlen:"🃏 4 người · PvP / máy",
  chess:"♟️ 2 người · PvP / máy",
@@ -36,9 +39,8 @@ for(const card of cards){
  const info=text("span","",labels[id]);
  const play=button("▶ Chơi ngay","arena-ref-play",()=>{
   showMore(card,false);
-  const original=card.querySelector("button[data-game]");
-  // This remains the original game controller's action; no duplicate engine.
-  if(original)original.click();
+  // Every game now has its own colorful, playable, mobile-first lobby.
+  location.assign(gamePages[id]);
  });
  play.setAttribute("aria-label","Chơi ngay "+card.querySelector(".arena-card-body>strong")?.textContent);
  play.dataset.refPlay=id;
@@ -70,10 +72,7 @@ $("arenaRefMoreFilters")?.addEventListener("click",()=>{
  $("arenaRefMoreFilters").setAttribute("aria-expanded",String(next));
  $("arenaRefMoreFilters").textContent=next?"⌃ Thu gọn bộ lọc":"⌄ Bộ lọc nâng cao";
 });
-$("arenaRefColorsAccess")?.addEventListener("click",()=>{
- const card=document.querySelector('[data-game-id="colors"]');
- card?.querySelector("button[data-game='colors']")?.click();
-});
+$("arenaRefColorsAccess")?.addEventListener("click",()=>location.assign(gamePages.colors));
 const catalog=$("arenaCatalog"),learning=$("arenaRefLearning");
 function syncLearning(){
  if(!catalog||!learning)return;
