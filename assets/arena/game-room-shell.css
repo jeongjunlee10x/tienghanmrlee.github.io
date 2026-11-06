@@ -343,3 +343,18 @@ body.game-room-in-play .game-room-frame-wrap iframe{background:transparent!impor
  body.game-room-in-play .game-room-play-head{height:51px}
  body.game-room-in-play .game-room-frame-wrap{height:calc(100dvh - 76px)!important}
 }
+
+/* 2026-11-06: desktop room containment and one continuous game backdrop. */
+@media (min-width:1000px){
+ .game-room-main,.game-room-play,.game-room-frame-wrap{min-width:0;min-height:0}
+ .game-room-lobby{padding:18px clamp(26px,4vw,68px)}
+ .game-room-tiles{width:min(100%,1280px);max-height:min(56dvh,460px);gap:clamp(14px,2.2vw,28px)}
+ .game-room-tile{min-width:0;padding-inline:8px}
+ .game-room-tile strong{font-size:clamp(20px,2vw,29px)}
+ .game-room-play-head{min-width:0;flex-wrap:nowrap}
+ .game-room-play-head h2{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .game-room-play-head>div{flex:0 0 auto}
+ body.game-room-in-play .game-room-frame-wrap{height:calc(100dvh - 78px)!important;
+  max-height:calc(100dvh - 78px)!important;overflow:hidden}
+ body.game-room-in-play .game-room-frame-wrap iframe{width:100%;height:100%}
+}
