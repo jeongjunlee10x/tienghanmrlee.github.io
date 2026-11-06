@@ -19,7 +19,10 @@ const RELATIVE=["bottom","left","top","right"];
 function relative(real,viewer){return RELATIVE[(real-viewer+4)%4];}
 const portraits=["🧑","👩🏻","🧑🏻","👩🏽"];
 function seatCard(player,room,counts){
- const pos=room.game==="chess"?"top":relative(player.seat,room.seat);
+ const players=room.players.length;
+ const pos=room.game==="chess"||players===2?"top":
+  players===3?(player.seat-room.seat+players)%players===1?"left":"right":
+  relative(player.seat,room.seat);
  const holder=el("div","arena-pvp-seat"+(room.gameState.turn===player.seat?" active":""));
  holder.dataset.position=pos;holder.dataset.seat=String(player.seat);
  holder.append(el("span","",portraits[player.seat]),el("strong","",player.name),
