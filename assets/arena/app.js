@@ -122,10 +122,14 @@ function renderOpponents(g){
  for(let i=1;i<=3;i++){
   const panel=el("div","arena-opponent"+(g.turn===i?" active":""));
   const avatar=el("div","arena-avatar",["","👩🏻","🧑🏻","👩🏽"][i]);
+  if(g.turn===i&&g.winner===null){
+   avatar.classList.add("arena-avatar-active");
+   avatar.append(el("span","arena-avatar-turn-sign","LƯỢT"));
+  }
   const detail=el("div","arena-opponent-info");
   detail.append(el("strong","",PLAYER_NAMES[i]),el("small","",g.hands[i].length+" lá bài"));
   panel.append(avatar,detail);
-  if(g.turn===i)panel.append(el("em","arena-thinking","Đang nghĩ…"));
+  if(g.turn===i)panel.append(el("em","arena-thinking","● ĐANG ĐÁNH"));
   area.append(panel);
  }
 }
@@ -137,7 +141,18 @@ function render(){
  top.setAttribute("aria-label","Lá trên bàn: "+cardLabel(topCard(g))+"; màu "+COLOR_VI[g.activeColor]);
  const active=$("arenaActiveColor");active.textContent=COLOR_VI[g.activeColor];active.dataset.color=g.activeColor;
  const humanTurn=g.turn===0&&g.winner===null;
- $("arenaHandCount").textContent=g.hands[0].length+" lá · "+(humanTurn?"đến lượt bạn":"chờ đối thủ");
+ $("arenaHandCount").textContent=g.hands[0].length+" lá · "+(humanTurn?"✨ ĐẾN LƯỢT BẠN":"Đang chờ");
+ const meLabel=$("arenaHand").previousElementSibling;
+ meLabel?.classList.toggle("is-turn",humanTurn);
+ const controls=$("arenaDraw").closest(".arena-turn-controls");
+ if(controls){
+  controls.classList.add("arena-card-turn-popup");
+  controls.hidden=!humanTurn;
+  controls.setAttribute("aria-label","Thao tác khi đến lượt bạn");
+  if(controls.parentElement!==$("arenaHand").parentElement)
+   $("arenaHand").after(controls);
+ }
+
  const list=$("arenaHand");list.replaceChildren();
  g.hands[0].forEach(card=>{
   const legal=humanTurn&&canPlay(g,card,0);
