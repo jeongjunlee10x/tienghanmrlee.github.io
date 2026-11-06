@@ -1,0 +1,227 @@
+/* MR LEE · Six independent board-game visual systems.
+ * Original CSS, no third-party artwork copied or hotlinked.
+ * Dedicated designs deliberately avoid applying the Tiến Lên felt table to chess.
+ */
+:root{--game-focus:#ffe197}
+.room-chess-time-picker,.arena-chess-time-picker,.arena-chess-mode-field{
+ display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;
+ border:1px solid #a9c3dd64;border-radius:16px;
+ padding:10px 14px;background:linear-gradient(125deg,#132d4de8,#243c69cb);
+ color:#f6e9cc;font:800 12px/1.5 "Be Vietnam Pro",system-ui,sans-serif;
+ box-shadow:0 8px 22px #020c2440;
+}
+.room-chess-time-picker select,.arena-chess-time-picker select,.arena-chess-mode-field select{
+ min-height:40px;max-width:100%;min-width:min(100%,205px);width:min(260px,100%);
+ border:1px solid #91a8bb;border-radius:10px;
+ background:#fbf5e9;color:#142944;font:800 13px/1.2 inherit;
+ padding:8px 11px;cursor:pointer;
+}
+.room-chess-time-picker{width:min(520px,calc(100% - 24px));margin:0 auto 12px;z-index:2;position:relative}
+.arena-chess-mode-field{color:#fff;justify-content:flex-start;margin:10px 0;padding:10px}
+.arena-chess-time-picker{flex-direction:column;align-items:stretch;margin:4px 0 13px}
+.arena-chess-time-picker select{width:100%}
+/* CHESS — blue-black club, ivory felt, digital clocks with clear active side */
+html.arena-embedded[data-embedded-game="chess"] #arenaChess,
+html.arena-embedded[data-embedded-game="chess"] #arenaPvPBoard{
+ --chess-night:#0a182b;--chess-copper:#d6ad67;--chess-ivory:#f0eadc;
+ color:#f1f4f9!important
+}
+#arenaChess .chess-layout{align-items:start}
+#arenaChess .chess-main{
+ background:linear-gradient(170deg,#192a3e,#101d2e)!important;
+ border:1px solid #d9b67c6e!important;
+ border-radius:18px!important;box-shadow:0 19px 50px #03132565!important;
+ padding:clamp(7px,1.3vw,15px)!important
+}
+#arenaChess .chess-player-premium{
+ min-height:41px;display:flex;align-items:center;gap:8px;
+ color:#f6e9d2!important;background:#ffffff09;border-radius:9px;padding:7px 10px!important
+}
+#arenaChess .chess-clock{font-variant-numeric:tabular-nums;font-weight:900;letter-spacing:.04em}
+#arenaChess .chess-clock.active{color:#fce8b6;background:#476345}
+#arenaChess .chess-clock.low{color:#fff;background:#8d3049}
+#arenaChess .chess-board,.arena-pvp-chess .chess-board{
+ border:clamp(3px,.8vw,7px) solid #b89a6b!important;
+ border-radius:5px!important;
+ box-shadow:0 8px 22px #08152065,inset 0 0 0 1px #6c5234!important
+}
+#arenaChess .chess-board .chess-square.light,.arena-pvp-chess .chess-square.light{background:#e8dfcf!important}
+#arenaChess .chess-board .chess-square.dark,.arena-pvp-chess .chess-square.dark{background:#879e9c!important}
+#arenaChess .chess-square:focus-visible,.arena-pvp-chess .chess-square:focus-visible{
+ outline:3px solid #f7d779;outline-offset:-3px;z-index:2
+}
+#arenaChess .chess-sidebar .arena-panel{
+ background:linear-gradient(155deg,#1e3148,#132337)!important;
+ border:1px solid #93b3c06d!important;color:#f0f5fa!important;
+ box-shadow:0 7px 18px #0003
+}
+#arenaChess .chess-sidebar .arena-panel h3,#arenaChess .chess-sidebar .arena-game-note{color:#f9e9ce!important}
+#arenaChess .chess-sidebar .arena-panel p{color:#c7d9e7!important}
+#arenaChess .chess-sidebar .chess-moves p{color:#e8eff9;background:#2b3d51}
+.arena-pvp-chess{
+ display:grid;grid-template-columns:minmax(0,620px) minmax(240px,1fr);
+ gap:clamp(12px,2vw,26px);justify-content:center;align-items:start;
+ max-width:1090px;margin:12px auto
+}
+.arena-chess-board-stack{width:100%;max-width:620px;min-width:0;display:flex;flex-direction:column;gap:5px}
+.arena-chess-board-stack .chess-board{width:100%!important;max-width:100%!important}
+.arena-chess-player-bar{
+ display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:51px;
+ padding:6px 10px;background:#172c45;color:#f4eadd;
+ border:1px solid #8297a966;border-radius:11px
+}
+.arena-chess-player-bar.active{background:#274d55;border-color:#dfc177;box-shadow:0 0 0 1px #dfc17750}
+.arena-chess-player-identity{display:flex;align-items:center;gap:8px;min-width:0}
+.arena-chess-player-avatar{width:34px;height:34px;display:grid;place-items:center;
+ font:normal 28px/1 Georgia,serif;background:#f2e5cb;color:#172638;border-radius:9px}
+.arena-chess-player-identity strong{font-size:clamp(11px,1.6vw,15px);
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:210px}
+.arena-chess-digital-clock{
+ min-width:94px;min-height:39px;display:grid;place-items:center;
+ color:#15243b;background:#f0e8d9;border-radius:9px;
+ font:900 clamp(17px,2.8vw,25px)/1.1 ui-monospace,Consolas,monospace;
+ font-variant-numeric:tabular-nums;letter-spacing:.035em;
+}
+.arena-chess-digital-clock.active{background:#f6cf73;color:#1c2b38;box-shadow:0 0 12px #edc96d3c}
+.arena-chess-digital-clock.urgent{background:#ae364d;color:white;animation:chess-alert 1s infinite alternate}
+@keyframes chess-alert{to{filter:brightness(1.24)}}
+.arena-chess-time-badge{display:block;text-align:center;border-radius:10px;
+ padding:9px;background:#e2c688;color:#283346;font-weight:900;font-size:14px}
+.arena-pvp-chess>.arena-panel{
+ color:#e7f1ff;background:linear-gradient(155deg,#172942,#263950)!important;
+ border-color:#637f96!important;box-shadow:0 10px 30px #0005
+}
+.arena-pvp-chess>.arena-panel h3{color:#f2d99d!important}
+.arena-pvp-chess>.arena-panel p{color:#d4e0eb!important}
+.arena-pvp-chess .arena-pvp-moves{background:#0c182b;color:#e7e9ea}
+.arena-pvp-chess .arena-pvp-moves p{color:#d7deeb}
+.arena-chess-waiting{
+ width:min(100%,880px);min-height:420px;margin:10px auto;
+ display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:stretch;
+ background:linear-gradient(160deg,#182c43,#0c1728);
+ color:#f7edd9;border:2px solid #cfad7591;border-radius:18px;
+ padding:clamp(10px,2vw,24px);box-shadow:0 16px 40px #0006
+}
+.arena-chess-waiting .arena-pvp-wait-seat{
+ position:static!important;transform:none!important;top:auto!important;left:auto!important;right:auto!important;
+ min-width:0!important;max-width:none!important;display:flex!important;flex-direction:row;
+ align-items:center;justify-content:center;background:#e9dfc90e;
+ color:#fff;padding:11px!important;border:1px solid #d5c6a44d;border-radius:12px;
+ grid-row:1;font-size:14px
+}
+.arena-chess-waiting .arena-pvp-wait-seat strong{color:#f1e1bf;max-width:160px;overflow-wrap:anywhere}
+.arena-chess-waiting .arena-pvp-wait-center{
+ position:static!important;transform:none!important;width:100%!important;max-width:100%!important;
+ inset:auto!important;grid-column:1/-1;grid-row:2;display:flex;align-items:center;flex-direction:column;
+ gap:9px;text-align:center;min-width:0
+}
+.arena-chess-waiting .arena-pvp-wait-center h3{font-size:clamp(20px,4vw,30px);color:#f3d99d}
+.arena-chess-waiting .arena-pvp-wait-meta{font-weight:850;color:#f3d99d}
+.arena-chess-preview{width:min(320px,90%);aspect-ratio:1;display:grid;
+ grid-template-columns:repeat(8,1fr);overflow:hidden;border:5px solid #ae8a60;
+ border-radius:5px;box-shadow:0 9px 25px #0006
+}
+.arena-chess-preview span{display:grid;place-items:center;aspect-ratio:1;
+ font:normal clamp(15px,3vw,32px)/1 Georgia,"Segoe UI Symbol",serif}
+.arena-chess-preview .light{background:#ecddc6;color:#172638}
+.arena-chess-preview .dark{background:#78918d;color:#fff}
+.arena-chess-waiting .arena-pvp-wait-actions{display:flex;justify-content:center;gap:7px;flex-wrap:wrap}
+.arena-chess-waiting .arena-pvp-wait-actions button{min-height:39px}
+/* XIANGQI — parchment & lacquer, not a chessboard reskin */
+#arenaXiangqi .xq-board-wrap{
+ background:linear-gradient(140deg,#9e6d39,#edcc81 16%,#ae753a 100%)!important;
+ border:7px ridge #b0844b!important;border-radius:10px!important;
+ box-shadow:0 17px 35px #040b1d77,inset 0 0 16px #64371388!important
+}
+#arenaXiangqi .xq-board{background:#f2d6a7!important;border:2px solid #754e31!important}
+#arenaXiangqi .xq-square{border-color:#a87b4985}
+#arenaXiangqi .xq-square.river{background:#f7e6c5!important}
+#arenaXiangqi .xq-piece{
+ border:2px solid #6f4d2f;box-shadow:0 2px 2px #502c2a60,inset 0 1px 2px #fff8dd;
+ background:radial-gradient(circle at 29% 20%,#fff7df,#dab779 85%);
+ font-size:clamp(14px,3.2vw,31px)!important;
+}
+#arenaXiangqi .xq-piece.red{color:#a12031;border-color:#a94a32}
+#arenaXiangqi .xq-piece.black{color:#20252a}
+#arenaXiangqi .xq-piece.covered{background:radial-gradient(circle,#d9b275,#98683d);color:#423021}
+#arenaXiangqi .xq-river-label{color:#7f371c;letter-spacing:.22em;text-shadow:0 1px #ffefd8}
+#arenaXiangqi .arena-extra-side .arena-panel{border-color:#b58b53;background:#f7eddb}
+#arenaXiangqi .arena-extra-side .arena-panel h3{color:#653b27}
+/* LUDO — joyful toy-board with 4 saturated homes, never green casino felt */
+#arenaLudo .ludo-board{
+ border:clamp(3px,.9vw,8px) solid #e7eefa!important;border-radius:17px!important;
+ box-shadow:0 20px 38px #0005,0 0 0 2px #59749b80;
+ background:#f5f8fb
+}
+#arenaLudo .ludo-cell.base-red{background:#f7aec4}
+#arenaLudo .ludo-cell.base-blue{background:#a5d5fa}
+#arenaLudo .ludo-cell.base-yellow{background:#fff0a4}
+#arenaLudo .ludo-cell.base-green{background:#a9e9cb}
+#arenaLudo .ludo-cell.track{background:#fff;box-shadow:inset 0 0 0 1px #e4ebf7}
+#arenaLudo .ludo-pawn{box-shadow:0 2px 6px #0005,inset 0 1px 3px #fff9}
+#arenaLudo .arena-extra-side .arena-panel{background:#f4f7fd;border-color:#bfd1ef}
+#arenaLudo .ludo-dice{filter:drop-shadow(0 2px 3px #48699b66)}
+/* ESTATE — city skyline-inspired property map and legible owner rings */
+#arenaEstate .estate-board{
+ border:clamp(3px,.9vw,7px) solid #d9b96e!important;border-radius:17px!important;
+ background:linear-gradient(145deg,#dce9fb,#bdcdeb)!important;
+ box-shadow:0 20px 40px #020c2d75
+}
+#arenaEstate .estate-tile{
+ background:#f9fbff;border:1px solid #9eb0c7;border-radius:4px!important;
+ box-shadow:inset 0 -2px 0 #d2dce9
+}
+#arenaEstate .estate-tile.owned{border-width:3px}
+#arenaEstate .estate-center{
+ border-color:#e3c27a;background:
+ radial-gradient(circle at 85% 17%,#4f83be,#112442 68%)!important;
+ box-shadow:inset 0 0 25px #030d2e8a
+}
+#arenaEstate .estate-center strong{letter-spacing:-.03em;text-shadow:0 3px 4px #0008}
+#arenaEstate .arena-extra-side .arena-panel{background:#eef5ff;border-color:#b7c8e3}
+/* COLORS — colored card arena, neon tabletop, sharply distinct from Tiến Lên */
+#arenaTable .arena-board{
+ background:radial-gradient(ellipse at 48% 15%,#5636af,#1a194d 73%)!important;
+ border:5px solid #7065bd!important;border-radius:22px!important;
+ box-shadow:inset 0 0 28px #151029a8,0 15px 40px #0006!important
+}
+html.arena-embedded[data-embedded-game="colors"] #arenaPvPBoard .arena-pvp-card-table{
+ background:radial-gradient(ellipse at center,#4b38a3,#1b1d57 72%)!important;
+ border:6px solid #7267bd!important;border-radius:24px!important;
+ box-shadow:inset 0 0 38px #110e3b,0 10px 30px #0005!important
+}
+html.arena-embedded[data-embedded-game="colors"] .arena-pvp-seat{
+ background:#1b174bdc;border-color:#bb9afb
+}
+html.arena-embedded[data-embedded-game="colors"] .arena-pvp-current .arena-pvp-color-card{
+ filter:drop-shadow(0 6px 11px #0509219c)
+}
+/* TIẾN LÊN keeps its actual oval felt-table identity; only refine the edge. */
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-card-table,
+html.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-board{
+ border-color:#987043!important;box-shadow:inset 0 0 0 3px #c8ac77,inset 0 0 38px #002e25,0 15px 30px #0006
+}
+@media(max-width:900px){
+ .arena-pvp-chess{grid-template-columns:minmax(0,1fr)!important;gap:8px!important}
+ .arena-chess-board-stack{width:min(100%,600px);margin-inline:auto}
+ .arena-pvp-chess>.arena-panel{width:100%;margin:0 auto;max-width:600px}
+ #arenaXiangqi .xq-piece{font-size:clamp(14px,5vw,28px)!important}
+ .arena-chess-waiting{min-height:0;gap:7px}
+}
+@media(max-width:600px) and (orientation:portrait){
+ .room-chess-time-picker{margin-bottom:7px;padding:6px 10px;gap:3px}
+ .room-chess-time-picker select{min-height:36px}
+ .arena-chess-player-bar{min-height:43px;padding:4px 7px}
+ .arena-chess-digital-clock{min-width:83px;min-height:35px;font-size:20px}
+ .arena-chess-player-avatar{width:28px;height:28px;font-size:23px}
+ .arena-chess-player-identity strong{max-width:clamp(75px,31vw,145px)}
+ .arena-chess-waiting .arena-pvp-wait-seat{padding:7px 5px!important;gap:4px;font-size:11px}
+ .arena-chess-preview{width:min(100%,250px)}
+ .arena-chess-preview span{font-size:clamp(14px,5.3vw,25px)}
+ .arena-chess-waiting .arena-pvp-wait-actions button{font-size:11px;min-height:36px}
+ #arenaXiangqi .xq-board-wrap{border-width:4px!important}
+ #arenaEstate .estate-center{padding:4px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .arena-chess-digital-clock.urgent{animation:none}
+}
