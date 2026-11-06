@@ -193,30 +193,66 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
  function drawGame(){
   if(!room)return;
   show("arenaPvPBoard");
-  $("roomBoardTitle").textContent=gameName()+" · "+(room.status==="finished"?"Kết thúc":"PvP trực tuyến");
+  $("roomBoardTitle").textContent=gameName()+" · "+(room.status==="finished"?"Kết thúc · Đợi ván sau":"Đang đấu PvP");
   $("roomBoardCode").textContent=room.code;
   canvas.render(room);
-  let message=room.status==="finished"?"Trận đã kết thúc. Kết quả được máy chủ xác nhận.":
-   "Đã vào ván · "+formatG(room.minGold)+"/lá";
-  status("roomBoardStatus",message);
-  $("roomGameCanvas").querySelector(".arena-match-result")?.remove();
-  if(room.status==="finished"&&room.settlement){
-   const detail=room.settlement;
-   const cardCount=detail.remaining?.[room.seat]||0;
-   const winner=detail.winner===room.seat,drawn=detail.winner===-1;
-   const loss=winner||drawn?0:room.game==="chess"?room.minGold:
-    room.minGold*Math.min(cardCount,room.game==="colors"?20:13);
-   const gain=winner?detail.remaining.reduce((sum,n,i)=>sum+(i===room.seat?0:
-     room.minGold*(room.game==="chess"?1:Math.min(n,room.game==="colors"?20:13))),0):0;
-   const node=el("div","arena-match-result"),headline=el("h2","",
-     drawn?"🤝 HÒA":winner?"🏆 CHIẾN THẮNG":"💫 THUA VÁN");
-   node.append(headline,el("p","",drawn?"Hoàn lại toàn bộ G đã giữ":
+  status("roomBoardStatus",room.status==="finished"?"Ván đã được máy chủ kết toán G; xem bài và chọn Tiếp tục.":
+   "Đang chơi ván "+(room.roundIndex||1)+" · "+formatG(room.minGold)+"/lá");
+  $("roomGameCanvas").querySelector(".arena-next-round-dialog")?.remove();
+  if(room.status!=="finished"||!room.settlement)return;
+  const detail=room.settlement,remaining=detail.remaining||[];
+  const cardCount=remaining[room.seat]||0;
+  const winner=detail.winner===room.seat,drawn=detail.winner===-1;
+  const loss=winner||drawn?0:room.game==="chess"?room.minGold:
+   room.minGold*Math.min(cardCount,room.game==="colors"?20:13);
+  const gain=winner?remaining.reduce((sum,n,i)=>sum+(i===room.seat?0:
+   room.minGold*(room.game==="chess"?1:Math.min(n,room.game==="colors"?20:13))),0):0;
+  const dialog=el("div","arena-next-round-dialog");
+  dialog.setAttribute("role","dialog");dialog.setAttribute("aria-label","Kết quả ván và tiếp tục");
+  dialog.append(el("h2","",drawn?"🤝 HÒA":winner?"🏆 BẠN THẮNG!":"💫 KẾT THÚC VÁN"),
+   el("p","arena-next-round-score",drawn?"Đã hoàn G giữ cược":
     winner?"+"+formatG(gain)+" vào ví G":
-     "Còn "+cardCount+" lá · -"+formatG(loss)+" ("+formatG(room.minGold)+"/lá)"));
-   const close=btn("Về sảnh","arena-action",()=>void leave());
-   node.append(close);$("roomGameCanvas").append(node);
-   void refreshWallet().catch(()=>{});
+    "Còn "+cardCount+" lá · -"+formatG(loss)));
+  const revealed=room.gameState?.revealedHands;
+  if(Array.isArray(revealed)&&room.game!=="chess"){
+   const reveal=el("div","arena-next-round-reveal");
+   reveal.append(el("h3","","🃏 BÀI CÒN LẠI CỦA MỌI NGƯỜI"));
+   const grid=el("div","arena-next-round-hands");
+   room.players.forEach(player=>{
+    const section=el("section","arena-next-round-player");
+    section.append(el("strong","",player.name+" · "+(revealed[player.seat]?.length||0)+" lá"));
+    const cards=el("div","arena-next-round-cards");
+    (revealed[player.seat]||[]).forEach(card=>{
+     if(room.game==="tienlen"){
+      const label=(card.rank===15?"2":card.rank===14?"A":card.rank===13?"K":
+       card.rank===12?"Q":card.rank===11?"J":String(card.rank))+
+       ["♠","♣","♦","♥"][card.suit];
+      cards.append(el("span","arena-next-round-card"+(card.suit>=2?" red":""),label));
+     }else{
+      const label=card?.value??card?.symbol??"🃏";
+      cards.append(el("span","arena-next-round-card color",String(label)));
+     }
+    });
+    if(!cards.children.length)cards.append(el("span","arena-next-round-empty","Đã hết bài"));
+    section.append(cards);grid.append(section);
+   });
+   reveal.append(grid);dialog.append(reveal);
   }
+  const confirmed=room.players.filter(p=>p.continueReady).length;
+  dialog.append(el("p","arena-next-round-count",confirmed+"/"+room.players.length+
+   " người đã nhấn Tiếp tục"));
+  const myVote=room.players.find(p=>p.seat===room.seat)?.continueReady;
+  const next=btn(myVote?"✓ ĐÃ XÁC NHẬN · ĐỢI NGƯỜI KHÁC":"▶ TIẾP TỤC","arena-next-round-confirm",()=>void withBusy(async()=>{
+   if(!room||room.status!=="finished")return;
+   const result=await roomRequest("continue",{code:room.code,version:room.version});
+   room=result.room;drawGame();
+   await refreshWallet();
+  }));
+  next.disabled=!!myVote;
+  dialog.append(next,el("small","arena-next-round-help",
+   "Khi tất cả nhấn Tiếp tục, bàn sẽ tự chia bài ván sau, không về sảnh."));
+  $("roomGameCanvas").append(dialog);
+  void refreshWallet().catch(()=>{});
  }
  async function move(action){
   if(!room||room.status!=="playing")return;
