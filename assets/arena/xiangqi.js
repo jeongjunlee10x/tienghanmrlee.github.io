@@ -122,7 +122,7 @@ function pickBot(g){
  }
  return chosen;
 }
-import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r1";
+import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r2";
 export function mountXiangqi({onStart,onFinish,onExit}){
  const root=$("arenaXiangqi"),board=$("xqBoard"),status=$("xqStatus");
  const requested=new URL(location.href).searchParams.get("variant");
