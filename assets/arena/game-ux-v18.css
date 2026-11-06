@@ -1,0 +1,130 @@
+/* MR LEE GAME ARENA V18 — unified usability, individual game identities.
+ * Original CSS. No external assets, copyrighted board artwork or new dependencies.
+ * Loaded after independent per-game themes and card-turn overrides.
+ */
+#arenaChess,#arenaXiangqi,#arenaLudo,#arenaEstate,#arenaTienLen,#arenaTable{
+ --arena-ux-accent:#eecf86;
+ -webkit-font-smoothing:antialiased;
+}
+#arenaChess{--arena-ux-accent:#ecc88a}
+#arenaXiangqi{--arena-ux-accent:#e2a45f}
+#arenaLudo{--arena-ux-accent:#78d3fb}
+#arenaEstate{--arena-ux-accent:#91bffe}
+#arenaTienLen{--arena-ux-accent:#f7c67a}
+#arenaTable{--arena-ux-accent:#dac0ff}
+.arena-bot-level,.arena-difficulty{
+ display:inline-flex;align-items:center;gap:7px;min-width:0;
+ padding:6px 9px;border-radius:12px;
+ background:linear-gradient(135deg,#152e4adf,#254e6ad8);
+ color:#fff0d5!important;border:1px solid #bfcccf8c;
+ font:850 12px/1.25 system-ui,sans-serif
+}
+.arena-bot-level select,.arena-difficulty select{
+ padding:7px 9px;min-height:34px;max-width:210px;
+ border-radius:8px;border:1px solid #cfb77a9c;
+ background:#f5f1e6;color:#25364b;
+ font:800 12px/1.2 system-ui,sans-serif;
+ cursor:pointer
+}
+.arena-bot-level select:focus-visible,.arena-difficulty select:focus-visible{
+ outline:3px solid #eecf86;outline-offset:2px
+}
+.arena-expanded-game .arena-table-heading{
+ border-bottom:1px solid #b8d7de48;padding-bottom:8px;
+ min-height:55px;align-items:center
+}
+.arena-expanded-game .arena-table-heading h2{
+ line-height:1.25;letter-spacing:-.02em
+}
+.arena-expanded-game .arena-table-heading>button,
+.arena-expanded-game .arena-table-heading .arena-fullscreen-btn{
+ min-height:40px;
+ white-space:nowrap
+}
+#arenaChess .chess-board,#arenaXiangqi .xq-board,
+#arenaLudo .ludo-board,#arenaEstate .estate-board{touch-action:pan-y}
+#arenaChess .chess-square,#arenaXiangqi .xq-square{
+ -webkit-user-select:none;user-select:none;touch-action:none
+}
+#arenaChess .chess-square.target:not(.chosen),
+#arenaXiangqi .xq-square.target:not(.selected){
+ box-shadow:inset 0 0 0 3px #ffdf85b9!important
+}
+#arenaChess .chess-square.last-move,
+#arenaXiangqi .xq-square.last-move{
+ filter:brightness(1.07)
+}
+#arenaChess .chess-status-indicator,
+#arenaXiangqi .arena-extra-status,#arenaLudo .arena-extra-status,
+#arenaEstate .arena-extra-status{
+ border-left:4px solid var(--arena-ux-accent);
+ padding:9px 12px;border-radius:0 10px 10px 0;
+ background:color-mix(in srgb,var(--arena-ux-accent) 11%,transparent);
+ font-weight:800;line-height:1.55
+}
+#arenaEstate .estate-player.active,#arenaLudo .ludo-player.active{
+ outline:2px solid var(--arena-ux-accent);outline-offset:1px;
+ box-shadow:0 4px 13px #0004;transform:translateY(-2px)
+}
+#arenaLudo .ludo-pawn.legal,#arenaEstate #estateRoll:not(:disabled),
+#arenaChess .chess-square.chosen,#arenaXiangqi .xq-square.selected{
+ filter:drop-shadow(0 2px 5px #f6c86a94)
+}
+#arenaTable .arena-board,#arenaTienLen .tl-board{
+ backface-visibility:hidden;
+}
+#arenaTable #arenaHand .arena-hand-card,
+#arenaTienLen #tlHand .tl-hand-card,
+#arenaPvPBoard .arena-pvp-hand>button{
+ -webkit-touch-callout:none;
+ will-change:transform;
+}
+#arenaTable .arena-hand-card.playable:focus-visible,
+#arenaTienLen .tl-hand-card:focus-visible,
+#arenaPvPBoard .arena-pvp-hand>button:focus-visible{
+ outline:3px solid var(--arena-ux-accent);
+ outline-offset:4px;z-index:3
+}
+#arenaTable #arenaHandCount,#arenaTienLen #tlCount,
+#arenaPvPBoard .arena-pvp-me-count{
+ font-variant-numeric:tabular-nums;
+ font-weight:900
+}
+#arenaTienLen .tl-pile,#arenaPvPBoard .arena-pvp-current{
+ min-width:0;
+}
+#arenaXiangqi .xq-piece.covered{font-family:"Noto Serif CJK SC","Microsoft YaHei","SimSun",serif!important}
+@media(max-width:850px){
+ .arena-expanded-game .arena-table-heading{gap:7px!important}
+ .arena-expanded-game .arena-table-heading>div{flex:1 1 140px}
+ .arena-bot-level,.arena-difficulty{padding:4px 6px;font-size:11px}
+ .arena-bot-level select,.arena-difficulty select{
+  min-height:34px;max-width:150px;font-size:11px;padding:6px
+ }
+ #arenaLudo .ludo-board,#arenaEstate .estate-board{
+  width:min(100%,560px);margin-inline:auto;
+ }
+}
+@media(max-width:530px){
+ .arena-expanded-game .arena-table-heading{
+  display:flex;align-items:center;justify-content:flex-start;gap:5px!important
+ }
+ .arena-expanded-game .arena-table-heading h2{font-size:clamp(15px,4.1vw,21px)!important}
+ .arena-expanded-game .arena-table-heading>div{flex:1 1 140px}
+ .arena-expanded-game .arena-table-heading>button{
+  min-height:36px;padding:6px 7px;font-size:10px;
+ }
+ .arena-expanded-game .arena-table-heading .arena-fullscreen-btn{
+  padding:6px 8px;font-size:10px;min-height:36px
+ }
+ .arena-bot-level select,.arena-difficulty select{max-width:133px;font-size:10px}
+ #arenaXiangqi .xq-board,#arenaChess .chess-board{max-width:100%!important}
+ #arenaEstate .estate-tile small{font-size:9px}
+ #arenaLudo .ludo-score,#arenaEstate .estate-players{max-height:160px;overflow:auto}
+ #arenaTable .arena-board-center{min-height:150px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ #arenaEstate .estate-player.active,#arenaLudo .ludo-player.active{transform:none}
+ #arenaTable #arenaHand .arena-hand-card,#arenaTienLen #tlHand .tl-hand-card,
+ #arenaPvPBoard .arena-pvp-hand>button{will-change:auto}
+}
