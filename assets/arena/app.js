@@ -165,7 +165,7 @@ function render(){
  if(winner!==null){
   flash(PLAYER_NAMES[winner]+" đã thắng ván!");
  }else if(humanTurn){
-  flash(g.drawnCardId===null?"Lượt của bạn: chọn thẻ hợp lệ hoặc rút một lá.":
+  flash(g.drawnCardId===null?"Lượt của bạn: kéo lá hợp lệ vào giữa bàn, chạm đánh hoặc rút bài.":
    "Bạn đã rút 1 lá. Có thể đánh lá vừa rút nếu hợp lệ, hoặc bỏ lượt.");
  }else flash("Đang chờ "+PLAYER_NAMES[g.turn]+" ra bài…");
  const history=$("arenaEventLog");history.replaceChildren();
