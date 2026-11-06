@@ -104,7 +104,8 @@ function safeRoom(room:Room,uid:string){
   const position=state.history.at(-1),detail=Chess.status(state.history);
   result.gameState={position,notation:state.notation,turn:position.t===1?0:1,
     winner:detail.done?(detail.winner===1?0:detail.winner===-1?1:null):null,
-    done:detail.done,reason:detail.reason,claim:!!detail.claim};
+    done:detail.done,reason:detail.reason,claim:!!detail.claim,
+     turnDeadline:room.status==="playing"?state.turnDeadline:null};
  }else if(game==="tienlen"){
   result.gameState={myHand:state.hands[player.seat],counts:state.hands.map((hand:any[])=>hand.length),
     turn:state.turn,played:state.played,last:state.last?{player:state.last.player,combo:state.last.combo}:null,
@@ -116,6 +117,7 @@ function safeRoom(room:Room,uid:string){
     turn:state.turn,top:Colors.topCard(state),activeColor:state.activeColor,
     drawnCardId:state.turn===player.seat?state.drawnCardId:null,
     events:state.events.slice(-12),direction:state.direction,winner:state.winner,
+     turnDeadline:room.status==="playing"?state.turnDeadline:null,
     ...(room.status==="finished"?{revealedHands:state.hands}:{} )};
  }
  return result;
@@ -136,9 +138,10 @@ async function cas(database:any,row:Room,patch:Partial<Room>):Promise<Room>{
 }
 function createState(game:string,playerCount=4){
  if(game==="chess"){
-  const position=Chess.start();return {history:[position],notation:[]};
+  const position=Chess.start();return {history:[position],notation:[],turnDeadline:nextDeadline()};
  }
- return game==="tienlen"?{...TienLen.start(secureRandom,playerCount),turnDeadline:nextDeadline()}:Colors.newGame(secureRandom);
+ return game==="tienlen"?{...TienLen.start(secureRandom,playerCount),turnDeadline:nextDeadline()}:
+    {...Colors.newGame(secureRandom),turnDeadline:nextDeadline()};
 }
 // Each live client polls the room. A server timestamp and CAS protect the
 // 20-second deadline even if a player closes the page or changes local clocks.
@@ -179,6 +182,69 @@ async function advanceExpiredTienLen(database:any,row:Room):Promise<Room>{
   });
   if(error&&error.code!=="P0001")fail("Không thể kết toán ván khi hết giờ.",503);
   return await selectRoom(database,row.code);
+ }catch(e){
+  if((e as {status?:number}).status===409)return selectRoom(database,row.code);
+  throw e;
+ }
+}
+// Chess and Colors also use a server-owned twenty-second turn limit.
+// A timeout is computed only from the persisted position and legal engine.
+// Concurrent browser polls cannot double-play a move (row version CAS).
+async function advanceExpiredOther(database:any,row:Room):Promise<Room>{
+ if(!["chess","colors"].includes(row.game)||row.status!=="playing")return row;
+ const deadline=Date.parse(row.state?.turnDeadline||"");
+ if(!Number.isFinite(deadline)){
+  try{return await cas(database,row,{state:{...row.state,turnDeadline:nextDeadline()}});}
+  catch(e){if((e as {status?:number}).status===409)return selectRoom(database,row.code);throw e;}
+ }
+ if(Date.now()<deadline)return row;
+ const state=structuredClone(row.state);
+ let finished=false,winner=-1,remaining:number[]=[];
+ try{
+  if(row.game==="chess"){
+   const pos=state.history.at(-1),available=Chess.legal(pos);
+   const selected=available.sort((a:any,b:any)=>Chess.uci(a).localeCompare(Chess.uci(b)))[0];
+   if(!selected)return row;
+   state.notation.push(Chess.san(pos,selected));
+   state.history.push(Chess.apply(pos,selected));
+   if(state.history.length>350){
+    state.history=state.history.slice(-200);state.notation=state.notation.slice(-200);
+   }
+   const ended=Chess.status(state.history);
+   finished=ended.done;
+   winner=ended.winner===1?0:ended.winner===-1?1:-1;
+   remaining=[0,0];
+  }else{
+   const seat=state.turn;
+   if(!Number.isInteger(seat)||!Array.isArray(state.hands?.[seat]))return row;
+   const choice=[...state.hands[seat]].sort((a:any,b:any)=>a.id-b.id)
+    .find((x:any)=>Colors.canPlay(state,x,seat));
+   let card=choice;
+   if(!card&&state.drawnCardId===null)card=Colors.beginDraw(state,seat,secureRandom);
+   if(card&&Colors.canPlay(state,card,seat)){
+    const remainder=state.hands[seat].filter((x:any)=>x.id!==card.id);
+    const color=card.color?null:[...Colors.COLORS].sort((a,b)=>
+     remainder.filter((x:any)=>x.color===b).length-
+     remainder.filter((x:any)=>x.color===a).length)[0];
+    Colors.play(state,seat,card.id,color,secureRandom);
+   }else Colors.pass(state,seat);
+   state.events.push("⏳ Quá 20 giây: máy chủ tự xử lý lượt.");
+   state.events=state.events.slice(-25);
+   finished=state.winner!==null;winner=state.winner;
+   remaining=state.hands.map((hand:any[])=>hand.length);
+  }
+  state.turnDeadline=finished?null:nextDeadline();
+  if(!finished){
+   try{return await cas(database,row,{state,status:"playing"});}
+   catch(e){if((e as {status?:number}).status===409)return selectRoom(database,row.code);throw e;}
+  }
+  state.settlement={winner,remaining,rate:row.min_gold};
+  const {error}=await database.rpc("mrlee_arena_settle_match",{
+   p_code:row.code,p_expected_version:row.version,p_state:state,
+   p_winner:winner,p_remaining:remaining
+  });
+  if(error&&error.code!=="P0001")fail("Không thể kết toán lượt tự động.",503);
+  return selectRoom(database,row.code);
  }catch(e){
   if((e as {status?:number}).status===409)return selectRoom(database,row.code);
   throw e;
@@ -320,7 +386,8 @@ Deno.serve(async(req:Request)=>{
     membership(row,uid);
     const updated=row.status==="finished"?
       await advanceExpiredFinished(database,row):
-      await advanceExpiredTienLen(database,row);
+      row.game==="tienlen"?await advanceExpiredTienLen(database,row):
+      await advanceExpiredOther(database,row);
     return reply(req,200,{ok:true,room:safeRoom(updated,uid)});
    }
    fail("Không tìm thấy API.",404);
@@ -495,14 +562,16 @@ Deno.serve(async(req:Request)=>{
    if(room.status!=="playing")fail("Phòng chưa ở trạng thái chơi.",409);
    if(!Number.isInteger(body.version)||body.version!==room.version)
     fail("Phòng đã đổi lượt. Hãy cập nhật rồi thử lại.",409);
-   if(room.game==="tienlen"){
-    const checked=await advanceExpiredTienLen(database,room);
-    if(checked.version!==room.version)fail("Lượt đã hết 20 giây và máy chủ đã tự xử lý. Hãy cập nhật bàn.",409);
+   {
+    const checked=room.game==="tienlen"?await advanceExpiredTienLen(database,room):
+     await advanceExpiredOther(database,room);
+    if(checked.version!==room.version||checked.status!=="playing")
+     fail("Lượt đã hết 20 giây và máy chủ đã tự xử lý. Hãy cập nhật bàn.",409);
    }
    const state=structuredClone(room.state);
    const result=room.game==="chess"?actionChess(state,me.seat,body):
     room.game==="tienlen"?actionTienLen(state,me.seat,body):actionColors(state,me.seat,body);
-   if(room.game==="tienlen")state.turnDeadline=result.finished?null:nextDeadline();
+   state.turnDeadline=result.finished?null:nextDeadline();
    if(result.finished){
     let winner=-1,remaining:number[];
     if(room.game==="chess"){
