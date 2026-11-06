@@ -2,10 +2,12 @@
  * No game logic, network requests, wallet or result mutations.
  */
 const STORE="mrlee.arena.visuals.v19";
-const root=document.documentElement;
-const reduce=()=>window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches===true;
-const lowSpec=()=>navigator.connection?.saveData===true||
- (typeof navigator.deviceMemory==="number"&&navigator.deviceMemory<=3);
+const isBrowser=typeof document!=="undefined"&&typeof window!=="undefined";
+const root=isBrowser?document.documentElement:null;
+const reduce=()=>isBrowser&&window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches===true;
+const lowSpec=()=>isBrowser&&typeof navigator!=="undefined"&&(
+ navigator.connection?.saveData===true||
+ (typeof navigator.deviceMemory==="number"&&navigator.deviceMemory<=3));
 const MODES=["full","lite","off"];
 let mode="full";
 try{
@@ -13,7 +15,7 @@ try{
  mode=MODES.includes(saved)?saved:(lowSpec()?"lite":"full");
 }catch{mode=lowSpec()?"lite":"full";}
 if(reduce())mode="off";
-root.dataset.arenaVisuals=mode;
+if(root)root.dataset.arenaVisuals=mode;
 const title={full:"✨ Sống động",lite:"⚡ Tiết kiệm",off:"○ Tắt hiệu ứng"};
 function refreshButtons(){
  document.querySelectorAll(".arena-visual-quality").forEach(btn=>{
@@ -26,7 +28,7 @@ function refreshButtons(){
 function setMode(value){
  if(reduce())value="off";
  if(!MODES.includes(value))return;
- mode=value;root.dataset.arenaVisuals=value;
+ mode=value;if(root)root.dataset.arenaVisuals=value;
  try{localStorage.setItem(STORE,value);}catch{}
  refreshButtons();
 }
@@ -41,24 +43,26 @@ function addControlTo(header){
 function controls(){
  document.querySelectorAll("#arenaTable>.arena-table-heading,#arenaChess>.arena-table-heading,#arenaTienLen>.arena-table-heading,#arenaXiangqi>.arena-table-heading,#arenaLudo>.arena-table-heading,#arenaEstate>.arena-table-heading,#arenaPvPBoard>.arena-table-heading").forEach(addControlTo);
 }
-controls();
-const pvp=document.getElementById("arenaPvPBoard");
+if(isBrowser)controls();
+const pvp=isBrowser?document.getElementById("arenaPvPBoard"):null;
 if(pvp)new MutationObserver(controls).observe(pvp,{childList:true});
-window.addEventListener("storage",event=>{
+if(isBrowser)window.addEventListener("storage",event=>{
  if(event.key!==STORE||!MODES.includes(event.newValue))return;
- mode=reduce()?"off":event.newValue;root.dataset.arenaVisuals=mode;refreshButtons();
+ mode=reduce()?"off":event.newValue;if(root)root.dataset.arenaVisuals=mode;refreshButtons();
 });
-const overlay=document.createElement("div");
-overlay.className="arena-vfx-canvas";
-overlay.setAttribute("aria-hidden","true");
-document.body.append(overlay);
+const overlay=isBrowser?document.createElement("div"):null;
+if(overlay){
+ overlay.className="arena-vfx-canvas";
+ overlay.setAttribute("aria-hidden","true");
+ document.body.append(overlay);
+}
 const colors={
  card:"#f5cf82",chess:"#e4c587",xiangqi:"#e6b67d",ludo:"#78dbff",
  estate:"#95c7ff",colors:"#c9a0ff",win:"#ffde82",capture:"#f9a174"
 };
 let prev=-Infinity,active=0;
 function fx({kind="card",element=null,label="",count}={}){
- if(mode==="off"||reduce()||document.hidden||active>=40)return;
+ if(!isBrowser||!overlay||mode==="off"||reduce()||document.hidden||active>=40)return;
  const now=performance.now();
  if(kind!=="win"&&now-prev<95)return;prev=now;
  const anchor=typeof element==="string"?document.querySelector(element):element;
@@ -98,10 +102,11 @@ function fx({kind="card",element=null,label="",count}={}){
   anim.finished.catch(()=>{}).then(()=>badge.remove());
  }
 }
-document.addEventListener("mrlee:arena-fx",event=>{
+if(isBrowser)document.addEventListener("mrlee:arena-fx",event=>{
  try{fx(event.detail||{});}catch(error){console.warn("Visual effect skipped:",error);}
 });
 export function emitArenaFX(kind,element,label=""){
+ if(!isBrowser)return;
  document.dispatchEvent(new CustomEvent("mrlee:arena-fx",{detail:{kind,element,label}}));
 }
 export function getArenaFXMode(){return mode;}
