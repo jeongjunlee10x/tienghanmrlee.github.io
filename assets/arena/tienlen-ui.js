@@ -233,10 +233,10 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   root:board,itemSelector:".tl-hand-card[data-card-id]",
   targetSelector:".tl-center",previewSelector:".tl-real-card",
   canStart:item=>Boolean(game&&!busy&&!done&&game.turn===0&&
-   game.hands[0].some(card=>card.id===Number(item.dataset.cardId))),
+   game.hands[0].some(card=>card.id===item.dataset.cardId)),
   canDrop:()=>Boolean(game&&!busy&&!done&&game.turn===0),
   onDrop:item=>{
-   const id=Number(item.dataset.cardId);
+   const id=item.dataset.cardId;
    if(!game||busy||done||!game.hands[0].some(card=>card.id===id))return false;
    // Hold several cards by tapping them, then drag any one selected card
    // onto the central pile. An unselected card joins the chosen combination.
