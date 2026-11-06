@@ -9,6 +9,19 @@ import {mountXiangqi} from "./xiangqi.js?v=20261106-gesture-r13";
 import {mountEstate} from "./estate.js?v=20261106-gesture-r13";
 import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r2";
 const $=id=>document.getElementById(id);
+// AI difficulty is a visual preference only; it is never trusted for G scoring
+// or sent to the real-money-free multiplayer settlement API.
+for(const id of ["chessLevel","xqLevel","ludoLevel","estateLevel","tlLevel","colorsLevel"]){
+ const select=$(id);if(!select)continue;
+ const key="mrlee.arena.ai."+id;
+ try{
+  const saved=localStorage.getItem(key);
+  if(saved&&[...select.options].some(option=>option.value===saved))select.value=saved;
+ }catch{}
+ select.addEventListener("change",()=>{
+  try{localStorage.setItem(key,select.value);}catch{}
+ });
+}
 const state={game:null,tickets:Infinity,gold:0,xp:0,wins:0,losses:0,pending:null,
   timer:null,epoch:0,settled:false,leaving:false};
 function updateWallet(){
