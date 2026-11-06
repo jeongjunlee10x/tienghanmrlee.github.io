@@ -29,12 +29,12 @@ for(const prop of ["@keyframes arena-v19-enter","@keyframes arena-v19-active-glo
 check(css.includes("box-sizing:border-box!important;max-width:100%!important"),
  "Framed game boards fit narrow touchscreens without horizontal overflow");
 check(main.includes('game-visuals-v19.css?v=20261107-v19'),"Arena loads V19 stylesheet after other skins");
-check(/app\\.js\\?v=20261107-(v19|approved-v20[a-z]*)/.test(main),"Arena loads the current application");
+check(/app\.js\?v=20261107-(v19|approved-v20[a-z]*)/.test(main),"Arena loads the current application");
 for(const page of ["game-co-vua","game-co-tuong","game-tien-len","game-bai-mau","game-co-ca-ngua","game-dia-oc"]){
  const source=await read(page+".html");
  check(source.includes("game-visuals-v19.css?v=20261107-v19"),page+" loads distinct lobby theme");
 }
-check(/game-visuals-v19\\.js\\?v=20261107-(v19|approved-v20)/.test(app),"FX imported into actual game logic");
+check(/game-visuals-v19\.js\?v=20261107-(v19|approved-v20)/.test(app),"FX imported into actual game logic");
 check(app.includes("if(won)emitArenaFX"),"Victory animations only for real confirmed wins");
 check(!/(?:fetch\(|roomRequest\(|supabase\.|walletState|goldBalance)/.test(visual),
  "Visuals component is independent of network, wallets and game state");
