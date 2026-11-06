@@ -68,7 +68,7 @@ function coordinates(who,pawn,progress){
  if(progress>=52)return LANE[who][progress-52];
  return TRACK[(STARTS[who]+progress)%52];
 }
-import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261107-v19";
+import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261107-motion-v22";
 import {emitArenaFX} from "./game-visuals-v19.js?v=20261107-approved-v20";
 // AI choices are calculated from real board state; easy is random,
 // normal prioritizes exit/capture, hard additionally avoids exposed horses.
