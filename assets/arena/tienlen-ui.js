@@ -178,6 +178,18 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   pile.replaceChildren();
   if(!game.played.length)pile.append(el("p","tl-empty","Vòng mới · Chưa có bài trên bàn"));
   else for(const c of game.played)pile.append(playingCard(c));
+  let playedBy=board.querySelector("#tlPlayedBy");
+  if(!playedBy){
+   playedBy=el("span","arena-last-played-by","");
+   playedBy.id="tlPlayedBy";
+   pile.before(playedBy);
+  }
+  playedBy.hidden=game.last?.player===undefined;
+  if(!playedBy.hidden){
+   const who=game.last.player;
+   playedBy.classList.toggle("mine",who===0);
+   playedBy.textContent=who===0?"🂠 BẠN VỪA ĐÁNH":"🂠 "+NAMES[who]+" vừa đánh";
+  }
   $("tlPlayerName").textContent=String(getPlayerName()||"Bạn").slice(0,35);
   $("tlPlayerGold").textContent="🪙 "+formattedGold(getGold())+" vàng demo";
   count.textContent="🃏 "+game.hands[0].length+" lá · "+(previous?kind[previous.type]:"Vòng mới");
