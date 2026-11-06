@@ -112,7 +112,10 @@ export function createTableEffects(board,area){
    board.querySelector('[data-seat="right"]')
   ];
   const flights=[];
-  for(let i=0;i<52;i++){
+  // 52 cards are still dealt by the real game engine. Only a sampled set
+  // of visual sprites is flown, reducing paint/animation work on phones.
+  const visualDeals=window.matchMedia?.("(max-width: 680px)")?.matches?24:32;
+  for(let i=0;i<visualDeals;i++){
    const seat=i%4,which=Math.floor(i/4);
    const destination=localRect(seats[seat]||area);
    const spread=seat===0?(which-6)*8:((which%3)-1)*5;
