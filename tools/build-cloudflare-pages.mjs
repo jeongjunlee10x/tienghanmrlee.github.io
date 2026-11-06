@@ -96,6 +96,48 @@ function addBrandStructuredData(html,pathname){
   '<script type="application/ld+json" data-mrlee-brand-jsonld="v1">'+json+'</script>\n</head>');
 }
 
+// Editorial pages are public HTML (not login-gated lessons). Describe their
+// real content without claiming courses, reviews, dates or search enhancements.
+const articleGuides=new Set([
+ 'huong-dan-hoc-tieng-han.html',
+ 'lo-trinh-so-cap-1.html','lo-trinh-so-cap-2.html',
+ 'lo-trinh-trung-cap-1.html','lo-trinh-trung-cap-2.html',
+ 'lo-trinh-cao-cap-1.html','lo-trinh-cao-cap-2.html',
+ 'huong-dan-on-thi-topik-i.html','huong-dan-on-thi-topik-ii.html',
+ 'ngu-phap-tieng-han-co-ban.html',
+ 'cau-hoi-phong-van-du-hoc-han-quoc.html'
+]);
+function addEditorialStructuredData(html,pathname){
+ if(!articleGuides.has(pathname)||!/<\\/head>/i.test(html))return html;
+ if(/data-mrlee-editorial-jsonld=/.test(html))return html;
+ const url=origin+'/'+pathname;
+ const headline=(html.match(/<title\\b[^>]*>([\\s\\S]*?)<\\/title>/i)?.[1]||'')
+   .split(' | ')[0].trim();
+ const descTag=html.match(/<meta\\b(?=[^>]*\\bname\\s*=\\s*["']description["'])[^>]*>/i)?.[0]||'';
+ const description=descTag.match(/\\bcontent\\s*=\\s*(["'])([\\s\\S]*?)\\1/i)?.[2]||'';
+ if(!headline||!description)throw new Error('Editorial guide lacks title/description: '+pathname);
+ const breadcrumb=[{name:'Trang chủ',url:origin+'/'}];
+ if(pathname.startsWith('lo-trinh-')){
+  breadcrumb.push({name:'Lộ trình học tiếng Hàn',url:origin+'/huong-dan-hoc-tieng-han.html'});
+ }else if(pathname.startsWith('huong-dan-on-thi-topik-')){
+  breadcrumb.push({name:'Luyện thi TOPIK',url:origin+'/kiem-tra-topik.html'});
+ }
+ breadcrumb.push({name:headline,url});
+ const schema={'@context':'https://schema.org','@graph':[
+  {'@type':'Article','@id':url+'#article',
+   'headline':headline,'description':description,'inLanguage':'vi-VN',
+   'mainEntityOfPage':{'@type':'WebPage','@id':url},
+   'author':{'@id':origin+'/#organization'},
+   'publisher':{'@id':origin+'/#organization'}},
+  {'@type':'BreadcrumbList','@id':url+'#breadcrumb',
+   'itemListElement':breadcrumb.map((b,i)=>({
+    '@type':'ListItem','position':i+1,'name':b.name,'item':b.url
+   }))}
+ ]};
+ const serialized=JSON.stringify(schema).replace(/</g,'\\\\u003c');
+ return html.replace(/<\\/head>/i,
+  '<script type="application/ld+json" data-mrlee-editorial-jsonld="v1">'+serialized+'</script>\\n</head>');
+}
 const escapeMeta = text => String(text).replace(/&(?!(?:#\d+|#x[0-9a-f]+|[a-z][a-z0-9]+);)/gi,'&amp;')
   .replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 function enhanceSeoHead(html,pathname){
@@ -177,6 +219,7 @@ const workers=Array.from({length:16},async()=>{
   next=enhanceSeoHead(next,item.rel);
   next=protectSearchIndex(next,item.rel);
   next=addBrandStructuredData(next,item.rel);
+  next=addEditorialStructuredData(next,item.rel);
   // Existing GitHub Pages root is unchanged; only Cloudflare output differs.
   await writeFile(target,next,'utf8');
  }
