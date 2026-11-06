@@ -45,5 +45,16 @@ assert.equal((html.match(/data-room-action="friends"/g)||[]).length,3);
 assert.equal((html.match(/data-room-action="browse"/g)||[]).length,3);
 assert.equal((html.match(/class="arena-game-card playable"/g)||[]).length,6);
 assert.ok(js.includes("navigator.clipboard.writeText"));
+assert.match(src,/TIENLEN_TURN_MS=20_000/,"20-second authoritative Tiến Lên deadline");
+assert.match(src,/async function advanceExpiredTienLen/,"Timeout applies on server polls");
+assert.match(src,/TienLen\.pass\(state,seat\)/,"Timed-out response automatically passes");
+assert.match(src,/TienLen\.play\(state,seat,\[card\.id\]\)/,"Timed-out lead plays minimum legal card");
+assert.match(src,/rematchVotes/,"Per-player continue votes tracked server-side");
+assert.match(js,/roomNextConfirm/,"Next-round confirmation button exists");
+assert.match(js,/roomNextExit/,"Five-second exit window remains available");
+const autoSQL=await readFile(new URL("../supabase/manual-sql/MRLEE_ARENA_5_SECOND_AUTO_NEXT.sql",import.meta.url),"utf8");
+assert.match(autoSQL,/rematchVotes/,"All-player continue validated again inside locked SQL row");
+assert.match(autoSQL,/interval '5 seconds'/,"Default five-second automatic next round");
+
 assert.ok(!js.includes("service_role"),"No service role key in UI");
 console.log("PASS Arena PvP: 12 G tiers, 1:10 conversion, 10 cards at 10G -> 100G, RLS/private ledger and fullscreen contract.");
