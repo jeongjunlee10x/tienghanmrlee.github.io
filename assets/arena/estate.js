@@ -118,6 +118,7 @@ export function estateBotPlan(g,difficulty="normal",rng=Math.random){
  return {upgrade,buy};
 }
 import {animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r2";
+import {emitArenaFX} from "./game-visuals-v19.js?v=20261107-v19";
 export function mountEstate({onStart,onFinish,onExit}){
  const root=$("arenaEstate"),board=$("estateBoard"),status=$("estateStatus");
  const requested=Number(new URL(location.href).searchParams.get("rounds"));
@@ -155,7 +156,9 @@ export function mountEstate({onStart,onFinish,onExit}){
  }
  function buy(yes){
   if(!g||g.turn!==0||g.phase!=="offer"||done)return;
-  estateBuy(g,yes);render();if(g.winner!==null)finish();else schedule();
+  const index=g.offer;estateBuy(g,yes);render();
+  if(yes&&g.tiles[index]?.owner===0)emitArenaFX("estate",board.querySelector('[data-path-index="'+index+'"]'),"ĐÃ MUA ĐẤT");
+  if(g.winner!==null)finish();else schedule();
  }
  function schedule(){
   if(!g||g.turn===0||done||timer!==null)return;
@@ -238,7 +241,8 @@ export function mountEstate({onStart,onFinish,onExit}){
     const cost=Math.round(t.price*.55);
     if(t.owner===0&&t.level<3){
      const b=btn("⬆ "+t.name+" ("+MONEY(cost)+")","arena-soft",()=>{
-      try{estateUpgrade(g,i);render();}catch(err){status.textContent=err.message;}
+      try{estateUpgrade(g,i);render();emitArenaFX("estate",board.querySelector('[data-path-index="'+i+'"]'),"NÂNG CẤP");}
+      catch(err){status.textContent=err.message;}
      });
      b.disabled=g.players[0].cash<cost;upgrades.append(b);
     }
