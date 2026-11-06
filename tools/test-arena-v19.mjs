@@ -44,7 +44,7 @@ check(visual.includes("requestAnimationFrame")||visual.includes("spark.animate")
 check(visual.includes("active>=40")&&visual.includes("40-active"),"Animation object budget is capped");
 check(visual.includes("document.hidden"),"Inactive browser tabs do not create effects");
 check(drag.includes('dataset.arenaVisuals==="off"'),"Drag visuals honor the Off setting");
-check(fx.includes('dataset.arenaVisuals==="lite"?12'),"Card dealing reduces decorative sprites on lite mode");
+check(fx.includes("const visualDeals=52")&&fx.includes("i*36"),"Full 52-card visual dealing is staggered for smooth GPU rendering");
 check(fx.includes('dataset.arenaVisuals==="off"'),"Card dealing honors Off setting");
 check(premium.includes('dataset.arenaVisuals==="off"'),"Older FLIP visuals honor Off");
 check(tl.includes('card.id===item.dataset.cardId')&&card.includes('c.id===item.dataset.cardId'),
