@@ -48,7 +48,7 @@ function seatCard(player,room,counts){
 function statusBanner(room){
  const state=room.gameState,turnName=room.players.find(p=>p.seat===state.turn)?.name||"đối thủ";
  return room.status==="finished"?
-  (state.winner===null?"🤝 Ván hòa":state.winner===room.seat?"🏆 Bạn chiến thắng!":"🏆 "+(room.players.find(x=>x.seat===state.winner)?.name||"Đối thủ")+" thắng"):
+  ((state.winner===null||state.winner===-1)?"🤝 Ván hòa":state.winner===room.seat?"🏆 Bạn chiến thắng!":"🏆 "+(room.players.find(x=>x.seat===state.winner)?.name||"Đối thủ")+" thắng"):
   state.turn===room.seat?"✨ Đến lượt bạn":"⏳ Lượt của "+turnName;
 }
 export function mountOnlineCanvas(root,onMove){
