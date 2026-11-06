@@ -195,9 +195,16 @@ $("roomOpenExchange").addEventListener("click",()=>{
  });
  dialogBody.append(submit,feedback);
 });
-$("roomDaily").addEventListener("click",()=>$("arenaDailyOpen")?.click());
-// Refresh the genuine server balance after the daily check-in/spin modal closes.
-queueMicrotask(()=>document.getElementById("arenaDailyDialog")?.addEventListener("close",()=>void loadWallet()));
+$("roomDaily").addEventListener("click",()=>{
+ // The daily module may initialize after this module; attach only when its
+ // dialog exists, and refresh the verified G after all close methods.
+ const rewardDialog=document.getElementById("arenaDailyDialog");
+ if(rewardDialog&&!rewardDialog.dataset.roomWalletBound){
+  rewardDialog.dataset.roomWalletBound="1";
+  rewardDialog.addEventListener("close",()=>void loadWallet());
+ }
+ $("arenaDailyOpen")?.click();
+});
 const mode=new URL(location.href).searchParams.get("mode");
 if(inviteCode()&&current.online)start("friends",{auto:true});
 else if(["quick","friends","browse","bot"].includes(mode))start(mode,{auto:true});
