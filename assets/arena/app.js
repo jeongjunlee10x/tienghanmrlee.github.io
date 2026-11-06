@@ -4,9 +4,9 @@ import {newGame,canPlay,play,beginDraw,pass,botTurn,cardLabel,topCard,
 import {mountChess} from "./chess-ui.js";
 import {mountTienLen} from "./tienlen-ui.js?v=20261106-r3";
 import {mountArenaRooms} from "./rooms-ui.js?v=20261106-chess-r7";
-import {mountLudo} from "./ludo.js?v=20261106-modes-r8";
-import {mountXiangqi} from "./xiangqi.js";
-import {mountEstate} from "./estate.js?v=20261106-modes-r8";
+import {mountLudo} from "./ludo.js?v=20261106-modes-r9";
+import {mountXiangqi} from "./xiangqi.js?v=20261106-modes-r9";
+import {mountEstate} from "./estate.js?v=20261106-modes-r9";
 const $=id=>document.getElementById(id);
 const state={game:null,tickets:3,gold:0,xp:0,wins:0,losses:0,pending:null,
   timer:null,epoch:0,settled:false,leaving:false};
