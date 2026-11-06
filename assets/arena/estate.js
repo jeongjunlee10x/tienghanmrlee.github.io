@@ -17,11 +17,12 @@ const items=[
 ];
 export const ESTATE_PATH=(()=>{const a=[];for(let c=0;c<7;c++)a.push([0,c]);for(let r=1;r<7;r++)a.push([r,6]);for(let c=5;c>=0;c--)a.push([6,c]);for(let r=5;r>0;r--)a.push([r,0]);return a;})();
 const dice=()=>Math.floor(Math.random()*6)+1;
-export function newEstate(){
+export function newEstate(roundLimit=16){
+ if(![8,16,24].includes(roundLimit))throw Error("Chọn 8, 16 hoặc 24 vòng.");
  return {tiles:items.map(([kind,name,price])=>({kind,name,price,owner:-1,level:0})),
   players:names.map((name,i)=>({name,at:0,cash:1800,bankrupt:false,index:i})),
-  turn:0,phase:"roll",roll:[0,0],turns:0,winner:null,offer:-1,
-  history:["Mỗi người có 1.800 xu demo. Qua XUẤT PHÁT nhận 200 xu. Tối đa 16 vòng."]};
+  turn:0,phase:"roll",roll:[0,0],turns:0,roundLimit,winner:null,offer:-1,
+  history:["Mỗi người có 1.800 xu demo. Qua XUẤT PHÁT nhận 200 xu. Tối đa "+roundLimit+" vòng."]};
 }
 export function estateAssets(g,player){
  const p=g.players[player];
@@ -85,7 +86,7 @@ export function estateUpgrade(g,idx){
 function endTurn(g){
  g.turns++;
  const active=g.players.filter(p=>!p.bankrupt);
- if(active.length<=1||g.turns>=64){
+ if(active.length<=1||g.turns>=4*g.roundLimit){
   const ranks=g.players.map((p,i)=>({i,total:p.bankrupt?-1:estateAssets(g,i)}))
    .sort((a,b)=>b.total-a.total);
   g.winner=ranks[0].i;g.phase="end";g.offer=-1;
@@ -98,7 +99,7 @@ function endTurn(g){
 export function mountEstate({onStart,onFinish,onExit}){
  const root=$("arenaEstate"),board=$("estateBoard"),status=$("estateStatus");
  let g=null,timer=null,epoch=0,done=false;
- function stop(){epoch++;if(timer!==null)clearTimeout(timer);timer=null;}
+ function stop(){epoch++;if(timer!==null)clearTimeout(timer);timer=null;if($("estateDuration"))$("estateDuration").disabled=false;}
  function exit(){stop();g=null;root.hidden=true;onExit();}
  function finish(){
   if(done||!g||g.winner===null)return;
@@ -106,7 +107,9 @@ export function mountEstate({onStart,onFinish,onExit}){
  }
  function start(){
   if(!onStart())return;
-  stop();done=false;g=newEstate();root.querySelector(".arena-game-result")?.remove();
+  stop();done=false;g=newEstate(Number($("estateDuration")?.value||16));
+  if($("estateDuration"))$("estateDuration").disabled=true;
+  root.querySelector(".arena-game-result")?.remove();
   root.hidden=false;render();root.scrollIntoView({behavior:"smooth",block:"start"});
  }
  function roll(){
@@ -141,7 +144,7 @@ export function mountEstate({onStart,onFinish,onExit}){
   status.textContent=g.winner!==null?"🏆 "+names[g.winner]+" thắng theo tổng tài sản!":
    yourTurn?(g.phase==="offer"?"Bạn có thể mua bất động sản hoặc bỏ qua.":"🎲 Lượt bạn · tung xúc xắc để đi."):
     "⏳ "+p.name+" đang chơi.";
-  $("estateRound").textContent="Vòng "+Math.min(16,Math.floor(g.turns/4)+1)+"/16";
+  $("estateRound").textContent="Vòng "+Math.min(g.roundLimit,Math.floor(g.turns/4)+1)+"/"+g.roundLimit;
   $("estateDice").textContent=g.roll[0]?g.roll.join(" + "):"🎲 🎲";
   $("estateRoll").disabled=!yourTurn||g.phase!=="roll";
   const prompt=$("estateOffer");
