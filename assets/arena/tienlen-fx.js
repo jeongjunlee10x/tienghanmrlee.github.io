@@ -55,7 +55,8 @@ export function createTableEffects(board,area){
  board.append(overlay);
  let serial=0;
  const animations=new Set(),timers=new Map();
- const reduced=()=>window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches===true;
+ const reduced=()=>document.documentElement.dataset.arenaVisuals==="off"||
+  window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches===true;
  const wait=ms=>new Promise(resolve=>{
   const id=setTimeout(()=>{timers.delete(id);resolve();},ms);
   timers.set(id,resolve);
@@ -101,7 +102,7 @@ export function createTableEffects(board,area){
    const n=spawn(cardBack(),origin.x+i*3-3,origin.y+i*2-2,"tl-shuffle-card");
    n.style.animationDelay=(i*110)+"ms";return n;
   });
-  await wait(650);
+  await wait(document.documentElement.dataset.arenaVisuals==="lite"?250:650);
   stack.remove();backs.forEach(x=>x.remove());
   if(serial!==stamp)return;
   board.dataset.fxPhase="deal";
@@ -114,7 +115,8 @@ export function createTableEffects(board,area){
   const flights=[];
   // 52 cards are still dealt by the real game engine. Only a sampled set
   // of visual sprites is flown, reducing paint/animation work on phones.
-  const visualDeals=window.matchMedia?.("(max-width: 680px)")?.matches?24:32;
+  const visualDeals=document.documentElement.dataset.arenaVisuals==="lite"?12:
+   window.matchMedia?.("(max-width: 680px)")?.matches?24:32;
   for(let i=0;i<visualDeals;i++){
    const seat=i%4,which=Math.floor(i/4);
    const destination=localRect(seats[seat]||area);
