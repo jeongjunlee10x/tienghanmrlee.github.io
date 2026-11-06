@@ -165,3 +165,30 @@ export function animateBoardMove({from,to,piece,kind="piece"}){
  animation.finished.catch(()=>{}).then(cleanup);
  setTimeout(cleanup,duration+200);
 }
+
+/** Real color-card travel: move the newly visible face from the previous
+ * player's avatar/deck to the center of the table. No hidden opponent hand
+ * is ever queried. Engine/state has already approved the play. */
+export function animateCardTransfer({from,to,face,duration=430}={}){
+ if(!from||!to||!face||reduceMotion()||document.hidden)return;
+ const origin=from.getBoundingClientRect(),dest=to.getBoundingClientRect();
+ const r=face.getBoundingClientRect();
+ if(!origin.width||!dest.width||!r.width||!r.height)return;
+ if(movingSprites.size>=24)return;
+ const clone=face.cloneNode(true);
+ snapshotVisual(face,clone);clone.classList.add("arena-move-sprite","color-card");
+ clone.setAttribute("aria-hidden","true");
+ clone.style.width=r.width+"px";clone.style.height=r.height+"px";
+ const x=origin.left+origin.width/2-r.width/2,y=origin.top+origin.height/2-r.height/2;
+ clone.style.left=x+"px";clone.style.top=y+"px";
+ document.body.append(clone);movingSprites.add(clone);
+ const dx=dest.left+dest.width/2-(x+r.width/2);
+ const dy=dest.top+dest.height/2-(y+r.height/2);
+ const animation=clone.animate([
+  {transform:"translate3d(0,0,0) rotate(-12deg) scale(.8)",opacity:.9},
+  {transform:"translate3d("+(dx*.6)+"px,"+(dy*.6-20)+"px,0) rotate(4deg) scale(1.15)",opacity:1,offset:.68},
+  {transform:"translate3d("+dx+"px,"+dy+"px,0) rotate(0deg) scale(1)",opacity:.06}
+ ],{duration,easing:"cubic-bezier(.18,.78,.2,1)",fill:"forwards"});
+ const cleanup=()=>{clone.remove();movingSprites.delete(clone);};
+ animation.finished.catch(()=>{}).then(cleanup);setTimeout(cleanup,duration+200);
+}
