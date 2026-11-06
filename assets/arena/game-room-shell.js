@@ -196,6 +196,8 @@ $("roomOpenExchange").addEventListener("click",()=>{
  dialogBody.append(submit,feedback);
 });
 $("roomDaily").addEventListener("click",()=>$("arenaDailyOpen")?.click());
+// Refresh the genuine server balance after the daily check-in/spin modal closes.
+queueMicrotask(()=>document.getElementById("arenaDailyDialog")?.addEventListener("close",()=>void loadWallet()));
 const mode=new URL(location.href).searchParams.get("mode");
 if(inviteCode()&&current.online)start("friends",{auto:true});
 else if(["quick","friends","browse","bot"].includes(mode))start(mode,{auto:true});
