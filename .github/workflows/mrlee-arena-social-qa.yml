@@ -28,6 +28,12 @@ on:
       - 'assets/arena/color-engine.js'
       - 'assets/arena/tienlen-engine.js'
       - 'assets/arena/game-ux-v18.css'
+      - 'assets/arena/game-visuals-v19.css'
+      - 'assets/arena/game-visuals-v19.js'
+      - 'assets/arena/premium-fx.js'
+      - 'assets/arena/tienlen-fx.js'
+      - 'tools/test-arena-v19.mjs'
+      - 'tools/browser-arena-v19.mjs'
       - 'tools/test-arena-v18.mjs'
       - 'tools/test-arena-game-modes.mjs'
       - 'tools/test-arena-gestures.mjs'
@@ -73,6 +79,10 @@ jobs:
           node --check assets/arena/color-engine.js
           node --check tools/test-arena-v18.mjs
           node tools/test-arena-v18.mjs
+          node --check assets/arena/game-visuals-v19.js
+          node --check tools/test-arena-v19.mjs
+          node --check tools/browser-arena-v19.mjs
+          node tools/test-arena-v19.mjs
           node tools/test-arena-game-modes.mjs
           node --check tools/test-arena-gestures.mjs
           node tools/test-arena-gestures.mjs
@@ -92,6 +102,8 @@ jobs:
           npx playwright install chromium --with-deps
       - name: Test popup Create / Join and dedicated real room listing
         run: node tools/browser-arena-social.mjs
+      - name: Verify V19 2.5D six-game graphics and animation on desktop/mobile
+        run: node tools/browser-arena-v19.mjs
       - name: Test real card-game turn popups and centered avatar clocks
         run: node tools/browser-card-turns.mjs
       - name: Test six game rooms at 390 portrait, 844 landscape and 1440 desktop
