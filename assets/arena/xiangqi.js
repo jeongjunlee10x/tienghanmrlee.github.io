@@ -227,6 +227,12 @@ export function mountXiangqi({onStart,onFinish,onExit}){
  function render(){
   if(!g||root.hidden)return;
   const legal=g.turn===1?xiangqiLegal(g,1):[];
+  const oppBar=$("xqOppBar"),meBar=$("xqMeBar");
+  for(const [bar,active] of [[oppBar,g.turn===-1],[meBar,g.turn===1]]){
+   bar?.classList.toggle("is-turn",active&&g.winner===null);
+   const badge=bar?.querySelector(".arena-v20-turn-badge");
+   if(badge)badge.textContent=g.winner!==null?"KẾT THÚC":active?"● ĐANG ĐÁNH":"ĐANG CHỜ";
+  }
   const target=new Set(legal.filter(m=>m[0]===selected).map(m=>m[1]));
   board.replaceChildren();
   for(let i=0;i<90;i++){
