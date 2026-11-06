@@ -68,6 +68,29 @@ const robots=await readFile(join(dist,'robots.txt'),'utf8');
 const sitemap=await readFile(join(dist,'sitemap.xml'),'utf8');
 assert(robots.includes(`Sitemap: ${expectedOrigin}/sitemap.xml`), 'robots.txt sitemap mismatch');
 assert(sitemap.includes(`<loc>${expectedOrigin}/</loc>`), 'sitemap root URL mismatch');
+
+const sitemapUrls=[...sitemap.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gi)].map(m=>m[1].trim());
+assert(sitemapUrls.length>=17,'Public sitemap lost previously verified pages');
+const seenSeoPaths=new Set();
+for(const href of sitemapUrls){
+ const url=new URL(href);
+ assert(url.origin===expectedOrigin,'Sitemap URL has a different domain: '+href);
+ const pagePath=url.pathname==='/'?'index.html':url.pathname.slice(1);
+ assert(paths.has(pagePath),'Sitemap lists a missing HTML page: '+pagePath);
+ assert(!seenSeoPaths.has(pagePath),'Duplicate sitemap page: '+pagePath);
+ seenSeoPaths.add(pagePath);
+ const page=await readFile(join(dist,pagePath),'utf8');
+ const canonicalTags=page.match(/<link\b(?=[^>]*\brel\s*=\s*["']canonical["'])[^>]*>/gi)||[];
+ assert(canonicalTags.length===1&&canonicalTags[0].includes(`href="${href}"`),
+  'Incorrect or duplicate canonical URL on '+pagePath);
+ assert(page.includes(`property="og:url" content="${href}"`),
+  'Missing page-specific social sharing URL on '+pagePath);
+ assert(/<meta\b(?=[^>]*\bproperty\s*=\s*["']og:title["'])[^>]*>/i.test(page),
+  'Missing social sharing title on '+pagePath);
+ assert(/<meta\b(?=[^>]*\bproperty\s*=\s*["']og:image["'])[^>]*>/i.test(page),
+  'Missing social sharing image on '+pagePath);
+}
+
 assert(!share.includes('https://jeongjunlee10x.github.io/tienghanmrlee.github.io/'),
  'Sharing still uses GitHub project URL');
 assert(redirects.includes('/tienghanmrlee.github.io/* /:splat 301'),
