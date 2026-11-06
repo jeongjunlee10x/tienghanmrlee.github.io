@@ -96,6 +96,27 @@ function endTurn(g){
  do{g.turn=(g.turn+1)%4;}while(g.players[g.turn].bankrupt);
  g.phase="roll";g.roll=[0,0];g.offer=-1;
 }
+// Estate opponents select legal buying and construction decisions from a
+// visible valuation model; difficulty adjusts reserves and risk tolerance.
+export function estateBotPlan(g,difficulty="normal",rng=Math.random){
+ const who=g.turn,p=g.players[who];
+ const reserve=difficulty==="hard"?460:difficulty==="normal"?260:100;
+ const candidates=g.tiles.map((tile,index)=>({tile,index}))
+  .filter(({tile})=>tile.kind==="property"&&tile.owner===who&&tile.level<3)
+  .filter(({tile})=>p.cash>=Math.round(tile.price*.55)+reserve)
+  .sort((a,b)=>{
+   const gain=x=>estateRent({...x.tile,level:x.tile.level+1})-estateRent(x.tile);
+   return gain(b)-gain(a);
+  });
+ const chance=difficulty==="hard"?.68:difficulty==="normal"?.34:.12;
+ const upgrade=candidates.length&&rng()<chance?candidates[0].index:-1;
+ const tile=g.phase==="offer"?g.tiles[g.offer]:null;
+ const afford=Boolean(tile&&tile.kind==="property"&&tile.owner===-1&&
+  p.cash>=tile.price+reserve);
+ const buy=afford&&(difficulty==="hard"||
+  rng()<(difficulty==="normal"?.91:.62));
+ return {upgrade,buy};
+}
 import {animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r2";
 export function mountEstate({onStart,onFinish,onExit}){
  const root=$("arenaEstate"),board=$("estateBoard"),status=$("estateStatus");
@@ -143,8 +164,8 @@ export function mountEstate({onStart,onFinish,onExit}){
    timer=null;if(!g||root.hidden||stamp!==epoch||done||g.turn===0)return;
    const who=g.turn,p=g.players[who];
    if(g.phase==="roll"){
-    const upgrade=g.tiles.findIndex(t=>t.owner===who&&t.level<2&&p.cash>1300);
-    if(upgrade>=0&&Math.random()<.25)estateUpgrade(g,upgrade);
+    const decision=estateBotPlan(g,$("estateLevel")?.value||"normal");
+    if(decision.upgrade>=0)estateUpgrade(g,decision.upgrade);
     const from=board.querySelector('[data-player="'+who+'"]');
     estateRoll(g);
     if(g.players[who].at!==Number(from?.dataset.position)){
@@ -154,7 +175,7 @@ export function mountEstate({onStart,onFinish,onExit}){
    }
    if(g.phase==="offer"){
     const land=g.tiles[g.offer];
-    estateBuy(g,p.cash>land.price+240&&(Math.random()<.88));
+    estateBuy(g,estateBotPlan(g,$("estateLevel")?.value||"normal").buy);
    }
    render();bumpDice();if(g.winner!==null)finish();else schedule();
   },360);
