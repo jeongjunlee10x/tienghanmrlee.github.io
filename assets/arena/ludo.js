@@ -68,6 +68,7 @@ function coordinates(who,pawn,progress){
  if(progress>=52)return LANE[who][progress-52];
  return TRACK[(STARTS[who]+progress)%52];
 }
+import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r1";
 export function mountLudo({onStart,onFinish,onExit}){
  const root=$("arenaLudo"),board=$("ludoBoard"),status=$("ludoStatus"),rollBtn=$("ludoRoll"),moves=$("ludoMoves");
  const requested=Number(new URL(location.href).searchParams.get("players"));
@@ -90,7 +91,14 @@ export function mountLudo({onStart,onFinish,onExit}){
  }
  function choose(i){
   if(!game||game.turn!==0||game.phase!=="choose"||done)return;
-  try{moveLudo(game,i);render();if(game.winner!==null)finish();else schedule();}
+  try{
+   const next=game.pawns[0][i]===-1?0:game.pawns[0][i]+game.die;
+   const dest=coordinates(0,i,next).join("-");
+   const from=board.querySelector('[data-pawn="0-'+i+'"]');
+   const to=board.querySelector('[data-cell="'+dest+'"]');
+   animateBoardMove({from,to,piece:from,kind:"ludo-piece"});
+   moveLudo(game,i);render();if(game.winner!==null)finish();else schedule();
+  }
   catch(err){status.textContent=err.message;}
  }
  function schedule(){
@@ -106,7 +114,14 @@ export function mountLudo({onStart,onFinish,onExit}){
      const x=game.pawns[who][a],y=game.pawns[who][b];
      return (y===58?100:y)-(x===58?100:x);
     });
-    if(choices.length)moveLudo(game,choices[0]);
+    if(choices.length){
+     const idx=choices[0],next=game.pawns[who][idx]===-1?0:game.pawns[who][idx]+game.die;
+     const from=board.querySelector('[data-pawn="'+who+'-'+idx+'"]');
+     const dest=coordinates(who,idx,next).join("-");
+     const to=board.querySelector('[data-cell="'+dest+'"]');
+     animateBoardMove({from,to,piece:from,kind:"ludo-piece"});
+     moveLudo(game,idx);
+    }
    }
    render();if(game.winner!==null)finish();else schedule();
   },420);
@@ -155,6 +170,23 @@ export function mountLudo({onStart,onFinish,onExit}){
   });
   $("ludoHistory").replaceChildren(...g.history.slice(-4).reverse().map(t=>node("p","",t)));
  }
+ enablePointerDrag({
+  root:board,itemSelector:".ludo-pawn.legal",targetSelector:".ludo-cell[data-cell]",
+  canStart:piece=>Boolean(game&&!done&&game.turn===0&&game.phase==="choose"&&
+   ludoMoves(game).includes(Number(piece.dataset.pawn?.split("-")[1]))),
+  canDrop:(piece,tile)=>{
+   if(!game||done||game.turn!==0||game.phase!=="choose")return false;
+   const index=Number(piece.dataset.pawn?.split("-")[1]);
+   if(!ludoMoves(game).includes(index))return false;
+   const next=game.pawns[0][index]===-1?0:game.pawns[0][index]+game.die;
+   return tile.dataset.cell===coordinates(0,index,next).join("-");
+  },
+  onDrop:piece=>{
+   const index=Number(piece.dataset.pawn?.split("-")[1]);
+   if(!game||!ludoMoves(game).includes(index))return false;
+   choose(index);return true;
+  }
+ });
  rollBtn.addEventListener("click",()=>{
   if(!game||game.turn!==0||game.phase!=="roll"||done)return;
   rollLudo(game);render();
