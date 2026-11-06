@@ -101,6 +101,11 @@ try{
     await page.locator("#roomBotPlay").click();
     const iframe=page.frameLocator("#roomGameFrame");
     await iframe.locator("#"+section).waitFor({state:"visible",timeout:14000});
+    await page.locator("#roomFrameLoading").waitFor({state:"hidden",timeout:8000});
+    assert.equal(await page.locator("#roomFrameLoading").isVisible(),false,
+     "Blue iframe loading overlay must disappear after game starts");
+    assert.equal(await iframe.locator("html").getAttribute("data-mrlee-auth"),"verified",
+     "Same-origin verified parent session must authorize the embedded game");
     if(game==="chess")assert.equal(await iframe.locator("#chessTime").inputValue(),"3+2",
      "Chess game received the exact Blitz increment");
     if(game==="ludo"){
