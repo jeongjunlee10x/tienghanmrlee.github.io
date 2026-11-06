@@ -217,11 +217,8 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
   $("roomBoardTitle").textContent=gameName()+" · "+(room.status==="finished"?"Kết thúc · Đợi ván sau":"Đang đấu PvP");
   $("roomBoardCode").textContent=room.code;
   canvas.render(room);
-  if(["tienlen","colors"].includes(room.game)&&room.status==="playing"&&room.gameState?.turnDeadline){
-   const hud=el("div","arena-turn-clock");hud.id="roomTurnClock";
-   hud.setAttribute("role","timer");hud.setAttribute("aria-label","Thời gian còn lại trong lượt đánh");
-   $("roomGameCanvas").append(hud);
-  }
+  // Timer is rendered inside the active player's avatar by rooms-play.js,
+  // not as an unrelated clock stuck in the corner of the screen.
   status("roomBoardStatus",room.status==="finished"?"Ván đã được máy chủ kết toán G; xem bài và chọn Tiếp tục.":
    "Đang chơi ván "+(room.roundIndex||1)+" · "+formatG(room.minGold)+(room.game==="chess"?"/ván · "+(room.timeControl||"10+0"):"/lá"));
   $("roomGameCanvas").querySelector(".arena-next-round-dialog")?.remove();
@@ -385,13 +382,19 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
  // The display is informational. Only the verified Supabase Edge Function
  // decides when a turn expires and performs the legal automatic action.
  setInterval(()=>{
-  const node=$("roomTurnClock");
-  if(!node||!room||!["tienlen","colors"].includes(room.game)||room.status!=="playing")return;
+  if(!room||!["tienlen","colors"].includes(room.game)||room.status!=="playing")return;
   const deadline=Date.parse(room.gameState?.turnDeadline||"");
-  if(!Number.isFinite(deadline)){node.textContent="⏱ Đang đồng bộ...";return;}
-  const seconds=Math.max(0,Math.ceil((deadline-Date.now()-serverClockOffset)/1000));
-  node.textContent="⏱ "+seconds+"s"+(seconds===0?" · Đang tự xử lý...":"");
-  node.classList.toggle("urgent",seconds<=5);
+  const nodes=$("roomGameCanvas").querySelectorAll(".arena-card-turn-clock[data-clock-seat]");
+  if(!nodes.length)return;
+  const seconds=Number.isFinite(deadline)?
+   Math.max(0,Math.ceil((deadline-Date.now()-serverClockOffset)/1000)):null;
+  for(const node of nodes){
+   node.textContent=seconds===null?"…":seconds+"s";
+   node.classList.toggle("urgent",seconds!==null&&seconds<=5);
+   node.parentElement?.classList.toggle("urgent",seconds!==null&&seconds<=5);
+   node.parentElement?.style.setProperty("--turn-elapsed",
+    seconds===null?"0%":Math.max(0,Math.min(100,(20-seconds)/20*100))+"%");
+  }
  },200);
  setInterval(()=>{
   const node=$("roomNextClock");
