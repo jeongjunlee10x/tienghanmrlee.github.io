@@ -6,6 +6,7 @@ import * as Chess from "./chess-engine.js";
 import * as TL from "./tienlen-engine.js";
 import * as Colors from "./color-engine.js";
 import {playingCard} from "./tienlen-fx.js";
+import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r1";
 function el(tag,cls="",content){
  const result=document.createElement(tag);
  if(cls)result.className=cls;
@@ -166,7 +167,11 @@ export function mountOnlineCanvas(root,onMove){
      (chosenSquare===index?" chosen":"")+(hits.includes(index)?" target":""),()=>{
     if(!mine||locked)return;
     const choices=allowed.filter(m=>m[0]===chosenSquare&&m[1]===index);
-    if(choices.length===1){void submit({uci:Chess.uci(choices[0])});return;}
+    if(choices.length===1){
+     const origin=board.querySelector('[data-index="'+chosenSquare+'"]');
+     animateBoardMove({from:origin,to:tile,piece:origin?.querySelector(".chess-white,.chess-black"),kind:"chess-piece"});
+     void submit({uci:Chess.uci(choices[0])});return;
+    }
     if(choices.length>1){
      const promotion=sidebar.querySelector(".arena-pvp-options");
      promotion.replaceChildren(el("strong","","Chọn quân phong cấp:"));
@@ -180,7 +185,7 @@ export function mountOnlineCanvas(root,onMove){
     chosenSquare=Chess.side(piece)===myColor?(chosenSquare===index?-1:index):-1;
     render(room,true);
    });
-   tile.dataset.square=Chess.square(index);
+   tile.dataset.square=Chess.square(index);tile.dataset.index=String(index);
    tile.setAttribute("aria-label",Chess.square(index)+(piece==="."?" trống":" "+piece));
    if(piece!==".")tile.append(el("span",Chess.side(piece)===1?"chess-white":"chess-black",Chess.GLYPHS[piece]));
    if(hits.includes(index)&&piece===".")tile.append(el("span","chess-dot"));
@@ -340,6 +345,99 @@ export function mountOnlineCanvas(root,onMove){
   (state.events||[]).slice(-5).reverse().forEach(e=>log.append(el("p","",e)));
   root.replaceChildren(board,log);
  }
+ // Delegated gestures continue to work after server-side room redraws.
+ // The Edge Function still authorizes every chess move and every card play.
+ enablePointerDrag({
+  root,itemSelector:".arena-pvp-chess .chess-square[data-index]",
+  targetSelector:".arena-pvp-chess .chess-square[data-index]",
+  previewSelector:".chess-white,.chess-black",
+  canStart:item=>{
+   const room=shownRoom,state=room?.gameState;
+   return Boolean(room?.game==="chess"&&room.status==="playing"&&!locked&&
+    state.turn===room.seat&&Chess.side(state.position.b[Number(item.dataset.index)])===
+    (room.seat===0?1:-1));
+  },
+  canDrop:(from,to)=>{
+   const room=shownRoom,state=room?.gameState;
+   return Boolean(room?.game==="chess"&&!locked&&room.status==="playing"&&
+    state.turn===room.seat&&Chess.legal(state.position).some(m=>
+     m[0]===Number(from.dataset.index)&&m[1]===Number(to.dataset.index)));
+  },
+  onDrop:(from,to)=>{
+   const room=shownRoom;if(!room||room.game!=="chess"||locked)return false;
+   const src=Number(from.dataset.index),dst=Number(to.dataset.index);
+   const choices=Chess.legal(room.gameState.position).filter(m=>m[0]===src&&m[1]===dst);
+   if(!choices.length)return false;
+   chosenSquare=-1;
+   if(choices.length===1){void submit({uci:Chess.uci(choices[0])});return true;}
+   const promotion=root.querySelector(".arena-pvp-options");
+   if(!promotion)return false;
+   promotion.replaceChildren(el("strong","","Chọn quân phong cấp:"));
+   const myColor=room.seat===0?1:-1;
+   for(const type of ["q","r","b","n"]){
+    const choice=choices.find(m=>m[2]===type);
+    if(choice)promotion.append(btn(Chess.GLYPHS[myColor===1?type.toUpperCase():type],
+     "arena-soft",()=>void submit({uci:Chess.uci(choice)})));
+   }
+   return true;
+  }
+ });
+ enablePointerDrag({
+  root,itemSelector:".online-tl-board .arena-pvp-hand [data-card-id]",
+  targetSelector:".online-tl-board .arena-pvp-center",
+  previewSelector:".tl-real-card",
+  canStart:item=>{
+   const room=shownRoom;
+   return Boolean(room?.game==="tienlen"&&room.status==="playing"&&!locked&&
+    room.gameState.turn===room.seat&&
+    room.gameState.myHand.some(c=>c.id===Number(item.dataset.cardId)));
+  },
+  canDrop:()=>Boolean(shownRoom?.game==="tienlen"&&shownRoom.status==="playing"&&!locked&&
+   shownRoom.gameState.turn===shownRoom.seat),
+  onDrop:item=>{
+   const room=shownRoom;
+   if(!room||room.game!=="tienlen"||locked)return false;
+   const id=Number(item.dataset.cardId),state=room.gameState;
+   if(!state.myHand.some(c=>c.id===id))return false;
+   chosenCards.add(id);
+   const dummy={winner:state.winner,turn:state.turn,first:state.first,last:state.last,
+    hands:[[],[],[],[]]};dummy.hands[room.seat]=state.myHand;
+   if(!TL.canPlay(dummy,room.seat,[...chosenCards])){
+    render(room,true);return false;
+   }
+   void submit({kind:"play",ids:[...chosenCards]});return true;
+  }
+ });
+ enablePointerDrag({
+  root,itemSelector:".online-color-board .arena-pvp-hand [data-card-id]",
+  targetSelector:".online-color-board .arena-pvp-center",
+  previewSelector:".arena-pvp-color-card",
+  canStart:item=>{
+   const room=shownRoom,state=room?.gameState;
+   if(!state||room.game!=="colors"||room.status!=="playing"||locked||
+     state.turn!==room.seat)return false;
+   const card=state.myHand.find(c=>c.id===Number(item.dataset.cardId));
+   const dummy={winner:state.winner,turn:state.turn,hands:[[],[],[],[]],
+    discard:[state.top],activeColor:state.activeColor,drawnCardId:state.drawnCardId};
+   dummy.hands[room.seat]=state.myHand;
+   return Boolean(card&&Colors.canPlay(dummy,card,room.seat));
+  },
+  canDrop:()=>Boolean(shownRoom?.game==="colors"&&shownRoom.status==="playing"&&!locked&&
+   shownRoom.gameState.turn===shownRoom.seat),
+  onDrop:item=>{
+   const room=shownRoom,state=room?.gameState;
+   if(!state||room.game!=="colors"||locked)return false;
+   const card=state.myHand.find(c=>c.id===Number(item.dataset.cardId));
+   if(!card)return false;
+   const dummy={winner:state.winner,turn:state.turn,hands:[[],[],[],[]],
+    discard:[state.top],activeColor:state.activeColor,drawnCardId:state.drawnCardId};
+   dummy.hands[room.seat]=state.myHand;
+   if(!Colors.canPlay(dummy,card,room.seat))return false;
+   if(card.type==="wild"||card.type==="wild4"){chosenWild=card.id;render(room,true);}
+   else void submit({kind:"play",cardId:card.id});
+   return true;
+  }
+ });
  function render(room,force=false){
   if(!room?.gameState)return;
   shownRoom=room;
