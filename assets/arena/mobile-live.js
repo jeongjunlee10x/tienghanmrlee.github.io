@@ -19,7 +19,7 @@ const playing=id=>!!$(id)&&!$(id).hidden;
 const phone=()=>matchMedia("(pointer: coarse)").matches&&
   (matchMedia("(max-width: 980px)").matches||/Android|iPhone|iPad|iPod/i.test(navigator.userAgent));
 const portrait=()=>matchMedia("(orientation: portrait)").matches;
-const portraitPreferred=()=>currentId==="arenaChess"||currentId==="arenaXiangqi"||
+const portraitPreferred=()=>["arenaChess","arenaXiangqi","arenaLudo","arenaEstate"].includes(currentId)||
  (currentId==="arenaPvPBoard"&&(
   document.documentElement.dataset.embeddedGame==="chess"||
   /Cờ vua/i.test($("roomBoardTitle")?.textContent||"")));
