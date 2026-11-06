@@ -37,13 +37,38 @@ if(game==="chess"){
  box.append(title,chessTimeSelect);
  const menu=document.getElementById("roomMenu");menu.parentElement.insertBefore(box,menu);
 }
+const LOCAL_GAME_MODES={
+ xiangqi:{param:"variant",label:"♜ CHỌN LOẠI CỜ",default:"xiangqi",
+  choices:[["xiangqi","Cờ Tướng tiêu chuẩn"],["up","Cờ Úp"]]},
+ ludo:{param:"players",label:"🐴 SỐ NGƯỜI CHƠI",default:"4",
+  choices:[["2","2 người · đối kháng"],["3","3 người · chiến thuật"],["4","4 người · đại chiến"]]},
+ estate:{param:"rounds",label:"🏙️ THỜI LƯỢNG TRẬN",default:"16",
+  choices:[["8","8 vòng · nhanh"],["16","16 vòng · tiêu chuẩn"],["24","24 vòng · dài"]]}
+};
+let localModeSelect=null;
+if(LOCAL_GAME_MODES[game]){
+ const config=LOCAL_GAME_MODES[game],box=document.createElement("label");
+ box.className="room-chess-time-picker room-game-mode-picker";
+ const title=document.createElement("span");title.textContent=config.label;
+ localModeSelect=document.createElement("select");localModeSelect.id="roomLocalMode";
+ for(const [value,label] of config.choices)localModeSelect.append(new Option(label,value));
+ const cached=localStorage.getItem("mrlee."+game+".mode");
+ localModeSelect.value=config.choices.some(([value])=>value===cached)?cached:config.default;
+ localModeSelect.addEventListener("change",()=>{
+  localStorage.setItem("mrlee."+game+".mode",localModeSelect.value);
+  document.getElementById("roomQuickCaption").textContent=
+   "Đấu máy · "+localModeSelect.selectedOptions[0]?.textContent;
+ });
+ box.append(title,localModeSelect);
+ const menu=document.getElementById("roomMenu");menu.parentElement.insertBefore(box,menu);
+}
 if(!current)throw Error("Mã trò chơi không hợp lệ");
 const frame=$("roomGameFrame"),lobby=$("roomLobby"),stage=$("roomPlay"),panel=$("roomModeHint");
 let verifiedWallet=null,playingMode="",hasBooted=false,openAttempt=0,frameLoaded=false;
 const compact=n=>Number(n).toLocaleString("vi-VN");
 const txt=(tag,value)=>{const el=document.createElement(tag);el.textContent=value;return el;};
 document.documentElement.style.setProperty("--room-cover",'url("assets/arena/covers/'+game+'.svg")');
-$("roomQuickCaption").textContent=game==="chess"?"Ghép bàn "+chessTimeSelect.value+" · đúng thời gian":current.online?"Ghép bàn theo G phù hợp":"Đấu với máy · vé thử";
+$("roomQuickCaption").textContent=game==="chess"?"Ghép bàn "+chessTimeSelect.value+" · đúng thời gian":localModeSelect?"Đấu máy · "+localModeSelect.selectedOptions[0]?.textContent:current.online?"Ghép bàn theo G phù hợp":"Đấu với máy · vé thử";
 for(const mode of ["friends","browse"]){
  const action=document.querySelector('[data-play-mode="'+mode+'"]');
  if(!current.online){
@@ -88,6 +113,7 @@ function start(mode,{auto=false,code=""}={}){
  url.searchParams.set("game",game);
  url.searchParams.set("mode",mode);
   if(game==="chess")url.searchParams.set("time",chessTimeSelect.value);
+  if(localModeSelect)url.searchParams.set(LOCAL_GAME_MODES[game].param,localModeSelect.value);
  const invite=code||inviteCode();
  if(invite&&current.online)url.searchParams.set("room",invite);
  $("roomPlayHeading").textContent=current.name+" · "+(mode==="bot"?"Đấu máy":mode==="quick"?"Chơi nhanh":mode==="browse"?"Chọn bàn":"Chơi với bạn");
