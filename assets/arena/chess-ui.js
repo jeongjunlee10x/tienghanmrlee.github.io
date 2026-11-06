@@ -23,6 +23,7 @@ export function mountChess({onStart,onFinish,onExit}){
  const clockWhite=$("chessWhiteClock"),clockBlack=$("chessBlackClock");
  const clockMode=$("chessTime"),boardTheme=$("chessBoardTheme");
  let history=[],labels=[],traces=[],picked=-1,timer=null,token=0,done=false,pending=null,flip=false;
+ let aiWorker=null,aiDeadline=null,aiRequest=0,aiResolve=null;
  let clockTicker=null,clockLast=0,clockRemaining={1:600,"-1":600},hintText="",clockBonus=0;
  const requestedClock=new URL(location.href).searchParams.get("time");
  if([...clockMode.options].some(o=>o.value===requestedClock))clockMode.value=requestedClock;
@@ -49,8 +50,54 @@ export function mountChess({onStart,onFinish,onExit}){
  };
  const stop=()=>{
   token++;if(timer!==null)clearTimeout(timer);timer=null;
+  if(aiDeadline!==null)clearTimeout(aiDeadline);aiDeadline=null;
+  aiWorker?.terminate();aiWorker=null;
+  if(aiResolve){const resolve=aiResolve;aiResolve=null;resolve(null);}
   pending=null;promotion.hidden=true;pauseClock();
  };
+ // The worker searches with the original chess engine; it cannot block
+ // pointer events, animations or the game clock in the main thread.
+ const computeBotMove=(position,difficulty)=>new Promise(resolve=>{
+  const moves=legal(position);
+  if(!moves.length){resolve(null);return;}
+  const fallback=()=>{
+   // A quick legal move is preferable to a frozen chessboard on devices
+   // that disable module Workers (private modes, older mobile browsers).
+   const values={p:1,n:3,b:3,r:5,q:9,k:100};
+   return [...moves].sort((a,b)=>{
+    const val=m=>position.b[m[1]]==="."?0:values[position.b[m[1]].toLowerCase()]||0;
+    return val(b)-val(a);
+   })[0];
+  };
+  if(typeof Worker==="undefined"){resolve(fallback());return;}
+  try{
+   aiWorker?.terminate();
+   aiWorker=new Worker(new URL("./chess-ai-worker.js?v=20261107-ai-r1",import.meta.url),{type:"module"});
+   const worker=aiWorker,id=++aiRequest;
+   let complete=false;
+   const doneMove=move=>{
+    if(complete)return;complete=true;
+    if(aiDeadline!==null)clearTimeout(aiDeadline);aiDeadline=null;
+    if(aiResolve===cancel){aiResolve=null;}
+    if(aiWorker===worker){worker.terminate();aiWorker=null;}
+    resolve(move);
+   };
+   const cancel=()=>doneMove(null);
+   aiResolve=cancel;
+   worker.onmessage=event=>{
+    if(event.data?.id!==id)return;
+    const move=event.data?.move;
+    if(!Array.isArray(move)||!moves.some(m=>
+     m[0]===move[0]&&m[1]===move[1]&&m[2]===move[2])){
+     doneMove(fallback());return;
+    }
+    doneMove(move);
+   };
+   worker.onerror=()=>doneMove(fallback());
+   aiDeadline=setTimeout(()=>doneMove(fallback()),difficulty==="hard"?6500:3500);
+   worker.postMessage({id,position,difficulty});
+  }catch{aiWorker?.terminate();aiWorker=null;aiResolve=null;resolve(fallback());}
+ });
  function exit(){stop();root.hidden=true;onExit();}
  const active=()=>history.length>0&&root.hidden===false&&!done;
  function clockStep(){
@@ -176,11 +223,14 @@ export function mountChess({onStart,onFinish,onExit}){
  function schedule(){
   if(!active()||history.at(-1).t!==-1)return;
   const current=token;
-  timer=setTimeout(()=>{
+  timer=setTimeout(async()=>{
    timer=null;
    if(current!==token||!active()||history.at(-1).t!==-1)return;
+   const s=history.at(-1);
+   note.textContent="🤖 Máy đang phân tích nước đi… Bạn vẫn có thể quan sát bàn cờ.";
    try{
-    const s=history.at(-1),move=bestBotMove(s,level.value);
+    const move=await computeBotMove(s,level.value);
+    if(current!==token||!active()||history.at(-1)!==s)return;
     if(!move){finish(status(history));return;}
     clockStep();if(!active())return;
     const from=board.querySelector('[data-index="'+move[0]+'"]');
@@ -194,8 +244,8 @@ export function mountChess({onStart,onFinish,onExit}){
     const verdict=status(history);
     draw();
     if(verdict.done)finish(verdict);
-   }catch(err){note.textContent="Lỗi bot: "+err.message;}
-  },350);
+   }catch(err){note.textContent="Lỗi tính nước máy: "+err.message+" · Thử bắt đầu ván mới.";}
+  },280);
  }
  function undo(){
   if(!active()||history.length<=1)return;
