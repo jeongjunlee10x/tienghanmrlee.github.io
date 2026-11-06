@@ -438,3 +438,32 @@ html.arena-reference-v1 body{background:radial-gradient(ellipse 110% 80% at 60% 
  .arena-ref-top-nav>a,.arena-ref-top-nav>button,.arena-reference-v1 #arenaCatalog>.arena-game-card{transition:none!important}
 }
 @keyframes arena-ref-ambient{to{transform:rotate(360deg)}}
+
+/* Exact reference proportions at 1672×941. Six primary sidebar entries. */
+@media(min-width:1201px){
+ .arena-reference-v1 .arena-ref-categories{min-height:436px!important;padding-top:30px!important}
+ .arena-reference-v1 .arena-ref-categories .arena-game-filters{gap:5px}
+ .arena-reference-v1 .arena-ref-categories .arena-game-filters button{min-height:42px!important}
+ .arena-reference-v1 .arena-ref-categories .arena-game-filters button[data-arena-filter="online"],
+ .arena-reference-v1 .arena-ref-categories .arena-game-filters button[data-arena-filter="strategy"]{display:none!important}
+ .arena-reference-v1 .arena-ref-categories.arena-ref-show-more .arena-game-filters button[data-arena-filter="online"],
+ .arena-reference-v1 .arena-ref-categories.arena-ref-show-more .arena-game-filters button[data-arena-filter="strategy"]{display:flex!important}
+ .arena-reference-v1 .arena-ref-title-row{min-height:57px}
+ .arena-reference-v1 #arenaCatalog{row-gap:14px}
+ .arena-reference-v1 #arenaCatalog>.arena-game-card,
+ .arena-reference-v1 #arenaCatalog>.arena-ref-learning-card{height:178px;min-height:178px;max-height:178px}
+ .arena-reference-v1 #arenaCatalog>.arena-game-card .arena-card-banner,
+ .arena-reference-v1 .arena-ref-learning-art{min-height:134px!important;height:134px!important;flex-basis:134px}
+ .arena-reference-v1 .arena-ref-dock{margin-top:23px}
+}
+.arena-ref-more-filters{display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+ width:100%;min-height:27px;padding:4px 6px;margin-top:4px;border:1px solid #8472ba77;
+ border-radius:8px;background:#2b245e88;color:#b7c6f1;
+ font:800 9px/1.3 "Be Vietnam Pro",system-ui,sans-serif;cursor:pointer}
+.arena-ref-more-filters:hover{background:#5246ad99;color:#fff}
+.arena-ref-more-filters[aria-expanded="true"]{color:#ffe28c}
+@media(max-width:700px){
+ .arena-ref-more-filters{display:none}
+ .arena-reference-v1 .arena-ref-categories .arena-game-filters button[data-arena-filter="online"],
+ .arena-reference-v1 .arena-ref-categories .arena-game-filters button[data-arena-filter="strategy"]{display:flex!important}
+}
