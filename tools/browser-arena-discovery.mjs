@@ -49,7 +49,7 @@ try{
    assert.equal(await fav.getAttribute("aria-pressed"),"true");
    await page.locator('[data-arena-filter="favorite"]').click();
    assert.equal(await page.locator(".arena-game-card.playable:visible").count(),1);
-   await page.locator("#arenaRefMoreFilters").click();
+   if(await page.locator("#arenaRefMoreFilters").isVisible())await page.locator("#arenaRefMoreFilters").click();
    await page.locator('[data-arena-filter="online"]').click();
    assert.equal(await page.locator(".arena-game-card.playable:visible").count(),3);
    await page.locator('[data-arena-filter="all"]').click();
