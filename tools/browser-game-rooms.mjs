@@ -35,7 +35,7 @@ const fakeAPI=[
  'let gold=6507,points=8,checked=true,spun=true;',
  'const wallet=()=>({gold,availablePoints:points});',
  'const daily=()=>({day:"2026-11-06",checkedIn:checked,spun,spinGold:500});',
- 'const room=g=>({code:"ABCD1234",game:g||"chess",status:"waiting",minGold:5,',
+ 'const room=g=>({code:"ABCD2345",game:g||"chess",status:"waiting",minGold:5,',
  '  requiredGold:g==="chess"?5:g==="tienlen"?65:100,capacity:g==="chess"?2:4,seat:0,version:1,',
  '  players:[{name:"Học viên",seat:0,ready:false}]});',
  'export async function roomRequest(action,p={}){',
@@ -138,7 +138,7 @@ try{
   await page.locator("#arenaSocialCreate .arena-social-submit").click();
   const frame=page.frameLocator("#roomGameFrame");
   await frame.locator("#arenaRoomLobby").waitFor({state:"visible",timeout:12000});
-  assert.equal((await frame.locator("#roomLobbyCode").textContent()).trim(),"ABCD1234");
+  assert.equal((await frame.locator("#roomLobbyCode").textContent()).trim(),"ABCD2345");
   await page.locator("#roomExitGame").click();
   await page.locator("#roomLobby").waitFor({state:"visible",timeout:9000});
   await page.locator('[data-play-mode="browse"]').click();
@@ -148,7 +148,7 @@ try{
   await page.waitForURL(/game-tien-len\.html/,{timeout:10000});
   await page.locator('[data-play-mode="quick"]').click();
   await frame.locator("#arenaRoomLobby").waitFor({state:"visible",timeout:10000});
-  assert.equal(await frame.locator("#roomLobbyCode").textContent(),"ABCD1234");
+  assert.equal(await frame.locator("#roomLobbyCode").textContent(),"ABCD2345");
   await page.locator("#roomExitGame").click();
   await page.locator("#roomLobby").waitFor({state:"visible",timeout:8000});
   assert.deepEqual(errors,[]);
