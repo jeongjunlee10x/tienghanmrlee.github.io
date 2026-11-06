@@ -167,10 +167,17 @@ export function options(hand){
  }
  return out;
 }
-export function botDecision(g){
+export function botDecision(g,difficulty="normal",rng=Math.random){
  const player=g.turn;if(player===0)throw Error("Không phải bot.");
  let choices=options(g.hands[player]).filter(cards=>canPlay(g,player,cards.map(c=>c.id)));
  if(!choices.length)return null;
+ // Use real legal combinations. Difficulty only changes tactical choice,
+ // never cards, scoring, ownership, or legality of a server PvP match.
+ if(difficulty==="easy"){
+  const small=choices.filter(x=>x.length<=2);
+  const pool=small.length?small:choices;
+  return pool[Math.floor(rng()*pool.length)].map(c=>c.id);
+ }
  // Keep bombs and 2s unless necessary. On a fresh trick shed combinations.
  choices.sort((a,b)=>{
   const A=analyze(a),B=analyze(b);
@@ -178,16 +185,23 @@ export function botDecision(g){
    const bombs=combo.type==="quad"||combo.type==="pair-run";
    const two=cards.some(c=>c.rank===15);
    const shed=g.last?0:cards.length*15;
-   return shed-(bombs?g.last?4:20:0)-(two?g.last?0:17:0)
-    -combo.high*0.7-combo.suit*0.05;
+   const remaining=g.hands[player].filter(c=>!cards.some(x=>x.id===c.id));
+   const groups=new Map();
+   for(const c of remaining)groups.set(c.rank,(groups.get(c.rank)||0)+1);
+   const pairs=[...groups.values()].filter(n=>n>=2).length;
+   const tempo=g.last?0:cards.length*15;
+   const pressure=difficulty==="hard"?
+    cards.length*6+pairs*2+(remaining.length<=3?30:0):0;
+   return shed+tempo*.0+pressure-(bombs?g.last?4:20:0)-(two?g.last?0:17:0)
+    -combo.high*.7-combo.suit*.05;
   }
   return score(b,B)-score(a,A);
  });
  return choices[0].map(c=>c.id);
 }
-export function botTurn(g){
+export function botTurn(g,difficulty="normal"){
  if(g.winner!==null||g.turn===0)return false;
- const ids=botDecision(g);
+ const ids=botDecision(g,difficulty);
  if(ids)play(g,g.turn,ids);else pass(g,g.turn);
  return true;
 }
