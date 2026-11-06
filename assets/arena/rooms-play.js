@@ -6,7 +6,7 @@ import * as Chess from "./chess-engine.js";
 import * as TL from "./tienlen-engine.js";
 import * as Colors from "./color-engine.js";
 import {playingCard} from "./tienlen-fx.js?v=20261106-performance-r12";
-import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r1";
+import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r2";
 function el(tag,cls="",content){
  const result=document.createElement(tag);
  if(cls)result.className=cls;
