@@ -1,12 +1,12 @@
 /* MR LEE Game Arena — local sandbox. Wins/XP/gold here are not official rewards. */
 import {newGame,canPlay,play,beginDraw,pass,botTurn,cardLabel,topCard,
   COLOR_VI,COLORS,PLAYER_NAMES} from "./color-engine.js";
-import {mountChess} from "./chess-ui.js?v=20261106-gesture-r12";
-import {mountTienLen} from "./tienlen-ui.js?v=20261106-gesture-r12";
-import {mountArenaRooms} from "./rooms-ui.js?v=20261106-gesture-r12";
-import {mountLudo} from "./ludo.js?v=20261106-gesture-r12";
-import {mountXiangqi} from "./xiangqi.js?v=20261106-gesture-r12";
-import {mountEstate} from "./estate.js?v=20261106-gesture-r12";
+import {mountChess} from "./chess-ui.js?v=20261106-gesture-r13";
+import {mountTienLen} from "./tienlen-ui.js?v=20261106-gesture-r13";
+import {mountArenaRooms} from "./rooms-ui.js?v=20261106-gesture-r13";
+import {mountLudo} from "./ludo.js?v=20261106-gesture-r13";
+import {mountXiangqi} from "./xiangqi.js?v=20261106-gesture-r13";
+import {mountEstate} from "./estate.js?v=20261106-gesture-r13";
 import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r2";
 const $=id=>document.getElementById(id);
 const state={game:null,tickets:Infinity,gold:0,xp:0,wins:0,losses:0,pending:null,
