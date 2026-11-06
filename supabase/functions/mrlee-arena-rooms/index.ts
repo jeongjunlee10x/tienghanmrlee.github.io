@@ -19,6 +19,21 @@ const exposure=(game:string,stake:number)=>stake*RISK_CARDS[game];
 const CODE_LETTERS="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const TIENLEN_TURN_MS=20_000;
 const nextDeadline=()=>new Date(Date.now()+TIENLEN_TURN_MS).toISOString();
+const CHESS_TIME_PRESETS:Record<string,[number,number]>=Object.freeze({
+ "1+0":[60,0],"2+1":[120,1],"3+0":[180,0],"3+2":[180,2],
+ "5+0":[300,0],"5+3":[300,3],"10+0":[600,0],"10+5":[600,5],
+ "15+10":[900,10],"30+0":[1800,0],"none":[0,0]
+});
+const chessTime=(value:unknown)=>typeof value==="string"&&Object.prototype.hasOwnProperty.call(CHESS_TIME_PRESETS,value)?value:"10+0";
+const chessClock=(key:string)=>{
+ const [seconds,increment]=CHESS_TIME_PRESETS[key];
+ return seconds>0?{remaining:[seconds*1000,seconds*1000],incrementMs:increment*1000,since:now()}:null;
+};
+const chessDeadline=(state:any)=>{
+ const clock=state.clock;if(!clock)return null;
+ const seat=state.history.at(-1).t===1?0:1;
+ return new Date(Date.parse(clock.since)+clock.remaining[seat]).toISOString();
+};
 type Member={uid:string,name:string,seat:number,ready:boolean};
 type Room={code:string,game:string,visibility:string,min_gold:number,locked:boolean,status:string,
  members:Member[],state:any,version:number,expires_at:string,created_at:string,updated_at:string};
@@ -90,6 +105,7 @@ function safeRoom(room:Room,uid:string){
  const player=membership(room,uid),game=room.game;
  const result:any={code:room.code,game,visibility:room.visibility,minGold:room.min_gold,
   status:room.status,seat:player.seat,capacity:GAME_SLOTS[game],serverTime:now(),
+   ...(game==="chess"?{timeControl:chessTime(room.state?.timeControl)}:{}),
   locked:Boolean(room.locked),isHost:room.members[0]?.uid===uid,
   players:room.members.map(m=>({name:m.name,seat:m.seat,ready:m.ready,
    continueReady:room.state?.rematchVotes?.[String(m.seat)]===true})),
@@ -102,10 +118,12 @@ function safeRoom(room:Room,uid:string){
  if(room.status==="finished"&&state.settlement)result.settlement=state.settlement;
  if(game==="chess"){
   const position=state.history.at(-1),detail=Chess.status(state.history);
+  const forced=room.status==="finished"&&state.settlement;
   result.gameState={position,notation:state.notation,turn:position.t===1?0:1,
-    winner:detail.done?(detail.winner===1?0:detail.winner===-1?1:null):null,
-    done:detail.done,reason:detail.reason,claim:!!detail.claim,
-     turnDeadline:room.status==="playing"?state.turnDeadline:null};
+    winner:forced?state.settlement.winner:detail.done?(detail.winner===1?0:detail.winner===-1?1:null):null,
+    done:Boolean(forced||detail.done),reason:forced?.reason||detail.reason,claim:!!detail.claim,
+    clock:state.clock||null,timeControl:chessTime(state.timeControl),
+    turnDeadline:room.status==="playing"?state.turnDeadline:null};
  }else if(game==="tienlen"){
   result.gameState={myHand:state.hands[player.seat],counts:state.hands.map((hand:any[])=>hand.length),
     turn:state.turn,played:state.played,last:state.last?{player:state.last.player,combo:state.last.combo}:null,
@@ -136,9 +154,11 @@ async function cas(database:any,row:Room,patch:Partial<Room>):Promise<Room>{
  if(!data)fail("Phòng vừa thay đổi. Tải lại rồi thao tác tiếp.",409);
  return data as Room;
 }
-function createState(game:string,playerCount=4){
+function createState(game:string,playerCount=4,timeControl="10+0"){
  if(game==="chess"){
-  const position=Chess.start();return {history:[position],notation:[],turnDeadline:nextDeadline()};
+  const position=Chess.start(),selected=chessTime(timeControl),clock=chessClock(selected);
+  return {history:[position],notation:[],timeControl:selected,clock,
+   turnDeadline:clock?chessDeadline({history:[position],clock}):null};
  }
  return game==="tienlen"?{...TienLen.start(secureRandom,playerCount),turnDeadline:nextDeadline()}:
     {...Colors.newGame(secureRandom),turnDeadline:nextDeadline()};
@@ -261,7 +281,7 @@ async function advanceExpiredFinished(database:any,row:Room,allVoted=false):Prom
  const remaining=row.members.filter(m=>!exits.has(m.uid));
  // If too few players remain, PostgreSQL moves to the same table's WAITING
  // state rather than reserving G or attempting a one-player match.
- const fresh=createState(row.game,Math.max(2,remaining.length));
+ const fresh=createState(row.game,Math.max(2,remaining.length),row.state?.timeControl);
  const {error}=await database.rpc("mrlee_arena_auto_next",{
   p_code:row.code,p_expected_version:row.version,p_state:fresh
  });
@@ -283,7 +303,7 @@ async function requireGold(database:any,uid:string,game:string,tier:number){
   "G để bảo đảm thanh toán ván này. Hãy đổi điểm đã xác minh hoặc chọn mức bàn thấp hơn.",403);
  return w;
 }
-async function freshRoom(database:any,uid:string,game:string,visibility:string,tier:number,nickname:string){
+async function freshRoom(database:any,uid:string,game:string,visibility:string,tier:number,nickname:string,timeControl="10+0"){
  await requireGold(database,uid,game,tier);
  const {count,error:countError}=await database.from("mrlee_arena_rooms").select("code",{head:true,count:"exact"})
   // JSONB array-of-objects: serialize as JSON text; a bare JS array becomes cs.{[object Object]}.
@@ -294,7 +314,7 @@ async function freshRoom(database:any,uid:string,game:string,visibility:string,t
   const code=randomCode();
   const {data,error}=await database.from("mrlee_arena_rooms").insert({
    code,game,visibility,locked:false,min_gold:tier,status:"waiting",
-   members:[{uid,name:nickname,seat:0,ready:false}],state:{}
+   members:[{uid,name:nickname,seat:0,ready:false}],state:game==="chess"?{timeControl:chessTime(timeControl)}:{}
   }).select("*").maybeSingle();
   if(!error&&data)return data as Room;
   if(error?.code!=="23505")fail("Không tạo được phòng. Hãy thử lại.",503);
@@ -312,12 +332,13 @@ async function joinRoom(database:any,row:Room,uid:string,nickname:string){
 }
 async function listRooms(database:any,game:string,uid:string){
  const {data,error}=await database.from("mrlee_arena_rooms")
- .select("code,game,visibility,locked,min_gold,status,members,created_at,expires_at")
+ .select("code,game,visibility,locked,min_gold,status,members,state,created_at,expires_at")
  .eq("game",game).eq("visibility","public").eq("locked",false).eq("status","waiting")
  .gt("expires_at",now()).order("created_at",{ascending:true}).limit(60);
  if(error)fail("Không lấy được danh sách bàn.",503);
  return (data||[]).filter((r:Room)=>!r.locked&&r.members.length<GAME_SLOTS[r.game]).map((r:Room)=>({
   code:r.code,game:r.game,minGold:r.min_gold,status:r.status,
+   ...(r.game==="chess"?{timeControl:chessTime(r.state?.timeControl)}:{}),
   capacity:GAME_SLOTS[r.game],count:r.members.length,
   host:r.members[0]?.name||"Học viên",alreadyIn:r.members.some(m=>m.uid===uid)
  }));
@@ -330,6 +351,11 @@ function actionChess(state:any,seat:number,action:Body){
  const move=Chess.fromUci(p,action.uci);
  if(!move)fail("Nước cờ sai luật.",409);
  const notation=Chess.san(p,move);
+ if(state.clock){
+  const elapsed=Math.max(0,Date.now()-Date.parse(state.clock.since));
+  state.clock.remaining[seat]=Math.max(0,state.clock.remaining[seat]-elapsed)+state.clock.incrementMs;
+  state.clock.since=now();
+ }
  state.history.push(Chess.apply(p,move));
  state.notation.push(notation);
  if(state.history.length>350){
@@ -425,14 +451,15 @@ Deno.serve(async(req:Request)=>{
   if(kind==="create"){
    const game=gameName(body.game),tier=roomTier(body.minGold),visibility=body.visibility;
    if(visibility!=="private"&&visibility!=="public")fail("Kiểu phòng không hợp lệ.");
-   const row=await freshRoom(database,uid,game,visibility,tier,nickname);
+   const row=await freshRoom(database,uid,game,visibility,tier,nickname,game==="chess"?chessTime(body.timeControl):"10+0");
    return reply(req,200,{ok:true,room:safeRoom(row,uid)});
   }
   if(kind==="quick"){
    const game=gameName(body.game),balance=(await wallet(database,uid)).gold;
-   const rooms=await listRooms(database,game,uid);
+   const timeControl=game==="chess"?chessTime(body.timeControl):"10+0";
+    const rooms=await listRooms(database,game,uid);
    const options=(rooms as Array<{code:string,minGold:number,count:number}>)
-      .filter(x=>exposure(game,x.minGold)<=balance)
+      .filter(x=>exposure(game,x.minGold)<=balance&&(game!=="chess"||(x as any).timeControl===timeControl))
       .sort((a,b)=>b.count-a.count||b.minGold-a.minGold);
    for(const room of options.slice(0,12)){
     try{
@@ -446,7 +473,7 @@ Deno.serve(async(req:Request)=>{
    const suitable=[...GOLD_TIERS].filter(x=>exposure(game,x)<=balance)
       .sort((a,b)=>a-b);
    if(!suitable.length)fail("Bạn chưa đủ G vào bàn thấp nhất. Hãy đổi điểm học tập đã xác minh sang G.",403);
-   const created=await freshRoom(database,uid,game,"public",suitable[0],nickname);
+   const created=await freshRoom(database,uid,game,"public",suitable[0],nickname,timeControl);
    return reply(req,200,{ok:true,room:safeRoom(created,uid),match:"created"});
   }
   const code=roomCode(body.code);
@@ -545,7 +572,7 @@ Deno.serve(async(req:Request)=>{
    const changed=await cas(database,room,{members});
    if(allReady){
     const {error}=await database.rpc("mrlee_arena_start_match",{
-     p_code:code,p_expected_version:changed.version,p_state:createState(room.game,changed.members.length)
+     p_code:code,p_expected_version:changed.version,p_state:createState(room.game,changed.members.length,room.state?.timeControl)
     });
     if(error){
      // Prevent a room from remaining stuck with all ready after insufficient funds.
@@ -571,7 +598,7 @@ Deno.serve(async(req:Request)=>{
    const state=structuredClone(room.state);
    const result=room.game==="chess"?actionChess(state,me.seat,body):
     room.game==="tienlen"?actionTienLen(state,me.seat,body):actionColors(state,me.seat,body);
-   state.turnDeadline=result.finished?null:nextDeadline();
+   state.turnDeadline=result.finished?null:room.game==="chess"?chessDeadline(state):nextDeadline();
    if(result.finished){
     let winner=-1,remaining:number[];
     if(room.game==="chess"){
