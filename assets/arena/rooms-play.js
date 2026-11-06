@@ -518,7 +518,7 @@ export function mountOnlineCanvas(root,onMove){
   // force-rendering the same version can never replay a settled chop.
   if(!force&&previous?.game==="tienlen"&&room.game==="tienlen"&&
    previous.code===room.code&&previous.roundIndex===room.roundIndex&&
-   previous.status==="playing"&&room.status==="playing"&&
+   previous.status==="playing"&&(room.status==="playing"||room.status==="finished")&&
    room.version!==lastVersion&&previous.gameState?.last?.combo&&
    room.gameState?.last?.combo){
    const oldLast=previous.gameState.last,newLast=room.gameState.last;
@@ -555,7 +555,7 @@ export function mountOnlineCanvas(root,onMove){
    // A fresh, verified discard from another online player travels into the
    // pile once. Polling the same version never replays the animation.
    if(!force&&previous?.game==="colors"&&previous.status==="playing"&&
-      room.status==="playing"&&previous.code===room.code&&
+      (room.status==="playing"||room.status==="finished")&&previous.code===room.code&&
       previous.roundIndex===room.roundIndex&&isVersionChange&&
       previous.gameState?.top?.id!==room.gameState?.top?.id){
     const actor=previous.gameState?.turn;
