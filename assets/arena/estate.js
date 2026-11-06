@@ -186,6 +186,17 @@ export function mountEstate({onStart,onFinish,onExit}){
  function render(){
   if(!g||root.hidden)return;
   const p=g.players[g.turn],yourTurn=g.turn===0&&!done;
+  const oppBar=$("estateOppBar"),meBar=$("estateMeBar");
+  oppBar?.classList.toggle("is-turn",g.turn!==0&&g.winner===null);
+  meBar?.classList.toggle("is-turn",g.turn===0&&g.winner===null);
+  const oppTitle=oppBar?.querySelector("strong");
+  if(oppTitle)oppTitle.textContent=g.turn===0?"🤖 3 ĐỐI THỦ MÁY":"🤖 "+p.name+" ĐANG CHƠI";
+  const myTitle=meBar?.querySelector("strong");
+  if(myTitle)myTitle.textContent="THẦY LEE · "+MONEY(g.players[0].cash)+" (MÔ PHỎNG)";
+  for(const [bar,active] of [[oppBar,g.turn!==0],[meBar,g.turn===0]]){
+   const badge=bar?.querySelector(".arena-v20-turn-badge");
+   if(badge)badge.textContent=g.winner!==null?"KẾT THÚC":active?"● ĐANG ĐÁNH":"ĐANG CHỜ";
+  }
   status.textContent=g.winner!==null?"🏆 "+names[g.winner]+" thắng theo tổng tài sản!":
    yourTurn?(g.phase==="offer"?"Bạn có thể mua bất động sản hoặc bỏ qua.":"🎲 Lượt bạn · tung xúc xắc để đi."):
     "⏳ "+p.name+" đang chơi.";
