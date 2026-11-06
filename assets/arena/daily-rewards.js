@@ -89,7 +89,9 @@ export function mountDailyRewards(){
   try{
    const result=await roomRequest("daily",{},"GET");
    daily=result.daily;updateWallet(result.wallet);update();error("");
-   if(auto&&(!daily.checkedIn||!daily.spun))show();
+   // Screenshot-style Game Arena shows daily rewards directly in its hero.
+   // Preserve the automatic modal on Game Zone, but do not obscure Arena lobby.
+   if(auto&&(!daily.checkedIn||!daily.spun)&&!document.documentElement.classList.contains("arena-reference-v1"))show();
   }catch(err){
    if(!auto){show();error(err.message||"Không kết nối được máy chủ.");}
   }
