@@ -198,7 +198,7 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
   $("roomBoardTitle").textContent=gameName()+" · "+(room.status==="finished"?"Kết thúc · Đợi ván sau":"Đang đấu PvP");
   $("roomBoardCode").textContent=room.code;
   canvas.render(room);
-  if(room.game==="tienlen"&&room.status==="playing"&&room.gameState?.turnDeadline){
+  if(["tienlen","chess","colors"].includes(room.game)&&room.status==="playing"&&room.gameState?.turnDeadline){
    const hud=el("div","arena-turn-clock");hud.id="roomTurnClock";
    hud.setAttribute("role","timer");hud.setAttribute("aria-label","Thời gian còn lại trong lượt đánh");
    $("roomGameCanvas").append(hud);
@@ -366,7 +366,7 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
  // decides when a turn expires and performs the legal automatic action.
  setInterval(()=>{
   const node=$("roomTurnClock");
-  if(!node||!room||room.game!=="tienlen"||room.status!=="playing")return;
+  if(!node||!room||!["tienlen","chess","colors"].includes(room.game)||room.status!=="playing")return;
   const deadline=Date.parse(room.gameState?.turnDeadline||"");
   if(!Number.isFinite(deadline)){node.textContent="⏱ Đang đồng bộ...";return;}
   const seconds=Math.max(0,Math.ceil((deadline-Date.now()-serverClockOffset)/1000));
