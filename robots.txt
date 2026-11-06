@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mrlee-b6a.pages.dev/sitemap.xml
