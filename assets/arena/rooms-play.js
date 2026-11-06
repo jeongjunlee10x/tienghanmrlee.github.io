@@ -194,7 +194,7 @@ export function mountOnlineCanvas(root,onMove){
    board.append(tile);
   }
   sidebar.append(el("h3","","♟ "+statusBanner(room)),
-   el("p","arena-pvp-info","Bạn cầm quân "+(room.seat===0?"trắng":"đen")+". Chọn quân và ô đích, máy chủ xác nhận nước đi."));
+   el("p","arena-pvp-info","Bạn cầm quân "+(room.seat===0?"trắng":"đen")+". Giữ kéo quân hoặc chạm hai ô; máy chủ xác nhận nước đi."));
   const opts=el("div","arena-pvp-options");sidebar.append(opts);
   const log=el("div","arena-pvp-moves");
   state.notation.forEach((n,i)=>log.append(el("p","",Math.floor(i/2)+1+(i%2?"... ":" . ")+n)));
