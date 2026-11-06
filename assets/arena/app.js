@@ -316,3 +316,7 @@ document.addEventListener("fullscreenchange",()=>{
    "↙ Thu nhỏ":"⛶ Toàn màn hình";
  });
 });
+// Ready signal for the six dedicated game pages; original controllers remain authoritative.
+document.documentElement.dataset.arenaAppReady="1";
+window.dispatchEvent(new Event("mrlee:arena-ready"));
+
