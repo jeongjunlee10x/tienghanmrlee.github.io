@@ -122,6 +122,7 @@ function pickBot(g){
  }
  return chosen;
 }
+import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r1";
 export function mountXiangqi({onStart,onFinish,onExit}){
  const root=$("arenaXiangqi"),board=$("xqBoard"),status=$("xqStatus");
  const requested=new URL(location.href).searchParams.get("variant");
@@ -143,7 +144,11 @@ export function mountXiangqi({onStart,onFinish,onExit}){
  function select(i){
   if(!g||g.turn!==1||finished)return;
   if(selected>=0&&xiangqiLegal(g,1).some(m=>m[0]===selected&&m[1]===i)){
-   try{xiangqiMove(g,selected,i);selected=-1;render();if(g.winner!==null)finish();else schedule();}
+   try{
+    const from=board.querySelector('[data-index="'+selected+'"]'),to=board.querySelector('[data-index="'+i+'"]');
+    animateBoardMove({from,to,piece:from?.querySelector(".xq-piece"),kind:"xiangqi-piece"});
+    xiangqiMove(g,selected,i);selected=-1;render();if(g.winner!==null)finish();else schedule();
+   }
    catch(err){status.textContent=err.message;}
   }else{selected=camp(g.b[i])===1?(selected===i?-1:i):-1;render();}
  }
@@ -153,7 +158,11 @@ export function mountXiangqi({onStart,onFinish,onExit}){
   timer=setTimeout(()=>{
    timer=null;if(stamp!==epoch||!g||root.hidden||finished)return;
    const move=pickBot(g);
-   if(!move){g.winner=1;}else xiangqiMove(g,...move);
+   if(!move){g.winner=1;}else{
+    const from=board.querySelector('[data-index="'+move[0]+'"]'),to=board.querySelector('[data-index="'+move[1]+'"]');
+    animateBoardMove({from,to,piece:from?.querySelector(".xq-piece"),kind:"xiangqi-piece"});
+    xiangqiMove(g,...move);
+   }
    render();if(g.winner!==null)finish();
   },480);
  }
@@ -187,6 +196,19 @@ export function mountXiangqi({onStart,onFinish,onExit}){
    (m.side===1?"🔴 Bạn: ":"⚫ Máy: ")+m.piece+" "+(m.capture?"× ":"→ ")+
    (Math.floor(m.to/9)+1)+"/"+(m.to%9+1))));
  }
+ enablePointerDrag({
+  root:board,itemSelector:".xq-square[data-index]",
+  targetSelector:".xq-square[data-index]",previewSelector:".xq-piece",
+  canStart:tile=>Boolean(g&&!finished&&g.turn===1&&camp(g.b[Number(tile.dataset.index)])===1),
+  canDrop:(from,to)=>Boolean(g&&!finished&&g.turn===1&&xiangqiLegal(g,1).some(m=>
+   m[0]===Number(from.dataset.index)&&m[1]===Number(to.dataset.index))),
+  onDrop:(from,to)=>{
+   if(!g||finished||g.turn!==1)return false;
+   const source=Number(from.dataset.index),dest=Number(to.dataset.index);
+   if(!xiangqiLegal(g,1).some(m=>m[0]===source&&m[1]===dest))return false;
+   selected=source;select(dest);return true;
+  }
+ });
  $("xqNew").addEventListener("click",start);
  $("xqExit").addEventListener("click",exit);
  $("xqVariant").addEventListener("change",()=>{if(g)status.textContent="Đổi chế độ sẽ áp dụng từ ván mới.";});
