@@ -3,7 +3,7 @@
  */
 import {start,label,analyze,canPlay,play,pass,botTurn,options,NAMES} from "./tienlen-engine.js";
 import {playingCard,cardBack,chopTitle,createTableEffects} from "./tienlen-fx.js?v=20261106-performance-r12";
-import {enablePointerDrag} from "./drag-gestures.js?v=20261106-drag-r1";
+import {enablePointerDrag} from "./drag-gestures.js?v=20261106-drag-r2";
 const $=id=>document.getElementById(id);
 const el=(tag,cl,text)=>{
  const node=document.createElement(tag);if(cl)node.className=cl;
