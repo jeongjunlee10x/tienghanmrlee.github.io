@@ -261,3 +261,57 @@ html.arena-reference-v1.arena-embedded #arenaEstate .estate-board{
  html.arena-reference-v1.arena-embedded .arena-mini-log{max-height:140px;overflow:auto}
  html.arena-reference-v1.arena-embedded .arena-extra-side .arena-demo-rule{font-size:10px!important}
 }
+
+/* A manually rotated phone still gets usable side-by-side boards for every game.
+ * Only portrait requires vertical stacking; no game forces device rotation. */
+@media (max-width:900px) and (orientation:landscape) and (max-height:650px){
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-layout,
+ html.arena-reference-v1.arena-embedded #arenaPvPBoard .arena-pvp-chess{
+  display:grid!important;grid-template-columns:minmax(0,1fr) minmax(160px,225px)!important;
+  gap:7px!important;align-items:start!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-main{
+  width:min(100%,calc(100dvh - 105px))!important;margin:0 auto!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaChess .chess-sidebar{
+  display:flex!important;flex-direction:column;gap:5px;
+  overflow-y:auto!important;max-height:calc(100dvh - 70px)!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaPvPBoard .arena-pvp-chess .chess-board{
+  width:min(100%,calc(100dvh - 105px))!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaPvPBoard .arena-pvp-chess .arena-panel{
+  max-height:calc(100dvh - 70px)!important;overflow-y:auto!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaLudo .arena-extra-layout,
+ html.arena-reference-v1.arena-embedded #arenaXiangqi .arena-extra-layout,
+ html.arena-reference-v1.arena-embedded #arenaEstate .arena-extra-layout{
+  display:grid!important;grid-template-columns:minmax(0,1fr) minmax(175px,230px)!important;
+  grid-auto-flow:row;gap:7px!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaLudo .arena-extra-stage,
+ html.arena-reference-v1.arena-embedded #arenaXiangqi .arena-extra-stage,
+ html.arena-reference-v1.arena-embedded #arenaEstate .arena-extra-stage{
+  grid-column:1!important;grid-row:1 / span 3!important;
+  align-self:start;min-width:0
+ }
+ html.arena-reference-v1.arena-embedded #arenaLudo .arena-extra-side,
+ html.arena-reference-v1.arena-embedded #arenaXiangqi .arena-extra-side,
+ html.arena-reference-v1.arena-embedded #arenaEstate .arena-extra-side{
+  display:flex!important;flex-direction:column;grid-column:2!important;
+  grid-row:1 / span 3!important;max-height:calc(100dvh - 65px)!important;overflow-y:auto!important
+ }
+ html.arena-reference-v1.arena-embedded .arena-extra-side>.arena-panel{
+  display:block!important;margin:0 0 5px!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaLudo .ludo-board,
+ html.arena-reference-v1.arena-embedded #arenaEstate .estate-board{
+  width:min(100%,calc(100dvh - 75px))!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaXiangqi .xq-board-wrap{
+  width:min(100%,calc((100dvh - 88px)*.86))!important
+ }
+ html.arena-reference-v1.arena-embedded #arenaXiangqi .xq-piece{
+  font-size:clamp(12px,3.1vw,24px)!important
+ }
+}
