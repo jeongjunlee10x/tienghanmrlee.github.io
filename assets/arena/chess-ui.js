@@ -3,7 +3,7 @@
  * Not affiliated with chess.com. No third-party imagery, brand assets or copied source.
  */
 import {GLYPHS,start,legal,apply,san,side,square,status,bestBotMove} from "./chess-engine.js";
-import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r1";
+import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261106-drag-r2";
 const $=id=>document.getElementById(id);
 const make=(tag,cl,text)=>{
  const x=document.createElement(tag);if(cl)x.className=cl;
