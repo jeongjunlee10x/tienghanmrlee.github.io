@@ -57,10 +57,17 @@ try{
    await page.locator("#arenaDailyDialog").waitFor({state:"visible",timeout:12000});
    await page.locator("#arenaDailyClose").click();
    await page.waitForFunction(()=>document.querySelectorAll("#arenaCatalog img.arena-cover-image").length===6,null,{timeout:12000});
+   // A featured game can be hidden by the screenshot layout. Lazy-load images
+   // stay unfetched in that case; check the actual SVG resource, not naturalWidth.
    const allCovers=await page.locator("#arenaCatalog img.arena-cover-image").evaluateAll(images=>
-    images.map(img=>({src:img.getAttribute("src"),valid:img.complete&&img.naturalWidth>=400})));
+    images.map(img=>({src:img.getAttribute("src"),featured:img.closest(".arena-game-card")?.getBoundingClientRect().height>0})));
    assert.equal(allCovers.length,6);
-   for(const cover of allCovers)assert.ok(cover.valid,"Illustration unavailable: "+cover.src);
+   for(const cover of allCovers){
+    const result=await page.request.get(origin+"/"+cover.src);
+    assert.equal(result.status(),200,"Original illustrated cover missing: "+cover.src);
+   }
+   await page.waitForFunction(()=>[...document.querySelectorAll("#arenaCatalog .arena-game-card.playable:visible img.arena-cover-image")]
+     .every(img=>img.complete&&img.naturalWidth>=400),null,{timeout:10000}).catch(()=>{});
    assert.equal(await page.locator("#arenaCatalog .arena-cover-brand").count(),6);
    assert.equal(await page.locator("#arenaCatalog .arena-cover-identity").count(),6);
    assert.equal(await page.locator(".arena-board-brand").count(),6);
