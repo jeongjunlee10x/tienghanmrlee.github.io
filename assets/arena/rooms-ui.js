@@ -30,7 +30,12 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
   Object.values(presetGroups).flat().includes(savedTime)?savedTime:"10+0";
  clockSelect.addEventListener("change",()=>localStorage.setItem("mrlee.chess.time",clockSelect.value));
  clockPicker.append(clockSelect);
- $("arenaRoomHub").querySelector(".arena-room-panel").insertBefore(clockPicker,$("roomNickname"));
+ // roomNickname is nested INSIDE a label, not a direct child of the panel.
+ // insertBefore(panel, input) throws NotFoundError and prevents ALL bot games
+ // from mounting, even though the chess clock picker is PvP-only.
+ const nicknameLabel=$("roomNickname")?.closest(".arena-room-label");
+ if(!nicknameLabel?.parentElement)throw Error("Missing Arena room nickname label");
+ nicknameLabel.parentElement.insertBefore(clockPicker,nicknameLabel);
  clockPicker.hidden=true;
  const timeControl=()=>clockSelect.value;
  const show=active=>sections.forEach(id=>$(id).hidden=id!==active);
