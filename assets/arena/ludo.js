@@ -123,8 +123,10 @@ export function mountLudo({onStart,onFinish,onExit}){
   schedule();
  }
  function bumpDice(){
-  const die=$("ludoDie");die.classList.remove("arena-dice-rolling");
-  void die.offsetWidth;die.classList.add("arena-dice-rolling");
+  const die=$("ludoDie");if(!die)return;
+  die.classList.remove("arena-dice-rolling","arena-v22-dice-rolling");
+  void die.offsetWidth;die.classList.add("arena-v22-dice-rolling");
+  setTimeout(()=>die.classList.remove("arena-v22-dice-rolling"),760);
  }
  function choose(i){
   if(!game||game.turn!==0||game.phase!=="choose"||done)return;
