@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="vi" class="arena-rooms-browser">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#443020">
+<meta name="description" content="Chọn bàn chơi trực tuyến MR LEE: Tiến lên, Cờ vua, Bài Màu. Xem phòng công khai còn ghế, mức G và vào bàn bằng tài khoản xác minh.">
+<title>Chọn bàn · MR LEE GAME ARENA</title>
+<link rel="icon" href="assets/branding/logo-mrlee.png">
+<link rel="stylesheet" href="assets/arena/game-room-browser.css?v=1">
+<style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
+<script type="module" src="auth-guard.js"></script>
+<script type="module" src="assets/arena/game-room-browser.js?v=1"></script>
+</head>
+<body>
+<div class="room-browser-shell">
+ <header class="room-browser-header">
+  <a class="room-browser-back" id="browserBack" href="mrlee-game-arena.html" aria-label="Trở về trang game">‹</a>
+  <a class="room-browser-brand" href="mrlee-game-arena.html"><img src="assets/branding/logo-mrlee.png" width="56" height="56" alt=""><strong>MR LEE<small>GAME ARENA</small></strong></a>
+  <div class="room-browser-player"><span class="room-browser-avatar">🎮</span><div><strong id="browserPlayer">Học viên MR LEE</strong><small>Danh sách bàn trực tuyến</small></div></div>
+  <div class="room-browser-gold" title="G được xác minh trên máy chủ">🪙 <output id="browserGold">—</output></div>
+  <span class="room-browser-points">🎓 <b id="browserPoints">—</b> điểm</span>
+  <button id="browserRefresh" type="button" class="room-browser-refresh">↻ <span>Làm mới</span></button>
+ </header>
+ <main class="room-browser-main">
+  <aside class="room-browser-sidebar" aria-label="Bộ lọc phòng">
+   <h1>🎮 CHỌN BÀN</h1>
+   <div class="room-browser-filter" role="group" aria-label="Trạng thái phòng">
+    <button type="button" data-browser-filter="all" aria-pressed="true">TẤT CẢ</button>
+    <button type="button" data-browser-filter="open" aria-pressed="false">CÒN TRỐNG</button>
+    <button type="button" data-browser-filter="waiting" aria-pressed="false">CHƯA CHƠI</button>
+   </div>
+   <section class="room-browser-location"><span>🌐 PHÒNG MR LEE</span><strong id="browserGameName">Đang tải trò chơi</strong><small id="browserRoomCount">0 phòng</small>
+    <p>Danh sách trực tiếp từ máy chủ. Phòng riêng tư chỉ vào bằng mã mời.</p>
+   </section>
+  </aside>
+  <section class="room-browser-content" aria-labelledby="browserTitle">
+   <div class="room-browser-title"><div><small>♟️ PHÒNG CHƠI TRỰC TUYẾN</small><h2 id="browserTitle">Danh sách bàn</h2></div>
+    <button type="button" id="browserCreate" class="room-browser-create-top">＋ Tạo bàn</button>
+   </div>
+   <p id="browserStatus" role="status" aria-live="polite">Đang tải danh sách bàn công khai...</p>
+   <div id="browserRooms" class="room-browser-grid" aria-live="polite"></div>
+  </section>
+ </main>
+ <footer class="room-browser-footer">
+  <a id="browserGameReturn" href="mrlee-game-arena.html">‹ Trở về game</a>
+  <button id="browserQuick" type="button">⚡ CHƠI NHANH</button>
+  <a id="browserNewRoom" href="mrlee-game-arena.html">＋ TẠO BÀN</a>
+  <span>G là điểm ảo · chỉ phòng công khai đang chờ được liệt kê</span>
+ </footer>
+</div>
+</body>
+</html>
