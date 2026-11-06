@@ -7,7 +7,7 @@ import {mountArenaRooms} from "./rooms-ui.js?v=20261107-motion-v22";
 import {mountLudo} from "./ludo.js?v=20261107-motion-v22";
 import {mountXiangqi} from "./xiangqi.js?v=20261107-motion-v22";
 import {mountEstate} from "./estate.js?v=20261107-motion-v22";
-import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261107-motion-v22";
+import {enablePointerDrag,animateBoardMove,animateCardTransfer} from "./drag-gestures.js?v=20261107-motion-v22b";
 import {emitArenaFX} from "./game-visuals-v19.js?v=20261107-approved-v20";
 const $=id=>document.getElementById(id);
 // AI difficulty is a visual preference only; it is never trusted for G scoring
@@ -202,8 +202,18 @@ function scheduleBot(){
  state.timer=setTimeout(()=>{
   state.timer=null;
   if(epoch!==state.epoch||!state.game||state.game.turn===0||state.game.winner!==null)return;
-  try{botTurn(state.game,Math.random,$("colorsLevel")?.value||"normal");render();}
-  catch(err){flash("Đối thủ tạm dừng: "+err.message);}
+  try{
+   const acting=state.game.turn,oldTop=topCard(state.game)?.id;
+   botTurn(state.game,Math.random,$("colorsLevel")?.value||"normal");
+   const played=topCard(state.game)?.id!==oldTop;
+   render();
+   if(played){
+    const opponent=$("arenaOpponents")?.children[acting-1];
+    const pile=$("arenaTopCard");
+    animateCardTransfer({from:opponent,to:pile,face:pile?.querySelector(".arena-card-face")});
+    emitArenaFX("colors",pile);
+   }
+  }catch(err){flash("Đối thủ tạm dừng: "+err.message);}
  },650);
 }
 // Lift a colored card, move it across the table and release over the pile.
