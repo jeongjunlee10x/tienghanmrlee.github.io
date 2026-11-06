@@ -185,7 +185,7 @@ export function mountXiangqi({onStart,onFinish,onExit}){
    board.append(tile);
   }
   status.textContent=g.winner!==null?(g.winner===1?"🏆 Bạn thắng!":"🏆 Máy thắng!"):
-   g.turn===1?(isXiangqiCheck(g,1)?"⚠️ Tướng đang bị chiếu! Chọn nước cứu tướng.":"🔴 Lượt bạn · chọn quân đỏ và ô đích hợp lệ."):
+   g.turn===1?(isXiangqiCheck(g,1)?"⚠️ Tướng đang bị chiếu! Chọn nước cứu tướng.":"🔴 Lượt bạn · giữ kéo quân đỏ đến ô đích hoặc chạm hai ô."):
    "⏳ Máy đang suy nghĩ nước đi...";
   board.dataset.lastMove=g.last?g.last.join(","):"";
   board.dataset.moveIndex=String(g.moves.length);
