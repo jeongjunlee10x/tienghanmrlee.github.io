@@ -297,3 +297,13 @@ body.game-room-in-play .game-room-main{height:100dvh}
 @media(max-width:450px) and (orientation:portrait){
  .game-room-tiles{max-height:430px}
 }
+
+/* Keep parent leave/fullscreen controls above the live iframe canvas.
+ * On some mobile Chromium/WebKit layouts iframe compositing otherwise
+ * captures taps above its visual bounds. */
+.game-room-play-head{position:relative;z-index:50;isolation:isolate;
+ background:linear-gradient(110deg,#132747,#07152e);
+ box-shadow:0 2px 7px #020c1b88}
+.game-room-play-head button{position:relative;z-index:52;touch-action:manipulation}
+.game-room-frame-wrap{position:relative;z-index:1;min-height:0}
+.game-room-frame-wrap iframe{position:relative;z-index:1}
