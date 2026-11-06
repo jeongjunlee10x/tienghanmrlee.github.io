@@ -117,6 +117,27 @@ try{
     }
     assert.equal(await page.locator("#roomLobby").isVisible(),false);
     assert.equal(await page.locator("#roomPlay").isVisible(),true);
+    // Verify a real pointer gesture completes a legal move, not just CSS hover.
+    if(width===390&&game==="chess"){
+     await iframe.locator('#chessBoard .chess-square[data-index="100"]').dragTo(
+      iframe.locator('#chessBoard .chess-square[data-index="68"]'),{timeout:10000});
+     await iframe.locator("#chessMoves").waitFor({state:"visible"});
+     const notation=await iframe.locator("#chessMoves").textContent();
+     assert.match(notation,/e4/,"Drag e2→e4 must be played and recorded by engine");
+     for(let round=0;round<4;round++){
+      await iframe.locator("#chessRestart").click();
+      assert.equal(await iframe.locator("#chessBoard .chess-square").count(),64,
+       "Unlimited bot rematch still renders 64 chess squares");
+     }
+     assert.equal(await iframe.locator("#arenaTickets").textContent(),"∞",
+      "Bot practice no longer runs out of tickets");
+    }
+    if(width===390&&game==="xiangqi"){
+     await iframe.locator('#xqBoard .xq-square[data-index="54"]').dragTo(
+      iframe.locator('#xqBoard .xq-square[data-index="45"]'),{timeout:10000});
+     assert.match(await iframe.locator("#xqMoveCount").textContent(),/[1-9][0-9]* nước/,
+      "Drag a red pawn one row: Cờ Tướng/Cờ Úp engine records the legal move");
+    }
     assert.equal(await iframe.locator("html").evaluate(el=>el.classList.contains("arena-embedded")),true);
     if(game==="chess"||game==="xiangqi"){
      // These are portrait-first games: the user never has to turn the phone.
