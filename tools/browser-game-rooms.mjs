@@ -80,6 +80,10 @@ try{
     assert.equal(await page.locator("#roomMenu .game-room-tile").count(),4);
     assert.equal(await page.locator('#roomMenu [data-play-mode="friends"]').isEnabled(),online);
     assert.equal(await page.locator('#roomMenu [data-play-mode="browse"]').isEnabled(),online);
+    const shouldPortrait=!["tienlen","colors"].includes(game);
+    assert.equal(await page.locator("html").getAttribute("data-room-layout"),
+      shouldPortrait?"portrait":"landscape",
+      "Approved orientation policy must match "+game+" at "+width+"px");
     const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
     assert.ok(overflow<=4,"Horizontal overflow on "+pageFile+" at "+width+": "+overflow);
     const tiles=await page.locator(".game-room-tiles").boundingBox();
@@ -142,6 +146,35 @@ try{
     }
     assert.equal(await page.locator("#roomLobby").isVisible(),false);
     assert.equal(await page.locator("#roomPlay").isVisible(),true);
+    assert.equal(await page.locator("#roomTryLandscape").isVisible(),!shouldPortrait,
+      "Rotate control visible only for landscape card games");
+    if(shouldPortrait){
+     assert.equal(await page.locator("#roomOrientationTip").isVisible(),false,
+      "Upright chess/board games never prompt to rotate a phone");
+    }
+    if(width===390&&!shouldPortrait){
+     assert.equal(await page.locator("#roomOrientationTip").isVisible(),true,
+      "Phone card game clearly offers landscape rotation");
+    }
+    if(game==="xiangqi"||game==="ludo"||game==="estate"){
+     const hud=game==="xiangqi"?"xq":game;
+     assert.equal(await iframe.locator("#"+hud+"OppBar").isVisible(),true,
+      "Opponent identity must appear above portrait board");
+     assert.equal(await iframe.locator("#"+hud+"MeBar").isVisible(),true,
+      "Own identity must appear below portrait board");
+     assert.equal(await iframe.locator("#"+hud+"MeBar").getAttribute("class").then(x=>x.includes("is-turn")),true,
+      "Player's real first turn is highlighted, not a static mockup");
+    }
+    if(!shouldPortrait&&width===844){
+     const table=iframe.locator(game==="tienlen"?"#tlBoard":"#arenaTable .arena-board");
+     const rect=await table.boundingBox();
+     assert.ok(rect&&rect.width>rect.height,
+      "Approved card table must be landscape at 844x390: "+JSON.stringify(rect));
+    }
+    // Snapshot the rendered engine, not just a non-interactive mockup.
+    await page.screenshot({path:path.join(ROOT,"artifacts","game-rooms",
+       game+"-playing-"+width+".png"),fullPage:false});
+
     // Verify a real pointer gesture completes a legal move, not just CSS hover.
     if(width===390&&game==="chess"){
      await iframe.locator('#chessBoard .chess-square[data-index="100"]').dragTo(
