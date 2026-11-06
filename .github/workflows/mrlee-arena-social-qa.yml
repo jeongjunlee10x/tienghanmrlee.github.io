@@ -30,6 +30,10 @@ on:
       - 'assets/arena/game-ux-v18.css'
       - 'assets/arena/game-visuals-v19.css'
       - 'assets/arena/game-visuals-v19.js'
+      - 'assets/arena/game-room-v20.css'
+      - 'assets/arena/gameplay-cards-v20.css'
+      - 'assets/arena/gameplay-boards-v20.css'
+      - 'tools/test-arena-v20.mjs'
       - 'assets/arena/premium-fx.js'
       - 'assets/arena/tienlen-fx.js'
       - 'tools/test-arena-v19.mjs'
@@ -83,6 +87,8 @@ jobs:
           node --check tools/test-arena-v19.mjs
           node --check tools/browser-arena-v19.mjs
           node tools/test-arena-v19.mjs
+          node --check tools/test-arena-v20.mjs
+          node tools/test-arena-v20.mjs
           node tools/test-arena-game-modes.mjs
           node --check tools/test-arena-gestures.mjs
           node tools/test-arena-gestures.mjs
