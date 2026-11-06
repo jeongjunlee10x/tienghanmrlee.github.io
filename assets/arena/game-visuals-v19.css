@@ -415,3 +415,17 @@ html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-card
  #arenaLobby .arena-game-card,#arenaLobby .arena-game-card .arena-card-banner::after,
  #arenaLobby .arena-game-actions>button{transition:none!important;animation:none!important}
 }
+
+/* Prevent physical board frames from extending beyond narrow viewports. */
+#arenaChess .chess-main,#arenaChess .chess-board,
+.arena-pvp-chess .chess-board,
+#arenaXiangqi .xq-board-wrap,#arenaXiangqi .xq-board,
+#arenaLudo .ludo-board,#arenaEstate .estate-board,
+#arenaTable .arena-board,#arenaTienLen .tl-board,
+#arenaPvPBoard .arena-pvp-card-table{
+ box-sizing:border-box!important;max-width:100%!important;min-width:0
+}
+#arenaXiangqi .xq-board-wrap{width:min(100%,600px)!important}
+#arenaChess .chess-board,#arenaLudo .ludo-board,#arenaEstate .estate-board{
+ width:100%!important
+}
