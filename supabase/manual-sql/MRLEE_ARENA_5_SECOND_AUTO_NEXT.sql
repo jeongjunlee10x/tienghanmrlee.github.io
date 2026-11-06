@@ -124,7 +124,13 @@ BEGIN
  IF r.expires_at<now() THEN RAISE EXCEPTION 'ROOM_EXPIRED' USING errcode='P0001';END IF;
  deadline:=coalesce(nullif(r.state->>'nextRoundDeadline','')::timestamptz,
                     r.updated_at+interval '5 seconds');
- IF now()<deadline THEN RAISE EXCEPTION 'EXIT_WINDOW_OPEN' USING errcode='P0001';END IF;
+ -- Anyone still seated may explicitly vote to start early. Never trust a client
+  -- all-ready flag: verify every surviving UID's seat vote inside the row lock.
+  IF now()<deadline AND EXISTS(
+   SELECT 1 FROM jsonb_array_elements(r.members) x
+   WHERE NOT (coalesce(r.state->'exitUids','[]'::jsonb) @> jsonb_build_array(x->>'uid'))
+    AND coalesce(r.state->'rematchVotes'->>(x->>'seat'),'false')<>'true'
+  ) THEN RAISE EXCEPTION 'EXIT_WINDOW_OPEN' USING errcode='P0001';END IF;
  leaving:=coalesce(r.state->'exitUids','[]'::jsonb);
  IF jsonb_typeof(leaving)<>'array' THEN RAISE EXCEPTION 'BAD_EXIT_STATE' USING errcode='P0001';END IF;
  FOR m IN SELECT value FROM jsonb_array_elements(r.members) LOOP
