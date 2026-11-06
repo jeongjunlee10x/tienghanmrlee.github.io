@@ -89,6 +89,10 @@ export function mountLudo({onStart,onFinish,onExit}){
   root.hidden=false;render();root.scrollIntoView({behavior:"smooth",block:"start"});
   schedule();
  }
+ function bumpDice(){
+  const die=$("ludoDie");die.classList.remove("arena-dice-rolling");
+  void die.offsetWidth;die.classList.add("arena-dice-rolling");
+ }
  function choose(i){
   if(!game||game.turn!==0||game.phase!=="choose"||done)return;
   try{
@@ -123,7 +127,7 @@ export function mountLudo({onStart,onFinish,onExit}){
      moveLudo(game,idx);
     }
    }
-   render();if(game.winner!==null)finish();else schedule();
+   render();bumpDice();if(game.winner!==null)finish();else schedule();
   },420);
  }
  function render(){
@@ -189,7 +193,7 @@ export function mountLudo({onStart,onFinish,onExit}){
  });
  rollBtn.addEventListener("click",()=>{
   if(!game||game.turn!==0||game.phase!=="roll"||done)return;
-  rollLudo(game);render();
+  rollLudo(game);render();bumpDice();
  });
  $("ludoNew").addEventListener("click",start);
  $("ludoExit").addEventListener("click",exit);
