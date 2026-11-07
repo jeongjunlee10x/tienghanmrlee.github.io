@@ -5,8 +5,8 @@
 import * as Chess from "./chess-engine.js";
 import * as TL from "./tienlen-engine.js?v=20261107-ai-r18";
 import * as Colors from "./color-engine.js?v=20261107-ai-r18";
-import {playingCard,comboTitle,showChopPopup} from "./tienlen-fx.js?v=20261107-motion-v22";
-import {isDealing,showRoomDeal} from "./arena-deal-v22.js?v=20261107-fidelity-v23";
+import {playingCard,comboTitle,showChopPopup} from "./tienlen-fx.js?v=20261107-deal-v25";
+import {isDealing,showRoomDeal} from "./arena-deal-v22.js?v=20261107-deal-v25";
 import {enablePointerDrag,animateBoardMove,animateCardTransfer} from "./drag-gestures.js?v=20261107-motion-v22b";
 function el(tag,cls="",content){
  const result=document.createElement(tag);
@@ -279,7 +279,11 @@ export function mountOnlineCanvas(root,onMove){
    lastCardLanding=landingKey;
   }
   if(!state.played?.length)current.append(el("span","arena-pvp-info","Vòng mới · chưa có bài trên bàn"));
-  else for(const c of state.played)current.append(playingCard(c));
+  else for(const [i,c] of state.played.entries()){
+    const face=playingCard(c);
+    face.style.setProperty("--land-index",String(i));
+    current.append(face);
+   }
   center.append(el("strong","",statusBanner(room)),current,
    el("small","",""+(state.last?.combo?.type||"Vòng mở")+" · "+(state.last?.player!==undefined?
     "Bộ trước: "+(room.players.find(x=>x.seat===state.last.player)?.name||"người chơi"):"")));
