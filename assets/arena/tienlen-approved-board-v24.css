@@ -645,3 +645,12 @@ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBo
   animation:none!important
  }
 }
+
+/* V25 desktop QA: prevent the lower edge of the last raised card from
+   crossing the physical table border when the 1440px hand fans out. */
+@media(min-width:1101px){
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-bottom,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-human{
+  bottom:21px!important;
+ }
+}
