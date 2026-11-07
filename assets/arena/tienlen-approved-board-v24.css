@@ -518,3 +518,23 @@ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-chop
   animation:none!important;transition:none!important;
  }
 }
+
+/* V24.1 real 844×390 screenshot: physical hand is clipped by the lower frame.
+   Shift it inside the actual stage, never hide any private cards. */
+@media(orientation:landscape) and (max-height:540px) and (max-width:1100px){
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-bottom{
+  bottom:12px!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-human{
+  bottom:12px!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-hand,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-hand{
+  padding-top:6px!important;height:calc(var(--ch) + 8px)!important;min-height:0!important;
+  max-height:calc(var(--ch) + 8px)!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-hand-card,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-hand>button{
+  height:var(--ch)!important;min-height:var(--ch)!important;max-height:var(--ch)!important;
+ }
+}
