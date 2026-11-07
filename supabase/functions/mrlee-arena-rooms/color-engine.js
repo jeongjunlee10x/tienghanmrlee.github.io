@@ -97,6 +97,7 @@ function doneOrPass(game,player,next){
   log(game,"Ván dài, người còn ít bài nhất thắng.");
  }
 }
+/** @param {string|null} chosenColor - optional active color for a wild card. */
 export function play(game,player,cardId,chosenColor=null,random=Math.random){
  ensureActive(game,player);
  const index=game.hands[player].findIndex(c=>c.id===cardId);
