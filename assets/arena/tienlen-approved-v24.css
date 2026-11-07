@@ -294,3 +294,78 @@ html[data-room-game="tienlen"] .game-room-frame-wrap{
  html[data-room-game="tienlen"] .tl24-lobby-actions button{min-width:0!important}
  html[data-room-game="tienlen"] .tl24-lobby-actions .tl24-play-now{min-width:0!important}
 }
+
+/* V24.1 screenshot QA: a horizontal phone has just ~290px for the lobby.
+   Preserve the 4 jewel rooms, GOLD CTA, and logo above the bottom dock. */
+html[data-room-game="tienlen"] .tl24-title h1{
+ background:none!important;-webkit-background-clip:initial!important;background-clip:initial!important;
+ -webkit-text-fill-color:#ffdb72!important;color:#ffdb72!important;
+ filter:none!important;
+ text-shadow:0 2px #bd7724,0 4px #692a1e,0 6px 8px #080413,0 0 18px #edae4999!important;
+}
+@media(orientation:landscape) and (max-height:550px){
+ html[data-room-game="tienlen"] .game-room-lobby.tl24-lobby{
+  min-height:0!important;height:calc(100dvh - 93px)!important;max-height:calc(100dvh - 93px)!important;
+  overflow:hidden!important;
+ }
+ html[data-room-game="tienlen"] .tl24-layout{
+  min-height:0!important;height:100%!important;max-height:100%!important;
+ }
+ html[data-room-game="tienlen"] .tl24-sidebar{padding:5px 8px!important;overflow:hidden!important}
+ html[data-room-game="tienlen"] .tl24-profile{
+  padding:2px 5px 5px!important;min-height:35px!important;
+ }
+ html[data-room-game="tienlen"] .tl24-profile-avatar{
+  width:28px!important;height:28px!important;flex-basis:28px!important;font-size:18px!important;
+ }
+ html[data-room-game="tienlen"] .tl24-game-menu{gap:0!important;padding-top:3px!important}
+ html[data-room-game="tienlen"] .tl24-game-menu a{
+  min-height:28px!important;padding:3px 6px!important;font-size:9px!important;
+ }
+ html[data-room-game="tienlen"] .tl24-game-menu a>span{font-size:13px!important}
+ html[data-room-game="tienlen"] .tl24-side-bottom{display:none!important}
+ html[data-room-game="tienlen"] .tl24-main{
+  justify-content:flex-start!important;gap:4px!important;padding:6px 8px 2px!important;overflow:hidden!important;
+ }
+ html[data-room-game="tienlen"] .tl24-title{gap:0!important;flex:0 0 auto!important}
+ html[data-room-game="tienlen"] .tl24-title .game-room-eyebrow{font-size:9px!important}
+ html[data-room-game="tienlen"] .tl24-title h1{
+  font-size:clamp(29px,4vw,40px)!important;line-height:.87!important;padding-bottom:3px!important;
+ }
+ html[data-room-game="tienlen"] .tl24-title p{
+  font-size:9px!important;line-height:1!important;white-space:nowrap;max-width:100%;overflow:hidden;
+ }
+ html[data-room-game="tienlen"] .tl24-logo-cards{height:21px!important;margin:0!important}
+ html[data-room-game="tienlen"] .tl24-logo-cards span{
+  width:25px!important;height:32px!important;font-size:11px!important;border-width:1px!important;
+ }
+ html[data-room-game="tienlen"] #roomMenu.tl24-room-menu{
+  width:min(100%,790px)!important;gap:5px!important;margin:3px auto 0!important;
+ }
+ html[data-room-game="tienlen"] .tl24-room-card{
+  min-height:82px!important;padding:4px 2px!important;border-width:1px!important;border-radius:12px!important;
+ }
+ html[data-room-game="tienlen"] .tl24-room-card:before{inset:3px!important;border-radius:9px!important}
+ html[data-room-game="tienlen"] .tl24-room-card .tl24-suit,
+ html[data-room-game="tienlen"] .tl24-room-card .tl24-crown{
+  font-size:25px!important;line-height:.9!important;
+ }
+ html[data-room-game="tienlen"] .tl24-room-card strong{
+  font-size:clamp(11px,1.65vw,15px)!important;margin:3px 0!important;
+ }
+ html[data-room-game="tienlen"] .tl24-room-card small{font-size:9px!important}
+ html[data-room-game="tienlen"] .tl24-room-card b{
+  font-size:clamp(10px,1.35vw,13px)!important;margin-top:0!important;
+ }
+ html[data-room-game="tienlen"] .tl24-lobby-actions{
+  gap:5px!important;margin:0!important;flex-wrap:nowrap!important;
+ }
+ html[data-room-game="tienlen"] .tl24-lobby-actions button{
+  min-height:30px!important;padding:4px 9px!important;font-size:10px!important;
+ }
+ html[data-room-game="tienlen"] .tl24-lobby-actions .tl24-play-now{
+  min-width:120px!important;font-size:13px!important;
+ }
+ html[data-room-game="tienlen"] .tl24-lobby-foot{display:none!important}
+ html[data-room-game="tienlen"] #roomModeHint{font-size:9px!important;line-height:1.2!important;margin:0!important}
+}
