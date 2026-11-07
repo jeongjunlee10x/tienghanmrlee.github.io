@@ -58,9 +58,25 @@ try{
   assert.equal(visibility,"hidden","Real card faces are concealed while shuffling");
   assert.equal(await page.locator(".tl-avatar-turn-clock").count(),0,
    "No turn clock while the cards are still being shuffled");
+  await page.waitForFunction(()=>document.querySelector("#tlBoard")?.dataset.fxPhase==="deal",
+   null,{timeout:3600});
+  assert.equal(await page.locator("#tlBoard .tl-deal-receipt").count(),4,
+   "Four receiving stacks must be visible while all 52 cards are dealt");
+  await page.waitForFunction(()=>Number(document.querySelector("#tlBoard")?.dataset.dealtCards||0)>=4,
+   null,{timeout:3600});
+  const progress=Number(await page.locator("#tlBoard").getAttribute("data-dealt-cards"));
+  assert.ok(progress>=4&&progress<52,
+   "Realistic physical deal must visibly progress instead of jumping to 52");
+  assert.equal(await page.locator(".tl-deal-receipt-count").count(),4);
+  assert.equal(await page.locator(".tl-avatar-turn-clock").count(),0,
+   "20-second clock must not run during the physical deal");
   await page.waitForFunction(()=>document.querySelector("#tlBoard")?.dataset.fxPhase==="ready",
    null,{timeout:9000});
   await page.locator("#tlDealNotice").waitFor({state:"hidden"});
+  assert.equal(await page.locator("#tlBoard").getAttribute("data-dealt-cards"),"52",
+   "Complete all 52 visible flight arrivals before starting the round");
+  assert.equal(await page.locator(".tl-deal-receipt").count(),0,
+   "Temporary four hand piles are cleaned after the deal");
   assert.equal(await page.locator("#tlHand .tl-hand-card").count(),13,
    "Each real human hand receives exactly 13 cards");
   const post=await page.locator("#tlHand .tl-hand-card").first()
