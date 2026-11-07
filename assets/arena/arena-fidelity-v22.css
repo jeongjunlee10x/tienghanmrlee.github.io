@@ -676,3 +676,22 @@ html.arena-embedded[data-embedded-game="tienlen"] .arena-v22-back{
  html.arena-embedded .online-tl-board .arena-pvp-hand>button,
  html.arena-embedded #tlBoard .tl-hand-card{animation:none!important}
 }
+
+/* V23: stable 14-by-14 horse board hitboxes.
+ * Intrinsic auto-sized implicit grid rows could overflow the square and let
+ * an offscreen cell intercept the drag release on 390px touch screens.
+ * Fixed equal rows also keep every token centered inside its real square. */
+html.arena-embedded[data-embedded-game="ludo"] #arenaLudo .ludo-board{
+ display:grid!important;position:relative!important;
+ grid-template-columns:repeat(14,minmax(0,1fr))!important;
+ grid-template-rows:repeat(14,minmax(0,1fr))!important;
+ grid-auto-flow:row!important;grid-auto-rows:minmax(0,1fr)!important;
+ align-content:stretch!important;justify-content:stretch!important
+}
+html.arena-embedded[data-embedded-game="ludo"] #arenaLudo .ludo-board>.ludo-cell{
+ box-sizing:border-box!important;min-width:0!important;min-height:0!important;
+ grid-area:auto!important;overflow:visible!important;z-index:1
+}
+html.arena-embedded[data-embedded-game="ludo"] #arenaLudo .ludo-board>.arena-extra-ticker{
+ position:absolute!important;pointer-events:none!important;z-index:3!important
+}
