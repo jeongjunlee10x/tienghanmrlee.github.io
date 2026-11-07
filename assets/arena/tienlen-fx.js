@@ -2,7 +2,7 @@
  * Cards physically travel to the table; any current animation is safely canceled on exit.
  * No real-money effects, score writes or external assets.
  */
-import {label,SUITS} from "./tienlen-engine.js";
+import {label,SUITS,beats} from "./tienlen-engine.js";
 
 export function playingCard(card){
  const rank=card.rank===15?"2":card.rank===14?"A":card.rank===13?"K":card.rank===12?"Q":card.rank===11?"J":String(card.rank);
@@ -43,9 +43,9 @@ export function chopTitle(previous,next){
  if(!previous||!next||!(next.type==="quad"||next.type==="pair-run"))return "";
  const two=previous.high===15&&(previous.type==="single"||previous.type==="pair");
  const special=previous.type==="quad"||previous.type==="pair-run";
- if(!two&&!special)return "";
- // Only the caller/engine may decide whether a combination really beats
- // another; never infer a bomb from an invalid or repeated non-move.
+ if(!two&&!special||!beats(next,previous))return "";
+ // Guard the popup with the exact same rule engine as the accepted move:
+ // a repeated/equal or illegal combo must never be displayed as a chop.
  return next.type==="quad"?"TỨ QUÝ CHẶT!":next.type==="pair-run"?"ĐÔI THÔNG CHẶT!":"CHẶT HEO!";
 }
 /** Screen-centered, noninteractive blast, also used by authenticated PvP.
