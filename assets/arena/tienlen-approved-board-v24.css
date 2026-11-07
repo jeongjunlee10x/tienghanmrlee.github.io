@@ -1,0 +1,520 @@
+/* Tiến Lên Miền Nam V24 — screenshot-approved ruby felt + golden casino oval.
+ * Scoped to Tiến Lên iframe only; card rules and server state untouched. */
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"]{
+ --tl24-ruby:#7a102a;--tl24-gold:#ffd578;--tl24-ivory:#fff6e5;
+ background:radial-gradient(ellipse at 50% 10%,#553170 0%,#28153f 54%,#100b25 100%)!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] body{
+ background:transparent!important;color:#ffebcc!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] :is(#arenaTienLen,#arenaPvPBoard)>.arena-table-heading{
+ color:#fff3d3!important;background:linear-gradient(90deg,#20102e,#36123e 52%,#20112f)!important;
+ border:1px solid #b78a5d!important;box-shadow:inset 0 1px #fff3,0 4px 14px #0008!important;
+ border-radius:9px!important;max-height:41px!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] :is(#arenaTienLen,#arenaPvPBoard)>.arena-table-heading h2{
+ color:#ffe1a2!important;font-weight:1000!important;text-shadow:0 1px 5px #000a!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] :is(#arenaTienLen,#arenaPvPBoard)>.arena-table-heading button{
+ color:#fff2e1!important;border:1px solid #cf9ca8!important;
+ background:linear-gradient(145deg,#5b235d,#241436)!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen #tlBoard,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-card-table{
+ --cw:clamp(44px,5.4vw,76px);--ch:calc(var(--cw)*1.42);
+ position:relative!important;isolation:isolate!important;
+ width:min(100%,1450px)!important;
+ height:clamp(480px,calc(100dvh - 52px),820px)!important;
+ min-height:480px!important;max-height:none!important;box-sizing:border-box!important;
+ margin:0 auto!important;padding:0!important;overflow:hidden!important;
+ border:2px solid #b9804a!important;border-radius:17px!important;
+ background:
+  radial-gradient(ellipse 65% 66% at 50% -8%,#71417990,transparent 69%),
+  radial-gradient(ellipse 110% 75% at 50% 120%,#6f2b5288,transparent 70%),
+  repeating-linear-gradient(90deg,#ffe4b007 0 1px,transparent 1px 45px),
+  linear-gradient(130deg,#27172e 0%,#3d1831 48%,#1b102d 100%)!important;
+ box-shadow:inset 0 0 0 4px #180c2499,inset 0 1px #f8d7ac4d,0 14px 27px #060412c2!important;
+}
+/* The outside scene stays rectangular: luxurious oval table sits INSIDE. */
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen #tlBoard::before,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-card-table::before{
+ content:""!important;display:block!important;position:absolute!important;
+ inset:14% 7% 20% 7%!important;
+ border:clamp(7px,1vw,14px) ridge #d8a654!important;
+ border-radius:50% / 47%!important;box-sizing:border-box!important;
+ background:
+  radial-gradient(ellipse at 47% 37%,#a22245 0%,#75102d 54%,#3b071c 100%),
+  repeating-linear-gradient(87deg,#fff2 0 1px,transparent 1px 6px)!important;
+ box-shadow:0 14px 18px #050410d6,
+  inset 0 0 0 2px #fff4c37d,inset 0 0 0 9px #53071f9c,
+  inset 0 1px 38px #d52c4980,inset 0 -16px 36px #1c0214c4,
+  0 0 0 2px #512a30!important;
+ pointer-events:none!important;z-index:0!important;
+ opacity:1!important;transform:none!important;
+}
+/* Emblem is subtle; the played cards remain the focal point. */
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen #tlBoard::after,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-card-table::after{
+ content:"♠  M R · L E E  ♦"!important;
+ position:absolute!important;left:50%!important;top:48%!important;
+ transform:translate(-50%,-50%)!important;
+ background:none!important;border:0!important;
+ color:#f8d89f19!important;font:1000 clamp(10px,2.8vw,31px)/1 Georgia,serif!important;
+ white-space:nowrap;text-shadow:0 1px #23051463;z-index:1!important;
+ pointer-events:none!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-table-watermark{display:none!important}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-room-badge{
+ position:absolute!important;z-index:4!important;left:50%!important;top:16%!important;
+ transform:translateX(-50%)!important;
+ padding:4px 14px!important;border:1px solid #e7b76a9c!important;border-radius:99px!important;
+ background:linear-gradient(110deg,#45212d99,#210f2dc7)!important;
+ color:#ffdc8b!important;font:900 10px/1.1 system-ui!important;
+ letter-spacing:.03em;white-space:nowrap;pointer-events:none;
+}
+/* Four recognizable positions, avatar with in-circle 20s countdown. */
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen #tlBoard .tl-opponent,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-seat{
+ z-index:10!important;min-width:102px!important;max-width:164px!important;
+ padding:5px 9px!important;gap:3px!important;
+ border:1px solid #efbc75cc!important;border-radius:14px!important;
+ background:linear-gradient(130deg,#28143fe9,#341a38f2 60%,#1c122be8)!important;
+ box-shadow:inset 0 1px #ffffff3c,0 4px 13px #000b,0 0 12px #e7ab3529!important;
+ backdrop-filter:none!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-opponent[data-seat="top"],
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-seat[data-position="top"]{
+ top:1.5%!important;left:50%!important;right:auto!important;transform:translateX(-50%)!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-opponent[data-seat="left"],
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-seat[data-position="left"]{
+ top:36%!important;left:1%!important;right:auto!important;transform:translateY(-50%)!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-opponent[data-seat="right"],
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-seat[data-position="right"]{
+ top:36%!important;right:1%!important;left:auto!important;transform:translateY(-50%)!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-avatar,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-card-avatar{
+ border:2px solid #ffd07b!important;border-radius:50%!important;
+ background:radial-gradient(circle at 30% 20%,#ffde94a6,#8e427e 43%,#2a183c)!important;
+ box-shadow:0 0 0 2px #58213a,0 0 12px #ffc55c66!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-opponent.active,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-seat.active{
+ border-color:#fff1ad!important;box-shadow:0 0 0 2px #edb85c87,0 0 21px #ffcb568f!important;
+ animation:tl24-seat-pulse 1.35s ease-in-out infinite alternate!important;
+}
+@keyframes tl24-seat-pulse{
+ from{filter:brightness(1)}
+ to{filter:brightness(1.2)}
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-seat-meta small,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-player-gold,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-seat>small{
+ color:#ffe18f!important;font-weight:950!important;text-shadow:0 1px 3px #0009;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-seat-count,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-player-count{
+ color:#fff5e0!important;background:#211126df!important;border:1px solid #e8b66e8c!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-back-fan .tl-card-back,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-card-back{
+ background:
+  repeating-linear-gradient(45deg,#dfaa4c29 0 2px,transparent 2px 7px),
+  linear-gradient(145deg,#7c1541,#381044 65%,#200e35)!important;
+ border:2px solid #f5d891!important;border-radius:6px!important;
+ box-shadow:0 3px 8px #000b,inset 0 0 0 2px #4e1d43!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-card-back-inner{
+ background:
+  repeating-linear-gradient(45deg,#ffd88c37 0 1px,transparent 1px 6px),
+  radial-gradient(circle,#a0345e,#421343 68%)!important;
+ border:1px solid #e7b26a!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-back-crest{
+ border:2px double #f9d582!important;color:#ffe8a0!important;
+ text-shadow:0 0 7px #ffd1699c!important;
+}
+/* Cards: white stock, deep readable suit/rank, gold-edged burgundy backs. */
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-real-card,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .tl-real-card{
+ background:linear-gradient(145deg,#ffffff 0%,#fffdfb 57%,#e8e0d8 100%)!important;
+ border:2px solid #fffbef!important;border-radius:7px!important;
+ color:#1c1b29!important;
+ box-shadow:inset 0 0 0 1px #cfc6bc,0 5px 9px #0009!important;
+ font-family:Georgia,"Times New Roman",serif!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-real-card.red,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .tl-real-card.red{
+ color:#da142d!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .tl-card-corner{
+ font-weight:1000!important;text-shadow:none!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .tl-card-corner strong{
+ font-family:Georgia,"Times New Roman",serif!important;font-weight:1000!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .tl-card-art{
+ background:transparent!important;border:0!important;inset:18% 10%!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .tl-card-art-suit{
+ font-size:calc(var(--cw)*.67)!important;line-height:1!important;
+ text-shadow:0 1px 1px #0001!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .tl-card-emboss{opacity:.17!important}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .tl-card-royal{
+ border-color:#d3af7899!important;border-radius:6px!important;
+ color:#b4883a!important;background:#fff5e3b3!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-hand-card.selected .tl-real-card,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-hand button.selected .tl-real-card{
+ box-shadow:0 0 0 3px #f7d56c,0 3px 16px #ffd05a9e!important;
+}
+/* Real played cards stay above the oval, not in a separate rectangular panel. */
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-center,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-center{
+ z-index:6!important;top:35%!important;left:21%!important;right:21%!important;
+ height:27%!important;max-height:30%!important;min-height:0!important;
+ padding:0!important;margin:0!important;border:0!important;
+ background:none!important;box-shadow:none!important;
+ display:flex!important;flex-direction:column!important;
+ align-items:center!important;justify-content:center!important;gap:4px!important;
+ color:#ffecce!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-pile-label,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-round-badge{
+ color:#ffe39c!important;background:#3f103485!important;border-color:#f2bb747d!important;
+ border-radius:99px!important;padding:2px 8px!important;line-height:1!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard #tlPile{
+ min-height:clamp(47px,8vw,106px)!important;display:flex!important;flex-wrap:nowrap!important;
+ align-items:center!important;justify-content:center!important;overflow:visible!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-pile>.tl-real-card{
+ margin-left:-8px!important;filter:drop-shadow(0 7px 5px #15020bb8);
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-hint,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard #tlStatus,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-online-tl-notice{
+ color:#fff1be!important;text-shadow:0 2px 3px #1a081d!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-live-event{
+ color:#ffc078!important;font-size:10px!important;max-width:90%;text-overflow:ellipsis;overflow:hidden;
+}
+/* Bottom player is placed at lower LEFT of the oval.
+   Human cards form a generous centered fan; buttons are right side. */
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-bottom{
+ position:absolute!important;z-index:20!important;
+ left:9px!important;right:9px!important;bottom:6px!important;
+ display:grid!important;
+ grid-template-columns:minmax(98px,17%) minmax(0,1fr) minmax(142px,24%)!important;
+ grid-template-rows:auto minmax(0,1fr)!important;
+ align-items:end!important;gap:3px 7px!important;
+ padding:0!important;margin:0!important;background:none!important;border:0!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-player-hud{
+ grid-column:1!important;grid-row:1 / 3!important;
+ display:flex!important;flex-direction:column!important;align-items:center!important;
+ align-self:end!important;justify-content:center!important;
+ gap:5px!important;width:100%!important;max-width:none!important;
+ min-width:0!important;margin:0!important;padding:7px 5px!important;
+ border:1px solid #dba85fd4!important;border-radius:17px!important;
+ background:linear-gradient(130deg,#33163aeb,#170e2eda)!important;
+ box-shadow:inset 0 1px #fff3,0 5px 9px #05020cd4!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-player-identity{
+ display:flex!important;justify-content:center!important;gap:7px!important;
+ max-width:100%!important;min-width:0!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-player-identity .tl-avatar{
+ display:grid!important;place-items:center!important;flex:0 0 43px!important;
+ width:43px!important;height:43px!important;font-size:24px!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-player-details{
+ min-width:0!important;overflow:hidden!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-player-details strong{
+ font-size:clamp(10px,1.2vw,14px)!important;white-space:nowrap;
+ max-width:120px;overflow:hidden;text-overflow:ellipsis;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-hand{
+ grid-column:2 / 4!important;grid-row:2!important;
+ display:flex!important;justify-content:center!important;align-items:flex-end!important;
+ width:100%!important;max-width:none!important;
+ min-height:0!important;max-height:calc(var(--ch) + 16px)!important;
+ padding:12px 1px 0!important;margin:0!important;gap:0!important;
+ overflow-x:auto!important;overflow-y:hidden!important;
+ scrollbar-width:none!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-hand-card{
+ flex:0 0 clamp(21px,3vw,45px)!important;
+ width:clamp(21px,3vw,45px)!important;
+ min-height:var(--ch)!important;height:var(--ch)!important;
+ overflow:visible!important;border:0!important;touch-action:none!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-hand-card:last-child{
+ flex-basis:var(--cw)!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-hand-card.selected{
+ transform:translateY(-13px)!important;filter:drop-shadow(0 4px 6px #fbb74b8c)!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-selected{
+ grid-column:2!important;grid-row:1!important;align-self:center!important;
+ color:#ffd9a0!important;text-shadow:0 1px 4px #000!important;text-align:right!important;
+ padding:0 4px!important;margin:0!important;font-size:11px!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-controls.arena-card-turn-popup{
+ grid-column:3!important;grid-row:1!important;
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ flex-wrap:wrap!important;gap:5px!important;
+ width:100%!important;max-width:none!important;max-height:120px!important;
+ margin:0!important;padding:5px!important;
+ background:linear-gradient(125deg,#3f173edc,#160f2bdd)!important;
+ border:1px solid #ecb878b5!important;border-radius:16px!important;
+ box-shadow:inset 0 1px #ffffff38,0 5px 9px #0008!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-controls[hidden]{display:none!important}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-controls button,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-actions button{
+ min-height:33px!important;padding:5px 10px!important;
+ border:1px solid #edc97d!important;border-radius:99px!important;
+ background:linear-gradient(#614463,#251a45)!important;
+ color:#fff0cd!important;font:950 clamp(9px,.88vw,12px)/1.2 system-ui!important;
+ box-shadow:inset 0 1px #ffffff4b,0 2px 7px #0008!important;white-space:nowrap;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard :is(#tlPlay),
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-actions .arena-primary{
+ background:linear-gradient(#fff2a1,#ffcb36 51%,#d9880e)!important;
+ color:#40170c!important;text-shadow:0 1px #fff6!important;
+ border-color:#ffeeb6!important;box-shadow:0 0 12px #ffcd5888,inset 0 1px white!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-controls button:disabled,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-actions button:disabled{
+ opacity:.45!important;filter:grayscale(.25)!important;cursor:not-allowed!important;
+}
+/* PvP: authentic table in exactly the same red + gold composition. */
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-human{
+ z-index:20!important;display:grid!important;
+ grid-template-columns:minmax(93px,17%) minmax(0,1fr) minmax(138px,23%)!important;
+ grid-template-rows:auto auto!important;align-items:end!important;
+ left:8px!important;right:8px!important;bottom:4px!important;gap:3px 6px!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-me{
+ grid-column:1!important;grid-row:1/3!important;align-self:end!important;
+ border:1px solid #e7b767!important;border-radius:15px!important;
+ background:linear-gradient(135deg,#351742ed,#190f2edc)!important;
+ padding:6px!important;box-shadow:0 5px 8px #0009!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-hand{
+ grid-column:2/4!important;grid-row:2!important;
+ max-height:calc(var(--ch) + 16px)!important;min-height:0!important;
+ padding:10px 1px 0!important;gap:0!important;justify-content:center!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-hand>button{
+ flex:0 0 clamp(21px,3vw,45px)!important;width:clamp(21px,3vw,45px)!important;
+ height:var(--ch)!important;touch-action:none!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-hand>button:last-child{
+ flex-basis:var(--cw)!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-hand .tl-real-card{
+ width:var(--cw)!important;height:var(--ch)!important;min-width:var(--cw)!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-card-turn-popup{
+ grid-column:3!important;grid-row:1!important;align-self:center!important;
+ max-height:130px!important;width:100%!important;margin:0!important;padding:6px!important;
+ border:1px solid #dfa66c!important;border-radius:15px!important;
+ background:linear-gradient(120deg,#471b4aef,#220f2ce8)!important;
+ box-shadow:0 5px 10px #0008!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-card-turn-title{color:#ffdf9b!important}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-backs>span{
+ background:repeating-linear-gradient(42deg,#e9b96a2a 0 2px,transparent 2px 6px),
+  linear-gradient(140deg,#8a1b54,#3b1248)!important;
+ border:1px solid #ffdc8b!important;box-shadow:0 3px 8px #0008!important;
+}
+/* Genuine state-gated dealer choreography remains: never reveal hand during deal. */
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard:is([data-fx-phase="shuffle"],[data-fx-phase="deal"],[data-fx-phase="spread"]) .tl-hand-card,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .online-tl-board[data-fx-phase="deal"] .arena-pvp-hand>button{
+ visibility:hidden!important;opacity:0!important;pointer-events:none!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-deal-notice{
+ z-index:70!important;top:6%!important;transform:translateX(-50%)!important;
+ background:linear-gradient(135deg,#5a1c4a,#231332)!important;
+ border:2px solid #ffd279!important;color:#fff1b9!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-v22-deal-mask{
+ background:radial-gradient(ellipse at center,#380c2b9e,#160b2ddd 75%)!important;
+ border:0!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-v22-deal-title{
+ color:#ffe3a0!important;text-shadow:0 3px 6px #000!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-v23-dealer-card,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-v22-back{
+ background:repeating-linear-gradient(45deg,#ffd27d3c 0 2px,transparent 2px 7px),
+  linear-gradient(145deg,#8b2246,#4a123e)!important;
+ border-color:#ffd88c!important;
+}
+/* Colorful crown explosions are inserted only by confirmed table events. */
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-chop-v22{
+ z-index:9999!important;position:fixed!important;inset:0!important;
+ display:grid!important;place-items:center!important;overflow:hidden!important;
+ background:radial-gradient(ellipse at center,#631a4070,transparent 51%)!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-chop-v22-ring{
+ width:min(76vw,370px)!important;height:min(76vw,370px)!important;
+ border:7px solid #ffe08f!important;
+ box-shadow:0 0 30px 14px #ffaf30aa,inset 0 0 48px #ffbb479c,0 0 0 16px #ff6f2855!important;
+ background:radial-gradient(circle,#ffdd775c 0%,#ab2c566c 34%,transparent 71%)!important;
+ animation:tl24-shockwave .9s cubic-bezier(.12,.83,.23,1) both!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-chop-v22-title{
+ position:relative!important;z-index:2!important;
+ width:auto!important;max-width:90vw!important;
+ font:1000 clamp(34px,6vw,75px)/1.05 Georgia,serif!important;
+ letter-spacing:-.045em!important;text-transform:uppercase!important;
+ padding:8px 18px!important;white-space:nowrap!important;
+ color:#fff6ba!important;-webkit-text-stroke:1.1px #8f3415!important;
+ text-shadow:0 2px #823510,0 4px #a8460e,0 8px 13px #110620,0 0 27px #ffcb3d!important;
+ background:none!important;
+ animation:tl24-crown-pop .92s cubic-bezier(.15,.82,.28,1) both!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-chop-v22-title:before{
+ content:"♛";position:absolute;left:50%;top:-67px;transform:translateX(-50%);
+ font:1000 clamp(40px,6vw,72px)/1 Georgia,serif!important;
+ color:#ffdc60;text-shadow:0 5px 4px #7d3411,0 0 19px #ffba34;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-chop-v22-title:after{
+ content:"✦ ĐẠI CHIẾN TIẾN LÊN ✦";display:block;margin-top:8px;
+ font:1000 clamp(11px,1.8vw,18px)/1.2 system-ui!important;
+ color:#ffedba;letter-spacing:.12em;text-align:center;-webkit-text-stroke:0!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-chop-v22[data-kind="pairs"] .arena-chop-v22-ring,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-chop-v22[data-kind="straight"] .arena-chop-v22-ring{
+ border-color:#c8b6ff!important;box-shadow:0 0 30px #c76cff,0 0 0 16px #7e43ef66!important;
+ background:radial-gradient(circle,#a858ff94,#4e1e8c6c,transparent 73%)!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-chop-v22[data-kind="straight"] .arena-chop-v22-title{
+ text-shadow:0 4px 2px #264b99,0 7px 15px #0e113b,0 0 27px #4dafff!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-chop-v22-spark{
+ width:9px!important;height:20px!important;
+ background:linear-gradient(#fff,#ffcf65,#ff5d25)!important;
+ box-shadow:0 0 9px #ffc66c!important;
+}
+@keyframes tl24-shockwave{
+ 0%{transform:translate(-50%,-50%) scale(.2);opacity:0}
+ 30%{opacity:1}
+ 100%{transform:translate(-50%,-50%) scale(1.4);opacity:0}
+}
+@keyframes tl24-crown-pop{
+ 0%{opacity:0;transform:translate(-50%,-50%) scale(.15) rotate(-6deg)}
+ 34%{opacity:1;transform:translate(-50%,-50%) scale(1.17) rotate(2deg)}
+ 70%{opacity:1;transform:translate(-50%,-50%) scale(.98)}
+ 100%{opacity:0;transform:translate(-50%,-55%) scale(1.04)}
+}
+@media(orientation:landscape) and (max-height:540px) and (max-width:1100px){
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen #tlBoard,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-card-table{
+  --cw:clamp(30px,4.8vw,45px);
+  min-height:225px!important;height:max(225px,calc(100dvh - 87px))!important;
+  max-height:max(225px,calc(100dvh - 87px))!important;
+  border-radius:9px!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-opponent,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-seat{
+  min-width:71px!important;max-width:105px!important;padding:2px 4px!important;gap:1px!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-opponent[data-seat="left"],
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-opponent[data-seat="right"],
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-seat[data-position="left"],
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-seat[data-position="right"]{top:31%!important}
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-avatar,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-card-avatar{
+  width:26px!important;height:26px!important;min-width:26px!important;min-height:26px!important;font-size:16px!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-room-badge{display:none!important}
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-center,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-center{
+  top:26%!important;height:28%!important;gap:1px!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-bottom{
+  grid-template-columns:90px minmax(0,1fr) minmax(130px,25%)!important;
+  left:4px!important;right:4px!important;bottom:1px!important;
+  gap:1px 3px!important;max-height:115px!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-player-hud{
+  max-height:72px!important;padding:3px!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-player-identity .tl-avatar{
+  width:27px!important;height:27px!important;flex-basis:27px!important;font-size:15px!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-hand{
+  max-height:66px!important;padding:5px 1px 0!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-hand-card,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-hand>button{
+  min-height:var(--ch)!important;max-height:var(--ch)!important;height:var(--ch)!important;
+  flex-basis:clamp(17px,2.7vw,27px)!important;width:clamp(17px,2.7vw,27px)!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-controls.arena-card-turn-popup{
+  max-height:72px!important;padding:2px!important;gap:2px!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-controls button,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-actions button{
+  min-height:26px!important;font-size:9px!important;padding:3px 6px!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-human{
+  grid-template-columns:90px minmax(0,1fr) minmax(130px,25%)!important;bottom:1px!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-hand{
+  max-height:66px!important;min-height:0!important;padding:5px 1px 0!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-hand .tl-real-card{
+  width:var(--cw)!important;height:var(--ch)!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-card-turn-popup{
+  max-height:90px!important;padding:3px!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-chop-v22-title:before{
+  top:-29px;font-size:36px!important;
+ }
+}
+@media(orientation:portrait) and (max-width:650px){
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen #tlBoard,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-card-table{
+  --cw:clamp(33px,7vw,46px);
+  min-height:480px!important;height:min(70dvh,650px)!important;overflow:hidden!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-bottom{
+  grid-template-columns:75px minmax(0,1fr) 92px!important;gap:2px!important;left:3px!important;right:3px!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-player-hud{
+  max-height:77px!important;padding:3px 2px!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-player-identity{
+  display:flex!important;flex-direction:column!important;gap:2px!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-player-identity .tl-avatar{
+  width:29px!important;height:29px!important;flex-basis:29px!important;font-size:17px!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-selected{font-size:8px!important}
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-controls.arena-card-turn-popup{
+  max-height:108px!important;padding:2px!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-controls button{
+  min-height:25px!important;padding:2px 3px!important;font-size:8px!important;
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-human{
+  grid-template-columns:75px minmax(0,1fr) 92px!important;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .tl-opponent.active,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-pvp-seat.active,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-chop-v22 *{
+  animation:none!important;transition:none!important;
+ }
+}
