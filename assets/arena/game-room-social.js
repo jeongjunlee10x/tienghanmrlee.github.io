@@ -123,9 +123,13 @@ export function mountArenaFriendPopup({game,gameName,getWallet,getTimeControl=()
   close.disabled=value;
   createTab.disabled=value;joinTab.disabled=value;
  }
- function open(tab="create"){
-  if(!dialog.open)dialog.showModal();
-  chooseTab(tab);
+ function open(tab="create",preferredTier=null){
+   if(!dialog.open)dialog.showModal();
+   chooseTab(tab);
+   if(preferredTier!==null){
+    const matched=radios.find(r=>Number(r.value)===Number(preferredTier));
+    if(matched)matched.checked=true;
+   }
   if(chessSelect)chessSelect.value=getTimeControl();
   void refreshWallet();
  }
