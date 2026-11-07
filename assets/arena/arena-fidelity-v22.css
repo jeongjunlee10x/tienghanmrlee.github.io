@@ -695,3 +695,49 @@ html.arena-embedded[data-embedded-game="ludo"] #arenaLudo .ludo-board>.ludo-cell
 html.arena-embedded[data-embedded-game="ludo"] #arenaLudo .ludo-board>.arena-extra-ticker{
  position:absolute!important;pointer-events:none!important;z-index:3!important
 }
+
+
+/* V23.1: keep all 13 human cards visible on 844x390 landscape phones.
+ * The game-room header also consumes viewport height; a 100dvh-34px board
+ * extended BELOW the actual iframe and visually chopped the hand in half. */
+@media(orientation:landscape) and (max-height:540px) and (max-width:1100px){
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-board,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-card-table,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="colors"] #arenaTable .arena-board,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="colors"] #arenaPvPBoard .arena-pvp-card-table{
+  height:max(225px,calc(100dvh - 88px))!important;
+  max-height:max(225px,calc(100dvh - 88px))!important;
+  min-height:225px!important;overflow:hidden!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-bottom{
+  bottom:2px!important;left:5px!important;right:5px!important;
+  padding:0!important;max-height:115px!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-hand-card{
+  min-height:46px!important;max-height:66px!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-hand{
+  max-height:69px!important;min-height:0!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-player-hud{
+  max-height:35px!important;min-height:0!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-center{
+  top:26%!important;height:31%!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-opponent[data-seat="left"],
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen .tl-opponent[data-seat="right"]{
+  top:33%!important
+ }
+}
+/* V23.1: allow a full-height vertical board in portrait; landscape remains
+ * a compact usable preview instead of clipping navigation and move controls. */
+@media(orientation:portrait) and (max-width:650px){
+ html.arena-reference-v1.arena-embedded[data-embedded-game="ludo"] #arenaLudo .arena-extra-layout,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="xiangqi"] #arenaXiangqi .arena-extra-layout,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="estate"] #arenaEstate .arena-extra-layout{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  grid-auto-flow:row!important;align-items:start!important;
+  width:100%!important;max-width:650px!important
+ }
+}
