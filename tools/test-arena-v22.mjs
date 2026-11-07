@@ -91,7 +91,7 @@ check(read("ludo").includes("arena-v22-dice-rolling")&&
  "Dice use visual tumbling without changing engine RNG");
 check(read("colors").includes("kind:\"color-card\""),
  "Bài Màu animates an actual drawn card");
-check(read("page").includes('arena-fidelity-v22.css?v=20261107-motion-v22')&&
- read("page").includes('app.js?v=20261107-motion-v22c'),
- "V22 visual CSS loads last and JavaScript cache is refreshed");
+check(read("page").includes('arena-fidelity-v22.css?v=20261107-fidelity-v23')&&
+ read("page").includes('app.js?v=20261107-fidelity-v23'),
+ "Approved V23 visual CSS loads last and JavaScript cache is refreshed");
 console.log("PASS Arena V22: "+count+" verified rules, server timeline, board fidelity and motion contracts.");
