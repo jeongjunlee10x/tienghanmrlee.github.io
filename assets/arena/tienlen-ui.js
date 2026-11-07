@@ -89,6 +89,7 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   message.textContent=(won?"Bạn về nhất!":NAMES[game.winner]+" về nhất!")+
    (otherTwos?" · Còn "+otherTwos+" lá 2 trong tay người thua (thối heo, chỉ thông báo).":"");
   onFinish(won?"win":"loss","Tiến lên miền Nam",root);
+  if(won)void showChopPopup("CHIẾN THẮNG!",{duration:1300});
   render();
  }
  const selectedValid=()=>!!game&&!busy&&!done&&game.turn===0&&game.winner===null&&canPlay(game,0,[...selected]);
