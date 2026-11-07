@@ -1,0 +1,270 @@
+/* MR LEE / Tiến Lên Miền Nam — approved casino V24.
+   Dedicated game lobby and red-velvet oval table. Visual-only overrides:
+   no changes to authoritative game logic or wallet rules. */
+html[data-room-game="tienlen"]{
+ --tl24-gold:#ffd36b;--tl24-ink:#fff1d3;--tl24-night:#110b27;
+ color-scheme:dark;
+}
+html[data-room-game="tienlen"] body{
+ background:
+  radial-gradient(ellipse 65% 60% at 55% 22%,#54409964,transparent 65%),
+  radial-gradient(ellipse 58% 42% at 20% 75%,#8a2a6d33,transparent 70%),
+  linear-gradient(150deg,#140b2d 0%,#221038 40%,#100a2b 100%)!important;
+}
+html[data-room-game="tienlen"] .game-room-shell{
+ background:transparent!important;min-height:100dvh;
+}
+html[data-room-game="tienlen"] .game-room-header{
+ background:linear-gradient(90deg,#171033f5,#2b174ff8 48%,#1a103af5)!important;
+ border-bottom:1px solid #d8a35466!important;
+ box-shadow:0 5px 22px #05031285,inset 0 -1px #fee5a929!important;
+}
+html[data-room-game="tienlen"] .game-room-header .game-room-back,
+html[data-room-game="tienlen"] .game-room-header-actions :is(button,a){
+ border:1px solid #b17fe481!important;background:linear-gradient(145deg,#4d247e,#27134e)!important;
+ color:#fff0d2!important;box-shadow:inset 0 1px #ffffff25,0 4px 8px #09031888!important;
+}
+html[data-room-game="tienlen"] .game-room-player{
+ border-color:#b98965a1!important;background:linear-gradient(135deg,#33234fd9,#1b1338d9)!important;
+}
+html[data-room-game="tienlen"] .game-room-money,
+html[data-room-game="tienlen"] .game-room-points{
+ background:linear-gradient(100deg,#372146,#1f173c)!important;
+ border:1px solid #dbb25e99!important;box-shadow:inset 0 1px #fff3,0 4px 10px #0005!important;
+}
+html[data-room-game="tienlen"] .game-room-main{overflow:visible!important}
+html[data-room-game="tienlen"] .game-room-lobby.tl24-lobby{
+ position:relative!important;overflow:hidden!important;
+ box-sizing:border-box;min-height:min(660px,calc(100dvh - 148px));
+ height:auto!important;max-width:1550px;margin:auto!important;padding:0!important;
+ border:1px solid #c28f6647;border-radius:0 0 23px 23px;
+ background:
+  radial-gradient(ellipse 50% 95% at 50% 30%,#59327273,transparent 76%),
+  radial-gradient(ellipse 100% 39% at 49% 101%,#863b8380,transparent 70%),
+  linear-gradient(145deg,#180b32f5,#30133df4 48%,#150d30f9)!important;
+ box-shadow:inset 0 0 100px #0304168c,0 14px 30px #06051b9c;
+}
+html[data-room-game="tienlen"] .tl24-scene{
+ z-index:0!important;pointer-events:none;inset:0!important;
+ background:
+  radial-gradient(ellipse at 51% 9%,#6b74f652,transparent 58%),
+  repeating-linear-gradient(90deg,#ffe4ac06 0 2px,transparent 2px 50px),
+  linear-gradient(to bottom,transparent 55%,#32112d99 100%)!important;
+}
+html[data-room-game="tienlen"] .tl24-scene:before{
+ content:"";position:absolute;inset:0;
+ background:
+  linear-gradient(90deg,#c89456a3 0 2px,transparent 2px 20%,#a7774f35 20% 22%,transparent 22% 78%,#a7774f35 78% 80%,transparent 80%),
+  radial-gradient(ellipse at 50% 90%,#e689bb21,transparent 65%);
+ opacity:.6;
+}
+html[data-room-game="tienlen"] .tl24-scene:after{
+ content:"";position:absolute;inset:auto 0 0;height:22%;border-top:2px solid #d59d6266;
+ background:repeating-linear-gradient(100deg,#ffc0790c 0 3px,#311b4240 3px 32px),
+  linear-gradient(#45253b66,#170b29ef);transform:perspective(250px) rotateX(5deg);
+}
+html[data-room-game="tienlen"] .tl24-layout{
+ position:relative;z-index:2;display:grid;grid-template-columns:clamp(170px,18vw,238px) minmax(0,1fr);
+ min-height:640px;max-width:1540px;margin:auto;
+}
+html[data-room-game="tienlen"] .tl24-sidebar{
+ display:flex;flex-direction:column;min-height:100%;padding:18px 10px;
+ background:linear-gradient(180deg,#1c1138e8,#29143edf 54%,#1d1034e8);
+ border-right:2px solid #8d4a8d8c;box-shadow:6px 0 22px #12092688;
+}
+html[data-room-game="tienlen"] .tl24-profile{
+ display:flex;align-items:center;gap:9px;padding:12px 5px 20px;
+ border-bottom:1px solid #e2b86e3b;color:#fff;
+}
+html[data-room-game="tienlen"] .tl24-profile-avatar{
+ width:56px;height:56px;display:grid;place-items:center;flex:0 0 56px;
+ font-size:32px;border-radius:50%;border:3px solid #e8bf5e;
+ background:radial-gradient(circle at 33% 20%,#ae628c,#441c5b 65%,#160b35);
+ box-shadow:0 0 0 3px #481d62,0 0 16px #f5be6a8a;
+}
+html[data-room-game="tienlen"] .tl24-profile strong{display:block;font-size:16px;font-weight:1000}
+html[data-room-game="tienlen"] .tl24-profile small{color:#ffd879;font-weight:900;font-size:10px}
+html[data-room-game="tienlen"] .tl24-game-menu{display:flex;flex-direction:column;gap:8px;padding-top:14px}
+html[data-room-game="tienlen"] .tl24-menu-title{font-size:10px;letter-spacing:.2em;color:#e6c8eb;font-weight:900;padding:0 12px 4px}
+html[data-room-game="tienlen"] .tl24-game-menu a{
+ display:flex;align-items:center;gap:10px;min-height:47px;padding:8px 11px;
+ border:1px solid transparent;border-radius:12px;color:#d8cce9;
+ font-size:clamp(10px,.85vw,13px);font-weight:850;text-decoration:none;
+ transition:transform .16s,filter .16s,border-color .16s;
+}
+html[data-room-game="tienlen"] .tl24-game-menu a>span{font-size:20px}
+html[data-room-game="tienlen"] .tl24-game-menu a:hover{background:#6e3d9880;transform:translateX(2px);color:white}
+html[data-room-game="tienlen"] .tl24-game-menu a.active{
+ color:#fff7d4;border-color:#ffd17a;
+ background:linear-gradient(100deg,#8f3b28,#cd7932 40%,#662e6a);
+ box-shadow:0 0 18px #ffb13e5c,inset 0 1px #ffedad88,0 6px 13px #1609209c;
+}
+html[data-room-game="tienlen"] .tl24-side-bottom{margin-top:auto;display:grid;gap:6px;text-align:center;color:#edbf85}
+html[data-room-game="tienlen"] .tl24-side-bottom>span{font-size:23px}
+html[data-room-game="tienlen"] .tl24-side-bottom small{font-size:8px;letter-spacing:.06em;color:#bdaacb}
+html[data-room-game="tienlen"] .tl24-main{
+ display:flex;flex-direction:column;align-items:center;justify-content:center;
+ padding:26px clamp(12px,2vw,38px) 16px;min-width:0;gap:16px;
+}
+html[data-room-game="tienlen"] .tl24-title{
+ position:relative!important;display:flex!important;align-items:center!important;flex-direction:column!important;
+ text-align:center!important;margin:0!important;padding:0!important;gap:1px!important;width:100%;
+}
+html[data-room-game="tienlen"] .tl24-title .game-room-eyebrow{
+ font:950 clamp(10px,1vw,13px)/1.25 system-ui!important;
+ color:#ffe3a2!important;text-shadow:0 0 12px #ffc66c88!important;
+ letter-spacing:.12em!important;
+}
+html[data-room-game="tienlen"] .tl24-title h1{
+ font:1000 clamp(40px,5.5vw,81px)/.9 Georgia,"Times New Roman",serif!important;
+ color:#ffe39d!important;letter-spacing:-.045em!important;
+ background:linear-gradient(#fffcd9 0%,#ffe48c 27%,#f7b73c 52%,#b46114 85%,#ffe2a4);
+ -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+ filter:drop-shadow(0 4px 0 #6c2b1b) drop-shadow(0 9px 7px #070418);
+ margin:0!important;padding-bottom:9px!important;
+}
+html[data-room-game="tienlen"] .tl24-title p{
+ font-weight:850!important;font-size:clamp(11px,1.1vw,14px)!important;color:#f8dcae!important;
+}
+html[data-room-game="tienlen"] .tl24-logo-cards{display:flex;justify-content:center;height:49px;margin-bottom:-2px}
+html[data-room-game="tienlen"] .tl24-logo-cards span{
+ display:grid;place-items:center;width:43px;height:59px;
+ background:linear-gradient(145deg,#fff,#fff8f2 65%,#e9d4bf);color:#1c1934;
+ font:1000 19px Georgia,serif;border:2px solid #fff9e8;border-radius:6px;
+ box-shadow:0 5px 7px #0008;transform-origin:bottom center;
+}
+html[data-room-game="tienlen"] .tl24-logo-cards span:nth-child(1){transform:rotate(-23deg) translate(11px,6px)}
+html[data-room-game="tienlen"] .tl24-logo-cards span:nth-child(2){transform:rotate(-9deg) translate(4px,0);color:#d22240}
+html[data-room-game="tienlen"] .tl24-logo-cards span:nth-child(3){transform:rotate(9deg) translate(-4px,0);color:#d22240}
+html[data-room-game="tienlen"] .tl24-logo-cards span:nth-child(4){transform:rotate(23deg) translate(-11px,6px)}
+html[data-room-game="tienlen"] #roomMenu.tl24-room-menu{
+ display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+ width:min(100%,910px);gap:clamp(8px,1.5vw,17px)!important;
+ margin:10px auto 0!important;align-items:stretch!important;
+}
+html[data-room-game="tienlen"] .tl24-room-card{
+ --tone:#1c7855;--tone-light:#43e28a;--tone-deep:#06442f;
+ position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+ min-width:0;min-height:163px;padding:10px 5px 14px;overflow:hidden;
+ border:2px solid var(--tone-light);border-radius:24px;color:#fff6df;
+ background:
+  radial-gradient(ellipse at 50% 0%,#ffffff28,transparent 58%),
+  linear-gradient(150deg,var(--tone),var(--tone-deep));
+ box-shadow:inset 0 3px 0 #ffffff63,inset 0 -5px 0 #0005,
+  0 0 16px color-mix(in srgb,var(--tone-light) 48%,transparent),0 9px 13px #0703169c;
+ cursor:pointer;transition:transform .2s ease,filter .2s ease,box-shadow .2s ease;
+}
+html[data-room-game="tienlen"] .tl24-room-card:before{
+ content:"";position:absolute;inset:7px;border:1px solid #fff5;border-radius:17px;
+ pointer-events:none;
+}
+html[data-room-game="tienlen"] .tl24-room-card:after{
+ content:"";position:absolute;inset:auto -30% -54%;height:70%;
+ background:radial-gradient(ellipse,#ffffff3b,transparent 63%);pointer-events:none;
+}
+html[data-room-game="tienlen"] .tl24-room-card:hover{transform:translateY(-6px) scale(1.02);filter:brightness(1.13)}
+html[data-room-game="tienlen"] .tl24-room-card:active{transform:translateY(1px) scale(.98)}
+html[data-room-game="tienlen"] .tl24-room-card:focus-visible{outline:3px solid #fff;outline-offset:3px}
+html[data-room-game="tienlen"] .tl24-room-card.tl24-blue{--tone:#155fc2;--tone-light:#41c9ff;--tone-deep:#0b1c67}
+html[data-room-game="tienlen"] .tl24-room-card.tl24-purple{--tone:#8121a9;--tone-light:#f07dff;--tone-deep:#320c73}
+html[data-room-game="tienlen"] .tl24-room-card.tl24-red{--tone:#a90c34;--tone-light:#ffce50;--tone-deep:#4f0924}
+html[data-room-game="tienlen"] .tl24-room-card .tl24-suit,
+html[data-room-game="tienlen"] .tl24-room-card .tl24-crown{
+ font-size:clamp(39px,4.1vw,62px);line-height:1;color:#fff7c4;
+ text-shadow:0 0 14px var(--tone-light),0 3px 4px #0009;
+}
+html[data-room-game="tienlen"] .tl24-room-card .tl24-crown{color:#ffdb67}
+html[data-room-game="tienlen"] .tl24-room-card strong{
+ color:#fff8df;line-height:1.15;font:1000 clamp(15px,1.7vw,25px)/1.15 system-ui!important;
+ text-shadow:0 2px 4px #0009;margin:10px 0 8px;
+}
+html[data-room-game="tienlen"] .tl24-room-card small{font-size:11px;color:#ffe8c4;font-weight:700}
+html[data-room-game="tienlen"] .tl24-room-card b{
+ color:#ffeb72;font:1000 clamp(12px,1.4vw,18px)/1.2 system-ui;
+ text-shadow:0 1px 3px #000;white-space:nowrap;margin-top:4px;
+}
+html[data-room-game="tienlen"] .tl24-lobby-actions{
+ grid-column:1/-1;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;
+ gap:clamp(7px,1vw,13px);margin-top:8px!important;
+}
+html[data-room-game="tienlen"] .tl24-lobby-actions button{
+ min-height:49px;padding:10px clamp(11px,1.6vw,25px);
+ border:2px solid #bd9cc8;border-radius:99px;color:#fff8df;
+ background:linear-gradient(135deg,#402359,#251b4e);
+ font:950 clamp(11px,1.1vw,15px)/1.1 system-ui;
+ box-shadow:0 6px 9px #0008,inset 0 2px #fff5;
+ cursor:pointer;transition:transform .18s,filter .18s;
+}
+html[data-room-game="tienlen"] .tl24-lobby-actions button:hover{transform:translateY(-3px);filter:brightness(1.15)}
+html[data-room-game="tienlen"] .tl24-lobby-actions button:focus-visible{outline:3px solid #fff}
+html[data-room-game="tienlen"] .tl24-lobby-actions .tl24-play-now{
+ min-width:190px;border-color:#fff0a8;color:#5a2209;
+ background:linear-gradient(#fff9bf 0%,#ffda52 38%,#ffad22 77%,#cd6b0c)!important;
+ font-size:clamp(16px,1.8vw,22px);text-shadow:0 1px #fff7;
+ box-shadow:0 0 21px #ffc55c85,inset 0 2px #fff9,0 8px 10px #10051a;
+}
+html[data-room-game="tienlen"] .tl24-lobby-actions .tl24-private{
+ background:linear-gradient(135deg,#6e2e91,#31194c)!important;
+ border-color:#dca7ff;
+}
+html[data-room-game="tienlen"] .tl24-lobby-foot{
+ width:min(100%,930px);display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+html[data-room-game="tienlen"] .tl24-event{
+ display:flex;align-items:center;gap:10px;border:1px solid #d94bb3;border-radius:30px;
+ background:linear-gradient(110deg,#6e1745,#4e1f60);color:#ffeebe;
+ padding:8px 18px;min-height:43px;font:800 17px system-ui;cursor:pointer;
+ box-shadow:0 0 16px #ca449a63;
+}
+html[data-room-game="tienlen"] .tl24-event span:nth-child(1){display:flex;flex-direction:column;text-align:left}
+html[data-room-game="tienlen"] .tl24-event strong{font-size:12px}
+html[data-room-game="tienlen"] .tl24-event small{font-size:9px}
+html[data-room-game="tienlen"] .tl24-safety{color:#eacbbd;font:700 10px/1.4 system-ui;text-align:right}
+html[data-room-game="tienlen"] #roomModeHint{color:#e8ccee!important;font-weight:800!important;text-align:center!important;margin:0!important}
+html[data-room-game="tienlen"] .game-room-footer{background:linear-gradient(100deg,#1c1032,#2c1744 55%,#1a0e2f)!important;border-top:1px solid #d9aa7180!important}
+html[data-room-game="tienlen"] .game-room-play-head{
+ background:linear-gradient(100deg,#1c1036,#351840,#17112f)!important;
+ border-color:#ca9b5a!important;
+}
+html[data-room-game="tienlen"] .game-room-play-head h2{color:#ffe3a0!important}
+html[data-room-game="tienlen"] .game-room-frame-wrap{
+ border-color:#ba8f55!important;
+ background:radial-gradient(ellipse at center,#3b102e,#0f102c)!important;
+}
+/* Responsive lobby: no cropped rooms, accessible game sidebar on narrow screens. */
+@media(max-width:950px){
+ html[data-room-game="tienlen"] .tl24-layout{grid-template-columns:145px minmax(0,1fr);min-height:520px}
+ html[data-room-game="tienlen"] .tl24-main{padding:18px 10px;gap:10px}
+ html[data-room-game="tienlen"] .tl24-room-card{min-height:134px;border-radius:17px}
+ html[data-room-game="tienlen"] .tl24-game-menu a{padding:6px;font-size:10px;gap:6px}
+ html[data-room-game="tienlen"] .tl24-game-menu a>span{font-size:15px}
+ html[data-room-game="tienlen"] .tl24-profile-avatar{width:38px;height:38px;flex-basis:38px;font-size:22px}
+ html[data-room-game="tienlen"] .tl24-profile strong{font-size:13px}
+}
+@media(max-width:640px){
+ html[data-room-game="tienlen"] .tl24-layout{display:flex;flex-direction:column;min-height:0}
+ html[data-room-game="tienlen"] .tl24-sidebar{min-height:0;padding:5px 9px;border-right:0;border-bottom:1px solid #b58ac477}
+ html[data-room-game="tienlen"] .tl24-profile,.tl24-side-bottom{display:none!important}
+ html[data-room-game="tienlen"] .tl24-game-menu{padding:3px;display:flex;flex-direction:row;gap:5px;overflow-x:auto;scrollbar-width:none}
+ html[data-room-game="tienlen"] .tl24-game-menu .tl24-menu-title{display:none}
+ html[data-room-game="tienlen"] .tl24-game-menu a{flex:0 0 auto;min-height:36px;padding:4px 8px;font-size:10px}
+ html[data-room-game="tienlen"] .tl24-main{padding:18px 10px;gap:11px}
+ html[data-room-game="tienlen"] .tl24-title h1{font-size:clamp(38px,9vw,53px)!important}
+ html[data-room-game="tienlen"] .tl24-logo-cards{height:44px}
+ html[data-room-game="tienlen"] .tl24-logo-cards span{width:33px;height:46px;font-size:15px}
+ html[data-room-game="tienlen"] #roomMenu.tl24-room-menu{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+ html[data-room-game="tienlen"] .tl24-room-card{min-height:136px;padding:9px 2px 10px}
+ html[data-room-game="tienlen"] .tl24-room-card .tl24-suit,
+ html[data-room-game="tienlen"] .tl24-room-card .tl24-crown{font-size:40px}
+ html[data-room-game="tienlen"] .tl24-room-card strong{font-size:18px!important;margin:5px 0}
+ html[data-room-game="tienlen"] .tl24-room-card b{font-size:14px}
+ html[data-room-game="tienlen"] .tl24-lobby-actions button{min-height:40px;padding:6px 10px}
+ html[data-room-game="tienlen"] .tl24-lobby-actions .tl24-play-now{width:100%;min-height:47px}
+ html[data-room-game="tienlen"] .tl24-lobby-foot{flex-direction:column;align-items:center}
+ html[data-room-game="tienlen"] .tl24-safety{text-align:center}
+}
+@media (prefers-reduced-motion:reduce){
+ html[data-room-game="tienlen"] .tl24-room-card,
+ html[data-room-game="tienlen"] .tl24-game-menu a,
+ html[data-room-game="tienlen"] .tl24-lobby-actions button{transition:none!important}
+}
