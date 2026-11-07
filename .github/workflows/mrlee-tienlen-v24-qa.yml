@@ -8,6 +8,8 @@ on:
       - 'assets/arena/tienlen-approved-v24.css'
       - 'assets/arena/tienlen-approved-board-v24.css'
       - 'assets/arena/tienlen-fx.js'
+      - 'assets/arena/arena-deal-v22.js'
+      - 'tools/browser-tienlen-v22.mjs'
       - 'assets/arena/tienlen-ui.js'
       - 'assets/arena/rooms-play.js'
       - 'assets/arena/game-room-shell.js'
@@ -37,6 +39,8 @@ jobs:
         run: |
           npm install --no-save --no-package-lock playwright@1.56.1
           npx playwright install chromium --with-deps
+      - name: Verify full 52-card dealer, four stacks and 20-second clock
+        run: node tools/browser-tienlen-v22.mjs
       - name: Verify approved Tiến Lên lobby, cards and playing controls in Chromium
         run: ARENA_ONLY_GAME=tienlen node tools/browser-game-rooms.mjs
       - uses: actions/upload-artifact@v4
