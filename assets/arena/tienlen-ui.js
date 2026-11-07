@@ -58,7 +58,7 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
  }
  function stop(){
   epoch++;if(timer!==null)clearTimeout(timer);
-  timer=null;busy=false;fx.cancel();
+  timer=null;busy=false;fx.cancel();delete board.dataset.fxIntro;
   clockEnd=0;clockSeat=-1;timeoutHandled=false;
   if(clockInterval!==null)clearInterval(clockInterval);clockInterval=null;
   $("tlDealNotice").hidden=true;
@@ -68,7 +68,7 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   if(!onStart())return;
   stop();
   const current=epoch;game=start();selected=new Set();done=false;busy=true;sortMode="rank";
-  board.dataset.fxCount="0";board.dataset.lastFx="";
+  board.dataset.fxCount="0";board.dataset.lastFx="";delete board.dataset.fxIntro;
   board.dataset.fxPhase="shuffle";clockInterval=setInterval(clockTick,100);
   root.querySelector(".arena-game-result")?.remove();
   root.hidden=false;root.scrollIntoView({behavior:"smooth",block:"start"});
@@ -78,7 +78,8 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   catch(err){message.textContent="Không thể chạy hoạt ảnh: "+err.message;}
   if(current!==epoch||root.hidden||!game)return;
   $("tlDealNotice").hidden=true;
-  busy=false;render();armClock();schedule();
+  busy=false;board.dataset.fxIntro="1";render();armClock();schedule();
+  setTimeout(()=>{if(current===epoch)delete board.dataset.fxIntro;},520);
  }
  function finish(){
   if(done||!game||game.winner===null)return;
