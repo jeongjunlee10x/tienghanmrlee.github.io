@@ -45,7 +45,7 @@ export function normalizeRoomCode(value){
 }
 export const GOLD_TIERS=Object.freeze([5,10,50,100,500,1000,5000,10000,50000,100000,500000,1000000]);
 export const GOLD_PER_POINT=10;
-export const LIABILITY_CARDS=Object.freeze({chess:1,tienlen:13,colors:20});
+export const LIABILITY_CARDS=Object.freeze({chess:1,tienlen:16,colors:20});
 export function requiredGold(game,stake){return (LIABILITY_CARDS[game]||13)*Number(stake||0);}
 export function formatG(value){
  const number=Math.max(0,Math.trunc(Number(value)||0));
