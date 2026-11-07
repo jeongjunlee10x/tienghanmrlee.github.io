@@ -741,3 +741,75 @@ html.arena-embedded[data-embedded-game="ludo"] #arenaLudo .ludo-board>.arena-ext
   width:100%!important;max-width:650px!important
  }
 }
+
+
+/* V23.2: fix portrait board/controls stacking and real roll-button hit testing.
+ * game-room-embed.css and gameplay-boards-v20.css used more specific ID
+ * selectors for conflicting grid rows; on 390px the board sat ON TOP of
+ * the roll button. No pointer-events shortcuts: actual buttons work. */
+@media(orientation:portrait) and (max-width:650px){
+ html.arena-reference-v1.arena-embedded[data-embedded-game="ludo"] #arenaLudo .arena-extra-layout,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="xiangqi"] #arenaXiangqi .arena-extra-layout,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="estate"] #arenaEstate .arena-extra-layout{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto auto auto auto!important;grid-auto-flow:row!important;
+  align-items:start!important;gap:7px!important;max-width:650px!important;
+  margin:0 auto!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="ludo"] #arenaLudo .arena-extra-stage,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="xiangqi"] #arenaXiangqi .arena-extra-stage,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="estate"] #arenaEstate .arena-extra-stage{
+  grid-column:1!important;grid-row:2!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  position:relative!important;z-index:1!important;margin:0!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="ludo"] #arenaLudo .arena-extra-side,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="xiangqi"] #arenaXiangqi .arena-extra-side,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="estate"] #arenaEstate .arena-extra-side{
+  display:contents!important;max-height:none!important;overflow:visible!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="ludo"] #arenaLudo .arena-extra-side>.arena-panel:first-child,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="xiangqi"] #arenaXiangqi .arena-extra-side>.arena-panel:first-child,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="estate"] #arenaEstate .arena-extra-side>.arena-panel:first-child{
+  grid-column:1!important;grid-row:1!important;
+  position:relative!important;z-index:3!important;
+  width:100%!important;box-sizing:border-box!important;margin:0!important;padding:7px!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="ludo"] #arenaLudo .arena-extra-side>.arena-panel:nth-child(2),
+ html.arena-reference-v1.arena-embedded[data-embedded-game="xiangqi"] #arenaXiangqi .arena-extra-side>.arena-panel:nth-child(2),
+ html.arena-reference-v1.arena-embedded[data-embedded-game="estate"] #arenaEstate .arena-extra-side>.arena-panel:nth-child(2){
+  grid-column:1!important;grid-row:3!important;position:relative!important;
+  z-index:1!important;margin:0!important;padding:8px!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="ludo"] #arenaLudo .arena-extra-side>.arena-panel:nth-child(3),
+ html.arena-reference-v1.arena-embedded[data-embedded-game="xiangqi"] #arenaXiangqi .arena-extra-side>.arena-panel:nth-child(3),
+ html.arena-reference-v1.arena-embedded[data-embedded-game="estate"] #arenaEstate .arena-extra-side>.arena-panel:nth-child(3){
+  grid-column:1!important;grid-row:4!important;position:relative!important;
+  z-index:1!important;margin:0!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="ludo"] #arenaLudo .arena-extra-side>.arena-panel:first-child{
+  display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  column-gap:7px!important;row-gap:4px!important;align-items:center!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="ludo"] #arenaLudo .arena-extra-side>.arena-panel:first-child>h3,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="ludo"] #arenaLudo .arena-extra-status,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="ludo"] #arenaLudo .arena-extra-bar,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="ludo"] #arenaLudo .ludo-score{
+  grid-column:1/-1!important;margin:0!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="ludo"] #arenaLudo .arena-extra-side>.arena-panel:first-child>.arena-demo-rule{
+  display:none!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="ludo"] #arenaLudo .arena-game-mode-select,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="ludo"] #arenaLudo .arena-difficulty{
+  min-width:0!important;margin:0!important;font-size:10px!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="ludo"] #arenaLudo #ludoRoll{
+  position:relative!important;z-index:5!important;display:inline-flex!important;
+  align-items:center!important;justify-content:center!important;
+  min-height:38px!important;pointer-events:auto!important
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="ludo"] #arenaLudo .ludo-dice{
+  width:40px!important;height:40px!important;min-width:40px!important;min-height:40px!important
+ }
+}
