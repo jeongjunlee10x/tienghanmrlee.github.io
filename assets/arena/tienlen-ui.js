@@ -66,8 +66,9 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
  function exit(){stop();root.hidden=true;game=null;onExit();}
  async function begin(){
   if(!onStart())return;
+  const previousWinner=done&&Number.isInteger(game?.winner)?game.winner:null;
   stop();
-  const current=epoch;game=start();selected=new Set();done=false;busy=true;sortMode="rank";
+  const current=epoch;game=start(Math.random,previousWinner);selected=new Set();done=false;busy=true;sortMode="rank";
   board.dataset.fxCount="0";board.dataset.lastFx="";delete board.dataset.fxIntro;
   board.dataset.fxPhase="shuffle";clockInterval=setInterval(clockTick,100);
   root.querySelector(".arena-game-result")?.remove();
@@ -87,9 +88,11 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   const won=game.winner===0;
   const otherTwos=game.hands.filter((h,i)=>i!==game.winner).flat().filter(c=>c.rank===15).length;
   message.textContent=(won?"Bạn về nhất!":NAMES[game.winner]+" về nhất!")+
+   (game.specialFinish?" 🏆 ĐÚT 3 BÍCH! Mỗi người thua thêm 3× mức cược bàn (chỉ mô phỏng khi đấu máy).":"")+
    (otherTwos?" · Còn "+otherTwos+" lá 2 trong tay người thua (thối heo, chỉ thông báo).":"");
   onFinish(won?"win":"loss","Tiến lên miền Nam",root);
-  if(won)void showChopPopup("CHIẾN THẮNG!",{duration:1300});
+  if(game.specialFinish)void showChopPopup("ĐÚT 3 BÍCH ×3!",{duration:1600});
+  else if(won)void showChopPopup("CHIẾN THẮNG!",{duration:1300});
   render();
  }
  const selectedValid=()=>!!game&&!busy&&!done&&game.turn===0&&game.winner===null&&canPlay(game,0,[...selected]);
@@ -231,7 +234,7 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
   if(!done)status.textContent=busy?
    board.dataset.fxPhase==="shuffle"?"🃏 Đang xáo bài…":
     board.dataset.fxPhase==="deal"?"🃏 Đang chia bài…":"🃏 Đang đánh bài ra giữa bàn…":
-   playable?(game.first?"Bạn có 3♠, lượt mở đầu phải dùng lá này.":"✨ Giữ kéo lá bài vào giữa bàn; với bộ nhiều lá, chạm chọn trước rồi kéo.") :
+   playable?(game.first?"Ván đầu: phải ra 3♣ (3 chuồn) để mở ván.":"✨ Giữ kéo lá bài vào giữa bàn; với bộ nhiều lá, chạm chọn trước rồi kéo.") :
     "⏳ Đến lượt "+NAMES[game.turn]+"…";
   hand.replaceChildren();
   const sortedHand=[...game.hands[0]].sort((a,b)=>sortMode==="suit"?
