@@ -14,7 +14,10 @@ function classifyUrl(raw) {
   try { url = new URL(raw); } catch { return 'blocked'; }
   if (url.username || url.password) return 'blocked';
   if (url.protocol === 'https:') {
-    return url.origin === ORIGIN ? 'internal' : 'external';
+    if (url.origin === ORIGIN) return 'internal';
+    // A hostname embedding the official domain is likely a phishing lookalike.
+    if (url.hostname.includes(new URL(HOME).hostname)) return 'blocked';
+    return 'external';
   }
   if (url.protocol === 'mailto:' && url.pathname) return 'external';
   return 'blocked';
