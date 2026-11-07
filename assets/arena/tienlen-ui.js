@@ -2,7 +2,7 @@
  * Deck/deal/play/chop are visual only. The rules and winners remain in tienlen-engine.js.
  */
 import {start,label,analyze,canPlay,play,pass,botTurn,options,NAMES} from "./tienlen-engine.js?v=20261107-ai-r18";
-import {playingCard,cardBack,chopTitle,createTableEffects} from "./tienlen-fx.js?v=20261107-motion-v22";
+import {playingCard,cardBack,comboTitle,showChopPopup,createTableEffects} from "./tienlen-fx.js?v=20261107-motion-v22";
 import {enablePointerDrag} from "./drag-gestures.js?v=20261107-motion-v22b";
 const $=id=>document.getElementById(id);
 const el=(tag,cl,text)=>{
@@ -111,7 +111,7 @@ export function mountTienLen({onStart,onFinish,onExit,getGold=()=>0,getPlayerNam
  async function animatePlayed(cards,who,previous,current,rects){
   // Position of the cards is measured before mutating the visible hand.
   board.dataset.lastMoveSeat=seat[who];
-  const chop=chopTitle(previous,current);
+  const chop=comboTitle(previous,current);
   await fx.throwCards(cards,who,rects,chop);
  }
  async function act(){
