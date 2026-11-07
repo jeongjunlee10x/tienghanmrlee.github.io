@@ -167,7 +167,7 @@ function createState(game:string,playerCount=4,timeControl="10+0",previousWinner
  }
  if(game==="tienlen"){
   const roundReadyAt=new Date(Date.now()+TIENLEN_DEAL_MS).toISOString();
-  return {...TienLen.start(secureRandom,playerCount,previousWinnerSeat),
+  return {...TienLen.start(secureRandom,playerCount,previousWinnerSeat??-1),
    roundReadyAt,turnDeadline:nextDeadline(TIENLEN_DEAL_MS)};
  }
  return {...Colors.newGame(secureRandom),turnDeadline:nextDeadline()};
