@@ -610,3 +610,69 @@ html.arena-embedded[data-embedded-game="chess"] .chess-square.target{
   animation:none!important;transition:none!important
  }
 }
+
+
+/* V23 timing and seat-safe card animation. */
+html.arena-embedded[data-embedded-game="tienlen"] #tlBoard[data-fx-phase="ready"] .tl-hand-card{
+ animation:none!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #tlBoard[data-fx-intro="1"][data-fx-phase="ready"] .tl-hand-card{
+ animation:arena-v22-fan-in .35s cubic-bezier(.18,.82,.22,1) both!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard
+ .online-tl-board[data-fx-phase="deal"] .arena-pvp-hand>button,
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard
+ .online-tl-board[data-fx-phase="deal"] .arena-pvp-backs{
+ opacity:0!important;visibility:hidden!important;pointer-events:none!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard
+ .online-tl-board[data-fx-phase="ready"] .arena-pvp-hand>button{
+ animation:arena-v22-fan-in .38s cubic-bezier(.18,.82,.22,1) both
+}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard
+ .online-tl-board[data-fx-phase="ready"] .arena-pvp-hand>button:nth-child(4n+1){animation-delay:30ms}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard
+ .online-tl-board[data-fx-phase="ready"] .arena-pvp-hand>button:nth-child(4n+2){animation-delay:60ms}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard
+ .online-tl-board[data-fx-phase="ready"] .arena-pvp-hand>button:nth-child(4n+3){animation-delay:90ms}
+html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard
+ .online-tl-board[data-fx-phase="ready"] .arena-pvp-hand>button:nth-child(4n){animation-delay:120ms}
+/* Back-of-deck shuffles before the first card flies. */
+.arena-v23-dealer{position:absolute;z-index:4;left:50%;top:50%;width:55px;height:78px;
+ transform:translate(-50%,-50%);pointer-events:none}
+.arena-v23-dealer[hidden]{display:none!important}
+.arena-v23-dealer-card{position:absolute;inset:0;display:block;
+ box-sizing:border-box;border:3px solid #ffe4ad;border-radius:7px;
+ background:repeating-linear-gradient(45deg,#edbd7963 0 2px,transparent 2px 7px),
+ linear-gradient(145deg,#1a3063,#374a91 70%,#172653);
+ box-shadow:0 5px 10px #00101caa,inset 0 0 0 3px #cfb97485;
+ animation:arena-v23-shuffle .26s ease-in-out infinite alternate;
+ animation-delay:calc(var(--deck-index)*-70ms)}
+@keyframes arena-v23-shuffle{
+ 0%{transform:translate3d(-22px,5px,0) rotate(-17deg)}
+ 100%{transform:translate3d(23px,-7px,0) rotate(17deg)}
+}
+/* Show the actual oval/seats through the dealing layer; private hands stay concealed. */
+html.arena-embedded[data-embedded-game="tienlen"] .arena-v22-deal-mask{
+ background:radial-gradient(ellipse at center,#0a2837b8,#0b1027dd 75%)!important;
+ border:0!important;border-radius:inherit!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] .arena-v22-deal-title{
+ position:relative;top:-24%;font-size:clamp(13px,2vw,22px)!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] .arena-v22-deal-subtitle{
+ position:relative;top:-24%;font-size:clamp(9px,1.2vw,13px)!important
+}
+html.arena-embedded[data-embedded-game="tienlen"] .arena-v22-back{
+ box-shadow:0 6px 9px #020817b5,inset 0 0 0 3px #dfbe7c88
+}
+@media(orientation:landscape) and (max-height:540px) and (max-width:1100px){
+ .arena-v23-dealer{width:32px;height:45px}
+ html.arena-embedded[data-embedded-game="tienlen"] .arena-v22-deal-title,
+ html.arena-embedded[data-embedded-game="tienlen"] .arena-v22-deal-subtitle{top:-21%}
+}
+@media(prefers-reduced-motion:reduce){
+ html.arena-embedded .arena-v23-dealer-card,
+ html.arena-embedded .online-tl-board .arena-pvp-hand>button,
+ html.arena-embedded #tlBoard .tl-hand-card{animation:none!important}
+}
