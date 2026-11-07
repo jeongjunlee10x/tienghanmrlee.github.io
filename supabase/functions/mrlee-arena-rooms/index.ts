@@ -14,7 +14,8 @@ const JWKS=createRemoteJWKSet(new URL("https://www.googleapis.com/service_accoun
 const ORIGINS=new Set(["https://jeongjunlee10x.github.io","https://mrlee-b6a.pages.dev"]);
 const GAME_SLOTS:Record<string,number>={chess:2,tienlen:4,colors:4};
 const GOLD_TIERS=new Set([5,10,50,100,500,1000,5000,10000,50000,100000,500000,1000000]);
-const RISK_CARDS:Record<string,number>={chess:1,tienlen:13,colors:20};
+// Reserve 13 cards plus the possible 3× stake special finish charge.
+const RISK_CARDS:Record<string,number>={chess:1,tienlen:16,colors:20};
 const exposure=(game:string,stake:number)=>stake*RISK_CARDS[game];
 const CODE_LETTERS="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const TIENLEN_TURN_MS=20_000;
@@ -129,6 +130,7 @@ function safeRoom(room:Room,uid:string){
   result.gameState={myHand:state.hands[player.seat],counts:state.hands.map((hand:any[])=>hand.length),
     turn:state.turn,played:state.played,last:state.last?{player:state.last.player,combo:state.last.combo}:null,
     first:state.first,passed:state.passed,
+    specialFinish:state.specialFinish===true,ruleVersion:state.ruleVersion||1,
     roundReadyAt:state.roundReadyAt||null,
     turnDeadline:room.status==="playing"?state.turnDeadline:null,
     history:state.history.slice(-12),
@@ -157,7 +159,7 @@ async function cas(database:any,row:Room,patch:Partial<Room>):Promise<Room>{
  if(!data)fail("Phòng vừa thay đổi. Tải lại rồi thao tác tiếp.",409);
  return data as Room;
 }
-function createState(game:string,playerCount=4,timeControl="10+0"){
+function createState(game:string,playerCount=4,timeControl="10+0",previousWinnerSeat:number|null=null){
  if(game==="chess"){
   const position=Chess.start(),selected=chessTime(timeControl),clock=chessClock(selected);
   return {history:[position],notation:[],timeControl:selected,clock,
@@ -165,7 +167,7 @@ function createState(game:string,playerCount=4,timeControl="10+0"){
  }
  if(game==="tienlen"){
   const roundReadyAt=new Date(Date.now()+TIENLEN_DEAL_MS).toISOString();
-  return {...TienLen.start(secureRandom,playerCount),
+  return {...TienLen.start(secureRandom,playerCount,previousWinnerSeat),
    roundReadyAt,turnDeadline:nextDeadline(TIENLEN_DEAL_MS)};
  }
  return {...Colors.newGame(secureRandom),turnDeadline:nextDeadline()};
@@ -203,7 +205,9 @@ async function advanceExpiredTienLen(database:any,row:Room):Promise<Room>{
   }
   state.turnDeadline=null;
   const winner=state.winner,remaining=state.hands.map((cards:any[])=>cards.length);
-  state.settlement={winner,remaining,rate:row.min_gold};
+  state.settlement={winner,remaining,rate:row.min_gold,
+   threeSpadesFinish:state.ruleVersion===2&&state.specialFinish===true,
+   bonusPerOpponent:state.ruleVersion===2&&state.specialFinish===true?3*row.min_gold:0};
   const {error}=await database.rpc("mrlee_arena_settle_match",{
    p_code:row.code,p_expected_version:row.version,p_state:state,p_winner:winner,p_remaining:remaining
   });
@@ -283,7 +287,10 @@ async function advanceExpiredFinished(database:any,row:Room,allVoted=false):Prom
  const remaining=row.members.filter(m=>!exits.has(m.uid));
  // If too few players remain, PostgreSQL moves to the same table's WAITING
  // state rather than reserving G or attempting a one-player match.
- const fresh=createState(row.game,Math.max(2,remaining.length),row.state?.timeControl);
+ const winnerMember=row.game==="tienlen"?row.members.find(m=>m.seat===row.state?.winner):null;
+ const nextWinnerSeat=winnerMember?remaining.findIndex(m=>m.uid===winnerMember.uid):-1;
+ const fresh=createState(row.game,Math.max(2,remaining.length),row.state?.timeControl,
+  nextWinnerSeat>=0?nextWinnerSeat:null);
  const {error}=await database.rpc("mrlee_arena_auto_next",{
   p_code:row.code,p_expected_version:row.version,p_state:fresh
  });
@@ -613,7 +620,9 @@ Deno.serve(async(req:Request)=>{
       winner=state.winner;
       remaining=state.hands.map((cards:unknown[])=>cards.length);
     }
-    state.settlement={winner,remaining,rate:room.min_gold};
+    state.settlement={winner,remaining,rate:room.min_gold,
+     threeSpadesFinish:room.game==="tienlen"&&state.ruleVersion===2&&state.specialFinish===true,
+     bonusPerOpponent:room.game==="tienlen"&&state.ruleVersion===2&&state.specialFinish===true?3*room.min_gold:0};
     const {error}=await database.rpc("mrlee_arena_settle_match",{
      p_code:code,p_expected_version:room.version,p_state:state,
      p_winner:winner,p_remaining:remaining
