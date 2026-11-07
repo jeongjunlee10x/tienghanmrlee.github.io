@@ -46,7 +46,7 @@ check(read("local").includes('message.textContent="⏰ Hết 20 giây · tự b�
 check(read("local").includes('board.dataset.fxPhase="shuffle"'),
  "Real hand concealment begins BEFORE first render");
 check(read("animation").includes("const visualDeals=52")&&
- read("animation").includes("i*36"),"All 52 card backs animate in seat order");
+ read("animation").includes("i*64"),"All 52 card backs animate in seat order");
 check(read("animation").includes('board.dataset.fxPhase="spread"'),
  "Card fan follows dealing, not before");
 check(read("online").includes("showRoomDeal(board,{roundReadyAt:state.roundReadyAt"),
@@ -92,7 +92,7 @@ check(read("ludo").includes("arena-v22-dice-rolling")&&
 check(read("colors").includes("kind:\"color-card\""),
  "Bài Màu animates an actual drawn card");
 check(read("page").includes('arena-fidelity-v22.css?v=20261107-fidelity-v23')&&
- read("page").includes('app.js?v=20261107-approved-v24')&&
+ read("page").includes('app.js?v=20261107-deal-v25')&&
   read("page").indexOf("tienlen-approved-board-v24.css")>read("page").indexOf("arena-fidelity-v22.css"),
  "Approved V23 visual CSS loads last and JavaScript cache is refreshed");
 console.log("PASS Arena V22: "+count+" verified rules, server timeline, board fidelity and motion contracts.");
