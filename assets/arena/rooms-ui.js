@@ -231,16 +231,22 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
   const detail=room.settlement,remaining=detail.remaining||[];
   const cardCount=remaining[room.seat]||0;
   const winner=detail.winner===room.seat,drawn=detail.winner===-1;
-  const loss=winner||drawn?0:room.game==="chess"?room.minGold:
-   room.minGold*Math.min(cardCount,room.game==="colors"?20:13);
+  // The SQL settlement, not the browser, decides whether the finishing 3♠ was
+  // valid. Display the additional 3× table G charged to EVERY losing player.
+  const threeBich=room.game==="tienlen"&&detail.threeSpadesFinish===true;
+  const extra=threeBich?Math.max(0,Math.trunc(Number(detail.bonusPerOpponent)||0)):0;
+  const loss=winner||drawn?0:(room.game==="chess"?room.minGold:
+   room.minGold*Math.min(cardCount,room.game==="colors"?20:13))+extra;
   const gain=winner?remaining.reduce((sum,n,i)=>sum+(i===room.seat?0:
-   room.minGold*(room.game==="chess"?1:Math.min(n,room.game==="colors"?20:13))),0):0;
+   room.minGold*(room.game==="chess"?1:Math.min(n,room.game==="colors"?20:13))+extra),0):0;
   const dialog=el("div","arena-next-round-dialog");
   dialog.setAttribute("role","dialog");dialog.setAttribute("aria-label","Kết quả ván và tiếp tục");
   dialog.append(el("h2","",drawn?"🤝 HÒA":winner?"🏆 BẠN THẮNG!":"💫 KẾT THÚC VÁN"),
    el("p","arena-next-round-score",drawn?"Đã hoàn G giữ cược":
     winner?"+"+formatG(gain)+" vào ví G":
     room.game==="chess"?"Thua ván · -"+formatG(loss):"Còn "+cardCount+" lá · -"+formatG(loss)));
+  if(threeBich)dialog.append(el("p","arena-v26-special-payout",
+    "🏆 ĐÚT 3 BÍCH: mỗi đối thủ chịu thêm "+formatG(extra)+" (3× mức bàn)."));
   const revealed=room.gameState?.revealedHands;
   if(Array.isArray(revealed)&&room.game!=="chess"){
    const reveal=el("div","arena-next-round-reveal");
