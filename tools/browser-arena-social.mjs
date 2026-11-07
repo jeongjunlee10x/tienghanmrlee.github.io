@@ -59,7 +59,7 @@ try{
    await page.route(/https?:\/\/(?!127\.0\.0\.1)/,route=>route.abort());
    await page.route("**/auth-guard.js",route=>route.fulfill({status:200,contentType:"text/javascript",
     body:"document.documentElement.dataset.mrleeAuth='verified';document.querySelector('#mrlee-auth-hide')?.remove();"}));
-   await page.route("**/assets/arena/room-api.js",route=>route.fulfill({status:200,contentType:"text/javascript",body:MOCK}));
+   await page.route("**/assets/arena/room-api.js*",route=>route.fulfill({status:200,contentType:"text/javascript",body:MOCK}));
    try{
     await page.goto(ORIGIN+"/"+file,{waitUntil:"domcontentloaded",timeout:30000});
     await page.locator('[data-play-mode="friends"]').click();
@@ -94,7 +94,7 @@ try{
  await page.route(/https?:\/\/(?!127\.0\.0\.1)/,route=>route.abort());
  await page.route("**/auth-guard.js",route=>route.fulfill({status:200,contentType:"text/javascript",
   body:"document.documentElement.dataset.mrleeAuth='verified';document.querySelector('#mrlee-auth-hide')?.remove();"}));
- await page.route("**/assets/arena/room-api.js",route=>route.fulfill({status:200,contentType:"text/javascript",body:MOCK}));
+ await page.route("**/assets/arena/room-api.js*",route=>route.fulfill({status:200,contentType:"text/javascript",body:MOCK}));
  try{
   await page.goto(ORIGIN+"/game-chon-ban.html?game=tienlen",{waitUntil:"domcontentloaded",timeout:30000});
   await page.locator("#browserRooms .room-browser-table").first().waitFor({state:"visible",timeout:7000});
