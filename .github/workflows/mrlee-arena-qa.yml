@@ -33,6 +33,7 @@ on:
       - 'tools/test-arena-extra.mjs'
       - 'tools/browser-arena-extra.mjs'
       - 'tools/browser-arena.mjs'
+      - 'tools/browser-arena-rooms.mjs'
       - '.github/workflows/mrlee-arena-qa.yml'
 jobs:
   check:
