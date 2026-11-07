@@ -44,7 +44,7 @@ try{
    await page.evaluate(()=>document.querySelector('#arenaCatalog button[data-game="estate"]')?.click());
    assert.equal(await page.locator("#estateBoard .estate-tile").count(),24);
    await page.locator("#estateRoll").click();
-   assert.equal((await page.locator("#arenaTickets").textContent()).trim(),"0");
+   assert.equal((await page.locator("#arenaTickets").textContent()).trim(),"∞");
    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
    assert.ok(overflow<=2,"Overflow "+overflow+" at "+width);
    assert.deepEqual(errors,[],"Browser runtime errors: "+errors.join("; "));
