@@ -49,7 +49,7 @@ try{
   const page=await browser.newPage({viewport:size,reducedMotion:"no-preference"});
   const errors=[];page.on("pageerror",e=>errors.push(e.message));
   await page.goto("http://127.0.0.1:"+server.address().port+"/__local_tl_v22__");
-  await page.locator("#tlHand .tl-hand-card").first().waitFor();
+  await page.locator("#tlHand .tl-hand-card").first().waitFor({state:"attached"});
   const phase=await page.locator("#tlBoard").getAttribute("data-fx-phase");
   assert.ok(["shuffle","deal","spread"].includes(phase),
    "Human cards must be dealt before the actual first turn");
