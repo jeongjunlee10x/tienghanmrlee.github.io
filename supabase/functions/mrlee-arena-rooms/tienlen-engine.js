@@ -22,7 +22,7 @@ export function shuffle(items,rng=Math.random){
  }
  return a;
 }
-export function start(rng=Math.random,playerCount=4,previousWinner=null){
+export function start(rng=Math.random,playerCount=4,previousWinner=-1){
  if(!Number.isInteger(playerCount)||playerCount<2||playerCount>4)throw Error("Tiến Lên cần 2–4 người.");
  const shuffled=shuffle(deck(),rng);
  // Keep 13 cards per player even with 2/3 participants. Unused cards are out
