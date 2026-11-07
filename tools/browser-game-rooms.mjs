@@ -77,7 +77,8 @@ try{
     await page.locator("#roomWalletGold").waitFor({state:"visible",timeout:5000});
     await page.waitForFunction(()=>document.querySelector("#roomWalletGold")?.textContent==="6.507G",null,{timeout:10000});
     assert.equal(await page.locator("#roomWalletPoints").textContent(),"8");
-    assert.equal(await page.locator("#roomMenu .game-room-tile").count(),4);
+    const cardSelector=game==="tienlen"?"#roomMenu .tl24-room-card":"#roomMenu .game-room-tile";
+    assert.equal(await page.locator(cardSelector).count(),4);
     assert.equal(await page.locator('#roomMenu [data-play-mode="friends"]').isEnabled(),online);
     assert.equal(await page.locator('#roomMenu [data-play-mode="browse"]').isEnabled(),online);
     const shouldPortrait=!["tienlen","colors"].includes(game);
@@ -86,11 +87,11 @@ try{
       "Approved orientation policy must match "+game+" at "+width+"px");
     const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
     assert.ok(overflow<=4,"Horizontal overflow on "+pageFile+" at "+width+": "+overflow);
-    const tiles=await page.locator(".game-room-tiles").boundingBox();
+    const tiles=await page.locator(game==="tienlen"?"#roomMenu.tl24-room-menu":".game-room-tiles").boundingBox();
     assert.ok(tiles&&tiles.height<=height,"Oversized tiles in "+pageFile+": "+tiles?.height);
     assert.ok(tiles.x>=-1&&tiles.x+tiles.width<=width+2,
      "Game menu cropped horizontally on "+pageFile+": "+JSON.stringify(tiles));
-    const positions=await page.locator(".game-room-tile").evaluateAll(nodes=>nodes.map(n=>{
+    const positions=await page.locator(cardSelector).evaluateAll(nodes=>nodes.map(n=>{
      const r=n.getBoundingClientRect();return {x:r.x,right:r.right,width:r.width};
     }));
     assert.ok(positions.every(b=>b.x>=-1&&b.right<=width+2),
