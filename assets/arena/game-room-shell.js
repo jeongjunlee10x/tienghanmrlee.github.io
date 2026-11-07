@@ -86,7 +86,8 @@ let verifiedWallet=null,playingMode="",hasBooted=false,openAttempt=0,frameLoaded
 const compact=n=>Number(n).toLocaleString("vi-VN");
 const txt=(tag,value)=>{const el=document.createElement(tag);el.textContent=value;return el;};
 document.documentElement.style.setProperty("--room-cover",'url("assets/arena/covers/'+game+'.svg")');
-$("roomQuickCaption").textContent=game==="chess"?"Ghép bàn "+chessTimeSelect.value+" · đúng thời gian":localModeSelect?"Đấu máy · "+localModeSelect.selectedOptions[0]?.textContent:current.online?"Ghép bàn theo G phù hợp":"Đấu máy miễn phí";
+const quickCaption=$("roomQuickCaption");
+if(quickCaption)quickCaption.textContent=game==="chess"?"Ghép bàn "+chessTimeSelect.value+" · đúng thời gian":localModeSelect?"Đấu máy · "+localModeSelect.selectedOptions[0]?.textContent:current.online?"Ghép bàn theo G phù hợp":"Đấu máy miễn phí";
 for(const mode of ["friends","browse"]){
  const action=document.querySelector('[data-play-mode="'+mode+'"]');
  if(!current.online){
