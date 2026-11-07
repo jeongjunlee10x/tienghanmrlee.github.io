@@ -268,3 +268,29 @@ html[data-room-game="tienlen"] .game-room-frame-wrap{
  html[data-room-game="tienlen"] .tl24-game-menu a,
  html[data-room-game="tienlen"] .tl24-lobby-actions button{transition:none!important}
 }
+
+/* Browser QA: preserve the actual 390px viewport width even with card labels.
+   Flex-column descendants otherwise retain a 446px min-content footprint. */
+@media(max-width:640px){
+ html[data-room-game="tienlen"] .tl24-lobby,
+ html[data-room-game="tienlen"] .tl24-layout,
+ html[data-room-game="tienlen"] .tl24-main{
+  box-sizing:border-box!important;display:flex;flex-direction:column;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+ }
+ html[data-room-game="tienlen"] .tl24-sidebar{box-sizing:border-box!important;width:100%!important;min-width:0!important}
+ html[data-room-game="tienlen"] #roomMenu.tl24-room-menu{
+  box-sizing:border-box!important;display:grid!important;
+  flex:0 0 auto!important;width:100%!important;max-width:100%!important;min-width:0!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:8px!important;overflow:visible!important;
+ }
+ html[data-room-game="tienlen"] #roomMenu .tl24-room-card{
+  box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:100%!important;
+ }
+ html[data-room-game="tienlen"] .tl24-lobby-actions{
+  width:100%!important;max-width:100%!important;min-width:0!important;
+ }
+ html[data-room-game="tienlen"] .tl24-lobby-actions button{min-width:0!important}
+ html[data-room-game="tienlen"] .tl24-lobby-actions .tl24-play-now{min-width:0!important}
+}
