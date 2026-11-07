@@ -5,7 +5,7 @@
 import * as Chess from "./chess-engine.js";
 import * as TL from "./tienlen-engine.js?v=20261107-ai-r18";
 import * as Colors from "./color-engine.js?v=20261107-ai-r18";
-import {playingCard,chopTitle,showChopPopup} from "./tienlen-fx.js?v=20261107-motion-v22";
+import {playingCard,comboTitle,showChopPopup} from "./tienlen-fx.js?v=20261107-motion-v22";
 import {isDealing,showRoomDeal} from "./arena-deal-v22.js?v=20261107-fidelity-v23";
 import {enablePointerDrag,animateBoardMove,animateCardTransfer} from "./drag-gestures.js?v=20261107-motion-v22b";
 function el(tag,cls="",content){
@@ -539,7 +539,7 @@ export function mountOnlineCanvas(root,onMove){
    const oldLast=previous.gameState.last,newLast=room.gameState.last;
    if(oldLast.player!==newLast.player||
       JSON.stringify(oldLast.combo)!==JSON.stringify(newLast.combo)){
-    const title=chopTitle(oldLast.combo,newLast.combo);
+    const title=comboTitle(oldLast.combo,newLast.combo);
     if(title)void showChopPopup(title);
    }
   }
