@@ -3,7 +3,7 @@
  * User can still tap/click the same buttons; drag never triggers an extra click.
  */
 const preciseEvent=event=>event.isPrimary&&event.button===0;
-const reduceMotion=()=>document.documentElement.dataset.arenaVisuals==="off"||
+const reduceMotion=()=>Boolean(document.documentElement?.dataset)&&document.documentElement.dataset.arenaVisuals==="off"||
  window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches===true;
 function centerOf(rect){return {x:rect.left+rect.width/2,y:rect.top+rect.height/2};}
 // A floating clone moves outside the original board's CSS scope. Preserve its
