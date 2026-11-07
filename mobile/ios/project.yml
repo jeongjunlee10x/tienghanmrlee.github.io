@@ -1,0 +1,23 @@
+name: MRLeeMobile
+options:
+  createIntermediateGroups: true
+  deploymentTarget:
+    iOS: "15.0"
+targets:
+  MRLee:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: App
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: vn.mrlee.tienghan.ios
+        PRODUCT_NAME: MRLee
+        SWIFT_VERSION: "5.0"
+        IPHONEOS_DEPLOYMENT_TARGET: "15.0"
+        TARGETED_DEVICE_FAMILY: "1,2"
+        INFOPLIST_FILE: App/Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: NO
+        CODE_SIGN_STYLE: Automatic
