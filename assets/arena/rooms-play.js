@@ -80,6 +80,7 @@ function statusBanner(room){
 export function mountOnlineCanvas(root,onMove){
  let chosenSquare=-1,chosenCards=new Set(),chosenWild=null,locked=false,lastCode="",lastVersion=-1,sortBy="rank";
  let shownRoom=null,clockOffset=0,readyTimer=null,readyTimerKey="";
+ let lastCardLanding=""; // only animate a newly confirmed set of cards, never selection redraw
  const cancelReadyTimer=()=>{
   if(readyTimer!==null)clearTimeout(readyTimer);
   readyTimer=null;readyTimerKey="";
@@ -109,7 +110,7 @@ export function mountOnlineCanvas(root,onMove){
  function clear(){
   cancelReadyTimer();
   chosenSquare=-1;chosenCards.clear();chosenWild=null;locked=false;lastCode="";lastVersion=-1;sortBy="rank";
-  root.replaceChildren();shownRoom=null;
+  root.replaceChildren();shownRoom=null;lastCardLanding="";
  }
  async function submit(action){
   if(locked)return;
@@ -263,6 +264,12 @@ export function mountOnlineCanvas(root,onMove){
   const board=el("div","arena-pvp-card-table online-tl-board");
   renderSeats(room,state.counts,board);
   const center=el("div","arena-pvp-center"),current=el("div","arena-pvp-current");
+  const landingKey=room.code+"|"+(room.roundIndex||1)+"|"+
+   (state.played||[]).map(card=>card.id).join(",");
+  if(state.played?.length&&landingKey!==lastCardLanding){
+   center.classList.add("arena-v23-recent");
+   lastCardLanding=landingKey;
+  }
   if(!state.played?.length)current.append(el("span","arena-pvp-info","Vòng mới · chưa có bài trên bàn"));
   else for(const c of state.played)current.append(playingCard(c));
   center.append(el("strong","",statusBanner(room)),current,
@@ -532,7 +539,7 @@ export function mountOnlineCanvas(root,onMove){
   clockOffset=Date.parse(room.serverTime||"")-Date.now()||0;
   if(room.code!==lastCode){
    cancelReadyTimer();
-   chosenSquare=-1;chosenCards.clear();chosenWild=null;lastVersion=-1;
+   chosenSquare=-1;chosenCards.clear();chosenWild=null;lastVersion=-1;lastCardLanding="";
   }
   const readyAt=room.game==="tienlen"&&room.status==="playing"?
    Date.parse(room.gameState?.roundReadyAt||""):NaN;
