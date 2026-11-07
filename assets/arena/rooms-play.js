@@ -538,22 +538,20 @@ export function mountOnlineCanvas(root,onMove){
   if(!room?.gameState)return;
   const previous=shownRoom,isVersionChange=room.version!==lastVersion;
   if(!force&&isVersionChange)animateRemoteChess(previous,room);
-  // Only a NEW server-confirmed move can trigger an explosion. Polling and
-  // force-rendering the same version can never replay a settled chop.
-  if(!force&&previous?.game==="tienlen"&&room.game==="tienlen"&&
+  // A verified 3♠ finishing bonus gets one full-screen popup, even if this
+  // single-card lead began a fresh trick where the previous last combo is null.
+  const confirmedNewMove=!force&&previous?.game==="tienlen"&&room.game==="tienlen"&&
    previous.code===room.code&&previous.roundIndex===room.roundIndex&&
    previous.status==="playing"&&(room.status==="playing"||room.status==="finished")&&
-   room.version!==lastVersion&&previous.gameState?.last?.combo&&
-   room.gameState?.last?.combo){
-   if(room.status==="finished"&&room.gameState.specialFinish===true){
-    void showChopPopup("ĐÚT 3 BÍCH ×3!",{duration:1600});
-   }else{
+   room.version!==lastVersion;
+  if(confirmedNewMove&&room.status==="finished"&&room.gameState?.specialFinish===true){
+   void showChopPopup("ĐÚT 3 BÍCH ×3!",{duration:1600});
+  }else if(confirmedNewMove&&previous.gameState?.last?.combo&&room.gameState?.last?.combo){
    const oldLast=previous.gameState.last,newLast=room.gameState.last;
    if(oldLast.player!==newLast.player||
       JSON.stringify(oldLast.combo)!==JSON.stringify(newLast.combo)){
     const title=comboTitle(oldLast.combo,newLast.combo);
     if(title)void showChopPopup(title);
-   }
    }
   }
   shownRoom=room;
