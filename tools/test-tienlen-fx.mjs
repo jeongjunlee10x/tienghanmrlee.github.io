@@ -27,6 +27,11 @@ const css=await readFile(new URL("../assets/arena/tienlen-live.css",import.meta.
 const html=await readFile(new URL("../mrlee-game-arena.html",import.meta.url),"utf8");
 assert.match(fx,/const visualDeals=52/);
 assert.match(fx,/i<visualDeals/);
+assert.match(fx,/600,i\*64/,"Cards are now dealt slowly and individually");
+assert.match(fx,/860,i\*145/,"Playing cards arrive with longer visible flights");
+assert.match(fx,/tl-deal-receipt/,"Four receiving stacks accumulate dealt cards");
+assert.match(fx,/board\.dataset\.dealtCards/,"The real deal counts its arrivals");
+
 assert.match(fx,/animate\(sprite/);
 assert.match(fx,/playingCard\(card\)/);
 assert.match(ui,/fx\.throwCards/);
