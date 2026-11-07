@@ -557,3 +557,12 @@ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBo
   --cw:clamp(38px,10vw,47px)!important;
  }
 }
+
+/* V24.3: tested 390x844 portrait — face bottom 613px vs board bottom 606px.
+   Move the player hand 14px inward so the rounded bottom is never cut. */
+@media(orientation:portrait) and (max-width:650px){
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-bottom,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-human{
+  bottom:21px!important;
+ }
+}
