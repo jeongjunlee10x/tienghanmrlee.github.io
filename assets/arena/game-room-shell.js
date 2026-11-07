@@ -206,6 +206,14 @@ const friendPopup=current.online?mountArenaFriendPopup({
  onWallet:updateWallet,
  onAccepted:room=>{void loadWallet();start("friends",{code:room.code});}
 }):null;
+// V24: real tier cards open the authenticated create-room dialog.
+if(game==="tienlen"){
+ document.querySelectorAll("[data-tl-tier]").forEach(tile=>tile.addEventListener("click",()=>{
+  if(!friendPopup)return;
+  friendPopup.open("create",Number(tile.dataset.tlTier));
+ }));
+ document.querySelectorAll("[data-tl-daily]").forEach(btn=>btn.addEventListener("click",()=>$("roomDaily")?.click()));
+}
 document.querySelectorAll("[data-play-mode]").forEach(btn=>btn.addEventListener("click",()=>{
  if(btn.disabled)return;
  const mode=btn.dataset.playMode;
