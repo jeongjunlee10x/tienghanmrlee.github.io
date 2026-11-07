@@ -137,16 +137,16 @@ export function createTableEffects(board,area){
  async function deal(){
   cancel();const stamp=serial;
   board.dataset.fxPhase="shuffle";
-  board.dataset.dealCount="52";
+  board.dataset.dealCount="52";board.dataset.dealtCards="0";
   board.classList.add("tl-is-dealing");
-  if(reduced()){await wait(80);if(serial===stamp){board.classList.remove("tl-is-dealing");board.dataset.fxPhase="ready";}return;}
+  if(reduced()){await wait(350);if(serial===stamp){board.dataset.dealtCards="52";board.classList.remove("tl-is-dealing");board.dataset.fxPhase="ready";}return;}
   const origin=localRect(area);
   const stack=spawn(cardBack(),origin.x,origin.y,"tl-dealing-stack");
   const backs=Array.from({length:3},(_,i)=>{
    const n=spawn(cardBack(),origin.x+i*3-3,origin.y+i*2-2,"tl-shuffle-card");
    n.style.animationDelay=(i*110)+"ms";return n;
   });
-  await wait(document.documentElement.dataset.arenaVisuals==="lite"?250:650);
+  await wait(document.documentElement.dataset.arenaVisuals==="lite"?600:1100);
   stack.remove();backs.forEach(x=>x.remove());
   if(serial!==stamp)return;
   board.dataset.fxPhase="deal";
@@ -156,25 +156,52 @@ export function createTableEffects(board,area){
    board.querySelector('[data-seat="left"]'),
    board.querySelector('[data-seat="right"]')
   ];
-  const flights=[];
-  // 52 cards are still dealt by the real game engine. Only a sampled set
-  // of visual sprites is flown, reducing paint/animation work on phones.
-  // Every one of the 52 backs is visibly delivered, in seat order.
-  // Flight duration (~275ms) and 36ms stagger keep < 9 sprites active,
-  // including slower phones. Engine has already dealt the private real cards.
+  const flights=[],received=[0,0,0,0];
+  const notice=board.querySelector("#tlDealNotice");
+  const piles=seats.map((seatNode,seatIndex)=>{
+   const point=localRect(seatNode||area);
+   const pile=document.createElement("div");
+   pile.className="tl-deal-receipt";
+   pile.dataset.seat=String(seatIndex);
+   pile.style.left=point.x+"px";pile.style.top=point.y+"px";
+   const counter=document.createElement("small");
+   counter.className="tl-deal-receipt-count";counter.textContent="0/13";
+   pile.append(counter);overlay.append(pile);
+   return {pile,counter};
+  });
+  // Deal all 52 anonymous backs individually: round-robin, 13 per seat.
+  // Private real cards already live in the engine, hidden until complete.
   const visualDeals=52;
   for(let i=0;i<visualDeals;i++){
    const seat=i%4,which=Math.floor(i/4);
    const destination=localRect(seats[seat]||area);
    const spread=seat===0?(which-6)*8:((which%3)-1)*5;
    const extraX=(seat===0||seat===1)?spread:seat===3?-spread:spread;
-   const start=spawn(cardBack(),origin.x,origin.y,"tl-deal-sprite");
-   flights.push(animate(start,{x:destination.x-origin.x+extraX,y:destination.y-origin.y},275,i*36,seat===2?64:seat===3?-64:((which%3)-1)*7,.55));
+   const sprite=spawn(cardBack(),origin.x,origin.y,"tl-deal-sprite");
+   const arrival=animate(sprite,{x:destination.x-origin.x+extraX,y:destination.y-origin.y},
+    600,i*64,seat===2?64:seat===3?-64:((which%3)-1)*7,.58);
+   flights.push(arrival.then(()=>{
+    if(serial!==stamp)return;
+    received[seat]++;
+    const {pile,counter}=piles[seat];
+    counter.textContent=received[seat]+"/13";
+    if(received[seat]<=4){
+     const back=cardBack();
+     back.classList.add("tl-deal-received-back");
+     back.style.setProperty("--stack",String(received[seat]-1));
+     pile.insertBefore(back,counter);
+    }
+    const total=received.reduce((sum,n)=>sum+n,0);
+    board.dataset.dealtCards=String(total);
+    if(notice)notice.textContent="🂠 ĐANG PHÁT BÀI "+total+"/52";
+   }));
   }
   await Promise.all(flights);
   if(serial!==stamp)return;
   board.dataset.fxPhase="spread";
-  await wait(360);
+  if(notice)notice.textContent="✨ MỖI NGƯỜI 13 LÁ · MỞ BÀI";
+  await wait(480);
+  piles.forEach(({pile})=>pile.remove());
   if(serial!==stamp)return;
   board.classList.remove("tl-is-dealing");board.dataset.fxPhase="ready";
  }
@@ -202,7 +229,7 @@ export function createTableEffects(board,area){
     const destination={x:target.x-source.x+(i-(cards.length-1)/2)*Math.min(20,230/Math.max(cards.length,1)),
      y:target.y-source.y};
     const sprite=spawn(playingCard(card),source.x,source.y,"tl-play-sprite");
-    return animate(sprite,destination,430,i*62,(i-(cards.length-1)/2)*4,1.03);
+    return animate(sprite,destination,860,i*145,(i-(cards.length-1)/2)*4,1.03);
    });
    await Promise.all(flights);
   }
