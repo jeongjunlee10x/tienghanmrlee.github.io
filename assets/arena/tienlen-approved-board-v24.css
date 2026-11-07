@@ -654,3 +654,28 @@ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBo
   bottom:21px!important;
  }
 }
+
+
+/* V26: winner starts subsequent rounds, and solo 3♠ finish pays +3× tier G. */
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard
+ .arena-v26-opening-rule{
+ display:block;margin:0 auto 6px;padding:4px 11px;
+ width:max-content;max-width:95%;border:1px solid #efbd75;border-radius:99px;
+ background:#37112fbd;color:#ffe5ad;text-shadow:0 1px 3px #0009;
+ font:900 clamp(10px,1.5vw,15px)/1.2 system-ui
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard
+ .arena-v26-three-bich{
+ display:block;margin:0 auto 6px;padding:7px 12px;
+ border:2px solid #ffd05b;border-radius:14px;
+ color:#fff7c4;background:linear-gradient(110deg,#8f2546ee,#752449ee,#3b194bed);
+ box-shadow:0 0 21px #fcb64c93,inset 0 1px #ffffff50;
+ font:1000 clamp(13px,1.9vw,21px)/1.15 system-ui;
+ text-align:center;text-shadow:0 2px 3px #240919
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-v26-special-payout{
+ margin:5px auto 10px;padding:8px 12px;max-width:90%;
+ border:1px solid #ffdc74;border-radius:13px;color:#ffefb9;
+ background:linear-gradient(125deg,#5a1942,#2e143b);
+ font:950 clamp(11px,1.3vw,15px)/1.3 system-ui;text-align:center
+}
