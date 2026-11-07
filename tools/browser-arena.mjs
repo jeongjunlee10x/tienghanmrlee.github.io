@@ -38,7 +38,7 @@ try{
    await page.locator(".arena-hand-card").first().waitFor({timeout:6000});
    assert.equal(await page.locator(".arena-hand-card").count(),7);
    assert.equal(await page.locator(".arena-opponent").count(),3);
-   assert.equal((await page.locator("#arenaTickets").textContent()).trim(),"2");
+   assert.equal((await page.locator("#arenaTickets").textContent()).trim(),"∞");
    await page.locator("#arenaRules").click();
    assert.equal(await page.locator("#arenaRulesDialog").evaluate(d=>d.open),true);
    await page.locator("#arenaRulesClose").click();
