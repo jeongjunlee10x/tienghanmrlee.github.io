@@ -82,9 +82,14 @@ jobs:
             assets/branding/logo-mrlee.png
           sparse-checkout-cone-mode: false
 
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
       - name: Install icon generator and XcodeGen
         run: |
-          python3 -m pip install --break-system-packages --disable-pip-version-check Pillow==12.0.0
+          python3 -m pip install --disable-pip-version-check Pillow==12.0.0
           brew install xcodegen
           python3 mobile/tools/generate_icons.py
 
