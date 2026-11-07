@@ -26,7 +26,7 @@ function setApplicationMenu() {
       label: 'MR LEE',
       submenu: [
         { label: 'Trang chủ', accelerator: 'Alt+Home', click: goHome },
-        { label: 'Mở website trong trình duyệt', click: () => openExternal(HOME + '?open=browser') },
+        { label: 'Mở website trong trình duyệt', click: () => shell.openExternal(HOME).catch(error => console.error('Cannot open MR LEE website:', error.message)) },
         { type: 'separator' },
         { role: 'quit', label: 'Thoát' }
       ]
