@@ -39,7 +39,7 @@ const css=await readFile(repoFile("../assets/arena/game-art-direction.css"),"utf
 
 for(const preset of ["1+0","2+1","3+0","3+2","5+0","5+3","10+0","10+5","15+10","30+0","none"]){
  assert.match(edge,new RegExp('"'+preset.replace("+","\\+")+'":\\['),"Chess preset "+preset);
- assert.match(html,new RegExp('<option value="'+preset+'"'),"Local Chess UI "+preset);
+ assert.ok(html.includes('<option value="'+preset+'"'),"Local Chess UI "+preset);
 }
 assert.match(edge,/clock\.remaining\[seat\]=0/,"Chess expires its entire time budget");
 assert.match(edge,/winner=1-seat/,"Chess flag fall gives the opponent the win");
