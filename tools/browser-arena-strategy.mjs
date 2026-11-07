@@ -34,7 +34,7 @@ try{
    await page.evaluate(()=>document.querySelector('#arenaCatalog button[data-game="chess"]')?.click());
    await page.locator("#chessBoard .chess-square").first().waitFor({timeout:6000});
    assert.equal(await page.locator("#chessBoard .chess-square").count(),64);
-   assert.equal((await page.locator("#arenaTickets").textContent()).trim(),"2");
+   assert.equal((await page.locator("#arenaTickets").textContent()).trim(),"∞");
    await page.locator('#chessBoard .chess-square[data-square="e2"]').click();
    await page.locator('#chessBoard .chess-square[data-square="e4"]').click();
    assert.match((await page.locator('#chessBoard .chess-square[data-square="e4"]').getAttribute("aria-label"))||"",/P/);
@@ -43,7 +43,7 @@ try{
    await page.locator("#tlHand .tl-hand-card").first().waitFor({timeout:6000});
    assert.equal(await page.locator("#tlHand .tl-hand-card").count(),13);
    assert.equal(await page.locator("#tlOpponents .tl-opponent").count(),3);
-   assert.equal((await page.locator("#arenaTickets").textContent()).trim(),"1");
+   assert.equal((await page.locator("#arenaTickets").textContent()).trim(),"∞");
    const widthOverflow=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
    assert.ok(widthOverflow<=2,"Horizontal overflow at "+width+": "+widthOverflow);
    await page.locator("#tlExit").click();
