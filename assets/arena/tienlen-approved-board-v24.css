@@ -566,3 +566,12 @@ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBo
   bottom:21px!important;
  }
 }
+
+/* Chromium verified real drag-to-pile: make the actual #tlPile the hit target
+   rather than the decorative full-width center label. */
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-center{
+ pointer-events:none!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard #tlPile{
+ pointer-events:auto!important;
+}
