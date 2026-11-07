@@ -1,0 +1,48 @@
+name: MR LEE Tiến Lên V24 Approved UI QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'game-tien-len.html'
+      - 'mrlee-game-arena.html'
+      - 'assets/arena/tienlen-approved-v24.css'
+      - 'assets/arena/tienlen-approved-board-v24.css'
+      - 'assets/arena/tienlen-fx.js'
+      - 'assets/arena/tienlen-ui.js'
+      - 'assets/arena/rooms-play.js'
+      - 'assets/arena/game-room-shell.js'
+      - 'assets/arena/game-room-social.js'
+      - 'tools/browser-game-rooms.mjs'
+      - 'tools/test-tienlen-fx.mjs'
+      - '.github/workflows/mrlee-tienlen-v24-qa.yml'
+  workflow_dispatch:
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions: {contents: read}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Verify rules, model imports and typed scripts
+        run: |
+          node --check assets/arena/tienlen-ui.js
+          node --check assets/arena/tienlen-fx.js
+          node --check assets/arena/rooms-play.js
+          node --check assets/arena/game-room-shell.js
+          node --check tools/browser-game-rooms.mjs
+          node tools/test-tienlen-fx.mjs
+      - name: Install Chromium for landscape and portrait viewport checks
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install chromium --with-deps
+      - name: Verify approved Tiến Lên lobby, cards and playing controls in Chromium
+        run: ARENA_ONLY_GAME=tienlen node tools/browser-game-rooms.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tienlen-v24-approved-browser-screenshots
+          path: artifacts/game-rooms/tienlen*.png
+          if-no-files-found: ignore
+          retention-days: 14
