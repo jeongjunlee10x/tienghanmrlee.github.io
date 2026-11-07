@@ -6,7 +6,7 @@ import * as Chess from "./chess-engine.js";
 import * as TL from "./tienlen-engine.js?v=20261107-ai-r18";
 import * as Colors from "./color-engine.js?v=20261107-ai-r18";
 import {playingCard,chopTitle,showChopPopup} from "./tienlen-fx.js?v=20261107-motion-v22";
-import {isDealing,showRoomDeal} from "./arena-deal-v22.js?v=20261107-motion-v22";
+import {isDealing,showRoomDeal} from "./arena-deal-v22.js?v=20261107-fidelity-v23";
 import {enablePointerDrag,animateBoardMove,animateCardTransfer} from "./drag-gestures.js?v=20261107-motion-v22b";
 function el(tag,cls="",content){
  const result=document.createElement(tag);
@@ -262,6 +262,8 @@ export function mountOnlineCanvas(root,onMove){
   const state=room.gameState,
    myTurn=state.turn===room.seat&&room.status==="playing"&&!isDealing(state,clockOffset);
   const board=el("div","arena-pvp-card-table online-tl-board");
+  const dealing=room.status==="playing"&&isDealing(state,clockOffset);
+  board.dataset.fxPhase=dealing?"deal":"ready";
   renderSeats(room,state.counts,board);
   const center=el("div","arena-pvp-center"),current=el("div","arena-pvp-current");
   const landingKey=room.code+"|"+(room.roundIndex||1)+"|"+
@@ -336,7 +338,7 @@ export function mountOnlineCanvas(root,onMove){
   root.replaceChildren(board,events);
   // Real player hands are already server-private. Conceal ALL cards until
   // server readyAt, draw the same 52 anonymous backs for every participant.
-  if(room.status==="playing"&&isDealing(state,clockOffset)){
+  if(dealing){
    showRoomDeal(board,{roundReadyAt:state.roundReadyAt,offset:clockOffset,
     roundIndex:room.roundIndex||1});
   }
