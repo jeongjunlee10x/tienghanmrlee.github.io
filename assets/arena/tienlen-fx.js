@@ -34,7 +34,7 @@ export function cardBack(){
  const back=document.createElement("span");
  back.className="tl-card-back";
  const inner=document.createElement("span");inner.className="tl-card-back-inner";
- const crest=document.createElement("span");crest.className="tl-back-crest";crest.textContent="L";
+ const crest=document.createElement("span");crest.className="tl-back-crest";crest.textContent="♠";
  inner.append(crest);back.append(inner);
  back.setAttribute("aria-hidden","true");
  return back;
@@ -48,22 +48,35 @@ export function chopTitle(previous,next){
  // a repeated/equal or illegal combo must never be displayed as a chop.
  return next.type==="quad"?"TỨ QUÝ CHẶT!":next.type==="pair-run"?"ĐÔI THÔNG CHẶT!":"CHẶT HEO!";
 }
+/** Visual category from the ACCEPTED move. No independent rule validation here.
+ * chopTitle still checks beats() before any "chặt" banner.
+ */
+export function comboTitle(previous,next){
+ const chopped=chopTitle(previous,next);
+ if(chopped)return chopped;
+ if(!next)return "";
+ if(next.type==="quad")return "TỨ QUÝ!";
+ if(next.type==="pair-run")return next.size>=8?"4 ĐÔI THÔNG!":"3 ĐÔI THÔNG!";
+ if(next.type==="straight")return "SẢNH!";
+ return "";
+}
 /** Screen-centered, noninteractive blast, also used by authenticated PvP.
  * Does not alter deck, clocks, moves or G. */
 export function showChopPopup(message,{duration=980,signal}={}){
  if(!message||typeof document==="undefined"||signal?.aborted)return Promise.resolve();
  const overlay=document.createElement("div");
  overlay.className="arena-chop-v22";
+  overlay.dataset.kind=/SẢNH/i.test(message)?"straight":/ĐÔI THÔNG/i.test(message)?"pairs":/THẮNG/i.test(message)?"win":"quad";
  overlay.setAttribute("role","presentation");
  overlay.setAttribute("aria-hidden","true");
  const ring=document.createElement("div");ring.className="arena-chop-v22-ring";
  const title=document.createElement("strong");title.className="arena-chop-v22-title";
  title.textContent=String(message).slice(0,45);
  overlay.append(ring,title);
- for(let i=0;i<18;i++){
+ for(let i=0;i<24;i++){
   const spark=document.createElement("i");spark.className="arena-chop-v22-spark";
-  spark.style.setProperty("--a",i*20+"deg");
-  spark.style.setProperty("--d",(75+(i%4)*19)+"px");
+  spark.style.setProperty("--a",i*15+"deg");
+  spark.style.setProperty("--d",(75+(i%5)*22)+"px");
   overlay.append(spark);
  }
  document.body.append(overlay);
