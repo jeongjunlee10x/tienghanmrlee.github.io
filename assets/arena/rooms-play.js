@@ -81,6 +81,7 @@ export function mountOnlineCanvas(root,onMove){
  let chosenSquare=-1,chosenCards=new Set(),chosenWild=null,locked=false,lastCode="",lastVersion=-1,sortBy="rank";
  let shownRoom=null,clockOffset=0,readyTimer=null,readyTimerKey="";
  let lastCardLanding=""; // only animate a newly confirmed set of cards, never selection redraw
+ let lastReadyRound="";
  const cancelReadyTimer=()=>{
   if(readyTimer!==null)clearTimeout(readyTimer);
   readyTimer=null;readyTimerKey="";
@@ -110,7 +111,7 @@ export function mountOnlineCanvas(root,onMove){
  function clear(){
   cancelReadyTimer();
   chosenSquare=-1;chosenCards.clear();chosenWild=null;locked=false;lastCode="";lastVersion=-1;sortBy="rank";
-  root.replaceChildren();shownRoom=null;lastCardLanding="";
+  root.replaceChildren();shownRoom=null;lastCardLanding="";lastReadyRound="";
  }
  async function submit(action){
   if(locked)return;
@@ -264,6 +265,11 @@ export function mountOnlineCanvas(root,onMove){
   const board=el("div","arena-pvp-card-table online-tl-board");
   const dealing=room.status==="playing"&&isDealing(state,clockOffset);
   board.dataset.fxPhase=dealing?"deal":"ready";
+  const readyKey=room.code+"|"+(room.roundIndex||1);
+  if(!dealing&&room.status==="playing"&&readyKey!==lastReadyRound){
+   board.classList.add("arena-v23-intro");
+   lastReadyRound=readyKey;
+  }
   renderSeats(room,state.counts,board);
   const center=el("div","arena-pvp-center"),current=el("div","arena-pvp-current");
   const landingKey=room.code+"|"+(room.roundIndex||1)+"|"+
@@ -541,7 +547,7 @@ export function mountOnlineCanvas(root,onMove){
   clockOffset=Date.parse(room.serverTime||"")-Date.now()||0;
   if(room.code!==lastCode){
    cancelReadyTimer();
-   chosenSquare=-1;chosenCards.clear();chosenWild=null;lastVersion=-1;lastCardLanding="";
+   chosenSquare=-1;chosenCards.clear();chosenWild=null;lastVersion=-1;lastCardLanding="";lastReadyRound="";
   }
   const readyAt=room.game==="tienlen"&&room.status==="playing"?
    Date.parse(room.gameState?.roundReadyAt||""):NaN;
