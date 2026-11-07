@@ -58,4 +58,11 @@ const edge=await readFile(new URL("../supabase/functions/mrlee-arena-rooms/index
 assert.match(edge,/nextWinnerSeat>=0\?nextWinnerSeat:null/);
 assert.match(edge,/tienlen:16/);
 assert.match(edge,/specialFinish:state\.specialFinish===true/);
+const results=await readFile(new URL("../assets/arena/rooms-ui.js",import.meta.url),"utf8");
+assert.match(results,/detail\.threeSpadesFinish===true/,
+ "The result dialog reads only the server-verified special finish");
+assert.match(results,/const extra=threeBich\?/,
+ "The 3× tier bonus appears in the actual G outcome");
+assert.match(results,/\+extra\),0\):0;/,
+ "All opponents' bonuses are summed into the winner's G display");
 console.log("PASS V26 Tiến Lên: first 3♣, previous winner leads, singleton 3♠ special finish, escrow 16× stake.");
