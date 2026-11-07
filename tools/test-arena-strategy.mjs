@@ -38,10 +38,10 @@ assert.ok(beats(analyze(cards(["7-0","7-1","7-2","7-3"])),analyze(cards(["15-0",
 assert.ok(!beats(analyze(cards(["4-0","4-1"])),analyze(cards(["15-0","15-1"]))));
 let tl=tlStart(()=>0.52);
 assert.deepEqual(tl.hands.map(x=>x.length),[13,13,13,13]);
-assert.ok(tl.hands[tl.turn].some(x=>x.id==="3-0"));
+assert.ok(tl.hands[tl.turn].some(x=>x.id==="3-1"),"3♣ holder opens the first game");
 const firstSeat=tl.turn;
-assert.equal(canPlay(tl,firstSeat,[tl.hands[firstSeat].find(x=>x.id!=="3-0").id]),false);
-play(tl,firstSeat,["3-0"]);
+assert.equal(canPlay(tl,firstSeat,[tl.hands[firstSeat].find(x=>x.id!=="3-1").id]),false);
+play(tl,firstSeat,["3-1"]);
 assert.equal(tl.first,false);
 let current=tl.turn;
 pass(tl,current);current=tl.turn;pass(tl,current);current=tl.turn;pass(tl,current);
