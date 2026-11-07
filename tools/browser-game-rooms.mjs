@@ -144,6 +144,13 @@ try{
       "Player's 13 real cards must remain in hand during the deal");
      const face=await iframe.locator("#tlHand .tl-real-card").first().boundingBox();
      assert.ok(face&&face.width>=35,"Tiến Lên ranks and suits must not shrink beyond recognition");
+     const cardGeometry=await iframe.locator("#tlBoard").evaluate(board=>{
+      const hand=board.querySelector("#tlHand"),card=hand?.querySelector(".tl-real-card");
+      const rect=el=>{const r=el?.getBoundingClientRect();return r?{top:r.top,bottom:r.bottom,height:r.height}:null;};
+      return {board:rect(board),hand:rect(hand),card:rect(card),handOverflowY:hand?getComputedStyle(hand).overflowY:null};
+     });
+     console.log("TIENLEN CARD GEOMETRY",width+"x"+height,JSON.stringify(cardGeometry));
+
     }
     assert.equal(await page.locator("#roomLobby").isVisible(),false);
     assert.equal(await page.locator("#roomPlay").isVisible(),true);
