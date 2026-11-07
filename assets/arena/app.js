@@ -2,8 +2,8 @@
 import {newGame,canPlay,play,beginDraw,pass,botTurn,cardLabel,topCard,
   COLOR_VI,COLORS,PLAYER_NAMES} from "./color-engine.js?v=20261107-ai-r18";
 import {mountChess} from "./chess-ui.js?v=20261107-motion-v22b";
-import {mountTienLen} from "./tienlen-ui.js?v=20261107-deal-v25";
-import {mountArenaRooms} from "./rooms-ui.js?v=20261107-deal-v25";
+import {mountTienLen} from "./tienlen-ui.js?v=20261107-rule-v26";
+import {mountArenaRooms} from "./rooms-ui.js?v=20261107-rule-v26";
 import {mountLudo} from "./ludo.js?v=20261107-motion-v22b";
 import {mountXiangqi} from "./xiangqi.js?v=20261107-motion-v22b";
 import {mountEstate} from "./estate.js?v=20261107-motion-v22b";
