@@ -538,3 +538,22 @@ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-chop
   height:var(--ch)!important;min-height:var(--ch)!important;max-height:var(--ch)!important;
  }
 }
+
+/* V24.2 browser-measured card visibility (844x390):
+   hand bottom 299, real card bottom 319 due intrinsic offset. Never hide its lower 20px. */
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-hand,
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-hand{
+ overflow:visible!important;
+}
+@media(orientation:landscape) and (max-height:540px) and (max-width:1100px){
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-bottom,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-human{
+  bottom:23px!important;
+ }
+}
+@media(orientation:portrait) and (max-width:650px){
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaTienLen #tlBoard,
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard .arena-pvp-card-table{
+  --cw:clamp(38px,10vw,47px)!important;
+ }
+}
