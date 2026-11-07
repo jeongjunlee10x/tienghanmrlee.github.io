@@ -10,6 +10,8 @@ on:
       - 'game-co-tuong.html'
       - 'game-dia-oc.html'
       - 'assets/arena/game-room-shell.css'
+      - 'assets/arena/tienlen-approved-v24.css'
+      - 'assets/arena/tienlen-approved-board-v24.css'
       - 'assets/arena/game-room-shell.js'
       - 'assets/arena/game-room-embed.css'
       - 'assets/arena/game-room-embed.js'
