@@ -3,7 +3,7 @@
  * Draw only the authenticated player's hand. Never invent opponent card faces.
  */
 import * as Chess from "./chess-engine.js";
-import * as TL from "./tienlen-engine.js?v=20261107-ai-r18";
+import * as TL from "./tienlen-engine.js?v=20261107-rule-v26";
 import * as Colors from "./color-engine.js?v=20261107-ai-r18";
 import {playingCard,comboTitle,showChopPopup} from "./tienlen-fx.js?v=20261107-deal-v25";
 import {isDealing,showRoomDeal} from "./arena-deal-v22.js?v=20261107-deal-v25";
@@ -284,6 +284,11 @@ export function mountOnlineCanvas(root,onMove){
     face.style.setProperty("--land-index",String(i));
     current.append(face);
    }
+  if(room.status==="finished"&&state.specialFinish===true){
+   center.append(el("span","arena-v26-three-bich","🏆 ĐÚT 3 BÍCH! +3× G MỨC BÀN / ĐỐI THỦ"));
+  }else if(state.first){
+   center.append(el("span","arena-v26-opening-rule","Ván đầu: mở bằng 3♣"));
+  }
   center.append(el("strong","",statusBanner(room)),current,
    el("small","",""+(state.last?.combo?.type||"Vòng mở")+" · "+(state.last?.player!==undefined?
     "Bộ trước: "+(room.players.find(x=>x.seat===state.last.player)?.name||"người chơi"):"")));
@@ -540,11 +545,15 @@ export function mountOnlineCanvas(root,onMove){
    previous.status==="playing"&&(room.status==="playing"||room.status==="finished")&&
    room.version!==lastVersion&&previous.gameState?.last?.combo&&
    room.gameState?.last?.combo){
+   if(room.status==="finished"&&room.gameState.specialFinish===true){
+    void showChopPopup("ĐÚT 3 BÍCH ×3!",{duration:1600});
+   }else{
    const oldLast=previous.gameState.last,newLast=room.gameState.last;
    if(oldLast.player!==newLast.player||
       JSON.stringify(oldLast.combo)!==JSON.stringify(newLast.combo)){
     const title=comboTitle(oldLast.combo,newLast.combo);
     if(title)void showChopPopup(title);
+   }
    }
   }
   shownRoom=room;
