@@ -78,7 +78,11 @@ function prepared(card,other={id:10001,color:"green",type:"number",value:9}){
 const html=await readFile(new URL("../mrlee-game-arena.html",import.meta.url),"utf8");
 const app=await readFile(new URL("../assets/arena/app.js",import.meta.url),"utf8");
 const css=await readFile(new URL("../assets/arena/arena.css",import.meta.url),"utf8");
-assert.match(html,/auth-guard\.js/);
+// The standalone Arena imports the same auth guard through the secure
+// same-origin iframe bridge; embed=1 alone cannot bypass login.
+const bridge=await readFile(new URL("../assets/arena/embedded-auth.js",import.meta.url),"utf8");
+assert.match(html,/embedded-auth\.js/);
+assert.match(bridge,/await import\("\.\.\/\.\.\/auth-guard\.js"\)/);
 assert.match(html,/data-game="colors"/);
 assert.match(app,/Không trừ điểm học tập/);
 assert.doesNotMatch(app,/service_role|supabase\.from\(/i);
