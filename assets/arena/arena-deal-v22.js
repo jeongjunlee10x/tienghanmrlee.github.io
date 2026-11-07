@@ -49,16 +49,29 @@ export function showRoomDeal(board,{roundReadyAt,offset=0,roundIndex=1}={}){
   dealer.append(back);
  }
  stage.append(dealer);
+ // Visually accumulate 13 anonymous card backs at each of four seats.
+ const receivers=paths.map((position,seat)=>{
+  const node=document.createElement("div");node.className="arena-v25-deal-receiver";
+  node.dataset.seat=String(seat);
+  node.style.setProperty("--rx",position.x+"px");
+  node.style.setProperty("--ry",position.y+"px");
+  const back=document.createElement("span");back.className="arena-v25-deal-receiver-back";
+  back.setAttribute("aria-hidden","true");
+  const count=document.createElement("small");count.className="arena-v25-deal-receiver-count";
+  count.textContent="0/13";
+  node.append(back,count);stage.append(node);
+  return {node,count};
+ });
  // The same exact 52 round-robin visual seats on every client, regardless
  // of which player's real, private hand sits at which table position.
  const positions=[3,0,1,2];
  const quality=document.documentElement.dataset.arenaVisuals||"full";
  const skipMotion=quality==="off"||matchMedia("(prefers-reduced-motion: reduce)").matches;
  for(let i=0;i<52&&!skipMotion;i++){
-  const startAt=780+i*39;
-  if(startAt+350<=elapsed)continue;
+  const startAt=680+i*44;
+  if(startAt+530<=elapsed)continue;
   const el=document.createElement("span");el.className="arena-v22-back";
-  el.textContent="L";el.setAttribute("aria-hidden","true");
+  el.textContent="♠";el.setAttribute("aria-hidden","true");
   stage.append(el);
   const place=paths[positions[i%4]];
   const spread=Math.floor(i/4)-6;
@@ -68,17 +81,23 @@ export function showRoomDeal(board,{roundReadyAt,offset=0,roundIndex=1}={}){
    {opacity:1,transform:"translate3d(-50%,-50%,0) rotate(0deg) scale(1)"},
    {opacity:1,transform:"translate3d(calc(-50% + "+dx*.55+"px),calc(-50% + "+dy*.55+"px),0) rotate("+(place.angle*.5)+"deg) scale(.85)",offset:.58},
    {opacity:0,transform:"translate3d(calc(-50% + "+dx+"px),calc(-50% + "+dy+"px),0) rotate("+place.angle+"deg) scale(.6)"}
-  ],{duration:350,delay:startAt-elapsed,fill:"both",
+  ],{duration:530,delay:startAt-elapsed,fill:"both",
     easing:"cubic-bezier(.18,.78,.24,1)"});
   animation.finished.catch(()=>{}).then(()=>el.remove());
  }
  const update=()=>{
   const left=Math.max(0,ready-Date.now()-offset);
   const elapsedNow=DEAL_DURATION_MS-left;
-  dealer.hidden=elapsedNow>=780;
-  title.textContent=elapsedNow<780?"🃏 ĐANG XÀO BÀI":
-   elapsedNow<3100?"🂠 ĐANG CHIA ĐỦ 52 LÁ":"✨ SẮP MỞ LƯỢT";
-  const dealt=Math.max(0,Math.min(52,Math.floor((elapsedNow-780)/39)+1));
+  dealer.hidden=elapsedNow>=680;
+  title.textContent=elapsedNow<680?"🃏 ĐANG XÀO BÀI":
+   elapsedNow<3540?"🂠 ĐANG PHÁT BÀI TỪNG LÁ":"✨ MỖI NGƯỜI 13 LÁ";
+  const dealt=Math.max(0,Math.min(52,Math.floor((elapsedNow-680-530)/44)+1));
+  const counts=[0,0,0,0];
+  for(let i=0;i<dealt;i++)counts[positions[i%4]]++;
+  receivers.forEach(({node,count},seat)=>{
+   count.textContent=counts[seat]+"/13";
+   node.dataset.count=String(counts[seat]);
+  });
   subtitle.textContent=left<=0?"Ván đã sẵn sàng":
    "Ván "+roundIndex+" · "+dealt+"/52 lá · 20 giây/lượt sau khi chia";
  };
