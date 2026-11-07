@@ -575,3 +575,73 @@ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .t
 html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard #tlPile{
  pointer-events:auto!important;
 }
+
+/* V25: every real round visibly receives 13 face-down cards at each seat. */
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-deal-receipt{
+ position:absolute!important;z-index:46!important;transform:translate(-50%,-50%);
+ width:70px;height:66px;pointer-events:none;filter:drop-shadow(0 4px 7px #09020bbb)
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-deal-received-back{
+ position:absolute!important;top:0;left:15px;
+ width:31px!important;height:45px!important;padding:2px!important;
+ transform:translateX(calc(var(--stack) * 6px)) rotate(-6deg);
+ border:2px solid #ffe29e!important;border-radius:5px!important;
+ background:repeating-linear-gradient(45deg,#f3d7a533 0 2px,transparent 2px 6px),linear-gradient(145deg,#9b2551,#391438)!important
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-deal-received-back .tl-back-crest{
+ font-size:11px!important;
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-deal-receipt-count{
+ position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+ display:block;padding:2px 9px;border:1px solid #ffe39c;border-radius:99px;
+ background:#37132be8;color:#fff1c9;font:900 12px/1.25 system-ui;
+ white-space:nowrap;box-shadow:0 2px 6px #0009
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-v25-deal-receiver{
+ position:absolute;z-index:5;left:50%;top:50%;
+ transform:translate(calc(-50% + var(--rx)),calc(-50% + var(--ry)));
+ width:72px;height:72px;pointer-events:none
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-v25-deal-receiver-back{
+ position:absolute;left:19px;top:1px;width:36px;height:50px;box-sizing:border-box;
+ border:3px solid #ffe4a1;border-radius:6px;
+ background:repeating-linear-gradient(45deg,#ffe3a535 0 2px,transparent 2px 6px),
+ linear-gradient(145deg,#9c2859,#45163b);
+ box-shadow:0 4px 9px #000a,inset 0 0 0 3px #8e3b68;
+ opacity:.35
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-v25-deal-receiver[data-count]:not([data-count="0"]) .arena-v25-deal-receiver-back{
+ opacity:1
+}
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-v25-deal-receiver-count{
+ position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+ border:1px solid #ffde96;border-radius:99px;padding:3px 8px;
+ font:950 12px/1.1 system-ui;color:#fff5cc;background:#391534ea;
+ white-space:nowrap;text-shadow:0 1px #000;box-shadow:0 3px 8px #0009
+}
+/* Newly server-confirmed cards arrive more slowly one by one, not instantaneously. */
+html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard
+ .arena-pvp-center.arena-v23-recent .arena-pvp-current>.tl-real-card{
+ animation:arena-v23-card-land .84s cubic-bezier(.2,.75,.2,1) both!important;
+ animation-delay:calc(var(--land-index) * 145ms)!important;
+}
+@media(orientation:landscape) and (max-height:540px) and (max-width:1100px){
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-deal-receipt{
+  width:51px;height:51px
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #tlBoard .tl-deal-received-back{
+  width:24px!important;height:33px!important;left:8px
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-v25-deal-receiver{
+  width:53px;height:58px
+ }
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] .arena-v25-deal-receiver-back{
+  width:27px;height:38px;left:12px
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ html.arena-reference-v1.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard
+ .arena-pvp-center.arena-v23-recent .arena-pvp-current>.tl-real-card{
+  animation:none!important
+ }
+}
