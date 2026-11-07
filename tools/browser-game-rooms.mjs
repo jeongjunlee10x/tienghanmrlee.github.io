@@ -71,7 +71,7 @@ try{
    await page.route(/https?:\/\/(?!127\.0\.0\.1)/,route=>route.abort());
    await page.route("**/auth-guard.js",route=>route.fulfill({status:200,contentType:"text/javascript",
     body:"document.documentElement.dataset.mrleeAuth='verified';document.querySelector('#mrlee-auth-hide')?.remove();"}));
-   await page.route("**/assets/arena/room-api.js",route=>route.fulfill({status:200,contentType:"text/javascript",body:fakeAPI}));
+   await page.route("**/assets/arena/room-api.js*",route=>route.fulfill({status:200,contentType:"text/javascript",body:fakeAPI}));
    try{
     await page.goto(ORIGIN+"/"+pageFile,{waitUntil:"domcontentloaded",timeout:25000});
     await page.locator("#roomWalletGold").waitFor({state:"visible",timeout:5000});
@@ -286,7 +286,7 @@ try{
  await page.route(/https?:\/\/(?!127\.0\.0\.1)/,route=>route.abort());
  await page.route("**/auth-guard.js",route=>route.fulfill({status:200,contentType:"text/javascript",
   body:"document.documentElement.dataset.mrleeAuth='verified';document.querySelector('#mrlee-auth-hide')?.remove();"}));
- await page.route("**/assets/arena/room-api.js",route=>route.fulfill({status:200,contentType:"text/javascript",body:fakeAPI}));
+ await page.route("**/assets/arena/room-api.js*",route=>route.fulfill({status:200,contentType:"text/javascript",body:fakeAPI}));
  try{
   await page.goto(ORIGIN+"/game-tien-len.html",{waitUntil:"domcontentloaded"});
   await page.locator('[data-play-mode="friends"]').click();
