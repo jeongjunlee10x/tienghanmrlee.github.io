@@ -485,8 +485,8 @@ html.arena-embedded:is([data-embedded-game="tienlen"],[data-embedded-game="color
  to{opacity:1;transform:translate3d(0,0,0) scale(1)}
 }
 /* Real current-play cards animate on arrival; no duplicate cards are invented. */
-html.arena-embedded[data-embedded-game="tienlen"] .arena-pvp-current>.tl-real-card,
-html.arena-embedded[data-embedded-game="colors"] .arena-pvp-current>.arena-pvp-color-card{
+html.arena-embedded[data-embedded-game="tienlen"]
+ .arena-pvp-center.arena-v23-recent .arena-pvp-current>.tl-real-card{
  animation:arena-v23-card-land .32s cubic-bezier(.17,.8,.2,1) both
 }
 @keyframes arena-v23-card-land{
