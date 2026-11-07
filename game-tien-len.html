@@ -13,9 +13,10 @@
 <link rel="stylesheet" href="assets/arena/game-room-social.css?v=1">
 <link rel="stylesheet" href="assets/arena/daily-rewards.css?v=1">
 <link rel="stylesheet" href="assets/arena/game-room-v20.css?v=20261107-approved-v20">
+<link rel="stylesheet" href="assets/arena/tienlen-approved-v24.css?v=20261107-approved-v24">
 <style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
 <script type="module" src="auth-guard.js"></script>
-<script type="module" src="assets/arena/game-room-shell.js?v=20261107-approved-v20"></script>
+<script type="module" src="assets/arena/game-room-shell.js?v=20261107-approved-v24"></script>
 <script type="module" src="assets/arena/daily-rewards.js?v=1"></script>
 </head>
 <body>
@@ -29,16 +30,45 @@
  <nav class="game-room-header-actions" aria-label="Tiện ích"><button type="button" id="roomShowRules" aria-label="Hướng dẫn">❔</button><a href="bang-diem-tuan-v12.html" aria-label="Bảng xếp hạng">🏆</a><button type="button" id="roomMoreGames" aria-label="Game khác">☰</button></nav>
 </header>
 <main class="game-room-main">
- <section id="roomLobby" class="game-room-lobby" aria-labelledby="gameRoomTitle">
-  <div class="game-room-scene" aria-hidden="true"><span class="game-room-spark spark-a">✦</span><span class="game-room-spark spark-b">✧</span><span class="game-room-spark spark-c">✦</span></div>
-  <div class="game-room-title"><span class="game-room-eyebrow">✦ MR LEE · PHÒNG TRÒ CHƠI</span><h1 id="gameRoomTitle">Tiến Lên Miền Nam</h1><p id="gameRoomSubtitle">Đánh bài bốn người · Chọn chế độ để vào bàn</p></div>
-  <div id="roomMenu" class="game-room-tiles" role="group" aria-label="Chọn chế độ chơi">
-   <button type="button" class="game-room-tile tile-quick" data-play-mode="quick"><span class="tile-emoji">🂡</span><span class="tile-graphic" aria-hidden="true">⚡</span><strong>Chơi nhanh</strong><small id="roomQuickCaption">Vào bàn phù hợp ngay</small></button>
-   <button type="button" class="game-room-tile tile-friends" data-play-mode="friends"><span class="tile-emoji">👥</span><span class="tile-graphic" aria-hidden="true">VS</span><strong>Chơi với bạn</strong><small id="roomFriendsCaption">Tạo phòng · nhập mã</small></button>
-   <button type="button" class="game-room-tile tile-rooms" data-play-mode="browse"><span class="tile-emoji">🃏</span><span class="tile-graphic" aria-hidden="true">♠ ♥</span><strong>Chọn bàn</strong><small id="roomBrowseCaption">Xem phòng và mức G</small></button>
-   <a class="game-room-tile tile-more" href="mrlee-game-arena.html"><span class="tile-emoji">🎲</span><span class="tile-graphic" aria-hidden="true">✦</span><strong>Game khác</strong><small>Khám phá trò mới</small></a>
+ <section id="roomLobby" class="game-room-lobby tl24-lobby" aria-labelledby="gameRoomTitle">
+  <div class="game-room-scene tl24-scene" aria-hidden="true"><span class="game-room-spark spark-a">✦</span><span class="game-room-spark spark-b">✧</span><span class="game-room-spark spark-c">✦</span></div>
+  <div class="tl24-layout">
+   <aside class="tl24-sidebar" aria-label="Danh mục Game Arena">
+    <div class="tl24-profile"><span class="tl24-profile-avatar" aria-hidden="true">👑</span><div><strong>MR LEE</strong><small>♛ GAME ARENA</small></div></div>
+    <nav class="tl24-game-menu" aria-label="Chuyển trò chơi">
+     <span class="tl24-menu-title">TRÒ CHƠI</span>
+     <a href="game-tien-len.html" class="active" aria-current="page"><span>🂡</span> Tiến Lên Miền Nam</a>
+     <a href="game-bai-mau.html"><span>🃏</span> Bài Màu Đại Chiến</a>
+     <a href="game-co-vua.html"><span>♟</span> Cờ Vua</a>
+     <a href="game-co-tuong.html"><span>帥</span> Cờ Tướng</a>
+     <a href="game-co-ca-ngua.html"><span>🎲</span> Cờ Cá Ngựa</a>
+     <a href="mrlee-game-arena.html"><span>🎮</span> Tất cả game</a>
+    </nav>
+    <div class="tl24-side-bottom"><span>♠ ♥ ♦ ♣</span><small>CHƠI VUI · KHÔNG ĐỔI TIỀN THẬT</small></div>
+   </aside>
+   <div class="tl24-main">
+    <div class="game-room-title tl24-title">
+     <span class="game-room-eyebrow">♛ PHÒNG BÀI HOÀNG GIA · MR LEE ♛</span>
+     <div class="tl24-logo-cards" aria-hidden="true"><span>A♠</span><span>A♥</span><span>A♦</span><span>A♣</span></div>
+     <h1 id="gameRoomTitle">Tiến Lên<br>Miền Nam</h1>
+     <p id="gameRoomSubtitle">♠ Đấu trí cùng bạn bè · Trải nghiệm bàn bài đẳng cấp ♠</p>
+    </div>
+    <div id="roomMenu" class="tl24-room-menu" role="group" aria-label="Chọn cấp phòng Tiến Lên">
+     <button type="button" class="tl24-room-card tl24-green" data-tl-tier="5" aria-label="Tập sự, 5 G mỗi lá, tạo bàn"><span class="tl24-suit">♣</span><strong>Tập Sự</strong><small>Mức bàn</small><b>🪙 5 G / lá</b></button>
+     <button type="button" class="tl24-room-card tl24-blue" data-tl-tier="50" aria-label="Phổ thông, 50 G mỗi lá, tạo bàn"><span class="tl24-suit">♠</span><strong>Phổ Thông</strong><small>Mức bàn</small><b>🪙 50 G / lá</b></button>
+     <button type="button" class="tl24-room-card tl24-purple" data-tl-tier="500" aria-label="Cao thủ, 500 G mỗi lá, tạo bàn"><span class="tl24-suit">♥</span><strong>Cao Thủ</strong><small>Mức bàn</small><b>🪙 500 G / lá</b></button>
+     <button type="button" class="tl24-room-card tl24-red" data-tl-tier="5000" aria-label="Thách đấu, 5.000 G mỗi lá, tạo bàn"><span class="tl24-crown" aria-hidden="true">♛</span><strong>Thách Đấu</strong><small>Mức bàn</small><b>🪙 5.000 G / lá</b></button>
+     <div class="tl24-lobby-actions">
+      <button type="button" class="tl24-play-now" data-play-mode="quick">⚡ Chơi Ngay</button>
+      <button type="button" class="tl24-private" data-play-mode="friends">♟ Tạo bàn riêng</button>
+      <button type="button" class="tl24-browse" data-play-mode="browse">▦ Chọn bàn</button>
+      <button type="button" class="tl24-training" data-play-mode="bot">🤖 Đấu máy</button>
+     </div>
+    </div>
+    <div class="tl24-lobby-foot"><button type="button" class="tl24-event" data-tl-daily>🎁 <span><strong>Sự kiện hôm nay</strong><small>Điểm danh và nhận thưởng</small></span><span aria-hidden="true">❯</span></button><span class="tl24-safety">G là vàng trong trò chơi · Không thể đổi thành tiền thật</span></div>
+    <p class="game-room-hint" id="roomModeHint" role="status" aria-live="polite"></p>
+   </div>
   </div>
-  <p class="game-room-hint" id="roomModeHint" role="status" aria-live="polite"></p>
  </section>
  <section id="roomPlay" class="game-room-play" hidden aria-labelledby="roomPlayHeading">
   <div class="game-room-play-head">
