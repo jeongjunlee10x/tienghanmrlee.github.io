@@ -78,7 +78,7 @@ for(const name of ["game-bai-mau.html","game-tien-len.html","game-co-vua.html",
  "game-co-tuong.html","game-co-ca-ngua.html","game-dia-oc.html"]){
  const page=await read(name);
  check(page.includes('game-room-v20.css?v=20261107-approved-v20')&&
- page.includes('game-room-shell.js?v=20261107-approved-v20'),
+ page.includes('game-room-shell.js?v=20261107-'+(name==="game-tien-len.html"?"approved-v24":"approved-v20")),
  name+" includes the new standalone room layout and script");
 }
 // Game rules still apply in the unchanged engines.
