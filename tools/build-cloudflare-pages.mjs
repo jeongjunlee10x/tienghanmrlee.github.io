@@ -16,7 +16,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const out = join(root, 'dist');
 const excludedDirs = new Set([
   '.git','.github','.vscode','.idea','node_modules','dist','archive',
-  'tools','docs','scripts','leaderboard-functions','functions','supabase',
+  'tools','docs','desktop','scripts','leaderboard-functions','functions','supabase',
   'coverage','artifacts','.cache','.wrangler'
 ]);
 const allowedExt = new Set([
