@@ -1,4 +1,4 @@
-/* Tiến lên miền Nam – local 4-player variant, fully checked combos and 3♠ opener.
+/* Tiến lên miền Nam – local 4-player variant, fully checked combos and first-round 3♣ opener.
  * Rule variant (see UI): 3 pair-run chops a single 2; four of a kind chops
  * single/pair 2 and 3 pair-run; 4 pair-run chops those plus quads.
  * Local simulation only; no student points or real-world prizes. */
@@ -22,20 +22,24 @@ export function shuffle(items,rng=Math.random){
  }
  return a;
 }
-export function start(rng=Math.random,playerCount=4){
+export function start(rng=Math.random,playerCount=4,previousWinner=null){
  if(!Number.isInteger(playerCount)||playerCount<2||playerCount>4)throw Error("Tiến Lên cần 2–4 người.");
  const shuffled=shuffle(deck(),rng);
  // Keep 13 cards per player even with 2/3 participants. Unused cards are out
  // of the match; ensure 3♠ is in play for the traditional opening rule.
  const dealtCount=13*playerCount;
- const openerIndex=shuffled.findIndex(c=>c.id==="3-0");
+ const openerIndex=shuffled.findIndex(c=>c.id==="3-1");
  if(openerIndex>=dealtCount)[shuffled[0],shuffled[openerIndex]]=[shuffled[openerIndex],shuffled[0]];
  const hands=Array.from({length:playerCount},()=>[]);
  shuffled.slice(0,dealtCount).forEach((c,i)=>hands[i%playerCount].push(c));
  hands.forEach(h=>h.sort((a,b)=>value(a)-value(b)));
- const first=hands.findIndex(hand=>hand.some(c=>c.id==="3-0"));
- return {hands,turn:first,first:true,leader:first,last:null,passed:Array(playerCount).fill(false),
-  history:["Ai có 3♠ được đi trước. Lượt đầu phải chứa 3♠."],played:[],winner:null,rounds:0};
+ const opener=hands.findIndex(hand=>hand.some(c=>c.id==="3-1"));
+ const continuing=Number.isInteger(previousWinner)&&previousWinner>=0&&previousWinner<playerCount;
+ const first=continuing?previousWinner:opener;
+ return {hands,turn:first,first:!continuing,leader:first,last:null,passed:Array(playerCount).fill(false),
+  history:[continuing?"Người thắng ván trước được đánh đầu (ghế "+(first+1)+").":
+   "Ván đầu: người có 3♣ (3 chuồn) đi trước, phải chứa 3♣."],
+  played:[],winner:null,specialFinish:false,ruleVersion:2,rounds:0};
 }
 export function analyze(cards){
  if(!cards?.length||cards.length>13||new Set(cards.map(c=>c.id)).size!==cards.length)return null;
@@ -84,7 +88,7 @@ export function canPlay(g,player,ids){
  if(cards.some(x=>!x)||new Set(ids).size!==ids.length)return false;
  const combo=analyze(cards);
  if(!combo)return false;
- if(g.first&&!ids.includes("3-0"))return false;
+ if(g.first&&!ids.includes("3-1"))return false;
  return beats(combo,g.last?.combo);
 }
 export function play(g,player,ids){
@@ -99,7 +103,9 @@ export function play(g,player,ids){
  const type={single:"rác",pair:"đôi",triple:"sám",quad:"tứ quý",straight:"sảnh","pair-run":"đôi thông"}[combo.type];
  g.history.push(NAMES[player]+" ra "+type+": "+cards.map(label).join(" "));
  if(g.hands[player].length===0){
-  g.winner=player;g.history.push(NAMES[player]+" về nhất!");
+  g.winner=player;
+  g.specialFinish=cards.length===1&&cards[0].id==="3-0";
+  g.history.push(NAMES[player]+" về nhất!"+(g.specialFinish?" 🏆 ĐÚT 3 BÍCH ×3 MỨC BÀN MỖI ĐỐI THỦ!":""));
  }else g.turn=nextSeat(g,player);
  if(g.rounds>=300&&!g.winner){
   const minimum=Math.min(...g.hands.map(h=>h.length));
