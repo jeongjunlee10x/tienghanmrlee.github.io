@@ -13,6 +13,8 @@ on:
       - 'tools/test-arena-extra.mjs'
       - 'tools/browser-arena-extra.mjs'
       - 'tools/test-tienlen-fx.mjs'
+      - 'tools/test-tienlen-v26-rules.mjs'
+      - 'supabase/manual-sql/MRLEE_ARENA_RULE_3_CHUON_3_BICH_X3_V26.sql'
       - 'tools/test-arena-rooms.mjs'
       - 'tools/test-arena-live-api.mjs'
       - 'tools/browser-arena.mjs'
@@ -69,6 +71,8 @@ jobs:
         run: node tools/test-arena.mjs
       - name: Chess and Tien Len rules
         run: node tools/test-arena-strategy.mjs
+      - name: Tiến Lên V26 winner and 3♠ special-finish rules
+        run: node tools/test-tienlen-v26-rules.mjs
       - name: Remaining three games rules
         run: node tools/test-arena-extra.mjs
       - name: Table visual effects and chop labels
