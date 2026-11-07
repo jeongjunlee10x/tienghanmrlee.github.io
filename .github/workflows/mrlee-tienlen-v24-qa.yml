@@ -16,6 +16,8 @@ on:
       - 'assets/arena/game-room-social.js'
       - 'tools/browser-game-rooms.mjs'
       - 'tools/test-tienlen-fx.mjs'
+      - 'tools/test-tienlen-v26-rules.mjs'
+      - 'supabase/manual-sql/MRLEE_ARENA_RULE_3_CHUON_3_BICH_X3_V26.sql'
       - '.github/workflows/mrlee-tienlen-v24-qa.yml'
   workflow_dispatch:
 jobs:
@@ -35,6 +37,7 @@ jobs:
           node --check assets/arena/game-room-shell.js
           node --check tools/browser-game-rooms.mjs
           node tools/test-tienlen-fx.mjs
+          node tools/test-tienlen-v26-rules.mjs
       - name: Install Chromium for landscape and portrait viewport checks
         run: |
           npm install --no-save --no-package-lock playwright@1.56.1
