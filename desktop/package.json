@@ -31,7 +31,7 @@
     "asar": true,
     "win": {
       "icon": "build/icon.ico",
-      "artifactName": "MR-LEE-${version}-${arch}-${target}.${ext}"
+      "artifactName": "MR-LEE-${version}-${arch}-Setup.${ext}"
     },
     "nsis": {
       "oneClick": false,
