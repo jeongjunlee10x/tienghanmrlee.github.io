@@ -626,17 +626,17 @@ html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard
  opacity:0!important;visibility:hidden!important;pointer-events:none!important
 }
 html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard
- .online-tl-board[data-fx-phase="ready"] .arena-pvp-hand>button{
+ .online-tl-board.arena-v23-intro[data-fx-phase="ready"] .arena-pvp-hand>button{
  animation:arena-v22-fan-in .38s cubic-bezier(.18,.82,.22,1) both
 }
 html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard
- .online-tl-board[data-fx-phase="ready"] .arena-pvp-hand>button:nth-child(4n+1){animation-delay:30ms}
+ .online-tl-board.arena-v23-intro[data-fx-phase="ready"] .arena-pvp-hand>button:nth-child(4n+1){animation-delay:30ms}
 html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard
- .online-tl-board[data-fx-phase="ready"] .arena-pvp-hand>button:nth-child(4n+2){animation-delay:60ms}
+ .online-tl-board.arena-v23-intro[data-fx-phase="ready"] .arena-pvp-hand>button:nth-child(4n+2){animation-delay:60ms}
 html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard
- .online-tl-board[data-fx-phase="ready"] .arena-pvp-hand>button:nth-child(4n+3){animation-delay:90ms}
+ .online-tl-board.arena-v23-intro[data-fx-phase="ready"] .arena-pvp-hand>button:nth-child(4n+3){animation-delay:90ms}
 html.arena-embedded[data-embedded-game="tienlen"] #arenaPvPBoard
- .online-tl-board[data-fx-phase="ready"] .arena-pvp-hand>button:nth-child(4n){animation-delay:120ms}
+ .online-tl-board.arena-v23-intro[data-fx-phase="ready"] .arena-pvp-hand>button:nth-child(4n){animation-delay:120ms}
 /* Back-of-deck shuffles before the first card flies. */
 .arena-v23-dealer{position:absolute;z-index:4;left:50%;top:50%;width:55px;height:78px;
  transform:translate(-50%,-50%);pointer-events:none}
