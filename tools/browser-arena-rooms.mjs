@@ -27,7 +27,7 @@ try{
   const page=await context.newPage(),errs=[];page.on("pageerror",e=>errs.push(e.message));
   await page.route("**/auth-guard.js",r=>r.fulfill({status:200,contentType:"text/javascript",
    body:"document.documentElement.dataset.mrleeAuth='verified';document.getElementById('mrlee-auth-hide')?.remove();"}));
-  await page.route("**/assets/arena/room-api.js",r=>r.fulfill({status:200,contentType:"text/javascript",body:mockApi}));
+  await page.route("**/assets/arena/room-api.js*",r=>r.fulfill({status:200,contentType:"text/javascript",body:mockApi}));
   try{
    await page.goto(origin+"/mrlee-game-arena.html",{waitUntil:"domcontentloaded",timeout:20000});
    assert.equal(await page.locator(".arena-game-card.playable").count(),6);
