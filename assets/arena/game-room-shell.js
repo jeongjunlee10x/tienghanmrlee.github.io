@@ -1,13 +1,13 @@
 /* MR LEE standalone room menus: existing Arena engines run in a same-origin iframe.
  * G/points are read exclusively from the Firebase-verified Arena Edge API.
  */
-import {roomRequest,formatG} from "./room-api.js";
-import {mountArenaFriendPopup} from "./game-room-social.js?v=20261106-chess-r7";
+import {roomRequest,formatG} from "./room-api.js?v=20261107-rule-v26";
+import {mountArenaFriendPopup} from "./game-room-social.js?v=20261107-rule-v26";
 const $=id=>document.getElementById(id);
 const GAME_PAGES=Object.freeze({
  colors:{name:"Bài Màu Đại Chiến",online:true,description:"Trò chơi sắc màu bốn người"},
  chess:{name:"Cờ Vua",online:true,description:"Bàn cờ chiến thuật hai người"},
- tienlen:{name:"Tiến Lên Miền Nam",online:true,description:"Đánh bài bốn người"},
+ tienlen:{name:"Tiến Lên Miền Nam",online:true,description:"Ván đầu 3♣ · Ván sau người thắng mở · Đút 3♠ ×3 G"},
  ludo:{name:"Cờ Cá Ngựa",online:false,description:"Lắc xúc xắc, đưa ngựa về đích"},
  xiangqi:{name:"Cờ Tướng / Cờ Úp",online:false,description:"Chiến thuật và bày binh bố trận"},
  estate:{name:"Địa Ốc Đại Chiến",online:false,description:"Xây dựng và mua bán bất động sản ảo"}
