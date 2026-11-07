@@ -57,7 +57,7 @@ const GAMES=[
  ["game-co-ca-ngua.html","ludo","arenaLudo",false],
  ["game-co-tuong.html","xiangqi","arenaXiangqi",false],
  ["game-dia-oc.html","estate","arenaEstate",false]
-];
+].filter(([,game])=>!process.env.ARENA_ONLY_GAME||game===process.env.ARENA_ONLY_GAME);
 await mkdir(path.join(ROOT,"artifacts","game-rooms"),{recursive:true});
 let browser;
 try{
@@ -150,6 +150,11 @@ try{
       return {board:rect(board),hand:rect(hand),card:rect(card),handOverflowY:hand?getComputedStyle(hand).overflowY:null};
      });
      console.log("TIENLEN CARD GEOMETRY",width+"x"+height,JSON.stringify(cardGeometry));
+     assert.ok(cardGeometry.board&&cardGeometry.card&&
+       cardGeometry.card.bottom<=cardGeometry.board.bottom+2&&
+       (cardGeometry.card.bottom<=cardGeometry.hand.bottom+2||cardGeometry.handOverflowY==="visible"),
+       "All real Tiến Lên cards must be visible in the physical table: "+JSON.stringify(cardGeometry));
+
 
     }
     assert.equal(await page.locator("#roomLobby").isVisible(),false);
