@@ -29,7 +29,7 @@ for(const prop of ["@keyframes arena-v19-enter","@keyframes arena-v19-active-glo
 check(css.includes("box-sizing:border-box!important;max-width:100%!important"),
  "Framed game boards fit narrow touchscreens without horizontal overflow");
 check(main.includes('game-visuals-v19.css?v=20261107-v19'),"Arena loads V19 stylesheet after other skins");
-check(/app\.js\?v=20261107-(v19|approved-v20[a-z]*|motion-v22[a-z]*)/.test(main),"Arena loads the current application");
+check(/app\.js\?v=20261107-(v19|approved-v20[a-z]*|motion-v22[a-z]*|fidelity-v23)/.test(main),"Arena loads the current application");
 for(const page of ["game-co-vua","game-co-tuong","game-tien-len","game-bai-mau","game-co-ca-ngua","game-dia-oc"]){
  const source=await read(page+".html");
  check(source.includes("game-visuals-v19.css?v=20261107-v19"),page+" loads distinct lobby theme");
@@ -49,7 +49,7 @@ check(fx.includes('dataset.arenaVisuals==="off"'),"Card dealing honors Off setti
 check(premium.includes('dataset.arenaVisuals==="off"'),"Older FLIP visuals honor Off");
 check(tl.includes('card.id===item.dataset.cardId')&&card.includes('c.id===item.dataset.cardId'),
  "Drag-and-drop keeps original string card IDs for local and PvP games");
-check(/rooms-play\.js\?v=20261107-(v19|motion-v22[a-z]*)/.test(room),"PvP module cache refreshed");
+check(/rooms-play\.js\?v=20261107-(v19|motion-v22[a-z]*|fidelity-v23)/.test(room),"PvP module cache refreshed");
 check(chess.includes('emitArenaFX("capture"'),"Cờ vua only sparks on real captures");
 check(xq.includes('emitArenaFX("xiangqi"'),"Cờ Tướng only sparks on real captures");
 check(ludo.includes('emitArenaFX("ludo"'),"Cờ Cá Ngựa captures play the right visual cue");
