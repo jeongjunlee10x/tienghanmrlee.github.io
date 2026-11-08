@@ -57,6 +57,18 @@ const sitemapPages=[...new Set(sourceUrls.map(href=>{
 }))];
 if(!sitemapPages.includes(''))throw new Error('Source sitemap must include homepage');
 const seoPaths=new Set(sitemapPages.map(p=>p||'index.html'));
+// Cloudflare Pages redirects .html requests to extensionless URLs. Keep all
+// public canonical signals on the final URL, while GitHub source stays intact.
+const publicPath = pathname => pathname.replace(/(?:^|\/)index\.html$/, '/').replace(/^\//, '').replace(/\.html$/, '');
+function normalizePublicSeoUrls(html){
+ for(const pathname of seoPaths){
+  const from=origin+'/'+pathname;
+  const to=origin+'/'+publicPath(pathname);
+  html=html.replaceAll(from+'"',to+'"').replaceAll(from+"'",to+"'")
+   .replaceAll(from+'#',to+'#');
+ }
+ return html;
+}
 
 const authSource=await readFile(join(root,'auth-status.js'),'utf8');
 const protectedMatch=authSource.match(/const MRLEE_PROTECTED_PAGES = new Set\((\[[\s\S]*?\])\);/);
@@ -220,6 +232,7 @@ const workers=Array.from({length:16},async()=>{
   next=protectSearchIndex(next,item.rel);
   next=addBrandStructuredData(next,item.rel);
   next=addEditorialStructuredData(next,item.rel);
+  if(item.ext==='.html')next=normalizePublicSeoUrls(next);
   // Existing GitHub Pages root is unchanged; only Cloudflare output differs.
   await writeFile(target,next,'utf8');
  }
@@ -234,7 +247,7 @@ await writeFile(join(out,'_redirects'),
 const available=new Set(input.map(x=>x.rel));
 const sitemap='<?xml version="1.0" encoding="UTF-8"?>\n'+
  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+
- sitemapPages.filter(p=>!p||available.has(p)).map(p=>`  <url><loc>${origin}/${p}</loc></url>`).join('\n')+
+ sitemapPages.filter(p=>!p||available.has(p)).map(p=>`  <url><loc>${origin}/${publicPath(p)}</loc></url>`).join('\n')+
  '\n</urlset>\n';
 await writeFile(join(out,'sitemap.xml'),sitemap,'utf8');
 await writeFile(join(out,'robots.txt'),
