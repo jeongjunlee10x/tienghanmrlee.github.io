@@ -49,7 +49,7 @@ function errText(err) {
     'auth/user-disabled': 'Tài khoản đã bị vô hiệu hóa. Vui lòng liên hệ quản trị viên.',
     'auth/too-many-requests': 'Yêu cầu quá nhiều lần. Hãy thử lại sau.',
     'auth/operation-not-allowed': 'Cần bật Email/Password trong Firebase → Authentication → Sign-in method.',
-    'auth/unauthorized-domain': 'Cần thêm jeongjunlee10x.github.io vào danh sách Authorized domains.',
+    'auth/unauthorized-domain': `Tên miền ${location.hostname} chưa được cho phép trong Firebase Authentication → Authorized domains.`,
     'auth/network-request-failed': 'Không kết nối được đến Firebase. Hãy kiểm tra mạng.',
     'auth/invalid-api-key': 'Mã cấu hình Firebase chưa chính xác.',
     'auth/requires-recent-login': 'Phiên đăng nhập cần được làm mới. Vui lòng đăng xuất và đăng nhập lại.'
