@@ -70,7 +70,7 @@ const robots=await readFile(join(dist,'robots.txt'),'utf8');
 const sitemap=await readFile(join(dist,'sitemap.xml'),'utf8');
 assert(robots.includes(`Sitemap: ${expectedOrigin}/sitemap.xml`), 'robots.txt sitemap mismatch');
 assert(sitemap.includes(`<loc>${expectedOrigin}/</loc>`), 'sitemap root URL mismatch');
-assert(/<meta\\s+name="robots"\\s+content="noindex,nofollow"/i.test(notFound),
+assert(/<meta\s+name="robots"\s+content="noindex,nofollow"/i.test(notFound),
  '404 must instruct search engines not to index the error page');
 assert(notFound.includes(`href="${expectedOrigin}/"`),
  '404 page does not link to the Cloudflare production homepage');
@@ -89,12 +89,11 @@ for(const requiredHeader of [
 ]){
  assert(headers.includes(requiredHeader), 'Missing Cloudflare static header: '+requiredHeader);
 }
-assert(/^\\/\\*\\s*$/m.test(headers), 'Missing global _headers route');
-assert(!/^\\s*(?:X-Robots-Tag|Content-Security-Policy|Cache-Control):/mi.test(headers),
+assert(/^\/\*\s*$/m.test(headers), 'Missing global _headers route');
+assert(!/^\s*(?:X-Robots-Tag|Content-Security-Policy|Cache-Control):/mi.test(headers),
  'New header rules must not globally change crawling, CSP, or cache');
-assert(!/\\b(?:microphone|camera|geolocation)\\s*=\\s*\\(\\)/i.test(headers),
+assert(!/\b(?:microphone|camera|geolocation)\s*=\s*\(\)/i.test(headers),
  'Permission policy must not disable learning, interview or map features');
-
 
 const noindexOnlyPaths=[
  'hoc-tieng-han.html','kiem-tra-online.html','mrlee-bai-tap-pro.html',
