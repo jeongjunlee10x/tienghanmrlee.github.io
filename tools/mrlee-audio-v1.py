@@ -6,6 +6,7 @@ Examples:
  python tools/mrlee-audio-v1.py audit
  python tools/mrlee-audio-v1.py build --section 03_TOPIK --limit 20
  python tools/mrlee-audio-v1.py build --section 03_TOPIK --apply --limit 20
+ python tools/mrlee-audio-v1.py build --section 03_TOPIK --strict-exam --limit 8
 Only --apply replaces existing MP3; replacements are atomic and preserve paths.
 """
 import argparse
@@ -127,7 +128,7 @@ def audit(section):
 
 async def synthesize(text, voice, output):
     import edge_tts
-    await edge_tts.Communicate(text, voice, rate="-8%").save(str(output))
+    await edge_tts.Communicate(text, voice, rate="+0%").save(str(output))
 
 
 def concat(inputs, output, gap_seconds):
@@ -151,7 +152,43 @@ def concat(inputs, output, gap_seconds):
                         "-b:a", "96k", str(output)], check=True)
 
 
-async def build_one(row, apply, repeat_exam):
+def sino_korean_number(value):
+    """Pronounce exam item numbers as 일 번, 십이 번, 백삼 번."""
+    n = int(value)
+    if not (1 <= n <= 999):
+        raise ValueError("Exam question number must be 1..999")
+    digits = "일이삼사오육칠팔구"
+    parts = []
+    for position, scale in ((100, "백"), (10, "십"), (1, "")):
+        digit, n = divmod(n, position)
+        if digit:
+            parts.append(("" if digit == 1 and position > 1 else digits[digit-1]) + scale)
+    return "".join(parts)
+
+
+def approved_exam_plan(turns, number):
+    """Speech script and REAL silence: 3s / 3s / 0.5s / 4s.
+    Role labels stay in metadata; no speech contains 남자:/여자:.
+    Opening bilingual instructions belong to the full exam compilation,
+    not to each individually numbered audio question.
+    """
+    if not turns:
+        raise ValueError("No exam dialogue")
+    for speaker, text in turns:
+        if speaker not in VOICES or BAD_SPEECH.search(text):
+            raise ValueError("Invalid speaker metadata or audible role label")
+    plan = [("female", sino_korean_number(number) + " 번", 3.0)]
+    # Two passes preserve actual speaker order, not one blended voice.
+    for pass_index in range(2):
+        for turn_index, (speaker, text) in enumerate(turns):
+            after = 0.55 if turn_index < len(turns)-1 else (3.0 if pass_index == 0 else 4.0)
+            plan.append((speaker, text, after))
+        if pass_index == 0:
+            plan.append(("female", "다시 들으십시오.", 0.5))
+    return plan
+
+
+async def build_one(row, apply, repeat_exam, strict_exam=False):
     turns = parse_turns(row.get("text") or "", preferred_male(row))
     if not turns or any(not KOREAN.search(t) for _, t in turns):
         raise ValueError("Missing Korean dialogue")
@@ -162,17 +199,24 @@ async def build_one(row, apply, repeat_exam):
     with tempfile.TemporaryDirectory(prefix="mrlee_voice_") as work:
         work = Path(work)
         parts = []
-        if repeat_exam and is_exam(row):
-            index = number_of(row)
-            intro = work / "intro.mp3"
-            await synthesize(f"{index}번", VOICES["female"], intro)
-            parts.append((intro, 0.75))
-        repeat = 2 if repeat_exam and is_exam(row) else 1
-        for loop in range(repeat):
-            for i, (speaker, text) in enumerate(turns):
-                track = work / f"turn_{loop}_{i}.mp3"
+        if strict_exam and is_exam(row):
+            for i, (speaker, text, pause) in enumerate(
+                    approved_exam_plan(turns, number_of(row))):
+                track = work / f"approved_{i:02d}.mp3"
                 await synthesize(text, VOICES[speaker], track)
-                parts.append((track, 0.55 if i < len(turns)-1 else (1.5 if loop < repeat-1 else 0)))
+                parts.append((track, pause))
+        else:
+            if repeat_exam and is_exam(row):
+                index = number_of(row)
+                intro = work / "intro.mp3"
+                await synthesize(f"{index}번", VOICES["female"], intro)
+                parts.append((intro, 0.75))
+            repeat = 2 if repeat_exam and is_exam(row) else 1
+            for loop in range(repeat):
+                for i, (speaker, text) in enumerate(turns):
+                    track = work / f"turn_{loop}_{i}.mp3"
+                    await synthesize(text, VOICES[speaker], track)
+                    parts.append((track, 0.55 if i < len(turns)-1 else (1.5 if loop < repeat-1 else 0)))
         candidate = work / "candidate.mp3"
         concat(parts, candidate, 1.5)
         if candidate.stat().st_size < 1000:
@@ -195,7 +239,9 @@ async def run_build(args):
     rows = list(entries(args.section))
     if args.limit:
         rows = rows[:args.limit]
-    print(f"Selected {len(rows)} files; apply={args.apply}; exam_repeat={not args.no_exam_repeat}")
+    print(f"Selected {len(rows)} files; apply={args.apply}; exam_repeat={not args.no_exam_repeat}; strict_exam={args.strict_exam}")
+    if args.strict_exam and args.no_exam_repeat:
+        raise SystemExit("--strict-exam cannot be combined with --no-exam-repeat")
     if not args.apply:
         for row in rows[:8]:
             print(row["file"], parse_turns(row.get("text") or "", preferred_male(row)))
@@ -206,7 +252,7 @@ async def run_build(args):
     failed = 0
     for i, row in enumerate(rows, 1):
         try:
-            await build_one(row, True, not args.no_exam_repeat)
+            await build_one(row, True, not args.no_exam_repeat, args.strict_exam)
             print(f"[{i}/{len(rows)}] OK {row['file']}", flush=True)
         except Exception as exc:
             failed += 1
@@ -223,6 +269,8 @@ def main():
     parser.add_argument("--apply", action="store_true")
     parser.add_argument("--confirm-replace", action="store_true")
     parser.add_argument("--no-exam-repeat", action="store_true")
+    parser.add_argument("--strict-exam", action="store_true",
+                        help="Use approved numbered listening cadence when regenerating TOPIK exam files")
     args = parser.parse_args()
     if args.command == "audit":
         raise SystemExit(audit(args.section))

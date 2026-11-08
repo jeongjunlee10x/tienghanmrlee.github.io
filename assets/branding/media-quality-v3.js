@@ -10,7 +10,7 @@ const seen=new WeakSet(),observe=new MutationObserver(records=>{
     node.querySelectorAll?.('img').forEach(prepare);
   }
 });
-const critical='main > .hero img, .mrlee-next-hero img, .mrlee-v4-hero-photo, .ts-hero img, main .hero-photo, .mrlee-hero-photo-pane img, .mrlee-smart-home-grid > a:first-child img';
+const critical='main > .hero img, .mrlee-next-hero img, .mrlee-v4-hero-photo, .ts-hero img, main .hero-photo, .mrlee-hero-photo-pane img, .mrlee-smart-home-grid > a:first-child img, #mrleeNewHome .mr27-hero-media img, #topicHero img';
 const decorative='img:not(.mrlee-approved-logo)';
 function prepare(img){
  if(!img||seen.has(img))return;
@@ -18,9 +18,17 @@ function prepare(img){
  if(img.dataset.fallbackSrc){
   img.addEventListener('error',()=>{const fallback=img.dataset.fallbackSrc;if(!fallback)return;delete img.dataset.fallbackSrc;img.src=fallback;},{once:true});
  }
+ img.addEventListener('error',()=>{img.dataset.mrleeMissing='1';if(!img.alt)img.alt='Ảnh chưa tải được';},{once:true});
  if(!img.hasAttribute('decoding'))img.decoding='async';
  if(img.matches('.mrlee-approved-logo')||img.closest('a.brand,.site-logo,.ts-logo,.mrlee-next-brand')){img.loading='eager';return}
- if(img.matches(critical)){
+ // The homepage has two different heroes, but only one theme is visible.
+ // When Future is selected, promote its image without changing the artwork.
+ if(img.matches('.mr27-art-fresh,.mr27-art-future')){
+  const future=document.documentElement.dataset.mrleeTheme==='future';
+  const active=img.classList.contains(future?'mr27-art-future':'mr27-art-fresh');
+  img.loading=active?'eager':'lazy';
+  try{img.fetchPriority=active?'high':'low'}catch{}
+ }else if(img.matches(critical)){
   img.loading='eager';try{img.fetchPriority='high'}catch{}
  }else if(!img.hasAttribute('loading')){
   img.loading='lazy';

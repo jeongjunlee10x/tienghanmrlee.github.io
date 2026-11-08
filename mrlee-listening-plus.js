@@ -5,19 +5,24 @@
  let rate=1,speaking=false;
  try{const v=Number(localStorage.getItem('mrlee-audio-rate'));if([.5,.7,.75,.85,1,1.15,1.25,1.5].includes(v))rate=v}catch{}
  const mk=(tag,cls,text)=>{const n=document.createElement(tag);n.className=cls||'';if(text!==undefined)n.textContent=text;return n};
- function speak(raw){const text=String(raw||'').replace(/\s+/g,' ').trim().slice(0,600);if(!text||!window.speechSynthesis||!window.SpeechSynthesisUtterance){alert('Trình duyệt không hỗ trợ đọc giọng Hàn. Hãy dùng Chrome hoặc Edge.');return false}
+ // Speaker markers are control metadata, never words to pronounce.
+ // Preserve ordinary occurrences of 남자/여자 unless followed by a role colon.
+ const cleanSpokenText=raw=>String(raw||'').replace(/(^|\s)(?:남자|여자|남성|여성)\s*[:：]\s*/gu,'$1').replace(/\s+/g,' ').trim();
+ function speak(raw){const text=cleanSpokenText(raw).slice(0,600);if(!text||!window.speechSynthesis||!window.SpeechSynthesisUtterance){alert('Trình duyệt không hỗ trợ đọc giọng Hàn. Hãy dùng Chrome hoặc Edge.');return false}
   speechSynthesis.cancel();const utter=new SpeechSynthesisUtterance(text);utter.lang='ko-KR';utter.rate=rate;utter.pitch=1;
   const voices=speechSynthesis.getVoices(),korean=voices.find(v=>v.lang?.toLowerCase()==='ko-kr')||voices.find(v=>v.lang?.startsWith('ko'));if(korean)utter.voice=korean;
   utter.onerror=()=>{speaking=false};utter.onend=()=>{speaking=false};speaking=true;speechSynthesis.speak(utter);return true}
  function stop(){try{speechSynthesis.cancel()}catch{}speaking=false}
- window.MRLEE_AUDIO_PLUS={speak,stop,getRate:()=>rate};
+ window.MRLEE_AUDIO_PLUS={speak,stop,getRate:()=>rate,cleanSpokenText};
  function enhanceAudio(root=document){const audios=root.querySelectorAll?root.querySelectorAll('audio[controls]'):[];
   for(const audio of audios){if(audio.closest('[data-no-audio-plus]')||audio.dataset.mlAudioUpgraded)continue;audio.dataset.mlAudioUpgraded='1';if(!audio.hasAttribute('preload'))audio.preload='none';audio.setAttribute('playsinline','');
    const host=mk('div','ml-audio-bar');host.setAttribute('aria-label','Tùy chọn nghe');const l=mk('label','','Tốc độ '),s=mk('select');s.setAttribute('aria-label','Tốc độ phát MP3');
    for(const [value,label] of [['.5','0,5×'],['.7','0,7×'],['.75','0,75×'],['.85','0,85×'],['1','1×'],['1.15','1,15×'],['1.25','1,25×'],['1.5','1,5×']]){const opt=mk('option','',label);opt.value=value;if(Number(value)===rate)opt.selected=true;s.append(opt)}
    s.addEventListener('change',()=>{rate=Number(s.value);try{localStorage.setItem('mrlee-audio-rate',String(rate))}catch{}audio.playbackRate=rate});l.append(s);
    const replay=mk('button','','↻ Phát lại');replay.type='button';replay.addEventListener('click',()=>{audio.currentTime=0;audio.playbackRate=rate;audio.play().catch(()=>{message.textContent='Không thể phát MP3 này; kiểm tra tên tệp và máy chủ.'})});
-   const message=mk('span','ml-audio-message');message.setAttribute('role','status');message.setAttribute('aria-live','polite');audio.addEventListener('error',()=>{message.textContent='Không tải được MP3. Nếu dùng ZIP mã nguồn, giữ nguyên thư mục topik-audio trên website.'});audio.addEventListener('play',()=>{audio.playbackRate=rate;document.querySelectorAll('audio').forEach(a=>{if(a!==audio&&!a.paused)a.pause()})});
+   const message=mk('span','ml-audio-message');message.setAttribute('role','status');message.setAttribute('aria-live','polite');audio.addEventListener('error',()=>{message.textContent='Không tải được file MP3. Hãy thử tải lại trang hoặc báo tên bài học cho quản trị viên.'});audio.addEventListener('play',()=>{stop();message.textContent='';audio.playbackRate=rate;document.querySelectorAll('audio').forEach(a=>{if(a!==audio&&!a.paused)a.pause()})});
+   audio.addEventListener('waiting',()=>{if(!audio.paused)message.textContent='Đang tải âm thanh…';});
+   audio.addEventListener('playing',()=>{message.textContent='';});
    const toggle=mk('button','','▶ Phát / Tạm dừng');
    toggle.type='button';toggle.addEventListener('click',()=>{if(audio.paused){audio.playbackRate=rate;audio.play().catch(()=>message.textContent='Không phát được MP3.')}else audio.pause()});
    const back=mk('button','','−5 giây');back.type='button';back.addEventListener('click',()=>{try{audio.currentTime=Math.max(0,audio.currentTime-5)}catch{}});
