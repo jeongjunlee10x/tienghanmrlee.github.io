@@ -76,7 +76,8 @@ const noindexOnlyPaths=[
  'admin.html','trung-tam-hoc-vien.html','dang-nhap.html'
 ];
 for(const privatePath of noindexOnlyPaths){
- assert(!sitemap.includes(`<loc>${expectedOrigin}/${privatePath}</loc>`),
+ assert(!sitemap.includes(`<loc>${expectedOrigin}/${privatePath}</loc>`) &&
+  !sitemap.includes(`<loc>${expectedOrigin}/${privatePath.replace(/\.html$/,'')}</loc>`),
   'Login-restricted page leaked into public sitemap: '+privatePath);
  assert(paths.has(privatePath),'Protected page omitted from Cloudflare output: '+privatePath);
  const content=await readFile(join(dist,privatePath),'utf8');
@@ -110,7 +111,7 @@ const publicTopicGuides=[
  'ngu-phap-tieng-han-co-ban.html','cau-hoi-phong-van-du-hoc-han-quoc.html'
 ];
 for(const guidePath of publicTopicGuides){
- assert(sitemapUrls.includes(`${expectedOrigin}/${guidePath}`),'Topic guide omitted from sitemap: '+guidePath);
+ assert(sitemapUrls.includes(`${expectedOrigin}/${guidePath.replace(/\.html$/,'')}`),'Topic guide omitted from sitemap: '+guidePath);
  assert(paths.has(guidePath),'Topic guide missing from output: '+guidePath);
  const guide=await readFile(join(dist,guidePath),'utf8');
  assert(guide.includes('<main id="main"')&&guide.includes('<h1>'),
@@ -130,7 +131,7 @@ for(const guidePath of [...publicGuidePages,...publicTopicGuides]){
  assert(data['@context']==='https://schema.org','Wrong schema context: '+guidePath);
  const article=data['@graph']?.find(x=>x['@type']==='Article');
  const breadcrumb=data['@graph']?.find(x=>x['@type']==='BreadcrumbList');
- const canonical=`${expectedOrigin}/${guidePath}`;
+ const canonical=`${expectedOrigin}/${guidePath.replace(/\.html$/,'')}`;
  assert(article?.mainEntityOfPage?.['@id']===canonical,'Article URL mismatch: '+guidePath);
  assert(Array.isArray(breadcrumb?.itemListElement) &&
    breadcrumb.itemListElement[0]?.item===expectedOrigin+'/' &&
@@ -139,7 +140,7 @@ for(const guidePath of [...publicGuidePages,...publicTopicGuides]){
 }
 
 for(const guidePath of publicGuidePages){
- const guideUrl=`${expectedOrigin}/${guidePath}`;
+ const guideUrl=`${expectedOrigin}/${guidePath.replace(/\.html$/,'')}`;
  assert(sitemapUrls.includes(guideUrl),'Missing public learning guide in sitemap: '+guidePath);
  assert(paths.has(guidePath),'Missing generated public learning guide: '+guidePath);
  const guide=await readFile(join(dist,guidePath),'utf8');
@@ -162,7 +163,8 @@ const seenSeoPaths=new Set();
 for(const href of sitemapUrls){
  const url=new URL(href);
  assert(url.origin===expectedOrigin,'Sitemap URL has a different domain: '+href);
- const pagePath=url.pathname==='/'?'index.html':url.pathname.slice(1);
+ assert(!/\.html$/.test(url.pathname),'Sitemap URL redirects on Cloudflare: '+href);
+ const pagePath=url.pathname==='/'?'index.html':url.pathname.slice(1)+'.html';
  assert(paths.has(pagePath),'Sitemap lists a missing HTML page: '+pagePath);
  assert(!seenSeoPaths.has(pagePath),'Duplicate sitemap page: '+pagePath);
  seenSeoPaths.add(pagePath);

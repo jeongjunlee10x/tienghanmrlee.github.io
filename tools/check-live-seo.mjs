@@ -65,6 +65,10 @@ async function run(){
         if(new URL(value).origin!==origin)return;
         if(path==='/')return;
         const {content,res}=await read(path);
+        ensure(res.url===value,path+' sitemap URL redirects to '+res.url);
+        const canonical=content.match(/<link\b(?=[^>]*\brel\s*=\s*["']canonical["'])[^>]*>/i)?.[0]||'';
+        const canonicalUrl=canonical.match(/\bhref\s*=\s*(["'])(.*?)\1/i)?.[2];
+        ensure(canonicalUrl===value,path+' canonical URL differs from sitemap: '+canonicalUrl);
         ensure(/text\/html/i.test(res.headers.get('content-type')||''),path+' did not return text/html');
         ensure(/<html\b/i.test(content),path+' does not appear to be HTML');
         ensure(!/<meta\s+name="robots"\s+content="[^"]*noindex/i.test(content),path+' has noindex');
