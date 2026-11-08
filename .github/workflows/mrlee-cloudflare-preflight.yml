@@ -6,11 +6,17 @@ on:
       - 'tools/build-cloudflare-pages.mjs'
       - 'tools/check-cloudflare-pages-build.mjs'
       - '.github/workflows/mrlee-cloudflare-preflight.yml'
+  pull_request:
+    paths:
+      - 'tools/build-cloudflare-pages.mjs'
+      - 'tools/check-cloudflare-pages-build.mjs'
+      - 'tools/templates/cloudflare-404.html'
+      - '.github/workflows/mrlee-cloudflare-preflight.yml'
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: mrlee-cloudflare-preflight
+  group: mrlee-cloudflare-preflight-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   dry-run-only:
