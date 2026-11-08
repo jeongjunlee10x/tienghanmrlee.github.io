@@ -13,7 +13,7 @@ def test_roles():
     assert all("여자:" not in t and "남자:" not in t for _, t in turns)
     inline = audio.parse_turns("여자: 안녕하세요. 남자: 반갑습니다.", False)
     assert inline == [("female", "안녕하세요."), ("male", "반갑습니다.")]
-    three = audio.parse_turns("여자: 하나.\\n남자: 둘.\\n여자: 셋.".replace("\\\\n", "\\n"), False)
+    three = audio.parse_turns("여자: 하나.\n남자: 둘.\n여자: 셋.", False)
     assert [voice for voice, _ in three] == ["female", "male", "female"]
 
 def test_voice_metadata():
