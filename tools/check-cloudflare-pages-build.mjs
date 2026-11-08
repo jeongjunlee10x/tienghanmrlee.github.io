@@ -27,7 +27,7 @@ const required=[
  'tuyen-sinh.html','ban-do-dai-hoc-han-quoc.html','admin.html',
  'auth-guard.js','firebase-config.js',
  'mrlee-sc-lesson-data.js','MRLEE_AUDIO','MRLEE_PRO_AUDIO',
- 'assets/branding/site-logo.js','_redirects','robots.txt','sitemap.xml'
+ 'assets/branding/site-logo.js','_redirects','_headers','404.html','robots.txt','sitemap.xml'
 ];
 for(const p of required){
  const isDir=!p.includes('.') && !p.startsWith('_');
@@ -53,6 +53,8 @@ new Script(await readFile(join(dist,'assets/branding/contact-dock.js'),'utf8'),
 const index=await readFile(join(dist,'index.html'),'utf8');
 const share=await readFile(join(dist,'mrlee-engagement.js'),'utf8');
 const redirects=await readFile(join(dist,'_redirects'),'utf8');
+const notFound=await readFile(join(dist,'404.html'),'utf8');
+const headers=await readFile(join(dist,'_headers'),'utf8');
 assert(index.includes('<html')&&index.includes('mrleeNewHome'),'Homepage lost functionality');
 const configuredOrigin=String(process.env.MRLEE_SITE_ORIGIN||
  'https://mrlee-b6a.pages.dev').replace(/\/+$/,'');
@@ -68,6 +70,31 @@ const robots=await readFile(join(dist,'robots.txt'),'utf8');
 const sitemap=await readFile(join(dist,'sitemap.xml'),'utf8');
 assert(robots.includes(`Sitemap: ${expectedOrigin}/sitemap.xml`), 'robots.txt sitemap mismatch');
 assert(sitemap.includes(`<loc>${expectedOrigin}/</loc>`), 'sitemap root URL mismatch');
+assert(/<meta\\s+name="robots"\\s+content="noindex,nofollow"/i.test(notFound),
+ '404 must instruct search engines not to index the error page');
+assert(notFound.includes(`href="${expectedOrigin}/"`),
+ '404 page does not link to the Cloudflare production homepage');
+assert(notFound.includes('Không tìm thấy trang') && notFound.includes('lang="vi"'),
+ '404 page needs readable Vietnamese content');
+assert(!sitemap.includes('<loc>'+expectedOrigin+'/404</loc>'),
+ '404 page must not appear in sitemap');
+assert(!notFound.includes('{{ORIGIN}}'), '404 origin placeholder was not replaced');
+// Only safe additive headers in static output. Do not block microphone,
+// camera or geolocation, as lessons, interviews and maps may need them.
+for(const requiredHeader of [
+ 'X-Frame-Options: SAMEORIGIN',
+ 'X-Content-Type-Options: nosniff',
+ 'Referrer-Policy: strict-origin-when-cross-origin',
+ 'Permissions-Policy: payment=(), usb=()'
+]){
+ assert(headers.includes(requiredHeader), 'Missing Cloudflare static header: '+requiredHeader);
+}
+assert(/^\\/\\*\\s*$/m.test(headers), 'Missing global _headers route');
+assert(!/^\\s*(?:X-Robots-Tag|Content-Security-Policy|Cache-Control):/mi.test(headers),
+ 'New header rules must not globally change crawling, CSP, or cache');
+assert(!/\\b(?:microphone|camera|geolocation)\\s*=\\s*\\(\\)/i.test(headers),
+ 'Permission policy must not disable learning, interview or map features');
+
 
 const noindexOnlyPaths=[
  'hoc-tieng-han.html','kiem-tra-online.html','mrlee-bai-tap-pro.html',
