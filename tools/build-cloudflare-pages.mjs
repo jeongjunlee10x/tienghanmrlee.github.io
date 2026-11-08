@@ -243,6 +243,25 @@ await Promise.all(workers);
 await writeFile(join(out,'_redirects'),
   '# Old GitHub-project prefix accidentally used on Cloudflare\n'+
   '/tienghanmrlee.github.io/* /:splat 301\n','utf8');
+
+// Only static Pages assets receive _headers; Pages Functions/API must set
+// their own response headers. Keep mic, geolocation and external auth working;
+// CSP, COOP and aggressive caching require separate browser QA.
+await writeFile(join(out,'_headers'),
+  '# Cloudflare Pages static asset baseline. No blanket CSP or cache overrides.\n'+
+  '/*\n'+
+  '  X-Frame-Options: SAMEORIGIN\n'+
+  '  X-Content-Type-Options: nosniff\n'+
+  '  Referrer-Policy: strict-origin-when-cross-origin\n'+
+  '  Permissions-Policy: payment=(), usb=()\n','utf8');
+
+// A real 404 page prevents missing routes from silently rendering the homepage.
+// The template lives in tools/ and is excluded from the Cloudflare output.
+const notFoundTemplate=await readFile(join(root,'tools/templates/cloudflare-404.html'),'utf8');
+if(!notFoundTemplate.includes('{{ORIGIN}}')||!notFoundTemplate.includes('noindex')){
+ throw new Error('Cloudflare 404 template is missing its origin token or noindex');
+}
+await writeFile(join(out,'404.html'),notFoundTemplate.replaceAll('{{ORIGIN}}',origin),'utf8');
 // Generate the same public URL list used for Cloudflare-only SEO metadata.
 const available=new Set(input.map(x=>x.rel));
 const sitemap='<?xml version="1.0" encoding="UTF-8"?>\n'+
@@ -253,7 +272,10 @@ await writeFile(join(out,'sitemap.xml'),sitemap,'utf8');
 await writeFile(join(out,'robots.txt'),
  'User-agent: *\nAllow: /\n'+
  `Sitemap: ${origin}/sitemap.xml\n`,'utf8');
-const count=input.length+3; // _redirects, sitemap.xml, robots.txt
+// Avoid counting robots.txt and sitemap.xml twice: both are copied then
+// overwritten with Cloudflare-specific variants.
+const generatedPaths=['_redirects','_headers','404.html','sitemap.xml','robots.txt'];
+const count=new Set([...input.map(item=>item.rel),...generatedPaths]).size;
 if(count>maxFiles)throw new Error('Output exceeds Cloudflare free safety threshold');
 const bytes=input.reduce((n,f)=>n+f.size,0);
 const mp3=input.filter(f=>f.ext==='.mp3').length;
