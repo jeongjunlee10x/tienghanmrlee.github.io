@@ -27,8 +27,25 @@ def test_numbering():
     assert audio.is_exam({"file":"03_TOPIK/TOPIK_1/V11/v11-1-listening-020_abc.mp3"})
     assert not audio.is_exam({"file":"01_HOC_TIENG_HAN/lesson.mp3"})
 
+def test_approved_exam_cadence():
+    assert audio.sino_korean_number(1) == "일"
+    assert audio.sino_korean_number(12) == "십이"
+    assert audio.sino_korean_number(103) == "백삼"
+    voices = [("female", "어디에 가요?"), ("male", "학교에 가요.")]
+    plan = audio.approved_exam_plan(voices, 12)
+    assert plan[0] == ("female", "십이 번", 3.0)
+    assert plan[1] == ("female", "어디에 가요?", 0.55)
+    assert plan[2] == ("male", "학교에 가요.", 3.0)
+    assert plan[3] == ("female", "다시 들으십시오.", 0.5)
+    assert plan[4] == ("female", "어디에 가요?", 0.55)
+    assert plan[5] == ("male", "학교에 가요.", 4.0)
+    assert [t[0] for t in plan].count("male") == 2
+    assert all("남자:" not in item[1] and "여자:" not in item[1] for item in plan)
+
+
 if __name__ == "__main__":
     test_roles()
     test_voice_metadata()
     test_numbering()
+    test_approved_exam_cadence()
     print("MR LEE audio unit tests passed")
