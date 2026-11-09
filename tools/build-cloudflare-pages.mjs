@@ -190,6 +190,17 @@ const unusedSourceImages=new Set([
  'images/tourism-map/source/mrlee-korea-tourism-map-original.png'
 ]);
 const skippedSourceImages=[];
+const oldLogoPath='images/logo.png';
+const officialLogoPath='assets/branding/logo-mrlee.png';
+// The retired alias is byte-identical to our official mascot PNG.
+// Fail closed if it changes, rather than accidentally redirecting a different image.
+const [legacyLogo,officialLogo]=await Promise.all([
+ readFile(join(root,oldLogoPath)),readFile(join(root,officialLogoPath))
+]);
+if(!legacyLogo.equals(officialLogo)){
+ throw new Error('Cannot deduplicate logo: legacy and approved branding files differ');
+}
+let skippedRedirectLogoBytes=0;
 const input=[];
 async function scan(folder){
  for(const ent of await readdir(folder,{withFileTypes:true})){
@@ -206,6 +217,10 @@ async function scan(folder){
    const st=await lstat(abs);
    if(unusedSourceImages.has(rel.split(sep).join('/'))){
     skippedSourceImages.push({rel,size:st.size});
+    continue;
+   }
+   if(rel.split(sep).join('/')===oldLogoPath){
+    skippedRedirectLogoBytes=st.size; // original is retained on GitHub
     continue;
    }
    if(st.size>maxFileBytes)throw new Error('Cloudflare Pages 25 MiB file limit: '+rel);
@@ -262,7 +277,18 @@ await Promise.all(workers);
 // The rewrite handles long-standing absolute links to the original project path.
 await writeFile(join(out,'_redirects'),
   '# Old GitHub-project prefix accidentally used on Cloudflare\n'+
-  '/tienghanmrlee.github.io/* /:splat 301\n','utf8');
+  '/tienghanmrlee.github.io/* /:splat 301\n'+
+  '# Identical logo alias (verified before building)\n'+
+  '/images/logo.png /assets/branding/logo-mrlee.png 302\n','utf8');
+// Browser caching is limited to non-sensitive media. HTML and JS/CSS retain
+// Cloudflare Pages' ETag revalidation, avoiding stale website updates.
+await writeFile(join(out,'_headers'),
+  '# Only cache public media in the visitor browser for one hour\n'+
+  '/images/*\n  Cache-Control: public, max-age=3600, must-revalidate\n'+
+  '/MRLEE_AUDIO/*\n  Cache-Control: public, max-age=3600, must-revalidate\n'+
+  '/MRLEE_PRO_AUDIO/*\n  Cache-Control: public, max-age=3600, must-revalidate\n'+
+  '/assets/topik-v10/audio/*\n  Cache-Control: public, max-age=3600, must-revalidate\n'+
+  '/assets/branding/logo-mrlee.png\n  Cache-Control: public, max-age=3600, must-revalidate\n','utf8');
 // Generate the same public URL list used for Cloudflare-only SEO metadata.
 const available=new Set(input.map(x=>x.rel));
 const sitemap='<?xml version="1.0" encoding="UTF-8"?>\n'+
@@ -273,7 +299,7 @@ await writeFile(join(out,'sitemap.xml'),sitemap,'utf8');
 await writeFile(join(out,'robots.txt'),
  'User-agent: *\nAllow: /\n'+
  `Sitemap: ${origin}/sitemap.xml\n`,'utf8');
-const count=input.length+3; // _redirects, sitemap.xml, robots.txt
+const count=input.length+4; // _redirects, _headers, sitemap.xml, robots.txt
 if(count>maxFiles)throw new Error('Output exceeds Cloudflare free safety threshold');
 const bytes=input.reduce((n,f)=>n+f.size,0);
 const mp3=input.filter(f=>f.ext==='.mp3').length;
@@ -283,6 +309,8 @@ const summary={
  publicRoot:'dist',
  skippedOriginalImages:skippedSourceImages.length,
  savedOriginalImageMiB:+(skippedSourceImages.reduce((sum,x)=>sum+x.size,0)/1048576).toFixed(2),
+ savedDuplicateLogoMiB:+(skippedRedirectLogoBytes/1048576).toFixed(2),
+ cachePolicy:'One hour for static media only',
  excluded:'archive, docs, tools, GitHub Actions, backend source, ZIP/SQL/secrets and unreferenced previews'
 };
 console.log('CLOUDFLARE PAGES STATIC BUILD OK '+JSON.stringify(summary));
