@@ -27,7 +27,7 @@ const required=[
  'tuyen-sinh.html','ban-do-dai-hoc-han-quoc.html','admin.html',
  'auth-guard.js','firebase-config.js',
  'mrlee-sc-lesson-data.js','MRLEE_AUDIO','MRLEE_PRO_AUDIO',
- 'assets/branding/site-logo.js','_redirects','robots.txt','sitemap.xml'
+ 'assets/branding/site-logo.js','_redirects','_headers','robots.txt','sitemap.xml'
 ];
 for(const p of required){
  const isDir=!p.includes('.') && !p.startsWith('_');
@@ -39,6 +39,8 @@ for(const p of required){
 for(let i=1;i<=9;i++){
  assert(!paths.has('images/'+i+'.png'),'Legacy source preview leaked into Cloudflare: '+i);
 }
+assert(!paths.has('images/logo.png'),'Identical 1.9 MB legacy logo must be redirected, not duplicated');
+assert(paths.has('assets/branding/logo-mrlee.png'),'Official mascot/logo was omitted');
 assert(!paths.has('images/tourism-map/source/mrlee-korea-tourism-map-original.png'),
  'Large map editing source should not be shipped to Cloudflare');
 assert(paths.has('images/tourism-map/mrlee-korea-tourism-map.webp'),
@@ -191,6 +193,17 @@ for(const href of sitemapUrls){
 
 assert(!share.includes('https://jeongjunlee10x.github.io/tienghanmrlee.github.io/'),
  'Sharing still uses GitHub project URL');
+assert(redirects.includes('/images/logo.png /assets/branding/logo-mrlee.png 302'),
+ 'Legacy logo must be available through the approved asset redirect');
+const headers=await readFile(join(dist,'_headers'),'utf8');
+for(const mediaPath of ['/images/*','/MRLEE_AUDIO/*','/MRLEE_PRO_AUDIO/*',
+ '/assets/topik-v10/audio/*','/assets/branding/logo-mrlee.png']){
+ assert(headers.includes(mediaPath+'\n  Cache-Control: public, max-age=3600, must-revalidate'),
+  'Missing safe browser cache headers: '+mediaPath);
+}
+assert(!headers.includes('/admin')&&!headers.includes('/*.html')&&
+ !headers.includes('/assets/*')&&!headers.includes('immutable'),
+ 'Refuse to cache private/admin routes or all application scripts');
 assert(redirects.includes('/tienghanmrlee.github.io/* /:splat 301'),
  'Missing old-project-path compatibility redirect');
 assert(files.some(f=>f.path.startsWith('assets/')&&f.path.endsWith('.css')));
