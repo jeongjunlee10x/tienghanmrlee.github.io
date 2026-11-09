@@ -34,6 +34,15 @@ for(const p of required){
  assert(isDir?[...paths].some(x=>x.startsWith(p+'/')):paths.has(p),
   'A required website feature was omitted: '+p);
 }
+// Archive-era PNG source previews are retained in GitHub, not shipped to Pages.
+// Map WebP is the published visual; never omit the deployed map itself.
+for(let i=1;i<=9;i++){
+ assert(!paths.has('images/'+i+'.png'),'Legacy source preview leaked into Cloudflare: '+i);
+}
+assert(!paths.has('images/tourism-map/source/mrlee-korea-tourism-map-original.png'),
+ 'Large map editing source should not be shipped to Cloudflare');
+assert(paths.has('images/tourism-map/mrlee-korea-tourism-map.webp'),
+ 'Published WebP map was accidentally removed');
 assert(files.length<=19500,'Cloudflare Free has 20,000-file cap; leave headroom');
 assert(files.every(f=>f.size<=25*1024*1024),
  'Cloudflare Pages assets cannot exceed 25 MiB');

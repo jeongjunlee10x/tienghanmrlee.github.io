@@ -3,6 +3,8 @@ on:
   pull_request:
     paths:
       - 'tools/audit-media-integrity.mjs'
+      - 'tools/check-mp3-decode-sample.mjs'
+      - 'tools/check-image-decoding.py'
       - 'tools/test-media-browser.mjs'
       - 'tools/mrlee-audio-v1.py'
       - 'tools/test-mrlee-audio-v1.py'
@@ -36,6 +38,8 @@ jobs:
       - name: Validate media tooling and browser scripts
         run: |
           node --check tools/audit-media-integrity.mjs
+          node --check tools/check-mp3-decode-sample.mjs
+          python -m py_compile tools/check-image-decoding.py
           node --check tools/test-media-browser.mjs
           node --check mrlee-listening-plus.js
           node --check assets/branding/media-quality-v3.js
@@ -48,11 +52,20 @@ jobs:
         run: |
           node tools/audit-media-integrity.mjs
           node tools/audit-topik-audio.mjs
+      - name: Decode real MP3 samples and all image pixels (no changes)
+        run: |
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y ffmpeg
+          fi
+          python -m pip install --disable-pip-version-check --only-binary=:all: 'Pillow==11.3.0'
+          node tools/check-mp3-decode-sample.mjs
+          python tools/check-image-decoding.py
       - name: Attach image sizes and broken-media findings
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: mrlee-audio-image-audit
-          path: artifacts/media-integrity/report.json
+          path: artifacts/media-integrity/*.json
           if-no-files-found: ignore
           retention-days: 14

@@ -183,6 +183,13 @@ function enhanceSeoHead(html,pathname){
 
 const maxFiles = 19500; // safety headroom below Cloudflare Free's 20,000 files
 const maxFileBytes = 25*1024*1024;
+// Retired October PNG source previews are not referenced in the current site.
+// Original files remain available in GitHub; only their Cloudflare copies are skipped.
+const unusedSourceImages=new Set([
+ ...Array.from({length:9},(_,i)=>`images/${i+1}.png`),
+ 'images/tourism-map/source/mrlee-korea-tourism-map-original.png'
+]);
+const skippedSourceImages=[];
 const input=[];
 async function scan(folder){
  for(const ent of await readdir(folder,{withFileTypes:true})){
@@ -197,12 +204,25 @@ async function scan(folder){
    const rel=relative(root,abs);
    if(!allowedExt.has(ext)||denyName.test(ent.name))continue;
    const st=await lstat(abs);
+   if(unusedSourceImages.has(rel.split(sep).join('/'))){
+    skippedSourceImages.push({rel,size:st.size});
+    continue;
+   }
    if(st.size>maxFileBytes)throw new Error('Cloudflare Pages 25 MiB file limit: '+rel);
    input.push({abs,rel,ext,size:st.size});
   }
  }
 }
 await scan(root);
+// Fail closed: never omit an image if the source website actually references it.
+for(const item of input){
+ if(!textExt.has(item.ext)&&!['.svg','.txt'].includes(item.ext))continue;
+ const body=await readFile(item.abs,'utf8');
+ for(const original of unusedSourceImages){
+  if(body.includes(original))throw new Error(
+   'Cannot exclude a referenced source image: '+original+' in '+item.rel);
+ }
+}
 if(input.length>maxFiles)throw new Error('Free Pages file count unsafe: '+input.length+'/'+maxFiles);
 if(!input.some(x=>x.rel==='index.html'))throw new Error('Homepage index.html missing');
 for(const essential of ['hoc-tieng-han.html','hoc-theo-bai.html','kiem-tra-topik.html',
@@ -261,6 +281,8 @@ const summary={
  files:count,mp3,miB:+(bytes/1048576).toFixed(2),
  headroom:20000-count,origin,
  publicRoot:'dist',
- excluded:'archive, docs, tools, GitHub Actions, backend source, ZIP/SQL/secrets'
+ skippedOriginalImages:skippedSourceImages.length,
+ savedOriginalImageMiB:+(skippedSourceImages.reduce((sum,x)=>sum+x.size,0)/1048576).toFixed(2),
+ excluded:'archive, docs, tools, GitHub Actions, backend source, ZIP/SQL/secrets and unreferenced previews'
 };
 console.log('CLOUDFLARE PAGES STATIC BUILD OK '+JSON.stringify(summary));
