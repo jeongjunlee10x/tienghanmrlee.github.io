@@ -10,6 +10,7 @@ on:
       - 'tools/test-mrlee-audio-v1.py'
       - 'mrlee-listening-plus.js'
       - 'assets/branding/media-quality-v3.js'
+      - 'assets/branding/site-logo.js'
       - 'assets/images/**'
       - 'MRLEE_AUDIO/**'
       - 'MRLEE_PRO_AUDIO/**'
@@ -43,6 +44,7 @@ jobs:
           node --check tools/test-media-browser.mjs
           node --check mrlee-listening-plus.js
           node --check assets/branding/media-quality-v3.js
+          node --check assets/branding/site-logo.js
           python -m py_compile tools/mrlee-audio-v1.py
       - name: Dual-voice cadence and browser speech regression
         run: |
