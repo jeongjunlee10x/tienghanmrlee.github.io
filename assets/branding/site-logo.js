@@ -32,9 +32,22 @@
   }
  }
  function loadImageQuality(){
-  if(document.querySelector('script[data-mrlee-image-quality]'))return;
-  const css=document.createElement('link');css.rel='stylesheet';css.href='assets/branding/media-quality-v3.css?v=20261027-q3';css.dataset.mrleeImageQuality='css';document.head.append(css);
-  const script=document.createElement('script');script.src='assets/branding/media-quality-v3.js?v=20261027-q3';script.defer=true;script.dataset.mrleeImageQuality='js';document.head.append(script);
+  // Several primary pages already include the image loader in their HTML.
+  // Compare by resource URL instead of only by the dataset marker, otherwise
+  // one page fetches and executes the same script twice.
+  const hasAsset=(selector,file,attribute)=>Array.from(document.querySelectorAll(selector)).some(node=>{
+   const raw=node.getAttribute(attribute)||'';
+   try{return new URL(raw,document.baseURI).pathname.endsWith('/assets/branding/'+file)}
+   catch{return false}
+  });
+  if(!hasAsset('link[rel~="stylesheet"]','media-quality-v3.css','href')){
+   const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('media-quality-v3.css?v=20261109-media3',current.src).href;
+   css.dataset.mrleeImageQuality='css';document.head.append(css);
+  }
+  if(!hasAsset('script[src]','media-quality-v3.js','src')){
+   const script=document.createElement('script');script.src=new URL('media-quality-v3.js?v=20261109-media3',current.src).href;
+   script.defer=true;script.dataset.mrleeImageQuality='js';document.head.append(script);
+  }
  }
  function loadContactDock(){
   if(location.pathname.toLowerCase().endsWith('/admin.html'))return;
