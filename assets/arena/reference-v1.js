@@ -2,7 +2,7 @@
  * Links into the existing rule engines, Firebase-verified wallet, and genuine ranking page.
  * Never invents gold, study points, player counts, event prizes, or leaderboard rows.
  */
-import {roomRequest,formatG} from "./room-api.js";
+import {roomRequest,formatG} from "./room-api.js?v=20261111-xq-pvp-v1";
 const $=id=>document.getElementById(id);
 const root=document.documentElement;
 const cards=[...document.querySelectorAll("#arenaCatalog .arena-game-card[data-game-id]")];
