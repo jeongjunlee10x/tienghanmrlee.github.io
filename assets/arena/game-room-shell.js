@@ -1,7 +1,7 @@
 /* MR LEE standalone room menus: existing Arena engines run in a same-origin iframe.
  * G/points are read exclusively from the Firebase-verified Arena Edge API.
  */
-import {roomRequest,formatG} from "./room-api.js?v=20261107-rule-v26";
+import {roomRequest,formatG} from "./room-api.js?v=20261111-xq-pvp-v1";
 import {mountArenaFriendPopup} from "./game-room-social.js?v=20261111-xq-pvp-v1";
 const $=id=>document.getElementById(id);
 const GAME_PAGES=Object.freeze({
