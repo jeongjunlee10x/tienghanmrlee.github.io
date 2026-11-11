@@ -1,7 +1,7 @@
 /* MR LEE game-room browser — real server-owned public waiting rooms only.
  * No fabricated seats, house names, active matches, wallets or opponent data.
  */
-import {roomRequest,requiredGold,formatG,gameCapacity} from "./room-api.js";
+import {roomRequest,requiredGold,formatG,gameCapacity} from "./room-api.js?v=20261111-xq-pvp-v1";
 const GAMES=Object.freeze({
  colors:{label:"Bài Màu Đại Chiến",page:"game-bai-mau.html",icon:"🃏"},
  chess:{label:"Cờ Vua",page:"game-co-vua.html",icon:"♟️"},
@@ -75,7 +75,7 @@ if(!selected){
    if(!canEnter){card.classList.add("room-browser-locked");table.append(mk("span","room-browser-padlock","🔒"));}
    art.append(chip,table,player);
    const title=mk("strong","room-browser-host",String(item.host||"Học viên").slice(0,36));
-   const info=mk("small","room-browser-table-meta",formatG(tier)+(game==="chess"?"/ván":"/lá")+" · Bảo đảm "+formatG(needed));
+   const info=mk("small","room-browser-table-meta",formatG(tier)+(["chess","xiangqi"].includes(game)?"/ván":"/lá")+" · Bảo đảm "+formatG(needed));
    const action=mk("button","room-browser-enter",item.alreadyIn?"TRỞ LẠI BÀN":canEnter?"VÀO BÀN":"THIẾU G");
    action.type="button";action.disabled=!canEnter;
    action.setAttribute("aria-label",item.alreadyIn?"Quay về phòng "+item.code:"Vào phòng của "+title.textContent+" "+formatG(tier));
