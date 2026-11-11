@@ -1,5 +1,9 @@
 name: MR LEE - Live SEO and Cloudflare public diagnostic
 on:
+  # GitHub Actions scheduled check: 09:31 Asia/Bangkok daily.
+  # Read-only probe; never submits to Search Console or deploys Cloudflare.
+  schedule:
+    - cron: '31 2 * * *'
   workflow_dispatch:
   pull_request:
     paths:
