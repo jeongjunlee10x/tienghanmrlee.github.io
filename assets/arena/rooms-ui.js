@@ -1,7 +1,7 @@
 /* Arena room controller: verified-G matching, code invites, public tables, ready flow,
    server-authoritative moves and short on-board overlays. */
 import {roomRequest,normalizeRoomCode,GOLD_TIERS,GOLD_PER_POINT,formatG,requiredGold,
- GAME_LABELS,gameCapacity,affordableTier} from "./room-api.js?v=20261107-rule-v26";
+ GAME_LABELS,gameCapacity,affordableTier} from "./room-api.js?v=20261111-xq-pvp-v1";
 import {mountOnlineCanvas} from "./rooms-play.js?v=20261111-xq-pvp-v1";
 const $=id=>document.getElementById(id);
 const el=(tag,cl="",text)=>{
@@ -246,7 +246,7 @@ export function mountArenaRooms({onEnter,onExit,onWallet}){
   dialog.append(el("h2","",drawn?"🤝 HÒA":winner?"🏆 BẠN THẮNG!":"💫 KẾT THÚC VÁN"),
    el("p","arena-next-round-score",drawn?"Đã hoàn G giữ cược":
     winner?"+"+formatG(gain)+" vào ví G":
-    room.game==="chess"?"Thua ván · -"+formatG(loss):"Còn "+cardCount+" lá · -"+formatG(loss)));
+    ["chess","xiangqi"].includes(room.game)?"Thua ván · -"+formatG(loss):"Còn "+cardCount+" lá · -"+formatG(loss)));
   if(threeBich)dialog.append(el("p","arena-v26-special-payout",
     "🏆 ĐÚT 3 BÍCH: mỗi đối thủ chịu thêm "+formatG(extra)+" (3× mức bàn)."));
   const revealed=room.gameState?.revealedHands;
