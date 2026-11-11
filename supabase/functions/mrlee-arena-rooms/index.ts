@@ -592,6 +592,26 @@ Deno.serve(async(req:Request)=>{
     return reply(req,200,{ok:true,left:true});
    }
    if(room.status==="playing"){
+    if(room.game==="xiangqi"){
+     // Explicit exit is a forfeited duel, never a free escrow refund.
+     const state=structuredClone(room.state);
+     state.result={done:true,winner:1-me.seat,reason:"Đối thủ rời bàn / đầu hàng"};
+     state.turnDeadline=null;state.clock=null;
+     const {error}=await database.rpc("mrlee_arena_settle_match",{
+      p_code:code,p_expected_version:room.version,p_state:state,
+      p_winner:1-me.seat,p_remaining:[0,0]
+     });
+     if(error){
+      if(error.code==="P0001")fail("Ván vừa thay đổi. Hãy cập nhật.",409);
+      fail("Không ghi nhận được kết quả rời bàn.",503);
+     }
+     const ended=await selectRoom(database,code);
+     const leaving=await database.rpc("mrlee_arena_finish_exit",{
+      p_code:code,p_uid:uid,p_expected_version:ended.version
+     });
+     if(leaving.error)fail("Ván đã kết toán nhưng chưa ghi nhận rời bàn. Hãy cập nhật.",503);
+     return reply(req,200,{ok:true,left:true});
+    }
     const {data,error}=await database.rpc("mrlee_arena_abort_match",{
      p_code:code,p_expected_version:room.version
     });
@@ -661,7 +681,7 @@ Deno.serve(async(req:Request)=>{
    const changed=await cas(database,room,{members});
    if(allReady){
     const {error}=await database.rpc("mrlee_arena_start_match",{
-     p_code:code,p_expected_version:changed.version,p_state:createState(room.game,changed.members.length,room.state?.timeControl)
+     p_code:code,p_expected_version:changed.version,p_state:createState(room.game,changed.members.length,room.state?.timeControl,null,room.state?.variant)
     });
     if(error){
      // Prevent a room from remaining stuck with all ready after insufficient funds.
@@ -688,19 +708,24 @@ Deno.serve(async(req:Request)=>{
    }
    const state=structuredClone(room.state);
    const result=room.game==="chess"?actionChess(state,me.seat,body):
-    room.game==="tienlen"?actionTienLen(state,me.seat,body):actionColors(state,me.seat,body);
-   state.turnDeadline=result.finished?null:room.game==="chess"?chessDeadline(state):nextDeadline();
+     room.game==="xiangqi"?actionXiangqi(state,me.seat,body):
+     room.game==="tienlen"?actionTienLen(state,me.seat,body):actionColors(state,me.seat,body);
+   state.turnDeadline=result.finished?null:["chess","xiangqi"].includes(room.game)?boardDeadline(state,room.game):nextDeadline();
    if(result.finished){
     let winner=-1,remaining:number[];
     if(room.game==="chess"){
       const end=Chess.status(state.history);
       winner=end.winner===1?0:end.winner===-1?1:-1;
       remaining=[0,0];
+    }else if(room.game==="xiangqi"){
+      winner=state.result?.winner??-1;
+      remaining=[0,0];
     }else{
       winner=state.winner;
       remaining=state.hands.map((cards:unknown[])=>cards.length);
     }
     state.settlement={winner,remaining,rate:room.min_gold,
+     reason:room.game==="xiangqi"?state.result?.reason:undefined,
      threeSpadesFinish:room.game==="tienlen"&&state.ruleVersion===2&&state.specialFinish===true,
      bonusPerOpponent:room.game==="tienlen"&&state.ruleVersion===2&&state.specialFinish===true?3*room.min_gold:0};
     const {error}=await database.rpc("mrlee_arena_settle_match",{
