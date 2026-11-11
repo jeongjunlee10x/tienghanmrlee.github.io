@@ -5,6 +5,7 @@
 import * as Chess from "./chess-engine.js";
 import * as TL from "./tienlen-engine.js?v=20261107-rule-v26";
 import * as Colors from "./color-engine.js?v=20261107-ai-r18";
+import {mountOnlineXiangqi} from "./rooms-xiangqi.js?v=20261111-xq-pvp-v1";
 import {playingCard,comboTitle,showChopPopup} from "./tienlen-fx.js?v=20261107-deal-v25";
 import {isDealing,showRoomDeal} from "./arena-deal-v22.js?v=20261107-deal-v25";
 import {enablePointerDrag,animateBoardMove,animateCardTransfer} from "./drag-gestures.js?v=20261107-motion-v22b";
@@ -111,7 +112,7 @@ export function mountOnlineCanvas(root,onMove){
  function clear(){
   cancelReadyTimer();
   chosenSquare=-1;chosenCards.clear();chosenWild=null;locked=false;lastCode="";lastVersion=-1;sortBy="rank";
-  root.replaceChildren();shownRoom=null;lastCardLanding="";lastReadyRound="";
+  root.replaceChildren();xiangqiCanvas.clear();shownRoom=null;lastCardLanding="";lastReadyRound="";
  }
  async function submit(action){
   if(locked)return;
@@ -124,10 +125,11 @@ export function mountOnlineCanvas(root,onMove){
     console.warn("Arena move rejected:",error?.message||error);
   }finally{locked=false;}
  }
+ const xiangqiCanvas=mountOnlineXiangqi(root,submit);
  function waiting(room,actions={}){
   // The room remains on the actual green card table while players join.
   // No hidden cards are rendered before the server creates the deal.
-  const table=el("div",room.game==="chess"?"arena-chess-waiting":"arena-pvp-card-table arena-pvp-waiting");
+  const table=el("div",["chess","xiangqi"].includes(room.game)?"arena-chess-waiting":"arena-pvp-card-table arena-pvp-waiting");
   const count=room.players.length, max=room.capacity;
   const posFor=(seat)=>{
    if(seat===room.seat)return "bottom";
@@ -148,10 +150,10 @@ export function mountOnlineCanvas(root,onMove){
   }
   const middle=el("div","arena-pvp-wait-center");
   middle.append(el("div","arena-pvp-wait-eyebrow","🃏 PHÒNG ĐẤU TRỰC TUYẾN"),
-   el("h3","",room.game==="tienlen"?"TIẾN LÊN MIỀN NAM":room.game==="chess"?"CỜ VUA":"BÀI MÀU"),
+   el("h3","",room.game==="tienlen"?"TIẾN LÊN MIỀN NAM":room.game==="chess"?"CỜ VUA":room.game==="xiangqi"?(room.variant==="up"?"CỜ ÚP":"CỜ TƯỚNG"):"BÀI MÀU"),
    el("div","arena-pvp-wait-code","Mã bàn: "+room.code),
    el("p","arena-pvp-wait-meta",count+"/"+max+" người · "+room.minGold+
-    "G"+(room.game==="chess"?"/ván":"/lá")+(room.locked?" · 🔒 Đã khóa":" · 🔓 Đang mở")));
+    "G"+(["chess","xiangqi"].includes(room.game)?"/ván":"/lá")+(room.locked?" · 🔒 Đã khóa":" · 🔓 Đang mở")));
   const controls=el("div","arena-pvp-wait-actions");
   const click=(label,cls,handler,disabled=false)=>{
    const b=btn(label,cls,handler);b.disabled=disabled;controls.append(b);return b;
@@ -177,6 +179,8 @@ export function mountOnlineCanvas(root,onMove){
     room.timeControl==="none"?"♟ Không đồng hồ · "+room.minGold+"G/ván":
     "♟ "+(room.timeControl||"10+0")+" · "+room.minGold+"G/ván";
   }
+  if(room.game==="xiangqi")middle.append(el("p","arena-pvp-wait-tip",
+   "♜ "+(room.variant==="up"?"Cờ Úp":"Cờ Tướng")+" · "+(room.timeControl==="none"?"Không đồng hồ":room.timeControl||"10+0")+" · Bảo đảm "+room.requiredGold+"G/người"));
   middle.append(controls,
    el("p","arena-pvp-wait-tip",room.game==="tienlen"?
     "Từ 2 người có thể chơi. Mọi người nhấn Sẵn sàng, chủ bàn nhấn Bắt đầu.":
@@ -575,6 +579,7 @@ export function mountOnlineCanvas(root,onMove){
   if(room.version!==lastVersion&&!force){chosenSquare=-1;chosenCards.clear();chosenWild=null;}
   lastCode=room.code;lastVersion=room.version;
   if(room.game==="chess")renderChess(room);
+  else if(room.game==="xiangqi")xiangqiCanvas.render(room,force);
   else if(room.game==="tienlen")renderTienLen(room);
   else{
    renderColors(room);
