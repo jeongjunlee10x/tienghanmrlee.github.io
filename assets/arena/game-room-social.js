@@ -2,7 +2,7 @@
  * Creates and joins real Firebase-authenticated, Supabase-authoritative rooms.
  * A room is created only after pressing a real user action.
  */
-import {roomRequest,GOLD_TIERS,requiredGold,formatG,normalizeRoomCode} from "./room-api.js?v=20261107-rule-v26";
+import {roomRequest,GOLD_TIERS,requiredGold,formatG,normalizeRoomCode} from "./room-api.js?v=20261111-xq-pvp-v1";
 const mk=(tag,cls="",value)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(value!==undefined)e.textContent=String(value);return e;};
 function add(parent,...children){parent.append(...children);return parent;}
 const legalCode=code=>/^[A-Z2-9]{8}$/.test(code);
