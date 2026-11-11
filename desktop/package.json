@@ -1,0 +1,49 @@
+{
+  "name": "mrlee-windows-desktop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Ứng dụng Windows Tiếng Hàn MR LEE, dùng chung website Cloudflare Pages",
+  "main": "main.cjs",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/*.test.cjs",
+    "build:win": "electron-builder --win nsis portable --x64 --publish never"
+  },
+  "devDependencies": {
+    "electron": "45.2.3",
+    "electron-builder": "26.18.1"
+  },
+  "build": {
+    "appId": "vn.mrlee.tienghan",
+    "productName": "Tiếng Hàn MR LEE",
+    "copyright": "Tiếng Hàn MR LEE",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.cjs",
+      "url-policy.cjs",
+      "offline.html",
+      "build/icon.png"
+    ],
+    "asar": true,
+    "win": {
+      "icon": "build/icon.ico",
+      "artifactName": "MR-LEE-${version}-${arch}-Setup.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Tiếng Hàn MR LEE",
+      "deleteAppDataOnUninstall": false
+    },
+    "portable": {
+      "artifactName": "MR-LEE-${version}-${arch}-Portable.${ext}"
+    }
+  }
+}
