@@ -63,6 +63,10 @@ jobs:
           node --check assets/arena/rooms-play.js
           node --check assets/arena/ludo.js
           node --check assets/arena/xiangqi.js
+          node --check assets/arena/xiangqi-engine.js
+          node --check assets/arena/rooms-xiangqi.js
+          node --check supabase/functions/mrlee-arena-rooms/xiangqi-engine.js
+          node --check tools/test-xiangqi-pvp.mjs
           node --check assets/arena/estate.js
           node --check tools/test-arena-extra.mjs
           node --check tools/browser-arena-extra.mjs
@@ -78,6 +82,8 @@ jobs:
         run: node tools/test-arena-extra.mjs
       - name: Table visual effects and chop labels
         run: node tools/test-tienlen-fx.mjs
+      - name: Xiangqi and Cờ Úp legal moves, secrecy and wallet contract
+        run: node tools/test-xiangqi-pvp.mjs
       - name: Multiplayer rooms and G ledger contract tests
         run: node tools/test-arena-rooms.mjs
       - uses: denoland/setup-deno@v2
