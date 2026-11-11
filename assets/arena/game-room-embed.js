@@ -7,7 +7,7 @@ if(params.get("embed")==="1"&&window.parent!==window){
  const ids={colors:"arenaTable",chess:"arenaChess",tienlen:"arenaTienLen",
   ludo:"arenaLudo",xiangqi:"arenaXiangqi",estate:"arenaEstate"};
  const game=params.get("game"),mode=params.get("mode");
- const online=["colors","chess","tienlen"].includes(game);
+ const online=["colors","chess","xiangqi","tienlen"].includes(game);
  const supported=game in ids&&(
   mode==="bot"||online&&["quick","friends","browse"].includes(mode));
  const marker="mrlee-game-room";

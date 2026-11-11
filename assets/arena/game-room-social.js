@@ -2,11 +2,11 @@
  * Creates and joins real Firebase-authenticated, Supabase-authoritative rooms.
  * A room is created only after pressing a real user action.
  */
-import {roomRequest,GOLD_TIERS,requiredGold,formatG,normalizeRoomCode} from "./room-api.js?v=20261107-rule-v26";
+import {roomRequest,GOLD_TIERS,requiredGold,formatG,normalizeRoomCode} from "./room-api.js?v=20261111-xq-pvp-v1";
 const mk=(tag,cls="",value)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(value!==undefined)e.textContent=String(value);return e;};
 function add(parent,...children){parent.append(...children);return parent;}
 const legalCode=code=>/^[A-Z2-9]{8}$/.test(code);
-export function mountArenaFriendPopup({game,gameName,getWallet,getTimeControl=()=>"10+0",onAccepted,onWallet,nickname}){
+export function mountArenaFriendPopup({game,gameName,getWallet,getTimeControl=()=>"10+0",getVariant=()=>"xiangqi",onAccepted,onWallet,nickname}){
  const dialog=mk("dialog","arena-social-modal");dialog.id="roomFriendsPopup";
  dialog.setAttribute("aria-labelledby","arenaSocialTitle");
  const shell=mk("div","arena-social-shell");
@@ -26,8 +26,8 @@ export function mountArenaFriendPopup({game,gameName,getWallet,getTimeControl=()
  create.setAttribute("role","tabpanel");
  const walletInfo=mk("p","arena-social-summary","Đang kiểm tra số dư G...");
  walletInfo.setAttribute("aria-live","polite");
- const chessSelect=game==="chess"?mk("select","arena-chess-time-select"):null;
- const chessPicker=game==="chess"?mk("label","arena-chess-time-picker"):null;
+ const chessSelect=["chess","xiangqi"].includes(game)?mk("select","arena-chess-time-select"):null;
+ const chessPicker=["chess","xiangqi"].includes(game)?mk("label","arena-chess-time-picker"):null;
  if(chessSelect){
   chessSelect.id="arenaSocialChessTime";
   const groups={Bullet:[["1+0","1+0"],["2+1","2+1"]],
@@ -42,6 +42,7 @@ export function mountArenaFriendPopup({game,gameName,getWallet,getTimeControl=()
   chessSelect.value=getTimeControl();
   add(chessPicker,mk("span","","♟ THỜI GIAN MỖI BÊN"),chessSelect);
  }
+ if(game==="xiangqi")create.append(mk("p","arena-social-rule","♜ Loại cờ: "+(getVariant()==="up"?"Cờ Úp":"Cờ Tướng")+". Chọn loại cờ trên sảnh trước khi tạo phòng."));
  const group=mk("div","arena-social-tier-grid");
  group.setAttribute("role","radiogroup");group.setAttribute("aria-label","Mức G mỗi lá hoặc mỗi ván");
  const radios=[];
@@ -141,7 +142,7 @@ export function mountArenaFriendPopup({game,gameName,getWallet,getTimeControl=()
   if(room.game!==game){
    // Joining a valid invite adds the user to that server-owned room.
    // Navigate to its actual game instead of leaving a hidden membership.
-   const page={tienlen:"game-tien-len.html",chess:"game-co-vua.html",colors:"game-bai-mau.html"}[room.game];
+   const page={tienlen:"game-tien-len.html",chess:"game-co-vua.html",xiangqi:"game-co-tuong.html",colors:"game-bai-mau.html"}[room.game];
    if(!page)throw new Error("Không nhận diện được trò chơi của mã bàn.");
    if(dialog.open)dialog.close();
    const url=new URL(page,location.href);url.searchParams.set("room",room.code);
@@ -159,7 +160,8 @@ export function mountArenaFriendPopup({game,gameName,getWallet,getTimeControl=()
   try{
    const result=await roomRequest("create",{
     game,nickname:nickname(),minGold:tier,visibility:isPublic.checked?"public":"private",
-     ...(chessSelect?{timeControl:chessSelect.value}:{})
+     ...(chessSelect?{timeControl:chessSelect.value}:{}),
+     ...(game==="xiangqi"?{variant:getVariant()}:{})
    });
    accepted(result.room);
   }catch(error){createStatus.textContent=error?.message||"Không thể tạo bàn.";}

@@ -1,10 +1,11 @@
 /* MR LEE game-room browser — real server-owned public waiting rooms only.
  * No fabricated seats, house names, active matches, wallets or opponent data.
  */
-import {roomRequest,requiredGold,formatG,gameCapacity} from "./room-api.js";
+import {roomRequest,requiredGold,formatG,gameCapacity} from "./room-api.js?v=20261111-xq-pvp-v1";
 const GAMES=Object.freeze({
  colors:{label:"Bài Màu Đại Chiến",page:"game-bai-mau.html",icon:"🃏"},
  chess:{label:"Cờ Vua",page:"game-co-vua.html",icon:"♟️"},
+ xiangqi:{label:"Cờ Tướng / Cờ Úp",page:"game-co-tuong.html",icon:"♜"},
  tienlen:{label:"Tiến Lên Miền Nam",page:"game-tien-len.html",icon:"🂡"}
 });
 const $=id=>document.getElementById(id);
@@ -12,7 +13,7 @@ const mk=(tag,cls="",value)=>{const x=document.createElement(tag);if(cls)x.class
 const params=new URL(location.href).searchParams,game=params.get("game");
 const selected=GAMES[game];
 if(!selected){
- const status=$("browserStatus");status.textContent="Chế độ chọn bàn chỉ hỗ trợ Bài Màu, Cờ Vua và Tiến Lên.";
+ const status=$("browserStatus");status.textContent="Chế độ chọn bàn hỗ trợ Bài Màu, Cờ Vua, Cờ Tướng/Cờ Úp và Tiến Lên.";
  document.querySelector(".room-browser-main").hidden=true;
  const alert=mk("p","room-browser-error","Trò chơi không hỗ trợ danh sách bàn PvP. Vui lòng quay về Game Arena.");
  document.querySelector(".room-browser-shell").append(alert);
@@ -74,7 +75,7 @@ if(!selected){
    if(!canEnter){card.classList.add("room-browser-locked");table.append(mk("span","room-browser-padlock","🔒"));}
    art.append(chip,table,player);
    const title=mk("strong","room-browser-host",String(item.host||"Học viên").slice(0,36));
-   const info=mk("small","room-browser-table-meta",formatG(tier)+(game==="chess"?"/ván":"/lá")+" · Bảo đảm "+formatG(needed));
+   const info=mk("small","room-browser-table-meta",formatG(tier)+(["chess","xiangqi"].includes(game)?"/ván":"/lá")+" · Bảo đảm "+formatG(needed));
    const action=mk("button","room-browser-enter",item.alreadyIn?"TRỞ LẠI BÀN":canEnter?"VÀO BÀN":"THIẾU G");
    action.type="button";action.disabled=!canEnter;
    action.setAttribute("aria-label",item.alreadyIn?"Quay về phòng "+item.code:"Vào phòng của "+title.textContent+" "+formatG(tier));

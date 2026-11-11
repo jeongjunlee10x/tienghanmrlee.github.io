@@ -7,7 +7,7 @@ if(catalog){
   chess:{name:"Cờ Vua",group:["board","strategy"],tag:"♟️ Cờ chiến thuật",online:true},
   tienlen:{name:"Tiến Lên Miền Nam",group:["card"],tag:"🃏 Game bài",online:true},
   ludo:{name:"Cờ Cá Ngựa",group:["board","fun"],tag:"🎲 Bàn cờ",online:false},
-  xiangqi:{name:"Cờ Tướng / Cờ Úp",group:["board","strategy"],tag:"♜ Chiến thuật",online:false},
+  xiangqi:{name:"Cờ Tướng / Cờ Úp",group:["board","strategy"],tag:"♜ Chiến thuật",online:true},
   estate:{name:"Địa Ốc Đại Chiến",group:["strategy","fun"],tag:"🏙️ Mô phỏng",online:false}
  };
  const storageKey="mrlee.arena.discovery.v1";
