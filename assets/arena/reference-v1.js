@@ -12,7 +12,7 @@ const gamePages=Object.freeze({colors:"game-bai-mau.html",chess:"game-co-vua.htm
 const labels=Object.freeze({
  tienlen:"🃏 4 người · PvP / máy",
  chess:"♟️ 2 người · PvP / máy",
- xiangqi:"♜ 2 người · Đấu máy",
+ xiangqi:"♜ 2 người · PvP / máy",
  ludo:"🎲 4 người · Đấu máy",
  estate:"🏘️ 4 người · Đấu máy",
  colors:"🔴 4 người · PvP / máy"
