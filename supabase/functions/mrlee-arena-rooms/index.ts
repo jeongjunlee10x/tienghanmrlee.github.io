@@ -433,7 +433,7 @@ function actionXiangqi(state:any,seat:number,action:Body){
    action.from<0||action.from>=90||action.to<0||action.to>=90)
   fail("Nước cờ không hợp lệ.");
  if((position.turn===1?0:1)!==seat)fail("Chưa đến lượt bạn.",409);
- if(!Xiangqi.xiangqiLegal(position).some((m:[number,number])=>
+ if(!Xiangqi.xiangqiLegal(position).some((m)=>
   m[0]===action.from&&m[1]===action.to))fail("Nước đi sai luật.",409);
  const captured=Boolean(position.b[action.to]);
  if(state.clock){
