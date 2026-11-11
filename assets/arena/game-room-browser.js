@@ -5,6 +5,7 @@ import {roomRequest,requiredGold,formatG,gameCapacity} from "./room-api.js";
 const GAMES=Object.freeze({
  colors:{label:"Bài Màu Đại Chiến",page:"game-bai-mau.html",icon:"🃏"},
  chess:{label:"Cờ Vua",page:"game-co-vua.html",icon:"♟️"},
+ xiangqi:{label:"Cờ Tướng / Cờ Úp",page:"game-co-tuong.html",icon:"♜"},
  tienlen:{label:"Tiến Lên Miền Nam",page:"game-tien-len.html",icon:"🂡"}
 });
 const $=id=>document.getElementById(id);
@@ -12,7 +13,7 @@ const mk=(tag,cls="",value)=>{const x=document.createElement(tag);if(cls)x.class
 const params=new URL(location.href).searchParams,game=params.get("game");
 const selected=GAMES[game];
 if(!selected){
- const status=$("browserStatus");status.textContent="Chế độ chọn bàn chỉ hỗ trợ Bài Màu, Cờ Vua và Tiến Lên.";
+ const status=$("browserStatus");status.textContent="Chế độ chọn bàn hỗ trợ Bài Màu, Cờ Vua, Cờ Tướng/Cờ Úp và Tiến Lên.";
  document.querySelector(".room-browser-main").hidden=true;
  const alert=mk("p","room-browser-error","Trò chơi không hỗ trợ danh sách bàn PvP. Vui lòng quay về Game Arena.");
  document.querySelector(".room-browser-shell").append(alert);
