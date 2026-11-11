@@ -8,14 +8,15 @@ import {createClient} from "npm:@supabase/supabase-js@2.119.0";
 import * as Chess from "./chess-engine.js";
 import * as TienLen from "./tienlen-engine.js";
 import * as Colors from "./color-engine.js";
+import * as Xiangqi from "./xiangqi-engine.js";
 const PROJECT="tieng-han-mr-lee";
 const JWKS=createRemoteJWKSet(new URL("https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com"),
  {timeoutDuration:5000,cooldownDuration:30000,cacheMaxAge:3600000});
 const ORIGINS=new Set(["https://jeongjunlee10x.github.io","https://mrlee-b6a.pages.dev"]);
-const GAME_SLOTS:Record<string,number>={chess:2,tienlen:4,colors:4};
+const GAME_SLOTS:Record<string,number>={chess:2,xiangqi:2,tienlen:4,colors:4};
 const GOLD_TIERS=new Set([5,10,50,100,500,1000,5000,10000,50000,100000,500000,1000000]);
 // Reserve 13 cards plus the possible 3× stake special finish charge.
-const RISK_CARDS:Record<string,number>={chess:1,tienlen:16,colors:20};
+const RISK_CARDS:Record<string,number>={chess:1,xiangqi:1,tienlen:16,colors:20};
 const exposure=(game:string,stake:number)=>stake*RISK_CARDS[game];
 const CODE_LETTERS="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const TIENLEN_TURN_MS=20_000;
@@ -35,6 +36,13 @@ const chessDeadline=(state:any)=>{
  const clock=state.clock;if(!clock)return null;
  const seat=state.history.at(-1).t===1?0:1;
  return new Date(Date.parse(clock.since)+clock.remaining[seat]).toISOString();
+};
+const xiangqiVariant=(v:unknown)=>v==="up"?"up":"xiangqi";
+const boardTurn=(state:any,game:string)=>game==="xiangqi"?
+ (state.position?.turn===1?0:1):(state.history.at(-1).t===1?0:1);
+const boardDeadline=(state:any,game:string)=>{
+ if(!state.clock)return null;
+ return new Date(Date.parse(state.clock.since)+state.clock.remaining[boardTurn(state,game)]).toISOString();
 };
 type Member={uid:string,name:string,seat:number,ready:boolean};
 type Room={code:string,game:string,visibility:string,min_gold:number,locked:boolean,status:string,
@@ -107,7 +115,8 @@ function safeRoom(room:Room,uid:string){
  const player=membership(room,uid),game=room.game;
  const result:any={code:room.code,game,visibility:room.visibility,minGold:room.min_gold,
   status:room.status,seat:player.seat,capacity:GAME_SLOTS[game],serverTime:now(),
-   ...(game==="chess"?{timeControl:chessTime(room.state?.timeControl)}:{}),
+   ...(["chess","xiangqi"].includes(game)?{timeControl:chessTime(room.state?.timeControl)}:{}),
+   ...(game==="xiangqi"?{variant:xiangqiVariant(room.state?.variant)}:{}),
   locked:Boolean(room.locked),isHost:room.members[0]?.uid===uid,
   players:room.members.map(m=>({name:m.name,seat:m.seat,ready:m.ready,
    continueReady:room.state?.rematchVotes?.[String(m.seat)]===true})),
@@ -126,6 +135,20 @@ function safeRoom(room:Room,uid:string){
     done:Boolean(forced||detail.done),reason:forced?.reason||detail.reason,claim:!!detail.claim,
     clock:state.clock||null,timeControl:chessTime(state.timeControl),
     turnDeadline:room.status==="playing"?state.turnDeadline:null};
+  }else if(game==="xiangqi"){
+  // Conceal true unrevealed pieces from every browser, including the owner.
+  const position=state.position;
+  const publicBoard=position.b.map((piece:any)=>piece?.covered?
+   {p:piece.slot,slot:piece.slot,covered:true}:piece);
+  const resultState=state.result||{};
+  const done=room.status==="finished"||position.winner!==null||resultState.done===true;
+  result.gameState={position:{...position,b:publicBoard},variant:xiangqiVariant(state.variant),
+   notation:(state.notation||[]).slice(-160),turn:position.turn===1?0:1,
+   winner:done?(state.settlement?.winner??resultState.winner??(
+     position.winner===1?0:position.winner===-1?1:-1)):null,
+   done,reason:resultState.reason||"Kết thúc ván",drawOfferedBy:state.drawOfferedBy??null,
+   clock:state.clock||null,timeControl:chessTime(state.timeControl),
+   turnDeadline:room.status==="playing"?state.turnDeadline:null};
  }else if(game==="tienlen"){
   result.gameState={myHand:state.hands[player.seat],counts:state.hands.map((hand:any[])=>hand.length),
     turn:state.turn,played:state.played,last:state.last?{player:state.last.player,combo:state.last.combo}:null,
@@ -159,11 +182,18 @@ async function cas(database:any,row:Room,patch:Partial<Room>):Promise<Room>{
  if(!data)fail("Phòng vừa thay đổi. Tải lại rồi thao tác tiếp.",409);
  return data as Room;
 }
-function createState(game:string,playerCount=4,timeControl="10+0",previousWinnerSeat:number|null=null){
+function createState(game:string,playerCount=4,timeControl="10+0",previousWinnerSeat:number|null=null,variant="xiangqi"){
  if(game==="chess"){
   const position=Chess.start(),selected=chessTime(timeControl),clock=chessClock(selected);
   return {history:[position],notation:[],timeControl:selected,clock,
    turnDeadline:clock?chessDeadline({history:[position],clock}):null};
+ }
+ if(game==="xiangqi"){
+  const selected=chessTime(timeControl),clock=chessClock(selected);
+  const position=Xiangqi.newXiangqi(xiangqiVariant(variant));
+  return {position,variant:xiangqiVariant(variant),notation:[],quietPly:0,
+   drawOfferedBy:null,result:null,timeControl:selected,clock,
+   turnDeadline:clock?boardDeadline({position,clock},"xiangqi"):null};
  }
  if(game==="tienlen"){
   const roundReadyAt=new Date(Date.now()+TIENLEN_DEAL_MS).toISOString();
@@ -222,21 +252,21 @@ async function advanceExpiredTienLen(database:any,row:Room):Promise<Room>{
 // A timeout is computed only from the persisted position and legal engine.
 // Concurrent browser polls cannot double-play a move (row version CAS).
 async function advanceExpiredOther(database:any,row:Room):Promise<Room>{
- if(!["chess","colors"].includes(row.game)||row.status!=="playing")return row;
- if(row.game==="chess"&&!row.state?.clock)return row; // no-clock mode
+ if(!["chess","xiangqi","colors"].includes(row.game)||row.status!=="playing")return row;
+ if(["chess","xiangqi"].includes(row.game)&&!row.state?.clock)return row; // no-clock mode
  const deadline=Date.parse(row.state?.turnDeadline||"");
  if(!Number.isFinite(deadline)){
-  try{return await cas(database,row,{state:{...row.state,turnDeadline:row.game==="chess"?chessDeadline(row.state):nextDeadline()}});}
+  try{return await cas(database,row,{state:{...row.state,turnDeadline:["chess","xiangqi"].includes(row.game)?boardDeadline(row.state,row.game):nextDeadline()}});}
   catch(e){if((e as {status?:number}).status===409)return selectRoom(database,row.code);throw e;}
  }
  if(Date.now()<deadline)return row;
  const state=structuredClone(row.state);
  let finished=false,winner=-1,remaining:number[]=[];
  try{
-  if(row.game==="chess"){
+  if(["chess","xiangqi"].includes(row.game)){
    // Whole-game chess clock: running out of time loses the match.
    // Never auto-pick a chess move (unlike the 20s card-game timeout).
-   const seat=state.history.at(-1).t===1?0:1;
+   const seat=boardTurn(state,row.game);
    state.clock.remaining[seat]=0;state.clock.since=null;
    winner=1-seat;remaining=[0,0];finished=true;
    state.settlement={winner,remaining,rate:row.min_gold,reason:"Hết giờ"};
@@ -290,7 +320,7 @@ async function advanceExpiredFinished(database:any,row:Room,allVoted=false):Prom
  const winnerMember=row.game==="tienlen"?row.members.find(m=>m.seat===row.state?.winner):null;
  const nextWinnerSeat=winnerMember?remaining.findIndex(m=>m.uid===winnerMember.uid):-1;
  const fresh=createState(row.game,Math.max(2,remaining.length),row.state?.timeControl,
-  nextWinnerSeat>=0?nextWinnerSeat:null);
+  nextWinnerSeat>=0?nextWinnerSeat:null,row.state?.variant);
  const {error}=await database.rpc("mrlee_arena_auto_next",{
   p_code:row.code,p_expected_version:row.version,p_state:fresh
  });
@@ -312,7 +342,7 @@ async function requireGold(database:any,uid:string,game:string,tier:number){
   "G để bảo đảm thanh toán ván này. Hãy đổi điểm đã xác minh hoặc chọn mức bàn thấp hơn.",403);
  return w;
 }
-async function freshRoom(database:any,uid:string,game:string,visibility:string,tier:number,nickname:string,timeControl="10+0"){
+async function freshRoom(database:any,uid:string,game:string,visibility:string,tier:number,nickname:string,timeControl="10+0",variant="xiangqi"){
  await requireGold(database,uid,game,tier);
  const {count,error:countError}=await database.from("mrlee_arena_rooms").select("code",{head:true,count:"exact"})
   // JSONB array-of-objects: serialize as JSON text; a bare JS array becomes cs.{[object Object]}.
@@ -323,7 +353,7 @@ async function freshRoom(database:any,uid:string,game:string,visibility:string,t
   const code=randomCode();
   const {data,error}=await database.from("mrlee_arena_rooms").insert({
    code,game,visibility,locked:false,min_gold:tier,status:"waiting",
-   members:[{uid,name:nickname,seat:0,ready:false}],state:game==="chess"?{timeControl:chessTime(timeControl)}:{}
+   members:[{uid,name:nickname,seat:0,ready:false}],state:["chess","xiangqi"].includes(game)?{timeControl:chessTime(timeControl),...(game==="xiangqi"?{variant:xiangqiVariant(variant)}:{})}:{}
   }).select("*").maybeSingle();
   if(!error&&data)return data as Room;
   if(error?.code!=="23505")fail("Không tạo được phòng. Hãy thử lại.",503);
@@ -347,7 +377,8 @@ async function listRooms(database:any,game:string,uid:string){
  if(error)fail("Không lấy được danh sách bàn.",503);
  return (data||[]).filter((r:Room)=>!r.locked&&r.members.length<GAME_SLOTS[r.game]).map((r:Room)=>({
   code:r.code,game:r.game,minGold:r.min_gold,status:r.status,
-   ...(r.game==="chess"?{timeControl:chessTime(r.state?.timeControl)}:{}),
+   ...(["chess","xiangqi"].includes(r.game)?{timeControl:chessTime(r.state?.timeControl)}:{}),
+   ...(r.game==="xiangqi"?{variant:xiangqiVariant(r.state?.variant)}:{}),
   capacity:GAME_SLOTS[r.game],count:r.members.length,
   host:r.members[0]?.name||"Học viên",alreadyIn:r.members.some(m=>m.uid===uid)
  }));
