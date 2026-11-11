@@ -406,6 +406,54 @@ function actionChess(state:any,seat:number,action:Body){
  const result=Chess.status(state.history);
  return {finished:result.done};
 }
+function actionXiangqi(state:any,seat:number,action:Body){
+ const position=state.position;
+ if(position.winner!==null||state.result?.done)fail("Ván đã kết thúc.",409);
+ const kind=action.kind||"play";
+ if(kind==="resign"){
+  state.result={done:true,winner:1-seat,reason:"Đầu hàng"};
+  return {finished:true};
+ }
+ if(kind==="accept_draw"){
+  if(state.drawOfferedBy!==1-seat)fail("Đối thủ chưa đề nghị hòa.",409);
+  state.result={done:true,winner:-1,reason:"Hai bên đồng ý hòa"};
+  return {finished:true};
+ }
+ if(kind==="decline_draw"){
+  if(state.drawOfferedBy!==1-seat)fail("Không có lời mời hòa.",409);
+  state.drawOfferedBy=null;
+  return {finished:false};
+ }
+ if(kind==="offer_draw"){
+  if((position.turn===1?0:1)!==seat)fail("Chỉ đề nghị hòa trong lượt của bạn.",409);
+  state.drawOfferedBy=seat;
+  return {finished:false};
+ }
+ if(kind!=="play"||!Number.isInteger(action.from)||!Number.isInteger(action.to)||
+   action.from<0||action.from>=90||action.to<0||action.to>=90)
+  fail("Nước cờ không hợp lệ.");
+ if((position.turn===1?0:1)!==seat)fail("Chưa đến lượt bạn.",409);
+ if(!Xiangqi.xiangqiLegal(position).some((m:[number,number])=>
+  m[0]===action.from&&m[1]===action.to))fail("Nước đi sai luật.",409);
+ const captured=Boolean(position.b[action.to]);
+ if(state.clock){
+  const elapsed=Math.max(0,Date.now()-Date.parse(state.clock.since));
+  if(elapsed>=state.clock.remaining[seat])fail("Đã hết giờ. Hãy cập nhật bàn.",409);
+  state.clock.remaining[seat]=Math.max(0,state.clock.remaining[seat]-elapsed)+state.clock.incrementMs;
+  state.clock.since=now();
+ }
+ Xiangqi.xiangqiMove(position,action.from,action.to);
+ state.notation.push((seat===0?"Đỏ":"Đen")+": "+(action.from+1)+" → "+(action.to+1));
+ state.notation=state.notation.slice(-160);
+ state.quietPly=captured?0:(Number(state.quietPly)||0)+1;
+ state.drawOfferedBy=null;
+ if(position.winner!==null){
+  state.result={done:true,winner:position.winner===1?0:1,reason:"Chiếu bí / hết nước hợp lệ"};
+ }else if(state.quietPly>=120){
+  state.result={done:true,winner:-1,reason:"Hòa theo giới hạn 120 nước không ăn quân"};
+ }
+ return {finished:Boolean(state.result?.done)};
+}
 function actionTienLen(state:any,seat:number,action:Body){
  if(state.turn!==seat)fail("Chưa đến lượt bạn.",409);
  if(action.kind==="pass"){TienLen.pass(state,seat);return {finished:state.winner!==null};}
@@ -491,15 +539,16 @@ Deno.serve(async(req:Request)=>{
   if(kind==="create"){
    const game=gameName(body.game),tier=roomTier(body.minGold),visibility=body.visibility;
    if(visibility!=="private"&&visibility!=="public")fail("Kiểu phòng không hợp lệ.");
-   const row=await freshRoom(database,uid,game,visibility,tier,nickname,game==="chess"?chessTime(body.timeControl):"10+0");
+   const row=await freshRoom(database,uid,game,visibility,tier,nickname,["chess","xiangqi"].includes(game)?chessTime(body.timeControl):"10+0",xiangqiVariant(body.variant));
    return reply(req,200,{ok:true,room:safeRoom(row,uid)});
   }
   if(kind==="quick"){
    const game=gameName(body.game),balance=(await wallet(database,uid)).gold;
-   const timeControl=game==="chess"?chessTime(body.timeControl):"10+0";
+   const timeControl=["chess","xiangqi"].includes(game)?chessTime(body.timeControl):"10+0";
+    const variant=xiangqiVariant(body.variant);
     const rooms=await listRooms(database,game,uid);
    const options=(rooms as Array<{code:string,minGold:number,count:number}>)
-      .filter(x=>exposure(game,x.minGold)<=balance&&(game!=="chess"||(x as any).timeControl===timeControl))
+      .filter(x=>exposure(game,x.minGold)<=balance&&(!["chess","xiangqi"].includes(game)||(x as any).timeControl===timeControl)&&(game!=="xiangqi"||(x as any).variant===variant))
       .sort((a,b)=>b.count-a.count||b.minGold-a.minGold);
    for(const room of options.slice(0,12)){
     try{
@@ -513,7 +562,7 @@ Deno.serve(async(req:Request)=>{
    const suitable=[...GOLD_TIERS].filter(x=>exposure(game,x)<=balance)
       .sort((a,b)=>a-b);
    if(!suitable.length)fail("Bạn chưa đủ G vào bàn thấp nhất. Hãy đổi điểm học tập đã xác minh sang G.",403);
-   const created=await freshRoom(database,uid,game,"public",suitable[0],nickname,timeControl);
+   const created=await freshRoom(database,uid,game,"public",suitable[0],nickname,timeControl,variant);
    return reply(req,200,{ok:true,room:safeRoom(created,uid),match:"created"});
   }
   const code=roomCode(body.code);
