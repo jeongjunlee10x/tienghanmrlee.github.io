@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="assets/arena/strategy.css?v=1">
 <link rel="stylesheet" href="assets/arena/tienlen-live.css?v=20261106-r3">
 <link rel="stylesheet" href="assets/arena/rooms.css?v=20261106-r2">
+<link rel="stylesheet" href="assets/arena/rooms-xiangqi.css?v=20261111-xq-pvp-v1">
 <link rel="stylesheet" href="assets/arena/extra-games.css?v=2">
 <link rel="stylesheet" href="assets/arena/daily-rewards.css?v=1">
 <link rel="stylesheet" href="assets/arena/mobile-live.css?v=1">
@@ -33,14 +34,14 @@
 <style id="mrlee-auth-hide">html:not([data-mrlee-auth="verified"]) body{visibility:hidden!important}</style>
 <script>try{document.documentElement.dataset.mrleeTheme=localStorage.getItem("MRLEE.THEME.V1")==="future"?"future":"fresh"}catch{document.documentElement.dataset.mrleeTheme="fresh"}</script>
 <script type="module" src="assets/arena/embedded-auth.js?v=20261106-embed-fix1"></script>
-<script type="module" src="assets/arena/app.js?v=20261107-rule-v26b"></script>
+<script type="module" src="assets/arena/app.js?v=20261111-xq-pvp-v1"></script>
 <script type="module" src="assets/arena/daily-rewards.js?v=1"></script>
 <script type="module" src="assets/arena/mobile-live.js?v=20261107-approved-v20"></script>
-<script type="module" src="assets/arena/discovery.js?v=1"></script>
+<script type="module" src="assets/arena/discovery.js?v=20261111-xq-pvp-v1"></script>
 <script type="module" src="assets/arena/premium.js?v=1"></script>
 <script type="module" src="assets/arena/premium-fx.js?v=20261107-v19"></script>
-<script type="module" src="assets/arena/reference-v1.js?v=20261106-r2"></script>
-<script type="module" src="assets/arena/game-room-embed.js?v=20261106-boot-v14"></script>
+<script type="module" src="assets/arena/reference-v1.js?v=20261111-xq-pvp-v1"></script>
+<script type="module" src="assets/arena/game-room-embed.js?v=20261111-xq-pvp-v1"></script>
 <script defer src="assets/branding/media-quality-v3.js?v=20261108-m1"></script>
 </head>
 <body>
@@ -115,7 +116,7 @@
   <button type="button" data-arena-filter="fun" aria-pressed="false">🎲 <span class="arena-ref-filter-label">Game giải trí</span> <span>3</span></button>
   <button type="button" data-arena-filter="favorite" aria-pressed="false">💗 <span class="arena-ref-filter-label">Yêu thích</span></button>
   <button type="button" data-arena-filter="recent" aria-pressed="false">🕘 <span class="arena-ref-filter-label">Chơi gần đây</span></button>
-  <button type="button" data-arena-filter="online" aria-pressed="false">👥 <span class="arena-ref-filter-label">Chơi với bạn</span> <span>3</span></button>
+  <button type="button" data-arena-filter="online" aria-pressed="false">👥 <span class="arena-ref-filter-label">Chơi với bạn</span> <span>4</span></button>
   <button type="button" data-arena-filter="strategy" aria-pressed="false">🏙️ <span class="arena-ref-filter-label">Chiến lược</span></button>
  </nav>
  <button type="button" id="arenaRefMoreFilters" class="arena-ref-more-filters" aria-expanded="false" aria-controls="arenaMoreFilters">⌄ Bộ lọc nâng cao</button>
@@ -161,7 +162,7 @@
  <button type="button" class="arena-bots" data-game="tienlen">🤖 Đấu máy</button>
  </div></div></article>
    <article class="arena-game-card playable"><div class="arena-card-banner ludo" aria-hidden="true">🎲 🐎 🎯</div><div class="arena-card-body"><strong>Cờ Cá Ngựa</strong><small>4 người · Xúc xắc, bắt quân, về đích</small><div class="arena-game-actions"><button class="arena-bots" type="button" data-game="ludo">🎮 Chơi ngay · Đấu máy</button><span class="arena-soon">PvP trực tuyến: đang hoàn thiện</span></div></div></article>
-   <article class="arena-game-card playable"><div class="arena-card-banner xiangqi" aria-hidden="true">帥 車 馬</div><div class="arena-card-body"><strong>Cờ Tướng / Cờ Úp</strong><small>2 người · Đấu máy · 2 chế độ</small><div class="arena-game-actions"><button class="arena-bots" type="button" data-game="xiangqi">🎮 Chơi ngay · Đấu máy</button><span class="arena-soon">PvP trực tuyến: đang hoàn thiện</span></div></div></article>
+   <article class="arena-game-card playable"><div class="arena-card-banner xiangqi" aria-hidden="true">帥 車 馬</div><div class="arena-card-body"><strong>Cờ Tướng / Cờ Úp</strong><small>2 người · PvP hoặc đấu máy · 2 chế độ</small><div class="arena-game-actions"><button type="button" class="arena-quick" data-room-action="quick" data-room-game="xiangqi">⚡ Chơi nhanh</button><button type="button" class="arena-friends" data-room-action="friends" data-room-game="xiangqi">👥 Chơi với bạn</button><button type="button" class="arena-rooms-link" data-room-action="browse" data-room-game="xiangqi">▦ Chọn bàn</button><button class="arena-bots" type="button" data-game="xiangqi">🤖 Đấu máy</button></div></div></article>
    <article class="arena-game-card playable"><div class="arena-card-banner estate" aria-hidden="true">🏘️ 💼 🏙️</div><div class="arena-card-body"><strong>Địa Ốc Đại Chiến</strong><small>4 người · Mua bán, thu thuê, nâng cấp</small><div class="arena-game-actions"><button class="arena-bots" type="button" data-game="estate">🎮 Chơi ngay · Đấu máy</button><span class="arena-soon">PvP trực tuyến: đang hoàn thiện</span></div></div></article>
  <article id="arenaRefLearning" class="arena-ref-learning-card" aria-label="Game Zone Tiếng Hàn">
   <div class="arena-ref-learning-art">
