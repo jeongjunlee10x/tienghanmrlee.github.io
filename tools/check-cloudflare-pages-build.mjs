@@ -230,6 +230,8 @@ for (const pagePath of ['index.html','kiem-tra-topik.html','bang-xep-hang.html']
   const h1Count = (html.match(/<h1\b/gi) || []).length;
   assert.equal(h1Count, 1, 'Expected exactly one H1 on ' + pagePath + ', found ' + h1Count);
 }
+const leaderboardScript = await readFile(join(dist, 'mrlee-leaderboard.js'), 'utf8');
+assert(!/el\(full\?'h1':'h2'/.test(leaderboardScript), 'Live ranking renderer must not inject a second H1 after the static page H1');
 const themeRuntime = await readFile(join(dist, 'assets/mrlee-dual-ui/theme.js'), 'utf8');
 assert(!/aria-label="Vào giao diện (?:Tươi mới|Viễn tưởng)"/.test(themeRuntime), 'Theme chooser button names must match visible labels');
 const mapHtml = await readFile(join(dist, 'ban-do-dai-hoc-han-quoc.html'), 'utf8');
