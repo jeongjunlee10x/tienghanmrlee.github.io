@@ -48,7 +48,13 @@ if(covered!==30)fail('All 30 hero variants must have either original WebP or SVG
 const loader=fs.readFileSync(path.join(root,'assets/images/system/mrlee800-hero-loader.js'),'utf8');
 if(!loader.includes("heroURL(t,'svg')")||!loader.includes("let uri=heroURL(t)"))fail('WebP-first fallback loader missing');
 for(const p of ['tuyen-sinh.html','dang-ky-tu-van.html','bang-xep-hang.html','bang-chu-cai-tieng-han.html','topik-nghe-24-cau.html','topik-nghe-124-cau.html','topik-viet-51-54.html']){
- if(!fs.readFileSync(path.join(root,p),'utf8').includes('mrlee800-hero-loader.js'))fail('Missing loader hook '+p);
+ const source=fs.readFileSync(path.join(root,p),'utf8');
+ if(p==='tuyen-sinh.html'){
+  if(!source.includes('assets/mrlee-tuyen-sinh.css'))fail('Redesigned admissions page must keep its native hero styles');
+  if(source.includes('mrlee800-hero-loader.js'))fail('Legacy auto hero loader must stay disabled on redesigned tuyen-sinh.html');
+  continue;
+ }
+ if(!source.includes('mrlee800-hero-loader.js'))fail('Missing loader hook '+p);
 }
 console.log('MRLEE 800 QA:',{planned:800,webp_ready:ready,vector_fallback_ready:vector,hero_covered:covered,missing_webp:800-ready,categories:cats});
 if(process.exitCode)process.exit(process.exitCode);

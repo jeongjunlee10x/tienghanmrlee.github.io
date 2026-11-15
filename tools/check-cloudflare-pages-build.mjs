@@ -235,7 +235,8 @@ assert(/currentUrl\.origin===officialUrl\.origin&&currentUrl\.pathname===officia
 const mediaQualityRuntime = await readFile(join(dist, 'assets/branding/media-quality-v3.js'), 'utf8');
 assert(mediaQualityRuntime.includes("img.loading=img.closest('footer')?'lazy':'eager'"), 'Footer logos must lazy-load and header logos must keep eager loading');
 const admissionHtml = await readFile(join(dist, 'tuyen-sinh.html'), 'utf8');
-assert(admissionHtml.includes('assets/images/system/mrlee800-hero-loader.js'), 'Admissions page must include the MRLEE 800 hero loader');
+assert(!admissionHtml.includes('assets/images/system/mrlee800-hero-loader.js'), 'Redesigned admissions page must not run the legacy auto hero loader');
+assert(admissionHtml.includes('assets/mrlee-tuyen-sinh.css'), 'Admissions page must keep its native hero stylesheet');
 assert(!admissionHtml.includes('aria-label="Trở về trang chủ MR LEE"'), 'Admissions brand link must not override its visible accessible name');
 const admissionCss = await readFile(join(dist, 'assets/branding/admissions-readable-v2.css'), 'utf8');
 assert(admissionCss.includes('.ts-eyebrow-korean') && admissionCss.includes('#4e6c70') && admissionCss.includes('#415f69'), 'Admissions Korean labels must meet contrast requirements');
