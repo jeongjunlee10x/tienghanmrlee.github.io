@@ -230,6 +230,15 @@ for (const pagePath of ['index.html','kiem-tra-topik.html','bang-xep-hang.html']
   const h1Count = (html.match(/<h1\b/gi) || []).length;
   assert.equal(h1Count, 1, 'Expected exactly one H1 on ' + pagePath + ', found ' + h1Count);
 }
+const logoRuntime = await readFile(join(dist, 'assets/branding/site-logo.js'), 'utf8');
+assert(/currentUrl\.origin===officialUrl\.origin&&currentUrl\.pathname===officialUrl\.pathname/.test(logoRuntime), 'Logo runtime must not refetch the same file with a cache-busting query');
+const mediaQualityRuntime = await readFile(join(dist, 'assets/branding/media-quality-v3.js'), 'utf8');
+assert(mediaQualityRuntime.includes("img.loading=img.closest('footer')?'lazy':'eager'"), 'Footer logos must lazy-load and header logos must keep eager loading');
+const admissionHtml = await readFile(join(dist, 'tuyen-sinh.html'), 'utf8');
+assert(admissionHtml.includes('assets/images/system/mrlee800-hero-loader.js'), 'Admissions page must include the MRLEE 800 hero loader');
+assert(!admissionHtml.includes('aria-label="Trở về trang chủ MR LEE"'), 'Admissions brand link must not override its visible accessible name');
+const admissionCss = await readFile(join(dist, 'assets/branding/admissions-readable-v2.css'), 'utf8');
+assert(admissionCss.includes('.ts-eyebrow-korean') && admissionCss.includes('#4e6c70') && admissionCss.includes('#415f69'), 'Admissions Korean labels must meet contrast requirements');
 const leaderboardScript = await readFile(join(dist, 'mrlee-leaderboard.js'), 'utf8');
 assert(!/el\(full\?'h1':'h2'/.test(leaderboardScript), 'Live ranking renderer must not inject a second H1 after the static page H1');
 const themeRuntime = await readFile(join(dist, 'assets/mrlee-dual-ui/theme.js'), 'utf8');

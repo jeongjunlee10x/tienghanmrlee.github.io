@@ -32,7 +32,7 @@ function prepare(img){
  }
  img.addEventListener('error',()=>{img.dataset.mrleeMissing='1';if(!img.alt)img.alt='Ảnh chưa tải được';},{once:true});
  if(!img.hasAttribute('decoding'))img.decoding='async';
- if(img.matches('.mrlee-approved-logo')||img.closest('a.brand,.site-logo,.ts-logo,.mrlee-next-brand')){img.loading='eager';return}
+ if(img.matches('.mrlee-approved-logo')||img.closest('a.brand,.site-logo,.ts-logo,.mrlee-next-brand')){img.loading=img.closest('footer')?'lazy':'eager';try{img.fetchPriority='low'}catch{}return}
  // The homepage has two different heroes, but only one theme is visible.
  // When Future is selected, promote its image without changing the artwork.
  if(prioritizeThemeHero(img)){
