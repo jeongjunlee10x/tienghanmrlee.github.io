@@ -103,11 +103,11 @@ function entryPicker(){
    <h2 id="mrlee-entry-heading">Chọn giao diện để bắt đầu</h2>
    <p id="mrlee-entry-intro">Chọn một lần cho lượt truy cập này. Các trang học, TOPIK, điểm số và tài khoản đều dùng chung ở hai giao diện.</p>
    <div class="mrlee-entry-options" role="group" aria-label="Hai giao diện website">
-     <button type="button" class="mrlee-entry-option mrlee-entry-fresh" data-theme="fresh" aria-label="Vào giao diện Tươi mới">
+     <button type="button" class="mrlee-entry-option mrlee-entry-fresh" data-theme="fresh">
        <span class="mrlee-entry-preview" aria-hidden="true"></span>
        <span class="mrlee-entry-option-copy"><strong>☀ Giao diện Tươi mới</strong><small>Sáng rõ · trẻ trung · dễ học</small><em>Chọn Tươi mới →</em></span>
      </button>
-     <button type="button" class="mrlee-entry-option mrlee-entry-future" data-theme="future" aria-label="Vào giao diện Viễn tưởng">
+     <button type="button" class="mrlee-entry-option mrlee-entry-future" data-theme="future">
        <span class="mrlee-entry-preview" aria-hidden="true"></span>
        <span class="mrlee-entry-option-copy"><strong>✦ Giao diện Viễn tưởng</strong><small>Công nghệ · tương lai · hiện đại</small><em>Chọn Viễn tưởng →</em></span>
      </button>

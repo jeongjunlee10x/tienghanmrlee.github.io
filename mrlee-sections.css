@@ -21,7 +21,7 @@ a{color:inherit}button,input{font:inherit}button{cursor:pointer}button:focus-vis
 .section-hero::before{content:'';position:absolute;z-index:-1;top:-190px;right:-115px;width:520px;height:520px;border:65px solid rgba(255,255,255,.065);border-radius:50%}
 .section-hero::after{content:'';position:absolute;z-index:-1;bottom:-100px;right:130px;width:260px;height:260px;background:rgba(255,255,255,.035);border-radius:50%}
 .hero-text{max-width:690px}.hero-kicker{font-size:11px;letter-spacing:.12em;font-weight:800;color:#e8f0ff}
-.section-hero h1{font-size:clamp(26px,4vw,42px);line-height:1.33;margin:13px 0 12px;color:#fff;letter-spacing:-.6px}
+.section-hero :is(h1,h2){font-size:clamp(26px,4vw,42px);line-height:1.33;margin:13px 0 12px;color:#fff;letter-spacing:-.6px}
 .section-hero p{font-size:14px;line-height:1.9;color:#ebf3ff;margin:0;max-width:620px}
 .hero-symbol{font-size:clamp(65px,9vw,118px);filter:drop-shadow(0 12px 20px rgba(0,0,0,.10));flex:0 0 auto}
 .content-section{padding:36px 0 62px}.section-title{font-size:25px;line-height:1.5;letter-spacing:-.45px;margin:0 0 10px;color:#193553}.section-intro{color:#687c91;font-size:13px;margin:0 0 25px;line-height:1.8}
@@ -34,7 +34,7 @@ a{color:inherit}button,input{font:inherit}button{cursor:pointer}button:focus-vis
 .mrlee-footer{background:#102c4c;color:#cfdbed;text-align:center;padding:30px 18px;font-size:12px}
 .mrlee-footer a{color:#fff;text-decoration:none}.mrlee-footer a:hover{text-decoration:underline}.footer-menu{display:flex;justify-content:center;flex-wrap:wrap;gap:12px 21px;margin-bottom:12px}
 @media(max-width:850px){.top-links{gap:0}.top-links a{font-size:11px;padding:8px}.site-logo{font-size:13px}.site-logo .logo-symbol{width:36px;height:36px}.destination-grid{grid-template-columns:1fr}}
-@media(max-width:680px){.site-top-inner{align-items:flex-start;flex-direction:column;gap:3px;padding:11px 0}.top-links{justify-content:flex-start;width:100%;overflow-x:auto;white-space:nowrap;flex-wrap:nowrap;padding-bottom:4px}.top-links a{flex:none}.section-hero{padding:26px 23px;min-height:255px}.section-hero h1{font-size:28px}.section-hero p{font-size:12px}.hero-symbol{font-size:64px;position:absolute;right:20px;bottom:20px;opacity:.28}.destination{min-height:0;padding:19px;gap:11px}.destination .dest-icon{width:49px;height:49px;font-size:24px}}
+@media(max-width:680px){.site-top-inner{align-items:flex-start;flex-direction:column;gap:3px;padding:11px 0}.top-links{justify-content:flex-start;width:100%;overflow-x:auto;white-space:nowrap;flex-wrap:nowrap;padding-bottom:4px}.top-links a{flex:none}.section-hero{padding:26px 23px;min-height:255px}.section-hero :is(h1,h2){font-size:28px}.section-hero p{font-size:12px}.hero-symbol{font-size:64px;position:absolute;right:20px;bottom:20px;opacity:.28}.destination{min-height:0;padding:19px;gap:11px}.destination .dest-icon{width:49px;height:49px;font-size:24px}}
 
 /* MRLEE V3 - unified brand header across new section pages */
 .site-top .site-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;text-decoration:none;white-space:normal;min-width:0}

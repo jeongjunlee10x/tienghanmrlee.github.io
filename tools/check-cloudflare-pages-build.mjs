@@ -208,6 +208,45 @@ assert(redirects.includes('/tienghanmrlee.github.io/* /:splat 301'),
  'Missing old-project-path compatibility redirect');
 assert(files.some(f=>f.path.startsWith('assets/')&&f.path.endsWith('.css')));
 assert(files.some(f=>f.path.startsWith('images/')&&f.path.endsWith('.webp')));
+
+/* SEO and accessibility regression checks for the public landing pages. */
+const seoQualityPages = [
+  'index.html','kiem-tra-topik.html','cau-hoi-phong-van-du-hoc-han-quoc.html',
+  'huong-dan-on-thi-topik-i.html','huong-dan-on-thi-topik-ii.html','ngu-phap-tieng-han-co-ban.html',
+  'lo-trinh-so-cap-1.html','lo-trinh-so-cap-2.html',
+  'lo-trinh-trung-cap-1.html','lo-trinh-trung-cap-2.html',
+  'lo-trinh-cao-cap-1.html','lo-trinh-cao-cap-2.html','bang-xep-hang.html'
+];
+for (const pagePath of seoQualityPages) {
+  const html = await readFile(join(dist, pagePath), 'utf8');
+  const title = html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim() || '';
+  const descriptionTag = html.match(/<meta\b(?=[^>]*\bname\s*=\s*["']description["'])[^>]*>/i)?.[0] || '';
+  const description = descriptionTag.match(/\bcontent\s*=\s*["']([^"']*)["']/i)?.[1] || '';
+  assert(title.length > 0 && title.length <= 60, 'SEO title length out of range: ' + pagePath + ' (' + title.length + ')');
+  assert(description.length >= 100 && description.length <= 160, 'SEO description length out of range: ' + pagePath + ' (' + description.length + ')');
+}
+for (const pagePath of ['index.html','kiem-tra-topik.html','bang-xep-hang.html']) {
+  const html = await readFile(join(dist, pagePath), 'utf8');
+  const h1Count = (html.match(/<h1\b/gi) || []).length;
+  assert.equal(h1Count, 1, 'Expected exactly one H1 on ' + pagePath + ', found ' + h1Count);
+}
+const themeRuntime = await readFile(join(dist, 'assets/mrlee-dual-ui/theme.js'), 'utf8');
+assert(!/aria-label="Vào giao diện (?:Tươi mới|Viễn tưởng)"/.test(themeRuntime), 'Theme chooser button names must match visible labels');
+const mapHtml = await readFile(join(dist, 'ban-do-dai-hoc-han-quoc.html'), 'utf8');
+assert(mapHtml.includes('aria-label="Đổi giao diện Tươi mới hoặc Viễn tưởng"'), 'Map theme shortcut accessible name must include its visible label');
+const mapCss = await readFile(join(dist, 'assets/mrlee-next/premium.css'), 'utf8');
+assert(mapCss.includes('.mrlee-next-footer-links a{font:700 12px system-ui;color:var(--next-ink)}'), 'Map footer links must use a high-contrast theme-aware color');
+const homeHtml = await readFile(join(dist, 'index.html'), 'utf8');
+for (const imageSrc of ['assets/v306/images/feature-5-hoc-tieng-han.webp','assets/v306/images/feature-6-thi-topik.webp']) {
+  const imageTag = [...homeHtml.matchAll(/<img\b[^>]*>/gi)].map(match => match[0]).find(tag => tag.includes('src="' + imageSrc + '"')) || '';
+  assert(imageTag && /loading="lazy"/i.test(imageTag), 'Below-fold homepage card image must lazy-load: ' + imageSrc);
+}
+const homeRecoveryCss = await readFile(join(dist, 'assets/branding/home-recovery.css'), 'utf8');
+assert(homeRecoveryCss.includes('.hero-copy :is(h1,h2)') && homeRecoveryCss.includes('.mrlee-future-hero-copy :is(h1,h2)'), 'Home visual H2 must retain H1 typography in both themes');
+const sectionHeroCss = await readFile(join(dist, 'mrlee-sections.css'), 'utf8');
+assert(sectionHeroCss.includes('.section-hero :is(h1,h2)'), 'TOPIK section H2 must retain hero typography');
+console.log('PASS SEO regression: 13 public titles/descriptions, one H1 on key pages, theme/map accessible names, contrast and lazy images.');
+
 const MiB=(files.reduce((sum,f)=>sum+f.size,0)/1048576).toFixed(1);
 console.log('CLOUDFLARE DEPLOY PRECHECK PASSED '+JSON.stringify({
  files:files.length,mp3:audio.length,MiB,
