@@ -270,8 +270,11 @@
     const practice = buildPractice(topic, plan, photos);
     const talk = $('#talk', box);
     const words = $('#words', box);
-    if (talk) talk.insertAdjacentElement('afterend', practice);
-    else if (words) box.insertBefore(practice, words);
+    if (talk && words) {
+      words.insertAdjacentElement('afterend', talk);
+      talk.insertAdjacentElement('afterend', practice);
+    } else if (talk) talk.insertAdjacentElement('afterend', practice);
+    else if (words) words.insertAdjacentElement('afterend', practice);
     else box.append(practice);
 
     const application = buildApplication(plan);
