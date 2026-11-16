@@ -32,13 +32,15 @@ for (const topic of topics) {
 const hub = read('van-hoa-han-quoc.html');
 const lesson = read('van-hoa-bai-hoc.html');
 const logic = read('assets/culture-lesson-v1.js');
-const media = read('mrlee-culture-v17-media.js');
+vm.runInNewContext(read('mrlee-culture-v17-media.js'), sandbox);
+const media = sandbox.window.MRLEE_CULTURE_V17_MEDIA;
 assert.ok(hub.includes('assets/culture-lesson-v1.css') && hub.includes('assets/culture-lesson-v1.js'), 'Hub integration missing');
 assert.ok(lesson.includes('assets/culture-lesson-v1.css') && lesson.includes('assets/culture-lesson-v1-data.js') && lesson.includes('assets/culture-lesson-v1.js'), 'Lesson integration missing');
 assert.ok(lesson.indexOf('assets/culture-lesson-v1-data.js') < lesson.indexOf('mrlee-culture-v13.js'), 'Lesson blueprint must load before lesson renderer');
 assert.ok(lesson.indexOf('mrlee-culture-hd-v19.js') < lesson.indexOf('assets/culture-lesson-v1.js'), 'Lesson enhancement must run after image engine');
 assert.ok((lesson.match(/<img\b/g) || []).length >= 100, 'Expected the existing five-image topic galleries to remain');
-assert.ok(media.includes('22 topics') || media.includes('22'), 'Image registry must remain available');
+assert.equal(Object.keys(media).length, 22, 'Expected image registry for all 22 topics');
+assert.ok(Object.values(media).every((item) => item.images?.length >= 5), 'Each topic needs at least five registered image assets');
 assert.ok(logic.includes('mrleeLessonPlan') && logic.includes('mrleeSpeakingLab') && logic.includes('mrleeApplication'), 'Lesson flow sections missing');
 assert.ok(logic.includes('speechSynthesis') && logic.includes('data-mcl-swap'), 'Speaking interactions missing');
 
