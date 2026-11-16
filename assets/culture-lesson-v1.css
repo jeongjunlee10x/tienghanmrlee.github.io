@@ -107,3 +107,63 @@
   .mcl-primary-action,.mcl-secondary-action,.mcl-line-audio{display:none!important}
   .mcl-practice-card,.mcl-lesson-plan,.mcl-speaking-lab,.mcl-application{break-inside:avoid;box-shadow:none}
 }
+
+
+/* Keep the optional MR LEE Future theme visually coherent. */
+html[data-mrlee-theme="future"] .mcl-hub-intro,
+html[data-mrlee-theme="future"] .mcl-lesson-plan,
+html[data-mrlee-theme="future"] .mcl-speaking-lab,
+html[data-mrlee-theme="future"] .mcl-application{
+  --mcl-ink:#e8f6ff;--mcl-muted:#b2cce5;--mcl-line:#255588;--mcl-surface:#081a35;
+  --mcl-soft:#0b2344;--mcl-blue:#55dcff;--mcl-blue-dark:#c7f4ff;--mcl-gold:#ffc96d;
+  color:#e8f6ff
+}
+html[data-mrlee-theme="future"] .mcl-hub-intro{background:linear-gradient(120deg,#071a36 0%,#0b2345 58%,#1b2147 100%);box-shadow:0 0 24px #1685cc28}
+html[data-mrlee-theme="future"] .mcl-hub-intro h2,
+html[data-mrlee-theme="future"] .mcl-section-head h2,
+html[data-mrlee-theme="future"] .mcl-outcomes h3,
+html[data-mrlee-theme="future"] .mcl-patterns h3,
+html[data-mrlee-theme="future"] .mcl-application h3,
+html[data-mrlee-theme="future"] .mcl-practice-card h3{color:#e8f6ff}
+html[data-mrlee-theme="future"] .mcl-hub-stats>div,
+html[data-mrlee-theme="future"] .mcl-duration-grid article,
+html[data-mrlee-theme="future"] .mcl-outcomes>div,
+html[data-mrlee-theme="future"] .mcl-patterns,
+html[data-mrlee-theme="future"] .mcl-practice-card,
+html[data-mrlee-theme="future"] .mcl-application-grid article{background:#0b1e3b;border-color:#255588;color:#e8f6ff}
+html[data-mrlee-theme="future"] .mcl-hub-stats strong,
+html[data-mrlee-theme="future"] .mcl-time,
+html[data-mrlee-theme="future"] .mcl-line-copy strong{color:#69e6ff}
+html[data-mrlee-theme="future"] .mcl-hub-stats span,
+html[data-mrlee-theme="future"] .mcl-duration-grid p,
+html[data-mrlee-theme="future"] .mcl-time-row p,
+html[data-mrlee-theme="future"] .mcl-outcomes li,
+html[data-mrlee-theme="future"] .mcl-patterns p,
+html[data-mrlee-theme="future"] .mcl-scene,
+html[data-mrlee-theme="future"] .mcl-practice-image figcaption,
+html[data-mrlee-theme="future"] .mcl-line-copy span,
+html[data-mrlee-theme="future"] .mcl-variation p,
+html[data-mrlee-theme="future"] .mcl-application-grid li,
+html[data-mrlee-theme="future"] .mcl-application-grid article>p{color:#b9d1e9}
+html[data-mrlee-theme="future"] .mcl-card-meta span,
+html[data-mrlee-theme="future"] .mcl-hero-meta span,
+html[data-mrlee-theme="future"] .mcl-minutes{background:#102c50;color:#bdefff}
+html[data-mrlee-theme="future"] .mcl-timeline{border-color:#255588}
+html[data-mrlee-theme="future"] .mcl-time-row{background:#081a35;border-color:#255588;color:#e8f6ff}
+html[data-mrlee-theme="future"] .mcl-time-row.mcl-extension{background:#1a2040}
+html[data-mrlee-theme="future"] .mcl-extension .mcl-minutes{background:#3a2b42;color:#ffe0a3}
+html[data-mrlee-theme="future"] .mcl-practice-kind,
+html[data-mrlee-theme="future"] .mcl-role-row,
+html[data-mrlee-theme="future"] .mcl-variation{background:#10294a;color:#c6e8ff}
+html[data-mrlee-theme="future"] .mcl-role-row span,
+html[data-mrlee-theme="future"] .mcl-variation summary{color:#bdefff}
+html[data-mrlee-theme="future"] .mcl-dialogue-line{background:#0d2547;border-color:#255588}
+html[data-mrlee-theme="future"] .mcl-speaker{color:#a9c6e1}
+html[data-mrlee-theme="future"] .mcl-line-audio,
+html[data-mrlee-theme="future"] .mcl-secondary-action{background:#102b50;border-color:#2c78a9;color:#c6f5ff}
+html[data-mrlee-theme="future"] .mcl-primary-action{background:linear-gradient(120deg,#0cb7e3,#6058f5);border-color:#7ceeff;color:#fff}
+html[data-mrlee-theme="future"] .mcl-challenge{background:#302741;border-color:#ffc96d}
+html[data-mrlee-theme="future"] .mcl-challenge strong,
+html[data-mrlee-theme="future"] .mcl-challenge p{color:#ffe4b5}
+html[data-mrlee-theme="future"] .mcl-teacher-note{background:#10294a;color:#b9d1e9}
+html[data-mrlee-theme="future"] .mcl-practice-image{background:#0b1e3b;border-color:#255588}
