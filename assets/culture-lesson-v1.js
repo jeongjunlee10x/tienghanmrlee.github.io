@@ -39,7 +39,7 @@
           else card.append(meta);
         }
         const action = $('.openLink span:first-child', card);
-        if (action) action.textContent = 'Vào bài giảng · Lý thuyết · Luyện nói';
+        if (action && action.textContent !== 'Vào bài giảng · Lý thuyết · Luyện nói') action.textContent = 'Vào bài giảng · Lý thuyết · Luyện nói';
       });
     };
     decorate();
