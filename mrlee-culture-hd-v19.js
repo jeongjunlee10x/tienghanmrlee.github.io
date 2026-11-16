@@ -176,5 +176,5 @@ function lesson(){
  }
 }
 function start(){hub();lesson();console.info('[MR LEE Culture V20] Ready: 22 topics / 65 redesigned V21 artworks in 13 reported topics + V20 for other topics')}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+if(document.readyState!=='complete')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();

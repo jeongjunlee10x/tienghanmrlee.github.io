@@ -16,6 +16,8 @@ for (const topic of topics) {
   assert.ok(plan, 'Missing lesson plan: ' + topic.slug);
   assert.ok(plan.goals?.length >= 2, 'Missing learning outcomes: ' + topic.slug);
   assert.ok(plan.focus?.length >= 2, 'Missing theory focus: ' + topic.slug);
+  assert.ok(plan.context?.length >= 100, 'Missing applied cultural context: ' + topic.slug);
+  assert.ok(topic.words?.length >= 5, 'Missing lesson vocabulary: ' + topic.slug);
   assert.ok(plan.patterns?.length >= 2, 'Missing speaking patterns: ' + topic.slug);
   assert.equal(plan.practice.length, 3, 'Expected 3 speaking samples: ' + topic.slug);
   for (const [index, sample] of plan.practice.entries()) {
@@ -23,8 +25,14 @@ for (const topic of topics) {
     assert.ok(sample.roles?.length === 2, 'Expected two role labels: ' + topic.slug + '/' + index);
     assert.ok(sample.images?.length >= 1 && sample.images.length <= 2, 'Expected 1–2 images: ' + topic.slug + '/' + index);
     assert.ok(sample.images.every((n) => Number.isInteger(n) && n >= 0 && n <= 4), 'Image index outside 5-image gallery: ' + topic.slug + '/' + index);
+    if (sample.photo) {
+      assert.match(sample.photo.src, /^images\/culture-speaking\/[a-z-]+\.webp$/);
+      assert.ok(fs.existsSync(sample.photo.src) && sample.photo.alt && sample.photo.caption, 'Missing speaking photo or description: ' + topic.slug + '/' + index);
+    }
     assert.equal(sample.dialogue.length, 4, 'Expected 4 dialogue turns: ' + topic.slug + '/' + index);
-    assert.ok(sample.dialogue.every((line) => line.length === 3 && ['A', 'B'].includes(line[0]) && line[1] && line[2]), 'Invalid bilingual dialogue: ' + topic.slug + '/' + index);
+    assert.ok(sample.dialogue.every(([role, korean, vietnamese], turn) => (
+      ['A', 'B'].includes(role) && (turn === 0 || role !== sample.dialogue[turn - 1][0]) && /[가-힣]/.test(korean) && vietnamese && !/[�…]/.test(korean + vietnamese)
+    )), 'Invalid bilingual dialogue: ' + topic.slug + '/' + index);
   }
   assert.ok(plan.discussion?.length >= 2 && plan.exit, 'Missing application task: ' + topic.slug);
 }
@@ -42,6 +50,9 @@ assert.ok((lesson.match(/<img\b/g) || []).length >= 100, 'Expected the existing 
 assert.equal(Object.keys(media).length, 22, 'Expected image registry for all 22 topics');
 assert.ok(Object.values(media).every((item) => item.images?.length >= 5), 'Each topic needs at least five registered image assets');
 assert.ok(logic.includes('mrleeLessonPlan') && logic.includes('mrleeSpeakingLab') && logic.includes('mrleeApplication'), 'Lesson flow sections missing');
-assert.ok(logic.includes('speechSynthesis') && logic.includes('data-mcl-swap'), 'Speaking interactions missing');
+assert.ok(logic.includes('speechSynthesis'), 'Korean speech engine missing');
+for (const control of ['line', 'play', 'swap', 'rehearse', 'translate', 'stop']) {
+  assert.ok(logic.includes('data-mcl-' + control), 'Missing speaking control: ' + control);
+}
 
 console.log('PASS: 22 lessons, 66 speaking samples, 264 dialogue lines, 1–2 images per sample, 45–60 minute plan, hub + lesson integration.');

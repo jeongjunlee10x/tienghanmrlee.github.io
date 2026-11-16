@@ -167,3 +167,56 @@ html[data-mrlee-theme="future"] .mcl-challenge strong,
 html[data-mrlee-theme="future"] .mcl-challenge p{color:#ffe4b5}
 html[data-mrlee-theme="future"] .mcl-teacher-note{background:#10294a;color:#b9d1e9}
 html[data-mrlee-theme="future"] .mcl-practice-image{background:#0b1e3b;border-color:#255588}
+
+.mcl-instruction {
+  color: var(--mcl-muted);
+  line-height: 1.6;
+  font-size: .875rem;
+}
+.mcl-translation[hidden] { display: none; }
+.mcl-practice-images:has(figure:only-child) { grid-template-columns: 1fr; }
+.mcl-practice-image img { height: auto; }
+.mcl-practice-card button { min-height: 44px; }
+.mcl-dialogue-line { grid-template-columns: minmax(55px, 22%) minmax(0, 1fr) 44px; }
+.mcl-line-audio { width: 44px; }
+.mcl-dialogue-line.is-current { outline: 2px solid var(--mcl-blue); outline-offset: -2px; }
+.mcl-practice-card button:focus-visible { outline: 2px solid var(--mcl-blue); outline-offset: 2px; }
+.mcl-practice-card button:disabled { opacity: .55; cursor: default; }
+.mcl-audio-status { color: var(--mcl-muted); }
+.mcl-rubric { padding: 12px; min-width: 0; border: 1px solid var(--mcl-line); border-radius: 10px; }
+.mcl-rubric label { display: block; margin-block: 8px; line-height: 1.5; }
+.mcl-rubric output { display: block; margin-top: 10px; color: var(--mcl-blue); font-weight: 700; }
+html[data-mrlee-theme="future"] .mcl-primary-action { background: #124477; }
+
+@media (max-width: 700px) {
+  body:has(#lessonContent) > .head { position: relative !important; }
+  body:has(#lessonContent) > .head .headin {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  body:has(#lessonContent) > .head .nav {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+  body:has(#lessonContent) > .head .nav a { flex: none; }
+  body:has(#lessonContent) #mrleeContactNative {
+    position: relative !important;
+    inset: auto !important;
+    width: max-content;
+    margin: 12px auto;
+  }
+  body:has(#lessonContent) .ml-ai-float,
+  body:has(#lessonContent) .mr30-top {
+    position: static;
+    width: max-content;
+    margin: 8px 12px;
+  }
+  body:has(#lessonContent) .mrlee-v2-backtotop { display: none !important; }
+  body:has(#lessonContent) #mrlee-live-bell.mrlee-live-floating {
+    position: absolute;
+    top: 10px;
+  }
+}
