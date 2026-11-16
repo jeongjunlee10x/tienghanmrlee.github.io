@@ -1,21 +1,10 @@
 /* MR LEE Culture Lesson V1 · responsive classroom layout */
-.mcl-hub-intro,.mcl-lesson-plan,.mcl-speaking-lab,.mcl-application{
+.mcl-lesson-plan,.mcl-speaking-lab,.mcl-application{
   --mcl-ink:#172b46;--mcl-muted:#61738a;--mcl-line:#dce5ef;--mcl-surface:#fff;
   --mcl-soft:#f3f7fc;--mcl-blue:#245da8;--mcl-blue-dark:#163e70;--mcl-gold:#e7a83e;
   color:var(--mcl-ink);font-family:inherit
 }
-.mcl-hub-intro{
-  display:grid;grid-template-columns:minmax(0,1.5fr) minmax(250px,1fr);gap:22px;align-items:center;
-  margin:22px 0 26px;padding:24px;border:1px solid var(--mcl-line);border-radius:22px;
-  background:linear-gradient(120deg,#f5f9ff 0%,#fff 58%,#fff8ed 100%);box-shadow:0 12px 34px rgba(27,55,88,.07)
-}
 .mcl-eyebrow{display:inline-block;color:var(--mcl-blue);font-size:.72rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
-.mcl-hub-intro h2{margin:7px 0 8px;font-size:clamp(1.25rem,2vw,1.8rem);line-height:1.25;color:var(--mcl-ink)}
-.mcl-hub-intro p{margin:0;color:var(--mcl-muted);line-height:1.7}
-.mcl-hub-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.mcl-hub-stats>div{padding:13px 15px;border:1px solid rgba(36,93,168,.13);border-radius:15px;background:rgba(255,255,255,.82)}
-.mcl-hub-stats strong{display:block;color:var(--mcl-blue-dark);font-size:1.35rem;line-height:1.2}
-.mcl-hub-stats span{display:block;margin-top:3px;color:var(--mcl-muted);font-size:.78rem;font-weight:700}
 .mcl-card-meta{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
 .mcl-card-meta span,.mcl-hero-meta span{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;background:#edf4ff;color:#244f82;font-size:.7rem;font-weight:800}
 .mcl-hero-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
@@ -85,7 +74,6 @@
 .mcl-teacher-note{padding:10px;border-radius:10px;background:#fff;color:#61738a;font-size:.78rem!important}
 @media(max-width:850px){
   .mcl-practice-grid{grid-template-columns:1fr}
-  .mcl-hub-intro{grid-template-columns:1fr}
 }
 @media(max-width:600px){
   .mcl-duration-grid,.mcl-outcomes,.mcl-application-grid{grid-template-columns:1fr}
@@ -96,7 +84,6 @@
   .mcl-line-copy span{font-size:.73rem}
   .mcl-practice-card{padding:12px}
   .mcl-practice-images{gap:6px}
-  .mcl-hub-intro{padding:17px;border-radius:17px}
   .mcl-lesson-plan,.mcl-speaking-lab,.mcl-application{padding:15px;border-radius:17px}
 }
 @media(prefers-reduced-motion:no-preference){
@@ -110,7 +97,6 @@
 
 
 /* Keep the optional MR LEE Future theme visually coherent. */
-html[data-mrlee-theme="future"] .mcl-hub-intro,
 html[data-mrlee-theme="future"] .mcl-lesson-plan,
 html[data-mrlee-theme="future"] .mcl-speaking-lab,
 html[data-mrlee-theme="future"] .mcl-application{
@@ -118,23 +104,18 @@ html[data-mrlee-theme="future"] .mcl-application{
   --mcl-soft:#0b2344;--mcl-blue:#55dcff;--mcl-blue-dark:#c7f4ff;--mcl-gold:#ffc96d;
   color:#e8f6ff
 }
-html[data-mrlee-theme="future"] .mcl-hub-intro{background:linear-gradient(120deg,#071a36 0%,#0b2345 58%,#1b2147 100%);box-shadow:0 0 24px #1685cc28}
-html[data-mrlee-theme="future"] .mcl-hub-intro h2,
 html[data-mrlee-theme="future"] .mcl-section-head h2,
 html[data-mrlee-theme="future"] .mcl-outcomes h3,
 html[data-mrlee-theme="future"] .mcl-patterns h3,
 html[data-mrlee-theme="future"] .mcl-application h3,
 html[data-mrlee-theme="future"] .mcl-practice-card h3{color:#e8f6ff}
-html[data-mrlee-theme="future"] .mcl-hub-stats>div,
 html[data-mrlee-theme="future"] .mcl-duration-grid article,
 html[data-mrlee-theme="future"] .mcl-outcomes>div,
 html[data-mrlee-theme="future"] .mcl-patterns,
 html[data-mrlee-theme="future"] .mcl-practice-card,
 html[data-mrlee-theme="future"] .mcl-application-grid article{background:#0b1e3b;border-color:#255588;color:#e8f6ff}
-html[data-mrlee-theme="future"] .mcl-hub-stats strong,
 html[data-mrlee-theme="future"] .mcl-time,
 html[data-mrlee-theme="future"] .mcl-line-copy strong{color:#69e6ff}
-html[data-mrlee-theme="future"] .mcl-hub-stats span,
 html[data-mrlee-theme="future"] .mcl-duration-grid p,
 html[data-mrlee-theme="future"] .mcl-time-row p,
 html[data-mrlee-theme="future"] .mcl-outcomes li,
@@ -189,26 +170,26 @@ html[data-mrlee-theme="future"] .mcl-practice-image{background:#0b1e3b;border-co
 html[data-mrlee-theme="future"] .mcl-primary-action { background: #124477; }
 
 @media (max-width: 700px) {
-  body:has(#lessonContent) > .head { position: relative !important; }
-  body:has(#lessonContent) > .head .headin {
+  body:has(:is(#topicSection, #lessonContent)) > .head { position: relative !important; }
+  body:has(:is(#topicSection, #lessonContent)) > .head .headin {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 8px;
   }
-  body:has(#lessonContent) > .head .nav {
+  body:has(:is(#topicSection, #lessonContent)) > .head .nav {
     display: flex;
     width: 100%;
     overflow-x: auto;
     flex-wrap: nowrap;
   }
-  body:has(#lessonContent) > .head .nav a { flex: none; }
-  body:has(#lessonContent) #mrleeContactNative {
+  body:has(:is(#topicSection, #lessonContent)) > .head .nav a { flex: none; }
+  body:has(:is(#topicSection, #lessonContent)) #mrleeContactNative {
     position: relative !important;
     inset: auto !important;
     width: max-content;
     margin: 12px auto;
   }
-  body:has(#lessonContent) .ml-ai-float,
+  body:has(:is(#topicSection, #lessonContent)) .ml-ai-float,
   body:has(#lessonContent) .mr30-top {
     position: static;
     width: max-content;
@@ -219,4 +200,188 @@ html[data-mrlee-theme="future"] .mcl-primary-action { background: #124477; }
     position: absolute;
     top: 10px;
   }
+}
+
+/* Shared visual hierarchy for the culture catalog and classroom. */
+body:has(:is(#topicSection, #lessonContent)) {
+  --classroom-ink: #17283e;
+  --classroom-muted: #465970;
+  --classroom-accent: #164f8d;
+  --classroom-border: #d7e3ee;
+  --classroom-surface: #fff;
+  --classroom-soft: #eef4fa;
+}
+html[data-mrlee-theme="future"] body:has(:is(#topicSection, #lessonContent)) {
+  --classroom-ink: #edf5ff;
+  --classroom-muted: #bdcde2;
+  --classroom-accent: #a4ddff;
+  --classroom-border: #345374;
+  --classroom-surface: #0e2037;
+  --classroom-soft: #152d49;
+}
+body:has(:is(#topicSection, #lessonContent)) > main.wrap {
+  width: min(1260px, calc(100% - 40px));
+  max-width: none;
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  color: var(--classroom-ink);
+}
+body:has(:is(#topicSection, #lessonContent)) main [lang="ko"] {
+  font-family: "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif !important;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+body:has(#topicSection) #topicSection .sectionHeading {
+  margin: 12px 0 20px !important;
+  padding: clamp(24px, 5vw, 50px) !important;
+  border-radius: 24px;
+  background: linear-gradient(120deg, #102c4c, #184f70) !important;
+}
+body:has(#topicSection) #topicSection .sectionHeading h1 {
+  max-width: 24ch;
+  margin: 0 0 12px !important;
+  color: #fff !important;
+  font-size: clamp(1.85rem, 4.5vw, 3.35rem) !important;
+  line-height: 1.16 !important;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+body:has(#topicSection) #topicSection .sectionHeading p {
+  max-width: 64ch !important;
+  color: #dceafa !important;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+#topicSection .tools {
+  padding: 12px;
+  gap: 8px;
+  border: 1px solid var(--classroom-border);
+  border-radius: 16px;
+  background: var(--classroom-surface);
+}
+#topicSection .tools :is(input, button) { min-height: 44px; font: inherit; font-size: .875rem; }
+#topicSection .tools input {
+  color: var(--classroom-ink);
+  background: var(--classroom-soft);
+  border-color: var(--classroom-border);
+}
+#topicSection .tools input::placeholder { color: var(--classroom-muted); opacity: 1; }
+#topicSection .tools button {
+  color: var(--classroom-accent);
+  border-color: var(--classroom-border);
+  background: var(--classroom-surface);
+}
+#topicSection .tools button[aria-pressed="true"] { background: #185489 !important; color: #fff !important; }
+#topics.cards { gap: clamp(14px, 2.1vw, 24px); }
+#topics .topic {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border-color: var(--classroom-border);
+  border-radius: 18px;
+  background: var(--classroom-surface);
+}
+#topics .topic img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+#topics .topicText { display: flex; flex: 1; flex-direction: column; padding: 18px; }
+#topics .topicCategory { color: var(--classroom-accent); font-size: .72rem; }
+#topics .topic h3 { color: var(--classroom-ink); font-size: 1.15rem; line-height: 1.4; }
+#topics .topic h3 small { color: var(--classroom-muted); margin-top: 4px; font-size: .91rem; }
+#topics .topic p { color: var(--classroom-muted); font-size: .92rem; line-height: 1.65; min-height: 0; }
+#topics .mcl-card-meta { margin-top: auto; }
+#topics .mcl-card-meta span { border-radius: 6px; font-size: .75rem; }
+#topics .openLink { margin-top: 12px; color: var(--classroom-accent); font-size: .9rem; font-weight: 700; }
+
+#topicHero.lessonHero {
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr);
+  background: #123654 !important;
+  border-radius: 24px;
+}
+#topicHero .lessonHeroText { padding: clamp(24px, 4vw, 50px); }
+#topicHero h1 { color: #fff !important; font-size: clamp(1.85rem, 4vw, 3rem); line-height: 1.2; letter-spacing: -.035em; }
+#topicHero h1 small { color: #bbdcff !important; font-size: clamp(1.05rem, 2vw, 1.45rem); }
+#topicHero p { color: #e0ecfa !important; font-size: .98rem; line-height: 1.7; }
+.mcl-lesson-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 24px; }
+.mcl-lesson-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 6px 14px;
+  border: 1px solid var(--classroom-border);
+  border-radius: 10px;
+  background: var(--classroom-surface);
+  color: var(--classroom-accent) !important;
+  font-size: .875rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.mcl-lesson-nav a:hover { background: var(--classroom-soft); }
+.mcl-lesson-nav a:focus-visible, #topicSection :is(a, button, input):focus-visible {
+  outline: 2px solid var(--classroom-accent);
+  outline-offset: 3px;
+}
+.lessonLayout:has(#lessonContent) { gap: 24px; grid-template-columns: minmax(0, 1fr) minmax(205px, 230px); }
+#lessonContent > [id] { scroll-margin-top: 105px; min-width: 0; }
+#lessonContent :is(.lessonBlock, .mcl-lesson-plan, .mcl-speaking-lab, .mcl-application),
+.lessonLayout:has(#lessonContent) .sidePanel {
+  border: 1px solid var(--classroom-border);
+  background: var(--classroom-surface);
+  border-radius: 18px;
+  color: var(--classroom-ink);
+  box-shadow: none;
+}
+#lessonContent :is(.lessonBlock h2, .mcl-section-head h2) {
+  color: var(--classroom-ink);
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  line-height: 1.3;
+  letter-spacing: -.025em;
+}
+#lessonContent :is(.lessonBlock p, .lessonBlock li, .words td, .mcl-section-head p, .mcl-outcomes li, .mcl-patterns p, .mcl-time-row p, .mcl-application-grid li, .mcl-application-grid article > p) {
+  font-size: .98rem;
+  line-height: 1.75;
+}
+#lessonContent .mcl-practice-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+#lessonContent .mcl-practice-card {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  align-items: start;
+  gap: 22px;
+  padding: clamp(14px, 2.3vw, 24px);
+  border-color: var(--classroom-border);
+  box-shadow: none;
+}
+.mcl-practice-context, .mcl-practice-conversation { min-width: 0; }
+#lessonContent .mcl-practice-card:hover { transform: none; box-shadow: none; }
+#lessonContent .mcl-practice-card h3 { margin: 10px 0; font-size: 1.24rem; }
+#lessonContent .mcl-practice-top { justify-content: start; flex-wrap: wrap; }
+#lessonContent :is(.mcl-scene, .mcl-instruction, .mcl-translation, .mcl-challenge p, .mcl-variation p) {
+  color: var(--classroom-muted);
+  font-size: .92rem;
+  line-height: 1.65;
+}
+#lessonContent .mcl-challenge { background: var(--classroom-soft); }
+#lessonContent .mcl-challenge strong { color: var(--classroom-accent); }
+#lessonContent .mcl-practice-images { grid-template-columns: minmax(0, 1fr); }
+#lessonContent .mcl-practice-image figcaption { color: var(--classroom-muted); font-size: .8rem; line-height: 1.5; }
+#lessonContent .mcl-role-row { margin-top: 0; }
+#lessonContent .mcl-dialogue-line { grid-template-columns: minmax(0, 1fr) 44px; column-gap: 10px; padding: 11px; }
+#lessonContent .mcl-speaker { grid-column: 1; color: var(--classroom-muted); font-size: .76rem; }
+#lessonContent .mcl-line-copy { grid-column: 1; }
+#lessonContent .mcl-line-copy strong { font-size: 1.06rem; line-height: 1.55; color: var(--classroom-accent); }
+#lessonContent .mcl-line-audio { grid-column: 2; grid-row: 1 / span 2; }
+#lessonContent .mcl-practice-actions button { font-size: .83rem; }
+#lessonContent :is(.mcl-audio-status, .mcl-variation summary) { font-size: .84rem; }
+.lessonLayout:has(#lessonContent) .sidePanel a { color: var(--classroom-accent); font-size: .83rem; line-height: 1.45; }
+
+@media (max-width: 920px) {
+  .lessonLayout:has(#lessonContent) { grid-template-columns: minmax(0, 1fr); }
+  .lessonLayout:has(#lessonContent) .side { grid-row: auto; position: static; }
+}
+@media (max-width: 640px) {
+  body:has(:is(#topicSection, #lessonContent)) > main.wrap { width: calc(100% - 24px); }
+  #topicSection .tools input { width: 100%; min-width: 100%; }
+  #topics.cards, #topicHero.lessonHero, #lessonContent .mcl-practice-card { grid-template-columns: minmax(0, 1fr); }
+  body:has(:is(#topicSection, #lessonContent)) > .head .nav { justify-content: flex-start; }
+  #topicHero img { height: auto; min-height: 0; aspect-ratio: 16 / 9; }
+  .mcl-lesson-nav { margin-bottom: 16px; }
+  .mcl-lesson-nav a { padding-inline: 10px; }
+  #lessonContent > [id] { scroll-margin-top: 12px; }
 }

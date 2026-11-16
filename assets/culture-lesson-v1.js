@@ -12,34 +12,22 @@
 
   function addHubIntro() {
     const section = $('#topicSection');
-    const heading = $('.sectionHeading', section || document);
     const grid = $('#topics');
-    if (!section || !heading || !grid) return;
-    const desc = $('p', heading);
-    if (desc) desc.textContent = '22 chủ đề văn hóa và kỹ năng sống. Mỗi chủ đề được thiết kế thành bài giảng 45–60 phút, có lý thuyết, hình ảnh tình huống và luyện nói theo vai.';
-    if (!$('#mclHubIntro')) {
-      const intro = document.createElement('section');
-      intro.id = 'mclHubIntro';
-      intro.className = 'mcl-hub-intro';
-      intro.innerHTML =
-        '<div class="mcl-hub-intro-copy"><span class="mcl-eyebrow">MR LEE · CLASSROOM SERIES</span>' +
-        '<h2>Học văn hóa bằng tình huống thực tế</h2>' +
-        '<p>Mỗi bài có mục tiêu rõ ràng, kiến thức nền, từ vựng, hội thoại mẫu và hoạt động đóng vai. Có thể dạy gọn trong 45 phút hoặc mở rộng thành 60 phút.</p></div>' +
-        '<div class="mcl-hub-stats"><div><strong>22</strong><span>chủ đề</span></div><div><strong>45–60’</strong><span>mỗi bài</span></div><div><strong>3</strong><span>mẫu luyện nói</span></div><div><strong>5+</strong><span>ảnh tình huống</span></div></div>';
-      heading.insertAdjacentElement('afterend', intro);
-    }
+    if (!section || !grid) return;
+    const description = $('.sectionHeading p', section);
+    if (description) description.textContent = '22 chủ đề để tìm hiểu văn hóa Hàn Quốc và luyện giao tiếp qua tình huống thực tế. Mỗi bài học kéo dài 45–60 phút.';
     const decorate = () => {
       $$('.topic', grid).forEach((card) => {
         if (!$('.mcl-card-meta', card)) {
           const meta = document.createElement('div');
           meta.className = 'mcl-card-meta';
-          meta.innerHTML = '<span>◷ 45–60 phút</span><span>3 mẫu hội thoại</span><span>Ảnh theo tình huống</span>';
+          meta.innerHTML = '<span>45–60 phút</span><span>3 hoạt động nói</span>';
           const open = $('.openLink', card);
           if (open) open.insertAdjacentElement('beforebegin', meta);
           else card.append(meta);
         }
         const action = $('.openLink span:first-child', card);
-        if (action && action.textContent !== 'Vào bài giảng · Lý thuyết · Luyện nói') action.textContent = 'Vào bài giảng · Lý thuyết · Luyện nói';
+        if (action && action.textContent !== 'Mở bài học') action.textContent = 'Mở bài học';
       });
     };
     decorate();
@@ -143,9 +131,9 @@
         '<button type="button" class="mcl-line-audio" data-mcl-line="' + sampleIndex + ':' + lineIndex + '" aria-label="Nghe câu tiếng Hàn">🔊</button></div>'
       ).join('');
       return '<article class="mcl-practice-card" data-sample="' + sampleIndex + '" data-role="none">' +
-        '<div class="mcl-practice-top"><span class="mcl-sample-number">MẪU ' + String(sampleIndex + 1).padStart(2, '0') + '</span><span class="mcl-practice-kind">' + formats[sampleIndex] + '</span></div>' +
+        '<div class="mcl-practice-context"><div class="mcl-practice-top"><span class="mcl-sample-number">MẪU ' + String(sampleIndex + 1).padStart(2, '0') + '</span><span class="mcl-practice-kind">' + formats[sampleIndex] + '</span></div>' +
         '<h3>' + esc(sample.title) + '</h3><p class="mcl-scene">' + esc(sample.scene) + '</p><p class="mcl-instruction">' + directions[sampleIndex] + '</p>' +
-        '<div class="mcl-practice-images">' + pictures + '</div>' +
+        '<div class="mcl-practice-images">' + pictures + '</div></div><div class="mcl-practice-conversation">' +
         '<div class="mcl-role-row"><span class="mcl-role-a">A · ' + esc(sample.roles[0]) + '</span><span class="mcl-role-b">B · ' + esc(sample.roles[1]) + '</span></div>' +
         '<div class="mcl-dialogue">' + lines + '</div>' +
         '<div class="mcl-practice-actions"><button type="button" class="mcl-primary-action" data-mcl-play="' + sampleIndex + '">▶ Nghe cả hội thoại</button>' +
@@ -155,7 +143,7 @@
         '<button type="button" class="mcl-secondary-action" data-mcl-rehearse disabled>Luyện theo vai</button></div>' +
         '<p class="mcl-audio-status" aria-live="polite"></p>' +
         '<details class="mcl-variation"><summary>🔁 Thay thông tin để luyện thêm</summary><p>' + esc(sample.variation) + '</p></details>' +
-        '<div class="mcl-challenge"><strong>🎤 Thử thách nói</strong><p>' + esc(sample.challenge) + '</p></div></article>';
+        '<div class="mcl-challenge"><strong>🎤 Thử thách nói</strong><p>' + esc(sample.challenge) + '</p></div></div></article>';
     }).join('');
     section.innerHTML =
       '<div class="mcl-section-head"><span class="mcl-eyebrow">SPEAKING PRACTICE</span><h2>Thực hành nói qua tình huống</h2>' +
@@ -343,6 +331,13 @@
 
     const talkTitle = $('h2', talk);
     if (talkTitle) talkTitle.textContent = '💬 Câu mẫu nền tảng';
+    const navigation = document.createElement('nav');
+    navigation.className = 'mcl-lesson-nav';
+    navigation.setAttribute('aria-label', 'Nội dung bài học');
+    navigation.innerHTML = '<a href="#mrleeLessonPlan">Tiến trình</a><a href="#read">Kiến thức</a>' +
+      '<a href="#words">Từ vựng</a><a href="#mrleeSpeakingLab">Luyện nói</a>' +
+      '<a href="#mrleeApplication">Đánh giá</a>';
+    $('#topicHero').after(navigation);
     wirePractice(practice, plan);
     addQuickLinks();
   }
