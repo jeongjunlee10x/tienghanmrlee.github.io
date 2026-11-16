@@ -78,7 +78,7 @@ assert(index.includes(`<link rel="canonical" href="${expectedOrigin}/">`),
 const robots=await readFile(join(dist,'robots.txt'),'utf8');
 const sitemap=await readFile(join(dist,'sitemap.xml'),'utf8');
 const notFound=await readFile(join(dist,'404.html'),'utf8');
-assert(/<meta\\s+name="robots"\\s+content="noindex,nofollow"/i.test(notFound),
+assert(/<meta\s+name="robots"\s+content="noindex,nofollow"/i.test(notFound),
  '404 must instruct search engines not to index the error page');
 assert(notFound.includes(`href="${expectedOrigin}/"`),
  '404 page does not link to the Cloudflare production homepage');
@@ -215,9 +215,9 @@ for(const requiredHeader of [
 ]){
  assert(headers.includes(requiredHeader), 'Missing safe static response header: '+requiredHeader);
 }
-assert(!/^\\s*(?:X-Robots-Tag|Content-Security-Policy|Cache-Control):/mi.test(headers),
+assert(!/^\s*(?:X-Robots-Tag|Content-Security-Policy|Cache-Control):/mi.test(headers),
  'Do not add blanket crawl, CSP or cache policy');
-assert(!/\\b(?:microphone|camera|geolocation)\\s*=\\s*\\(\\)/i.test(headers),
+assert(!/\b(?:microphone|camera|geolocation)\s*=\s*\(\)/i.test(headers),
  'Do not disable microphone, camera or geolocation');
 for(const mediaPath of ['/images/*','/MRLEE_AUDIO/*','/MRLEE_PRO_AUDIO/*',
  '/assets/topik-v10/audio/*','/assets/branding/logo-mrlee.png']){
