@@ -1,0 +1,9 @@
+# Build outputs and generated mobile icons. Original logo is the source of truth.
+android/.gradle/
+android/**/build/
+android/app/src/main/res/mipmap-*/
+ios/*.xcodeproj/
+ios/build/
+ios/App/Assets.xcassets/
+release/
+.DS_Store

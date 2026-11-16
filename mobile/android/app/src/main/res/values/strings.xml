@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tiếng Hàn MR LEE</string>
+    <string name="offline_title">Chưa kết nối được MR LEE</string>
+    <string name="offline_detail">Kiểm tra kết nối Internet để vào lớp học, TOPIK và Game Zone.</string>
+    <string name="retry">Thử lại</string>
+    <string name="logo_description">Logo TIẾNG HÀN MR LEE</string>
+</resources>
