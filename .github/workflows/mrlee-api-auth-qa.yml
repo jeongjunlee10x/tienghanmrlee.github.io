@@ -1,0 +1,36 @@
+name: MR LEE - Public API auth boundary checks (read-only)
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'tools/check-api-auth-boundaries.mjs'
+      - 'auth-firebase.js'
+      - '.github/workflows/mrlee-api-auth-qa.yml'
+permissions:
+  contents: read
+concurrency:
+  group: mrlee-api-auth-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  api-unauthenticated-requests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify JavaScript syntax
+        run: |
+          node --check tools/check-api-auth-boundaries.mjs
+          node --check auth-firebase.js
+      - name: Check public API authentication boundaries without tokens
+        run: node tools/check-api-auth-boundaries.mjs
+      - name: Archive non-sensitive HTTP status report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mrlee-api-auth-readonly-report
+          path: artifacts/security-readonly/api-auth.json
+          if-no-files-found: ignore
+          retention-days: 14
