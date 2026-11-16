@@ -1,0 +1,109 @@
+/* MR LEE Culture Lesson V1 · responsive classroom layout */
+.mcl-hub-intro,.mcl-lesson-plan,.mcl-speaking-lab,.mcl-application{
+  --mcl-ink:#172b46;--mcl-muted:#61738a;--mcl-line:#dce5ef;--mcl-surface:#fff;
+  --mcl-soft:#f3f7fc;--mcl-blue:#245da8;--mcl-blue-dark:#163e70;--mcl-gold:#e7a83e;
+  color:var(--mcl-ink);font-family:inherit
+}
+.mcl-hub-intro{
+  display:grid;grid-template-columns:minmax(0,1.5fr) minmax(250px,1fr);gap:22px;align-items:center;
+  margin:22px 0 26px;padding:24px;border:1px solid var(--mcl-line);border-radius:22px;
+  background:linear-gradient(120deg,#f5f9ff 0%,#fff 58%,#fff8ed 100%);box-shadow:0 12px 34px rgba(27,55,88,.07)
+}
+.mcl-eyebrow{display:inline-block;color:var(--mcl-blue);font-size:.72rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+.mcl-hub-intro h2{margin:7px 0 8px;font-size:clamp(1.25rem,2vw,1.8rem);line-height:1.25;color:var(--mcl-ink)}
+.mcl-hub-intro p{margin:0;color:var(--mcl-muted);line-height:1.7}
+.mcl-hub-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.mcl-hub-stats>div{padding:13px 15px;border:1px solid rgba(36,93,168,.13);border-radius:15px;background:rgba(255,255,255,.82)}
+.mcl-hub-stats strong{display:block;color:var(--mcl-blue-dark);font-size:1.35rem;line-height:1.2}
+.mcl-hub-stats span{display:block;margin-top:3px;color:var(--mcl-muted);font-size:.78rem;font-weight:700}
+.mcl-card-meta{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+.mcl-card-meta span,.mcl-hero-meta span{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;background:#edf4ff;color:#244f82;font-size:.7rem;font-weight:800}
+.mcl-hero-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
+.mcl-lesson-plan,.mcl-speaking-lab,.mcl-application{margin:24px 0;padding:clamp(17px,2.4vw,26px);border:1px solid var(--mcl-line);border-radius:22px;background:var(--mcl-surface);box-shadow:0 10px 28px rgba(27,55,88,.055)}
+.mcl-section-head{max-width:850px;margin-bottom:19px}
+.mcl-section-head h2{margin:6px 0 7px;color:var(--mcl-ink);font-size:clamp(1.25rem,2vw,1.7rem);line-height:1.25}
+.mcl-section-head>p{margin:0;color:var(--mcl-muted);line-height:1.7}
+.mcl-duration-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+.mcl-duration-grid article{padding:16px;border:1px solid var(--mcl-line);border-radius:16px;background:var(--mcl-soft)}
+.mcl-duration{display:block;margin-bottom:6px;color:var(--mcl-blue);font-size:1.35rem;font-weight:900}
+.mcl-duration-grid strong{display:block;font-size:.98rem}
+.mcl-duration-grid p{margin:5px 0 0;color:var(--mcl-muted);font-size:.86rem;line-height:1.6}
+.mcl-timeline{display:grid;gap:0;margin:18px 0;border:1px solid var(--mcl-line);border-radius:16px;overflow:hidden}
+.mcl-time-row{display:grid;grid-template-columns:86px minmax(0,1fr) 75px;gap:13px;align-items:center;padding:12px 15px;border-bottom:1px solid var(--mcl-line);background:#fff}
+.mcl-time-row:last-child{border-bottom:0}
+.mcl-time-row.mcl-extension{background:#fffaf1}
+.mcl-time{color:var(--mcl-blue);font-size:.86rem;font-weight:900;font-variant-numeric:tabular-nums}
+.mcl-time-row strong{font-size:.9rem}
+.mcl-time-row p{margin:3px 0 0;color:var(--mcl-muted);font-size:.82rem;line-height:1.5}
+.mcl-minutes{justify-self:end;padding:5px 8px;border-radius:8px;background:#edf4ff;color:#28558b;font-size:.74rem;font-weight:800;white-space:nowrap}
+.mcl-extension .mcl-minutes{background:#fff0d5;color:#805512}
+.mcl-outcomes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:18px}
+.mcl-outcomes>div,.mcl-patterns{padding:16px;border:1px solid var(--mcl-line);border-radius:16px;background:#fbfdff}
+.mcl-outcomes h3,.mcl-patterns h3,.mcl-application h3{margin:0 0 9px;color:var(--mcl-ink);font-size:1rem}
+.mcl-outcomes ul{margin:0;padding-left:20px}
+.mcl-outcomes li{margin:7px 0;color:#40536b;font-size:.88rem;line-height:1.65}
+.mcl-patterns{margin-top:13px;background:#f5f8fc}
+.mcl-patterns p{margin:7px 0;color:#344c69;font-size:.9rem;line-height:1.6}
+.mcl-practice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.mcl-practice-card{min-width:0;padding:16px;border:1px solid var(--mcl-line);border-radius:18px;background:#fff;box-shadow:0 7px 22px rgba(27,55,88,.045)}
+.mcl-practice-top{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:8px}
+.mcl-sample-number{color:var(--mcl-blue);font-size:.75rem;font-weight:900;letter-spacing:.08em}
+.mcl-practice-kind{padding:4px 7px;border-radius:999px;background:#eef4fb;color:#5b6d82;font-size:.62rem;font-weight:850;letter-spacing:.05em}
+.mcl-practice-card h3{margin:0 0 7px;color:var(--mcl-ink);font-size:1.05rem;line-height:1.4}
+.mcl-scene{margin:0 0 12px;color:var(--mcl-muted);font-size:.86rem;line-height:1.65}
+.mcl-practice-images{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0 12px}
+.mcl-practice-image{min-width:0;margin:0;overflow:hidden;border:1px solid var(--mcl-line);border-radius:12px;background:#f4f7fb}
+.mcl-practice-image img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:#e8edf4}
+.mcl-practice-image figcaption{padding:7px 8px;color:#53657b;font-size:.68rem;line-height:1.45}
+.mcl-role-row{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0;padding:9px 10px;border-radius:11px;background:#f2f6fb}
+.mcl-role-row span{color:#36516f;font-size:.75rem;font-weight:800}
+.mcl-dialogue{display:grid;gap:8px}
+.mcl-dialogue-line{display:grid;grid-template-columns:92px minmax(0,1fr) 32px;gap:8px;align-items:center;padding:9px 10px;border:1px solid #e8edf3;border-radius:11px;background:#fff}
+.mcl-speaker{color:#62758c;font-size:.7rem;font-weight:850;line-height:1.35}
+.mcl-line-copy{min-width:0}
+.mcl-line-copy strong{display:block;color:#163e70;font-family:"Noto Sans KR",sans-serif;font-size:.91rem;line-height:1.55}
+.mcl-line-copy span{display:block;margin-top:2px;color:#61738a;font-size:.78rem;line-height:1.45}
+.mcl-line-audio{width:30px;height:30px;border:1px solid #d7e3f1;border-radius:9px;background:#f2f7fd;color:#245da8;cursor:pointer}
+.mcl-practice-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.mcl-primary-action,.mcl-secondary-action{min-height:38px;padding:8px 12px;border:1px solid #d5e1ee;border-radius:10px;font:inherit;font-size:.78rem;font-weight:850;cursor:pointer}
+.mcl-primary-action{border-color:var(--mcl-blue);background:var(--mcl-blue);color:#fff}
+.mcl-secondary-action{background:#fff;color:var(--mcl-blue-dark)}
+.mcl-primary-action:hover{background:var(--mcl-blue-dark)}
+.mcl-secondary-action:hover,.mcl-line-audio:hover{background:#e8f1fc}
+.mcl-audio-status{min-height:16px;margin:6px 0 0;color:#66788d;font-size:.72rem}
+.mcl-variation{margin-top:9px;padding:9px 11px;border-radius:10px;background:#f4f7fb}
+.mcl-variation summary{color:#31567f;font-size:.79rem;font-weight:850;cursor:pointer}
+.mcl-variation p{margin:8px 0 1px;color:#52667e;font-size:.82rem;line-height:1.6}
+.mcl-challenge{margin-top:10px;padding:10px 12px;border-left:3px solid var(--mcl-gold);border-radius:0 10px 10px 0;background:#fff9ed}
+.mcl-challenge strong{color:#805512;font-size:.78rem}
+.mcl-challenge p{margin:4px 0 0;color:#66563d;font-size:.82rem;line-height:1.55}
+.mcl-application-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.mcl-application-grid article{padding:16px;border:1px solid var(--mcl-line);border-radius:15px;background:var(--mcl-soft)}
+.mcl-application-grid ol{margin:0;padding-left:20px}
+.mcl-application-grid li{margin:8px 0;color:#40536b;font-size:.88rem;line-height:1.6}
+.mcl-application-grid article>p{color:#40536b;font-size:.9rem;line-height:1.65}
+.mcl-teacher-note{padding:10px;border-radius:10px;background:#fff;color:#61738a;font-size:.78rem!important}
+@media(max-width:850px){
+  .mcl-practice-grid{grid-template-columns:1fr}
+  .mcl-hub-intro{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .mcl-duration-grid,.mcl-outcomes,.mcl-application-grid{grid-template-columns:1fr}
+  .mcl-time-row{grid-template-columns:68px minmax(0,1fr);gap:9px;padding:11px}
+  .mcl-minutes{grid-column:2;justify-self:start}
+  .mcl-dialogue-line{grid-template-columns:74px minmax(0,1fr) 30px;padding:8px}
+  .mcl-line-copy strong{font-size:.84rem}
+  .mcl-line-copy span{font-size:.73rem}
+  .mcl-practice-card{padding:12px}
+  .mcl-practice-images{gap:6px}
+  .mcl-hub-intro{padding:17px;border-radius:17px}
+  .mcl-lesson-plan,.mcl-speaking-lab,.mcl-application{padding:15px;border-radius:17px}
+}
+@media(prefers-reduced-motion:no-preference){
+  .mcl-practice-card{transition:transform .18s ease,box-shadow .18s ease}
+  .mcl-practice-card:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(27,55,88,.09)}
+}
+@media print{
+  .mcl-primary-action,.mcl-secondary-action,.mcl-line-audio{display:none!important}
+  .mcl-practice-card,.mcl-lesson-plan,.mcl-speaking-lab,.mcl-application{break-inside:avoid;box-shadow:none}
+}
