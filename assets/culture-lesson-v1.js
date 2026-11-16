@@ -116,7 +116,8 @@
 
   function imageMarkup(image, label) {
     if (!image || !image.src) return '';
-    return '<figure class="mcl-practice-image"><img loading="lazy" decoding="async" src="' + esc(image.src) + '" alt="' + esc(image.alt) + '">' +
+    return '<figure class="mcl-practice-image"><a href="' + esc(image.src) + '" target="_blank" rel="noopener noreferrer" title="Mở ảnh lớn">' +
+      '<img loading="lazy" decoding="async" width="1536" height="1024" src="' + esc(image.src) + '" alt="' + esc(image.alt) + '"></a>' +
       '<figcaption>' + esc((image.caption || label || image.alt).slice(0, 170)) + '</figcaption></figure>';
   }
 
