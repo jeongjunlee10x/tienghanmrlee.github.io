@@ -10,10 +10,11 @@ const script='assets/branding/site-logo.js';
 for(const f of [master,script,'assets/branding/site-logo.css']){
  if(!fs.existsSync(path.join(root,f)))bad.push('Missing official brand resource: '+f);
 }
-let audited=0,redirects=0;
+let audited=0,redirects=0,verification=0;
 for(const p of pages){
  const s=fs.readFileSync(path.join(root,p),'utf8');
  if(/<meta\b[^>]*http-equiv\s*=\s*["']refresh["']/i.test(s)){redirects++;continue}
+ if(/^google[0-9a-f]+\.html$/i.test(p)){verification++;if(!s.includes('google-site-verification: '+p))bad.push(p+': Search Console verification token changed');continue}
  audited++;
  if(!s.includes(script))bad.push(p+': missing shared brand script');
  if(!s.includes('assets/branding/site-logo.css'))bad.push(p+': missing shared brand CSS');
@@ -22,6 +23,6 @@ for(const p of pages){
 }
 const helper=fs.readFileSync(path.join(root,script),'utf8');
 if(!helper.includes('assets\\/branding\\/logo-mrlee'))bad.push('Shared helper does not identify canonical branded images');
-console.log('MR LEE BRAND QA: '+audited+' live HTML routes; '+redirects+' redirects; '+bad.length+' errors.');
+console.log('MR LEE BRAND QA: '+audited+' live HTML routes; '+redirects+' redirects; '+verification+' verification file preserved; '+bad.length+' errors.');
 for(const b of bad)console.error('BRAND FAIL: '+b);
 if(bad.length)process.exitCode=1;

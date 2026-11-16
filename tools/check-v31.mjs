@@ -20,6 +20,12 @@ for(const path of [...scripts,...pages]){
 for(const page of pages){
  const html=readFileSync(page,'utf8');
  if(page==='admin.html'){assert(html.includes('assets/v31/admin-inbox.js'),'Admin inbox missing');continue}
+ if(page==='index.html'){
+  assert(html.includes('id="mrleeNewHome"'),'Homepage editorial layout missing');
+  const homeTiles=(html.match(/class="mr27-tile"/g)||[]).length;
+  assert.equal(homeTiles,8,'Homepage must retain eight primary learning cards');
+  continue;
+ }
  assert(html.includes('assets/v31/premium-gallery.js'),'Image gallery missing from '+page);
  if(page==='dang-ky-tu-van.html'){
   for(const field of ['dossier_academic_level','dossier_target_university','dossier_budget','dossier_document_progress']){

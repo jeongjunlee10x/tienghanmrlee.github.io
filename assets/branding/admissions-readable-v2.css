@@ -183,3 +183,7 @@ html body .ts-v15-float .ts-float-cta{display:none!important}
   overflow-wrap:anywhere!important;
  }
 }
+
+/* Contrast repair: small Korean labels on the admissions hero and program cards. */
+html body .ts-eyebrow-korean{color:#4e6c70!important;-webkit-text-fill-color:#4e6c70!important;opacity:1!important}
+html body .ts-program-korean{color:#415f69!important;-webkit-text-fill-color:#415f69!important;opacity:1!important}

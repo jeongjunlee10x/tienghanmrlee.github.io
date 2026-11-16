@@ -35,4 +35,5 @@ for(const file of ['index.html','hoc-tieng-han.html','kiem-tra-topik.html',
  assert(newVersion.includes(file),'Rebuilt page still points to stale theme cache: '+file);
 }
 assert.ok(newVersion.length>=9,'Modern pages must use cache-busted theme.js');
+assert.doesNotMatch(js,/aria-label="Vào giao diện (?:Tươi mới|Viễn tưởng)"/,'Theme choice accessible names must match visible button labels');
 console.log('PASS theme chooser: '+themed+' HTML routes use current shared runtime; modal once per tab, no duplicate header buttons, both image previews and mobile layouts');

@@ -2,11 +2,15 @@
 (()=>{'use strict';
  const current=document.currentScript;
  const OFFICIAL=new URL('logo-mrlee.png?v=20261026-meme1',current.src).href;
+ function isOfficialAsset(raw){
+  try{const currentUrl=new URL(raw||'',document.baseURI),officialUrl=new URL(OFFICIAL);return currentUrl.origin===officialUrl.origin&&currentUrl.pathname===officialUrl.pathname}catch{return false}
+ }
  const MARK=/^(?:L|MR|MR\.|🎓)$/i;
  const PICTURE=/(?:^|\/)assets\/branding\/logo-mrlee\.png(?:[?#].*)?$|(?:^|\/)images\/logo\.png(?:[?#].*)?$|(?:^|\/)assets\/v(?:16|17|18|19|192|193|20)\/brand\.svg(?:[?#].*)?$|(?:^|\/)assets\/mrlee-admissions-mark\.svg(?:[?#].*)?$/i;
  function setLogo(img){
   if(!img||img.tagName!=='IMG')return;
-  if(img.src!==OFFICIAL){img.onerror=null;img.src=OFFICIAL;}
+  if(!isOfficialAsset(img.getAttribute('src')||img.src)){img.onerror=null;img.src=OFFICIAL;}
+  img.decoding='async';try{img.fetchPriority='low'}catch{}
   img.classList.add('mrlee-approved-logo');img.setAttribute('alt','Logo meme chính thức TIẾNG HÀN MR LEE');
   const anchor=img.closest('a');if(anchor&&/\b(?:brand|logo|site-logo|tv-brand|ts-brand|m10-brand|ml-ai-brand)\b/i.test(anchor.className||''))anchor.dataset.mrleeOfficialBrand='1';
  }
@@ -67,10 +71,10 @@
   document.getElementById('mrleeContactDock')?.remove();
  }
  function favicon(){
-  let found=false;for(const link of document.querySelectorAll('link[rel~="icon"]')){link.href=OFFICIAL;link.type='image/png';found=true;}
+  let found=false;for(const link of document.querySelectorAll('link[rel~="icon"]')){if(!isOfficialAsset(link.getAttribute('href')||link.href))link.href=OFFICIAL;link.type='image/png';found=true;}
   if(!found){const link=document.createElement('link');link.rel='icon';link.type='image/png';link.href=OFFICIAL;document.head.appendChild(link);}
  }
- function start(){applyElement(document.body);favicon();loadImageQuality();loadContactDock();
+ function start(){applyElement(document.body);favicon();loadImageQuality();if(!/^\/game-[^/]+\.html$/i.test(location.pathname))loadContactDock();
   const observer=new MutationObserver(changes=>{for(const change of changes){if(change.type==='attributes'){applyElement(change.target);}else for(const child of change.addedNodes)applyElement(child);}});
   observer.observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['src']});
  }

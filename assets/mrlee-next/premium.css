@@ -93,7 +93,7 @@ html[data-mrlee-theme="fresh"] .mrlee-next-button.secondary{background:#fff;colo
 .mrlee-advice-card p{color:var(--next-muted);font-size:12px;margin:5px 0 0}
 .mrlee-privacy-note{padding:13px;border-radius:11px;background:#34aede0d;line-height:1.7}
 .mrlee-next-footer-links{display:flex;flex-wrap:wrap;gap:18px;margin:26px 0}
-.mrlee-next-footer-links a{font:700 12px system-ui;color:var(--next-aqua)}
+.mrlee-next-footer-links a{font:700 12px system-ui;color:var(--next-ink)}
 .mrlee-next-footer{border-top:1px solid var(--next-line);padding:20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:21px;color:var(--next-muted);font-size:11px}
 .mrlee-next-footer img{object-fit:contain;max-height:48px}
 @media(max-width:1000px){html[data-mrlee-theme="future"] .mrlee-next-portal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.mrlee-next-header{justify-content:center}}
