@@ -76,7 +76,7 @@ function newGame(){
  gameSerial++;const choice=$('gmRole').value;role=choice==='random'?(Math.random()<.28?'bad':'good'):choice;elapsed=0;meetingUsed=false;kills=0;cooldown=0;botReportLock=5;activeTask=null;taskChallenge=[];taskIndex=0;keys.clear();
  me={x:470,y:310,c:palette[0],name:'BẠN',alive:true,bad:role==='bad',speed:185};
  const pos=[[140,185],[800,185],[145,420],[800,425],[455,270],[540,335]];
- bots=pos.map((p,i)=>({x:p[0],y:p[1],c:palette[i+1],name:'BOT '+(i+1),alive:true,bad:false,speed:rnd(75,105),tx:p[0],ty:p[1],think:0,act:0}));
+ bots=pos.map((p,i)=>({x:p[0],y:p[1],c:palette[i+1],name:'BOT '+(i+1),alive:true,bad:false,speed:rnd(75,105),tx:p[0],ty:p[1],think:0,act:rnd(13,17)}));
  if(role==='good')bots[Math.floor(Math.random()*bots.length)].bad=true;
  tasks=taskDefs.map(t=>({...t,done:false}));bodies=[];phase='play';$('overlay').hidden=true;
  $('roleTag').textContent=role==='good'?'🪽 Bạn là NGỖNG (phe tốt)':'🕵️ Bạn là KẺ PHÁ HOẠI';
