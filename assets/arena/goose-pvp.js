@@ -1,25 +1,18 @@
 /* MR LEE Goose Mystery PvP client — snapshots only; all rules live on Supabase Edge.
    Never trust, transmit or store opponent roles or gold in the browser. */
 import {firebaseConfig,isFirebaseConfigured} from "../../firebase-config.js";
+import {WORLD,getMap} from "./goose-maps.mjs";
 const ENDPOINT="https://pkxqsboyotlyoizzxizb.supabase.co/functions/v1/mrlee-goose-pvp";
 const $=id=>document.getElementById(id);
-const STATIONS=[
- {x:530,y:310,name:"Khởi động liên lạc"},{x:470,y:110,name:"Kiểm tra radar"},
- {x:815,y:135,name:"Phân loại hồ sơ"},{x:145,y:475,name:"Kết nối điện"},
- {x:470,y:520,name:"Hiệu chỉnh thiết bị"},{x:810,y:465,name:"Bảo trì hệ thống"}
-];
-const WALLS=[
- {x:260,y:90,w:28,h:165},{x:260,y:350,w:28,h:160},
- {x:650,y:90,w:28,h:170},{x:650,y:352,w:28,h:160},
- {x:360,y:180,w:210,h:25},{x:360,y:408,w:210,h:25},
- {x:95,y:270,w:150,h:24},{x:715,y:270,w:150,h:24}
-];
 const COLORS=["#79e7f7","#ffdc8a","#fe9bc7","#b7a2fc","#89ebbb","#ff9b6a","#dfe3fb","#edb38d","#f79be5","#85daf7","#b2d47f","#ffdaae","#c3b9f6","#86beeb","#ffb7b0","#d7e6cc"];
 const keys=new Set(),touch=new Set(),lerps=new Map();
 const MAP=$("gmMap"),ctx=MAP.getContext("2d");
 let room=null,roomCode="",networkReady=false,authSdk=null,authPromise=null;
 let pollInFlight=false,moveInFlight=false,actionInFlight=false,taskOpen=false,serverOffset=0;
 let lastError="",lastRoomListAt=0,connectPending=false;
+const CAMERA_ZOOM=1.45;
+const camera={x:WORLD.width/2,y:WORLD.height/2,mapId:null};
+const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
 const reqOptions={cache:"no-store",credentials:"omit"};
 const timeout=(ms=11000)=>AbortSignal.timeout(ms);
 function status(message,error=false){
@@ -85,6 +78,12 @@ function accept(view){
  if(!view?.code)return;
  if(room&&room.code===view.code&&Number(view.version)<Number(room.version))return;
  if(view.serverTime)serverOffset=view.serverTime-Date.now();
+ if(camera.mapId!==view.mapId&&view.mapId){
+  camera.mapId=view.mapId;
+  const own=view.players?.find(p=>p.seat===view.seat);
+  if(own?.x!==undefined){camera.x=own.x;camera.y=own.y}
+  lerps.clear();
+ }
  room=view;roomCode=view.code;lastError="";
  status("Đang kết nối phòng "+room.code+" · cập nhật phiên bản "+view.version);
  render();
@@ -178,7 +177,8 @@ function renderPlayers(){
 function renderBallot(){
  const box=$("gmBallot");box.replaceChildren();
  if(room.status!=="meeting")return;
- for(const p of room.players.filter(p=>p.visible&&p.alive&&!p.left)){
+ // Everyone alive can be voted on, not only players in local visual range.
+ for(const p of room.players.filter(p=>p.alive&&!p.left)){
   const btn=makeText("button","🪿 "+p.name+(p.seat===room.seat?" (Bạn)":""));
   btn.disabled=!room.alive||room.hasVoted;
   btn.onclick=()=>action("vote",{seat:p.seat});box.append(btn);
@@ -202,7 +202,7 @@ function renderPuzzle(){
  if(!taskOpen||!p||room.status!=="playing"||!room.alive){
   if(modal.open)modal.close();return;
  }
- $("gmPuzzleTitle").textContent="⚙ "+(STATIONS[p.station]?.name||"Nhiệm vụ");
+ $("gmPuzzleTitle").textContent="⚙ "+(getMap(room.mapId).stations[p.station]?.name||"Nhiệm vụ");
  $("gmPuzzleWords").textContent=p.sequence.join(" → ");
  $("gmPuzzleStep").textContent="Đáp án đúng: "+p.index+" / "+p.sequence.length;
  const options=$("gmPuzzleOptions");options.replaceChildren();
@@ -243,6 +243,7 @@ function render(){
  if(!isMatch()){renderWaiting();return}
  $("gmMyRole").textContent=room.role==="evil"?"🕵️ PHE PHÁ HOẠI":"🪽 PHE TỐT";
  $("gmPlayerCount").textContent=(room.aliveCount===null?"?":room.aliveCount)+" / "+room.players.length+" còn sống";
+ $("gmMapName").textContent="🗺 "+(room.mapName||getMap(room.mapId).name)+" · Camera theo nhân vật";
  $("gmProgress").style.width=(room.totalTasks?Math.min(100,Math.round(room.doneTasks/room.totalTasks*100)):0)+"%";
  $("gmProgressText").textContent=room.doneTasks+" / "+room.totalTasks+" nhiệm vụ";
  const active=room.status==="playing"&&room.alive;
@@ -262,14 +263,14 @@ async function doTask(){
  taskOpen=true;await action("task",{station:task.id});
 }
 async function kill(){
- const near=nearestPlayers()[0];if(!near||near.d>62)return status("Bạn chưa đứng đủ gần nhân vật nào.");
+ const near=nearestPlayers()[0];if(!near||near.d>WORLD.killRange)return status("Bạn chưa đứng đủ gần nhân vật nào.");
  await action("kill",{seat:near.p.seat});
 }
 async function report(){
  const me=myPlayer();
  if(!me)return;
  const body=(room.bodies||[]).find(b=>dist(me,b)<90);
- if(!body)return status("Không có người bị hạ ở gần.");
+ if(!body||dist(me,body)>WORLD.reportRange)return status("Không phát hiện thi thể trong tầm báo cáo.");
  await action("report");
 }
 function pressed(){
@@ -308,35 +309,92 @@ function drawGoose(p,x,y){
  ctx.restore();ctx.textAlign="center";ctx.font="bold 13px system-ui";ctx.lineWidth=4;ctx.strokeStyle="#071629";ctx.strokeText(p.name,x,y-46);
  ctx.fillStyle="#f4feff";ctx.fillText(p.name,x,y-46);
 }
+function drawWorld(map,left,top,right,bottom){
+ floorFill(left,top,right-left,bottom-top,map.colors.floor);
+ ctx.strokeStyle="#ffffff12";ctx.lineWidth=1;
+ for(let x=Math.floor(left/64)*64;x<=right;x+=64)
+  for(let y=Math.floor(top/64)*64;y<=bottom;y+=64)ctx.strokeRect(x,y,64,64);
+ for(const [x,y,w,h,label] of map.zones){
+  if(x+w<left||x>right||y+h<top||y>bottom)continue;
+  ctx.fillStyle=map.colors.zone;ctx.beginPath();ctx.roundRect(x,y,w,h,22);ctx.fill();
+  ctx.strokeStyle=map.colors.border+"9a";ctx.lineWidth=3;ctx.stroke();
+  ctx.textAlign="left";ctx.font="bold 17px system-ui";ctx.fillStyle="#e6faffad";
+  ctx.fillText(label,x+16,y+31);
+  ctx.fillStyle="#ffffff13";
+  for(let rx=x+30;rx<x+w-20;rx+=130)ctx.fillRect(rx,y+h-34,42,8);
+ }
+ for(const w of map.walls){
+  if(w.x+w.w<left||w.x>right||w.y+w.h<top||w.y>bottom)continue;
+  floorFill(w.x,w.y,w.w,w.h,"#56758d");
+  floorFill(w.x+3,w.y+3,w.w-6,Math.min(7,w.h-4),"#b2ecf9");
+ }
+ ctx.strokeStyle=map.colors.border;ctx.lineWidth=9;ctx.strokeRect(46,46,WORLD.width-92,WORLD.height-92);
+}
+function drawMiniMap(map,person){
+ const x=765,y=15,w=178,h=113;
+ ctx.fillStyle="#061b32e8";ctx.beginPath();ctx.roundRect(x,y,w,h,12);ctx.fill();
+ ctx.strokeStyle=map.colors.border;ctx.lineWidth=2;ctx.stroke();
+ const scale=Math.min((w-14)/WORLD.width,(h-13)/WORLD.height);
+ const ox=x+(w-WORLD.width*scale)/2,oy=y+(h-WORLD.height*scale)/2;
+ ctx.fillStyle="#447890b3";
+ for(const zone of map.zones){ctx.fillRect(ox+zone[0]*scale,oy+zone[1]*scale,zone[2]*scale,zone[3]*scale)}
+ // Only own position is revealed; the minimap never displays opponents or hidden bodies.
+ if(person?.x!==undefined){
+  ctx.fillStyle="#ffe981";ctx.beginPath();ctx.arc(ox+person.x*scale,oy+person.y*scale,4,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle="#ffe98199";ctx.lineWidth=2;ctx.stroke();
+ }
+ ctx.font="bold 10px system-ui";ctx.fillStyle="#ddf9ff";ctx.textAlign="left";ctx.fillText("BẢN ĐỒ",x+12,y+13);
+}
 function draw(){
- if(ctx){
- ctx.clearRect(0,0,960,610);floorFill(0,0,960,610,"#112a48");
- ctx.strokeStyle="#ffffff0b";ctx.lineWidth=1;
- for(let x=44;x<960;x+=44)for(let y=44;y<610;y+=44)ctx.strokeRect(x,y,44,44);
- const rooms=[
- [61,60,187,195,"#24495d","MÁY PHÁT ĐIỆN"],[300,61,335,108,"#1c4865","RADAR"],
- [686,61,209,195,"#39475d","LƯU TRỮ"],[60,330,184,194,"#1b4560","ĐIỆN"],
- [302,440,333,94,"#29516a","TRUNG TÂM"],[689,331,204,196,"#224760","BẢO TRÌ"]];
- ctx.font="bold 15px system-ui";
- for(const [x,y,w,h,c,n] of rooms){floorFill(x,y,w,h,c);ctx.fillStyle="#d4eaf1";ctx.fillText(n,x+12,y+23)}
- ctx.strokeStyle="#9fddeb";ctx.lineWidth=6;ctx.strokeRect(46,46,868,518);
- for(const wall of WALLS){floorFill(wall.x,wall.y,wall.w,wall.h,"#668ca2");floorFill(wall.x+2,wall.y+2,wall.w-4,6,"#a9c7d9")}
+ if(!ctx){requestAnimationFrame(draw);return}
+ ctx.setTransform(1,0,0,1,0,0);
+ ctx.clearRect(0,0,960,610);
+ ctx.fillStyle="#061a30";ctx.fillRect(0,0,960,610);
+ const map=getMap(room?.mapId||"orbital");
+ const me=isMatch()?myPlayer():null;
+ if(me&&Number.isFinite(me.x)&&Number.isFinite(me.y)){
+  camera.x+=(me.x-camera.x)*.17;
+  camera.y+=(me.y-camera.y)*.17;
+ }
+ const vw=960/CAMERA_ZOOM,vh=610/CAMERA_ZOOM;
+ const left=clamp(camera.x-vw/2,0,WORLD.width-vw);
+ const top=clamp(camera.y-vh/2,0,WORLD.height-vh);
+ ctx.save();ctx.scale(CAMERA_ZOOM,CAMERA_ZOOM);ctx.translate(-left,-top);
+ drawWorld(map,left,top,left+vw,top+vh);
  if(room&&isMatch()){
+  const pulse=Math.sin(performance.now()*.003)*3;
   const tasks=room.tasks||[];
   for(const task of tasks){
-   ctx.beginPath();ctx.arc(task.x,task.y,26,0,Math.PI*2);
-   ctx.fillStyle=task.done?"#559f7a55":"#25bba77d";ctx.fill();
-   ctx.strokeStyle=task.done?"#98cfac":"#60efd3";ctx.lineWidth=3;ctx.stroke();
-   ctx.textAlign="center";ctx.font="bold 21px system-ui";ctx.fillStyle="#fff";ctx.fillText(task.done?"✓":"⚙",task.x,task.y+8);
+   if(task.x<left-45||task.x>left+vw+45||task.y<top-45||task.y>top+vh+45)continue;
+   ctx.beginPath();ctx.arc(task.x,task.y,24+pulse,0,Math.PI*2);
+   ctx.fillStyle=task.done?"#468a6670":"#25c8a080";ctx.fill();
+   ctx.strokeStyle=map.colors.accent;ctx.lineWidth=3;ctx.stroke();
+   ctx.textAlign="center";ctx.font="bold 21px system-ui";ctx.fillStyle="#fff";
+   ctx.fillText(task.done?"✓":"⚙",task.x,task.y+7);
   }
-  for(const b of room.bodies||[]){ctx.font="26px system-ui";ctx.textAlign="center";ctx.fillText("💀",b.x,b.y+8)}
-  for(const p of room.players.filter(p=>p.alive&&!p.left)){
+  for(const body of room.bodies||[]){
+   if(body.x<left-40||body.x>left+vw+40||body.y<top-40||body.y>top+vh+40)continue;
+   ctx.font="26px system-ui";ctx.textAlign="center";ctx.fillText("💀",body.x,body.y+8);
+  }
+  for(const p of room.players.filter(p=>p.visible&&p.alive&&!p.left&&Number.isFinite(p.x)&&Number.isFinite(p.y))){
    const prev=lerps.get(p.seat)||{x:p.x,y:p.y};
-   prev.x+=(p.x-prev.x)*.34;prev.y+=(p.y-prev.y)*.34;
-   lerps.set(p.seat,prev);drawGoose(p,prev.x,prev.y);
+   prev.x+=(p.x-prev.x)*.36;prev.y+=(p.y-prev.y)*.36;
+   lerps.set(p.seat,prev);
+   if(prev.x>=left-45&&prev.x<=left+vw+45&&prev.y>=top-55&&prev.y<=top+vh+45)
+    drawGoose(p,prev.x,prev.y);
   }
  }
- }
+ ctx.restore();
+ // Vignette limits vision even when a large map can fit in the canvas.
+ const centerX=(camera.x-left)*CAMERA_ZOOM;
+ const centerY=(camera.y-top)*CAMERA_ZOOM;
+ const fog=ctx.createRadialGradient(centerX,centerY,105,centerX,centerY,WORLD.vision*CAMERA_ZOOM+35);
+ fog.addColorStop(0,"#020b1d00");fog.addColorStop(.62,"#020b1d18");
+ fog.addColorStop(1,"#020b1df7");
+ ctx.fillStyle=fog;ctx.fillRect(0,0,960,610);
+ drawMiniMap(map,me);
+ ctx.font="bold 14px system-ui";ctx.fillStyle="#e6f9ff";ctx.textAlign="left";
+ ctx.fillText(map.name+"  ·  Tầm nhìn gần",17,31);
  requestAnimationFrame(draw);
 }
 function bindDirection(btn){
