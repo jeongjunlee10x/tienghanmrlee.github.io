@@ -5,7 +5,7 @@
 import * as Chess from "./chess-engine.js";
 import * as TL from "./tienlen-engine.js?v=20261107-rule-v26";
 import * as Colors from "./color-engine.js?v=20261107-ai-r18";
-import {mountOnlineXiangqi} from "./rooms-xiangqi.js?v=20261111-xq-pvp-v1";
+import {mountOnlineXiangqi} from "./rooms-xiangqi.js?v=20261117-xq-board-v2";
 import {playingCard,comboTitle,showChopPopup} from "./tienlen-fx.js?v=20261107-deal-v25";
 import {isDealing,showRoomDeal} from "./arena-deal-v22.js?v=20261107-deal-v25";
 import {enablePointerDrag,animateBoardMove,animateCardTransfer} from "./drag-gestures.js?v=20261107-motion-v22b";
