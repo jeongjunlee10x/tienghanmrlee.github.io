@@ -28,7 +28,9 @@ jobs:
                curl -fsSL --max-time 15 "$SITE/assets/arena/goose-space-hangar.svg?v=20261117" -o /tmp/goose-live.svg &&
                grep -q '<svg' /tmp/goose-live.svg &&
                curl -fsSL --max-time 15 "$SITE/assets/arena/goose-pvp-skin.css?v=20261117" -o /tmp/goose-live.css &&
-               grep -q 'gm-map-preview' /tmp/goose-live.css; then
+               grep -q 'gm-map-preview' /tmp/goose-live.css &&
+               curl -fsSL --max-time 15 "$SITE/assets/arena/goose-pvp.js?v=20261117-cinematic1" -o /tmp/goose-live.js &&
+               grep -q 'gm-no-rooms' /tmp/goose-live.js; then
               ok=1
               echo "PASS: Cloudflare is serving new cinematic UI, 3-map gallery, SVG and CSS."
               break
