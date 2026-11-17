@@ -1,0 +1,5 @@
+# This Edge Function verifies Firebase email-verified JWTs itself via Google JWKS.
+# Supabase gateway checks Supabase JWT by default, so disable that specific
+# gateway gate ONLY for this function; its handler still rejects unauthenticated calls.
+[functions.mrlee-goose-pvp]
+verify_jwt = false

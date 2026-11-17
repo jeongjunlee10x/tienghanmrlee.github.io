@@ -1,0 +1,43 @@
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#e6f6ff;background:#081426;font-synthesis:none}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 75% 0,#234a65,#071428 67%);min-height:100vh}
+button,input{font:inherit}button{border:1px solid #8acbdc5e;border-radius:11px;padding:10px 13px;color:#e9f8ff;background:#284262;cursor:pointer;font-weight:750}
+button:hover:not(:disabled){background:#356686}button:disabled{opacity:.44;cursor:not-allowed}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #e0fca5;outline-offset:2px}
+button.gm-primary{background:linear-gradient(135deg,#52e9ba,#8de6ed);color:#062d36;border-color:#a0fff0}
+button.gm-danger{background:#a42d4a;color:#fff}a{color:#86f2df}
+[hidden]{display:none!important}
+.gm-header{padding:16px clamp(15px,3vw,48px);display:flex;justify-content:space-between;align-items:center;gap:16px;border-bottom:1px solid #86dbee3c;background:#081527d4}
+.gm-logo{color:#fff;display:flex;align-items:center;gap:7px;text-decoration:none;font-size:1.06rem;font-weight:800}.gm-logo strong{color:#5cf1ce}.gm-logo span{color:#b9d0eb}
+.gm-headerlinks{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:.85rem}.gm-indicator{background:#18304e;border:1px solid #7fdcdd42;border-radius:22px;padding:6px 10px}
+.gm-indicator.gm-online{color:#83f2be}.gm-shell{max-width:1210px;margin:auto;padding:14px 18px 40px}.gm-hero{margin:15px 0 22px}.gm-hero h1{font-size:clamp(1.8rem,4.5vw,3.3rem);letter-spacing:.05em;margin:4px 0;font-weight:950}.gm-hero em{color:#76f7d7;font-style:normal}.gm-hero h1 span{color:#ffcf79;font-size:.55em}.gm-hero p{max-width:820px;margin:6px 0;color:#b8cee6}
+.gm-eyebrow{font-size:.75rem;font-weight:900;color:#87dbe8;letter-spacing:.14em}.gm-alert{padding:10px 16px;border-radius:14px;background:#183858;border:1px solid #6dc7dc60;margin:15px 0;color:#dbf9ff}
+.gm-alert.gm-error{background:#482938;border-color:#f09b95;color:#ffd9d5}
+.gm-panel,.gm-stage-card{background:linear-gradient(160deg,#172e50,#0e203c);border:1px solid #8fbde03f;border-radius:19px;padding:20px;box-shadow:0 20px 65px #01071350}
+.gm-lobby{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}.gm-panel h2{font-size:1.15rem;margin:0 0 10px}.gm-panel p{color:#bccde5}.gm-entry label{display:block;font-weight:650;margin:13px 0 7px}
+.gm-entry>input,.gm-inline input{background:#0d1c37;color:#e3fbff;border:1px solid #7399ae91;border-radius:11px;padding:11px;max-width:100%;width:100%}
+.gm-buttons{display:flex;gap:9px;flex-wrap:wrap;margin:17px 0}.gm-buttons button{min-height:46px}
+.gm-inline{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.gm-inline input{flex:1;min-width:100px}.gm-inline label{margin:0}
+.gm-muted{color:#a8c0df!important;font-size:.85rem;line-height:1.6}
+.gm-line{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.gm-roomlist{display:grid;gap:9px}.gm-roomitem{display:flex;justify-content:space-between;align-items:center;gap:10px;background:#203e5c;border-radius:12px;padding:10px 12px}
+.gm-roomitem strong{display:block;font-size:1.1rem}.gm-roombar{display:flex;justify-content:space-between;align-items:center;gap:15px}.gm-roombar h2{font-size:1.7rem;letter-spacing:.12em;margin:3px 0}.gm-roombar span{color:#b1d4e8}
+.gm-waiting{margin-top:15px}.gm-player-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0}.gm-person{border:1px solid #6ebed741;border-radius:12px;background:#213e5d;padding:11px;display:flex;gap:8px;align-items:center;font-weight:700}
+.gm-person small{font-size:.75rem;color:#b4cce0}.gm-person strong{display:block;overflow:hidden;text-overflow:ellipsis}
+.gm-match{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:15px;margin-top:15px}
+.gm-stage-card{padding:0;overflow:hidden}.gm-stagebar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;padding:12px 15px;font-size:.85rem;font-weight:800}
+#gmMyRole{color:#a2ffdb}#gmMap{width:100%;aspect-ratio:960/610;display:block;background:#142f4e;touch-action:none}
+.gm-actions{display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:#0b1b34}.gm-actions button{flex:1;min-width:112px;min-height:48px;font-size:.85rem}
+.gm-pad{display:none;grid-template-columns:repeat(3,52px);justify-content:center;gap:6px;padding:12px}.gm-pad button{touch-action:none;user-select:none}
+.gm-sidebar{padding:16px}.gm-sidebar h3{margin:22px 0 9px}.gm-progressbar{width:100%;border-radius:50px;background:#254564;height:13px;overflow:hidden}
+.gm-progressbar>div{height:100%;width:0%;background:linear-gradient(90deg,#40e3a1,#77e8db);transition:width .25s}
+.gm-task,.gm-compact-player{margin-top:8px;padding:8px 10px;background:#203856;border-radius:10px;font-size:.84rem}
+.gm-task.gm-done{color:#80ecc3;text-decoration:line-through}.gm-meeting,.gm-results{margin-top:16px}
+.gm-ballot{display:flex;flex-wrap:wrap;gap:8px}.gm-ballot button{min-width:125px}
+.gm-chat{margin-top:12px;border-top:1px solid #6ba6c83b;padding-top:12px}.gm-chatlog{max-height:190px;overflow:auto;background:#0a1b34;border-radius:12px;padding:9px;min-height:65px;font-size:.85rem}
+.gm-chatlog div{padding:3px 0;border-bottom:1px solid #ffffff12}.gm-footnote{margin:30px 0;color:#a6bfda;font-size:.83rem}
+dialog{width:min(530px,94vw);max-height:90vh;overflow:auto;background:linear-gradient(155deg,#183754,#0d253f);color:#eaf9ff;border:1px solid #9de8df;border-radius:22px;padding:22px;box-shadow:0 30px 100px #000a}
+dialog::backdrop{background:#020b1bd4;backdrop-filter:blur(6px)}dialog h2{margin:0 0 8px}dialog strong{display:block;color:#ffdc7e;margin:13px 0}
+.gm-puzzle-options{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.gm-puzzle-options button{padding:15px 8px;font-size:1.2rem;overflow-wrap:anywhere}
+@media(max-width:850px){.gm-lobby,.gm-match{grid-template-columns:1fr}.gm-player-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.gm-pad{display:grid}.gm-panel{padding:14px}.gm-shell{padding:10px}.gm-stagebar{font-size:.75rem}.gm-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.gm-actions button{min-width:0}.gm-header{flex-wrap:wrap}}
+@media(max-width:440px){.gm-logo{font-size:.85rem}.gm-headerlinks{gap:8px}.gm-headerlinks .gm-indicator{font-size:.74rem}.gm-entry .gm-buttons button{flex:1}.gm-player-grid{grid-template-columns:1fr 1fr}.gm-chat .gm-inline{flex-wrap:nowrap}}
+@media(prefers-reduced-motion:reduce){*,*::after,*::before{transition:none!important;animation:none!important}}

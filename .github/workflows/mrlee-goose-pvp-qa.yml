@@ -1,0 +1,35 @@
+name: MR LEE Goose Mystery PvP Backend QA
+on:
+  pull_request:
+    paths:
+      - 'supabase/functions/mrlee-goose-pvp/**'
+      - 'supabase/manual-sql/MRLEE_GOOSE_PVP_SETUP.sql'
+      - 'supabase/config.toml'
+      - 'game-goose-pvp.html'
+      - 'assets/arena/goose-pvp.*'
+      - 'tools/test-goose-pvp.mjs'
+      - '.github/workflows/mrlee-goose-pvp-qa.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'supabase/functions/mrlee-goose-pvp/**'
+      - 'game-goose-pvp.html'
+      - 'assets/arena/goose-pvp.*'
+      - 'tools/test-goose-pvp.mjs'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  rules-and-api:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Verify browser JS and shared rules syntax
+        run: |
+          node --check assets/arena/goose-pvp.js
+          node --check supabase/functions/mrlee-goose-pvp/engine.mjs
+          node --check tools/test-goose-pvp.mjs
+      - name: Test role secrecy, movement, task answers, meetings and votes
+        run: node --test tools/test-goose-pvp.mjs
