@@ -2,7 +2,7 @@
    server-authoritative moves and short on-board overlays. */
 import {roomRequest,normalizeRoomCode,GOLD_TIERS,GOLD_PER_POINT,formatG,requiredGold,
  GAME_LABELS,gameCapacity,affordableTier} from "./room-api.js?v=20261111-xq-pvp-v1";
-import {mountOnlineCanvas} from "./rooms-play.js?v=20261111-xq-pvp-v1";
+import {mountOnlineCanvas} from "./rooms-play.js?v=20261117-xq-board-v2";
 const $=id=>document.getElementById(id);
 const el=(tag,cl="",text)=>{
  const node=document.createElement(tag);if(cl)node.className=cl;
