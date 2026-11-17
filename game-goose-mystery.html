@@ -29,6 +29,7 @@ progress{width:100%;height:14px;accent-color:#38d5ac}.task{padding:10px 12px;bor
 .vote-list button{text-align:left}.hint{font-size:.79rem;color:#a5b8d7}
 @media(max-width:800px){.grid{grid-template-columns:1fr}.aside{order:2}#joystick{display:grid}header{padding:13px 15px}.wrap{margin:10px auto}.actions button{flex:1;padding:11px 7px}}
 </style>
+<link rel="stylesheet" href="assets/arena/goose-mystery-v2.css?v=20261117-2">
 </head>
 <body>
 <header><div class="brand">🪿 <span>MR LEE</span> · GOOSE MYSTERY</div><a href="mrlee-game-arena.html">← Game Arena</a></header>
@@ -38,6 +39,7 @@ progress{width:100%;height:14px;accent-color:#38d5ac}.task{padding:10px 12px;bor
 <section class="panel" aria-label="Bản đồ game">
 <div class="topline"><span class="pill" id="roleTag">Vai trò: —</span><span class="pill" id="roundTag">Chưa bắt đầu</span><span class="pill" id="aliveTag">0 người</span></div>
 <canvas id="stage" width="960" height="610" aria-label="Bản đồ nhân vật nhìn từ trên xuống"></canvas>
+<p class="gm-scene-tip">✨ Đến gần trạm phát sáng rồi nhấn E để giải nhiệm vụ. Phím H dùng họp khẩn một lần.</p>
 <div class="actions"><button class="primary" id="actTask">⚙ Làm nhiệm vụ (E)</button><button class="danger" id="actKill">⚡ Hạ gục (K)</button><button id="actReport">📣 Báo cáo (R)</button><button id="actMeeting">🔔 Họp khẩn</button><button id="actFull">⛶ Toàn màn hình</button></div>
 <div id="joystick" aria-label="Điều khiển cảm ứng"><span></span><button data-move="up">▲</button><span></span><button data-move="left">◀</button><button data-move="down">▼</button><button data-move="right">▶</button></div>
 <p id="status" aria-live="polite">Chọn bắt đầu để vào trận.</p>
@@ -48,7 +50,9 @@ progress{width:100%;height:14px;accent-color:#38d5ac}.task{padding:10px 12px;bor
 <div id="tasks"></div>
 <h2 style="margin-top:22px">🎮 Điều khiển</h2><div class="controls">W A S D / phím mũi tên: di chuyển<br>E: nhiệm vụ · K: hạ gục (vai phản diện)<br>R: báo cáo thi thể · H: họp khẩn<br>Điện thoại: nút hướng và nút hành động.</div>
 <p class="hint">Bản thử nghiệm dùng bot mô phỏng trong trình duyệt, không có kết nối phòng thật, không tiêu G và không ảnh hưởng dữ liệu tài khoản.</p>
-<button id="newGame" style="width:100%">↻ Ván mới</button>
+<div id="gmMode"><label for="gmRole">Luyện tập vai trò</label><select id="gmRole" aria-label="Chọn phe chơi"><option value="random">🎲 Ngẫu nhiên</option><option value="good">🪽 Phe tốt</option><option value="bad">🕵️ Kẻ phá hoại</option></select></div>
+<div class="gm-hint-banner"><span>🌌 Bản đồ điều hướng</span><span>⚙ 6 nhiệm vụ</span><span>🎭 2 phe</span></div>
+<button id="newGame" style="width:100%;margin-top:12px">↻ Ván mới</button>
 </aside>
 </div></main>
 <div id="overlay"><div class="modal" id="modal"><h2>🪿 GOOSE MYSTERY</h2><p>Hoàn thành nhiệm vụ để phe tốt chiến thắng, hoặc tìm và loại kẻ phá hoại qua các cuộc họp. Nếu là kẻ phá hoại, hãy bí mật loại những người còn lại.</p><p><strong>Đây là bản chơi thử một người với bot.</strong> Nhân vật, bản đồ và mã trò chơi được xây dựng riêng, không sử dụng tài sản của Goose Goose Duck.</p><button class="primary" id="start">▶ Bắt đầu</button></div></div>
@@ -60,7 +64,7 @@ const W=960,H=610,keys=new Set(),walls=[
 {x:360,y:180,w:210,h:25},{x:360,y:408,w:210,h:25},{x:95,y:270,w:150,h:24},{x:715,y:270,w:150,h:24}];
 const taskDefs=[{x:125,y:125,n:'Sửa máy phát điện'},{x:470,y:110,n:'Kiểm tra radar'},{x:815,y:135,n:'Phân loại hồ sơ'},{x:145,y:475,n:'Kết nối điện'},{x:470,y:520,n:'Hiệu chỉnh thiết bị'},{x:810,y:465,n:'Bảo trì hệ thống'}];
 const palette=['#79e2fb','#ffd96a','#ffa3ca','#ac9bff','#83e5a3','#ff996e','#d4ebfa'];
-let me,bots,tasks,bodies,phase='intro',role='good',elapsed=0,meetingUsed=false,kills=0,last=0,cooldown=0,message='',messageAt=0,gameSerial=0;
+let me=null,bots=[],tasks=[],bodies=[],phase='intro',role='good',elapsed=0,meetingUsed=false,kills=0,last=0,cooldown=0,message='',messageAt=0,gameSerial=0,activeTask=null,taskIndex=0,taskChallenge=[],botReportLock=0;
 const rnd=(a,b)=>a+Math.random()*(b-a),dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 const alive=()=>[me,...bots].filter(p=>p.alive);
 const badAlive=()=>alive().filter(p=>p.bad);
@@ -69,7 +73,7 @@ const say=t=>{message=t;messageAt=performance.now();$('status').textContent=t};
 const hit=(x,y,r=20)=>x<46+r||x>W-46-r||y<46+r||y>H-46-r||walls.some(o=>x+r>o.x&&x-r<o.x+o.w&&y+r>o.y&&y-r<o.y+o.h);
 function move(p,dx,dy,dt){const mul=Math.min(dt,.05)*p.speed;let x=p.x+dx*mul,y=p.y+dy*mul;if(!hit(x,p.y))p.x=x;if(!hit(p.x,y))p.y=y}
 function newGame(){
- gameSerial++;role=Math.random()<.28?'bad':'good';elapsed=0;meetingUsed=false;kills=0;cooldown=0;
+ gameSerial++;const choice=$('gmRole').value;role=choice==='random'?(Math.random()<.28?'bad':'good'):choice;elapsed=0;meetingUsed=false;kills=0;cooldown=0;botReportLock=5;activeTask=null;taskChallenge=[];taskIndex=0;keys.clear();
  me={x:470,y:310,c:palette[0],name:'BẠN',alive:true,bad:role==='bad',speed:185};
  const pos=[[140,185],[800,185],[145,420],[800,425],[455,270],[540,335]];
  bots=pos.map((p,i)=>({x:p[0],y:p[1],c:palette[i+1],name:'BOT '+(i+1),alive:true,bad:false,speed:rnd(75,105),tx:p[0],ty:p[1],think:0,act:0}));
@@ -113,7 +117,7 @@ function vote(pick){
  for(const voter of candidates.filter(c=>c!==me)){if(Math.random()<.22)continue;const target=candidates.filter(c=>c!==voter);const guess=target[Math.floor(Math.random()*target.length)];votes.set(guess,(votes.get(guess)||0)+1)}
  const entries=[...votes.entries()].sort((a,b)=>b[1]-a[1]),top=entries[0];
  let ejected=top&&top[1]>1&&(!entries[1]||top[1]>entries[1][1])?top[0]:null;
- if(ejected)ejected.alive=false;bodies=[];check();update();
+ if(ejected)ejected.alive=false;bodies=[];phase='vote_result';check();if(phase==='end')return;update();
  const box=$('modal');box.replaceChildren();const h=document.createElement('h2');h.textContent='🗳️ Kết quả bỏ phiếu';box.append(h);
  const p=document.createElement('p');p.textContent=ejected?ejected.name+' bị loại. '+(ejected.bad?'Đó là kẻ phá hoại!':'Đó là người vô tội!'):'Không đủ phiếu để loại ai.';box.append(p);
  if(phase!=='end'){const go=document.createElement('button');go.className='primary';go.textContent='Tiếp tục';go.onclick=()=>{phase='play';$('overlay').hidden=true;update()};box.append(go)}
@@ -122,14 +126,14 @@ function vote(pick){
 function finish(win,why){phase='end';keys.clear();update();const box=$('modal');box.replaceChildren();let h=document.createElement('h2');h.textContent=(win?'🏆 CHIẾN THẮNG':'💀 THẤT BẠI');box.append(h);
  const p=document.createElement('p');p.textContent=why;box.append(p);const b=document.createElement('button');b.className='primary';b.textContent='↻ Chơi lại';b.onclick=newGame;box.append(b);$('overlay').hidden=false}
 function check(){
- if(phase!=='play'&&phase!=='meeting')return;
+ if(!['play','meeting','vote_result'].includes(phase))return;
+ if(!me.alive){finish(false,role==='good'?'Bạn đã bị hạ. Phe tốt cần cảnh giác hơn!':'Bạn đã bị bỏ phiếu loại.');return}
  if(role==='good'){
  if(!badAlive().length)finish(true,'Tất cả kẻ phá hoại đã bị loại.');
  else if(tasks.every(t=>t.done))finish(true,'Toàn bộ nhiệm vụ đã hoàn thành.');
  else if(goodAlive().length<=badAlive().length)finish(false,'Phe phá hoại đã chiếm ưu thế.');
  }else{
- if(!me.alive)finish(false,'Bạn đã bị bỏ phiếu loại.');
- else if(goodAlive().length<=badAlive().length)finish(true,'Phe phá hoại đã chiếm ưu thế.');
+ if(goodAlive().length<=badAlive().length)finish(true,'Phe phá hoại đã chiếm ưu thế.');
  }
 }
 function tick(dt){
@@ -172,7 +176,7 @@ document.addEventListener('keyup',e=>{const map={ArrowUp:'up',ArrowDown:'down',A
 window.addEventListener('blur',()=>keys.clear());
 $('start').onclick=newGame;$('newGame').onclick=newGame;$('actTask').onclick=doTask;$('actKill').onclick=eliminate;$('actReport').onclick=report;
 $('actMeeting').onclick=()=>{if(phase==='play'&&me.alive&&!meetingUsed){meetingUsed=true;meeting('🔔 Họp khẩn cấp')}};
-$('actFull').onclick=()=>{if(!document.fullscreenElement)document.querySelector('.panel').requestFullscreen?.().catch(()=>{});else document.exitFullscreen?.()};
+$('actFull').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.().catch(()=>{});else document.exitFullscreen?.()};
 $('actKill').hidden=true;requestAnimationFrame(frame);
 })();
 </script>
