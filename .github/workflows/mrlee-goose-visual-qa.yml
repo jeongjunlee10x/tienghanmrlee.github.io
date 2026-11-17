@@ -31,6 +31,13 @@ jobs:
           npx playwright install chromium --with-deps
       - name: Desktop/mobile visual QA
         run: node tools/browser-goose-visual.mjs
+      - name: Verify live Supabase Goose PvP endpoint and migration
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --retry 3 --retry-delay 2 --max-time 20 \
+            'https://pkxqsboyotlyoizzxizb.supabase.co/functions/v1/mrlee-goose-pvp?action=health' \
+            -o /tmp/goose-health.json
+          node -e 'const j=require("/tmp/goose-health.json");if(j.ok!==true||j.service!=="goose-pvp")process.exit(1); console.log("Goose PvP API readiness OK")'
       - uses: actions/upload-artifact@v4
         if: always()
         with:
