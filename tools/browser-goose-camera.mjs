@@ -59,6 +59,16 @@ try{
   assert.ok(zoom>1.3&&zoom<2);
   await desktop.locator("#gmMatch").screenshot({path:resolve(out,s.mapId+"-desktop.png")});
  }
+ const cameraBefore=await desktop.evaluate(()=>window.__gmQa.camera().x);
+ const shifted=mock(2).s;
+ const self=shifted.players.find(p=>p.seat===shifted.seat);
+ self.x=1875;self.y=1190;
+ shifted.version=2;
+ await desktop.evaluate(v=>window.__gmQa.load(v),shifted);
+ await desktop.waitForTimeout(720);
+ const cameraAfter=await desktop.evaluate(()=>window.__gmQa.camera().x);
+ assert.ok(cameraAfter>cameraBefore+350,
+  "Camera must smoothly follow the player instead of fitting the full map");
  const now=mock(1);now.state.phase="meeting";
  now.state.meetingDeadline=Date.now()+30000;
  const ballot=view(now.state,members,members[0].uid,
