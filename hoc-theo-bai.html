@@ -28,6 +28,7 @@
 <link rel="stylesheet" href="assets/branding/lesson-speaking-v3.css?v=20261104-speaking-v3">
 <link rel="stylesheet" href="assets/branding/contact-native-v5.css?v=20261104-native-v5" data-mrlee-contact-native="v5">
 <script defer src="assets/branding/media-quality-v3.js?v=20261108-m1"></script>
+<link rel="stylesheet" href="assets/branding/lesson-structure-v1.css?v=20261117-1">
 </head><body>
 <header class="site-top"><div class="wrap site-top-inner"><a class="site-logo" href="index.html"><img src="assets/branding/logo-mrlee.png" alt="Logo tiếng Hàn Mr Lee" style="width:43px;height:43px;object-fit:contain;vertical-align:middle;margin-right:7px"> TIẾNG HÀN MR LEE</a><nav class="top-links"><a href="index.html">Trang chủ</a><a class="active" href="hoc-tieng-han.html">Học tiếng Hàn</a><a href="giao-tiep-phong-van.html">Luyện giao tiếp</a><a href="kiem-tra-topik.html">Kiểm tra & TOPIK</a><a href="van-hoa-han-quoc.html">Văn hóa Hàn Quốc</a></nav></div></header>
 <main class="mr-new-shell" id="mrleeLessonDirectory">
@@ -45,12 +46,34 @@
 <section id="lessonCards" class="mr-new-panel mr-lesson-directory-panel" aria-label="Danh sách 15 bài học">
  <div class="mr-new-grid" id="lessonGrid"></div>
 </section>
-<div id="lessonContent" class="mr-new-hidden">
-<section class="mr-new-panel"><h2>🧩 Ngữ pháp và mục tiêu bài học</h2><div id="lessonGrammar"></div><p class="mr-new-note" id="lessonTip"></p><h3 id="lessonVocabHeading">📚 Từ vựng theo bài học</h3><p class="mr-new-hint" id="lessonVocabHint">Từ vựng theo từng bài học.</p><div id="lessonVocab"></div><div class="mr-new-note" id="lessonContentNote">Nội dung bổ trợ và lưu ý cho từng bài.</div></section>
-<section class="mr-new-panel"><h2>🎤 10 câu luyện nói</h2><p class="mr-new-hint">Nghe giọng Hàn, ghi âm và nghe lại trên máy. Câu chỉ thuộc bài hiện tại hoặc bài đã học trước; ghi âm không tải lên máy chủ.</p><div id="lessonSpeak"></div><a id="lessonSpeakingLink" class="mr-new-btn mr-new-inline" href="luyen-noi-tinh-diem.html">🎙️ Luyện nói tích điểm</a> <a id="lessonOldLink" class="mr-new-btn mr-new-inline" href="lo-trinh-1-6.html">📖 Xem giáo trình / lộ trình gốc</a></section>
-<section class="mr-new-panel"><h2>🧠 15 BỘ BÀI TẬP · MỖI BỘ 6 CÂU</h2><p class="mr-new-hint">Mỗi bộ là một bài tập độc lập: trắc nghiệm, ngữ pháp, nghe hiểu, đọc đoạn văn, chọn thứ tự câu. Tổng 90 câu/bài học.</p><div id="lessonWorkbook" class="mr-new-controls" style="align-items:stretch;display:flex;flex-wrap:wrap;gap:10px"></div><p class="mr-new-note">⭐ Bài tập 6 câu đạt từ 4 câu đúng được tính 4–6 điểm Spark; đạt 2 bộ khác nhau sẽ được thưởng thêm +3 điểm hoàn thành bài, một lần mỗi tuần. Cần tài khoản Firebase đã xác minh; điểm được cập nhật sau khi máy chủ chấm. <a href="quy-tac-diem-mrlee.html">Xem quy tắc</a>.</p><p id="lessonEarned" class="mr-new-note" role="status">Bài học có điểm thưởng từ Workbook được chấm. Chọn một bộ bên trên để bắt đầu.</p></section>
-<div class="mr-new-controls"><a class="mr-new-btn" id="lessonReturn" href="hoc-theo-bai.html">← Danh sách bài</a><a class="mr-new-btn primary" id="lessonNextLesson" href="hoc-theo-bai.html">Bài tiếp theo →</a></div>
-</div></main><footer class="mrlee-footer">© 2026 Tiếng Hàn Mr Lee · <a href="hoc-tieng-han.html">Học tiếng Hàn</a></footer><script type="module" src="mrlee-lesson-page.js?v=20261104-speaking-v3"></script><script defer src="mrlee-listening-plus.js?v=20261104-speaking-v3"></script>
+
+<div id="lessonContent" class="mr-new-hidden mr-lesson-layout">
+ <nav class="mr-lesson-jump" aria-label="Các phần của bài học"><a href="#lessonSectionVocab">I. Từ vựng</a><a href="#lessonSectionGrammar">II. Ngữ pháp</a><a href="#lessonSectionExamples">III. Ví dụ luyện tập</a><a href="#lessonSectionWorkbook">IV. Bài tập (Workbook)</a></nav>
+ <section class="mr-new-panel mr-lesson-section" id="lessonSectionVocab" aria-labelledby="mrLessonHeadingVocab">
+  <header class="mr-lesson-section-head"><span class="mr-lesson-index">01</span><div><h2 id="mrLessonHeadingVocab">I. Từ vựng</h2><p>Từ trọng tâm và mở rộng · Nghe giọng Hàn với tốc độ cố định 0,85×</p></div></header>
+  <details class="mr-lesson-fold" open><summary>Danh sách từ vựng <span class="mr-lesson-fold-note">Nhấn để thu gọn / mở rộng</span></summary><div class="mr-lesson-fold-body">
+   <h3 id="lessonVocabHeading">Từ vựng theo bài học</h3><p class="mr-new-hint" id="lessonVocabHint">Từ vựng theo từng bài học.</p><div id="lessonVocab"></div>
+  </div></details>
+ </section>
+ <section class="mr-new-panel mr-lesson-section" id="lessonSectionGrammar" aria-labelledby="mrLessonHeadingGrammar">
+  <header class="mr-lesson-section-head"><span class="mr-lesson-index">02</span><div><h2 id="mrLessonHeadingGrammar">II. Ngữ pháp</h2><p>Cấu trúc · Ý nghĩa · Cách dùng · Ví dụ có thể nghe trực tiếp</p></div></header>
+  <p class="mr-new-note" id="lessonTip"></p><div id="lessonGrammar"></div>
+ </section>
+ <section class="mr-new-panel mr-lesson-section" id="lessonSectionExamples" aria-labelledby="mrLessonHeadingExamples">
+  <header class="mr-lesson-section-head"><span class="mr-lesson-index">03</span><div><h2 id="mrLessonHeadingExamples">III. Ví dụ luyện tập</h2><p>10 câu mẫu · Nghe MP3 0,85× · Ghi âm và nhận điểm độ khớp phát âm</p></div></header>
+  <p class="mr-new-hint">Nghe và nhắc lại từng câu, sau đó chọn “Ghi âm &amp; chấm điểm”. Điểm là mức tương đồng giữa câu mẫu và kết quả nhận diện tiếng Hàn, không phải phép đo sinh trắc học giọng nói. Dịch vụ nhận diện của trình duyệt có thể xử lý âm thanh trực tuyến; website không lưu bản ghi lên máy chủ.</p>
+  <div id="lessonSpeak"></div><div class="mr-lesson-extra-links"><a id="lessonSpeakingLink" class="mr-new-btn mr-new-inline" href="luyen-noi-tinh-diem.html">🎙️ Luyện nói tích điểm</a><a id="lessonOldLink" class="mr-new-btn mr-new-inline" href="lo-trinh-1-6.html">📖 Xem giáo trình / lộ trình gốc</a></div>
+ </section>
+ <section class="mr-new-panel mr-lesson-section" id="lessonSectionWorkbook" aria-labelledby="mrLessonHeadingWorkbook">
+  <header class="mr-lesson-section-head"><span class="mr-lesson-index">04</span><div><h2 id="mrLessonHeadingWorkbook">IV. Bài tập (Workbook)</h2><p>15 bộ bài tập · 6 câu/bộ · Có thể thu gọn theo nhóm</p></div></header>
+  <p class="mr-new-hint">Chọn bộ bài tập để luyện từ vựng, ngữ pháp, nghe hiểu và đọc hiểu. Điểm Spark được tính theo quy tắc hệ thống.</p>
+  <div id="lessonWorkbook" class="mr-new-controls"></div>
+  <p class="mr-new-note">⭐ Bài tập 6 câu đạt từ 4 câu đúng được tính 4–6 điểm Spark; đạt 2 bộ khác nhau sẽ được thưởng thêm +3 điểm hoàn thành bài, một lần mỗi tuần. Cần tài khoản Firebase đã xác minh; điểm được cập nhật sau khi máy chủ chấm. <a href="quy-tac-diem-mrlee.html">Xem quy tắc</a>.</p>
+  <p id="lessonEarned" class="mr-new-note" role="status">Chọn một bộ Workbook bên trên để bắt đầu.</p>
+ </section>
+ <p class="mr-new-note" id="lessonContentNote">Nội dung bổ trợ và lưu ý cho từng bài.</p>
+ <div class="mr-new-controls mr-lesson-navigation"><a class="mr-new-btn" id="lessonReturn" href="hoc-theo-bai.html">← Danh sách bài</a><a class="mr-new-btn primary" id="lessonNextLesson" href="hoc-theo-bai.html">Bài tiếp theo →</a></div>
+</div></main><footer class="mrlee-footer">© 2026 Tiếng Hàn Mr Lee · <a href="hoc-tieng-han.html">Học tiếng Hàn</a></footer><script type="module" src="mrlee-lesson-page.js?v=20261117-lesson-v1"></script><script defer src="mrlee-listening-plus.js?v=20261117-lesson-v1"></script><script defer src="assets/branding/lesson-structure-v1.js?v=20261117-1"></script>
 <script type="module" src="auth-guard.js"></script>
 <link rel="stylesheet" href="assets/v31/lesson-practice.css?v=31.0"><script type="module" src="assets/v31/lesson-practice.js?v=31.0"></script><link rel="stylesheet" href="assets/v31/premium-gallery.css?v=31.0"><script defer src="assets/v31/premium-gallery.js?v=31.0"></script>
 <!-- MR LEE contact V5: native HTML, visible even if contact JavaScript does not load. -->
