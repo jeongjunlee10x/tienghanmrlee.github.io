@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07142a">
+<meta name="description" content="GOOSE MYSTERY PvP — game suy luận xã hội nhiều người chơi, có vai trò bí mật, nhiệm vụ tiếng Hàn và bỏ phiếu.">
+<title>GOOSE MYSTERY PvP | MR LEE GAME ARENA</title>
+<link rel="icon" href="assets/branding/logo-mrlee.png">
+<link rel="stylesheet" href="assets/arena/goose-pvp.css?v=20261117-v1">
+<script type="module" src="assets/arena/goose-pvp.js?v=20261117-v1"></script>
+</head>
+<body>
+<header class="gm-header"><a class="gm-logo" href="mrlee-game-arena.html">🪿 <strong>MR LEE</strong><span>GOOSE MYSTERY</span></a><div class="gm-headerlinks"><span id="gmOnline" class="gm-indicator">Đang kiểm tra máy chủ…</span><a href="game-goose-mystery.html">🤖 Đấu máy</a><a href="mrlee-game-arena.html">← Game Arena</a></div></header>
+<main class="gm-shell">
+<section class="gm-hero"><span class="gm-eyebrow">MR LEE GAME ARENA · PHÒNG THỜI GIAN THỰC</span><h1>GOOSE <em>MYSTERY</em> <span>PvP</span></h1><p>Phân vai bí mật · Di chuyển bản đồ · Làm nhiệm vụ tiếng Hàn · Báo cáo & bỏ phiếu. Chơi bằng điện thoại hoặc máy tính.</p></section>
+<div id="gmAlert" class="gm-alert" role="status" aria-live="polite">Đang kết nối…</div>
+<section id="gmLobby" class="gm-lobby">
+<div class="gm-panel gm-entry"><h2>🎮 Vào phòng chơi</h2><p>Đăng nhập tài khoản MR LEE đã xác minh email để tạo và tham gia phòng PvP. Không trừ G.</p>
+<label for="gmPlayerName">Tên hiển thị</label><input id="gmPlayerName" maxlength="24" autocomplete="nickname" value="Học viên MR LEE" placeholder="Nhập tên nhân vật">
+<div class="gm-buttons"><button id="gmQuick" class="gm-primary">⚡ Ghép phòng nhanh</button><button id="gmCreate" class="gm-secondary">🔒 Tạo phòng riêng</button><button id="gmCreatePublic" class="gm-secondary">🌐 Tạo phòng công khai</button></div>
+<div class="gm-inline"><label for="gmJoinCode">Mã phòng</label><input id="gmJoinCode" maxlength="8" placeholder="ABCD2345" autocapitalize="characters" spellcheck="false"><button id="gmJoin">Tham gia →</button></div>
+<p class="gm-muted">Chỉ chủ phòng bắt đầu khi có từ 4 đến 16 người và tất cả đã sẵn sàng. Không có cược tiền thật.</p>
+<a id="gmSignIn" href="dang-nhap.html">🔑 Đăng nhập hoặc xác minh tài khoản</a></div>
+<div class="gm-panel gm-browse"><div class="gm-line"><h2>🌐 Phòng công khai</h2><button id="gmRefreshRooms">↻ Làm mới</button></div><div id="gmRoomList" class="gm-roomlist"><p>Đang tải danh sách phòng…</p></div></div>
+</section>
+<section id="gmRoom" class="gm-room" hidden>
+<div class="gm-panel gm-roombar"><div><span class="gm-eyebrow">PHÒNG TRỰC TUYẾN</span><h2>Mã: <span id="gmCode">—</span></h2><span id="gmPhase">Đang chờ</span></div><div class="gm-buttons"><button id="gmCopy">📋 Sao chép mã/mời</button><button id="gmLeave" class="gm-danger">↩ Rời phòng</button></div></div>
+<section id="gmWaiting" class="gm-panel gm-waiting"><div class="gm-line"><h2>👥 Danh sách thành viên</h2><span id="gmReadyCount">0/16</span></div><div id="gmWaitingPlayers" class="gm-player-grid"></div>
+<div class="gm-buttons"><button id="gmReady" class="gm-primary">✓ Sẵn sàng</button><button id="gmStart" class="gm-primary">▶ Bắt đầu trận</button><button id="gmLock">🔓 Khóa phòng</button></div><p class="gm-muted">Chủ phòng không thể bắt đầu nếu thiếu người hoặc chưa đủ lượt sẵn sàng.</p></section>
+<section id="gmMatch" hidden class="gm-match">
+<div class="gm-stage-card"><div class="gm-stagebar"><span id="gmMyRole">Vai trò: —</span><span id="gmPlayerCount">—</span><span id="gmTime">—</span></div>
+<canvas id="gmMap" width="960" height="610" aria-label="Bản đồ đấu nhiều người chơi Goose Mystery"></canvas>
+<div class="gm-actions"><button id="gmTask" class="gm-primary">⚙ Nhiệm vụ · E</button><button id="gmKill" class="gm-danger">⚡ Hạ gục · K</button><button id="gmReport">📣 Báo cáo · R</button><button id="gmEmergency">🔔 Họp khẩn · H</button><button id="gmFullscreen">⛶ Toàn màn hình</button></div>
+<div class="gm-pad" id="gmPad"><span></span><button data-gm-move="up">▲</button><span></span><button data-gm-move="left">◀</button><button data-gm-move="down">▼</button><button data-gm-move="right">▶</button></div>
+</div>
+<aside class="gm-panel gm-sidebar"><h2>📡 Nhiệm vụ & trạng thái</h2><div class="gm-progressbar"><div id="gmProgress"></div></div><p id="gmProgressText">0 / 0</p><div id="gmTasks"></div><h3>Nhân vật trong trận</h3><div id="gmPlayers"></div><p class="gm-muted">WASD hoặc phím mũi tên để di chuyển. Trên điện thoại dùng nút điều hướng.</p></aside>
+</section>
+<section id="gmMeeting" class="gm-panel gm-meeting" hidden aria-label="Thảo luận và bỏ phiếu">
+<div class="gm-line"><h2>🗳️ Họp khẩn & bỏ phiếu</h2><span id="gmMeetingTimer">00:45</span></div>
+<p>Thảo luận với người chơi còn sống rồi chọn người bị nghi ngờ. Mỗi người chỉ được bỏ một phiếu.</p>
+<div id="gmBallot" class="gm-ballot"></div>
+<div class="gm-chat"><div id="gmChatLog" class="gm-chatlog" aria-live="polite"></div><div class="gm-inline"><input id="gmChatText" maxlength="160" placeholder="Nhắn tin trong cuộc họp…"><button id="gmSend">Gửi</button></div></div>
+</section>
+<section id="gmResult" class="gm-panel gm-results" hidden><h2 id="gmResultTitle">Kết thúc</h2><p id="gmResultReason"></p><button class="gm-primary" id="gmRematch">↻ Chơi ván tiếp</button></section>
+</section>
+<footer class="gm-footnote">GOOSE MYSTERY là trò chơi riêng do MR LEE phát triển. Không sao chép nhân vật hoặc tài nguyên của Goose Goose Duck. Phiên bản PvP dùng kết nối máy chủ, không hoạt động ngoại tuyến.</footer>
+</main>
+<dialog id="gmPuzzle" aria-labelledby="gmPuzzleTitle"><div class="gm-puzzle"><h2 id="gmPuzzleTitle">⚙ Nhiệm vụ</h2><p>Chọn các cụm tiếng Hàn theo đúng thứ tự nghĩa tiếng Việt.</p><strong id="gmPuzzleWords"></strong><p id="gmPuzzleStep"></p><div id="gmPuzzleOptions" class="gm-puzzle-options"></div><button id="gmPuzzleClose">Đóng nhiệm vụ</button></div></dialog>
+</body></html>
