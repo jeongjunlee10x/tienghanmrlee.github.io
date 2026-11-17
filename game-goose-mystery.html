@@ -62,7 +62,7 @@ const $=id=>document.getElementById(id),cv=$('stage'),ctx=cv.getContext('2d');
 const W=960,H=610,keys=new Set(),walls=[
 {x:260,y:90,w:28,h:165},{x:260,y:350,w:28,h:160},{x:650,y:90,w:28,h:170},{x:650,y:352,w:28,h:160},
 {x:360,y:180,w:210,h:25},{x:360,y:408,w:210,h:25},{x:95,y:270,w:150,h:24},{x:715,y:270,w:150,h:24}];
-const taskDefs=[{x:125,y:125,n:'Sửa máy phát điện'},{x:470,y:110,n:'Kiểm tra radar'},{x:815,y:135,n:'Phân loại hồ sơ'},{x:145,y:475,n:'Kết nối điện'},{x:470,y:520,n:'Hiệu chỉnh thiết bị'},{x:810,y:465,n:'Bảo trì hệ thống'}];
+const taskDefs=[{x:530,y:310,n:'Khởi động liên lạc'},{x:470,y:110,n:'Kiểm tra radar'},{x:815,y:135,n:'Phân loại hồ sơ'},{x:145,y:475,n:'Kết nối điện'},{x:470,y:520,n:'Hiệu chỉnh thiết bị'},{x:810,y:465,n:'Bảo trì hệ thống'}];
 const palette=['#79e2fb','#ffd96a','#ffa3ca','#ac9bff','#83e5a3','#ff996e','#d4ebfa'];
 let me=null,bots=[],tasks=[],bodies=[],phase='intro',role='good',elapsed=0,meetingUsed=false,kills=0,last=0,cooldown=0,message='',messageAt=0,gameSerial=0,activeTask=null,taskIndex=0,taskChallenge=[],botReportLock=0;
 const rnd=(a,b)=>a+Math.random()*(b-a),dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
