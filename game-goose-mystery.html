@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Goose Mystery | MR LEE GAME ARENA</title>
+<meta name="description" content="Bản thử nghiệm Goose Mystery: game suy luận xã hội do MR LEE phát triển độc lập.">
+<link rel="icon" href="assets/branding/logo-mrlee.png">
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#0b1022;color:#f4f7ff}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 60% 0,#233967 0,#0b1022 64%)}
+a{color:#91e5ff}button,input{font:inherit}button{border:1px solid #ffffff29;background:#243858;color:white;border-radius:13px;padding:12px 16px;cursor:pointer;font-weight:750}button:hover:not(:disabled){background:#376188}button:disabled{opacity:.4;cursor:not-allowed}
+button.primary{background:#20a992;color:#061e25;border-color:#60edd5}button.danger{background:#9b314b;border-color:#f58ea2}
+header{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px max(15px,calc((100vw - 1150px)/2));border-bottom:1px solid #ffffff1a}
+.brand{font-size:1.1rem;font-weight:900;letter-spacing:.07em}.brand span{color:#66e9d0}
+.wrap{max-width:1150px;margin:18px auto;padding:0 15px}h1{font-size:clamp(1.9rem,4vw,3rem);margin:7px 0}p{color:#c4d1ea}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:16px}
+.panel{background:#111b35e8;border:1px solid #ffffff25;border-radius:20px;box-shadow:0 15px 45px #0003;overflow:hidden}
+.topline{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;padding:12px 15px}.pill{background:#243550;border-radius:30px;padding:7px 11px;font-size:.84rem;font-weight:750}
+#stage{width:100%;aspect-ratio:960/610;display:block;background:#0c1d36;touch-action:none}
+.actions{display:flex;gap:8px;flex-wrap:wrap;padding:12px}#status{color:#a1f2df;margin:0;padding:0 15px 14px;min-height:30px}
+.aside{padding:17px}h2{font-size:1.08rem;margin:0 0 14px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}.stat{background:#1e2f50;padding:11px;border-radius:12px}.stat b{display:block;font-size:1.2rem;color:#93f3df}.stat small{color:#b6c9e4}
+progress{width:100%;height:14px;accent-color:#38d5ac}.task{padding:10px 12px;border-radius:12px;margin:7px 0;background:#1d2e4b;font-size:.87rem}.task.done{opacity:.55;text-decoration:line-through}
+.controls{font-size:.89rem;line-height:1.65;color:#c0d0e9}
+#joystick{display:none;grid-template-columns:repeat(3,45px);gap:5px;justify-content:center;margin:8px auto 0}
+#joystick button{padding:8px 0;touch-action:none;user-select:none}
+#overlay{position:fixed;inset:0;background:#030a1dc9;display:grid;place-items:center;padding:16px;z-index:5}
+#overlay[hidden]{display:none}.modal{width:min(560px,100%);max-height:90vh;overflow:auto;background:#172544;border:1px solid #7899c073;border-radius:24px;padding:24px;box-shadow:0 30px 90px #0009}
+.modal h2{font-size:1.5rem}.modal p{line-height:1.6}.modal button{margin:4px}.vote-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.vote-list button{text-align:left}.hint{font-size:.79rem;color:#a5b8d7}
+@media(max-width:800px){.grid{grid-template-columns:1fr}.aside{order:2}#joystick{display:grid}header{padding:13px 15px}.wrap{margin:10px auto}.actions button{flex:1;padding:11px 7px}}
+</style>
+<link rel="stylesheet" href="assets/arena/goose-mystery-v2.css?v=20261117-2">
+</head>
+<body>
+<header><div class="brand">🪿 <span>MR LEE</span> · GOOSE MYSTERY</div><a href="mrlee-game-arena.html">← Game Arena</a></header>
+<main class="wrap">
+<div class="topline"><div><h1>GOOSE MYSTERY</h1><p style="margin:0">Suy luận · Nhiệm vụ · Bỏ phiếu · Phiên bản thử nghiệm độc lập</p></div><span class="pill">SOLO + BOT · CHƯA CÓ PvP</span></div>
+<div class="grid">
+<section class="panel" aria-label="Bản đồ game">
+<div class="topline"><span class="pill" id="roleTag">Vai trò: —</span><span class="pill" id="roundTag">Chưa bắt đầu</span><span class="pill" id="aliveTag">0 người</span></div>
+<canvas id="stage" width="960" height="610" aria-label="Bản đồ nhân vật nhìn từ trên xuống"></canvas>
+<p class="gm-scene-tip">✨ Đến gần trạm phát sáng rồi nhấn E để giải nhiệm vụ. Phím H dùng họp khẩn một lần.</p>
+<div class="actions"><button class="primary" id="actTask">⚙ Làm nhiệm vụ (E)</button><button class="danger" id="actKill">⚡ Hạ gục (K)</button><button id="actReport">📣 Báo cáo (R)</button><button id="actMeeting">🔔 Họp khẩn</button><button id="actFull">⛶ Toàn màn hình</button></div>
+<div id="joystick" aria-label="Điều khiển cảm ứng"><span></span><button data-move="up">▲</button><span></span><button data-move="left">◀</button><button data-move="down">▼</button><button data-move="right">▶</button></div>
+<p id="status" aria-live="polite">Chọn bắt đầu để vào trận.</p>
+</section>
+<aside class="panel aside">
+<h2>📡 Trạng thái trận đấu</h2><div class="stats"><div class="stat"><b id="players">—</b><small>Còn sống</small></div><div class="stat"><b id="time">00:00</b><small>Thời gian</small></div></div>
+<p style="margin-bottom:6px">Tiến độ nhiệm vụ</p><progress id="taskProgress" max="6" value="0"></progress>
+<div id="tasks"></div>
+<h2 style="margin-top:22px">🎮 Điều khiển</h2><div class="controls">W A S D / phím mũi tên: di chuyển<br>E: nhiệm vụ · K: hạ gục (vai phản diện)<br>R: báo cáo thi thể · H: họp khẩn<br>Điện thoại: nút hướng và nút hành động.</div>
+<p class="hint">Bản thử nghiệm dùng bot mô phỏng trong trình duyệt, không có kết nối phòng thật, không tiêu G và không ảnh hưởng dữ liệu tài khoản.</p>
+<div id="gmMode"><label for="gmRole">Luyện tập vai trò</label><select id="gmRole" aria-label="Chọn phe chơi"><option value="random">🎲 Ngẫu nhiên</option><option value="good">🪽 Phe tốt</option><option value="bad">🕵️ Kẻ phá hoại</option></select></div>
+<div class="gm-hint-banner"><span>🌌 Bản đồ điều hướng</span><span>⚙ 6 nhiệm vụ</span><span>🎭 2 phe</span></div>
+<button id="newGame" style="width:100%;margin-top:12px">↻ Ván mới</button>
+</aside>
+</div></main>
+<div id="overlay"><div class="modal" id="modal"><h2>🪿 GOOSE MYSTERY</h2><p>Hoàn thành nhiệm vụ để phe tốt chiến thắng, hoặc tìm và loại kẻ phá hoại qua các cuộc họp. Nếu là kẻ phá hoại, hãy bí mật loại những người còn lại.</p><p><strong>Đây là bản chơi thử một người với bot.</strong> Nhân vật, bản đồ và mã trò chơi được xây dựng riêng, không sử dụng tài sản của Goose Goose Duck.</p><button class="primary" id="start">▶ Bắt đầu</button></div></div>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id),cv=$('stage'),ctx=cv.getContext('2d');
+const W=960,H=610,keys=new Set(),walls=[
+{x:260,y:90,w:28,h:165},{x:260,y:350,w:28,h:160},{x:650,y:90,w:28,h:170},{x:650,y:352,w:28,h:160},
+{x:360,y:180,w:210,h:25},{x:360,y:408,w:210,h:25},{x:95,y:270,w:150,h:24},{x:715,y:270,w:150,h:24}];
+const taskDefs=[{x:530,y:310,n:'Khởi động liên lạc'},{x:470,y:110,n:'Kiểm tra radar'},{x:815,y:135,n:'Phân loại hồ sơ'},{x:145,y:475,n:'Kết nối điện'},{x:470,y:520,n:'Hiệu chỉnh thiết bị'},{x:810,y:465,n:'Bảo trì hệ thống'}];
+const palette=['#79e2fb','#ffd96a','#ffa3ca','#ac9bff','#83e5a3','#ff996e','#d4ebfa'];
+let me=null,bots=[],tasks=[],bodies=[],phase='intro',role='good',elapsed=0,meetingUsed=false,kills=0,last=0,cooldown=0,message='',messageAt=0,gameSerial=0,activeTask=null,taskIndex=0,taskChallenge=[],botReportLock=0;
+const rnd=(a,b)=>a+Math.random()*(b-a),dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+const alive=()=>[me,...bots].filter(p=>p.alive);
+const badAlive=()=>alive().filter(p=>p.bad);
+const goodAlive=()=>alive().filter(p=>!p.bad);
+const say=t=>{message=t;messageAt=performance.now();$('status').textContent=t};
+const hit=(x,y,r=20)=>x<46+r||x>W-46-r||y<46+r||y>H-46-r||walls.some(o=>x+r>o.x&&x-r<o.x+o.w&&y+r>o.y&&y-r<o.y+o.h);
+function move(p,dx,dy,dt){const mul=Math.min(dt,.05)*p.speed;let x=p.x+dx*mul,y=p.y+dy*mul;if(dx&&Math.abs(dx)>.15)p.facing=dx<0?-1:1;if(!hit(x,p.y))p.x=x;if(!hit(p.x,y))p.y=y}
+function newGame(){
+ gameSerial++;const choice=$('gmRole').value;role=choice==='random'?(Math.random()<.28?'bad':'good'):choice;elapsed=0;meetingUsed=false;kills=0;cooldown=0;botReportLock=5;activeTask=null;taskChallenge=[];taskIndex=0;keys.clear();
+ me={x:470,y:310,c:palette[0],name:'BẠN',alive:true,bad:role==='bad',speed:185};
+ const pos=[[140,185],[800,185],[145,420],[800,425],[455,270],[540,335]];
+ bots=pos.map((p,i)=>({x:p[0],y:p[1],c:palette[i+1],name:'BOT '+(i+1),alive:true,bad:false,speed:rnd(75,105),tx:p[0],ty:p[1],think:0,act:rnd(13,17)}));
+ if(role==='good')bots[Math.floor(Math.random()*bots.length)].bad=true;
+ tasks=taskDefs.map(t=>({...t,done:false}));bodies=[];phase='play';$('overlay').hidden=true;
+ $('roleTag').textContent=role==='good'?'🪽 Bạn là NGỖNG (phe tốt)':'🕵️ Bạn là KẺ PHÁ HOẠI';
+ $('actKill').hidden=role!=='bad';$('actTask').hidden=role==='bad';
+ say(role==='good'?'Hoàn thành 6 nhiệm vụ và tìm kẻ phá hoại.':'Ẩn danh tính, hạ người chơi khác để chiến thắng.');
+ update();last=performance.now();
+}
+function update(){
+ $('players').textContent=alive().length+'/'+(bots.length+1);
+ $('aliveTag').textContent=alive().length+' nhân vật còn sống';
+ $('time').textContent=String(Math.floor(elapsed/60)).padStart(2,'0')+':'+String(Math.floor(elapsed%60)).padStart(2,'0');
+ $('roundTag').textContent=phase==='play'?'Đang chơi':phase==='meeting'?'Đang họp':'Kết thúc';
+ $('taskProgress').value=tasks.filter(t=>t.done).length;
+ $('tasks').replaceChildren(...tasks.map(t=>{let el=document.createElement('div');el.className='task'+(t.done?' done':'');el.textContent=(t.done?'✓ ':'○ ')+t.n;return el}));
+ $('actMeeting').disabled=phase!=='play'||meetingUsed||!me.alive;
+ $('actTask').disabled=phase!=='play'||!me.alive;
+ $('actKill').disabled=phase!=='play'||!me.alive||cooldown>0;
+ $('actReport').disabled=phase!=='play'||!me.alive;
+}
+function nearby(list,r){return list.filter(a=>dist(me,a)<r).sort((a,b)=>dist(me,a)-dist(me,b))[0]}
+const phrasePool=[
+ {ko:'안녕하세요',vi:'Xin chào'},{ko:'감사합니다',vi:'Cảm ơn'},{ko:'죄송합니다',vi:'Xin lỗi'},
+ {ko:'네',vi:'Vâng'},{ko:'아니요',vi:'Không'},{ko:'괜찮아요',vi:'Không sao'},
+ {ko:'안녕히 가세요',vi:'Tạm biệt (người đi)'},{ko:'잘 먹겠습니다',vi:'Tôi sẽ ăn ngon miệng'}
+];
+const shuffle=list=>{const a=[...list];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function doTask(){
+ if(phase!=='play'||!me.alive||role!=='good')return;
+ const t=nearby(tasks.filter(t=>!t.done),68);
+ if(!t){say('Hãy đến gần trạm nhiệm vụ phát sáng.');return}
+ phase='task';activeTask=t;taskIndex=0;taskChallenge=shuffle(phrasePool).slice(0,3);
+ keys.clear();drawTaskPuzzle();$('overlay').hidden=false;update();
+}
+function drawTaskPuzzle(){
+ if(phase!=='task'||!activeTask)return;
+ const box=$('modal');box.replaceChildren();
+ const heading=document.createElement('h2');heading.textContent='⚙ '+activeTask.n;box.append(heading);
+ const p=document.createElement('p');p.textContent='Chọn cụm từ tiếng Hàn tương ứng theo đúng thứ tự tiếng Việt:';box.append(p);
+ const words=document.createElement('p');words.className='gm-puzzle-step';
+ words.textContent=taskChallenge.map(t=>t.vi).join(' → ');box.append(words);
+ const meter=document.createElement('p');meter.className='hint';meter.textContent='Hoàn thành '+taskIndex+'/3 · Chọn đúng cả 3 để sửa trạm.';box.append(meter);
+ const answers=document.createElement('div');answers.className='gm-puzzle-answers';
+ for(const item of shuffle(taskChallenge)){
+   const btn=document.createElement('button');btn.textContent=item.ko;
+   btn.onclick=()=>{
+    if(phase!=='task')return;
+    if(item!==taskChallenge[taskIndex]){taskIndex=0;say('Chưa đúng! Thử lại từ đầu.');drawTaskPuzzle();return}
+    taskIndex++;
+    if(taskIndex===taskChallenge.length){
+      activeTask.done=true;const name=activeTask.n;activeTask=null;taskChallenge=[];phase='play';
+      $('overlay').hidden=true;say('✅ Hoàn thành nhiệm vụ: '+name);update();check();
+    }else{say('✅ Chính xác! Tiếp tục.');drawTaskPuzzle()}
+   };answers.append(btn);
+ }
+ box.append(answers);
+ const leave=document.createElement('button');leave.textContent='← Quay lại bản đồ';leave.onclick=()=>{phase='play';activeTask=null;taskChallenge=[];keys.clear();$('overlay').hidden=true;update()};box.append(leave);
+}
+function eliminate(){if(phase!=='play'||role!=='bad'||!me.alive)return;if(cooldown>0){say('Còn '+Math.ceil(cooldown)+' giây hồi chiêu.');return}
+ const t=nearby(bots.filter(p=>p.alive&&!p.bad),66);if(!t){say('Cần đứng gần mục tiêu.');return}t.alive=false;bodies.push({x:t.x,y:t.y,name:t.name});cooldown=13;kills++;say('Đã hạ '+t.name+'. Tránh để bị phát hiện!');check();update()}
+function report(){if(phase!=='play'||!me.alive)return;const b=nearby(bodies,88);if(!b){say('Không tìm thấy người bị hạ ở gần.');return}meeting('📣 Phát hiện '+b.name+' bị hạ!')}
+function meeting(title){
+ if(phase!=='play'||!me.alive)return;phase='meeting';keys.clear();update();
+ const candidates=alive(),box=$('modal');box.replaceChildren();
+ const h=document.createElement('h2');h.textContent=title;box.append(h);
+ const p=document.createElement('p');p.textContent='Chọn một người để bỏ phiếu. Phiếu của bot được mô phỏng ngẫu nhiên; không có người chơi trực tuyến.';box.append(p);
+ const list=document.createElement('div');list.className='vote-list';
+ for(const a of candidates){const btn=document.createElement('button');btn.textContent=a.name+(a===me?' (Bạn)':'');btn.onclick=()=>vote(a);list.append(btn)}
+ const skip=document.createElement('button');skip.textContent='Bỏ qua bỏ phiếu';skip.onclick=()=>vote(null);list.append(skip);box.append(list);$('overlay').hidden=false;
+}
+function vote(pick){
+ if(phase!=='meeting')return;
+ let candidates=alive(),votes=new Map(candidates.map(c=>[c,0]));
+ if(pick)votes.set(pick,1);
+ for(const voter of candidates.filter(c=>c!==me)){if(Math.random()<.22)continue;const target=candidates.filter(c=>c!==voter);const guess=target[Math.floor(Math.random()*target.length)];votes.set(guess,(votes.get(guess)||0)+1)}
+ const entries=[...votes.entries()].sort((a,b)=>b[1]-a[1]),top=entries[0];
+ let ejected=top&&top[1]>1&&(!entries[1]||top[1]>entries[1][1])?top[0]:null;
+ if(ejected)ejected.alive=false;bodies=[];phase='vote_result';check();if(phase==='end')return;update();
+ const box=$('modal');box.replaceChildren();const h=document.createElement('h2');h.textContent='🗳️ Kết quả bỏ phiếu';box.append(h);
+ const p=document.createElement('p');p.textContent=ejected?ejected.name+' bị loại. '+(ejected.bad?'Đó là kẻ phá hoại!':'Đó là người vô tội!'):'Không đủ phiếu để loại ai.';box.append(p);
+ if(phase!=='end'){const go=document.createElement('button');go.className='primary';go.textContent='Tiếp tục';go.onclick=()=>{phase='play';$('overlay').hidden=true;update()};box.append(go)}
+ else{const go=document.createElement('button');go.className='primary';go.textContent='Chơi ván mới';go.onclick=newGame;box.append(go)}
+}
+function finish(win,why){phase='end';keys.clear();update();const box=$('modal');box.replaceChildren();let h=document.createElement('h2');h.textContent=(win?'🏆 CHIẾN THẮNG':'💀 THẤT BẠI');box.append(h);
+ const p=document.createElement('p');p.textContent=why;box.append(p);const b=document.createElement('button');b.className='primary';b.textContent='↻ Chơi lại';b.onclick=newGame;box.append(b);$('overlay').hidden=false}
+function check(){
+ if(!['play','meeting','vote_result'].includes(phase))return;
+ if(!me.alive){finish(false,role==='good'?'Bạn đã bị hạ. Phe tốt cần cảnh giác hơn!':'Bạn đã bị bỏ phiếu loại.');return}
+ if(role==='good'){
+ if(!badAlive().length)finish(true,'Tất cả kẻ phá hoại đã bị loại.');
+ else if(tasks.every(t=>t.done))finish(true,'Toàn bộ nhiệm vụ đã hoàn thành.');
+ else if(goodAlive().length<=badAlive().length)finish(false,'Phe phá hoại đã chiếm ưu thế.');
+ }else{
+ if(goodAlive().length<=badAlive().length)finish(true,'Phe phá hoại đã chiếm ưu thế.');
+ }
+}
+function tick(dt){
+ if(phase!=='play')return;elapsed+=dt;cooldown=Math.max(0,cooldown-dt);botReportLock=Math.max(0,botReportLock-dt);
+ if(me.alive){let dx=Number(keys.has('right')||keys.has('d'))-Number(keys.has('left')||keys.has('a'));let dy=Number(keys.has('down')||keys.has('s'))-Number(keys.has('up')||keys.has('w'));if(dx||dy){let n=Math.hypot(dx,dy);move(me,dx/n,dy/n,dt)}}
+ for(const b of bots){if(!b.alive)continue;b.think-=dt;b.act-=dt;
+ if(b.think<=0||dist(b,{x:b.tx,y:b.ty})<25){b.tx=rnd(75,W-75);b.ty=rnd(75,H-75);b.think=rnd(1,3)}
+ let dx=b.tx-b.x,dy=b.ty-b.y,n=Math.hypot(dx,dy);const oldX=b.x,oldY=b.y;if(n>8)move(b,dx/n,dy/n,dt);
+ if(n>8&&Math.hypot(b.x-oldX,b.y-oldY)<.2)b.think=0;
+ if(!b.bad&&botReportLock<=0&&bodies.length){
+  const seen=bodies.find(body=>dist(b,body)<78);
+  if(seen){botReportLock=22;meeting('📣 '+b.name+' phát hiện '+seen.name+' bị hạ!');break}
+ }
+ if(b.bad&&b.act<=0){const candidates=[me,...bots].filter(p=>p!==b&&p.alive&&!p.bad);
+ const victim=candidates.filter(p=>dist(p,b)<48)[0];
+ if(victim){victim.alive=false;bodies.push({x:victim.x,y:victim.y,name:victim.name});b.act=rnd(16,25);say('⚠ Có người mất tích! Hãy tìm và báo cáo.');check()}}
+ }
+ if(Math.floor(elapsed)!==Math.floor(elapsed-dt))update();
+}
+function rect(x,y,w,h,c){ctx.fillStyle=c;ctx.fillRect(x,y,w,h)}
+function tileRoom(x,y,w,h,color,name){
+ ctx.save();ctx.fillStyle=color;ctx.beginPath();ctx.roundRect(x,y,w,h,19);ctx.fill();
+ ctx.strokeStyle='#9adbed30';ctx.lineWidth=3;ctx.stroke();
+ ctx.font='700 15px system-ui';ctx.fillStyle='#caeeff8a';ctx.textAlign='left';ctx.fillText(name,x+18,y+28);ctx.restore();
+}
+function consoleStation(x,y){
+ ctx.save();ctx.translate(x,y);ctx.fillStyle='#101e37';ctx.beginPath();ctx.roundRect(-35,-19,70,38,9);ctx.fill();
+ ctx.strokeStyle='#83ecdf';ctx.lineWidth=3;ctx.stroke();ctx.fillStyle='#52ead6';ctx.fillRect(-25,-9,20,8);
+ ctx.fillStyle='#e5c97a';ctx.fillRect(8,-9,10,8);ctx.fillStyle='#a0b4dc';ctx.fillRect(-25,6,43,4);ctx.restore();
+}
+function drawPerson(p){
+ if(!p||!p.alive)return;
+ const bob=Math.sin(performance.now()*.007+p.x*.04+p.y*.02)*1.2;
+ ctx.save();ctx.translate(p.x,p.y+bob);
+ ctx.fillStyle='#04132394';ctx.beginPath();ctx.ellipse(0,26,23,8,0,0,Math.PI*2);ctx.fill();
+ ctx.scale(p.facing||1,1);
+ // Feet, plump body, wing, long neck and beak: original MR LEE goose silhouettes.
+ ctx.fillStyle='#ec9d48';ctx.fillRect(-9,18,6,12);ctx.fillRect(11,18,6,12);
+ ctx.fillStyle=p.c;ctx.strokeStyle='#09192e';ctx.lineWidth=2;
+ ctx.beginPath();ctx.ellipse(-1,5,23,20,-.18,0,Math.PI*2);ctx.fill();ctx.stroke();
+ ctx.beginPath();ctx.roundRect(6,-29,20,38,11);ctx.fill();ctx.stroke();
+ ctx.beginPath();ctx.arc(16,-27,15,0,Math.PI*2);ctx.fill();ctx.stroke();
+ ctx.fillStyle='#ffffff48';ctx.beginPath();ctx.ellipse(-8,4,10,12,-.4,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle='#e6a246';ctx.beginPath();ctx.moveTo(25,-28);ctx.lineTo(39,-23);ctx.lineTo(25,-18);ctx.closePath();ctx.fill();
+ ctx.fillStyle='#10233c';ctx.beginPath();ctx.arc(21,-33,3.7,0,Math.PI*2);ctx.fill();
+ ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(22,-34,1.1,0,Math.PI*2);ctx.fill();
+ if(p===me){ctx.strokeStyle='#f8fcd4';ctx.lineWidth=3;ctx.beginPath();ctx.arc(-1,2,26,-.2,1.3);ctx.stroke()}
+ ctx.restore();ctx.textAlign='center';ctx.font='800 13px system-ui';ctx.lineWidth=4;ctx.strokeStyle='#081a2d';
+ ctx.strokeText(p.name,p.x,p.y-43);ctx.fillStyle='#fff';ctx.fillText(p.name,p.x,p.y-43);
+}
+function draw(){
+ ctx.clearRect(0,0,W,H);
+ const bg=ctx.createLinearGradient(0,0,W,H);bg.addColorStop(0,'#0d2343');bg.addColorStop(.58,'#15416a');bg.addColorStop(1,'#0a2141');
+ rect(0,0,W,H,bg);
+ ctx.strokeStyle='#ffffff0c';ctx.lineWidth=1;
+ for(let x=40;x<W;x+=40)for(let y=40;y<H;y+=40)ctx.strokeRect(x,y,40,40);
+ const floor=ctx.createLinearGradient(40,42,920,568);floor.addColorStop(0,'#173b5d');floor.addColorStop(1,'#152c53');
+ rect(46,46,W-92,H-92,floor);
+ tileRoom(62,61,187,195,'#20475a','MÁY PHÁT ĐIỆN');
+ tileRoom(300,62,336,107,'#204360','RADAR');
+ tileRoom(688,62,209,195,'#32445d','LƯU TRỮ');
+ tileRoom(60,330,184,195,'#183e55','PHÒNG ĐIỆN');
+ tileRoom(301,439,337,95,'#28455f','TRUNG TÂM');
+ tileRoom(688,333,208,192,'#23445a','BẢO TRÌ');
+ ctx.strokeStyle='#7adbe55e';ctx.lineWidth=7;ctx.strokeRect(46,46,W-92,H-92);
+ for(const w of walls){ctx.fillStyle='#496987';ctx.fillRect(w.x,w.y,w.w,w.h);ctx.fillStyle='#9abbd6';ctx.fillRect(w.x+2,w.y+2,w.w-4,5)}
+ consoleStation(470,314);consoleStation(335,313);consoleStation(610,313);
+ const pulse=(Math.sin(performance.now()*.003)+1)/2;
+ for(const t of tasks){
+  ctx.beginPath();ctx.arc(t.x,t.y,28+pulse*5,0,Math.PI*2);
+  ctx.fillStyle=t.done?'#3b7b7660':'rgba(49,234,184,'+(.14+pulse*.13)+')';ctx.fill();
+  ctx.strokeStyle=t.done?'#6c9d94':'#68f4df';ctx.lineWidth=3;ctx.stroke();
+  ctx.font='bold 24px system-ui';ctx.textAlign='center';ctx.fillStyle='#fff';
+  ctx.fillText(t.done?'✓':'⚙',t.x,t.y+8);
+ }
+ for(const b of bodies){ctx.fillStyle='#07182d99';ctx.beginPath();ctx.arc(b.x,b.y,20,0,Math.PI*2);ctx.fill();ctx.font='29px system-ui';ctx.fillText('💀',b.x,b.y+10)}
+ for(const p of bots)drawPerson(p);if(me&&me.alive)drawPerson(me);
+ if(me&&me.alive){ctx.strokeStyle='#9ff5e25e';ctx.lineWidth=2;ctx.beginPath();ctx.arc(me.x,me.y,62,0,Math.PI*2);ctx.stroke()}
+}
+function frame(now){let dt=Math.min((now-last)/1000,.05);last=now;if(phase==='play')tick(dt);draw();requestAnimationFrame(frame)}
+function bindMove(button){let k=button.dataset.move;button.addEventListener('pointerdown',e=>{e.preventDefault();keys.add(k);button.setPointerCapture(e.pointerId)});for(const ev of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(ev,()=>keys.delete(k))}
+document.querySelectorAll('[data-move]').forEach(bindMove);
+document.addEventListener('keydown',e=>{if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].includes(e.key))e.preventDefault();const map={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'};keys.add(map[e.key]||e.key.toLowerCase());if(e.repeat)return;const k=e.key.toLowerCase();if(k==='e')doTask();if(k==='k')eliminate();if(k==='r')report();if(k==='h'&&phase==='play'&&!meetingUsed&&me.alive){meetingUsed=true;meeting('🔔 Họp khẩn cấp')}});
+document.addEventListener('keyup',e=>{const map={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'};keys.delete(map[e.key]||e.key.toLowerCase())});
+window.addEventListener('blur',()=>keys.clear());
+$('start').onclick=newGame;$('newGame').onclick=newGame;$('actTask').onclick=doTask;$('actKill').onclick=eliminate;$('actReport').onclick=report;
+$('actMeeting').onclick=()=>{if(phase==='play'&&me.alive&&!meetingUsed){meetingUsed=true;meeting('🔔 Họp khẩn cấp')}};
+$('actFull').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.().catch(()=>{});else document.exitFullscreen?.()};
+$('actKill').hidden=true;requestAnimationFrame(frame);
+})();
+</script>
+</body></html>

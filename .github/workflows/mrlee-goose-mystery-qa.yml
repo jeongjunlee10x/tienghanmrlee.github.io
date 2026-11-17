@@ -1,0 +1,40 @@
+name: MR LEE Goose Mystery Beta QA
+on:
+  pull_request:
+    paths:
+      - 'game-goose-mystery.html'
+      - 'mrlee-game-arena.html'
+      - 'assets/arena/goose-mystery-v2.css'
+      - 'tools/browser-goose-mystery.mjs'
+      - '.github/workflows/mrlee-goose-mystery-qa.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'game-goose-mystery.html'
+      - 'assets/arena/goose-mystery-v2.css'
+      - 'tools/browser-goose-mystery.mjs'
+  workflow_dispatch:
+jobs:
+  smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions: {contents: read}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Validate test script syntax
+        run: node --check tools/browser-goose-mystery.mjs
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install chromium --with-deps
+      - name: Browser smoke tests
+        run: node tools/browser-goose-mystery.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: goose-mystery-preview
+          path: artifacts/goose-mystery/*.png
+          retention-days: 14
+          if-no-files-found: ignore
