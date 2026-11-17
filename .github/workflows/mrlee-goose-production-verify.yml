@@ -1,0 +1,48 @@
+name: Goose Mystery — Verify Actual Cloudflare Production
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/mrlee-goose-production-verify.yml'
+      - 'game-goose-pvp.html'
+      - 'assets/arena/goose-pvp-skin.css'
+      - 'assets/arena/goose-space-hangar.svg'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  production:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - name: Wait for Cloudflare Pages and verify real new UI
+        shell: bash
+        run: |
+          set -euo pipefail
+          SITE=https://mrlee-b6a.pages.dev
+          ok=0
+          for attempt in $(seq 1 16); do
+            echo "Production attempt $attempt/16"
+            if curl -fsSL --max-time 15 "$SITE/game-goose-pvp.html?ui=cinematic-20261117" -o /tmp/goose-live.html &&
+               grep -q 'goose-pvp-skin.css?v=20261117-cinematic1' /tmp/goose-live.html &&
+               grep -q 'gmMapsPreview' /tmp/goose-live.html &&
+               curl -fsSL --max-time 15 "$SITE/assets/arena/goose-space-hangar.svg?v=20261117" -o /tmp/goose-live.svg &&
+               grep -q '<svg' /tmp/goose-live.svg &&
+               curl -fsSL --max-time 15 "$SITE/assets/arena/goose-pvp-skin.css?v=20261117" -o /tmp/goose-live.css &&
+               grep -q 'gm-map-preview' /tmp/goose-live.css; then
+              ok=1
+              echo "PASS: Cloudflare is serving new cinematic UI, 3-map gallery, SVG and CSS."
+              break
+            fi
+            sleep 12
+          done
+          if [ "$ok" -ne 1 ]; then
+            echo "::error::Cloudflare production still has an older Goose UI or missing assets."
+            exit 1
+          fi
+      - name: Verify actual Goose PvP backend health
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --max-time 20 \
+            'https://pkxqsboyotlyoizzxizb.supabase.co/functions/v1/mrlee-goose-pvp?action=health' \
+            -o /tmp/goose-health.json
+          node -e 'const h=require("/tmp/goose-health.json");if(h.ok!==true||h.service!=="goose-pvp")process.exit(1);console.log("PASS: Live Goose PvP backend healthy")'
