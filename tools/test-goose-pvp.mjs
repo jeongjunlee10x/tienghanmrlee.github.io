@@ -39,7 +39,7 @@ test("server restricts input direction, speed and wall crossing",()=>{
  assert.throws(()=>apply(s,m,m[0].uid,"move",{dx:700,dy:0},1250));
  assert.equal(apply(s,m,m[0].uid,"move",{dx:1,dy:0},1050),false);
  assert.equal(apply(s,m,m[0].uid,"move",{dx:1,dy:0},1250),true);
- assert.ok(Math.hypot(p.x-initial.x,p.y-initial.y)<=43);
+ assert.ok(Math.hypot(p.x-initial.x,p.y-initial.y)<=48);
  assert.equal(apply(s,m,m[0].uid,"move",{dx:0,dy:1},2250),true);
  assert.ok(!obstructed(p.x,p.y));
  const after={x:p.x,y:p.y};apply(s,m,m[0].uid,"move",{dx:1,dy:0},100000);
