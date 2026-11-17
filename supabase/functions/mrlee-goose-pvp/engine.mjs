@@ -145,7 +145,8 @@ export function apply(s,members,uid,action,data={},now=Date.now(),rand=randInt){
    throw ruleError("Nhiệm vụ không hợp lệ.",400);
   if(distance(p,STATIONS[station])>72)throw ruleError("Bạn chưa đứng gần trạm.");
   if(!p.task||p.task.station!==station){
-   p.task={station,index:0,order:shuffle(PHRASES.map((_,i)=>i),rand).slice(0,3)};
+   const order=shuffle(PHRASES.map((_,i)=>i),rand).slice(0,3);
+   p.task={station,index:0,order,choices:shuffle(order,rand)};
   }
   return true;
  }
@@ -217,7 +218,7 @@ export function view(s,members,uid,room){
  const task=me.task&&s.phase==="playing"?{
   station:me.task.station,index:me.task.index,
   sequence:me.task.order.map(id=>PHRASES[id].vi),
-  options:me.task.order.map(id=>PHRASES[id].ko)}:null;
+  options:me.task.choices.map(id=>PHRASES[id].ko)}:null;
  return {code:room.code,visibility:room.visibility,locked:room.locked,
    status:s.phase,version:room.version,serverTime:Date.now(),
    players:list,seat:me.seat,role:me.evil?"evil":"good",alive:me.alive,
