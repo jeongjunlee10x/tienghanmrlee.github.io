@@ -41,3 +41,21 @@ dialog::backdrop{background:#020b1bd4;backdrop-filter:blur(6px)}dialog h2{margin
 @media(max-width:850px){.gm-lobby,.gm-match{grid-template-columns:1fr}.gm-player-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.gm-pad{display:grid}.gm-panel{padding:14px}.gm-shell{padding:10px}.gm-stagebar{font-size:.75rem}.gm-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.gm-actions button{min-width:0}.gm-header{flex-wrap:wrap}}
 @media(max-width:440px){.gm-logo{font-size:.85rem}.gm-headerlinks{gap:8px}.gm-headerlinks .gm-indicator{font-size:.74rem}.gm-entry .gm-buttons button{flex:1}.gm-player-grid{grid-template-columns:1fr 1fr}.gm-chat .gm-inline{flex-wrap:nowrap}}
 @media(prefers-reduced-motion:reduce){*,*::after,*::before{transition:none!important;animation:none!important}}
+
+
+/* Larger worlds stay outside the viewport; camera pans, never scale the whole map to fit. */
+.gm-shell{max-width:1540px}
+.gm-match{grid-template-columns:minmax(0,1fr) minmax(232px,275px);gap:14px}
+.gm-stagebar{justify-content:flex-start;gap:10px 20px}
+#gmMap{display:block;width:100%;height:auto;aspect-ratio:960/610;image-rendering:auto}
+#gmMap:focus-visible{outline:3px solid #b6ffc2}
+#gmMapName{color:#72edd9;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gm-camera-help{font-size:.82rem;color:#bbd9e9;padding:5px 14px 8px;margin:0;background:#0b1c32}
+.gm-stage-card:fullscreen{display:flex;flex-direction:column;justify-content:center;background:#06162a}
+.gm-stage-card:fullscreen #gmMap{max-height:calc(100vh - 155px);object-fit:contain}
+@media(max-width:850px){
+ .gm-match{grid-template-columns:minmax(0,1fr)}
+ .gm-stagebar{font-size:.75rem;gap:7px}
+ #gmMapName{flex-basis:100%;order:-1}
+ .gm-camera-help{font-size:.73rem}
+}
