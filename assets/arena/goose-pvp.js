@@ -110,7 +110,13 @@ async function reloadRooms(){
  try{
   const data=await api("list",{},"GET");lastRoomListAt=Date.now();
   const el=$("gmRoomList");el.replaceChildren();
-  if(!data.rooms.length){const p=document.createElement("p");p.textContent="Chưa có phòng công khai. Có thể tạo một phòng mới.";el.append(p);return}
+  if(!data.rooms.length){
+   const wrap=document.createElement("div");wrap.className="gm-no-rooms";
+   const art=document.createElement("span");art.className="radar";art.textContent="📡";
+   const title=document.createElement("strong");title.textContent="Chưa có phòng công khai";
+   const desc=document.createElement("span");desc.textContent="Tạo phòng mới hoặc dùng ghép phòng nhanh để mời bạn bè.";
+   wrap.append(art,title,desc);el.append(wrap);return
+  }
   for(const r of data.rooms){
    const div=document.createElement("div");div.className="gm-roomitem";
    const text=document.createElement("div");
@@ -145,10 +151,20 @@ function makeText(tag,value,className=""){
 function renderWaiting(){
  $("gmWaitingPlayers").replaceChildren();
  const list=room.players||[];
- $("gmReadyCount").textContent=list.filter(p=>p.ready).length+" / "+list.length+" sẵn sàng";
+ $("gmReadyCount").textContent=list.filter(p=>p.ready).length+" / "+list.length+" sẵn sàng · "+list.length+"/16 người";
  for(const p of list){
-  const div=makeText("div","", "gm-person");
-  div.append(makeText("span","🪿"),makeText("div",p.name+(p.seat===room.seat?" (Bạn)":"")+(p.ready?" · ✓":" · …")));
+  const div=makeText("div","","gm-person");
+  const ava=makeText("div","🪿","gm-avatar");
+  ava.style.borderColor=COLORS[p.seat%COLORS.length];
+  const label=makeText("div",p.name+(p.seat===room.seat?" (Bạn)":""),"gm-person-name");
+  const host=p.seat===list[0]?.seat;
+  const state=makeText("span",host?"👑 Chủ phòng":p.ready?"✓ Sẵn sàng":"○ Chưa sẵn sàng",
+   "gm-person-state"+(host?" host":p.ready?"":" wait"));
+  div.append(ava,label,state);$("gmWaitingPlayers").append(div);
+ }
+ for(let i=list.length;i<16;i++){
+  const div=makeText("div","","gm-person gm-slot-empty");
+  div.append(makeText("div","＋","gm-avatar"),makeText("span","Đang chờ…","gm-person-name"));
   $("gmWaitingPlayers").append(div);
  }
  $("gmReady").textContent=room.ready?"↩ Hủy sẵn sàng":"✓ Sẵn sàng";
@@ -232,7 +248,9 @@ function renderResults(){
 }
 function render(){
  $("gmLobby").hidden=!!room;
+ $("gmMapsPreview").hidden=!!room;
  $("gmRoom").hidden=!room;
+ document.body.classList.toggle("gm-in-room",Boolean(room));
  if(!room)return;
  $("gmCode").textContent=room.code;
  const labels={waiting:"Đang chờ",playing:"Đang chơi",meeting:"Họp khẩn",reveal:"Công bố kết quả",finished:"Kết thúc"};

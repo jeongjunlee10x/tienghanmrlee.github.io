@@ -1,0 +1,47 @@
+name: MR LEE Goose Cinematic Visual QA
+on:
+  pull_request:
+    paths:
+      - 'game-goose-pvp.html'
+      - 'assets/arena/goose-pvp.js'
+      - 'assets/arena/goose-pvp-skin.css'
+      - 'assets/arena/goose-space-hangar.svg'
+      - 'tools/browser-goose-visual.mjs'
+      - '.github/workflows/mrlee-goose-visual-qa.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'game-goose-pvp.html'
+      - 'assets/arena/goose-pvp-skin.css'
+      - 'assets/arena/goose-space-hangar.svg'
+      - 'tools/browser-goose-visual.mjs'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  cinematic-smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Install Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install chromium --with-deps
+      - name: Desktop/mobile visual QA
+        run: node tools/browser-goose-visual.mjs
+      - name: Verify live Supabase Goose PvP endpoint and migration
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --retry 3 --retry-delay 2 --max-time 20 \
+            'https://pkxqsboyotlyoizzxizb.supabase.co/functions/v1/mrlee-goose-pvp?action=health' \
+            -o /tmp/goose-health.json
+          node -e 'const j=require("/tmp/goose-health.json");if(j.ok!==true||j.service!=="goose-pvp")process.exit(1); console.log("Goose PvP API readiness OK")'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: goose-cinematic-preview
+          path: artifacts/goose-visual/*.png
+          retention-days: 14
+          if-no-files-found: ignore
