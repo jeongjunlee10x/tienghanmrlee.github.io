@@ -72,7 +72,7 @@ try{
  const now=mock(1);now.state.phase="meeting";
  now.state.meetingDeadline=Date.now()+30000;
  const ballot=view(now.state,members,members[0].uid,
-  {code:"TEST2345",version:2,visibility:"private",locked:false});
+  {code:"TEST2345",version:3,visibility:"private",locked:false});
  await desktop.evaluate(b=>window.__gmQa.load(b),ballot);
  assert.equal(await desktop.locator("#gmBallot button").count(),members.length+1,
   "Every living player must remain vote-eligible regardless of camera visibility");
