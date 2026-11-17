@@ -6,8 +6,8 @@
 <meta name="description" content="GOOSE MYSTERY PvP — game suy luận xã hội nhiều người chơi, có vai trò bí mật, nhiệm vụ tiếng Hàn và bỏ phiếu.">
 <title>GOOSE MYSTERY PvP | MR LEE GAME ARENA</title>
 <link rel="icon" href="assets/branding/logo-mrlee.png">
-<link rel="stylesheet" href="assets/arena/goose-pvp.css?v=20261117-v1">
-<script type="module" src="assets/arena/goose-pvp.js?v=20261117-v1"></script>
+<link rel="stylesheet" href="assets/arena/goose-pvp.css?v=20261117-map3">
+<script type="module" src="assets/arena/goose-pvp.js?v=20261117-map3"></script>
 </head>
 <body>
 <header class="gm-header"><a class="gm-logo" href="mrlee-game-arena.html">🪿 <strong>MR LEE</strong><span>GOOSE MYSTERY</span></a><div class="gm-headerlinks"><span id="gmOnline" class="gm-indicator">Đang kiểm tra máy chủ…</span><a href="game-goose-mystery.html">🤖 Đấu máy</a><a href="mrlee-game-arena.html">← Game Arena</a></div></header>
@@ -28,8 +28,9 @@
 <section id="gmWaiting" class="gm-panel gm-waiting"><div class="gm-line"><h2>👥 Danh sách thành viên</h2><span id="gmReadyCount">0/16</span></div><div id="gmWaitingPlayers" class="gm-player-grid"></div>
 <div class="gm-buttons"><button id="gmReady" class="gm-primary">✓ Sẵn sàng</button><button id="gmStart" class="gm-primary">▶ Bắt đầu trận</button><button id="gmLock">🔓 Khóa phòng</button></div><p class="gm-muted">Chủ phòng không thể bắt đầu nếu thiếu người hoặc chưa đủ lượt sẵn sàng.</p></section>
 <section id="gmMatch" hidden class="gm-match">
-<div class="gm-stage-card"><div class="gm-stagebar"><span id="gmMyRole">Vai trò: —</span><span id="gmPlayerCount">—</span><span id="gmTime">—</span></div>
-<canvas id="gmMap" width="960" height="610" aria-label="Bản đồ đấu nhiều người chơi Goose Mystery"></canvas>
+<div class="gm-stage-card"><div class="gm-stagebar"><span id="gmMyRole">Vai trò: —</span><span id="gmMapName">🗺 Bản đồ rộng · Camera gần</span><span id="gmPlayerCount">—</span><span id="gmTime">—</span></div>
+<canvas id="gmMap" width="960" height="610" aria-label="Khung nhìn cận cảnh đi theo nhân vật trên bản đồ lớn. Chỉ hiển thị người chơi và thi thể trong tầm nhìn."></canvas>
+<p class="gm-camera-help">🎥 Camera luôn theo nhân vật · Bản đồ lớn với 3 môi trường ngẫu nhiên · Người ở xa hoặc sau tường sẽ bị che khuất.</p>
 <div class="gm-actions"><button id="gmTask" class="gm-primary">⚙ Nhiệm vụ · E</button><button id="gmKill" class="gm-danger">⚡ Hạ gục · K</button><button id="gmReport">📣 Báo cáo · R</button><button id="gmEmergency">🔔 Họp khẩn · H</button><button id="gmFullscreen">⛶ Toàn màn hình</button></div>
 <div class="gm-pad" id="gmPad"><span></span><button data-gm-move="up">▲</button><span></span><button data-gm-move="left">◀</button><button data-gm-move="down">▼</button><button data-gm-move="right">▶</button></div>
 </div>
