@@ -43,6 +43,7 @@ try{
  await desktop.locator('.vote-list button').last().click(); // Skip vote.
  check(await desktop.locator('#modal h2').isVisible(),'Vote response missing');
  await desktop.screenshot({path:resolve(folder,'desktop-vote.png'),fullPage:true});
+ await desktop.locator('#modal button').last().click(); // Resume or start the next round before changing roles.
  await desktop.locator('#gmRole').selectOption('bad');
  await desktop.locator('#newGame').click();
  check((await desktop.locator('#roleTag').innerText()).includes('PHÁ HOẠI'),'Bad role selection ignored');
