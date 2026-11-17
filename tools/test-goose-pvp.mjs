@@ -113,3 +113,19 @@ test("dead players cannot act, tasks can win, timer eventually draws",()=>{
  const s3=newMatch(m,1000,zero);advance(s3,s3.deadline+1);
  assert.equal(s3.winner,"draw");
 });
+
+test("visibility hides remote coordinates and dead bodies from map hackers",()=>{
+ const m=people(6),s=newMatch(m,1000,zero);
+ const me=s.players[m[0].uid],remote=s.players[m[5].uid];
+ me.x=120;me.y=110;remote.x=805;remote.y=455;
+ s.bodies.push({seat:5,x:800,y:455});
+ const v=view(s,m,m[0].uid,room),other=v.players.find(p=>p.seat===5);
+ assert.equal(other.visible,false);
+ assert.equal(other.x,undefined);assert.equal(other.y,undefined);
+ assert.equal(other.alive,null);
+ assert.equal(v.bodies.length,0);
+ s.phase="meeting";
+ const meet=view(s,m,m[0].uid,room);
+ assert.equal(meet.players.find(p=>p.seat===5).alive,true);
+ assert.equal(meet.players.find(p=>p.seat===5).x,undefined);
+});
