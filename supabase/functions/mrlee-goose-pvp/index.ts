@@ -2,7 +2,7 @@
    The browser never chooses roles, locations, victims, votes or score outcomes. */
 import {createRemoteJWKSet,jwtVerify} from "npm:jose@6.1.0";
 import {createClient} from "npm:@supabase/supabase-js@2.119.0";
-import {MIN_PLAYERS,MAX_PLAYERS,ruleError,newMatch,advance,apply,view,winnerCheck,randInt}
+import {MIN_PLAYERS,MAX_PLAYERS,ruleError,newMatch,advance,apply,view,winnerCheck,dropPendingTasks,randInt}
  from "./engine.mjs";
 
 const PROJECT="tieng-han-mr-lee";
@@ -172,6 +172,7 @@ async function roomAction(database,uid,code,action,body){
    }else if(row.state?.players?.[uid]){
     const me=next.state.players[uid];
     if(me.left)return false;
+    if(me.alive)dropPendingTasks(next.state,me);
     me.left=true;me.alive=false;me.task=null;winnerCheck(next.state);
     next.status=next.state.phase;
    }
