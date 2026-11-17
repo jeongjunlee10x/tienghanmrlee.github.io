@@ -18,7 +18,7 @@ const currentPool=ROADMAP_UNITS.filter(x=>x.level===cap);
 const data=[...SC_LESSONS,...ADVANCED_LESSONS].map(x=>({...x,ordinal:(x.cap-1)*15+x.bai})).sort((a,b)=>a.ordinal-b.ordinal);
 const findData=(a,b)=>data.find(x=>x.cap===a&&x.bai===b);
 const findRoadmap=(a,b)=>ROADMAP_UNITS.find(x=>x.level===a&&x.number===b);
-function speak(ko){if(!('speechSynthesis' in window)){alert('Trình duyệt chưa hỗ trợ giọng đọc.');return;}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(ko);u.lang='ko-KR';u.rate=.82;u.pitch=1;speechSynthesis.speak(u);}
+function speak(ko){if(!('speechSynthesis' in window)){alert('Trình duyệt chưa hỗ trợ giọng đọc.');return;}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(ko);u.lang='ko-KR';u.rate=.85;u.pitch=1;speechSynthesis.speak(u);}
 function grammarExamples(g){
   const t=String(g.example||'');
   if(!t)return [];
