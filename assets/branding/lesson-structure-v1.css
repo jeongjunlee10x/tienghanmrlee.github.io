@@ -1,0 +1,44 @@
+/* MR LEE lesson structure v1 — scoped and accessible */
+html[data-mrlee-v24="courses"] #mrleeLessonDirectory .mr-lesson-layout{--lesson-blue:#164b77;--lesson-tint:#eaf3fc;--lesson-line:#cddfed;--lesson-text:#19364f;--lesson-muted:#557188}
+html[data-mrlee-theme="future"] #mrleeLessonDirectory .mr-lesson-layout{--lesson-blue:#c0eaff;--lesson-tint:#153555;--lesson-line:#365779;--lesson-text:#f0f7ff;--lesson-muted:#bcd2e8}
+#mrleeLessonDirectory .mr-lesson-jump{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 20px}
+#mrleeLessonDirectory .mr-lesson-jump a{display:flex;align-items:center;justify-content:center;min-height:52px;padding:9px 12px;border:1px solid var(--lesson-line);border-radius:13px;color:var(--lesson-blue);background:var(--lesson-paper,#fff);font-weight:800;text-align:center;text-decoration:none;font-size:13px}
+#mrleeLessonDirectory .mr-lesson-jump a:hover,#mrleeLessonDirectory .mr-lesson-jump a:focus-visible{background:var(--lesson-tint);outline:2px solid transparent;box-shadow:0 0 0 2px var(--lesson-blue)}
+#mrleeLessonDirectory .mr-lesson-section{scroll-margin-top:90px;padding:24px!important;margin-bottom:18px!important;border-radius:20px!important}
+#mrleeLessonDirectory .mr-lesson-section-head{display:flex;gap:16px;align-items:center;margin-bottom:20px;padding-bottom:18px;border-bottom:1px solid var(--lesson-line)}
+#mrleeLessonDirectory .mr-lesson-index{display:grid;place-items:center;flex:none;width:50px;height:50px;border-radius:15px;background:var(--lesson-tint);color:var(--lesson-blue);font-size:22px;font-weight:900}
+#mrleeLessonDirectory .mr-lesson-section-head h2{margin:0!important;color:var(--lesson-text)!important}
+#mrleeLessonDirectory .mr-lesson-section-head p{margin:3px 0 0;font-size:13px;color:var(--lesson-muted)}
+#mrleeLessonDirectory .mr-lesson-fold{border:1px solid var(--lesson-line);border-radius:14px;margin:10px 0;background:var(--lesson-paper,#fff);overflow:hidden;min-width:0}
+#mrleeLessonDirectory .mr-lesson-fold>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;list-style:none;padding:15px 17px;font-weight:800;color:var(--lesson-text);background:var(--lesson-tint)}
+#mrleeLessonDirectory .mr-lesson-fold>summary::-webkit-details-marker{display:none}
+#mrleeLessonDirectory .mr-lesson-fold>summary:after{content:'⌄';font-size:19px;transition:transform .15s}
+#mrleeLessonDirectory .mr-lesson-fold[open]>summary:after{transform:rotate(180deg)}
+#mrleeLessonDirectory .mr-lesson-fold-note{font-size:11px;color:var(--lesson-muted);font-weight:500;margin-left:auto}
+#mrleeLessonDirectory .mr-lesson-fold-body{padding:15px 17px;min-width:0}
+#mrleeLessonDirectory .mr-lesson-fold-body .mr-sc-grammar-card{margin:0!important}
+#mrleeLessonDirectory .mr-lesson-fold-body .mr-sc-grammar-list{margin:0!important;display:block!important}
+#mrleeLessonDirectory .mr-lesson-fold-body>.mr-sc-grammar-card{border:0!important;padding:0!important;box-shadow:none!important}
+#mrleeLessonDirectory .mr-lesson-section .mr-lesson-action{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:38px;border:1px solid var(--lesson-line);border-radius:10px;background:var(--lesson-tint);color:var(--lesson-blue);padding:8px 13px;font-weight:750;cursor:pointer;font-size:12px}
+#mrleeLessonDirectory .mr-lesson-section .mr-lesson-action:hover{filter:brightness(.96)}
+#mrleeLessonDirectory .mr-lesson-audio-row{display:flex;align-items:flex-start;gap:9px;flex-wrap:wrap;margin-top:9px}
+#mrleeLessonDirectory .mr-lesson-inline-example{padding:10px 12px;border-radius:10px;background:var(--lesson-tint);border:1px solid var(--lesson-line);color:var(--lesson-text);flex:1 1 190px;line-height:1.7}
+#mrleeLessonDirectory .mr-lesson-score{border:1px solid var(--lesson-line);background:var(--lesson-tint);border-radius:12px;padding:12px 14px;color:var(--lesson-text);font-size:13px;line-height:1.65;margin-top:8px}
+#mrleeLessonDirectory .mr-lesson-score:empty{display:none}
+#mrleeLessonDirectory .mr-lesson-score strong{color:var(--lesson-blue);font-size:19px}
+#mrleeLessonDirectory .mr-lesson-score .mr-lesson-progress{height:7px;background:var(--lesson-line);border-radius:8px;overflow:hidden;margin:7px 0}
+#mrleeLessonDirectory .mr-lesson-score .mr-lesson-progress>span{height:100%;display:block;background:#22a078;border-radius:8px}
+#mrleeLessonDirectory .mr-lesson-extra-links{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
+#mrleeLessonDirectory .mr-lesson-section #lessonWorkbook{display:block!important}
+#mrleeLessonDirectory .mr-lesson-workbook-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+#mrleeLessonDirectory .mr-lesson-workbook-grid>a{display:block!important;min-width:0!important;max-width:none!important;width:100%!important;white-space:normal!important}
+#mrleeLessonDirectory #lessonSpeak .mr-v5-audio-main{display:none!important}
+#mrleeLessonDirectory #lessonSpeak .mr-v5-audio-group .mr-lesson-play{width:100%;justify-content:center}
+#mrleeLessonDirectory #lessonSpeak .mr-v5-fallback{display:none!important}
+#mrleeLessonDirectory #lessonSpeak .mr-v5-record{grid-column:1/-1}
+#mrleeLessonDirectory #lessonSpeak .mr-v5-recording{display:none!important}
+#mrleeLessonDirectory #lessonSpeak .mr-v5-actions{display:block!important}
+#mrleeLessonDirectory #lessonSpeak .mr-lesson-score{width:100%}
+#mrleeLessonDirectory #lessonContent [data-lesson-rate],#mrleeLessonDirectory #lessonContent .ml-audio-bar,#mrleeLessonDirectory #lessonContent select[aria-label*="Tốc độ"]{display:none!important}
+@media(max-width:850px){#mrleeLessonDirectory .mr-lesson-jump{grid-template-columns:repeat(2,minmax(0,1fr))}#mrleeLessonDirectory .mr-lesson-workbook-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){#mrleeLessonDirectory .mr-lesson-jump{gap:7px}#mrleeLessonDirectory .mr-lesson-jump a{font-size:12px;padding:9px 6px}#mrleeLessonDirectory .mr-lesson-section{padding:14px!important}#mrleeLessonDirectory .mr-lesson-section-head{gap:10px}#mrleeLessonDirectory .mr-lesson-index{width:40px;height:40px;font-size:18px}#mrleeLessonDirectory .mr-lesson-workbook-grid{grid-template-columns:minmax(0,1fr)}#mrleeLessonDirectory .mr-lesson-fold-note{display:none}}
