@@ -1,0 +1,120 @@
+/* MR LEE Xiangqi visual standard v2 — 90 intersections, two palaces and Chu Hà/Hán Giới.
+   Overrides only Xiangqi games; does not alter engine or PvP server behavior. */
+:root{--xq-wood:#e2bb7b;--xq-line:#835b32;--xq-action:#06757c;--xq-gold:#f6c750}
+#arenaPvPBoard .arena-online-xq-board.xq-board-accurate,
+#arenaXiangqi .xq-board.xq-board-accurate{
+ position:relative!important;isolation:isolate;display:grid!important;
+ grid-template-columns:repeat(9,minmax(0,1fr))!important;
+ grid-template-rows:repeat(10,minmax(0,1fr))!important;
+ gap:0!important;padding:0!important;aspect-ratio:9/10!important;
+ width:100%!important;height:auto!important;overflow:hidden;
+ border:clamp(5px,.65vw,9px) solid #9c5c2a!important;
+ border-radius:9px!important;
+ background:repeating-linear-gradient(94deg,transparent 0 7px,#996f3b08 7px 11px),
+  linear-gradient(145deg,#f7dca2 0%,#e8c383 40%,#d7a861 100%)!important;
+ box-shadow:inset 0 0 0 4px #f7e6bf,inset 0 0 0 7px #82552a,
+  inset 0 0 34px #b67d3a39,0 14px 28px #0c0e1a6b!important;
+ touch-action:none;box-sizing:border-box!important
+}
+#arenaPvPBoard .arena-online-xq-board.xq-board-accurate .arena-online-xq-cell,
+#arenaXiangqi .xq-board.xq-board-accurate .xq-square{
+ z-index:1;position:relative!important;min-width:0!important;min-height:0!important;
+ width:auto!important;height:auto!important;aspect-ratio:auto!important;
+ display:grid!important;place-items:center!important;
+ border:0!important;border-radius:0!important;padding:0!important;
+ background:transparent!important;box-shadow:none!important;isolation:isolate;
+ touch-action:none;transition:background-color .15s ease,filter .15s ease!important
+}
+#arenaPvPBoard .arena-online-xq-board.xq-board-accurate .arena-online-xq-cell::before,
+#arenaXiangqi .xq-board.xq-board-accurate .xq-square::before{
+ content:"";position:absolute!important;inset:9%!important;z-index:-1;
+ background:transparent!important;border:0!important;border-radius:50%!important;
+ pointer-events:none;box-shadow:none!important;transition:box-shadow .18s,background-color .18s
+}
+#arenaPvPBoard .arena-online-xq-board.xq-board-accurate .arena-online-xq-cell::after,
+#arenaXiangqi .xq-board.xq-board-accurate .xq-square::after{content:none!important}
+#arenaPvPBoard .xq-board-accurate .arena-online-xq-cell.selected::before,
+#arenaXiangqi .xq-board-accurate .xq-square.selected::before{
+ background:#fff3ba74!important;
+ box-shadow:inset 0 0 0 4px #f7ad15,0 0 0 3px #723d16,0 0 13px #ffe59c!important
+}
+#arenaPvPBoard .xq-board-accurate .arena-online-xq-cell.target::before,
+#arenaXiangqi .xq-board-accurate .xq-square.target::before{
+ background:#52be7750!important;box-shadow:inset 0 0 0 3px #218054,0 0 0 2px #efffdf!important
+}
+#arenaPvPBoard .xq-board-accurate .arena-online-xq-cell.target .arena-online-xq-target,
+#arenaXiangqi .xq-board-accurate .xq-square.target .xq-target-dot{
+ width:21%!important;height:auto!important;aspect-ratio:1!important;
+ border:2px solid #f6ffe5!important;border-radius:50%!important;
+ background:#25865c!important;box-shadow:0 0 0 4px #25a56766!important;z-index:2
+}
+#arenaPvPBoard .xq-board-accurate .arena-online-xq-cell.xq-last-from::before,
+#arenaXiangqi .xq-board-accurate .xq-square.xq-last-from::before{
+ background:#f6b94c35!important;box-shadow:inset 0 0 0 3px #b86e28,0 0 0 1px #ffe0a4!important
+}
+#arenaPvPBoard .xq-board-accurate .arena-online-xq-cell.xq-last-to::before,
+#arenaXiangqi .xq-board-accurate .xq-square.xq-last-to::before{
+ background:#15a5a83e!important;box-shadow:inset 0 0 0 4px #007a7c,0 0 0 2px #b1fff4,0 0 14px #00565b88!important
+}
+#arenaPvPBoard .xq-board-accurate .arena-online-xq-cell.target.xq-last-to::before,
+#arenaXiangqi .xq-board-accurate .xq-square.target.xq-last-to::before{
+ box-shadow:inset 0 0 0 4px #238453,0 0 0 2px #e9ffcf!important
+}
+#arenaPvPBoard .xq-board-accurate .arena-online-xq-cell:focus-visible,
+#arenaXiangqi .xq-board-accurate .xq-square:focus-visible{
+ outline:3px solid #186d96!important;outline-offset:-4px!important
+}
+.xq-board-accurate .xq-artwork{
+ position:absolute;inset:0;width:100%;height:100%;display:block;
+ z-index:0;pointer-events:none;overflow:visible
+}
+.xq-board-accurate .xq-art-border{fill:none;stroke:#966b3a;stroke-width:2.5}
+.xq-board-accurate .xq-art-lines{fill:none;stroke:#84572d;stroke-width:2.2;stroke-linecap:square;opacity:.86}
+.xq-board-accurate .xq-art-marks{fill:none;stroke:#956b3b;stroke-width:2.4;opacity:.85}
+.xq-board-accurate .xq-art-river{fill:#765029;font-family:"Noto Serif CJK SC","Noto Serif SC","SimSun",serif;font-weight:800;font-size:43px;letter-spacing:6px;opacity:.82}
+.xq-board-accurate .xq-art-last-path{fill:none;stroke:#06777f;stroke-width:10;stroke-linecap:round;stroke-dasharray:15 10;opacity:.74;filter:drop-shadow(0 2px 2px #ffdfa7)}
+#arenaPvPBoard .xq-board-accurate .arena-online-xq-piece,
+#arenaXiangqi .xq-board-accurate .xq-piece{
+ z-index:2!important;position:relative;box-sizing:border-box!important;
+ border-radius:50%!important;user-select:none;
+ font-family:"Noto Serif CJK SC","Microsoft YaHei","SimSun",serif!important;
+ text-shadow:0 1px 0 #fff0cc85
+}
+#arenaPvPBoard .xq-board-accurate .arena-online-xq-piece{
+ width:83%!important;height:auto!important;aspect-ratio:1!important;
+ font-size:clamp(19px,2.4vw,38px)!important;
+ border:clamp(2px,.28vw,4px) double #8c562f!important;
+ box-shadow:0 4px 4px #4a26178c,inset 0 2px 2px #fff9e3!important
+}
+#arenaXiangqi .xq-board-accurate .xq-piece{width:83%!important;height:83%!important}
+#arenaPvPBoard .xq-board-accurate .xq-moving-token,
+#arenaXiangqi .xq-board-accurate .xq-moving-token{
+ position:absolute!important;z-index:30!important;transition:none!important;
+ animation:none!important;pointer-events:none!important;
+ box-shadow:0 12px 14px #3d251e75,0 0 0 3px #fff3c28c!important
+}
+#arenaPvPBoard .arena-online-xq-layout{grid-template-columns:minmax(0,760px) minmax(270px,1fr)!important;gap:clamp(16px,2vw,28px)!important}
+#arenaPvPBoard .arena-online-xq-stack{max-width:760px}
+#arenaPvPBoard .arena-online-xq-board{max-width:100%}
+.arena-xq-last-banner{
+ margin:7px 2px 9px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+ color:#fee7bc;font:650 13px/1.5 "Be Vietnam Pro",sans-serif
+}
+.arena-xq-last-banner strong{display:inline-flex;align-items:center;gap:6px;color:#fff0cd}
+.arena-xq-last-banner .xq-move-from{color:#ffd695;background:#57341e;padding:3px 8px;border-radius:7px}
+.arena-xq-last-banner .xq-move-to{color:#c3ffed;background:#154a48;padding:3px 8px;border-radius:7px}
+.arena-xq-last-banner .xq-move-arrow{color:#c3fff1;font-size:17px}
+#arenaPvPBoard .arena-online-xq-history p:last-child{background:#24423d;color:#d8ffee;border-left:3px solid #6edfc7;padding:5px 8px;border-radius:5px}
+#arenaXiangqi .xq-river-label{display:none!important}
+#arenaXiangqi .xq-board-accurate .arena-extra-ticker.xq-ticker{
+ bottom:6px;top:auto;left:50%;width:auto;
+ z-index:6;background:#53351edc!important;font-size:11px
+}
+@media(max-width:1080px){#arenaPvPBoard .arena-online-xq-layout{grid-template-columns:minmax(0,1fr)!important}#arenaPvPBoard .arena-online-xq-stack{max-width:700px;margin:auto}#arenaPvPBoard .arena-online-xq-sidebar{width:100%;max-width:700px;margin:auto}}
+@media(max-width:600px){
+ #arenaPvPBoard .arena-online-xq-board.xq-board-accurate,#arenaXiangqi .xq-board.xq-board-accurate{border-width:5px!important}
+ #arenaPvPBoard .arena-online-xq-board.xq-board-accurate .arena-online-xq-piece{font-size:clamp(16px,4.9vw,27px)!important;border-width:2px!important}
+ #arenaXiangqi .xq-board.xq-board-accurate .xq-piece{font-size:clamp(14px,5vw,27px)!important}
+ .arena-xq-last-banner{font-size:11px;gap:6px}
+}
+@media(prefers-reduced-motion:reduce){.xq-board-accurate .xq-art-last-path{stroke-dasharray:none}}
