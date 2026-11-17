@@ -131,7 +131,7 @@ function myPlayer(){return room?.players?.find(p=>p.seat===room.seat)}
 const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
 function nearestPlayers(){
  const me=myPlayer();if(!me)return[];
- return room.players.filter(p=>p.seat!==room.seat&&p.alive&&!p.left)
+ return room.players.filter(p=>p.seat!==room.seat&&p.visible&&p.alive&&!p.left)
   .map(p=>({p,d:dist(me,p)})).sort((a,b)=>a.d-b.d);
 }
 function nearestTask(){
@@ -169,7 +169,8 @@ function renderTaskList(){
 function renderPlayers(){
  const el=$("gmPlayers");el.replaceChildren();
  for(const p of room.players){
-  const div=makeText("div",(p.alive?"🪿 ":"💀 ")+p.name+(p.seat===room.seat?" (Bạn)":"")+
+  const marker=p.alive===true?"🪿 ":p.alive===false?"💀 ":"❔ ";
+  const div=makeText("div",marker+p.name+(p.seat===room.seat?" (Bạn)":"")+
    (room.status==="finished"?" · "+(p.role==="evil"?"Phá hoại":"Phe tốt"):""),"gm-compact-player");
   el.append(div);
  }
@@ -177,7 +178,7 @@ function renderPlayers(){
 function renderBallot(){
  const box=$("gmBallot");box.replaceChildren();
  if(room.status!=="meeting")return;
- for(const p of room.players.filter(p=>p.alive&&!p.left)){
+ for(const p of room.players.filter(p=>p.visible&&p.alive&&!p.left)){
   const btn=makeText("button","🪿 "+p.name+(p.seat===room.seat?" (Bạn)":""));
   btn.disabled=!room.alive||room.hasVoted;
   btn.onclick=()=>action("vote",{seat:p.seat});box.append(btn);
@@ -241,7 +242,7 @@ function render(){
  $("gmMeeting").hidden=room.status!=="meeting";
  if(!isMatch()){renderWaiting();return}
  $("gmMyRole").textContent=room.role==="evil"?"🕵️ PHE PHÁ HOẠI":"🪽 PHE TỐT";
- $("gmPlayerCount").textContent=room.players.filter(p=>p.alive).length+" / "+room.players.length+" còn sống";
+ $("gmPlayerCount").textContent=(room.aliveCount===null?"?":room.aliveCount)+" / "+room.players.length+" còn sống";
  $("gmProgress").style.width=(room.totalTasks?Math.min(100,Math.round(room.doneTasks/room.totalTasks*100)):0)+"%";
  $("gmProgressText").textContent=room.doneTasks+" / "+room.totalTasks+" nhiệm vụ";
  const active=room.status==="playing"&&room.alive;
