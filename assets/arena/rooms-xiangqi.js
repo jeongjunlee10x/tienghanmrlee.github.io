@@ -1,7 +1,8 @@
 /* MR LEE Arena — online Xiangqi/Cờ Úp board. Server validates every action.
  * `covered` identities are deliberately masked in the payload. */
 import {xiangqiLegal,camp,GLYPH,isXiangqiCheck} from "./xiangqi-engine.js";
-import {animateBoardMove,enablePointerDrag} from "./drag-gestures.js?v=20261107-motion-v22b";
+import {enablePointerDrag} from "./drag-gestures.js?v=20261107-motion-v22b";
+import {decorateXiangqiBoard,animateXiangqiMove,coordinateLabel} from "./xiangqi-board-v2.js?v=20261117-board-v2";
 const el=(tag,cls="",content)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(content!==undefined)n.textContent=String(content);return n;};
 const action=(label,handler)=>{const b=el("button","arena-online-xq-action",label);b.type="button";b.addEventListener("click",handler);return b;};
 const fmt=ms=>{if(!Number.isFinite(ms))return "--:--";const total=Math.max(0,Math.ceil(ms/1000));return String(Math.floor(total/60)).padStart(2,"0")+":"+String(total%60).padStart(2,"0");};
@@ -37,11 +38,6 @@ export function mountOnlineXiangqi(root,submit){
   const mine=room.status==="playing"&&state.turn===room.seat;
   const turnChanged=prev?.code===room.code&&prev?.roundIndex===room.roundIndex&&
    prev?.gameState?.position?.last?.join()!==position.last?.join()&&room.version!==prev.version;
-  if(turnChanged&&position.last){
-   const [f,t]=position.last,from=root.querySelector('.arena-online-xq-board [data-index="'+f+'"]'),
-    to=root.querySelector('.arena-online-xq-board [data-index="'+t+'"]');
-   if(from&&to)animateBoardMove({from,to,piece:from.querySelector(".arena-online-xq-piece"),kind:"xiangqi-piece"});
-  }
   if(!force&&(prev?.code!==room.code||prev?.version!==room.version))chosen=-1;
   shown=room;offset=Date.parse(room.serverTime||"")-Date.now()||0;
   const valid=mine?xiangqiLegal(position,side):[];
@@ -80,8 +76,7 @@ export function mountOnlineXiangqi(root,submit){
    tile.addEventListener("click",()=>{
     if(!mine||locked)return;
     if(chosen>=0&&valid.some(m=>m[0]===chosen&&m[1]===index)){
-     const from=board.querySelector('[data-index="'+chosen+'"]');
-     animateBoardMove({from,to:tile,piece:from?.querySelector(".arena-online-xq-piece"),kind:"xiangqi-piece"});
+     // Display the move only when the server confirms and publishes it.
      void send({kind:"play",from:chosen,to:index});return;
     }
     chosen=camp(p)===side?(chosen===index?-1:index):-1;
@@ -94,7 +89,19 @@ export function mountOnlineXiangqi(root,submit){
    }else if(hit)tile.append(el("span","arena-online-xq-target",""));
    board.append(tile);
   }
-  stack.append(board,playerBar(room.seat));
+  decorateXiangqiBoard(board,{last:position.last,flipped:side===-1});
+  stack.append(board);
+  if(Array.isArray(position.last)&&position.last.length===2){
+   const [from,to]=position.last;
+   const moveInfo=el("div","arena-xq-last-banner");
+   moveInfo.setAttribute("role","status");moveInfo.setAttribute("aria-label","Nước đi đã xác nhận gần nhất");
+   moveInfo.append(el("strong","","NƯỚC VỪA ĐI"),
+    el("span","xq-move-from",coordinateLabel(from,side===-1)),
+    el("span","xq-move-arrow","➜"),
+    el("span","xq-move-to",coordinateLabel(to,side===-1)));
+   stack.append(moveInfo);
+  }
+  stack.append(playerBar(room.seat));
   const sidebar=el("aside","arena-online-xq-sidebar");
   if(room.status==="playing"){
    const controls=el("div","arena-online-xq-actions");
@@ -124,6 +131,9 @@ export function mountOnlineXiangqi(root,submit){
     "Đi quân đúng luật. Máy chủ xác nhận mỗi nước đi."));
   boardArea.append(stack,sidebar);main.append(top,boardArea);
   root.replaceChildren(main);
+  if(turnChanged&&Array.isArray(position.last))
+   animateXiangqiMove(board,{from:position.last[0],to:position.last[1],
+    pieceSelector:".arena-online-xq-piece",duration:500});
  }
  enablePointerDrag({
   root,itemSelector:".arena-online-xq-board .arena-online-xq-cell[data-index]",
