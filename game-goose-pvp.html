@@ -7,12 +7,13 @@
 <title>GOOSE MYSTERY PvP | MR LEE GAME ARENA</title>
 <link rel="icon" href="assets/branding/logo-mrlee.png">
 <link rel="stylesheet" href="assets/arena/goose-pvp.css?v=20261117-map3">
-<script type="module" src="assets/arena/goose-pvp.js?v=20261117-map3"></script>
+<link rel="stylesheet" href="assets/arena/goose-pvp-skin.css?v=20261117-cinematic1">
+<script type="module" src="assets/arena/goose-pvp.js?v=20261117-cinematic1"></script>
 </head>
 <body>
 <header class="gm-header"><a class="gm-logo" href="mrlee-game-arena.html">🪿 <strong>MR LEE</strong><span>GOOSE MYSTERY</span></a><div class="gm-headerlinks"><span id="gmOnline" class="gm-indicator">Đang kiểm tra máy chủ…</span><a href="game-goose-mystery.html">🤖 Đấu máy</a><a href="mrlee-game-arena.html">← Game Arena</a></div></header>
 <main class="gm-shell">
-<section class="gm-hero"><span class="gm-eyebrow">MR LEE GAME ARENA · PHÒNG THỜI GIAN THỰC</span><h1>GOOSE <em>MYSTERY</em> <span>PvP</span></h1><p>Phân vai bí mật · Di chuyển bản đồ · Làm nhiệm vụ tiếng Hàn · Báo cáo & bỏ phiếu. Chơi bằng điện thoại hoặc máy tính.</p></section>
+<section class="gm-hero"><span class="gm-eyebrow">MR LEE GAME ARENA · PHÒNG THỜI GIAN THỰC</span><h1>GOOSE <em>MYSTERY</em> <span>PvP</span></h1><p>Phân vai bí mật · Di chuyển bản đồ · Làm nhiệm vụ tiếng Hàn · Báo cáo & bỏ phiếu. Chơi bằng điện thoại hoặc máy tính.</p><div class="gm-ribbon"><span>🪿 4–16 người</span><span>🗺 3 bản đồ cực lớn</span><span>🔍 Tầm nhìn giới hạn</span><span>🔐 Vai trò bí mật</span></div></section>
 <div id="gmAlert" class="gm-alert" role="status" aria-live="polite">Đang kết nối…</div>
 <section id="gmLobby" class="gm-lobby">
 <div class="gm-panel gm-entry"><h2>🎮 Vào phòng chơi</h2><p>Đăng nhập tài khoản MR LEE đã xác minh email để tạo và tham gia phòng PvP. Không trừ G.</p>
@@ -21,11 +22,19 @@
 <div class="gm-inline"><label for="gmJoinCode">Mã phòng</label><input id="gmJoinCode" maxlength="8" placeholder="ABCD2345" autocapitalize="characters" spellcheck="false"><button id="gmJoin">Tham gia →</button></div>
 <p class="gm-muted">Chỉ chủ phòng bắt đầu khi có từ 4 đến 16 người và tất cả đã sẵn sàng. Không có cược tiền thật.</p>
 <a id="gmSignIn" href="dang-nhap.html">🔑 Đăng nhập hoặc xác minh tài khoản</a></div>
-<div class="gm-panel gm-browse"><div class="gm-line"><h2>🌐 Phòng công khai</h2><button id="gmRefreshRooms">↻ Làm mới</button></div><div id="gmRoomList" class="gm-roomlist"><p>Đang tải danh sách phòng…</p></div></div>
+<div class="gm-panel gm-browse"><div class="gm-line"><h2>🌐 Phòng công khai</h2><button id="gmRefreshRooms">↻ Làm mới</button></div><div id="gmRoomList" class="gm-roomlist"><div class="gm-no-rooms"><span class="radar">📡</span><strong>Đang quét phòng công khai</strong><span>Kết nối máy chủ để tìm người chơi phù hợp.</span></div></div></div>
+</section>
+<section class="gm-map-gallery" id="gmMapsPreview" aria-label="Các bản đồ Goose Mystery">
+ <div class="gm-gallery-title"><h2>🗺 Khám phá 3 bản đồ</h2><span>Môi trường được chọn ngẫu nhiên khi bắt đầu trận · Góc nhìn theo sát nhân vật</span></div>
+ <div class="gm-gallery">
+  <div class="gm-map-preview" data-map="orbital"><span class="symbol">🪐</span><strong>Trạm Quỹ Đạo</strong><small>Không gian · Trung tâm chỉ huy</small><span class="random-tag">2.400 × 1.500</span></div>
+  <div class="gm-map-preview" data-map="arctic"><span class="symbol">❄️</span><strong>Căn Cứ Băng Giá</strong><small>Trạm tuyết · Kho lạnh</small><span class="random-tag">2.400 × 1.500</span></div>
+  <div class="gm-map-preview" data-map="garden"><span class="symbol">🌿</span><strong>Vườn Sinh Học</strong><small>Vườn xanh · Nhà kính</small><span class="random-tag">2.400 × 1.500</span></div>
+ </div>
 </section>
 <section id="gmRoom" class="gm-room" hidden>
 <div class="gm-panel gm-roombar"><div><span class="gm-eyebrow">PHÒNG TRỰC TUYẾN</span><h2>Mã: <span id="gmCode">—</span></h2><span id="gmPhase">Đang chờ</span></div><div class="gm-buttons"><button id="gmCopy">📋 Sao chép mã/mời</button><button id="gmLeave" class="gm-danger">↩ Rời phòng</button></div></div>
-<section id="gmWaiting" class="gm-panel gm-waiting"><div class="gm-line"><h2>👥 Danh sách thành viên</h2><span id="gmReadyCount">0/16</span></div><div id="gmWaitingPlayers" class="gm-player-grid"></div>
+<section id="gmWaiting" class="gm-panel gm-waiting"><div class="gm-line"><h2>👑 Danh sách người chơi · Phòng chờ</h2><span id="gmReadyCount">0/16</span></div><p class="gm-muted">Vai trò được giữ bí mật đến khi bắt đầu trận. Phòng hỗ trợ 4–16 người với trạng thái sẵn sàng trực tuyến.</p><div id="gmWaitingPlayers" class="gm-player-grid"></div>
 <div class="gm-buttons"><button id="gmReady" class="gm-primary">✓ Sẵn sàng</button><button id="gmStart" class="gm-primary">▶ Bắt đầu trận</button><button id="gmLock">🔓 Khóa phòng</button></div><p class="gm-muted">Chủ phòng không thể bắt đầu nếu thiếu người hoặc chưa đủ lượt sẵn sàng.</p></section>
 <section id="gmMatch" hidden class="gm-match">
 <div class="gm-stage-card"><div class="gm-stagebar"><span id="gmMyRole">Vai trò: —</span><span id="gmMapName">🗺 Bản đồ rộng · Camera gần</span><span id="gmPlayerCount">—</span><span id="gmTime">—</span></div>
