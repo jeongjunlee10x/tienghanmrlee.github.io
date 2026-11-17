@@ -63,6 +63,13 @@ export function newMatch(members,now=Date.now(),rand=randInt){
   revealDeadline:0,meetingResult:null,meetingNumber:0,winner:null,reason:null,
   events:[{type:"start",at:now,text:"Ván bắt đầu. Giữ bí mật vai trò!"}]};
 }
+export function dropPendingTasks(s,p){
+ if(!p.evil){
+  const remaining=p.jobs.filter(id=>!p.done.includes(id)).length;
+  s.totalTasks=Math.max(s.doneTasks,s.totalTasks-remaining);
+ }
+ p.task=null;
+}
 export function winnerCheck(s){
  if(s.phase==="finished")return s;
  const living=Object.values(s.players).filter(p=>p.alive&&!p.left);
@@ -104,7 +111,7 @@ function finishVote(s,now){
  let ejected=null,wasEvil=null;
  if(removed!==null){
   const match=livingPlayers.find(p=>p.seat===removed);
-  if(match){match.alive=false;ejected=match.seat;wasEvil=match.evil}
+  if(match){dropPendingTasks(s,match);match.alive=false;ejected=match.seat;wasEvil=match.evil}
  }
  s.meetingResult={ejected,wasEvil,tally,at:now};s.bodies=[];s.votes={};
  s.phase="reveal";s.revealDeadline=now+REVEAL_MS;
@@ -171,7 +178,7 @@ export function apply(s,members,uid,action,data={},now=Date.now(),rand=randInt){
    throw ruleError("Mục tiêu không hợp lệ.",400);
   if(now-p.lastKillAt<15000||now-s.startedAt<15000)throw ruleError("Chiêu chưa hồi.");
   if(distance(p,target)>62)throw ruleError("Mục tiêu ở quá xa.");
-  target.alive=false;p.lastKillAt=now;
+  dropPendingTasks(s,target);target.alive=false;p.lastKillAt=now;
   s.bodies.push({seat:target.seat,x:target.x,y:target.y});
   winnerCheck(s);return true;
  }
