@@ -208,10 +208,17 @@ export function apply(s,members,uid,action,data={},now=Date.now(),rand=randInt){
 export function view(s,members,uid,room){
  const me=s.players[uid],isFinished=s.phase==="finished";
  if(!me)throw ruleError("Không thuộc phòng.",403);
+ const revealStatus=s.phase==="meeting"||s.phase==="reveal"||isFinished;
  const list=members.map(m=>{
   const p=s.players[m.uid];
-  return {seat:m.seat,name:m.name,alive:p?.alive??false,left:p?.left??false,
-   x:Math.round(p?.x??0),y:Math.round(p?.y??0),
+  // Prevent global map hacks: only reveal nearby locations, never remote positions.
+  const canSee=p&&(m.uid===uid||isFinished||
+   (me.alive&&p.alive&&distance(me,p)<=245));
+  return {seat:m.seat,name:m.name,
+   alive:revealStatus||canSee?(p?.alive??false):null,
+   left:revealStatus?(p?.left??false):false,
+   visible:Boolean(canSee&&p?.alive),
+   ...(canSee?{x:Math.round(p.x),y:Math.round(p.y)}:{}),
    ...(isFinished?{role:p?.evil?"evil":"good"}:{})};
  });
  const myTasks=(me.jobs||[]).map(id=>({id,...STATIONS[id],done:me.done.includes(id)}));
@@ -223,7 +230,9 @@ export function view(s,members,uid,room){
    status:s.phase,version:room.version,serverTime:Date.now(),
    players:list,seat:me.seat,role:me.evil?"evil":"good",alive:me.alive,
    tasks:myTasks,task,doneTasks:s.doneTasks,totalTasks:s.totalTasks,
-   bodies:s.bodies.map(b=>({...b})),meetingDeadline:s.phase==="meeting"?s.meetingDeadline:null,
+   bodies:s.bodies.filter(b=>me.alive&&distance(me,b)<=105).map(b=>({...b})),
+   aliveCount:revealStatus?Object.values(s.players).filter(p=>p.alive&&!p.left).length:null,
+   meetingDeadline:s.phase==="meeting"?s.meetingDeadline:null,
    meetingNumber:s.meetingNumber,hasVoted:Object.hasOwn(s.votes,String(me.seat)),
    votesReceived:Object.keys(s.votes).length,
    revealDeadline:s.phase==="reveal"?s.revealDeadline:null,
