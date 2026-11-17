@@ -309,6 +309,53 @@ function drawGoose(p,x,y){
  ctx.restore();ctx.textAlign="center";ctx.font="bold 13px system-ui";ctx.lineWidth=4;ctx.strokeStyle="#071629";ctx.strokeText(p.name,x,y-46);
  ctx.fillStyle="#f4feff";ctx.fillText(p.name,x,y-46);
 }
+function drawEnvironment(map,left,top,right,bottom){
+ // Low-cost deterministic environment props — three visually distinct maps.
+ for(let i=0;i<map.zones.length;i++){
+  const [x,y,w,h]=map.zones[i];
+  if(x+w<left||x>right||y+h<top||y>bottom)continue;
+  const cx=x+w*.63,cy=y+h*.58;
+  ctx.save();
+  if(map.id==="orbital"){
+   ctx.fillStyle="#071d32";ctx.strokeStyle="#6cdaf9";ctx.lineWidth=3;
+   ctx.beginPath();ctx.roundRect(cx-52,cy-31,104,62,11);ctx.fill();ctx.stroke();
+   ctx.fillStyle="#15688b";ctx.fillRect(cx-38,cy-19,74,35);
+   ctx.strokeStyle="#6ef2e0";ctx.lineWidth=2;ctx.strokeRect(cx-38,cy-19,74,35);
+   ctx.strokeStyle="#ddf5ff";ctx.beginPath();ctx.moveTo(cx-28,cy+6);
+   ctx.lineTo(cx-8,cy-7);ctx.lineTo(cx+9,cy+4);ctx.lineTo(cx+29,cy-10);ctx.stroke();
+   ctx.fillStyle="#56d6ce";ctx.fillRect(cx-22,cy+34,44,6);
+   if(i===4){
+    const glow=ctx.createRadialGradient(cx,cy,8,cx,cy,72);
+    glow.addColorStop(0,"#5ce6ff91");glow.addColorStop(1,"#5ce6ff00");
+    ctx.fillStyle=glow;ctx.beginPath();ctx.arc(cx,cy,72,0,Math.PI*2);ctx.fill();
+   }
+  }else if(map.id==="arctic"){
+   ctx.fillStyle="#beeef5a8";ctx.strokeStyle="#e5ffff";
+   for(const [dx,dy,sz] of [[0,0,48],[-47,21,26],[46,17,31]]){
+    ctx.beginPath();ctx.moveTo(cx+dx,cy+dy-sz);
+    ctx.lineTo(cx+dx+sz*.35,cy+dy);ctx.lineTo(cx+dx,cy+dy+sz*.3);
+    ctx.lineTo(cx+dx-sz*.43,cy+dy);ctx.closePath();ctx.fill();ctx.stroke();
+   }
+   ctx.strokeStyle="#edffffa3";ctx.lineWidth=2;
+   ctx.beginPath();ctx.arc(cx,cy+33,65,Math.PI*.08,Math.PI*.91);ctx.stroke();
+  }else{
+   ctx.fillStyle="#234f3e";ctx.beginPath();ctx.ellipse(cx,cy+16,82,37,0,0,Math.PI*2);ctx.fill();
+   for(let j=0;j<8;j++){
+    const a=j*Math.PI/4;
+    const fx=cx+Math.cos(a)*45,fy=cy+Math.sin(a)*23;
+    ctx.fillStyle=j%2?"#52be79":"#7edba1";
+    ctx.beginPath();ctx.ellipse(fx,fy,18,12,a,0,Math.PI*2);ctx.fill();
+   }
+   ctx.strokeStyle="#9de5bc";ctx.lineWidth=5;
+   ctx.beginPath();ctx.moveTo(cx,cy+22);ctx.lineTo(cx,cy-45);ctx.stroke();
+   for(const [dx,dy,radius] of [[-25,-48,28],[23,-61,33],[-5,-83,27]]){
+    ctx.fillStyle="#85cf9f";ctx.beginPath();ctx.arc(cx+dx,cy+dy,radius,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle="#b4ffa7";ctx.lineWidth=2;ctx.stroke();
+   }
+  }
+  ctx.restore();
+ }
+}
 function drawWorld(map,left,top,right,bottom){
  floorFill(left,top,right-left,bottom-top,map.colors.floor);
  ctx.strokeStyle="#ffffff12";ctx.lineWidth=1;
@@ -323,6 +370,7 @@ function drawWorld(map,left,top,right,bottom){
   ctx.fillStyle="#ffffff13";
   for(let rx=x+30;rx<x+w-20;rx+=130)ctx.fillRect(rx,y+h-34,42,8);
  }
+ drawEnvironment(map,left,top,right,bottom);
  for(const w of map.walls){
   if(w.x+w.w<left||w.x>right||w.y+w.h<top||w.y>bottom)continue;
   floorFill(w.x,w.y,w.w,w.h,"#56758d");
