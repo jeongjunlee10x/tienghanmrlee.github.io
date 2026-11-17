@@ -1,5 +1,3 @@
-import {readFileSync} from "node:fs";
-import {fileURLToPath} from "node:url";
 import {MAPS as BROWSER_MAPS} from "../assets/arena/goose-maps.mjs";
 import test from "node:test";
 import assert from "node:assert/strict";
