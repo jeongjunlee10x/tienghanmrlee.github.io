@@ -1,17 +1,9 @@
 /* Goose Mystery: deterministic rules, server-only authority. MIT-style original MR LEE code.
    No authentication, SQL or network access in this file; all callers must authenticate first. */
-export const WORLD={width:960,height:610,radius:20,speed:170};
-export const WALLS=[
- {x:260,y:90,w:28,h:165},{x:260,y:350,w:28,h:160},
- {x:650,y:90,w:28,h:170},{x:650,y:352,w:28,h:160},
- {x:360,y:180,w:210,h:25},{x:360,y:408,w:210,h:25},
- {x:95,y:270,w:150,h:24},{x:715,y:270,w:150,h:24}
-];
-export const STATIONS=[
- {x:530,y:310,name:"Khởi động liên lạc"},{x:470,y:110,name:"Kiểm tra radar"},
- {x:815,y:135,name:"Phân loại hồ sơ"},{x:145,y:475,name:"Kết nối điện"},
- {x:470,y:520,name:"Hiệu chỉnh thiết bị"},{x:810,y:465,name:"Bảo trì hệ thống"}
-];
+import {WORLD,MAP_ORDER,getMap,spawnFor,visibleBetween} from "./maps.mjs";
+export {WORLD,MAP_ORDER,getMap,visibleBetween};
+export const STATIONS=getMap("orbital").stations;
+export const WALLS=getMap("orbital").walls;
 export const PHRASES=[
  {ko:"안녕하세요",vi:"Xin chào"},{ko:"감사합니다",vi:"Cảm ơn"},
  {ko:"죄송합니다",vi:"Xin lỗi"},{ko:"네",vi:"Vâng"},
@@ -22,9 +14,10 @@ export const MIN_PLAYERS=4,MAX_PLAYERS=16;
 export const MATCH_LIMIT_MS=15*60_000,MEETING_MS=45_000,REVEAL_MS=8_000;
 export function ruleError(message,status=409){return Object.assign(new Error(message),{status})}
 export const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
-export function obstructed(x,y,r=WORLD.radius){
+export function obstructed(x,y,r=WORLD.radius,mapId="orbital"){
+ const walls=getMap(mapId).walls;
  return x<46+r||x>WORLD.width-46-r||y<46+r||y>WORLD.height-46-r||
-  WALLS.some(w=>x+r>w.x&&x-r<w.x+w.w&&y+r>w.y&&y-r<w.y+w.h);
+  walls.some(w=>x+r>w.x&&x-r<w.x+w.w&&y+r>w.y&&y-r<w.y+w.h);
 }
 export function randInt(max){
  const bytes=new Uint32Array(1);crypto.getRandomValues(bytes);
@@ -37,28 +30,23 @@ export function shuffle(items,rand=randInt){
  for(let i=arr.length-1;i>0;i--){const j=rand(i+1);[arr[i],arr[j]]=[arr[j],arr[i]]}
  return arr;
 }
-function spawn(seat){
- const spots=[
- [445,310],[510,350],[375,300],[565,310],[446,355],[525,275],
- [340,320],[610,320],[405,265],[555,360],[315,400],[630,395],
- [320,225],[625,225],[410,365],[580,265]];
- const [x,y]=spots[seat%spots.length];return {x,y};
-}
 export function newMatch(members,now=Date.now(),rand=randInt){
  if(members.length<MIN_PLAYERS||members.length>MAX_PLAYERS)throw ruleError("Cần 4–16 người để bắt đầu.");
  if(new Set(members.map(m=>m.uid)).size!==members.length)throw ruleError("Trùng tài khoản.",400);
+ const mapId=MAP_ORDER[rand(MAP_ORDER.length)];
+ const map=getMap(mapId);
  const count=members.length>=13?3:members.length>=8?2:1;
  const bad=new Set(shuffle(members.map(m=>m.uid),rand).slice(0,count));
  const players={};let totalTasks=0;
  for(const m of members){
-  const badRole=bad.has(m.uid),position=spawn(m.seat);
-  const jobs=badRole?[]:shuffle(STATIONS.map((_,i)=>i),rand).slice(0,3);
+  const badRole=bad.has(m.uid),position=spawnFor(m.seat);
+  const jobs=badRole?[]:shuffle(map.stations.map((_,i)=>i),rand).slice(0,3);
   if(!badRole)totalTasks+=jobs.length;
   players[m.uid]={...position,alive:true,evil:badRole,left:false,seat:m.seat,
    jobs,done:[],task:null,emergency:false,lastMoveAt:now,lastKillAt:now,
    lastChatAt:0};
  }
- return {phase:"playing",startedAt:now,deadline:now+MATCH_LIMIT_MS,players,
+ return {phase:"playing",mapId,startedAt:now,deadline:now+MATCH_LIMIT_MS,players,
   totalTasks,doneTasks:0,bodies:[],votes:{},messages:[],meetingDeadline:0,
   revealDeadline:0,meetingResult:null,meetingNumber:0,winner:null,reason:null,
   events:[{type:"start",at:now,text:"Ván bắt đầu. Giữ bí mật vai trò!"}]};
@@ -140,8 +128,8 @@ export function apply(s,members,uid,action,data={},now=Date.now(),rand=randInt){
   const length=WORLD.speed*dt/1000,ux=dx/d,uy=dy/d,steps=Math.ceil(length/7);
   for(let i=0;i<steps;i++){
    const nx=p.x+ux*length/steps,ny=p.y+uy*length/steps;
-   if(!obstructed(nx,p.y))p.x=nx;
-   if(!obstructed(p.x,ny))p.y=ny;
+   if(!obstructed(nx,p.y,WORLD.radius,s.mapId))p.x=nx;
+   if(!obstructed(p.x,ny,WORLD.radius,s.mapId))p.y=ny;
   }
   return true;
  }
@@ -150,7 +138,7 @@ export function apply(s,members,uid,action,data={},now=Date.now(),rand=randInt){
   const station=Number(data.station);
   if(!Number.isInteger(station)||!p.jobs.includes(station)||p.done.includes(station))
    throw ruleError("Nhiệm vụ không hợp lệ.",400);
-  if(distance(p,STATIONS[station])>72)throw ruleError("Bạn chưa đứng gần trạm.");
+  if(distance(p,getMap(s.mapId).stations[station])>72)throw ruleError("Bạn chưa đứng gần trạm.");
   if(!p.task||p.task.station!==station){
    const order=shuffle(PHRASES.map((_,i)=>i),rand).slice(0,3);
    p.task={station,index:0,order,choices:shuffle(order,rand)};
@@ -159,14 +147,14 @@ export function apply(s,members,uid,action,data={},now=Date.now(),rand=randInt){
  }
  if(action==="answer"){
   playing(s);if(p.evil||!p.task)throw ruleError("Chưa bắt đầu nhiệm vụ.",400);
-  if(distance(p,STATIONS[p.task.station])>72)throw ruleError("Bạn đã rời quá xa trạm.");
+  if(distance(p,getMap(s.mapId).stations[p.task.station])>72)throw ruleError("Bạn đã rời quá xa trạm.");
   if(typeof data.word!=="string"||data.word.length>64)throw ruleError("Đáp án không hợp lệ.",400);
   const right=PHRASES[p.task.order[p.task.index]].ko;
   if(data.word!==right){p.task.index=0;return true}
   p.task.index++;
   if(p.task.index>=p.task.order.length){
    p.done.push(p.task.station);p.task=null;s.doneTasks++;
-   log(s,"task",name+" đã hoàn thành một trạm.",now);
+   log(s,"task","Một trạm nhiệm vụ đã hoàn thành.",now);
    winnerCheck(s);
   }
   return true;
@@ -177,14 +165,15 @@ export function apply(s,members,uid,action,data={},now=Date.now(),rand=randInt){
   if(!Number.isInteger(seat)||!target||!target.alive||target.evil||target.left)
    throw ruleError("Mục tiêu không hợp lệ.",400);
   if(now-p.lastKillAt<15000||now-s.startedAt<15000)throw ruleError("Chiêu chưa hồi.");
-  if(distance(p,target)>62)throw ruleError("Mục tiêu ở quá xa.");
+  if(!visibleBetween(p,target,s.mapId,WORLD.killRange))
+   throw ruleError("Mục tiêu không ở trong tầm hạ gục.");
   dropPendingTasks(s,target);target.alive=false;p.lastKillAt=now;
   s.bodies.push({seat:target.seat,x:target.x,y:target.y});
   winnerCheck(s);return true;
  }
  if(action==="report"){
   playing(s);
-  const body=s.bodies.find(b=>distance(p,b)<=90);
+  const body=s.bodies.find(b=>visibleBetween(p,b,s.mapId,WORLD.reportRange));
   if(!body)throw ruleError("Không tìm thấy người bị hạ ở gần.");
   openMeeting(s,now,name+" phát hiện người bị hạ.");return true;
  }
@@ -220,7 +209,7 @@ export function view(s,members,uid,room){
   const p=s.players[m.uid];
   // Prevent global map hacks: only reveal nearby locations, never remote positions.
   const canSee=p&&(m.uid===uid||isFinished||
-   (me.alive&&p.alive&&distance(me,p)<=245));
+   (me.alive&&p.alive&&visibleBetween(me,p,s.mapId,WORLD.vision)));
   return {seat:m.seat,name:m.name,
    alive:revealStatus||canSee?(p?.alive??false):null,
    left:revealStatus?(p?.left??false):false,
@@ -228,16 +217,17 @@ export function view(s,members,uid,room){
    ...(canSee?{x:Math.round(p.x),y:Math.round(p.y)}:{}),
    ...(isFinished?{role:p?.evil?"evil":"good"}:{})};
  });
- const myTasks=(me.jobs||[]).map(id=>({id,...STATIONS[id],done:me.done.includes(id)}));
+ const myTasks=(me.jobs||[]).map(id=>({id,...getMap(s.mapId).stations[id],done:me.done.includes(id)}));
  const task=me.task&&s.phase==="playing"?{
   station:me.task.station,index:me.task.index,
   sequence:me.task.order.map(id=>PHRASES[id].vi),
   options:me.task.choices.map(id=>PHRASES[id].ko)}:null;
  return {code:room.code,visibility:room.visibility,locked:room.locked,
+   mapId:s.mapId||"orbital",mapName:getMap(s.mapId).name,world:{width:WORLD.width,height:WORLD.height},
    status:s.phase,version:room.version,serverTime:Date.now(),
    players:list,seat:me.seat,role:me.evil?"evil":"good",alive:me.alive,
    tasks:myTasks,task,doneTasks:s.doneTasks,totalTasks:s.totalTasks,
-   bodies:s.bodies.filter(b=>me.alive&&distance(me,b)<=105).map(b=>({...b})),
+   bodies:s.bodies.filter(b=>me.alive&&visibleBetween(me,b,s.mapId,WORLD.bodyVision)).map(b=>({...b})),
    aliveCount:revealStatus?Object.values(s.players).filter(p=>p.alive&&!p.left).length:null,
    meetingDeadline:s.phase==="meeting"?s.meetingDeadline:null,
    meetingNumber:s.meetingNumber,hasVoted:Object.hasOwn(s.votes,String(me.seat)),

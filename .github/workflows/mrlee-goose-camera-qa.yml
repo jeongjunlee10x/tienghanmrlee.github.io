@@ -1,0 +1,46 @@
+name: MR LEE Goose — Large Map Camera Browser QA
+on:
+  pull_request:
+    paths:
+      - 'game-goose-pvp.html'
+      - 'assets/arena/goose-pvp.js'
+      - 'assets/arena/goose-pvp.css'
+      - 'assets/arena/goose-maps.mjs'
+      - 'supabase/functions/mrlee-goose-pvp/maps.mjs'
+      - 'tools/browser-goose-camera.mjs'
+      - '.github/workflows/mrlee-goose-camera-qa.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'game-goose-pvp.html'
+      - 'assets/arena/goose-pvp.js'
+      - 'assets/arena/goose-maps.mjs'
+      - 'tools/browser-goose-camera.mjs'
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  camera:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Check JavaScript syntax
+        run: |
+          node --check assets/arena/goose-pvp.js
+          node --check assets/arena/goose-maps.mjs
+          node --check tools/browser-goose-camera.mjs
+      - name: Install Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install chromium --with-deps
+      - name: Test centered camera, map variants, vote and mobile
+        run: node tools/browser-goose-camera.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: goose-camera-map-screenshots
+          path: artifacts/goose-camera/*.png
+          retention-days: 14
+          if-no-files-found: ignore

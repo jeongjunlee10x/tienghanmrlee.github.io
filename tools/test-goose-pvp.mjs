@@ -1,7 +1,8 @@
+import {MAPS as BROWSER_MAPS} from "../assets/arena/goose-maps.mjs";
 import test from "node:test";
 import assert from "node:assert/strict";
 import {newMatch,view,apply,advance,winnerCheck,obstructed,MAX_PLAYERS,MIN_PLAYERS,
- STATIONS,MEETING_MS,PHRASES,ruleError} from "../supabase/functions/mrlee-goose-pvp/engine.mjs";
+ STATIONS,MEETING_MS,PHRASES,ruleError,WORLD,MAP_ORDER,getMap,visibleBetween,dropPendingTasks} from "../supabase/functions/mrlee-goose-pvp/engine.mjs";
 const people=n=>Array.from({length:n},(_,i)=>({
  uid:"firebase-user-"+String(i+1).padStart(2,"0"),seat:i,name:"Học viên "+(i+1),ready:true
 }));
@@ -38,11 +39,11 @@ test("server restricts input direction, speed and wall crossing",()=>{
  assert.throws(()=>apply(s,m,m[0].uid,"move",{dx:700,dy:0},1250));
  assert.equal(apply(s,m,m[0].uid,"move",{dx:1,dy:0},1050),false);
  assert.equal(apply(s,m,m[0].uid,"move",{dx:1,dy:0},1250),true);
- assert.ok(Math.hypot(p.x-initial.x,p.y-initial.y)<=43);
+ assert.ok(Math.hypot(p.x-initial.x,p.y-initial.y)<=48);
  assert.equal(apply(s,m,m[0].uid,"move",{dx:0,dy:1},2250),true);
  assert.ok(!obstructed(p.x,p.y));
  const after={x:p.x,y:p.y};apply(s,m,m[0].uid,"move",{dx:1,dy:0},100000);
- assert.ok(Math.hypot(p.x-after.x,p.y-after.y)<=60);
+ assert.ok(Math.hypot(p.x-after.x,p.y-after.y)<=70);
 });
 test("task progress requires proximity and three correct Korean answers",()=>{
  const m=people(4),s=newMatch(m,1000,zero),{good}=roles(s,m),uid=good[0].uid,p=s.players[uid];
@@ -128,4 +129,66 @@ test("visibility hides remote coordinates and dead bodies from map hackers",()=>
  const meet=view(s,m,m[0].uid,room);
  assert.equal(meet.players.find(p=>p.seat===5).alive,true);
  assert.equal(meet.players.find(p=>p.seat===5).x,undefined);
+});
+
+test("all three expansive maps are server-selected and their assets match the browser",()=>{
+ assert.deepEqual(MAP_ORDER,["orbital","arctic","garden"]);
+ assert.equal(WORLD.width,2400);
+ assert.equal(WORLD.height,1500);
+ for(let index=0;index<MAP_ORDER.length;index++){
+  const m=people(16);
+  let first=true;
+  const rand=n=>{if(first){first=false;return index}return 0};
+  const state=newMatch(m,1000,rand);
+  assert.equal(state.mapId,MAP_ORDER[index]);
+  const map=getMap(state.mapId);
+  assert.equal(map.stations.length,6);
+  assert.ok(map.zones.length>=8);
+  assert.ok(map.walls.length>=12);
+  assert.ok(m.every(player=>{
+   const p=state.players[player.uid];
+   return p.x>50&&p.x<WORLD.width-50&&p.y>50&&p.y<WORLD.height-50&&
+    !obstructed(p.x,p.y,WORLD.radius,state.mapId);
+  }));
+  assert.deepEqual(map,BROWSER_MAPS[state.mapId]);
+ }
+});
+test("a wall conceals an otherwise close opponent",()=>{
+ for(const mapId of MAP_ORDER){
+  const wall=getMap(mapId).walls[0];
+  const a={x:wall.x-45,y:wall.y+wall.h/2};
+  const b={x:wall.x+wall.w+45,y:wall.y+wall.h/2};
+  assert.ok(Math.hypot(a.x-b.x,a.y-b.y)<WORLD.vision);
+  assert.equal(visibleBetween(a,b,mapId),false,mapId);
+  assert.equal(visibleBetween(a,{x:a.x+10,y:a.y},mapId),true,mapId);
+ }
+});
+test("only close observers see a body, hidden kills have no global event",()=>{
+ const m=people(5),s=newMatch(m,1000,zero),{good,evil}=roles(s,m);
+ const killer=s.players[evil[0].uid],target=s.players[good[0].uid];
+ const witness=s.players[good[1].uid];
+ target.x=killer.x;target.y=killer.y;
+ witness.x=250;witness.y=220;
+ const count=s.events.length;
+ apply(s,m,evil[0].uid,"kill",{seat:target.seat},16000);
+ assert.equal(s.events.length,count,"No global kill announcement");
+ const far=view(s,m,good[1].uid,room);
+ assert.equal(far.bodies.length,0);
+ assert.equal(far.players.find(p=>p.seat===target.seat).alive,null);
+ assert.equal(far.players.find(p=>p.seat===killer.seat).visible,false);
+ witness.x=target.x+25;witness.y=target.y+25;
+ const near=view(s,m,good[1].uid,room);
+ assert.equal(near.bodies.length,1);
+ apply(s,m,good[1].uid,"report",{},17000);
+ assert.equal(s.phase,"meeting");
+});
+test("dead players do not leave impossible tasks behind",()=>{
+ const m=people(5),s=newMatch(m,1000,zero),{good}=roles(s,m);
+ const player=s.players[good[0].uid];
+ assert.equal(player.jobs.length,3);
+ const initial=s.totalTasks;
+ player.done.push(player.jobs[0]);s.doneTasks++;
+ dropPendingTasks(s,player);
+ assert.equal(s.totalTasks,initial-2);
+ assert.equal(s.doneTasks,1);
 });
