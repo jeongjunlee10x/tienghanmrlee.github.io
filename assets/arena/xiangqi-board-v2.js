@@ -84,8 +84,11 @@ export function animateXiangqiMove(board,{from,to,pieceSelector=".xq-piece",dura
  ghost.classList.add("xq-moving-token");
  ghost.setAttribute("aria-hidden","true");
  Object.assign(ghost.style,{position:"absolute",left:tokenLeft+"px",top:tokenTop+"px",
-  width:token.width+"px",height:token.height+"px",maxWidth:"none",maxHeight:"none",
-  margin:"0",zIndex:"25",pointerEvents:"none"});
+  maxWidth:"none",maxHeight:"none",margin:"0",zIndex:"25",pointerEvents:"none"});
+ // Override percentage token sizes used by the normal board. The floating copy
+ // must keep exactly the pixel size of ONE intersection, never 83% of the board.
+ ghost.style.setProperty("width",token.width+"px","important");
+ ghost.style.setProperty("height",token.height+"px","important");
  // The final position already came from the authoritative rules engine / server.
  // Hide it until the traveling token lands, without making another game move.
  piece.style.visibility="hidden";
