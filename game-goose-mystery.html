@@ -97,7 +97,43 @@ function update(){
  $('actReport').disabled=phase!=='play'||!me.alive;
 }
 function nearby(list,r){return list.filter(a=>dist(me,a)<r).sort((a,b)=>dist(me,a)-dist(me,b))[0]}
-function doTask(){if(phase!=='play'||!me.alive||role!=='good')return;let t=nearby(tasks.filter(t=>!t.done),68);if(!t){say('Hãy đến gần trạm nhiệm vụ phát sáng.');return}t.done=true;say('✅ '+t.n+' hoàn tất!');check();update()}
+const phrasePool=[
+ {ko:'안녕하세요',vi:'Xin chào'},{ko:'감사합니다',vi:'Cảm ơn'},{ko:'죄송합니다',vi:'Xin lỗi'},
+ {ko:'네',vi:'Vâng'},{ko:'아니요',vi:'Không'},{ko:'괜찮아요',vi:'Không sao'},
+ {ko:'안녕히 가세요',vi:'Tạm biệt (người đi)'},{ko:'잘 먹겠습니다',vi:'Tôi sẽ ăn ngon miệng'}
+];
+const shuffle=list=>{const a=[...list];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function doTask(){
+ if(phase!=='play'||!me.alive||role!=='good')return;
+ const t=nearby(tasks.filter(t=>!t.done),68);
+ if(!t){say('Hãy đến gần trạm nhiệm vụ phát sáng.');return}
+ phase='task';activeTask=t;taskIndex=0;taskChallenge=shuffle(phrasePool).slice(0,3);
+ keys.clear();drawTaskPuzzle();$('overlay').hidden=false;update();
+}
+function drawTaskPuzzle(){
+ if(phase!=='task'||!activeTask)return;
+ const box=$('modal');box.replaceChildren();
+ const heading=document.createElement('h2');heading.textContent='⚙ '+activeTask.n;box.append(heading);
+ const p=document.createElement('p');p.textContent='Chọn cụm từ tiếng Hàn tương ứng theo đúng thứ tự tiếng Việt:';box.append(p);
+ const words=document.createElement('p');words.className='gm-puzzle-step';
+ words.textContent=taskChallenge.map(t=>t.vi).join(' → ');box.append(words);
+ const meter=document.createElement('p');meter.className='hint';meter.textContent='Hoàn thành '+taskIndex+'/3 · Chọn đúng cả 3 để sửa trạm.';box.append(meter);
+ const answers=document.createElement('div');answers.className='gm-puzzle-answers';
+ for(const item of shuffle(taskChallenge)){
+   const btn=document.createElement('button');btn.textContent=item.ko;
+   btn.onclick=()=>{
+    if(phase!=='task')return;
+    if(item!==taskChallenge[taskIndex]){taskIndex=0;say('Chưa đúng! Thử lại từ đầu.');drawTaskPuzzle();return}
+    taskIndex++;
+    if(taskIndex===taskChallenge.length){
+      activeTask.done=true;const name=activeTask.n;activeTask=null;taskChallenge=[];phase='play';
+      $('overlay').hidden=true;say('✅ Hoàn thành nhiệm vụ: '+name);update();check();
+    }else{say('✅ Chính xác! Tiếp tục.');drawTaskPuzzle()}
+   };answers.append(btn);
+ }
+ box.append(answers);
+ const leave=document.createElement('button');leave.textContent='← Quay lại bản đồ';leave.onclick=()=>{phase='play';activeTask=null;taskChallenge=[];keys.clear();$('overlay').hidden=true;update()};box.append(leave);
+}
 function eliminate(){if(phase!=='play'||role!=='bad'||!me.alive)return;if(cooldown>0){say('Còn '+Math.ceil(cooldown)+' giây hồi chiêu.');return}
  const t=nearby(bots.filter(p=>p.alive&&!p.bad),66);if(!t){say('Cần đứng gần mục tiêu.');return}t.alive=false;bodies.push({x:t.x,y:t.y,name:t.name});cooldown=13;kills++;say('Đã hạ '+t.name+'. Tránh để bị phát hiện!');check();update()}
 function report(){if(phase!=='play'||!me.alive)return;const b=nearby(bodies,88);if(!b){say('Không tìm thấy người bị hạ ở gần.');return}meeting('📣 Phát hiện '+b.name+' bị hạ!')}
@@ -137,11 +173,16 @@ function check(){
  }
 }
 function tick(dt){
- if(phase!=='play')return;elapsed+=dt;cooldown=Math.max(0,cooldown-dt);
+ if(phase!=='play')return;elapsed+=dt;cooldown=Math.max(0,cooldown-dt);botReportLock=Math.max(0,botReportLock-dt);
  if(me.alive){let dx=Number(keys.has('right')||keys.has('d'))-Number(keys.has('left')||keys.has('a'));let dy=Number(keys.has('down')||keys.has('s'))-Number(keys.has('up')||keys.has('w'));if(dx||dy){let n=Math.hypot(dx,dy);move(me,dx/n,dy/n,dt)}}
  for(const b of bots){if(!b.alive)continue;b.think-=dt;b.act-=dt;
  if(b.think<=0||dist(b,{x:b.tx,y:b.ty})<25){b.tx=rnd(75,W-75);b.ty=rnd(75,H-75);b.think=rnd(1,3)}
- let dx=b.tx-b.x,dy=b.ty-b.y,n=Math.hypot(dx,dy);if(n>8)move(b,dx/n,dy/n,dt);
+ let dx=b.tx-b.x,dy=b.ty-b.y,n=Math.hypot(dx,dy);const oldX=b.x,oldY=b.y;if(n>8)move(b,dx/n,dy/n,dt);
+ if(n>8&&Math.hypot(b.x-oldX,b.y-oldY)<.2)b.think=0;
+ if(!b.bad&&botReportLock<=0&&bodies.length){
+  const seen=bodies.find(body=>dist(b,body)<78);
+  if(seen){botReportLock=22;meeting('📣 '+b.name+' phát hiện '+seen.name+' bị hạ!');break}
+ }
  if(b.bad&&b.act<=0){const candidates=[me,...bots].filter(p=>p!==b&&p.alive&&!p.bad);
  const victim=candidates.filter(p=>dist(p,b)<48)[0];
  if(victim){victim.alive=false;bodies.push({x:victim.x,y:victim.y,name:victim.name});b.act=rnd(16,25);say('⚠ Có người mất tích! Hãy tìm và báo cáo.');check()}}
