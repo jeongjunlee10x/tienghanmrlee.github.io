@@ -44,3 +44,29 @@ This is a new independently implemented social deduction game. It does **not** u
 - `POST ?action=create|quick|join|ready|start|lock|leave|rematch` for the lobby.
 - `POST ?action=move|task|answer|kill|report|emergency|vote|chat` during gameplay.
 - All non-health operations require an email-verified Firebase ID token, and all room operations require membership.
+
+
+## Large-map local camera / stealth update (2026-11-17)
+- Three original maps: `orbital` (Trạm Quỹ Đạo), `arctic` (Căn Cứ Băng Giá),
+  `garden` (Vườn Sinh Học), each `2400 × 1500` world units.
+- The server **randomly selects a map for each new match**. `state.mapId`
+  is saved with the round. Server map data:
+  `supabase/functions/mrlee-goose-pvp/maps.mjs`.
+- Browser catalogue `assets/arena/goose-maps.mjs` must match the server
+  data. The Node test explicitly compares the two catalogues.
+- Local camera tracks the player's position at 1.45× zoom and uses radial
+  fog of war. The minimap shows the **local player only**, never opponents.
+- Opponent coordinates are **not transmitted** unless the subject is alive,
+  within approximately 228 world units, AND no solid wall blocks line of sight.
+- A body is only sent if it is within 92 units and visible; reporting requires
+  being within 74 units with unobstructed sight. Kills require ≤62 units and
+  unobstructed sight. No room-wide notification is generated for kills.
+- Meeting ballots still include all living participants, including those
+  physically far away. Their roles are secret until the match ends.
+- Browser-only smoke with Playwright tests camera-follow motion, three maps,
+  voting and mobile layouts. It does **not** prove real 16-person production latency.
+- Deploy the updated **entire** `mrlee-goose-pvp` Edge Function directory,
+  including `engine.mjs` and `maps.mjs`; merely publishing HTML/JS on
+  Cloudflare is not sufficient. Existing SQL schema does not change.
+- This update does **not** implement WebRTC voice chat. Voice is a separate
+  feature requiring signaling, consent, mute controls, and live QA.
