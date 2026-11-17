@@ -140,7 +140,8 @@ export function xiangqiBotMove(g,difficulty="normal"){
  }
  return chosen;
 }
-import {enablePointerDrag,animateBoardMove} from "./drag-gestures.js?v=20261107-motion-v22b";
+import {enablePointerDrag} from "./drag-gestures.js?v=20261107-motion-v22b";
+import {decorateXiangqiBoard,animateXiangqiMove,coordinateLabel} from "./xiangqi-board-v2.js?v=20261117-board-v2";
 import {emitArenaFX} from "./game-visuals-v19.js?v=20261107-approved-v20";
 export function mountXiangqi({onStart,onFinish,onExit}){
  const root=$("arenaXiangqi"),board=$("xqBoard"),status=$("xqStatus");
@@ -197,10 +198,9 @@ export function mountXiangqi({onStart,onFinish,onExit}){
   if(!g||g.turn!==1||finished)return;
   if(selected>=0&&xiangqiLegal(g,1).some(m=>m[0]===selected&&m[1]===i)){
    try{
-    const from=board.querySelector('[data-index="'+selected+'"]'),to=board.querySelector('[data-index="'+i+'"]');
-    const captured=Boolean(g.b[i]),wasCovered=Boolean(g.b[selected]?.covered);
-    animateBoardMove({from,to,piece:from?.querySelector(".xq-piece"),kind:"xiangqi-piece"});
+    const fromIndex=selected,captured=Boolean(g.b[i]),wasCovered=Boolean(g.b[selected]?.covered);
     xiangqiMove(g,selected,i);selected=-1;render();
+    animateXiangqiMove(board,{from:fromIndex,to:i,pieceSelector:".xq-piece",duration:480});
     if(wasCovered){
      const piece=board.querySelector('[data-index="'+i+'"] .xq-piece');
      if(piece&&document.documentElement.dataset.arenaVisuals!=="off")
@@ -220,14 +220,14 @@ export function mountXiangqi({onStart,onFinish,onExit}){
    const snapshot=g,move=await calculateBot(snapshot,$("xqLevel")?.value||"normal");
    if(stamp!==epoch||g!==snapshot||root.hidden||finished)return;
    if(!move){g.winner=1;}else{
-    const from=board.querySelector('[data-index="'+move[0]+'"]'),to=board.querySelector('[data-index="'+move[1]+'"]');
     const captured=Boolean(g.b[move[1]]),wasCovered=Boolean(g.b[move[0]]?.covered);
-    animateBoardMove({from,to,piece:from?.querySelector(".xq-piece"),kind:"xiangqi-piece"});
     xiangqiMove(g,...move);
     if(wasCovered)board.dataset.v22FlipTarget=String(move[1]);
     if(captured)emitArenaFX("xiangqi",board.querySelector('[data-index="'+move[1]+'"]'));
    }
-   render();if(g.winner!==null)finish();
+   render();
+   if(move)animateXiangqiMove(board,{from:move[0],to:move[1],pieceSelector:".xq-piece",duration:500});
+   if(g.winner!==null)finish();
   },480);
  }
  function render(){
@@ -253,6 +253,17 @@ export function mountXiangqi({onStart,onFinish,onExit}){
     tile.append(piece);
    }else if(target.has(i))tile.append(node("span","xq-target-dot"));
    board.append(tile);
+  }
+  decorateXiangqiBoard(board,{last:g.last,flipped:false});
+  board.parentElement?.querySelector(".xq-bot-last-banner")?.remove();
+  if(Array.isArray(g.last)){
+   const info=node("div","arena-xq-last-banner xq-bot-last-banner");
+   info.setAttribute("role","status");
+   info.append(node("strong","","NƯỚC VỪA ĐI"),
+    node("span","xq-move-from",coordinateLabel(g.last[0])),
+    node("span","xq-move-arrow","➜"),
+    node("span","xq-move-to",coordinateLabel(g.last[1])));
+   board.insertAdjacentElement("afterend",info);
   }
   status.textContent=g.winner!==null?(g.winner===1?"🏆 Bạn thắng!":"🏆 Máy thắng!"):
    g.turn===1?(isXiangqiCheck(g,1)?"⚠️ Tướng đang bị chiếu! Chọn nước cứu tướng.":"🔴 Lượt bạn · giữ kéo quân đỏ đến ô đích hoặc chạm hai ô."):
