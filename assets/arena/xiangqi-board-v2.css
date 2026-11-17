@@ -2,7 +2,8 @@
    Overrides only Xiangqi games; does not alter engine or PvP server behavior. */
 :root{--xq-wood:#e2bb7b;--xq-line:#835b32;--xq-action:#06757c;--xq-gold:#f6c750}
 #arenaPvPBoard .arena-online-xq-board.xq-board-accurate,
-#arenaXiangqi .xq-board.xq-board-accurate{
+#arenaXiangqi .xq-board.xq-board-accurate,
+html.arena-embedded[data-embedded-game="xiangqi"] #arenaXiangqi .xq-board.xq-board-accurate{
  position:relative!important;isolation:isolate;display:grid!important;
  grid-template-columns:repeat(9,minmax(0,1fr))!important;
  grid-template-rows:repeat(10,minmax(0,1fr))!important;
@@ -27,7 +28,7 @@
 }
 #arenaPvPBoard .arena-online-xq-board.xq-board-accurate .arena-online-xq-cell::before,
 #arenaXiangqi .xq-board.xq-board-accurate .xq-square::before{
- content:"";position:absolute!important;inset:9%!important;z-index:-1;
+ content:"";position:absolute!important;inset:9%!important;z-index:0;
  background:transparent!important;border:0!important;border-radius:50%!important;
  pointer-events:none;box-shadow:none!important;transition:box-shadow .18s,background-color .18s
 }
@@ -118,3 +119,9 @@
  .arena-xq-last-banner{font-size:11px;gap:6px}
 }
 @media(prefers-reduced-motion:reduce){.xq-board-accurate .xq-art-last-path{stroke-dasharray:none}}
+
+/* Bottom-of-cascade protection against legacy river-square gradients. */
+html.arena-embedded[data-embedded-game="xiangqi"] #arenaXiangqi .xq-board.xq-board-accurate .xq-square,
+#arenaXiangqi .xq-board.xq-board-accurate .xq-square.river{
+ background:transparent!important;border:0!important
+}
