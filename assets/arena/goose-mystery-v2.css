@@ -1,0 +1,70 @@
+
+/* MR LEE original Goose Mystery UI v2 — independent assets, no external fonts */
+:root{--gm-ink:#ebf7ff;--gm-muted:#a9bdd8;--gm-glass:#112544ea;--gm-aqua:#48edc5;--gm-amber:#ffce70}
+html{scroll-behavior:smooth}
+body{background:
+radial-gradient(circle at 5% 12%,#16a9a61b,transparent 25%),
+radial-gradient(circle at 90% 12%,#6757c22e,transparent 35%),
+linear-gradient(160deg,#091329,#10213b 54%,#0b1328)}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.11;background-image:linear-gradient(#ffffff12 1px,transparent 1px),linear-gradient(90deg,#ffffff12 1px,transparent 1px);background-size:38px 38px}
+header{position:relative;z-index:1;background:#081a32bc;backdrop-filter:blur(12px);border-bottom-color:#64e9de2b}
+.brand{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wrap{position:relative;z-index:1}
+.wrap h1{font-weight:950;letter-spacing:.045em;background:linear-gradient(90deg,#ffffff,#7ff6e5 66%,#c8b0ff);background-clip:text;color:transparent}
+.topline>.pill{border:1px solid #66dbca3e}
+.pill{background:#203c5d}
+.panel{background:linear-gradient(165deg,#142747f5,#0e1f39f0);border:1px solid #74b3d548;box-shadow:0 18px 65px #0005,inset 0 1px #ffffff1a}
+#stage{background:#142b47;box-shadow:inset 0 0 40px #0005;border-top:1px solid #b6e6ff24;border-bottom:1px solid #b6e6ff24}
+.actions{background:#091b30a8;gap:10px}
+.actions button{min-height:46px;transition:transform .15s,background .15s,box-shadow .15s;box-shadow:inset 0 1px #ffffff24}
+.actions button:active:not(:disabled){transform:scale(.96)}
+.actions .primary{background:linear-gradient(140deg,#24e3b7,#6fe8ef);color:#06272a}
+.actions .danger{background:linear-gradient(140deg,#d64a64,#ad304d);color:#fff}
+button:focus-visible,a:focus-visible{outline:3px solid #fff27a;outline-offset:3px}
+#status{background:#091b30a8;padding:3px 15px 14px;min-height:40px;font-weight:700}
+.aside{background:linear-gradient(160deg,#182d4f,#101e36)}
+.aside h2{color:#e0f6ff}
+.stat{background:#223f60;border:1px solid #ffffff16}
+.stat b{color:#9cfae3}
+.task{display:flex;align-items:center;gap:6px;background:#213b5a;border:1px solid #ffffff17}
+.task::before{content:"⬡";color:#74ead1}
+.task.done::before{content:"✓";color:#7ef5ad}
+#taskProgress{accent-color:#3eeac0}
+.modal{background:linear-gradient(160deg,#1b3557,#10253e);border:1px solid #9bdcde73;box-shadow:0 24px 120px #000b,inset 0 1px #ffffff22}
+.modal h2{margin:0 0 12px;font-size:clamp(1.3rem,3vw,1.7rem);color:#e6fcff}
+.modal button{border:1px solid #a1e0e654}
+.modal button.primary{background:#53e6c8;color:#0a3138}
+.modal .hint{margin:10px 0}
+.vote-list{gap:10px}
+.vote-list button{min-height:52px;position:relative;padding-left:16px}
+.vote-list button::after{content:"›";position:absolute;right:12px;font-size:1.5rem;top:6px;color:#72ddc9}
+#overlay{backdrop-filter:blur(8px)}
+#joystick button{border-radius:15px;background:#254b6d;border-color:#74e7d75c;box-shadow:0 2px 0 #061224}
+#joystick button:active{background:#269e98}
+.gm-hint-banner{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.gm-hint-banner span{font-size:.8rem;border:1px solid #ffffff2e;padding:6px 9px;border-radius:18px;color:#ccdef4;background:#1a3353}
+#gmMode{display:flex;align-items:center;gap:10px;margin:12px 0 0;flex-wrap:wrap}
+#gmMode select{background:#1f3554;color:#fff;border:1px solid #75b8d15e;border-radius:10px;padding:10px;font-weight:750}
+#gmMode label{color:#c1d9ef;font-weight:650;font-size:.92rem}
+.gm-scene-tip{font-size:.84rem;margin:5px 15px;color:#b6d9ef}
+.gm-puzzle-step{font-size:.9rem;color:#ffdb85;font-weight:800}
+.gm-puzzle-answers{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+.gm-puzzle-answers button{padding:16px 6px;background:#1c4e67;font-size:1.4rem}
+.gm-puzzle-answers button:disabled{background:#2d816c;opacity:1}
+@media(max-width:800px){
+ body{overflow-x:hidden}
+ header .brand{font-size:.88rem}
+ .grid{gap:10px}
+ #stage{height:auto;max-height:68vh}
+ .panel{border-radius:14px}
+ .actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .actions button{min-width:0;font-size:.8rem;min-height:44px}
+ #joystick{gap:7px;margin:10px auto}
+ #joystick button{min-width:48px;min-height:44px}
+ .aside{padding:12px}
+ .aside .controls{display:none}
+ .vote-list{grid-template-columns:1fr 1fr}
+ .modal{padding:17px}
+ .gm-puzzle-answers button{font-size:1.2rem}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
