@@ -467,21 +467,48 @@
       '우리 몇 번 출구에서 만날까요?', 'Mình gặp nhau ở cửa ra số mấy nhé?', '3번 출구 앞에서 만나요.', 'Mình gặp nhau trước cửa ra số 3 nhé.']
   ];
 
-  function metroCardMarkup(index) {
-    const [scene, title, task, koA, viA, koB, viB] = metroRoleCards[index];
-    const caption = metroSceneCaptions[scene - 1];
+  const busRoleCards = [
+    [1, 'Chọn tuyến ở trạm', 'A cần tới thư viện. B biết số tuyến. Sau lượt đầu, đổi thư viện thành bưu điện.',
+      '도서관에 가려면 몇 번 버스를 타야 해요?', 'Muốn đến thư viện thì tôi phải đi xe buýt số mấy ạ?', '여기서 12번 버스를 타세요.', 'Anh/chị đi xe số 12 từ đây nhé.'],
+    [2, 'Kiểm tra chiều đi', 'A đang chờ xe về phía trường đại học. B phát hiện A đứng nhầm bên đường.',
+      '대학교 쪽으로 가는 버스가 여기 서요?', 'Xe đi về phía trường đại học có dừng ở đây không ạ?', '길 건너편 정류장에서 타셔야 해요.', 'Anh/chị phải đón xe ở trạm bên kia đường ạ.'],
+    [1, 'Đọc bảng giờ xe', 'A muốn biết còn phải chờ bao lâu. B nhìn bảng và trả lời. Đổi vai rồi thay số phút.',
+      '다음 버스는 언제 와요?', 'Khi nào chuyến xe tiếp theo tới ạ?', '전광판을 보니까 5분 후에 온대요.', 'Theo bảng điện tử thì năm phút nữa xe tới ạ.'],
+    [3, 'Chạm thẻ lần đầu', 'A vừa lên xe và cầm sẵn thẻ. B chỉ vị trí máy đọc thẻ.',
+      '카드를 어디에 찍으면 돼요?', 'Tôi chạm thẻ vào đâu ạ?', '기사님 옆에 있는 단말기에 찍으세요.', 'Anh/chị chạm thẻ vào máy cạnh bác tài nhé.'],
+    [3, 'Thẻ chưa được nhận', 'A đã chạm cả ví vào máy nhưng thẻ chưa được nhận. B gợi ý lấy riêng một thẻ ra.',
+      '지갑을 댔는데 카드가 안 찍혀요.', 'Tôi đã áp ví vào máy nhưng máy không nhận thẻ ạ.', '카드 한 장만 꺼내서 다시 찍어 보세요.', 'Anh/chị lấy riêng một thẻ ra rồi thử chạm lại nhé.'],
+    [4, 'Nhường ghế', 'A đang ngồi và muốn nhường chỗ cho B, người đang xách đồ. B đáp lại lời mời.',
+      '짐이 많으시네요. 여기 앉으세요.', 'Bác mang nhiều đồ quá. Bác ngồi đây ạ.', '고마워요. 덕분에 편하게 가겠네요.', 'Cảm ơn cháu. Nhờ cháu mà bác đi xe thoải mái hơn rồi.'],
+    [2, 'Nghe hụt tên trạm', 'A nghe chưa rõ thông báo và sắp xuống ở chợ. B cho biết còn một trạm nữa.',
+      '죄송한데, 이번 정류장이 시장이에요?', 'Xin lỗi, trạm này là trạm chợ phải không ạ?', '아니요, 다음 정류장에서 내리시면 돼요.', 'Chưa đâu ạ, anh/chị xuống ở trạm tiếp theo là được.'],
+    [2, 'Báo hiệu xuống xe', 'A sắp tới điểm cần xuống nhưng chưa biết báo cho tài xế. B chỉ nút bấm.',
+      '다음 정류장에서 내리려면 어떻게 해요?', 'Muốn xuống ở trạm tới thì tôi làm thế nào ạ?', '옆에 있는 하차 버튼을 누르세요.', 'Anh/chị bấm nút báo xuống ở bên cạnh nhé.'],
+    [5, 'Tìm điểm chuyển tuyến', 'A cần chuyển sang tàu điện ngầm. B chỉ điểm xuống và cách tìm lối vào ga.',
+      '지하철로 갈아타려면 어디에서 내려요?', 'Tôi xuống ở đâu để chuyển sang tàu điện ngầm ạ?', '다음 정류장에서 내리세요. 바로 앞에 역 입구가 있어요.', 'Anh/chị xuống ở trạm tới nhé. Ngay phía trước có lối vào ga.'],
+    [2, 'Đi quá điểm dừng', 'A nhận ra mình đã đi quá một trạm. B gợi ý cách quay lại. Đổi vai và nói lại bằng lời của mình.',
+      '내릴 곳을 지나쳤어요. 어떻게 돌아가요?', 'Tôi đi quá điểm cần xuống rồi. Tôi quay lại thế nào ạ?', '다음 정류장에서 내려서 반대 방향 버스를 타세요.', 'Anh/chị xuống ở trạm kế tiếp rồi bắt xe buýt chiều ngược lại nhé.']
+  ];
+
+  const busSceneCaptions = ['Số tuyến và bảng thông tin', 'Chiều đi và điểm dừng',
+    'Thanh toán bằng thẻ giao thông', 'Tay vịn và ghế ưu tiên', 'Chuyển tuyến'];
+
+  function roleCardMarkup(cards, index, isBus) {
+    const [scene, title, task, koA, viA, koB, viB] = cards[index];
+    const caption = (isBus ? busSceneCaptions : metroSceneCaptions)[scene - 1];
+    const directory = isBus ? 'images/culture-v20-hd/xe-buyt/' : 'images/culture-metro-scenes/';
     const line = (role, ko, vi) => '<p><strong lang="ko">' + role + ' · ' + esc(ko) +
       '</strong> <button type="button" data-speak="' + esc(ko) + '" aria-label="Nghe lời vai ' + role +
       '">🔊</button><br>' + esc(vi) + '</p>';
-    return '<section data-metro-card aria-label="Thẻ luyện nói"><div class="mcl-scene-layout"><div class="mcl-deck-pictures">' +
-      imageMarkup({src: 'images/culture-metro-scenes/' + String(scene).padStart(2, '0') + '.webp',
+    return '<section data-role-card aria-label="Thẻ luyện nói"><div class="mcl-scene-layout"><div class="mcl-deck-pictures">' +
+      imageMarkup({src: directory + String(scene).padStart(2, '0') + '.webp',
         alt: caption, caption: caption + ' · Minh họa AI'}) +
-      '</div><div><h3 aria-live="polite">Thẻ ' + (index + 1) + '/' + metroRoleCards.length + ' · ' + esc(title) +
+      '</div><div><h3 aria-live="polite">Thẻ ' + (index + 1) + '/' + cards.length + ' · ' + esc(title) +
       '</h3><p>' + esc(task) + '</p><details><summary>Mở hội thoại mẫu</summary>' +
       line('A', koA, viA) + line('B', koB, viB) + '</details></div></div>' +
       '<p><button type="button" data-card-step="-1"' + (index === 0 ? ' disabled' : '') +
       '>← Thẻ trước</button> <button type="button" data-card-step="1"' +
-      (index === metroRoleCards.length - 1 ? ' disabled' : '') + '>Thẻ sau →</button></p></section>';
+      (index === cards.length - 1 ? ' disabled' : '') + '>Thẻ sau →</button></p></section>';
   }
 
   function addPresentation(lessonPlan, topic, plan, photos) {
@@ -563,6 +590,8 @@
     const previous = $('[data-prev]', dialog);
     const next = $('[data-next]', dialog);
     let active = 0;
+    const isBus = topic.slug === 'xe-buyt';
+    const cards = isBus ? busRoleCards : topic.slug === 'tau-dien-ngam' ? metroRoleCards : [];
     let cardIndex = 0;
     let transition;
     const phaseImage = topic.slug === 'tau-dien-ngam'
@@ -578,8 +607,8 @@
       const [minutes, heading, body] = slides[index];
       const image = (index === 3 && samples[0].photo) || artwork[phaseImage[index]];
       content.innerHTML = '<h2 id="mcl-deck-title">' + esc(heading) + '</h2>' +
-        (topic.slug === 'tau-dien-ngam' && index === 5
-          ? '<p>Chọn một thẻ. Hai bạn đóng vai A và B, sau đó đổi vai và thay một chi tiết trong lời thoại.</p>' + metroCardMarkup(cardIndex)
+        (cards.length && index === 5
+          ? '<p>Chọn một thẻ. Hai bạn đóng vai A và B, sau đó đổi vai và thay một chi tiết trong lời thoại.</p>' + roleCardMarkup(cards, cardIndex, isBus)
           : '<div class="mcl-scene-layout">' + pictures([image]) + '<div>' + body + '</div></div>') +
         '<details><summary>Xem ảnh minh họa của bài (' + artwork.length + ')</summary>' + pictures(artwork) + '</details>' +
         slideResources(topic, samples);
@@ -599,7 +628,12 @@
       showSlide(active);
       content.focus();
     });
-    if (new URLSearchParams(location.search).get('mode') === 'slides') launch.click();
+    const params = new URLSearchParams(location.search);
+    if (params.get('mode') === 'slides') {
+      const slide = Number(params.get('slide'));
+      if (Number.isInteger(slide) && slide >= 1 && slide <= slides.length) active = slide - 1;
+      launch.click();
+    }
     previous.addEventListener('click', () => showSlide(active - 1));
     next.addEventListener('click', () => showSlide(active + 1));
     $('[data-close]', dialog).addEventListener('click', () => dialog.close());
@@ -633,13 +667,13 @@
     content.addEventListener('click', (event) => {
       const step = event.target.closest('[data-card-step]');
       if (step) {
-        const card = step.closest('[data-metro-card]');
+        const card = step.closest('[data-role-card]');
         const target = cardIndex + Number(step.dataset.cardStep);
-        if (!card || target < 0 || target >= metroRoleCards.length) return;
+        if (!card || target < 0 || target >= cards.length) return;
         window.speechSynthesis?.cancel();
         cardIndex = target;
-        card.outerHTML = metroCardMarkup(cardIndex);
-        const updated = $('[data-metro-card]', content);
+        card.outerHTML = roleCardMarkup(cards, cardIndex, isBus);
+        const updated = $('[data-role-card]', content);
         const same = updated.querySelector('[data-card-step="' + step.dataset.cardStep + '"]');
         (same.disabled ? updated.querySelector('button[data-card-step]:enabled') : same).focus({preventScroll:true});
         if (!reducedMotion.matches) updated.animate?.([{opacity:0.25}, {opacity:1}], {duration:260});
