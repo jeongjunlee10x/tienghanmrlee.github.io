@@ -519,7 +519,7 @@
       alt: topic.title + ' · ' + topic.ko,
       caption: 'Minh họa · ' + topic.title
     }));
-    const additional = [...photos.filter((photo) => /\bAI\b/i.test(photo.alt) && /^images\//.test(photo.src)),
+    const additional = [...photos.filter((photo) => /^images\//.test(photo.src)),
       ...samples.map((sample) => sample.photo).filter(Boolean)];
     for (const photo of additional) {
       if (!artwork.some((existing) => existing.src.split('?')[0] === photo.src.split('?')[0])) artwork.push(photo);
@@ -531,7 +531,9 @@
         alt: caption, caption: caption + ' · Minh họa AI'
       }));
     }
-    const pictures = (list) => '<div class="mcl-deck-pictures">' + list.map((photo) => imageMarkup(photo)).join('') + '</div>';
+    // Prefer available topic-specific gallery photos over older placeholder art.
+    artwork.unshift(...additional.filter((photo) => photo.src && !artwork.some((a) => a.src === photo.src)));
+    const pictures = (list) => '<div class="mcl-deck-pictures">' + list.filter(Boolean).map((photo) => imageMarkup(photo)).join('') + '</div>';
     const bullets = (list) => '<ul>' + list.map((value) => '<li>' + esc(value) + '</li>').join('') + '</ul>';
     const prompt = (value) => '<p>' + esc(value) + '</p>';
     const media = video?.url && /^https:\/\//.test(video.url)
@@ -540,31 +542,81 @@
         prompt('Xem một đoạn do giáo viên chọn. Nêu một chi tiết liên quan tới bài học và giải thích bằng lời của mình.')
       : prompt('Chọn hai ảnh. Mô tả mỗi ảnh bằng một từ khóa rồi giải thích ảnh nào liên quan nhất đến tình huống mở đầu.');
     const quiz = topic.quiz || topic.quizSet[0];
-    const slides = [
-      ['00–05', topic.title, '<p lang="ko">' + esc(topic.ko) + '</p>' +
-        prompt(samples[0].scene) + prompt('Quan sát ảnh, dự đoán cách ứng xử và trao đổi với bạn bên cạnh.')],
-      ['05–15', 'Khám phá chủ đề', bullets(plan.focus) + media],
-      ['15–23', 'Từ vựng và câu mẫu', bullets(topic.words.map((word) => word.ko + ' — ' + word.vi)) +
-        bullets(plan.patterns) + prompt('Đọc theo giáo viên rồi thay một thông tin trong câu mẫu.')],
-      ['23–33', samples[0].title, prompt('Nghe và xác định vai của hai người. Sau đó mở bản dịch để đối chiếu.') +
-        samples[0].dialogue.map((line) => '<p lang="ko">' + esc(line[0] + ' · ' + line[1]) +
+    // 45 real teaching moments, derived from each topic's existing reviewed content.
+    // Keep each screen short: one educational objective or learner action per slide.
+    const slides = [];
+    const add = (time, title, html, photoIndex) => slides.push([time, title, html, photoIndex]);
+    const item = (arr, n, fallback) => Array.isArray(arr) && arr.length
+      ? arr[n % arr.length] : fallback;
+    const focus = plan.focus || [];
+    const goals = plan.goals || [];
+    const words = topic.words || [];
+    const patterns = plan.patterns || [];
+    const scene = (s, instruction) => prompt(s.scene) + prompt(instruction);
+    add('00–02', topic.title, '<p lang="ko">' + esc(topic.ko) + '</p>' +
+      prompt('Quan sát tình huống. Hôm nay chúng ta sẽ nói được điều gì?'), 0);
+    for (let i = 0; i < 3; i++) {
+      add('02–05', 'Mục tiêu ' + (i + 1),
+        prompt(item(goals, i, 'Mô tả tình huống và trao đổi ngắn bằng tiếng Hàn.')) +
+        prompt('Nói mục tiêu này bằng lời của em.'), i);
+    }
+    for (let i = 0; i < 5; i++) {
+      add('05–13', 'Khám phá · ' + (i + 1) + '/5',
+        prompt(item(focus, i, 'Quan sát, phân tích và so sánh tình huống.')) +
+        prompt(i % 2 ? 'So sánh với trải nghiệm ở Việt Nam.' : 'Nêu một chi tiết cụ thể trong ảnh.'), i);
+    }
+    for (let i = 0; i < 5; i++) {
+      add('13–18', 'Nhìn ảnh – nói ý · ' + (i + 1) + '/5',
+        prompt(['Ảnh cho thấy điều gì?','Ai đang tham gia tình huống?','Điều gì nên làm trước?','Điều gì không nên làm?','Nêu một câu phù hợp bằng tiếng Hàn.'][i]), i);
+    }
+    for (let i = 0; i < 8; i++) {
+      const word = item(words, i, null);
+      add('18–27', 'Từ vựng · ' + (i + 1) + '/8',
+        word ? '<p lang="ko" class="mcl-deck-keyword">' + esc(word.ko) + '</p>' +
+          '<p>' + esc(word.vi) + '</p>' +
+          prompt('Nghe – nhắc lại – đặt câu ngắn phù hợp với hình ảnh.')
+          : prompt('Ôn từ khóa trong chủ đề bằng một câu ngắn.'), i);
+    }
+    for (let i = 0; i < 4; i++) {
+      add('27–32', 'Cấu trúc thực hành · ' + (i + 1) + '/4',
+        prompt(item(patterns, i, 'Tự tạo câu tiếng Hàn liên quan đến tình huống.')) +
+        prompt('Đổi một thông tin, sau đó luyện với bạn.'), i + 1);
+    }
+    samples.slice(0, 3).forEach((sample, si) => {
+      const dialogue = sample.dialogue || [];
+      add('32–48', 'Tình huống ' + (si + 1) + ' · Quan sát',
+        scene(sample, 'Xác định vai A, vai B và mục đích giao tiếp.'), si);
+      add('32–48', 'Tình huống ' + (si + 1) + ' · Nghe và đọc',
+        dialogue.map((line) => '<p lang="ko">' + esc(line[0] + ' · ' + line[1]) +
           ' <button type="button" data-speak="' + esc(line[1]) + '" aria-label="Nghe câu tiếng Hàn">🔊</button></p>').join('') +
-        '<details><summary>Hiện bản dịch</summary>' + bullets(samples[0].dialogue.map((line) => line[2])) + '</details>'],
-      ['33–48', 'Đóng vai và đổi tình huống', samples.slice(1).map((sample) =>
-        '<h3>' + esc(sample.title) + '</h3>' +
-        prompt(sample.scene) + prompt(sample.roles.join(' · ')) + prompt(sample.variation) +
-        '<details><summary>Mở hội thoại gợi ý</summary>' + bullets(sample.dialogue.map((line) => line[1] + ' — ' + line[2])) +
-        '</details>').join('')],
-      ['48–55', 'Vận dụng theo cặp', prompt(plan.context) + bullets(samples.map((sample) => sample.challenge)) +
-        prompt('Mỗi cặp chọn một nhiệm vụ, chuẩn bị 2 phút, lần lượt trình bày và góp ý theo mục tiêu bài học.')],
-      ['55–60', 'Kiểm tra cuối tiết', prompt(quiz.question) + bullets(quiz.choices) +
-        '<details><summary>Hiện đáp án</summary>' + prompt(quiz.choices[quiz.correct]) + prompt(quiz.explanation) +
-        '</details><h3>Tự đánh giá theo mục tiêu bài học</h3>' + bullets(plan.goals)]
-    ];
+          '<details><summary>Hiện bản dịch</summary>' +
+          bullets(dialogue.map((line) => line[2])) + '</details>', si);
+      add('32–48', 'Tình huống ' + (si + 1) + ' · Đóng vai',
+        prompt((sample.roles || []).join(' · ')) +
+        prompt('Đổi vai A ↔ B, thực hành không nhìn hội thoại.'), si);
+      add('32–48', 'Tình huống ' + (si + 1) + ' · Biến đổi',
+        prompt(sample.variation || sample.challenge || 'Thay dữ kiện và thực hành lần nữa.') +
+        prompt('Bạn nghe góp ý về phát âm, nội dung và phép lịch sự.'), si + 1);
+    });
+    for (let i = 0; i < 4; i++) {
+      add('48–55', 'Vận dụng · ' + (i + 1) + '/4',
+        prompt(i === 0 ? plan.context : item(samples, i - 1, samples[0]).challenge) +
+        prompt(['Chuẩn bị ý tưởng theo cặp.','Trình bày không nhìn tài liệu.','Đổi vai và thay thông tin.','Nhận xét theo mục tiêu bài học.'][i]), i);
+    }
+    add('55–58', 'Kiểm tra cuối tiết', prompt(quiz.question) + bullets(quiz.choices) +
+      prompt('Chọn đáp án, sau đó giải thích lý do.'), 0);
+    add('58–59', 'Đối chiếu đáp án',
+      '<details><summary>Xem đáp án và giải thích</summary>' +
+      prompt(quiz.choices[quiz.correct]) + prompt(quiz.explanation) + '</details>' +
+      prompt('Nói lại cách ứng xử hoặc cấu trúc đúng.'), 1);
+    add('59–60', 'Hoàn thành bài học',
+      bullets(goals) + prompt('Tự đánh giá: Em đã làm được gì và cần luyện thêm điều gì?'), 0);
+    // Fixed contract across all 22 topic lessons.
+    if (slides.length !== 45) throw new Error('Culture presentation must contain 45 slides.');
     const launch = document.createElement('button');
     launch.type = 'button';
     launch.className = 'mcl-primary-action';
-    launch.textContent = '▶ Trình chiếu · 60 phút';
+    launch.textContent = '▶ Trình chiếu · 45 slide / 60 phút';
     const dialog = document.createElement('dialog');
     dialog.className = 'mcl-deck';
     dialog.setAttribute('aria-labelledby', 'mcl-deck-title');
@@ -578,7 +630,7 @@
       '.mcl-deck h2{font-size:clamp(1.7rem,4vw,3rem);margin:0 0 .55em}.mcl-deck h3{font-size:1.15em}.mcl-deck summary{cursor:pointer}' +
       '.mcl-deck-pictures{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1rem}' +
       '.mcl-deck-pictures figure{margin:0}.mcl-deck-pictures img{width:100%;height:clamp(150px,28vh,265px);object-fit:contain}.mcl-deck-pictures figcaption{font-size:.8em}' +
-      '.mcl-scene-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(16px,3vw,40px);align-items:start}.mcl-scene-layout .mcl-deck-pictures img{height:auto;max-height:52vh;object-fit:contain}.mcl-deck-shell{overflow:hidden}@media(max-width:720px){.mcl-scene-layout{grid-template-columns:1fr}.mcl-scene-layout .mcl-deck-pictures img{max-height:32vh}}' +
+      '.mcl-scene-layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.85fr);gap:clamp(16px,3vw,40px);align-items:center}.mcl-scene-layout>.mcl-deck-pictures{min-width:0;display:block}.mcl-scene-layout .mcl-deck-pictures img{display:block;width:100%;height:min(65vh,680px);max-height:100%;object-fit:contain;background:#e8f0fa;border-radius:16px}.mcl-scene-layout>div:last-child{min-width:0;font-size:clamp(1.1rem,2.2vw,1.7rem)}.mcl-deck-keyword{font-size:clamp(2rem,4.2vw,4rem);font-weight:900;color:#174c88}.mcl-deck-shell{overflow:hidden}@media(max-width:720px){.mcl-scene-layout{grid-template-columns:1fr}.mcl-scene-layout .mcl-deck-pictures img{height:34vh}.mcl-scene-layout>div:last-child{font-size:1.05rem}}' +
       '</style><div class="mcl-deck-shell"><header class="mcl-deck-bar"><strong>MR LEE · 60 phút</strong>' +
       '<span><button type="button" data-full>Toàn màn hình</button> <button type="button" data-close>Đóng</button></span></header>' +
       '<main tabindex="-1"></main><footer class="mcl-deck-bar"><button type="button" data-prev>← Trước</button>' +
@@ -594,9 +646,7 @@
     const cards = isBus ? busRoleCards : topic.slug === 'tau-dien-ngam' ? metroRoleCards : [];
     let cardIndex = 0;
     let transition;
-    const phaseImage = topic.slug === 'tau-dien-ngam'
-      ? [0, 18, 6, 20, 24, 37, 42].map((n) => n ? artwork.length - metroSceneCaptions.length + n : 0)
-      : [0, 1, 2, 0, 3, 4, 1];
+    
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     function showSlide(index) {
       if (index < 0 || index >= slides.length) return;
@@ -605,9 +655,9 @@
       transition?.cancel();
       active = index;
       const [minutes, heading, body] = slides[index];
-      const image = (index === 3 && samples[0].photo) || artwork[phaseImage[index]];
+      const image = artwork[Number.isInteger(slides[index][3]) ? slides[index][3] % artwork.length : index % artwork.length] || samples[0].photo || photos[0];
       content.innerHTML = '<h2 id="mcl-deck-title">' + esc(heading) + '</h2>' +
-        (cards.length && index === 5
+        (false && cards.length && index === 5
           ? '<p>Chọn một thẻ. Hai bạn đóng vai A và B, sau đó đổi vai và thay một chi tiết trong lời thoại.</p>' + roleCardMarkup(cards, cardIndex, isBus)
           : '<div class="mcl-scene-layout">' + pictures([image]) + '<div>' + body + '</div></div>') +
         '<details><summary>Xem ảnh minh họa của bài (' + artwork.length + ')</summary>' + pictures(artwork) + '</details>' +
