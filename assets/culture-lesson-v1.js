@@ -348,14 +348,11 @@
     const dialogues = [
       { title: 'Hội thoại nền tảng', dialogue: foundational },
       ...samples,
-      ...samples.flatMap((sample) => [
-        { title: sample.title + ' · Mở đầu', dialogue: sample.dialogue.slice(0, 2) },
-        { title: sample.title + ' · Hỏi đáp tiếp', dialogue: sample.dialogue.slice(2, 4) }
-      ])
+      ...(window.MRLEE_CULTURE_EXTRA_DIALOGUES?.[topic.slug] || [])
     ].filter((sample) => sample.dialogue.length >= 2);
     return '<details class="mcl-slide-library"><summary>Video theo chủ đề · tối đa 6</summary>' +
       '<div data-gallery="video"></div></details>' +
-      '<details class="mcl-slide-library"><summary>Luyện hội thoại · ' + dialogues.length + ' bài và đoạn luyện</summary>' +
+      '<details class="mcl-slide-library"><summary>Luyện hội thoại · ' + dialogues.length + ' bài</summary>' +
       dialogues.map((sample) => '<details><summary>' + esc(sample.title) + '</summary>' +
         sample.dialogue.map((line) => '<p><strong lang="ko">' + esc(line[0] + ' · ' + line[1]) + '</strong> ' +
           '<button type="button" data-speak="' + esc(line[1]) + '" aria-label="Nghe câu tiếng Hàn">🔊</button>' +
@@ -587,7 +584,7 @@
     if (heroText && !$('.mcl-hero-meta', heroText)) {
       const meta = document.createElement('div');
       meta.className = 'mcl-hero-meta';
-      meta.innerHTML = '<span>◷ 60 phút</span><span>3 mẫu hội thoại</span><span>Thực hành theo cặp</span>';
+      meta.innerHTML = '<span>◷ 60 phút</span><span>10 hội thoại · 3 mẫu trên lớp</span><span>Thực hành theo cặp</span>';
       heroText.append(meta);
     }
 
