@@ -532,7 +532,12 @@
       }));
     }
     // Prefer available topic-specific gallery photos over older placeholder art.
-    artwork.unshift(...additional.filter((photo) => photo.src && !artwork.some((a) => a.src === photo.src)));
+    // Show topic-specific selected photos first; retain old images only as fallback.
+    additional.slice().reverse().forEach((photo) => {
+      const at = artwork.findIndex((a) => a.src.split('?')[0] === photo.src.split('?')[0]);
+      if (at >= 0) artwork.splice(at, 1);
+      artwork.unshift(photo);
+    });
     const pictures = (list) => '<div class="mcl-deck-pictures">' + list.filter(Boolean).map((photo) => imageMarkup(photo)).join('') + '</div>';
     const bullets = (list) => '<ul>' + list.map((value) => '<li>' + esc(value) + '</li>').join('') + '</ul>';
     const prompt = (value) => '<p>' + esc(value) + '</p>';
