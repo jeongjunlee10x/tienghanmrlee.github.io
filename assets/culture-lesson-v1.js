@@ -448,6 +448,42 @@
   "야간 역 입구 · Lối vào ga buổi tối"
 ];
 
+  const metroRoleCards = [
+    [10, 'Mua thẻ', 'A muốn mua thẻ giao thông lần đầu. B đóng vai nhân viên bán thẻ.',
+      '교통카드 한 장 주세요.', 'Cho tôi một thẻ giao thông ạ.', '네. 충전도 해 드릴까요?', 'Vâng. Anh/chị có muốn nạp tiền luôn không ạ?'],
+    [12, 'Nạp tiền', 'A cần nạp tiền nhưng chưa biết dùng máy nào. B chỉ máy trong ảnh.',
+      '교통카드는 어디에서 충전해요?', 'Tôi nạp thẻ giao thông ở đâu ạ?', '여기 있는 기계에서 충전하시면 돼요.', 'Anh/chị có thể nạp ở máy này ạ.'],
+    [16, 'Qua cổng soát vé', 'A đã chạm thẻ nhưng cổng vẫn đóng. B là nhân viên đến hỗ trợ.',
+      '카드를 찍었는데 문이 안 열려요.', 'Tôi đã chạm thẻ nhưng cửa không mở ạ.', '카드를 잠깐 보여 주시겠어요?', 'Anh/chị cho tôi xem thẻ một chút được không ạ?'],
+    [21, 'Hỏi hướng tàu', 'A muốn đến ga SEOUL nhưng chưa chắc mình đứng đúng phía. B xác nhận hướng đi trong tình huống giả định.',
+      '서울역에 가려면 이쪽에서 타면 돼요?', 'Muốn tới ga SEOUL thì tôi lên tàu phía này được không ạ?', '네, 이쪽에서 타시면 돼요.', 'Vâng, anh/chị lên tàu phía này là được ạ.'],
+    [24, 'Lên tàu', 'Cửa tàu vừa mở. A định bước vào. B nhắc bạn chú ý người đang xuống.',
+      '우리 지금 탈까요?', 'Bây giờ mình lên nhé?', '잠깐만요. 사람들이 먼저 내리면 타요.', 'Chờ chút nhé. Mình đợi mọi người xuống rồi lên.'],
+    [25, 'Chuyển tuyến', 'A cần đổi sang tuyến số 2. B dùng biển chỉ dẫn để hướng dẫn bạn.',
+      '2호선으로 갈아타려면 어디로 가야 해요?', 'Muốn chuyển sang tuyến số 2 thì tôi phải đi lối nào ạ?', '저 환승 표지판을 따라가세요.', 'Anh/chị đi theo biển chỉ dẫn chuyển tuyến kia nhé.'],
+    [37, 'Tìm đồ thất lạc', 'A bỏ quên một chiếc túi trên tàu. B trực quầy đồ thất lạc và cần biết đặc điểm của túi.',
+      '지하철에 가방을 두고 내렸어요.', 'Tôi xuống tàu mà để quên túi trên tàu ạ.', '어떤 색 가방이에요?', 'Túi của anh/chị màu gì ạ?'],
+    [44, 'Hẹn bạn ở cửa ra', 'A gọi điện hẹn bạn ở ga. B chọn cửa ra để hai người dễ tìm nhau.',
+      '우리 몇 번 출구에서 만날까요?', 'Mình gặp nhau ở cửa ra số mấy nhé?', '3번 출구 앞에서 만나요.', 'Mình gặp nhau trước cửa ra số 3 nhé.']
+  ];
+
+  function metroCardMarkup(index) {
+    const [scene, title, task, koA, viA, koB, viB] = metroRoleCards[index];
+    const caption = metroSceneCaptions[scene - 1];
+    const line = (role, ko, vi) => '<p><strong lang="ko">' + role + ' · ' + esc(ko) +
+      '</strong> <button type="button" data-speak="' + esc(ko) + '" aria-label="Nghe lời vai ' + role +
+      '">🔊</button><br>' + esc(vi) + '</p>';
+    return '<section data-metro-card aria-label="Thẻ luyện nói"><div class="mcl-scene-layout"><div class="mcl-deck-pictures">' +
+      imageMarkup({src: 'images/culture-metro-scenes/' + String(scene).padStart(2, '0') + '.webp',
+        alt: caption, caption: caption + ' · Minh họa AI'}) +
+      '</div><div><h3 aria-live="polite">Thẻ ' + (index + 1) + '/' + metroRoleCards.length + ' · ' + esc(title) +
+      '</h3><p>' + esc(task) + '</p><details><summary>Mở hội thoại mẫu</summary>' +
+      line('A', koA, viA) + line('B', koB, viB) + '</details></div></div>' +
+      '<p><button type="button" data-card-step="-1"' + (index === 0 ? ' disabled' : '') +
+      '>← Thẻ trước</button> <button type="button" data-card-step="1"' +
+      (index === metroRoleCards.length - 1 ? ' disabled' : '') + '>Thẻ sau →</button></p></section>';
+  }
+
   function addPresentation(lessonPlan, topic, plan, photos) {
     const video = window.MRLEE_CULTURE_V17_MEDIA?.[topic.slug]?.video;
     const samples = plan.practice;
@@ -527,6 +563,7 @@
     const previous = $('[data-prev]', dialog);
     const next = $('[data-next]', dialog);
     let active = 0;
+    let cardIndex = 0;
     let transition;
     const phaseImage = topic.slug === 'tau-dien-ngam'
       ? [0, 18, 6, 20, 24, 37, 42].map((n) => n ? artwork.length - metroSceneCaptions.length + n : 0)
@@ -540,8 +577,10 @@
       active = index;
       const [minutes, heading, body] = slides[index];
       const image = (index === 3 && samples[0].photo) || artwork[phaseImage[index]];
-      content.innerHTML = '<h2 id="mcl-deck-title">' + esc(heading) + '</h2><div class="mcl-scene-layout">' +
-        pictures([image]) + '<div>' + body + '</div></div>' +
+      content.innerHTML = '<h2 id="mcl-deck-title">' + esc(heading) + '</h2>' +
+        (topic.slug === 'tau-dien-ngam' && index === 5
+          ? '<p>Chọn một thẻ. Hai bạn đóng vai A và B, sau đó đổi vai và thay một chi tiết trong lời thoại.</p>' + metroCardMarkup(cardIndex)
+          : '<div class="mcl-scene-layout">' + pictures([image]) + '<div>' + body + '</div></div>') +
         '<details><summary>Xem ảnh minh họa của bài (' + artwork.length + ')</summary>' + pictures(artwork) + '</details>' +
         slideResources(topic, samples);
       content.scrollTop = 0;
@@ -592,6 +631,20 @@
       if (!details.open) details.querySelectorAll('video').forEach((video) => video.pause());
     }, true);
     content.addEventListener('click', (event) => {
+      const step = event.target.closest('[data-card-step]');
+      if (step) {
+        const card = step.closest('[data-metro-card]');
+        const target = cardIndex + Number(step.dataset.cardStep);
+        if (!card || target < 0 || target >= metroRoleCards.length) return;
+        window.speechSynthesis?.cancel();
+        cardIndex = target;
+        card.outerHTML = metroCardMarkup(cardIndex);
+        const updated = $('[data-metro-card]', content);
+        const same = updated.querySelector('[data-card-step="' + step.dataset.cardStep + '"]');
+        (same.disabled ? updated.querySelector('button[data-card-step]:enabled') : same).focus({preventScroll:true});
+        if (!reducedMotion.matches) updated.animate?.([{opacity:0.25}, {opacity:1}], {duration:260});
+        return;
+      }
       const speak = event.target.closest('[data-speak]');
       if (!speak || !window.speechSynthesis || !window.SpeechSynthesisUtterance) return;
       const utterance = new SpeechSynthesisUtterance(speak.dataset.speak);
