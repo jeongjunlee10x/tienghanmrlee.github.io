@@ -289,59 +289,92 @@
 
 
 
-  const mediaQueries = {
-  "le-hoi": "Seollal Chuseok",
-  "am-thuc": "Korean cuisine",
-  "truyen-thong": "Korean traditional culture hanbok",
-  "doi-song": "daily life South Korea",
-  "phe-lich-su": "Korean etiquette",
-  "giao-duc": "education South Korea university",
-  "du-lich": "tourism South Korea",
-  "kpop": "K-pop South Korea",
-  "cong-so": "South Korea office workplace",
-  "tro-choi": "Korean traditional games",
-  "lich-su": "history of Korea",
-  "hien-dai": "modern South Korea",
-  "so-cap-cuu": "first aid CPR training",
-  "goi-cuu-ho": "emergency services South Korea",
-  "lac-duong": "street signs South Korea",
-  "mat-vi": "lost and found South Korea",
-  "tau-dien-ngam": "Seoul Metro",
-  "xe-buyt": "buses South Korea",
-  "benh-vien": "hospitals South Korea",
-  "hoa-hoan": "firefighters South Korea",
-  "mat-dien-thoai": "smartphones South Korea",
-  "an-toan-giao-thong": "pedestrian crossings South Korea"
+  const classroomReferences = {
+  "am-thuc": [
+    [
+      "Bibimbap (비빔밥) & Dolsot-bibimbap (돌솥비빔밥)",
+      "6QQ67F8y2b8"
+    ]
+  ],
+  "du-lich": [
+    [
+      "Your ULTIMATE KOREA TRAVEL GUIDE for 2025 🇰🇷 Best of Seoul, Busan & Jeju Island!",
+      "Uz9PDwfsbfg"
+    ]
+  ],
+  "cong-so": [
+    [
+      "Korean Workplace Conversations – Beginner Level Office Korean Practice",
+      "GTVoGYAtQ2A"
+    ],
+    [
+      "10 Korean Conversation for beginners | Daily Life at the Office",
+      "_496jppDCRg"
+    ]
+  ],
+  "tro-choi": [
+    [
+      "Squid Game? Nope — Real Korean Traditional Games 🇰🇷 | Tuho, Jegi & Yutnori",
+      "ebBhsALzFXc"
+    ],
+    [
+      "3 KOREAN TRADITIONAL GAMES ( #YUTNORI #GONGGI #JEGICHAGI) |  #talktalkkorea2022  #TTK_enjoy",
+      "EUzuE-HqpFQ"
+    ]
+  ],
+  "lich-su": [
+    [
+      "Capture the Best Moments : Korean Heritage Series | EP.1 한국의 문화유산(Cultural Heritage of Korea)",
+      "EpeRdoGwM74"
+    ],
+    [
+      "Life in the Joseon Dynasty, 1904",
+      "ixUuIqa-qr8"
+    ]
+  ],
+  "so-cap-cuu": [
+    [
+      "How to do CPR on an Adult - First Aid Training - St John Ambulance",
+      "BQNNOh8c8ks"
+    ]
+  ],
+  "goi-cuu-ho": [
+    [
+      "[스페셜클립- Ep.164 ] - 🌎글로벌 시대! 글로벌한 🚑119서비스🚒를 소개해드립니다 📞외국인1️⃣1️⃣9️⃣신고 실시간 통역서비스(전라북도 소방본부 제작)",
+      "wqYJZU9MFBE"
+    ]
+  ],
+  "lac-duong": [
+    [
+      "How to Ask for Directions in Korean?",
+      "mw1vqrYjiVA"
+    ],
+    [
+      "EASY Real-Life Korean: Asking for Directions 🗺️ for Beginners 길 찾기 (TOPIK 1-2)",
+      "asrUqXFI25k"
+    ]
+  ],
+  "tau-dien-ngam": [
+    [
+      "How to Ride the Seoul Subway (Complete Beginner's Guide)",
+      "noFTudZyJ1g"
+    ],
+    [
+      "How to Ride the Subway in Seoul, South Korea (Step-by-Step Guide!)",
+      "vPAeEYWU7Ls"
+    ]
+  ],
+  "xe-buyt": [
+    [
+      "🇰🇷 How to Ride the Bus in Seoul | Fares, Transfers, and Using Transportation Cards",
+      "DA9wscYilUI"
+    ],
+    [
+      "How to Ride the Bus in Korea | Getting Around in Korea",
+      "r5HWG-mgwq4"
+    ]
+  ]
 };
-  const mediaCache = new Map();
-
-  async function searchClassroomMedia(query, kind, limit) {
-    const key = kind + ':' + query;
-    if (!mediaCache.has(key)) {
-      const fetchFiles = async (search) => {
-        const params = new URLSearchParams({
-          action: 'query', format: 'json', formatversion: '2', origin: '*',
-          generator: 'search', gsrnamespace: '6', gsrlimit: String(limit),
-          gsrsearch: search + ' filetype:' + kind, prop: 'imageinfo', iiprop: 'url|mime', iiurlwidth: '400'
-        });
-        const response = await fetch('https://commons.wikimedia.org/w/api.php?' + params, {
-          credentials: 'omit', signal: AbortSignal.timeout(12000)
-        });
-        if (!response.ok) throw new Error('Wikimedia Commons unavailable');
-        const data = await response.json();
-        if (data.error) throw new Error(data.error.code);
-        return (data.query?.pages || []).sort((a, b) => a.index - b.index).map((page) => ({
-          title: page.title.replace(/^File:/, '').replace(/\.[^.]+$/, ''),
-          info: page.imageinfo?.[0]
-        })).filter(({info}) => info?.mime?.startsWith(kind === 'bitmap' ? 'image/' : 'video/'));
-      };
-      mediaCache.set(key, fetchFiles(query).catch((error) => {
-        mediaCache.delete(key);
-        throw error;
-      }));
-    }
-    return mediaCache.get(key);
-  }
 
   function slideResources(topic, samples) {
     const foundational = topic.dialogue.map((line, i) => [i % 2 ? 'B' : 'A', line.ko, line.vi]);
@@ -350,8 +383,16 @@
       ...samples,
       ...(window.MRLEE_CULTURE_EXTRA_DIALOGUES?.[topic.slug] || [])
     ].filter((sample) => sample.dialogue.length >= 2);
-    return '<details class="mcl-slide-library"><summary>Video theo chủ đề · tối đa 6</summary>' +
-      '<div data-gallery="video"></div></details>' +
+    const clips = (window.MRLEE_CULTURE_EXTRA_DIALOGUES?.[topic.slug] || []).slice(0, 4);
+    const clipList = clips.map((clip, index) => '<details class="mcl-classroom-clip"><summary>' +
+      esc(clip.title) + '</summary><video controls playsinline preload="none" style="display:block;width:min(100%,768px);margin:.7em auto" aria-label="' +
+      esc(clip.title) + '" src="media/culture-dialogues/' + encodeURIComponent(topic.slug) + '/' + (index + 1) + '.mp4"></video></details>').join('');
+    const references = classroomReferences[topic.slug] || [];
+    const links = references.map(([title, id]) => '<p><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v=' +
+      esc(id) + '">' + esc(title) + '</a></p>').join('');
+    return '<details class="mcl-slide-library"><summary>Video theo chủ đề · ' + (clips.length + references.length) +
+      '</summary><p>Clip đọc theo vai · 18 giây/clip · phụ đề Hàn–Việt, không lời. Tạm dừng trước lượt B để học viên trả lời.</p>' +
+      clipList + (links ? '<h3>Video tham khảo</h3>' + links : '') + '</details>' +
       '<details class="mcl-slide-library"><summary>Luyện hội thoại · ' + dialogues.length + ' bài</summary>' +
       dialogues.map((sample) => '<details><summary>' + esc(sample.title) + '</summary>' +
         sample.dialogue.map((line) => '<p><strong lang="ko">' + esc(line[0] + ' · ' + line[1]) + '</strong> ' +
@@ -359,76 +400,53 @@
           '<br>' + esc(line[2]) + '</p>').join('') + '</details>').join('') + '</details>';
   }
 
-  async function loadSlideResources(details, topic) {
-    const gallery = $('[data-gallery]', details);
-    if (!gallery || gallery.dataset.loaded) return;
-    gallery.dataset.loaded = 'pending';
-    const render = (items) => {
-      gallery.replaceChildren();
-      const grid = document.createElement('div');
-      grid.className = 'mcl-deck-pictures';
-      gallery.append(grid);
-      for (const item of items) {
-        const figure = document.createElement('figure');
-        const link = document.createElement('a');
-        link.href = item.href;
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.textContent = item.title;
-        if (item.src) {
-          const image = document.createElement('img');
-          image.loading = 'lazy';
-          image.decoding = 'async';
-          image.alt = item.title;
-          image.src = item.src;
-          image.addEventListener('error', () => image.remove(), {once: true});
-          figure.append(image);
-        }
-        const caption = document.createElement('figcaption');
-        caption.append(link);
-        figure.append(caption);
-        grid.append(figure);
-      }
-    };
-    const kind = gallery.dataset.gallery;
-    const isPhoto = kind === 'bitmap';
-    const video = window.MRLEE_CULTURE_V17_MEDIA?.[topic.slug]?.video;
-    const local = isPhoto
-      ? (topic.realPhotos || []).map((photo) => ({src: photo.local, href: photo.source || photo.local, title: photo.title}))
-      : video?.url ? [{href: video.url, title: video.title}] : [];
-    const cap = isPhoto ? 50 : 6;
-    const query = mediaQueries[topic.slug] || topic.ko;
-    if (!isPhoto && ['so-cap-cuu', 'goi-cuu-ho', 'benh-vien', 'hoa-hoan'].includes(topic.slug)) {
-      render(local);
-      if (!local.length) gallery.textContent = 'Đang chờ video từ cơ quan chuyên môn.';
-      gallery.dataset.loaded = 'yes';
-      return;
-    }
-    try {
-      gallery.textContent = 'Đang tải tư liệu…';
-      const files = await searchClassroomMedia(query, kind, cap);
-      const items = [...local, ...files.map(({title, info}) => ({
-        title, href: info.descriptionurl || info.url, src: isPhoto ? info.thumburl : ''
-      }))];
-      const seen = new Set();
-      const unique = items.filter((item) => {
-        if (!item.href || seen.has(item.href)) return false;
-        seen.add(item.href);
-        return true;
-      }).slice(0, cap);
-      render(unique);
-      const notice = document.createElement('p');
-      notice.textContent = 'Tìm thấy ' + unique.length + ' tư liệu. Kết quả Wikimedia Commons được tìm theo chủ đề. Xem trước khi chiếu.';
-      gallery.prepend(notice);
-      gallery.dataset.loaded = 'yes';
-    } catch {
-      render(local);
-      const notice = document.createElement('p');
-      notice.textContent = 'Chưa tải được tư liệu Wikimedia Commons. Đóng và mở lại để thử lại.';
-      gallery.prepend(notice);
-      delete gallery.dataset.loaded;
-    }
-  }
+  const metroSceneCaptions = [
+  "역 입구 · Lối xuống ga",
+  "엘리베이터 · Thang máy ở lối vào",
+  "출구 번호 · Số cửa ra",
+  "역 주변 지도 · Bản đồ khu vực quanh ga",
+  "관광 안내소 · Quầy thông tin du lịch",
+  "에스컬레이터 · Thang cuốn",
+  "점자 블록 · Dải gạch dẫn hướng",
+  "자전거 보관대 · Giá để xe đạp",
+  "휠체어 진입로 · Lối vào dành cho xe lăn",
+  "교통카드 구입 · Mua thẻ giao thông",
+  "지폐 투입구 · Khe nhận tiền giấy",
+  "교통카드 충전기 · Máy nạp thẻ",
+  "카드 올려놓기 · Đặt thẻ lên khay",
+  "언어 선택 · Chọn ngôn ngữ trên máy",
+  "승차권 받기 · Nhận vé tàu",
+  "닫힌 개찰구 · Cổng soát vé đang đóng",
+  "넓은 개찰구 · Cổng rộng cho xe đẩy",
+  "역무원에게 문의하기 · Hỏi nhân viên nhà ga",
+  "승강장 안전문 · Cửa chắn sân ga",
+  "도착 안내 화면 · Màn hình báo tàu đến",
+  "방향 물어보기 · Hỏi hướng tàu chạy",
+  "노선 색깔 · Màu nhận diện tuyến",
+  "줄 서서 기다리기 · Xếp hàng chờ tàu",
+  "승객이 먼저 내리기 · Đợi hành khách xuống trước",
+  "환승 표지판 · Biển chỉ hướng chuyển tuyến",
+  "환승 통로 · Hành lang chuyển tuyến",
+  "양쪽 승강장 · Hai phía của sân ga",
+  "손잡이 잡기 · Nắm tay vịn",
+  "교통약자 배려석 · Ghế ưu tiên",
+  "이어폰 사용 · Dùng tai nghe",
+  "짐 챙기기 · Giữ hành lý bên mình",
+  "휠체어 공간 · Vị trí dành cho xe lăn",
+  "유모차와 함께 타기 · Lên tàu cùng xe đẩy trẻ em",
+  "열차 출입문 · Cửa ra vào toa tàu",
+  "차내 노선도 · Sơ đồ tuyến trong toa",
+  "창밖 승강장 · Nhìn sân ga qua cửa sổ",
+  "유실물 센터 · Quầy đồ thất lạc",
+  "분실 신고 · Trình báo mất đồ",
+  "물품 보관함 · Tủ gửi hành lý",
+  "화장실 안내 · Biển chỉ nhà vệ sinh",
+  "출구 찾기 · Tìm cửa ra",
+  "보증금 환급기 · Máy hoàn tiền đặt cọc vé",
+  "주변 지도 확인 · Xem bản đồ quanh ga",
+  "출구에서 만나기 · Hẹn gặp ở cửa ga",
+  "야간 역 입구 · Lối vào ga buổi tối"
+];
 
   function addPresentation(lessonPlan, topic, plan, photos) {
     const video = window.MRLEE_CULTURE_V17_MEDIA?.[topic.slug]?.video;
@@ -438,7 +456,18 @@
       alt: topic.title + ' · ' + topic.ko,
       caption: 'Minh họa · ' + topic.title
     }));
+    const additional = [...photos.filter((photo) => /\bAI\b/i.test(photo.alt) && /^images\//.test(photo.src)),
+      ...samples.map((sample) => sample.photo).filter(Boolean)];
+    for (const photo of additional) {
+      if (!artwork.some((existing) => existing.src.split('?')[0] === photo.src.split('?')[0])) artwork.push(photo);
+    }
     if (topic.slug === 'tau-dien-ngam') artwork.unshift({src: 'images/culture-speaking/metro-card-reader.jpg', alt: 'Hành khách dùng thẻ tại cổng tàu điện', caption: '교통카드를 찍어요. · Chạm thẻ giao thông vào đầu đọc. Ảnh minh họa AI.'});
+    if (topic.slug === 'tau-dien-ngam') {
+      metroSceneCaptions.forEach((caption, index) => artwork.push({
+        src: 'images/culture-metro-scenes/' + String(index + 1).padStart(2, '0') + '.webp',
+        alt: caption, caption: caption + ' · Minh họa AI'
+      }));
+    }
     const pictures = (list) => '<div class="mcl-deck-pictures">' + list.map((photo) => imageMarkup(photo)).join('') + '</div>';
     const bullets = (list) => '<ul>' + list.map((value) => '<li>' + esc(value) + '</li>').join('') + '</ul>';
     const prompt = (value) => '<p>' + esc(value) + '</p>';
@@ -499,7 +528,9 @@
     const next = $('[data-next]', dialog);
     let active = 0;
     let transition;
-    const phaseImage = [0, 1, 2, 0, 3, 4, 1];
+    const phaseImage = topic.slug === 'tau-dien-ngam'
+      ? [0, 18, 6, 20, 24, 37, 42].map((n) => n ? artwork.length - metroSceneCaptions.length + n : 0)
+      : [0, 1, 2, 0, 3, 4, 1];
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     function showSlide(index) {
       if (index < 0 || index >= slides.length) return;
@@ -545,6 +576,7 @@
       }
     });
     dialog.addEventListener('close', () => {
+      content.querySelectorAll('video').forEach((video) => video.pause());
       window.speechSynthesis?.cancel();
       if (document.fullscreenElement === shell) document.exitFullscreen().catch(() => {});
     });
@@ -557,7 +589,7 @@
     });
     content.addEventListener('toggle', (event) => {
       const details = event.target;
-      if (details.open && details.classList.contains('mcl-slide-library')) loadSlideResources(details, topic);
+      if (!details.open) details.querySelectorAll('video').forEach((video) => video.pause());
     }, true);
     content.addEventListener('click', (event) => {
       const speak = event.target.closest('[data-speak]');
