@@ -531,8 +531,7 @@
         alt: caption, caption: caption + ' · Minh họa AI'
       }));
     }
-    // Prefer available topic-specific gallery photos over older placeholder art.
-    // Show topic-specific selected photos first; retain old images only as fallback.
+    // Prefer available topic-specific photos and keep older artwork as fallback.
     additional.slice().reverse().forEach((photo) => {
       const at = artwork.findIndex((a) => a.src.split('?')[0] === photo.src.split('?')[0]);
       if (at >= 0) artwork.splice(at, 1);
@@ -565,9 +564,11 @@
         prompt(item(goals, i, 'Mô tả tình huống và trao đổi ngắn bằng tiếng Hàn.')) +
         prompt('Nói mục tiêu này bằng lời của em.'), i);
     }
+    const discoveries = [...focus, ...(plan.discussion || [])];
     for (let i = 0; i < 5; i++) {
       add('05–13', 'Khám phá · ' + (i + 1) + '/5',
-        prompt(item(focus, i, 'Quan sát, phân tích và so sánh tình huống.')) +
+        prompt(item(discoveries, i, 'Quan sát, phân tích và so sánh tình huống.')) +
+        (i === 0 ? media : '') +
         prompt(i % 2 ? 'So sánh với trải nghiệm ở Việt Nam.' : 'Nêu một chi tiết cụ thể trong ảnh.'), i);
     }
     for (let i = 0; i < 5; i++) {
@@ -575,17 +576,21 @@
         prompt(['Ảnh cho thấy điều gì?','Ai đang tham gia tình huống?','Điều gì nên làm trước?','Điều gì không nên làm?','Nêu một câu phù hợp bằng tiếng Hàn.'][i]), i);
     }
     for (let i = 0; i < 8; i++) {
-      const word = item(words, i, null);
-      add('18–27', 'Từ vựng · ' + (i + 1) + '/8',
+      const word = words[i];
+      const practice = i === 6
+        ? bullets(words.map((w) => w.ko)) + prompt('Không nhìn nghĩa. Hãy giải thích từng từ bằng tiếng Việt.')
+        : bullets(words.map((w) => w.vi)) + prompt('Không nhìn chữ Hàn. Hãy nói từ tiếng Hàn tương ứng.');
+      add('18–27', i < words.length ? 'Từ vựng · ' + (i + 1) + '/' + words.length : 'Ghi nhớ từ vựng · ' + (i - words.length + 1) + '/2',
         word ? '<p lang="ko" class="mcl-deck-keyword">' + esc(word.ko) + '</p>' +
           '<p>' + esc(word.vi) + '</p>' +
-          prompt('Nghe – nhắc lại – đặt câu ngắn phù hợp với hình ảnh.')
-          : prompt('Ôn từ khóa trong chủ đề bằng một câu ngắn.'), i);
+          prompt('Nghe – nhắc lại – đặt câu ngắn phù hợp với hình ảnh.') : practice, i);
     }
     for (let i = 0; i < 4; i++) {
+      const task = i < patterns.length ? prompt(patterns[i])
+        : i === 2 ? prompt('Hãy thay nhân vật và địa điểm vào một mẫu câu đã học.')
+          : prompt('Không nhìn mẫu. Tự nói một câu khác, phù hợp tình huống trong ảnh.');
       add('27–32', 'Cấu trúc thực hành · ' + (i + 1) + '/4',
-        prompt(item(patterns, i, 'Tự tạo câu tiếng Hàn liên quan đến tình huống.')) +
-        prompt('Đổi một thông tin, sau đó luyện với bạn.'), i + 1);
+        task + prompt('Nói câu của em cho bạn nghe, sau đó đổi vai.'), i + 1);
     }
     samples.slice(0, 3).forEach((sample, si) => {
       const dialogue = sample.dialogue || [];
@@ -662,7 +667,7 @@
       const [minutes, heading, body] = slides[index];
       const image = artwork[Number.isInteger(slides[index][3]) ? slides[index][3] % artwork.length : index % artwork.length] || samples[0].photo || photos[0];
       content.innerHTML = '<h2 id="mcl-deck-title">' + esc(heading) + '</h2>' +
-        (false && cards.length && index === 5
+        (cards.length && index === 38
           ? '<p>Chọn một thẻ. Hai bạn đóng vai A và B, sau đó đổi vai và thay một chi tiết trong lời thoại.</p>' + roleCardMarkup(cards, cardIndex, isBus)
           : '<div class="mcl-scene-layout">' + pictures([image]) + '<div>' + body + '</div></div>') +
         '<details><summary>Xem ảnh minh họa của bài (' + artwork.length + ')</summary>' + pictures(artwork) + '</details>' +
