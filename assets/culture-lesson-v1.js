@@ -353,9 +353,7 @@
         { title: sample.title + ' · Hỏi đáp tiếp', dialogue: sample.dialogue.slice(2, 4) }
       ])
     ].filter((sample) => sample.dialogue.length >= 2);
-    return '<details class="mcl-slide-library"><summary>Ảnh theo chủ đề · tối đa 50</summary>' +
-      '<div data-gallery="bitmap"></div></details>' +
-      '<details class="mcl-slide-library"><summary>Video theo chủ đề · tối đa 6</summary>' +
+    return '<details class="mcl-slide-library"><summary>Video theo chủ đề · tối đa 6</summary>' +
       '<div data-gallery="video"></div></details>' +
       '<details class="mcl-slide-library"><summary>Luyện hội thoại · ' + dialogues.length + ' bài và đoạn luyện</summary>' +
       dialogues.map((sample) => '<details><summary>' + esc(sample.title) + '</summary>' +
@@ -438,6 +436,12 @@
   function addPresentation(lessonPlan, topic, plan, photos) {
     const video = window.MRLEE_CULTURE_V17_MEDIA?.[topic.slug]?.video;
     const samples = plan.practice;
+    const artwork = Array.from({length: 5}, (_, n) => ({
+      src: 'images/culture-v20-hd/' + encodeURIComponent(topic.slug) + '/0' + (n + 1) + '.webp',
+      alt: topic.title + ' · ' + topic.ko,
+      caption: 'Minh họa · ' + topic.title
+    }));
+    if (topic.slug === 'tau-dien-ngam') artwork.unshift({src: 'images/culture-speaking/metro-card-reader.jpg', alt: 'Hành khách dùng thẻ tại cổng tàu điện', caption: '교통카드를 찍어요. · Chạm thẻ giao thông vào đầu đọc. Ảnh minh họa AI.'});
     const pictures = (list) => '<div class="mcl-deck-pictures">' + list.map((photo) => imageMarkup(photo)).join('') + '</div>';
     const bullets = (list) => '<ul>' + list.map((value) => '<li>' + esc(value) + '</li>').join('') + '</ul>';
     const prompt = (value) => '<p>' + esc(value) + '</p>';
@@ -448,9 +452,9 @@
       : prompt('Chọn hai ảnh. Mô tả mỗi ảnh bằng một từ khóa rồi giải thích ảnh nào liên quan nhất đến tình huống mở đầu.');
     const quiz = topic.quiz || topic.quizSet[0];
     const slides = [
-      ['00–05', topic.title, '<p lang="ko">' + esc(topic.ko) + '</p>' + pictures(photos.slice(0, 2)) +
+      ['00–05', topic.title, '<p lang="ko">' + esc(topic.ko) + '</p>' +
         prompt(samples[0].scene) + prompt('Quan sát ảnh, dự đoán cách ứng xử và trao đổi với bạn bên cạnh.')],
-      ['05–15', 'Khám phá chủ đề', bullets(plan.focus) + media + pictures(photos.slice(2))],
+      ['05–15', 'Khám phá chủ đề', bullets(plan.focus) + media],
       ['15–23', 'Từ vựng và câu mẫu', bullets(topic.words.map((word) => word.ko + ' — ' + word.vi)) +
         bullets(plan.patterns) + prompt('Đọc theo giáo viên rồi thay một thông tin trong câu mẫu.')],
       ['23–33', samples[0].title, prompt('Nghe và xác định vai của hai người. Sau đó mở bản dịch để đối chiếu.') +
@@ -458,7 +462,7 @@
           ' <button type="button" data-speak="' + esc(line[1]) + '" aria-label="Nghe câu tiếng Hàn">🔊</button></p>').join('') +
         '<details><summary>Hiện bản dịch</summary>' + bullets(samples[0].dialogue.map((line) => line[2])) + '</details>'],
       ['33–48', 'Đóng vai và đổi tình huống', samples.slice(1).map((sample) =>
-        '<h3>' + esc(sample.title) + '</h3>' + (sample.photo ? pictures([sample.photo]) : '') +
+        '<h3>' + esc(sample.title) + '</h3>' +
         prompt(sample.scene) + prompt(sample.roles.join(' · ')) + prompt(sample.variation) +
         '<details><summary>Mở hội thoại gợi ý</summary>' + bullets(sample.dialogue.map((line) => line[1] + ' — ' + line[2])) +
         '</details>').join('')],
@@ -485,6 +489,7 @@
       '.mcl-deck h2{font-size:clamp(1.7rem,4vw,3rem);margin:0 0 .55em}.mcl-deck h3{font-size:1.15em}.mcl-deck summary{cursor:pointer}' +
       '.mcl-deck-pictures{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1rem}' +
       '.mcl-deck-pictures figure{margin:0}.mcl-deck-pictures img{width:100%;height:clamp(150px,28vh,265px);object-fit:contain}.mcl-deck-pictures figcaption{font-size:.8em}' +
+      '.mcl-scene-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(16px,3vw,40px);align-items:start}.mcl-scene-layout .mcl-deck-pictures img{height:auto;max-height:52vh;object-fit:contain}.mcl-deck-shell{overflow:hidden}@media(max-width:720px){.mcl-scene-layout{grid-template-columns:1fr}.mcl-scene-layout .mcl-deck-pictures img{max-height:32vh}}' +
       '</style><div class="mcl-deck-shell"><header class="mcl-deck-bar"><strong>MR LEE · 60 phút</strong>' +
       '<span><button type="button" data-full>Toàn màn hình</button> <button type="button" data-close>Đóng</button></span></header>' +
       '<main tabindex="-1"></main><footer class="mcl-deck-bar"><button type="button" data-prev>← Trước</button>' +
@@ -497,6 +502,7 @@
     const next = $('[data-next]', dialog);
     let active = 0;
     let transition;
+    const phaseImage = [0, 1, 2, 0, 3, 4, 1];
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     function showSlide(index) {
       if (index < 0 || index >= slides.length) return;
@@ -505,21 +511,25 @@
       transition?.cancel();
       active = index;
       const [minutes, heading, body] = slides[index];
-      content.innerHTML = '<h2 id="mcl-deck-title">' + esc(heading) + '</h2>' + body + slideResources(topic, samples);
+      const image = (index === 3 && samples[0].photo) || artwork[phaseImage[index]];
+      content.innerHTML = '<h2 id="mcl-deck-title">' + esc(heading) + '</h2><div class="mcl-scene-layout">' +
+        pictures([image]) + '<div>' + body + '</div></div>' +
+        '<details><summary>Xem ảnh minh họa của bài (' + artwork.length + ')</summary>' + pictures(artwork) + '</details>' +
+        slideResources(topic, samples);
       content.scrollTop = 0;
-      if (direction && !reducedMotion.matches && content.animate) {
+      if (!reducedMotion.matches && content.animate) {
         transition = content.animate([
-          { opacity: 0.72, transform: 'translateX(' + direction * 16 + 'px)' },
+          { opacity: 0.08, transform: 'translateX(' + (direction || 1) * 72 + 'px)' },
           { opacity: 1, transform: 'translateX(0)' }
-        ], { duration: 190, easing: 'cubic-bezier(.2,.7,.25,1)' });
+        ], { duration: 420, easing: 'cubic-bezier(.2,.7,.25,1)' });
       }
       $('[data-progress]', dialog).textContent = (index + 1) + '/' + slides.length + ' · Phút ' + minutes;
       previous.disabled = index === 0;
       next.disabled = index === slides.length - 1;
     }
     launch.addEventListener('click', () => {
-      showSlide(active);
       dialog.showModal();
+      showSlide(active);
       content.focus();
     });
     if (new URLSearchParams(location.search).get('mode') === 'slides') launch.click();
