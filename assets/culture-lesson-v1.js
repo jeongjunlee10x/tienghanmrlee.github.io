@@ -489,19 +489,30 @@
       '<span><button type="button" data-full>Toàn màn hình</button> <button type="button" data-close>Đóng</button></span></header>' +
       '<main tabindex="-1"></main><footer class="mcl-deck-bar"><button type="button" data-prev>← Trước</button>' +
       '<span data-progress aria-live="polite"></span><button type="button" data-next>Tiếp →</button></footer></div>';
-    lessonPlan.prepend(launch);
+    const buttonHost = document.querySelector('#topicHero .lessonHeroText') || lessonPlan;
+    buttonHost.append(launch);
     document.body.append(dialog);
     const content = $('main', dialog);
     const previous = $('[data-prev]', dialog);
     const next = $('[data-next]', dialog);
     let active = 0;
+    let transition;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     function showSlide(index) {
       if (index < 0 || index >= slides.length) return;
       window.speechSynthesis?.cancel();
+      const direction = Math.sign(index - active);
+      transition?.cancel();
       active = index;
       const [minutes, heading, body] = slides[index];
       content.innerHTML = '<h2 id="mcl-deck-title">' + esc(heading) + '</h2>' + body + slideResources(topic, samples);
       content.scrollTop = 0;
+      if (direction && !reducedMotion.matches && content.animate) {
+        transition = content.animate([
+          { opacity: 0.72, transform: 'translateX(' + direction * 16 + 'px)' },
+          { opacity: 1, transform: 'translateX(0)' }
+        ], { duration: 190, easing: 'cubic-bezier(.2,.7,.25,1)' });
+      }
       $('[data-progress]', dialog).textContent = (index + 1) + '/' + slides.length + ' · Phút ' + minutes;
       previous.disabled = index === 0;
       next.disabled = index === slides.length - 1;
@@ -511,6 +522,7 @@
       dialog.showModal();
       content.focus();
     });
+    if (new URLSearchParams(location.search).get('mode') === 'slides') launch.click();
     previous.addEventListener('click', () => showSlide(active - 1));
     next.addEventListener('click', () => showSlide(active + 1));
     $('[data-close]', dialog).addEventListener('click', () => dialog.close());
@@ -530,6 +542,7 @@
       if (document.fullscreenElement === shell) document.exitFullscreen().catch(() => {});
     });
     dialog.addEventListener('keydown', (event) => {
+      if (event.repeat) return;
       if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
       event.preventDefault();
       showSlide(active + (event.key === 'ArrowRight' ? 1 : -1));
