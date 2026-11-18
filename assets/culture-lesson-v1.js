@@ -288,6 +288,153 @@
   }
 
 
+
+  const mediaQueries = {
+  "le-hoi": "Seollal Chuseok",
+  "am-thuc": "Korean cuisine",
+  "truyen-thong": "Korean traditional culture hanbok",
+  "doi-song": "daily life South Korea",
+  "phe-lich-su": "Korean etiquette",
+  "giao-duc": "education South Korea university",
+  "du-lich": "tourism South Korea",
+  "kpop": "K-pop South Korea",
+  "cong-so": "South Korea office workplace",
+  "tro-choi": "Korean traditional games",
+  "lich-su": "history of Korea",
+  "hien-dai": "modern South Korea",
+  "so-cap-cuu": "first aid CPR training",
+  "goi-cuu-ho": "emergency services South Korea",
+  "lac-duong": "street signs South Korea",
+  "mat-vi": "lost and found South Korea",
+  "tau-dien-ngam": "Seoul Metro",
+  "xe-buyt": "buses South Korea",
+  "benh-vien": "hospitals South Korea",
+  "hoa-hoan": "firefighters South Korea",
+  "mat-dien-thoai": "smartphones South Korea",
+  "an-toan-giao-thong": "pedestrian crossings South Korea"
+};
+  const mediaCache = new Map();
+
+  async function searchClassroomMedia(query, kind, limit) {
+    const key = kind + ':' + query;
+    if (!mediaCache.has(key)) {
+      const fetchFiles = async (search) => {
+        const params = new URLSearchParams({
+          action: 'query', format: 'json', formatversion: '2', origin: '*',
+          generator: 'search', gsrnamespace: '6', gsrlimit: String(limit),
+          gsrsearch: search + ' filetype:' + kind, prop: 'imageinfo', iiprop: 'url|mime', iiurlwidth: '400'
+        });
+        const response = await fetch('https://commons.wikimedia.org/w/api.php?' + params, {
+          credentials: 'omit', signal: AbortSignal.timeout(12000)
+        });
+        if (!response.ok) throw new Error('Wikimedia Commons unavailable');
+        const data = await response.json();
+        if (data.error) throw new Error(data.error.code);
+        return (data.query?.pages || []).sort((a, b) => a.index - b.index).map((page) => ({
+          title: page.title.replace(/^File:/, '').replace(/\.[^.]+$/, ''),
+          info: page.imageinfo?.[0]
+        })).filter(({info}) => info?.mime?.startsWith(kind === 'bitmap' ? 'image/' : 'video/'));
+      };
+      mediaCache.set(key, fetchFiles(query).catch((error) => {
+        mediaCache.delete(key);
+        throw error;
+      }));
+    }
+    return mediaCache.get(key);
+  }
+
+  function slideResources(topic, samples) {
+    const foundational = topic.dialogue.map((line, i) => [i % 2 ? 'B' : 'A', line.ko, line.vi]);
+    const dialogues = [
+      { title: 'Hội thoại nền tảng', dialogue: foundational },
+      ...samples,
+      ...samples.flatMap((sample) => [
+        { title: sample.title + ' · Mở đầu', dialogue: sample.dialogue.slice(0, 2) },
+        { title: sample.title + ' · Hỏi đáp tiếp', dialogue: sample.dialogue.slice(2, 4) }
+      ])
+    ].filter((sample) => sample.dialogue.length >= 2);
+    return '<details class="mcl-slide-library"><summary>Ảnh theo chủ đề · tối đa 50</summary>' +
+      '<div data-gallery="bitmap"></div></details>' +
+      '<details class="mcl-slide-library"><summary>Video theo chủ đề · tối đa 6</summary>' +
+      '<div data-gallery="video"></div></details>' +
+      '<details class="mcl-slide-library"><summary>Luyện hội thoại · ' + dialogues.length + ' bài và đoạn luyện</summary>' +
+      dialogues.map((sample) => '<details><summary>' + esc(sample.title) + '</summary>' +
+        sample.dialogue.map((line) => '<p><strong lang="ko">' + esc(line[0] + ' · ' + line[1]) + '</strong> ' +
+          '<button type="button" data-speak="' + esc(line[1]) + '" aria-label="Nghe câu tiếng Hàn">🔊</button>' +
+          '<br>' + esc(line[2]) + '</p>').join('') + '</details>').join('') + '</details>';
+  }
+
+  async function loadSlideResources(details, topic) {
+    const gallery = $('[data-gallery]', details);
+    if (!gallery || gallery.dataset.loaded) return;
+    gallery.dataset.loaded = 'pending';
+    const render = (items) => {
+      gallery.replaceChildren();
+      const grid = document.createElement('div');
+      grid.className = 'mcl-deck-pictures';
+      gallery.append(grid);
+      for (const item of items) {
+        const figure = document.createElement('figure');
+        const link = document.createElement('a');
+        link.href = item.href;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = item.title;
+        if (item.src) {
+          const image = document.createElement('img');
+          image.loading = 'lazy';
+          image.decoding = 'async';
+          image.alt = item.title;
+          image.src = item.src;
+          image.addEventListener('error', () => image.remove(), {once: true});
+          figure.append(image);
+        }
+        const caption = document.createElement('figcaption');
+        caption.append(link);
+        figure.append(caption);
+        grid.append(figure);
+      }
+    };
+    const kind = gallery.dataset.gallery;
+    const isPhoto = kind === 'bitmap';
+    const video = window.MRLEE_CULTURE_V17_MEDIA?.[topic.slug]?.video;
+    const local = isPhoto
+      ? (topic.realPhotos || []).map((photo) => ({src: photo.local, href: photo.source || photo.local, title: photo.title}))
+      : video?.url ? [{href: video.url, title: video.title}] : [];
+    const cap = isPhoto ? 50 : 6;
+    const query = mediaQueries[topic.slug] || topic.ko;
+    if (!isPhoto && ['so-cap-cuu', 'goi-cuu-ho', 'benh-vien', 'hoa-hoan'].includes(topic.slug)) {
+      render(local);
+      if (!local.length) gallery.textContent = 'Đang chờ video từ cơ quan chuyên môn.';
+      gallery.dataset.loaded = 'yes';
+      return;
+    }
+    try {
+      gallery.textContent = 'Đang tải tư liệu…';
+      const files = await searchClassroomMedia(query, kind, cap);
+      const items = [...local, ...files.map(({title, info}) => ({
+        title, href: info.descriptionurl || info.url, src: isPhoto ? info.thumburl : ''
+      }))];
+      const seen = new Set();
+      const unique = items.filter((item) => {
+        if (!item.href || seen.has(item.href)) return false;
+        seen.add(item.href);
+        return true;
+      }).slice(0, cap);
+      render(unique);
+      const notice = document.createElement('p');
+      notice.textContent = 'Tìm thấy ' + unique.length + ' tư liệu. Kết quả Wikimedia Commons được tìm theo chủ đề. Xem trước khi chiếu.';
+      gallery.prepend(notice);
+      gallery.dataset.loaded = 'yes';
+    } catch {
+      render(local);
+      const notice = document.createElement('p');
+      notice.textContent = 'Chưa tải được tư liệu Wikimedia Commons. Đóng và mở lại để thử lại.';
+      gallery.prepend(notice);
+      delete gallery.dataset.loaded;
+    }
+  }
+
   function addPresentation(lessonPlan, topic, plan, photos) {
     const video = window.MRLEE_CULTURE_V17_MEDIA?.[topic.slug]?.video;
     const samples = plan.practice;
@@ -353,7 +500,7 @@
       window.speechSynthesis?.cancel();
       active = index;
       const [minutes, heading, body] = slides[index];
-      content.innerHTML = '<h2 id="mcl-deck-title">' + esc(heading) + '</h2>' + body;
+      content.innerHTML = '<h2 id="mcl-deck-title">' + esc(heading) + '</h2>' + body + slideResources(topic, samples);
       content.scrollTop = 0;
       $('[data-progress]', dialog).textContent = (index + 1) + '/' + slides.length + ' · Phút ' + minutes;
       previous.disabled = index === 0;
@@ -388,6 +535,10 @@
       showSlide(active + (event.key === 'ArrowRight' ? 1 : -1));
       content.focus();
     });
+    content.addEventListener('toggle', (event) => {
+      const details = event.target;
+      if (details.open && details.classList.contains('mcl-slide-library')) loadSlideResources(details, topic);
+    }, true);
     content.addEventListener('click', (event) => {
       const speak = event.target.closest('[data-speak]');
       if (!speak || !window.speechSynthesis || !window.SpeechSynthesisUtterance) return;
