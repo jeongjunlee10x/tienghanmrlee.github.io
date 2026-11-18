@@ -1,4 +1,4 @@
-/* MR LEE Culture Lesson V1 · 45–60 minute classroom flow */
+/* MR LEE Culture Lesson V1 · 60 minute classroom flow */
 (function () {
   'use strict';
   const topics = Array.isArray(window.MRLEE_CULTURE_V13) ? window.MRLEE_CULTURE_V13 : [];
@@ -15,13 +15,13 @@
     const grid = $('#topics');
     if (!section || !grid) return;
     const description = $('.sectionHeading p', section);
-    if (description) description.textContent = '22 chủ đề để tìm hiểu văn hóa Hàn Quốc và luyện giao tiếp qua tình huống thực tế. Mỗi bài học kéo dài 45–60 phút.';
+    if (description) description.textContent = '22 chủ đề để tìm hiểu văn hóa Hàn Quốc và luyện giao tiếp qua tình huống thực tế. Mỗi bài học kéo dài 60 phút.';
     const decorate = () => {
       $$('.topic', grid).forEach((card) => {
         if (!$('.mcl-card-meta', card)) {
           const meta = document.createElement('div');
           meta.className = 'mcl-card-meta';
-          meta.innerHTML = '<span>45–60 phút</span><span>3 hoạt động nói</span>';
+          meta.innerHTML = '<span>60 phút</span><span>3 hoạt động nói</span>';
           const open = $('.openLink', card);
           if (open) open.insertAdjacentElement('beforebegin', meta);
           else card.append(meta);
@@ -49,9 +49,9 @@
         caption: textOnly(cap)
       };
     }).filter((item) => item.src) : [];
-    if (items.length < 5) {
+    {
       (topic.realPhotos || []).forEach((photo) => {
-        if (items.length >= 5 || !photo.local) return;
+        if (!photo.local || items.some((item) => item.src === photo.local)) return;
         items.push({
           src: photo.local,
           alt: photo.title || topic.title,
@@ -62,22 +62,21 @@
     if (items.length < 5 && topic.image) {
       items.push({ src: topic.image, alt: topic.title, caption: topic.description || '' });
     }
-    return items.slice(0, 5);
+    return items;
   }
 
   function renderTimeline() {
     const blocks = [
-      ['00–05', 'Khởi động bằng hình ảnh', '5 phút', 'Quan sát ảnh và dự đoán hai người cần trao đổi điều gì.'],
-      ['05–15', 'Lý thuyết văn hóa', '10 phút', 'Đọc kiến thức, giải thích hoàn cảnh áp dụng và phân tích một ngoại lệ.'],
-      ['15–21', 'Từ vựng trọng tâm', '6 phút', 'Nghe, nhắc lại và đặt câu với các từ khóa trong tình huống.'],
-      ['21–29', 'Nghe và hỏi đáp', '8 phút', 'Nghe mẫu thứ nhất, trả lời theo cặp rồi kiểm tra với bản dịch.'],
-      ['29–40', 'Đóng vai và xử lý tình huống', '11 phút', 'Luyện hai mẫu còn lại, đổi vai và thực hiện biến thể.'],
-      ['40–45', 'Đánh giá tiết 45 phút', '5 phút', 'Thực hiện nhiệm vụ đầu ra và chấm theo bảng tiêu chí.'],
-      ['40–55', 'Luyện phản xạ mở rộng', '15 phút', 'Với tiết 60 phút, thay lượt đánh giá ở phút 40 bằng lượt nói tự do và thảo luận.'],
-      ['55–60', 'Đánh giá tiết 60 phút', '5 phút', 'Thực hiện nhiệm vụ đầu ra và chấm theo bảng tiêu chí.']
+      ['00–05', 'Quan sát và dự đoán', '5 phút', 'Quan sát ảnh và nêu dự đoán theo cặp.'],
+      ['05–15', 'Kiến thức và tư liệu', '10 phút', 'So sánh ảnh hoặc xem trích đoạn video rồi thảo luận.'],
+      ['15–23', 'Từ vựng và câu mẫu', '8 phút', 'Nghe, nhắc lại và thay thông tin.'],
+      ['23–33', 'Nghe hội thoại', '10 phút', 'Nghe, xác định vai và kiểm tra bằng bản dịch.'],
+      ['33–48', 'Đóng vai', '15 phút', 'Luyện hai tình huống, đổi vai và đổi dữ kiện.'],
+      ['48–55', 'Vận dụng', '7 phút', 'Thực hiện nhiệm vụ nói theo yêu cầu.'],
+      ['55–60', 'Kiểm tra cuối tiết', '5 phút', 'Trả lời câu hỏi và tự đánh giá nhiệm vụ nói.']
     ];
-    return blocks.map((b, i) =>
-      '<div class="mcl-time-row ' + (i < 6 ? 'mcl-core' : 'mcl-extension') + '">' +
+    return blocks.map((b) =>
+      '<div class="mcl-time-row mcl-core">' +
       '<span class="mcl-time">' + b[0] + '</span><div><strong>' + b[1] + '</strong><p>' + b[3] + '</p></div>' +
       '<span class="mcl-minutes">' + b[2] + '</span></div>'
     ).join('');
@@ -88,10 +87,8 @@
     section.id = 'mrleeLessonPlan';
     section.className = 'mcl-lesson-plan';
     section.innerHTML =
-      '<div class="mcl-section-head"><span class="mcl-eyebrow">BÀI GIẢNG MR LEE</span><h2>Tiến trình tiết học 45–60 phút</h2>' +
+      '<div class="mcl-section-head"><span class="mcl-eyebrow">BÀI GIẢNG MR LEE</span><h2>Tiến trình tiết học 60 phút</h2>' +
       '<p>Học theo trình tự: quan sát → hiểu văn hóa → ghi nhớ ngôn ngữ → thực hành → vận dụng.</p></div>' +
-      '<div class="mcl-duration-grid"><article><span class="mcl-duration">45 phút</span><strong>Tiết học cốt lõi</strong><p>Dành 5 phút cuối để đánh giá nhiệm vụ nói.</p></article>' +
-      '<article><span class="mcl-duration">60 phút</span><strong>Tiết học mở rộng</strong><p>Thêm 15 phút luyện phản xạ, sau đó thực hiện cùng nhiệm vụ đánh giá.</p></article></div>' +
       '<div class="mcl-timeline">' + renderTimeline() + '</div>' +
       '<div class="mcl-outcomes"><div><h3>🎯 Sau bài học, học viên có thể</h3><ul>' +
       (plan.goals || []).map((g) => '<li>' + esc(g) + '</li>').join('') +
@@ -276,7 +273,7 @@
     const panel = $$('.sidePanel').find((node) => /Mở nhanh/.test(textOnly($('h3', node))));
     if (!panel) return;
     const links = [
-      ['#mrleeLessonPlan', 'Tiến trình 45–60 phút'],
+      ['#mrleeLessonPlan', 'Tiến trình 60 phút'],
       ['#mrleeSpeakingLab', '3 mẫu thực hành nói'],
       ['#mrleeApplication', 'Vận dụng cuối bài']
     ];
@@ -287,6 +284,118 @@
         a.textContent = item[1];
         panel.insertBefore(a, $('a[href="van-hoa-han-quoc.html"]', panel) || null);
       }
+    });
+  }
+
+
+  function addPresentation(lessonPlan, topic, plan, photos) {
+    const video = window.MRLEE_CULTURE_V17_MEDIA?.[topic.slug]?.video;
+    const samples = plan.practice;
+    const pictures = (list) => '<div class="mcl-deck-pictures">' + list.map((photo) => imageMarkup(photo)).join('') + '</div>';
+    const bullets = (list) => '<ul>' + list.map((value) => '<li>' + esc(value) + '</li>').join('') + '</ul>';
+    const prompt = (value) => '<p>' + esc(value) + '</p>';
+    const media = video?.url && /^https:\/\//.test(video.url)
+      ? '<p><a target="_blank" rel="noopener noreferrer" href="' + esc(video.url) + '">▶ ' +
+        esc(video.title) + '</a> · ' + esc(video.owner) + '</p>' + prompt(video.description) +
+        prompt('Xem một đoạn do giáo viên chọn. Nêu một chi tiết liên quan tới bài học và giải thích bằng lời của mình.')
+      : prompt('Chọn hai ảnh. Mô tả mỗi ảnh bằng một từ khóa rồi giải thích ảnh nào liên quan nhất đến tình huống mở đầu.');
+    const quiz = topic.quiz || topic.quizSet[0];
+    const slides = [
+      ['00–05', topic.title, '<p lang="ko">' + esc(topic.ko) + '</p>' + pictures(photos.slice(0, 2)) +
+        prompt(samples[0].scene) + prompt('Quan sát ảnh, dự đoán cách ứng xử và trao đổi với bạn bên cạnh.')],
+      ['05–15', 'Khám phá chủ đề', bullets(plan.focus) + media + pictures(photos.slice(2))],
+      ['15–23', 'Từ vựng và câu mẫu', bullets(topic.words.map((word) => word.ko + ' — ' + word.vi)) +
+        bullets(plan.patterns) + prompt('Đọc theo giáo viên rồi thay một thông tin trong câu mẫu.')],
+      ['23–33', samples[0].title, prompt('Nghe và xác định vai của hai người. Sau đó mở bản dịch để đối chiếu.') +
+        samples[0].dialogue.map((line) => '<p lang="ko">' + esc(line[0] + ' · ' + line[1]) +
+          ' <button type="button" data-speak="' + esc(line[1]) + '" aria-label="Nghe câu tiếng Hàn">🔊</button></p>').join('') +
+        '<details><summary>Hiện bản dịch</summary>' + bullets(samples[0].dialogue.map((line) => line[2])) + '</details>'],
+      ['33–48', 'Đóng vai và đổi tình huống', samples.slice(1).map((sample) =>
+        '<h3>' + esc(sample.title) + '</h3>' + (sample.photo ? pictures([sample.photo]) : '') +
+        prompt(sample.scene) + prompt(sample.roles.join(' · ')) + prompt(sample.variation) +
+        '<details><summary>Mở hội thoại gợi ý</summary>' + bullets(sample.dialogue.map((line) => line[1] + ' — ' + line[2])) +
+        '</details>').join('')],
+      ['48–55', 'Vận dụng theo cặp', prompt(plan.context) + bullets(samples.map((sample) => sample.challenge)) +
+        prompt('Mỗi cặp chọn một nhiệm vụ, chuẩn bị 2 phút, lần lượt trình bày và góp ý theo mục tiêu bài học.')],
+      ['55–60', 'Kiểm tra cuối tiết', prompt(quiz.question) + bullets(quiz.choices) +
+        '<details><summary>Hiện đáp án</summary>' + prompt(quiz.choices[quiz.correct]) + prompt(quiz.explanation) +
+        '</details><h3>Tự đánh giá theo mục tiêu bài học</h3>' + bullets(plan.goals)]
+    ];
+    const launch = document.createElement('button');
+    launch.type = 'button';
+    launch.className = 'mcl-primary-action';
+    launch.textContent = '▶ Trình chiếu · 60 phút';
+    const dialog = document.createElement('dialog');
+    dialog.className = 'mcl-deck';
+    dialog.setAttribute('aria-labelledby', 'mcl-deck-title');
+    dialog.innerHTML = '<style>' +
+      '.mcl-deck{box-sizing:border-box;width:min(96vw,1200px);height:92dvh;max-width:none;max-height:none;border:0;border-radius:18px;padding:0;color:#14213a;background:#f7faff}' +
+      '.mcl-deck::backdrop{background:#09152bdd}.mcl-deck-shell:fullscreen{background:#f7faff;color:#14213a}' +
+      '.mcl-deck-shell{height:100%;display:grid;grid-template-rows:auto minmax(0,1fr) auto}' +
+      '.mcl-deck-bar{display:flex;justify-content:space-between;gap:.6rem;align-items:center;flex-wrap:wrap;padding:.7rem clamp(.7rem,3vw,2rem);color:#fff;background:#10294b}' +
+      '.mcl-deck button{cursor:pointer;border:1px solid #9eb5d4;border-radius:.5rem;background:white;color:#14213a;padding:.45rem .7rem;font:inherit}' +
+      '.mcl-deck button:disabled{opacity:.55;cursor:default}.mcl-deck main{overflow:auto;padding:clamp(1rem,4vw,3rem);font-size:clamp(1.03rem,2vw,1.5rem);line-height:1.5}' +
+      '.mcl-deck h2{font-size:clamp(1.7rem,4vw,3rem);margin:0 0 .55em}.mcl-deck h3{font-size:1.15em}.mcl-deck summary{cursor:pointer}' +
+      '.mcl-deck-pictures{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1rem}' +
+      '.mcl-deck-pictures figure{margin:0}.mcl-deck-pictures img{width:100%;height:clamp(150px,28vh,265px);object-fit:contain}.mcl-deck-pictures figcaption{font-size:.8em}' +
+      '</style><div class="mcl-deck-shell"><header class="mcl-deck-bar"><strong>MR LEE · 60 phút</strong>' +
+      '<span><button type="button" data-full>Toàn màn hình</button> <button type="button" data-close>Đóng</button></span></header>' +
+      '<main tabindex="-1"></main><footer class="mcl-deck-bar"><button type="button" data-prev>← Trước</button>' +
+      '<span data-progress aria-live="polite"></span><button type="button" data-next>Tiếp →</button></footer></div>';
+    lessonPlan.prepend(launch);
+    document.body.append(dialog);
+    const content = $('main', dialog);
+    const previous = $('[data-prev]', dialog);
+    const next = $('[data-next]', dialog);
+    let active = 0;
+    function showSlide(index) {
+      if (index < 0 || index >= slides.length) return;
+      window.speechSynthesis?.cancel();
+      active = index;
+      const [minutes, heading, body] = slides[index];
+      content.innerHTML = '<h2 id="mcl-deck-title">' + esc(heading) + '</h2>' + body;
+      content.scrollTop = 0;
+      $('[data-progress]', dialog).textContent = (index + 1) + '/' + slides.length + ' · Phút ' + minutes;
+      previous.disabled = index === 0;
+      next.disabled = index === slides.length - 1;
+    }
+    launch.addEventListener('click', () => {
+      showSlide(active);
+      dialog.showModal();
+      content.focus();
+    });
+    previous.addEventListener('click', () => showSlide(active - 1));
+    next.addEventListener('click', () => showSlide(active + 1));
+    $('[data-close]', dialog).addEventListener('click', () => dialog.close());
+    const full = $('[data-full]', dialog);
+    const shell = $('.mcl-deck-shell', dialog);
+    full.hidden = !document.fullscreenEnabled;
+    full.addEventListener('click', async () => {
+      try {
+        if (document.fullscreenElement === shell) await document.exitFullscreen();
+        else await shell.requestFullscreen();
+      } catch {
+        full.textContent = 'Toàn màn hình không khả dụng';
+      }
+    });
+    dialog.addEventListener('close', () => {
+      window.speechSynthesis?.cancel();
+      if (document.fullscreenElement === shell) document.exitFullscreen().catch(() => {});
+    });
+    dialog.addEventListener('keydown', (event) => {
+      if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+      event.preventDefault();
+      showSlide(active + (event.key === 'ArrowRight' ? 1 : -1));
+      content.focus();
+    });
+    content.addEventListener('click', (event) => {
+      const speak = event.target.closest('[data-speak]');
+      if (!speak || !window.speechSynthesis || !window.SpeechSynthesisUtterance) return;
+      const utterance = new SpeechSynthesisUtterance(speak.dataset.speak);
+      utterance.lang = 'ko-KR';
+      utterance.rate = 0.88;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utterance);
     });
   }
 
@@ -304,7 +413,7 @@
     if (heroText && !$('.mcl-hero-meta', heroText)) {
       const meta = document.createElement('div');
       meta.className = 'mcl-hero-meta';
-      meta.innerHTML = '<span>◷ 45–60 phút</span><span>3 mẫu hội thoại</span><span>Thực hành theo cặp</span>';
+      meta.innerHTML = '<span>◷ 60 phút</span><span>3 mẫu hội thoại</span><span>Thực hành theo cặp</span>';
       heroText.append(meta);
     }
 
@@ -314,6 +423,7 @@
     else box.insertBefore(lessonPlan, box.firstChild);
 
     const photos = getLessonImages(topic, topicIndex);
+    addPresentation(lessonPlan, topic, plan, photos);
     const practice = buildPractice(plan, photos);
     const talk = $('#talk', box);
     const words = $('#words', box);
