@@ -44,6 +44,15 @@ dialog.mrlee-theme-entry::backdrop{background:rgba(1,12,36,.83);backdrop-filter:
 .mrlee-theme-entry .mrlee-entry-option:focus-visible{
   outline:4px solid #ffab40!important;outline-offset:3px!important
 }
+.mrlee-theme-entry .mrlee-entry-option[aria-pressed="true"]{
+  border-color:#147cc9!important;
+  box-shadow:0 0 0 3px #1679c521,0 12px 28px #12345b29;
+}
+.mrlee-theme-entry .mrlee-entry-option[aria-pressed="true"] .mrlee-entry-option-copy::after{
+  content:"✓ Đang sử dụng";display:inline-flex;align-items:center;
+  border-radius:999px;padding:5px 11px;
+  color:#07548b;background:#e0f4ff;font:800 11px/1.25 "Be Vietnam Pro",system-ui,sans-serif;
+}
 .mrlee-theme-entry .mrlee-entry-option .mrlee-entry-preview{
   height:clamp(150px,17vw,230px);display:block;flex:none;position:relative;width:100%;
   background-color:#dceeff;background-size:cover;background-position:center;
@@ -91,10 +100,28 @@ dialog.mrlee-theme-entry::backdrop{background:rgba(1,12,36,.83);backdrop-filter:
   width:63%;padding:14px 12px;gap:5px;justify-content:center
  }
  .mrlee-theme-entry .mrlee-entry-option-copy strong{font-size:14px}
- .mrlee-theme-entry .mrlee-entry-option-copy small{font-size:10px}
- .mrlee-theme-entry .mrlee-entry-option-copy em{min-height:33px;padding:8px 10px;font-size:10px}
+ .mrlee-theme-entry .mrlee-entry-option-copy small{font-size:12px}
+ .mrlee-theme-entry .mrlee-entry-option-copy em{min-height:44px;padding:12px 10px;font-size:12px}
+ .mrlee-theme-entry .mrlee-entry-note{font-size:12px}
  .mrlee-theme-entry #mrlee-entry-heading{font-size:25px}
  .mrlee-theme-entry #mrlee-entry-intro{font-size:12px;margin-bottom:17px}
+}
+/* Compact phones must retain readable copy and a full-height touch target. */
+@media(max-width:360px){
+ .mrlee-theme-entry .mrlee-entry-option .mrlee-entry-preview{width:32%;min-height:140px}
+ .mrlee-theme-entry .mrlee-entry-option .mrlee-entry-option-copy{width:68%;padding:11px 9px}
+ .mrlee-theme-entry .mrlee-entry-option-copy strong{font-size:13px}
+ .mrlee-theme-entry .mrlee-entry-option-copy small{font-size:11.5px}
+ .mrlee-theme-entry #mrlee-entry-heading{font-size:23px}
+}
+/* Landscape phones: keep both options visible with scrolling inside the modal,
+   never extending the modal beyond the visual viewport. */
+@media(max-height:520px) and (min-width:651px){
+ dialog.mrlee-theme-entry{max-height:calc(100dvh - 18px);padding:14px 22px}
+ .mrlee-theme-entry .mrlee-entry-option .mrlee-entry-preview{height:105px}
+ .mrlee-theme-entry .mrlee-entry-option .mrlee-entry-option-copy{padding:12px 14px}
+ .mrlee-theme-entry #mrlee-entry-heading{font-size:25px}
+ .mrlee-theme-entry #mrlee-entry-intro{margin-bottom:12px}
 }
 @media(prefers-reduced-motion:reduce){
  .mrlee-theme-entry .mrlee-entry-option{transition:none!important}

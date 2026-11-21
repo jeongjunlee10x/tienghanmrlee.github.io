@@ -9,9 +9,12 @@ const start=()=>{
  const change=doc.getElementById('mrlee27ThemeChange');
  const expand=doc.getElementById('mrlee27Expand');
  change?.addEventListener('click',()=>{
-  /* Reopen the pre-existing theme picker instead of introducing a second modal. */
-  try{sessionStorage.removeItem('MRLEE.THEME.ENTRY.V1')}catch{}
-  location.reload();
+  // Reopen the native chooser without discarding this tab's current selection.
+  // The shared theme runtime displays the active theme and removes the query
+  // parameter after the user has selected the next theme.
+  const target=new URL(location.href);
+  target.searchParams.set('select-theme','1');
+  location.assign(target.pathname+target.search+target.hash);
  });
  function syncExpand(){
   if(!expand)return;

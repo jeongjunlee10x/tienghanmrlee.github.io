@@ -3,7 +3,7 @@
 const VISIT_KEY='MRLEE.THEME.ENTRY.V1';
 const KEY='MRLEE.THEME.V1',ROOT='assets/mrlee-dual-ui/cards/',doc=document,html=doc.documentElement;
 const path=decodeURIComponent(location.pathname.split('/').filter(Boolean).pop()||'index.html');
-const entryStyle=doc.createElement('link');entryStyle.rel='stylesheet';entryStyle.href='assets/mrlee-dual-ui/entry-picker.css?v=20261029-v1';doc.head.append(entryStyle);
+const entryStyle=doc.createElement('link');entryStyle.rel='stylesheet';entryStyle.href='assets/mrlee-dual-ui/entry-picker.css?v=20261121-v3phase2';doc.head.append(entryStyle);
 /* Shared 2027 visual foundations, load for every page that uses dual themes. */
 const foundationStyle=doc.createElement('link');
 foundationStyle.rel='stylesheet';
@@ -40,9 +40,23 @@ try{
  theme=['fresh','future'].includes(selected)?selected:(localStorage.getItem(KEY)==='future'?'future':'fresh');
 }catch{try{theme=localStorage.getItem(KEY)==='future'?'future':'fresh'}catch{}}
 
+function prioritizeHeroPhoto(selected){
+ // The chosen HD homepage artwork gets image decode/network priority.
+ // Both sources remain unchanged; no new image downloads or dependencies.
+ const hero=doc.querySelector('#mrleeNewHome .mr27-hero-media');
+ if(!hero)return;
+ for(const [name,selector] of [['fresh','.mr27-art-fresh'],['future','.mr27-art-future']]){
+  const img=hero.querySelector(selector);if(!img)continue;
+  const active=name===selected;
+  img.loading=active?'eager':'lazy';
+  img.setAttribute('fetchpriority',active?'high':'low');
+  img.decoding='async';
+ }
+}
 function update(v){theme=v==='future'?'future':'fresh';html.dataset.mrleeTheme=theme;try{localStorage.setItem(KEY,theme)}catch{}
  doc.querySelectorAll('.mrlee-theme-switch button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.theme===theme)));
  doc.querySelectorAll('[data-mrlee-original]').forEach(el=>{if(el.dataset.mrleeOriginal===el.dataset.mrleeFuture)return;const src=theme==='future'?el.dataset.mrleeFuture:el.dataset.mrleeOriginal;if(el.getAttribute('src')!==src)el.src=src});
+ prioritizeHeroPhoto(theme);
 }
 function cardTheme(link){
  const href=link.getAttribute('href')||'',params=new URL(link.href,location.href).searchParams,cap=params.get('cap');
@@ -113,6 +127,27 @@ function entryPicker(){
      </button>
    </div>
    <p class="mrlee-entry-note">Lựa chọn chỉ áp dụng trong tab hiện tại; mở website ở tab mới sẽ được chọn lại.</p>`;
+ // On an explicit revisit show the current choice, but never preselect
+ // a theme on the first visit in a new tab.
+ const options=Array.from(dialog.querySelectorAll('button[data-theme]'));
+ let hasChoice=false;
+ try{hasChoice=['fresh','future'].includes(sessionStorage.getItem(VISIT_KEY))}catch{}
+ if(hasChoice)for(const option of options){
+  option.setAttribute('aria-pressed',String(option.dataset.theme===theme));
+ }
+ // Keyboard choice group; Enter and Space remain native button activations.
+ dialog.addEventListener('keydown',event=>{
+  const index=options.indexOf(doc.activeElement);
+  if(index<0)return;
+  let next=-1;
+  if(event.key==='ArrowRight'||event.key==='ArrowDown')next=(index+1)%options.length;
+  else if(event.key==='ArrowLeft'||event.key==='ArrowUp')next=(index+options.length-1)%options.length;
+  else if(event.key==='Home')next=0;
+  else if(event.key==='End')next=options.length-1;
+  if(next<0)return;
+  event.preventDefault();
+  options[next].focus();
+ });
  dialog.addEventListener('cancel',e=>e.preventDefault()); // Choice is required once.
  dialog.addEventListener('click',e=>{
    const button=e.target.closest('button[data-theme]');
@@ -128,7 +163,8 @@ function entryPicker(){
  });
  doc.body.append(dialog);
  try{dialog.showModal()}catch{dialog.setAttribute('open','');}
- dialog.querySelector('button[data-theme="fresh"]')?.focus();
+ const initial=hasChoice?options.find(option=>option.dataset.theme===theme):options[0];
+ initial?.focus();
 }
 function pageGallery(){
  const sets={

@@ -18,22 +18,31 @@ assert.doesNotMatch(js,/nav\.className='mrlee-theme-switch'/);
 assert.match(css,/\.mrlee-theme-switch\{display:none!important\}/,'No top page switchers');
 assert.match(css,/dialog\.mrlee-theme-entry\[open\]/);
 assert.match(css,/@media\(max-width:650px\)/);
+assert.match(js,/function prioritizeHeroPhoto\(/,'Homepage HD image loading priority must be theme-aware');
+assert.match(js,/img\.loading=active\?'eager':'lazy'/,'Inactive hero should not compete for load priority');
+assert.match(js,/event\.key==='ArrowRight'/,'Theme options must support arrow-key focus');
+assert.match(js,/option\.setAttribute\('aria-pressed'/,'Reopened selector must expose the selected theme');
+assert.match(css,/@media\(max-width:360px\)/,'Compact mobile chooser layout missing');
+assert.match(css,/@media\(max-height:520px\)/,'Landscape chooser layout missing');
+assert.match(css,/aria-pressed="true"/,'Current theme has no visible selected-state styling');
 for(const name of ['01-trang-chu-fresh.webp','01-trang-chu-future.webp']){
  assert.ok(fs.statSync('assets/images/heroes/'+name).size>100000,'Missing real approved hero preview '+name);
  assert.ok(css.includes(name),'Modal missing theme-specific preview photo '+name);
 }
-let themed=0,newVersion=[];
+let themed=0,currentVersions=[];
 for(const file of root){
  const content=fs.readFileSync(file,'utf8');
  if(!content.includes('assets/mrlee-dual-ui/theme.js?v='))continue;
  themed++;
- if(content.includes('assets/mrlee-dual-ui/theme.js?v=20261102-phase4'))newVersion.push(file);
+ if(/assets\/mrlee-dual-ui\/theme\.js\?v=(?:20261102-phase4|20261121-v3phase2)/.test(content))currentVersions.push(file);
 }
 assert.ok(themed>=45,'Shared theme runtime lost pages: '+themed);
+assert(html.includes('assets/mrlee-dual-ui/theme.js?v=20261121-v3phase2'),
+ 'Homepage does not request the latest accessible theme picker');
 for(const file of ['index.html','hoc-tieng-han.html','kiem-tra-topik.html',
  'van-hoa-han-quoc.html','trung-tam-hoc-vien.html','admin.html']){
- assert(newVersion.includes(file),'Rebuilt page still points to stale theme cache: '+file);
+ assert(currentVersions.includes(file),'Shared theme runtime lost from '+file);
 }
-assert.ok(newVersion.length>=9,'Modern pages must use cache-busted theme.js');
+assert.ok(currentVersions.length>=9,'Modern pages must load a versioned shared theme.js');
 assert.doesNotMatch(js,/aria-label="Vào giao diện (?:Tươi mới|Viễn tưởng)"/,'Theme choice accessible names must match visible button labels');
 console.log('PASS theme chooser: '+themed+' HTML routes use current shared runtime; modal once per tab, no duplicate header buttons, both image previews and mobile layouts');
