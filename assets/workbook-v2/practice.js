@@ -9,8 +9,8 @@
  let session=null,serial=0;
  const bankKey=()=>cap.value+'-'+lesson.value;
  const historyKey=()=>['MRLEE','WB10K','V1',profile.value.trim().replace(/[^a-zA-Z0-9_-]/g,'_').slice(0,48)||'hocvien-001',cap.value,lesson.value].join('.');
- function getSeen(){try{return new Set(JSON.parse(localStorage.getItem(historyKey())||'[]'))}catch{return new Set()}}
- function putSeen(seen){try{localStorage.setItem(historyKey(),JSON.stringify([...seen]))}catch{}}
+ function getSeen(key=historyKey()){try{return new Set(JSON.parse(localStorage.getItem(key)||'[]'))}catch{return new Set()}}
+ function putSeen(seen,key=historyKey()){try{localStorage.setItem(key,JSON.stringify([...seen]))}catch{}}
  function shuffle(list){const items=list.slice();for(let i=items.length-1;i>0;i--){let j;
    if(globalThis.crypto?.getRandomValues){const a=new Uint32Array(1);crypto.getRandomValues(a);j=a[0]%(i+1)}
    else j=Math.floor(Math.random()*(i+1));
@@ -24,7 +24,7 @@
  }
  const message=(s)=>{$('wb10kStatus').textContent=s};
  const area=$('wb10kGame');
- function resetGame(){session=null;area.hidden=true;area.replaceChildren();$('wb10kStart').disabled=false}
+ function resetGame(){session=null;area.hidden=true;area.replaceChildren();$('wb10kStart').disabled=true}
  async function refresh(){
   const id=++serial;resetGame();message('Đang kiểm tra ngân hàng câu hỏi theo bài…');
   try{
@@ -54,8 +54,11 @@
    }
    return picked;
  }
- function markSeen(q){
-   const seen=getSeen();seen.add(q.id);putSeen(seen);
+ // A question is counted as practised only after a learner selects an answer.
+ // Bind progress to the session's original profile and lesson, even if an input
+ // is edited while the current card remains on screen.
+ function markSeen(q,key){
+   const seen=getSeen(key);seen.add(q.id);putSeen(seen,key);
  }
  function make(tag,className,textContent){
    const el=document.createElement(tag);if(className)el.className=className;
@@ -66,7 +69,7 @@
    session.answered=false;
    if(session.index>=session.questions.length){finish();return}
    const q=session.questions[session.index],index=session.index,container=area;
-   markSeen(q);container.replaceChildren();
+   container.replaceChildren();
    const head=make('div','wb10k-game-head');
    head.append(make('strong','', 'Câu '+(index+1)+'/'+session.questions.length),
      make('span','wb10k-kind',({
@@ -85,6 +88,7 @@
      btn.addEventListener('click',()=>{
        if(!session||session.index!==index||session.answered)return;
        session.answered=true;session.total++;
+       markSeen(q,session.historyKey);
        const ok=i===q.answer;if(ok)session.correct++;
        choices.querySelectorAll('button').forEach((b,j)=>{
         b.disabled=true;if(j===q.answer)b.classList.add('wb10k-correct');
@@ -123,12 +127,15 @@
     const unseen=(pack.lessons[lesson.value]||[]).filter(q=>!getSeen().has(q.id));
     if(!unseen.length){message('Đã luyện hết bộ câu hỏi của bài này. Có thể mở vòng mới khi muốn ôn lại.');return}
     const list=choose(unseen,Math.min(requested,unseen.length));
-    session={questions:list,index:0,correct:0,total:0,answered:false};
+    session={questions:list,index:0,correct:0,total:0,answered:false,historyKey:historyKey()};
     area.hidden=false;area.scrollIntoView({behavior:'smooth',block:'start'});
     message('Đang luyện '+list.length+' câu mới; đáp án lấy từ nội dung bài học hiện tại.');
     next();
    }catch(e){message('Không thể bắt đầu: '+String(e.message||e))}
-   finally{$('wb10kStart').disabled=false}
+   finally{
+    // Prevent parallel/restarted sessions and do not re-enable an exhausted bank.
+    if(id===serial&&!session)void refreshStatusOnly();
+   }
  });
  $('wb10kReset').addEventListener('click',()=>{
    if(!confirm('Mở vòng luyện mới cho Bài '+lesson.value+'? Lịch sử kết quả của 15 bộ Spark sẽ không bị xóa.'))return;

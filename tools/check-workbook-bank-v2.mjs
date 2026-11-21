@@ -98,7 +98,13 @@ for(const fragment of [
  'id="wb10kGame"','id="wb10kCount"','assets/workbook-v2/practice.js',
  'assets/workbook-v2/practice.css','mrlee-bai-tap-pro.js','mrlee-score-v12/widget.js'
 ])assert(html.includes(fragment),'missing integration '+fragment);
+assert(html.includes('assets/workbook-v2/practice.js?v=20261121-answer-progress-v3'),
+ 'Workbook must load the answered-only progress runtime, not a cached older script');
 const js=read('assets/workbook-v2/practice.js');
+assert(!/markSeen\(q\);container\.replaceChildren\(\)/.test(js),
+ 'A displayed unanswered question must not count toward completed practice');
+assert(js.includes('markSeen(q,session.historyKey)'),
+ 'Only a chosen answer may record the session-scoped question');
 assert(!/\.award\(|mrlee:practice-finished|score-v12\/widget/i.test(js),'supplemental quiz must not award Spark');
 for(const source of ['assets/workbook-v2/practice.js','mrlee-bai-tap-pro.js']){
  const result=spawnSync(process.execPath,['--check',source],{encoding:'utf8'});
