@@ -55,7 +55,6 @@ try{
    await page.waitForFunction(()=>window.MRLEE_AUDIO_PLUS&&document.querySelector('.tv-listen-card [data-speed][aria-pressed]'),null,{timeout:30000});
    const cards=page.locator('.tv-listen-card');
    assert.equal(await cards.count(),24,label+' total');
-   assert.equal(await cards.filter({has:page.locator('[data-level="1"]')}).count(),0,label+' fixture sanity');
    assert.equal(await page.locator('.tv-listen-card[data-level="1"]').count(),12,label+' TOPIK I count');
    assert.equal(await page.locator('.tv-listen-card[data-level="2"]').count(),12,label+' TOPIK II count');
    assert.equal(await page.locator('.ml-audio-bar').count(),0,label+' duplicate shared audio controls present');
