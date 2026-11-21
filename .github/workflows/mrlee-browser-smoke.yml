@@ -129,7 +129,7 @@ jobs:
         run: node tools/browser-admissions-interview.mjs
       - name: TOPIK I/II/Ngay Viet Nghe - WCAG contrast both themes desktop and mobile
         run: node tools/browser-topik-contrast.mjs
-      - name: Culture 45-slide HD: 16:9, mobile, two themes and slide navigation
+      - name: "Culture 45-slide HD — 16:9, mobile, two themes and navigation"
         run: node tools/browser-v3-culture-slides.mjs
       - name: Save culture slide screenshot evidence
         if: always()
