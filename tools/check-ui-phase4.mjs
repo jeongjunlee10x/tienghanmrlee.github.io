@@ -59,7 +59,8 @@ for(const [filename,kind,cards] of rebuilt){
  console.log('PASS clean rebuilt page',filename,'module cards:',cards);
 }
 const homepage=read('index.html');
-assert(homepage.includes(themeVersion),'Homepage cache version');
+assert(homepage.includes('assets/mrlee-dual-ui/theme.js?v=20261121-v3phase2'),
+ 'Homepage must load approved V3.0 theme picker runtime');
 assert(homepage.includes('id="mrleeNewHome"'),'Homepage V2 present');
 assert(!homepage.includes('assets/mrlee-v2/smart-shell.js'),'Obsolete Smart Hub V1 JavaScript still loaded');
 assert(!homepage.includes('assets/mrlee-v2/smart-shell.css'),'Obsolete Smart Hub V1 CSS still loaded');
