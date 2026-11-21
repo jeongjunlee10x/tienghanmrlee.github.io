@@ -134,7 +134,7 @@ assert(nativeLoader.includes('contact-native-v5.css?v=20261104-native-v5'),
  'Native contact CSS version not loaded on child pages');
 assert(read('mrlee-redesign.js').includes("q('#mrleeContactNative')"),
  'Legacy three-channel rail must not duplicate the native contact');
-const nativePages=['index.html',...Object.keys(v9Pages).filter(p=>p!=='admin.html'),...innerPages];
+const nativePages=['index.html',...Object.keys(layoutPages).filter(p=>p!=='admin.html'),...innerPages];
 for(const page of nativePages){
  const html=read(page);
  assert(html.includes('id="mrleeContactNative"'),'HTML contact button absent: '+page);
