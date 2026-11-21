@@ -25,6 +25,9 @@ on:
       - 'tim-truong.html'
       - 'assets/branding/mrlee-child-polish-v1.css'
       - 'assets/mrlee-dual-ui/theme.js'
+      - 'assets/culture-lesson-v1.js'
+      - 'tools/browser-v3-culture-slides.mjs'
+      - 'van-hoa-bai-hoc.html'
       - 'dang-ky-tu-van.html'
       - 'assets/branding/home-recovery.css'
       - 'assets/mrlee-v2/smart-shell.js'
@@ -72,6 +75,9 @@ on:
       - 'tim-truong.html'
       - 'assets/branding/mrlee-child-polish-v1.css'
       - 'assets/mrlee-dual-ui/theme.js'
+      - 'assets/culture-lesson-v1.js'
+      - 'tools/browser-v3-culture-slides.mjs'
+      - 'van-hoa-bai-hoc.html'
       - 'dang-ky-tu-van.html'
       - 'assets/branding/home-recovery.css'
       - 'assets/mrlee-v2/smart-shell.js'
@@ -123,6 +129,16 @@ jobs:
         run: node tools/browser-admissions-interview.mjs
       - name: TOPIK I/II/Ngay Viet Nghe - WCAG contrast both themes desktop and mobile
         run: node tools/browser-topik-contrast.mjs
+      - name: "Culture 45-slide HD — 16:9, mobile, two themes and navigation"
+        run: node tools/browser-v3-culture-slides.mjs
+      - name: Save culture slide screenshot evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mrlee-v3-culture-slide-screenshots
+          path: artifacts/v3-culture-slides/*.png
+          retention-days: 14
+          if-no-files-found: ignore
 
       # New V2/V3 page screenshots are produced by the dedicated, current workflows:
       # mrlee-home-rebuild-v2.yml, mrlee-learning-hubs-v2.yml, mrlee-workspaces-v3.yml.

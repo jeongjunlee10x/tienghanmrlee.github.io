@@ -1,0 +1,50 @@
+name: MR LEE V3 — Culture 45-slide HD browser QA
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/culture-lesson-v1.js'
+      - 'van-hoa-bai-hoc.html'
+      - 'tools/browser-v3-culture-slides.mjs'
+      - '.github/workflows/mrlee-v3-culture-slide-qa.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'assets/culture-lesson-v1.js'
+      - 'van-hoa-bai-hoc.html'
+      - 'tools/browser-v3-culture-slides.mjs'
+      - '.github/workflows/mrlee-v3-culture-slide-qa.yml'
+permissions:
+  contents: read
+concurrency:
+  group: mrlee-v3-culture-slides-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  culture-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify 45-slide generator and test scripts syntax
+        run: |
+          node --check assets/culture-lesson-v1.js
+          node --check tools/browser-v3-culture-slides.mjs
+          node tools/check-site.mjs
+      - name: Install Chromium for offline visual fixtures
+        run: |
+          npm install --no-audit --no-fund --no-save --package-lock=false playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Test 16:9 desktop, mobile photos and 45-slide navigation in Fresh and Future
+        run: node tools/browser-v3-culture-slides.mjs
+      - name: Upload screenshots whether tests pass or fail
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mrlee-v3-culture-slide-screenshots
+          path: artifacts/v3-culture-slides/*.png
+          retention-days: 14
+          if-no-files-found: ignore
