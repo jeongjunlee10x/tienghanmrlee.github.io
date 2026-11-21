@@ -1,6 +1,9 @@
 # TIẾNG HÀN MR LEE — Website học tiếng Hàn và du học Hàn Quốc
 
-Website chính thức: **https://jeongjunlee10x.github.io/tienghanmrlee.github.io/**
+Cloudflare Pages (URL production đã cấu hình): **https://mrlee-b6a.pages.dev/**  
+GitHub Pages (URL tương thích cũ): **https://jeongjunlee10x.github.io/tienghanmrlee.github.io/**
+
+> Kiểm toán và sửa lỗi CI trước nâng cấp V3.0: [Báo cáo Giai đoạn 1 — 21/11/2026](docs/MRLEE_V3_PHASE1_AUDIT_2026-11-21.md). Các thay đổi chưa được hợp nhất vào \`main\` trước khi PR được kiểm thử.
 
 ## Các khu vực đang sử dụng
 
