@@ -111,6 +111,14 @@ jobs:
         run: node tools/browser-theme-entry.mjs
       - name: Verify V3 keyboard chooser, 320px, landscape, tablet and HD photo loading
         run: node tools/browser-v3-theme-responsive.mjs
+      - name: Save V3 compact/mobile/tablet theme screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mrlee-v3-theme-responsive
+          path: artifacts/v3-theme/*.png
+          if-no-files-found: ignore
+          retention-days: 14
       - name: Admissions pre-entry personalization and interview overflow in both themes
         run: node tools/browser-admissions-interview.mjs
       - name: TOPIK I/II/Ngay Viet Nghe - WCAG contrast both themes desktop and mobile
