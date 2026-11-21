@@ -25,6 +25,7 @@ const server=http.createServer(async(req,res)=>{
 });
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const url='http://127.0.0.1:'+server.address().port+'/index.html';
+await fs.mkdir('artifacts/v3-theme',{recursive:true});
 const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
 const sizes=[
  ['compact',320,568],['phone',390,844],['landscape',667,375],
@@ -87,6 +88,19 @@ try{
     assert.equal(photo.inactive.length,1,label+' inactive artwork preserved');
     assert.equal(photo.inactive[0].loading,'lazy',label+' inactive photo lazy');
     assert.equal(photo.inactive[0].priority,'low',label+' inactive photo low priority');
+    await page.waitForFunction(name=>{
+      const img=document.querySelector('#mrleeNewHome .mr27-art-'+name);
+      return Boolean(img&&img.complete&&img.naturalWidth>=800);
+    },theme,{timeout:15000});
+    const hero=await page.evaluate(()=>{
+      const box=selector=>{const r=document.querySelector(selector).getBoundingClientRect();return{x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:r.width,height:r.height}};
+      return {viewport:innerWidth,hero:box('#mrleeNewHome .mr27-hero'),
+       copy:box('#mrleeNewHome .mr27-hero-copy'),media:box('#mrleeNewHome .mr27-hero-media')};
+    });
+    assert(hero.hero.x>=-2&&hero.hero.right<=width+2,label+' hero extends beyond viewport '+JSON.stringify(hero));
+    if(width<=650)assert(hero.media.y>=hero.copy.bottom-5,label+' mobile hero photo overlaps text');
+    else assert(hero.copy.right<=hero.media.x+5,label+' tablet/desktop hero copy overlaps photo');
+    await page.screenshot({path:'artifacts/v3-theme/'+size+'-'+theme+'-home.png',animations:'disabled'});
 
     await page.reload({waitUntil:'domcontentloaded'});
     assert.equal(await page.locator('#mrlee-theme-entry').count(),0,label+' chooser repeated on reload');
@@ -96,6 +110,7 @@ try{
     assert.equal(await selected.getAttribute('aria-pressed'),'true',label+' current choice not indicated');
     assert.equal(await dialog.locator('button[data-theme="'+(theme==='fresh'?'future':'fresh')+'"]').getAttribute('aria-pressed'),'false');
     assert.equal(await page.evaluate(()=>document.activeElement?.dataset.theme),theme,label+' current option not focused');
+    await dialog.screenshot({path:'artifacts/v3-theme/'+size+'-'+theme+'-chooser.png',animations:'disabled'});
     const marker=await selected.locator('.mrlee-entry-option-copy').evaluate(el=>getComputedStyle(el,'::after').content);
     assert(marker.includes('Đang sử dụng'),label+' current-choice indicator missing');
     await page.keyboard.press(theme==='fresh'?'ArrowRight':'ArrowLeft');
