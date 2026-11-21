@@ -80,3 +80,13 @@ html[data-mrlee-redesign="v2"] .site-header .header-inner > a.brand:focus-visibl
   line-height:1.25!important;
  }
 }
+
+/* V3 post-merge fix: keep the approved transparent meme logo readable.
+   Earlier global V23/V30 rules set filter:none!important on approved logos.
+   Scope a stronger selector to the homepage logo only, keeping original pixels. */
+html[data-mrlee-redesign="v2"][data-mrlee-v23] .site-header .header-inner > a.brand > img[src*="logo-mrlee"] {
+ filter:drop-shadow(0 0 1px rgba(255,255,255,.98))
+        drop-shadow(0 0 4px rgba(255,255,255,.8))
+        drop-shadow(0 0 8px rgba(97,216,255,.36))!important;
+ image-rendering:auto!important;
+}
