@@ -53,8 +53,13 @@
    script.defer=true;script.dataset.mrleeImageQuality='js';document.head.append(script);
   }
  }
+ function isGameOrAdminPage(){
+  // Cloudflare may serve extensionless URLs. Preserve both historic .html and clean routes.
+  const pathname=location.pathname.toLowerCase().replace(/\/+$/,'').replace(/\.html$/,'');
+  return /(?:^|\/)(?:admin|game-[^/]+)$/.test(pathname);
+ }
  function loadContactDock(){
-  if(location.pathname.toLowerCase().endsWith('/admin.html'))return;
+  if(isGameOrAdminPage())return;
   // Native details/summary exists in HTML on main pages and is generated here on
   // other public pages. It is visible and toggleable without any second JS bundle.
   if(!document.getElementById('mrleeContactNative')){
@@ -74,7 +79,7 @@
   let found=false;for(const link of document.querySelectorAll('link[rel~="icon"]')){if(!isOfficialAsset(link.getAttribute('href')||link.href))link.href=OFFICIAL;link.type='image/png';found=true;}
   if(!found){const link=document.createElement('link');link.rel='icon';link.type='image/png';link.href=OFFICIAL;document.head.appendChild(link);}
  }
- function start(){applyElement(document.body);favicon();loadImageQuality();if(!/^\/game-[^/]+\.html$/i.test(location.pathname))loadContactDock();
+ function start(){applyElement(document.body);favicon();loadImageQuality();if(!isGameOrAdminPage())loadContactDock();
   const observer=new MutationObserver(changes=>{for(const change of changes){if(change.type==='attributes'){applyElement(change.target);}else for(const child of change.addedNodes)applyElement(child);}});
   observer.observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['src']});
  }

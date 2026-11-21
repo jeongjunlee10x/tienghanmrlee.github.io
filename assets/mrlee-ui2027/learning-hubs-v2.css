@@ -453,14 +453,21 @@ html[data-mrlee-hub-v2="workbook"] main.pro-wrap > .mrlee27-workintro > img{
  html[data-mrlee-hub-v2] .mrlee27-subhub .mr27-subphoto img{
   height:100%!important;min-height:0!important;
  }
+ /* Workbook mobile: put its HD cover below the copy instead of hiding it
+    (or leaving a desktop absolute-positioned image over the mobile text). */
  html[data-mrlee-hub-v2="workbook"] main.pro-wrap > .mrlee27-workintro{
   grid-template-columns:minmax(0,1fr)!important;
-  grid-template-rows:auto!important;min-height:0!important;
+  grid-template-rows:auto 150px!important;min-height:0!important;
  }
  html[data-mrlee-hub-v2="workbook"] main.pro-wrap > .mrlee27-workintro > .mr27-worktext{
+  grid-column:1!important;grid-row:1!important;
   min-height:0!important;padding:20px!important;
  }
  html[data-mrlee-hub-v2="workbook"] main.pro-wrap > .mrlee27-workintro > img{
-  display:none!important;
+  display:block!important;position:relative!important;inset:auto!important;
+  grid-column:1!important;grid-row:2!important;
+  width:100%!important;max-width:100%!important;
+  height:150px!important;max-height:150px!important;
+  object-fit:cover!important;
  }
 }

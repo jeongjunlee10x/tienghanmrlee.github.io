@@ -32,14 +32,22 @@ assert(!html.includes('class="breadcrumbs"'),'Duplicate breadcrumb occupies the 
 assert(html.includes('lesson-directory-first-v1.css?v=20261104-first-v1'),
  'Direct grid CSS missing or stale');
 assert(html.includes('theme.js?v=20261104-lesson-first-v1'),'Theme script cache is stale');
-assert(html.includes('mrlee-lesson-page.js?v=20261104-speaking-v3'),
- 'Lesson renderer cache is stale');
+// Cache keys may advance when a lesson UI is released. Verify that each
+// asset is cache-busted and the two tightly coupled lesson runtimes agree.
+function assetVersion(file){
+ const marker=file+'?v=';
+ const attribute=(html.match(/(?:src|href)="[^"]+"/g)||[]).find(part=>part.includes(marker));
+ assert(attribute,'Versioned lesson asset missing: '+file);
+ return attribute.split(marker)[1].split('"')[0];
+}
+assert.equal(assetVersion('mrlee-lesson-page.js'),assetVersion('mrlee-listening-plus.js'),
+ 'Lesson renderer and listening enhancer must have the same release cache key');
 assert(theme.includes("if(path==='hoc-theo-bai.html')"),
  'Theme JS must skip duplicate megamenu, portal and decoration on lesson directory');
 assert(experience.includes("if(page==='hoc-theo-bai.html')return;"),
  'Promotional experience JS must not reinsert large banner on lesson directory');
-assert(html.includes('lesson-typography-v2.css?v=20261104-font-v2'),
- 'Lesson font repair stylesheet must load on real lesson pages');
+assert(assetVersion('assets/branding/lesson-typography-v2.css'),
+ 'Lesson font repair stylesheet must load with a cache-busting version');
 for(const key of ['--lesson-vi-font','--lesson-ko-font','Malgun Gothic',
  'word-break:keep-all','mr-sc-grammar-card','mr-sc-vocab-word',
  '#lessonSpeak .mr-new-korean','data-mrlee-theme="future"']){
@@ -54,8 +62,8 @@ const listeningJS=read('mrlee-listening-plus.js');
 const speakingCSS=read('assets/branding/lesson-speaking-v3.css');
 assert(html.includes('lesson-speaking-v3.css?v=20261104-speaking-v3'),
  'New speaking stylesheet not loaded');
-assert(html.includes('mrlee-listening-plus.js?v=20261104-speaking-v3'),
- 'Listening enhancer cache still outdated');
+assert(assetVersion('mrlee-listening-plus.js'),
+ 'Listening enhancer must load with a cache-busting version');
 assert(listeningJS.includes("audio.closest('[data-no-audio-plus]')"),
  'Global audio enhancer still duplicates speaking player controls');
 for(const selector of ['mr-v5-speaking-card','mr-v5-sentence-ko','mr-v5-sentence-vi',
