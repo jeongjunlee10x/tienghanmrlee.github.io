@@ -101,10 +101,10 @@
     return section;
   }
 
-  function imageMarkup(image, label) {
+  function imageMarkup(image, label, prioritize = false) {
     if (!image || !image.src) return '';
     return '<figure class="mcl-practice-image"><a href="' + esc(image.src) + '" target="_blank" rel="noopener noreferrer" title="Mở ảnh lớn">' +
-      '<img loading="lazy" decoding="async" width="1536" height="1024" src="' + esc(image.src) + '" alt="' + esc(image.alt) + '"></a>' +
+      '<img loading="' + (prioritize ? "eager" : "lazy") + '" fetchpriority="' + (prioritize ? "high" : "low") + '" decoding="async" width="1536" height="1024" src="' + esc(image.src) + '" alt="' + esc(image.alt) + '"></a>' +
       '<figcaption>' + esc((image.caption || label || image.alt).slice(0, 170)) + '</figcaption></figure>';
   }
 
@@ -537,7 +537,7 @@
       if (at >= 0) artwork.splice(at, 1);
       artwork.unshift(photo);
     });
-    const pictures = (list) => '<div class="mcl-deck-pictures">' + list.filter(Boolean).map((photo) => imageMarkup(photo)).join('') + '</div>';
+    const pictures = (list, prioritize = false) => '<div class="mcl-deck-pictures">' + list.filter(Boolean).map((photo) => imageMarkup(photo, undefined, prioritize)).join('') + '</div>';
     const bullets = (list) => '<ul>' + list.map((value) => '<li>' + esc(value) + '</li>').join('') + '</ul>';
     const prompt = (value) => '<p>' + esc(value) + '</p>';
     const media = video?.url && /^https:\/\//.test(video.url)
@@ -631,16 +631,16 @@
     dialog.className = 'mcl-deck';
     dialog.setAttribute('aria-labelledby', 'mcl-deck-title');
     dialog.innerHTML = '<style>' +
-      '.mcl-deck{box-sizing:border-box;width:min(96vw,1200px);height:92dvh;max-width:none;max-height:none;border:0;border-radius:18px;padding:0;color:#14213a;background:#f7faff}' +
+      '.mcl-deck{box-sizing:border-box;width:min(96vw,1440px,160dvh);aspect-ratio:16/9;height:auto;max-width:none;max-height:90dvh;border:0;border-radius:18px;padding:0;color:#14213a;background:#f7faff}' +
       '.mcl-deck::backdrop{background:#09152bdd}.mcl-deck-shell:fullscreen{background:#f7faff;color:#14213a}' +
       '.mcl-deck-shell{height:100%;display:grid;grid-template-rows:auto minmax(0,1fr) auto}' +
       '.mcl-deck-bar{display:flex;justify-content:space-between;gap:.6rem;align-items:center;flex-wrap:wrap;padding:.7rem clamp(.7rem,3vw,2rem);color:#fff;background:#10294b}' +
-      '.mcl-deck button{cursor:pointer;border:1px solid #9eb5d4;border-radius:.5rem;background:white;color:#14213a;padding:.45rem .7rem;font:inherit}' +
-      '.mcl-deck button:disabled{opacity:.55;cursor:default}.mcl-deck main{overflow:auto;padding:clamp(1rem,4vw,3rem);font-size:clamp(1.03rem,2vw,1.5rem);line-height:1.5}' +
+      '.mcl-deck button{cursor:pointer;min-height:44px;border:1px solid #9eb5d4;border-radius:.5rem;background:white;color:#14213a;padding:.45rem .7rem;font:inherit}' +
+      '.mcl-deck button:disabled{opacity:.55;cursor:default}.mcl-deck main{min-width:0;overflow:auto;overscroll-behavior:contain;padding:clamp(1rem,4vw,3rem);font-size:clamp(1.03rem,2vw,1.5rem);line-height:1.5}' +
       '.mcl-deck h2{font-size:clamp(1.7rem,4vw,3rem);margin:0 0 .55em}.mcl-deck h3{font-size:1.15em}.mcl-deck summary{cursor:pointer}' +
       '.mcl-deck-pictures{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1rem}' +
       '.mcl-deck-pictures figure{margin:0}.mcl-deck-pictures img{width:100%;height:clamp(150px,28vh,265px);object-fit:contain}.mcl-deck-pictures figcaption{font-size:.8em}' +
-      '.mcl-scene-layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.85fr);gap:clamp(16px,3vw,40px);align-items:center}.mcl-scene-layout>.mcl-deck-pictures{min-width:0;display:block}.mcl-scene-layout .mcl-deck-pictures img{display:block;width:100%;height:min(65vh,680px);max-height:100%;object-fit:contain;background:#e8f0fa;border-radius:16px}.mcl-scene-layout>div:last-child{min-width:0;font-size:clamp(1.1rem,2.2vw,1.7rem)}.mcl-deck-keyword{font-size:clamp(2rem,4.2vw,4rem);font-weight:900;color:#174c88}.mcl-deck-shell{overflow:hidden}@media(max-width:720px){.mcl-scene-layout{grid-template-columns:1fr}.mcl-scene-layout .mcl-deck-pictures img{height:34vh}.mcl-scene-layout>div:last-child{font-size:1.05rem}}' +
+      '.mcl-scene-layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.85fr);gap:clamp(16px,3vw,40px);align-items:center}.mcl-scene-layout>.mcl-deck-pictures{min-width:0;display:block}.mcl-scene-layout .mcl-deck-pictures img{display:block;width:100%;height:min(65vh,680px);max-height:100%;object-fit:contain;image-rendering:auto;background:#e8f0fa;border-radius:16px}.mcl-scene-layout>div:last-child{min-width:0;font-size:clamp(1.1rem,2.2vw,1.7rem)}.mcl-deck-keyword{font-size:clamp(2rem,4.2vw,4rem);font-weight:900;color:#174c88}.mcl-deck-shell{overflow:hidden}@media(max-width:720px){.mcl-deck{width:calc(100vw - 12px);height:calc(100dvh - 12px);max-height:calc(100dvh - 12px);aspect-ratio:auto;border-radius:14px}.mcl-deck-bar{padding:.5rem .65rem;gap:.35rem;font-size:.8rem}.mcl-deck main{padding:clamp(12px,3vw,20px);font-size:1.05rem}.mcl-deck h2{font-size:clamp(1.3rem,6vw,2rem)}.mcl-scene-layout{grid-template-columns:1fr}.mcl-scene-layout .mcl-deck-pictures img{height:34vh}.mcl-scene-layout>div:last-child{font-size:1.05rem}}' +
       '</style><div class="mcl-deck-shell"><header class="mcl-deck-bar"><strong>MR LEE · 60 phút</strong>' +
       '<span><button type="button" data-full>Toàn màn hình</button> <button type="button" data-close>Đóng</button></span></header>' +
       '<main tabindex="-1"></main><footer class="mcl-deck-bar"><button type="button" data-prev>← Trước</button>' +
@@ -669,7 +669,7 @@
       content.innerHTML = '<h2 id="mcl-deck-title">' + esc(heading) + '</h2>' +
         (cards.length && index === 38
           ? '<p>Chọn một thẻ. Hai bạn đóng vai A và B, sau đó đổi vai và thay một chi tiết trong lời thoại.</p>' + roleCardMarkup(cards, cardIndex, isBus)
-          : '<div class="mcl-scene-layout">' + pictures([image]) + '<div>' + body + '</div></div>') +
+          : '<div class="mcl-scene-layout">' + pictures([image], true) + '<div>' + body + '</div></div>') +
         '<details><summary>Xem ảnh minh họa của bài (' + artwork.length + ')</summary>' + pictures(artwork) + '</details>' +
         slideResources(topic, samples);
       content.scrollTop = 0;
