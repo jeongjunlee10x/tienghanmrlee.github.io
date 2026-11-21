@@ -1,0 +1,52 @@
+name: MR LEE V3 - Workbook Progress and 10K QA
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/workbook-v2/**'
+      - 'mrlee-bai-tap-pro.html'
+      - 'tools/check-workbook-bank-v2.mjs'
+      - 'tools/browser-v3-workbook-progress.mjs'
+      - '.github/workflows/mrlee-v3-workbook-progress-qa.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'assets/workbook-v2/**'
+      - 'mrlee-bai-tap-pro.html'
+      - 'tools/check-workbook-bank-v2.mjs'
+      - 'tools/browser-v3-workbook-progress.mjs'
+      - '.github/workflows/mrlee-v3-workbook-progress-qa.yml'
+permissions:
+  contents: read
+concurrency:
+  group: mrlee-v3-workbook-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verified-practice:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check syntax and all 10,000 lesson-scoped questions
+        run: |
+          node --check assets/workbook-v2/practice.js
+          node --check tools/browser-v3-workbook-progress.mjs
+          node tools/check-workbook-bank-v2.mjs
+      - name: Install headless Chromium
+        run: |
+          npm install --no-save --no-audit --no-fund --package-lock=false playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Confirm answer-only history, interrupted sessions and profile isolation
+        run: node tools/browser-v3-workbook-progress.mjs
+      - name: Save isolated UI test screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mrlee-v3-workbook-progress
+          path: artifacts/v3-workbook/*.png
+          if-no-files-found: ignore
+          retention-days: 14
