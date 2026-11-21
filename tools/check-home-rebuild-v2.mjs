@@ -40,7 +40,10 @@ for(const s of [
  '@media(prefers-reduced-motion:reduce)',
  'html[data-mrlee-redesign="v2"]:not([data-mrlee-smart-expanded="true"])'
 ]) assert(css.includes(s),'missing design selector '+s);
-assert(js.includes("sessionStorage.removeItem('MRLEE.THEME.ENTRY.V1')"));
+assert(js.includes("target.searchParams.set('select-theme','1')"),
+ 'Change-theme button must reopen the shared chooser explicitly');
+assert(!js.includes("sessionStorage.removeItem('MRLEE.THEME.ENTRY.V1')"),
+ 'Change-theme button must preserve this tab\'s current selection');
 assert(js.includes("root.dataset.mrleeSmartExpanded=String(open)"));
 assert(root.includes('id="mrlee27Expand"'));
 assert(root.includes('id="mrlee27ThemeChange"'));
