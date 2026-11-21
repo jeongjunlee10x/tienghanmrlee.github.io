@@ -3,7 +3,7 @@
 const VISIT_KEY='MRLEE.THEME.ENTRY.V1';
 const KEY='MRLEE.THEME.V1',ROOT='assets/mrlee-dual-ui/cards/',doc=document,html=doc.documentElement;
 const path=decodeURIComponent(location.pathname.split('/').filter(Boolean).pop()||'index.html');
-const entryStyle=doc.createElement('link');entryStyle.rel='stylesheet';entryStyle.href='assets/mrlee-dual-ui/entry-picker.css?v=20261029-v1';doc.head.append(entryStyle);
+const entryStyle=doc.createElement('link');entryStyle.rel='stylesheet';entryStyle.href='assets/mrlee-dual-ui/entry-picker.css?v=20261121-v3phase2';doc.head.append(entryStyle);
 /* Shared 2027 visual foundations, load for every page that uses dual themes. */
 const foundationStyle=doc.createElement('link');
 foundationStyle.rel='stylesheet';
