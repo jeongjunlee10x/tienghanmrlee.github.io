@@ -1,0 +1,54 @@
+name: MR LEE V3 - TOPIK Listening 24 MP3 QA
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'topik-nghe-24-cau.html'
+      - 'tools/audit-topik-audio.mjs'
+      - 'tools/check-topik-listening-v3.mjs'
+      - 'tools/browser-v3-topik-listening.mjs'
+      - '.github/workflows/mrlee-v3-topik-listening-qa.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'topik-nghe-24-cau.html'
+      - 'tools/audit-topik-audio.mjs'
+      - 'tools/check-topik-listening-v3.mjs'
+      - 'tools/browser-v3-topik-listening.mjs'
+      - '.github/workflows/mrlee-v3-topik-listening-qa.yml'
+permissions:
+  contents: read
+concurrency:
+  group: mrlee-v3-topik-listening-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  topik-24-mp3:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check 24 native MP3 files, two levels and accessible controls
+        run: |
+          node --check tools/check-topik-listening-v3.mjs
+          node --check tools/browser-v3-topik-listening.mjs
+          node tools/audit-topik-audio.mjs
+          node tools/check-topik-listening-v3.mjs
+          node tools/check-topik-contrast.mjs
+      - name: Install browser without changing Ubuntu system packages
+        run: |
+          npm install --no-save --no-audit --no-fund --package-lock=false playwright@1.56.1
+          npx playwright install chromium
+      - name: Verify slow playback, transcripts, filters and reviewed progress in both themes
+        run: node tools/browser-v3-topik-listening.mjs
+      - name: Upload desktop and mobile TOPIK screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mrlee-v3-topik-listening
+          path: artifacts/v3-topik-listening/*.png
+          retention-days: 14
+          if-no-files-found: ignore
