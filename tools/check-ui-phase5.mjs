@@ -92,18 +92,18 @@ const memeCSS=read('assets/branding/mrlee-meme-brand.css');
 assert(officialLogoCSS.includes('drop-shadow')&&memeCSS.includes('drop-shadow'),
  'Original-color logo glow is missing');
 assert(homeHTML.includes('rebuild-home-v2.css?v=20261103-nav-density-v10'));
-const v9Pages={
+const layoutPages={
  'hoc-tieng-han.html':'learning-hubs-v2.css?v=20261103-density-v9',
  'giao-tiep-phong-van.html':'learning-hubs-v2.css?v=20261103-density-v9',
  'kiem-tra-topik.html':'learning-hubs-v2.css?v=20261103-density-v9',
- 'mrlee-bai-tap-pro.html':'learning-hubs-v2.css?v=20261103-density-v9',
+ 'mrlee-bai-tap-pro.html':'learning-hubs-v2.css?v=20261121-mobile-workbook-v10',
  'van-hoa-han-quoc.html':'culture-landing-v2.css?v=20261103-density-v9',
  'ban-do-dai-hoc-han-quoc.html':'workspaces-v3.css?v=20261103-density-v9',
  'tuyen-sinh.html':'workspaces-v3.css?v=20261103-density-v9',
  'trung-tam-hoc-vien.html':'workspaces-v3.css?v=20261103-density-v9',
  'admin.html':'workspaces-v3.css?v=20261103-density-v9'
 };
-for(const [page,cssVer] of Object.entries(v9Pages)){
+for(const [page,cssVer] of Object.entries(layoutPages)){
  const html=read(page);
  assert(html.includes(cssVer),'Old layout version on '+page);
  assert(html.includes('site-logo.css?v=20261103-glow-v1'),'Old logo version on '+page);
