@@ -104,7 +104,10 @@ try{
 
     await page.reload({waitUntil:'domcontentloaded'});
     assert.equal(await page.locator('#mrlee-theme-entry').count(),0,label+' chooser repeated on reload');
-    await page.goto(url+'?select-theme=1',{waitUntil:'domcontentloaded'});
+    const changeTheme=page.locator('#mrlee27ThemeChange');
+    assert.equal(await changeTheme.count(),1,label+' change-theme button missing');
+    await changeTheme.click();
+    await page.waitForURL('**/index.html?select-theme=1',{timeout:10000});
     await dialog.waitFor({state:'visible',timeout:10000});
     const selected=dialog.locator('button[data-theme="'+theme+'"]');
     assert.equal(await selected.getAttribute('aria-pressed'),'true',label+' current choice not indicated');
