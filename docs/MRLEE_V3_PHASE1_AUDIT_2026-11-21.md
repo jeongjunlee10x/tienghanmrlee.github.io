@@ -36,6 +36,13 @@ node tools/audit-repo-hygiene.mjs
 
 Theo dõi hai CI jobs khi PR được mở: `MR LEE NEXT — Kiểm tra giao diện và liên kết`, `MR LEE UI 2027 - Phase 5 Visual QA`. Workflow thứ hai còn dùng headless Chromium để chụp Fresh/Future trên desktop/mobile; đừng tuyên bố hoàn thành giao diện nếu nó chưa chạy thành công.
 
+## Phát hiện thêm khi chạy PR #78 bằng Chromium
+
+- Lượt chạy đầu của [UI Phase 5 trên PR #78](https://github.com/jeongjunlee10x/tienghanmrlee.github.io/actions/runs/44907194315) vượt qua kiểm thử tĩnh, sau đó kiểm tra thành công 29 trường hợp hiển thị đầu tiên nhưng **thất bại tại Workbook mobile Fresh**: `Photo overlaps mobile text mrlee-bai-tap-pro.html mobile`.
+- Phân tích CSS cho thấy ảnh Workbook bị `display:none!important` tại breakpoint mobile, trong khi ở desktop dùng `position:absolute!important`. Trên mobile, ảnh ẩn không có hộp bố cục nên Chromium không thể xác minh ảnh nằm dưới đoạn chữ.
+- Đã sửa trực tiếp `assets/mrlee-ui2027/learning-hubs-v2.css`: ở mobile, ảnh nằm hàng thứ hai của grid, đặt `position:relative` và chiều cao 150px thay vì bị ẩn; đổi cache key CSS trong `mrlee-bai-tap-pro.html`. Tác động chỉ đến hero Workbook ở màn hình hẹp.
+- Cần chạy lại workflow để xác minh cả Fresh/Future desktop/mobile và các trang còn lại. **Không coi sửa CSS là đạt nếu CI sau sửa chưa báo success.**
+
 ## Rủi ro tồn đọng và quyết định tiếp theo
 
 - **P0:** Chờ kết quả test PR; chỉ merge sau khi kiểm thử thành công hoặc phân loại chi tiết các lỗi ngoài phạm vi thay đổi.
