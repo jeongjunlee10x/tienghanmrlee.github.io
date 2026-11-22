@@ -25,7 +25,7 @@ for(const file of pages){
  if(!document)errors.push(file+': missing html root');
  if(!document.includes('data-mrlee-v3-ui="1"'))errors.push(file+': missing V3 root marker');
  if(!document.includes('data-mrlee-v3-scope="'+scope+'"'))errors.push(file+': missing '+scope+' scope');
- const cssLinks=html.match(/<link\b[^>]*href="assets\/mrlee-ui2027\/v3-unified\.css\?v=20261122-ui-v3"[^>]*>/g)||[];
+ const cssLinks=html.match(/<link\b[^>]*href="assets\/mrlee-ui2027\/v3-unified\.css\?v=20261122-fresh-future-v4"[^>]*>/g)||[];
  const scripts=html.match(/<script\b[^>]*src="assets\/mrlee-ui2027\/v3-runtime\.js\?v=20261122-ui-v3"[^>]*><\/script>/g)||[];
  if(cssLinks.length!==1)errors.push(file+': expected 1 new stylesheet, found '+cssLinks.length);
  if(scripts.length!==1)errors.push(file+': expected 1 new runtime, found '+scripts.length);
@@ -42,6 +42,12 @@ assert.equal(errors.length,0,errors.join('\n'));
 const css=fs.readFileSync(cssPath,'utf8');
 const runtime=fs.readFileSync(runtimePath,'utf8');
 assert(css.length>=14000,'V3 stylesheet is incomplete');
+for(const marker of ['V3.4 — SITEWIDE FRESH / FUTURE DESIGN REFRESH',
+ '--v3-brand:#096d78','--v3-brand:#64deed',
+ '--v3-max:1440px']){
+ assert(css.includes(marker),'V4 Fresh/Future design layer missing: '+marker);
+}
+
 for(const value of ['data-mrlee-v3-scope="site"','data-mrlee-v3-scope="admin"','data-mrlee-v3-scope="game"',
  'data-mrlee-theme="future"','prefers-reduced-motion:reduce','focus-visible','--v3-page','--v3-ring']){
  assert(css.includes(value),'Missing CSS design contract: '+value);
