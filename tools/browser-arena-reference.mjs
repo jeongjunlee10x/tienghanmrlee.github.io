@@ -58,13 +58,20 @@ try{
    assert.equal(await page.locator("#arenaRefWheelPreview .arena-ref-wheel-label").count(),10);
    const metrics=await page.evaluate(()=>{
     const r=selector=>{const b=document.querySelector(selector)?.getBoundingClientRect();return b&&{x:b.x,y:b.y,w:b.width,h:b.height};};
-    return {header:r(".arena-ref-header"),hero:r("#arenaRefHero"),sidebar:r(".arena-ref-categories"),dock:r("#arenaRefDock")};
+    return {header:r(".arena-ref-header"),hero:r("#arenaRefHero"),sidebar:r(".arena-ref-categories"),goose:r('section[aria-label="Goose Mystery thử nghiệm"]'),dock:r("#arenaRefDock")};
    });
    if(width===1672){
     assert.ok(Math.abs(metrics.header.h-80)<3,"Header "+JSON.stringify(metrics.header));
     assert.ok(Math.abs(metrics.hero.h-274)<3,"Hero "+JSON.stringify(metrics.hero));
     assert.ok(Math.abs(metrics.sidebar.w-250)<3,"Sidebar "+JSON.stringify(metrics.sidebar));
-    assert.ok(metrics.dock.y>=817&&metrics.dock.y<=852,"Dock y "+metrics.dock.y);
+    // The Goose Mystery promo was inserted above the dock after this screenshot
+    // reference was first authored. Check order and spacing instead of an old
+    // absolute y coordinate that assumed no promo block existed.
+    assert.ok(metrics.goose&&metrics.goose.h>=80&&metrics.goose.h<=220,
+      "Goose Mystery promotion missing or abnormally sized "+JSON.stringify(metrics.goose));
+    const afterGoose=metrics.dock.y-(metrics.goose.y+metrics.goose.h);
+    assert.ok(afterGoose>=6&&afterGoose<=70,
+      "Dock must follow Goose Mystery without excessive gap; gap="+afterGoose);
    }
    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth);
    assert.ok(overflow<=5,"Horizontal overflow "+overflow+" at "+width);
