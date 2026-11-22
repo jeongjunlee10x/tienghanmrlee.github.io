@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "catalog": "mrlee-student-life-culture",
+  "updated": "2026-11-23",
+  "publicationStatus": "draft",
+  "policy": {
+    "approach": "additive",
+    "preserveLegacyLessons": true,
+    "preserveLegacyCompletionSlugs": true,
+    "preserveLegacyImageAssets": true,
+    "updatePublicNavigationAfterReview": false,
+    "oldSlugs": [
+      "le-hoi",
+      "am-thuc",
+      "truyen-thong",
+      "doi-song",
+      "phe-lich-su",
+      "giao-duc",
+      "du-lich",
+      "kpop",
+      "cong-so",
+      "tro-choi",
+      "lich-su",
+      "hien-dai",
+      "so-cap-cuu",
+      "goi-cuu-ho",
+      "lac-duong",
+      "mat-vi",
+      "tau-dien-ngam",
+      "xe-buyt",
+      "benh-vien",
+      "hoa-hoan",
+      "mat-dien-thoai",
+      "an-toan-giao-thong"
+    ]
+  },
+  "lessons": [
+    {
+      "order": 1,
+      "slug": "nha-o",
+      "titleVi": "Nhà ở tại Hàn Quốc",
+      "titleKo": "한국의 주거 문화",
+      "group": "sinh-hoat",
+      "status": "preview",
+      "public": false
+    },
+    {
+      "order": 2,
+      "slug": "ky-tuc-xa",
+      "titleVi": "Cuộc sống ký túc xá",
+      "titleKo": "기숙사 생활",
+      "group": "sinh-hoat",
+      "status": "preview",
+      "public": false
+    },
+    {
+      "order": 3,
+      "slug": "giao-thong",
+      "titleVi": "Giao thông Hàn Quốc",
+      "titleKo": "한국의 교통 문화",
+      "group": "sinh-hoat",
+      "status": "preview",
+      "public": false
+    },
+    {
+      "order": 4,
+      "slug": "mua-sam",
+      "titleVi": "Mua sắm và đi chợ",
+      "titleKo": "쇼핑과 장보기",
+      "group": "tieu-dung",
+      "status": "preview",
+      "public": false
+    },
+    {
+      "order": 5,
+      "slug": "an-uong",
+      "titleVi": "Văn hóa ăn uống",
+      "titleKo": "한국의 식사 문화",
+      "group": "tieu-dung",
+      "status": "preview",
+      "public": false
+    },
+    {
+      "order": 6,
+      "slug": "ngan-hang",
+      "titleVi": "Ngân hàng và tài chính",
+      "titleKo": "은행과 금융 생활",
+      "group": "tieu-dung",
+      "status": "preview",
+      "public": false
+    },
+    {
+      "order": 7,
+      "slug": "dien-thoai",
+      "titleVi": "Điện thoại và Internet",
+      "titleKo": "휴대전화와 인터넷",
+      "group": "tieu-dung",
+      "status": "preview",
+      "public": false
+    },
+    {
+      "order": 8,
+      "slug": "mua-online",
+      "titleVi": "Mua hàng online và giao nhận",
+      "titleKo": "온라인 쇼핑과 택배",
+      "group": "tieu-dung",
+      "status": "preview",
+      "public": false
+    },
+    {
+      "order": 9,
+      "slug": "dai-hoc",
+      "titleVi": "Văn hóa trường học",
+      "titleKo": "한국의 대학 생활",
+      "group": "hoc-tap",
+      "status": "planned",
+      "public": false
+    },
+    {
+      "order": 10,
+      "slug": "giao-su-ban-hoc",
+      "titleVi": "Giao tiếp với giáo sư và bạn học",
+      "titleKo": "교수님과 선후배 문화",
+      "group": "hoc-tap",
+      "status": "planned",
+      "public": false
+    },
+    {
+      "order": 11,
+      "slug": "giao-tiep",
+      "titleVi": "Văn hóa giao tiếp hằng ngày",
+      "titleKo": "일상생활의 예절",
+      "group": "hoc-tap",
+      "status": "planned",
+      "public": false
+    },
+    {
+      "order": 12,
+      "slug": "ban-be",
+      "titleVi": "Tình bạn và đời sống cộng đồng",
+      "titleKo": "친구와 공동체 생활",
+      "group": "hoc-tap",
+      "status": "planned",
+      "public": false
+    },
+    {
+      "order": 13,
+      "slug": "viec-lam-them",
+      "titleVi": "Tìm việc làm thêm",
+      "titleKo": "아르바이트 구하기",
+      "group": "viec-lam",
+      "status": "planned",
+      "public": false
+    },
+    {
+      "order": 14,
+      "slug": "noi-lam-viec",
+      "titleVi": "Văn hóa nơi làm việc",
+      "titleKo": "한국의 직장 문화",
+      "group": "viec-lam",
+      "status": "planned",
+      "public": false
+    },
+    {
+      "order": 15,
+      "slug": "cu-tru",
+      "titleVi": "Giấy tờ và thủ tục cư trú",
+      "titleKo": "외국인등록과 체류 관리",
+      "group": "viec-lam",
+      "status": "planned",
+      "public": false
+    },
+    {
+      "order": 16,
+      "slug": "y-te",
+      "titleVi": "Bệnh viện và bảo hiểm y tế",
+      "titleKo": "병원과 건강보험",
+      "group": "viec-lam",
+      "status": "planned",
+      "public": false
+    },
+    {
+      "order": 17,
+      "slug": "rac-thai",
+      "titleVi": "Phân loại rác và bảo vệ môi trường",
+      "titleKo": "쓰레기 분리배출 문화",
+      "group": "an-toan",
+      "status": "planned",
+      "public": false
+    },
+    {
+      "order": 18,
+      "slug": "ngay-le",
+      "titleVi": "Ngày lễ và phong tục Hàn Quốc",
+      "titleKo": "한국의 명절과 공휴일",
+      "group": "an-toan",
+      "status": "planned",
+      "public": false
+    },
+    {
+      "order": 19,
+      "slug": "ung-dung",
+      "titleVi": "Ứng dụng thiết yếu trong cuộc sống",
+      "titleKo": "생활 필수 앱 활용",
+      "group": "an-toan",
+      "status": "planned",
+      "public": false
+    },
+    {
+      "order": 20,
+      "slug": "khan-cap",
+      "titleVi": "An toàn và tình huống khẩn cấp",
+      "titleKo": "안전과 긴급 상황 대처",
+      "group": "an-toan",
+      "status": "planned",
+      "public": false
+    }
+  ]
+}
