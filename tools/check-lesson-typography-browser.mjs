@@ -88,7 +88,9 @@ try{
         contentFits:sentence?.bottom<=row.bottom+2&&tools?.bottom<=row.bottom+2
        };
       }),
-      workbookCount:document.querySelectorAll('#lessonWorkbook > a').length,
+      // 15 original Workbook links now live in three expandable five-link groups.
+      workbookCount:document.querySelectorAll('#lessonWorkbook .mr-lesson-workbook-grid > a[href]').length,
+      workbookGroups:document.querySelectorAll('#lessonWorkbook details.mr-lesson-fold').length,
       lessonTitle:one('#lessonTitle')?.textContent,
       hasReplacementChar:one('#lessonContent')?.textContent?.includes('\uFFFD')||false,
       viewport:innerWidth,scrollWidth:document.documentElement.scrollWidth,
@@ -120,6 +122,7 @@ try{
      'Desktop speaking sentence / player must stay in two neat columns');
 
    assert.equal(result.workbookCount,15,'Workbook missing a set');
+   assert.equal(result.workbookGroups,3,'Workbook requires three groups of five links');
    assert(!result.hasReplacementChar,'Broken replacement glyph U+FFFD found in lesson');
    assert(!result.clipped.length,'Clipped lesson font '+JSON.stringify(result.clipped));
    assert(result.scrollWidth<=result.viewport+3,'Mobile horizontal overflow '+JSON.stringify(result));
