@@ -43,7 +43,8 @@ for(const preset of ["1+0","2+1","3+0","3+2","5+0","5+3","10+0","10+5","15+10","
 }
 assert.match(edge,/clock\.remaining\[seat\]=0/,"Chess expires its entire time budget");
 assert.match(edge,/winner=1-seat/,"Chess flag fall gives the opponent the win");
-assert.match(edge,/chessDeadline\(state\)/,"Chess deadline is based on actual clock");
+assert.match(edge,/const chessDeadline=\(state:any\)=>/,"Chess deadline derives from the current clock state");
+assert.match(edge,/turnDeadline:clock\?chessDeadline\(/,"Chess uses the deadline computed from its starting clock");
 assert.match(edge,/state\.clock\.remaining\[seat\].*state\.clock\.incrementMs/,
  "Legal chess move gets Fischer increment");
 assert.match(edge,/timeControl===timeControl/,"Quick matching preserves clock compatibility");
