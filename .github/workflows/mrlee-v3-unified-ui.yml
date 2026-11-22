@@ -1,0 +1,59 @@
+name: MR LEE V3 - Unified Fresh Future UI
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - '*.html'
+      - 'assets/mrlee-ui2027/v3-*'
+      - 'tools/check-v3-unified-ui.mjs'
+      - 'tools/browser-v3-unified-ui.mjs'
+      - '.github/workflows/mrlee-v3-unified-ui.yml'
+  push:
+    branches: [main]
+    paths:
+      - '*.html'
+      - 'assets/mrlee-ui2027/v3-*'
+      - 'tools/check-v3-unified-ui.mjs'
+      - 'tools/browser-v3-unified-ui.mjs'
+      - '.github/workflows/mrlee-v3-unified-ui.yml'
+permissions:
+  contents: read
+concurrency:
+  group: mrlee-v3-unified-ui-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  v3-design:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate all 89 active pages and visual assets
+        run: |
+          node --check assets/mrlee-ui2027/v3-runtime.js
+          node --check tools/check-v3-unified-ui.mjs
+          node --check tools/browser-v3-unified-ui.mjs
+          node tools/check-v3-unified-ui.mjs
+      - name: Run existing lessons and UI regression gates
+        run: |
+          node tools/check-ui-phase5.mjs
+          node tools/check-lesson-directory-first.mjs
+          node tools/check-brand-consistency.mjs
+          node tools/check-workbook-bank-v2.mjs
+      - name: Install browser without modifying system dependencies
+        run: |
+          npm install --no-save --no-audit --no-fund --package-lock=false playwright@1.56.1
+          npx playwright install chromium
+      - name: Visually inspect 13 sections in Fresh and Future on desktop and mobile
+        run: node tools/browser-v3-unified-ui.mjs
+      - name: Save sitewide screenshots and overflow audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mrlee-v3-unified-sitewide-screenshots
+          path: artifacts/v3-ui/*
+          if-no-files-found: ignore
+          retention-days: 30

@@ -1,0 +1,306 @@
+/* MR LEE V3.0 — Unified visual language across Fresh/Future, education, Admin and Game Zone.
+ * Progressive enhancement only: no new DOM wrappers, disabled features, hidden content
+ * or changes to teaching content, scoring, authentication and real-time game logic.
+ * Supported pages declare data-mrlee-v3-ui and data-mrlee-v3-scope.
+ */
+html[data-mrlee-v3-ui]{
+ --v3-font:"Be Vietnam Pro","Noto Sans KR",system-ui,-apple-system,sans-serif;
+ --v3-radius-xs:9px;--v3-radius:16px;--v3-radius-lg:24px;
+ --v3-tap:44px;--v3-ease:cubic-bezier(.22,.75,.25,1);
+ font-synthesis:none;text-rendering:optimizeLegibility;
+}
+html[data-mrlee-v3-ui]:not([data-mrlee-theme="future"]){
+ color-scheme:light;
+ --v3-page:#f2f7fb;--v3-paper:#ffffff;--v3-paper-alt:#f4f9fe;
+ --v3-ink:#142a45;--v3-muted:#4e657d;--v3-line:#d5e4f2;
+ --v3-brand:#1765ba;--v3-brand-strong:#104f99;--v3-tint:#e8f3ff;
+ --v3-ring:#e99932;--v3-glow:rgba(22,104,187,.12);
+ --v3-shadow:0 12px 32px rgba(16,46,84,.09);
+ --v3-shadow-hover:0 18px 44px rgba(17,62,118,.16);
+ --v3-nav:rgba(255,255,255,.94);
+}
+html[data-mrlee-v3-ui][data-mrlee-theme="future"]{
+ color-scheme:dark;
+ --v3-page:#071125;--v3-paper:#102440;--v3-paper-alt:#142c4c;
+ --v3-ink:#eef8ff;--v3-muted:#bdd4ea;--v3-line:#34567a;
+ --v3-brand:#61dffa;--v3-brand-strong:#91ebff;--v3-tint:#183856;
+ --v3-ring:#ffd177;--v3-glow:rgba(79,206,255,.19);
+ --v3-shadow:0 14px 32px rgba(0,5,18,.37);
+ --v3-shadow-hover:0 20px 46px rgba(0,5,18,.5);
+ --v3-nav:rgba(10,25,50,.96);
+}
+html[data-mrlee-v3-ui] :where(button,a,input,select,textarea,summary,[role="button"]):focus-visible{
+ outline:3px solid var(--v3-ring)!important;outline-offset:3px!important;
+}
+html[data-mrlee-v3-ui] :where(img,video,canvas){image-rendering:auto}
+html[data-mrlee-v3-ui] :where(img,video){max-width:100%}
+html[data-mrlee-v3-ui] :lang(ko){
+ font-family:"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+ word-break:keep-all;overflow-wrap:anywhere;
+}
+html[data-mrlee-v3-ui] :where([hidden]){display:none!important}
+html[data-mrlee-v3-ui] :where(dialog:not([open])){display:none!important}
+html[data-mrlee-v3-ui] :where(button,a,summary){-webkit-tap-highlight-color:transparent}
+html[data-mrlee-v3-ui] :where(button,[type="button"],[type="submit"]):not(:disabled){cursor:pointer}
+html[data-mrlee-v3-ui] :where(button,a):where(:disabled,[aria-disabled="true"]){cursor:not-allowed}
+
+/* Public website: make Fresh a quiet editorial campus and Future a refined
+   deep-navy console. All original HTML sections and layout breakpoints remain. */
+html[data-mrlee-v3-scope="site"] body{
+ font-family:var(--v3-font)!important;
+ color:var(--v3-ink);
+ background-color:var(--v3-page);
+}
+html[data-mrlee-v3-scope="site"][data-mrlee-theme="fresh"] body{
+ background-image:radial-gradient(ellipse 700px 420px at 95% 0%,rgba(75,169,230,.12),transparent 74%),
+ radial-gradient(ellipse 590px 430px at -7% 24%,rgba(37,180,159,.08),transparent 75%);
+}
+html[data-mrlee-v3-scope="site"][data-mrlee-theme="future"] body{
+ background-image:radial-gradient(ellipse 850px 590px at 90% -14%,rgba(75,90,207,.22),transparent 72%),
+ radial-gradient(ellipse 650px 620px at -10% 37%,rgba(15,126,172,.17),transparent 72%);
+}
+html[data-mrlee-v3-scope="site"] :where(main,section,article,aside){min-width:0}
+html[data-mrlee-v3-scope="site"] :where(.wrap,.shell,.mr-new-shell,.mrlee-next-main,.tv-shell,.pro-wrap,.books-section,.ts-main,.mlb-page){
+ box-sizing:border-box;max-width:1480px;
+}
+html[data-mrlee-v3-scope="site"] :where(.site-header,.site-top,header.head,.v10-header,.tv-top,.ts-header,.mrlee-next-header){
+ border-bottom:1px solid var(--v3-line)!important;
+ box-shadow:0 4px 24px rgba(13,42,82,.055)!important;
+ backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+}
+html[data-mrlee-v3-scope="site"]:not([data-mrlee-theme="future"]) :where(.site-header,.site-top,header.head,.v10-header,.tv-top,.ts-header,.mrlee-next-header){
+ background-color:var(--v3-nav)!important;color:var(--v3-ink)!important;
+}
+html[data-mrlee-v3-scope="site"][data-mrlee-theme="future"] :where(.site-header,.site-top,header.head,.v10-header,.tv-top,.ts-header,.mrlee-next-header){
+ background-color:var(--v3-nav)!important;color:var(--v3-ink)!important;border-color:var(--v3-line)!important;
+}
+html[data-mrlee-v3-scope="site"] :where(.site-logo,.mrlee-next-brand,.tv-brand,.ts-brand,.v10-header .brand,.head .brand){
+ display:inline-flex;align-items:center;gap:10px;min-width:0;text-decoration:none;
+}
+html[data-mrlee-v3-scope="site"] :where(.site-logo,.mrlee-next-brand,.tv-brand,.ts-brand,.v10-header .brand,.head .brand) img{
+ object-fit:contain!important;image-rendering:auto!important;
+}
+html[data-mrlee-v3-scope="site"] :where(.site-header nav,.site-top nav,.head nav,.v10-header nav,.tv-top nav,.ts-header nav,.mrlee-next-header nav) a{
+ transition:color .2s var(--v3-ease),background-color .2s var(--v3-ease);
+ text-underline-offset:3px;
+}
+html[data-mrlee-v3-scope="site"] :where(.site-header nav,.site-top nav,.head nav,.v10-header nav,.tv-top nav,.ts-header nav,.mrlee-next-header nav) a:hover{
+ color:var(--v3-brand)!important;
+}
+html[data-mrlee-v3-scope="site"] :where(.site-header nav,.site-top nav,.head nav,.v10-header nav,.tv-top nav,.ts-header nav,.mrlee-next-header nav) a[aria-current="page"]{
+ border-radius:10px;background:var(--v3-tint);color:var(--v3-brand-strong)!important;
+}
+html[data-mrlee-v3-scope="site"] :where(.section-title,.sectionHeading h1,.mr-new-shell h1,.mr-new-shell h2,.mrlee-next-hero h1,.tv-hero h1,.tv-listen-hero h1,.v10-hero h1){
+ letter-spacing:-.025em;text-wrap:balance;
+}
+html[data-mrlee-v3-scope="site"] :where(.breadcrumbs,.crumb,.mrlee-breadcrumb,.mrlee-next-breadcrumb){
+ font-size:clamp(12px,1.1vw,14px);color:var(--v3-muted);
+}
+html[data-mrlee-v3-scope="site"] :where(.section-hero,.page-hero,.tv-hero,.tv-listen-hero,.books-hero,.v10-hero,.mrlee-next-hero){
+ border-radius:var(--v3-radius-lg)!important;
+ border:1px solid var(--v3-line)!important;
+ box-shadow:var(--v3-shadow)!important;
+}
+html[data-mrlee-v3-scope="site"]:not([data-mrlee-theme="future"]) :where(.section-hero,.page-hero,.tv-hero,.tv-listen-hero,.books-hero,.v10-hero,.mrlee-next-hero){
+ background-color:#eaf5fc;color:#143353;
+}
+html[data-mrlee-v3-scope="site"][data-mrlee-theme="future"] :where(.section-hero,.page-hero,.tv-hero,.tv-listen-hero,.books-hero,.v10-hero,.mrlee-next-hero){
+ background-color:#122a4b!important;color:#eef9ff!important;
+}
+html[data-mrlee-v3-scope="site"] :where(.feature-card,.step-card,.mr-new-panel,.lessonBlock,.mrlee-next-card,.mrlee-panel,.tv-panel,.tv-listen-card,.v10-card,.pro-panel,.pro-work-item,.books-card,.book-card,.rank-card,.scholarship,.auth-card,.mlb-card,.mr27-work-card,.mr27-hub-card,.mrlee27-card,.ts-panel,.ts-card,.mrlee-next-portal-card){
+ border:1px solid var(--v3-line)!important;
+ border-radius:var(--v3-radius)!important;
+ box-shadow:var(--v3-shadow)!important;
+ min-width:0;
+ transition:border-color .22s var(--v3-ease),box-shadow .25s var(--v3-ease),transform .25s var(--v3-ease);
+}
+html[data-mrlee-v3-scope="site"]:not([data-mrlee-theme="future"]) :where(.mr-new-panel,.lessonBlock,.mrlee-next-card,.mrlee-panel,.tv-panel,.tv-listen-card,.v10-card,.pro-panel,.pro-work-item,.book-card,.mlb-card,.ts-panel,.ts-card){
+ background-color:var(--v3-paper)!important;color:var(--v3-ink)!important;
+}
+html[data-mrlee-v3-scope="site"][data-mrlee-theme="future"] :where(.mr-new-panel,.lessonBlock,.mrlee-next-card,.mrlee-panel,.tv-panel,.tv-listen-card,.v10-card,.pro-panel,.pro-work-item,.book-card,.mlb-card,.ts-panel,.ts-card){
+ background-color:var(--v3-paper)!important;color:var(--v3-ink)!important;border-color:var(--v3-line)!important;
+}
+@media(hover:hover) and (pointer:fine){
+ html[data-mrlee-v3-scope="site"] :where(.feature-card,.step-card,.mr-new-panel,.mrlee-next-card,.tv-panel,.tv-listen-card,.v10-card,.pro-work-item,.book-card,.mrlee-next-portal-card):hover{
+  border-color:var(--v3-brand)!important;
+  box-shadow:var(--v3-shadow-hover)!important;
+  transform:translateY(-3px);
+ }
+}
+html[data-mrlee-v3-scope="site"] :where(.mr-new-panel,.lessonBlock,.mrlee-panel,.tv-panel,.tv-listen-card,.pro-panel,.ts-panel) :where(h2,h3,h4){
+ color:var(--v3-ink);text-wrap:balance;
+}
+html[data-mrlee-v3-scope="site"] :where(.mr-new-panel,.lessonBlock,.mrlee-panel,.tv-panel,.tv-listen-card,.pro-panel,.ts-panel) :where(p,small){
+ line-height:1.65;
+}
+html[data-mrlee-v3-scope="site"] :where(.mr-new-panel,.lessonBlock,.mrlee-panel,.tv-panel,.tv-listen-card,.pro-panel,.ts-panel) :where(p,small):not([class]){
+ color:var(--v3-muted);
+}
+html[data-mrlee-v3-scope="site"] :where(.feature-grid,.mr-new-grid,.mrlee-next-portal-grid,.mrlee27-card-grid,.books-grid,.tv-listen-grid,.ts-grid,.mrlee27-grid,.course-grid,.topic-grid)>*{min-width:0}
+html[data-mrlee-v3-scope="site"] :where(.feature-card,.step-card,.mr-new-panel,.lessonBlock,.tv-listen-card) img{
+ image-rendering:auto;object-position:center;
+}
+html[data-mrlee-v3-scope="site"] :where(.mr-new-btn,.mrlee-next-button,.tv-btn,.v10-btn,.pro-primary,.btn-primary,.ts-btn,.book-open,.mr27-primary,.mrlee-next-hero a,.mr-new-controls button,.tv-listen-ctrl button,.tv-listen-actions button){
+ box-sizing:border-box;min-height:var(--v3-tap);
+ border-radius:12px;
+ transition:background-color .2s var(--v3-ease),box-shadow .2s var(--v3-ease),transform .2s var(--v3-ease);
+}
+html[data-mrlee-v3-scope="site"] :where(.mr-new-btn,.mrlee-next-button,.tv-btn,.v10-btn,.pro-primary,.btn-primary,.ts-btn,.book-open,.mr27-primary):not(:disabled):active{
+ transform:translateY(1px);
+}
+html[data-mrlee-v3-scope="site"] :where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),select,textarea){
+ box-sizing:border-box;max-width:100%;
+ border-radius:12px;
+ border:1px solid var(--v3-line);
+ background:var(--v3-paper);color:var(--v3-ink);
+ min-height:42px;
+}
+html[data-mrlee-v3-scope="site"] :where(input,textarea)::placeholder{color:var(--v3-muted);opacity:.85}
+html[data-mrlee-v3-scope="site"] :where(select,textarea){font-family:var(--v3-font)}
+html[data-mrlee-v3-scope="site"][data-mrlee-theme="future"] :where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),select,textarea){
+ background-color:var(--v3-paper-alt)!important;color:var(--v3-ink)!important;border-color:var(--v3-line)!important;
+}
+html[data-mrlee-v3-scope="site"] :where(table){border-collapse:separate;border-spacing:0;width:100%}
+html[data-mrlee-v3-scope="site"] :where(table th){font-weight:800}
+html[data-mrlee-v3-scope="site"] :where(table tr:nth-child(even)){background-color:color-mix(in srgb,var(--v3-paper-alt) 76%,transparent)}
+html[data-mrlee-v3-scope="site"] :where(table th,table td){overflow-wrap:anywhere}
+html[data-mrlee-v3-scope="site"] :where(.table-scroll,.table-wrap,[role="region"][tabindex]){max-width:100%;overflow-x:auto}
+html[data-mrlee-v3-scope="site"] :where(.mrlee-footer,.mrlee-next-footer,.footer,.foot){
+ border-top:1px solid var(--v3-line);color:var(--v3-muted);
+}
+
+/* Existing 2027 homepage: enhance approved side-by-side photo hero and tiles,
+   never replace artwork, move overlay buttons across photo or hide sections. */
+html[data-mrlee-v3-scope="site"] #mrleeNewHome{
+ --mr27-page:var(--v3-page);--mr27-ink:var(--v3-ink);
+ --mr27-muted:var(--v3-muted);--mr27-border:var(--v3-line);
+ --mr27-accent:var(--v3-brand);
+ background-color:var(--v3-page)!important;
+}
+html[data-mrlee-v3-scope="site"] #mrleeNewHome .mr27-hero{
+ border-radius:28px!important;border:1px solid var(--v3-line)!important;
+ box-shadow:0 20px 55px var(--v3-glow)!important;
+}
+html[data-mrlee-v3-scope="site"] #mrleeNewHome .mr27-hero-copy{
+ min-width:0;
+}
+html[data-mrlee-v3-scope="site"] #mrleeNewHome .mr27-hero h1{
+ color:var(--v3-ink)!important;letter-spacing:-.05em;
+}
+html[data-mrlee-v3-scope="site"][data-mrlee-theme="future"] #mrleeNewHome .mr27-hero{
+ background:linear-gradient(120deg,#10233e,#1a3255)!important;
+}
+html[data-mrlee-v3-scope="site"] #mrleeNewHome :where(.mr27-tool,.mr27-feature,.mr27-card,.mr27-shortcut){
+ border-radius:var(--v3-radius)!important;
+}
+html[data-mrlee-v3-scope="site"] #mrleeNewHome .mr27-hero-media img{
+ image-rendering:auto!important;
+}
+html[data-mrlee-v3-scope="site"] :where(#mrleeContactNative,.mrlee-contact-native) summary{
+ box-shadow:0 9px 24px var(--v3-glow);border-radius:999px!important;
+}
+html[data-mrlee-v3-scope="site"] :where(#mrleeContactNative,.mrlee-contact-native):focus-within summary{
+ outline:3px solid var(--v3-ring)!important;outline-offset:3px;
+}
+
+/* Admin is a separate app. Keep its permission model, sidebar behavior, tables
+   and analytics; upgrade only visual tokens, controls and content cards. */
+html[data-mrlee-v3-scope="admin"] #app{
+ --ad-bg:var(--v3-page);--ad-card:var(--v3-paper);
+ --ad-ink:var(--v3-ink);--ad-muted:var(--v3-muted);
+ --ad-border:var(--v3-line);--ad-wash:var(--v3-paper-alt);
+ --ad-accent:var(--v3-brand);
+}
+html[data-mrlee-v3-scope="admin"] #app .sidebar{
+ background:linear-gradient(180deg,#102f52,#0b203b)!important;
+ box-shadow:6px 0 24px rgba(7,23,48,.08);
+}
+html[data-mrlee-v3-scope="admin"][data-mrlee-theme="future"] #app .sidebar{
+ background:linear-gradient(180deg,#07162d,#122849)!important;
+}
+html[data-mrlee-v3-scope="admin"] #app .topbar{
+ border-bottom:1px solid var(--v3-line)!important;
+ backdrop-filter:blur(16px);
+}
+html[data-mrlee-v3-scope="admin"] #app :where(.panel,.kpi,.mrlee-admin-analytics,.mrlee-chart-panel,.admin-panel){
+ border-radius:var(--v3-radius)!important;
+ border:1px solid var(--v3-line)!important;box-shadow:var(--v3-shadow);
+}
+html[data-mrlee-v3-scope="admin"] #app :where(button[data-nav],.admin-refresh,[type="submit"]){
+ min-height:44px;border-radius:11px;
+}
+html[data-mrlee-v3-scope="admin"] #app :where(input,select,textarea){
+ max-width:100%;color:var(--v3-ink);background:var(--v3-paper);
+ border-color:var(--v3-line);border-radius:11px;
+}
+html[data-mrlee-v3-scope="admin"] #app :where(.main-pad,.content,section){min-width:0}
+html[data-mrlee-v3-scope="admin"] #app :where(.table-scroll,.admin-table-wrap){
+ max-width:100%;overflow-x:auto;
+}
+
+/* Games: visual polish ONLY for menus, cards, status and rooms.
+   Do not touch board dimensions, camera zoom, betting, gameplay, pawns or hands. */
+html[data-mrlee-v3-scope="game"] :where(.arena-header,.game-room-header){
+ border-bottom:1px solid var(--v3-line);
+ backdrop-filter:blur(12px);
+}
+html[data-mrlee-v3-scope="game"] :where(.arena-hero,.arena-game-card,.arena-panel,.arena-economy,.game-room-dialog,.mz-admin-panel){
+ border-radius:var(--v3-radius-lg);border:1px solid var(--v3-line);
+ box-shadow:var(--v3-shadow);
+}
+html[data-mrlee-v3-scope="game"] :where(.arena-game-card,.arena-panel,.arena-economy,.mz-admin-panel){
+ background-color:var(--v3-paper);color:var(--v3-ink);
+}
+html[data-mrlee-v3-scope="game"] .arena-hero{
+ background:linear-gradient(115deg,#101f55,#28418e 58%,#5f3d93);
+}
+html[data-mrlee-v3-scope="game"][data-mrlee-theme="future"] .arena-hero{
+ background:linear-gradient(115deg,#0a173c,#193f72 60%,#422b6b);
+}
+html[data-mrlee-v3-scope="game"] :where(.arena-game-card,.arena-panel){
+ transition:border-color .2s,box-shadow .25s;
+}
+html[data-mrlee-v3-scope="game"] :where(.arena-game-card,.arena-panel):hover{
+ border-color:var(--v3-brand);box-shadow:var(--v3-shadow-hover);
+}
+html[data-mrlee-v3-scope="game"] :where(.arena-header nav a,.arena-game-actions button,.arena-header button,.game-room-header-actions button){
+ min-height:42px;border-radius:11px;
+}
+html[data-mrlee-v3-scope="game"] :where(.arena-game-card img,.arena-logo img){
+ image-rendering:auto;object-fit:contain;
+}
+
+/* Accessibility & layout safeguards common to all app modes. */
+@media(max-width:900px){
+ html[data-mrlee-v3-scope="site"] :where(.mrlee-next-main,.mr-new-shell,.tv-shell,.books-section,.pro-wrap,.wrap){
+  max-width:100%;min-width:0;
+ }
+ html[data-mrlee-v3-scope="site"] :where(.mrlee-next-hero,.tv-hero,.section-hero,.page-hero){
+  max-width:100%;
+ }
+}
+@media(max-width:640px){
+ html[data-mrlee-v3-scope="site"] :where(.section-hero,.page-hero,.tv-hero,.tv-listen-hero,.books-hero,.v10-hero,.mrlee-next-hero){
+  border-radius:17px!important;
+ }
+ html[data-mrlee-v3-scope="site"] :where(.mr-new-panel,.lessonBlock,.mrlee-panel,.tv-panel,.tv-listen-card,.v10-card,.pro-panel,.pro-work-item,.book-card,.ts-card){
+  border-radius:14px!important;
+ }
+ html[data-mrlee-v3-scope="site"] :where(.mr-new-grid,.feature-grid,.tv-listen-grid,.books-grid,.mrlee-next-portal-grid)>*{min-width:0}
+ html[data-mrlee-v3-scope="site"] :where(.mr-new-shell,.tv-shell,.mrlee-next-main,.pro-wrap,.wrap){
+  width:min(100%,100vw);padding-inline:clamp(10px,3.2vw,17px);
+ }
+ html[data-mrlee-v3-scope="site"] :where(.section-title,.sectionHeading h1,.mrlee-next-hero h1){
+  overflow-wrap:anywhere;
+ }
+ html[data-mrlee-v3-scope="admin"] #app :where(.main-pad,.topbar){max-width:100%}
+ html[data-mrlee-v3-scope="game"] .arena-app{max-width:100%;min-width:0}
+}
+@media(prefers-reduced-motion:reduce){
+ html[data-mrlee-v3-ui] :where(a,button,summary,.feature-card,.step-card,.mr-new-panel,.tv-panel,.tv-listen-card,.arena-game-card){
+  animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important;
+ }
+ html[data-mrlee-v3-scope="site"] :where(.feature-card,.step-card,.mr-new-panel,.tv-panel,.tv-listen-card):hover{
+  transform:none!important;
+ }
+}
