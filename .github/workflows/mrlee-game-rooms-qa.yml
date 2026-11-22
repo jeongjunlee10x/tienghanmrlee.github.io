@@ -3,6 +3,8 @@ on:
   push:
     branches: [main]
     paths:
+      - 'assets/mrlee-ui2027/v3-unified.css'
+      - 'assets/mrlee-ui2027/v3-runtime.js'
       - 'game-bai-mau.html'
       - 'game-co-vua.html'
       - 'game-tien-len.html'
@@ -23,6 +25,8 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - 'assets/mrlee-ui2027/v3-unified.css'
+      - 'assets/mrlee-ui2027/v3-runtime.js'
       - 'game-bai-mau.html'
       - 'game-co-vua.html'
       - 'game-tien-len.html'

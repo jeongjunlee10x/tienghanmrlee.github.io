@@ -3,6 +3,8 @@ on:
   push:
     branches: [main]
     paths:
+      - 'assets/mrlee-ui2027/v3-unified.css'
+      - 'assets/mrlee-ui2027/v3-runtime.js'
       - 'game-*.html'
       - 'mrlee-game-arena.html'
       - 'assets/arena/game-room-shell.js'
@@ -61,6 +63,8 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - 'assets/mrlee-ui2027/v3-unified.css'
+      - 'assets/mrlee-ui2027/v3-runtime.js'
       - 'game-*.html'
       - 'mrlee-game-arena.html'
       - 'assets/arena/game-room-shell.js'

@@ -3,6 +3,8 @@ on:
   push:
     branches: [main]
     paths:
+      - 'assets/mrlee-ui2027/v3-unified.css'
+      - 'assets/mrlee-ui2027/v3-runtime.js'
       - 'hoc-theo-bai.html'
       - 'mrlee-lesson-page.js'
       - 'mrlee-sc-lesson-data.js'
@@ -15,6 +17,8 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - 'assets/mrlee-ui2027/v3-unified.css'
+      - 'assets/mrlee-ui2027/v3-runtime.js'
       - 'hoc-theo-bai.html'
       - 'mrlee-lesson-page.js'
       - 'mrlee-sc-lesson-data.js'

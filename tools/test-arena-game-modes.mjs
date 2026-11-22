@@ -48,6 +48,8 @@ assert.match(edge,/turnDeadline:clock\?chessDeadline\(/,"Chess uses the deadline
 assert.match(edge,/state\.clock\.remaining\[seat\].*state\.clock\.incrementMs/,
  "Legal chess move gets Fischer increment");
 assert.match(edge,/timeControl===timeControl/,"Quick matching preserves clock compatibility");
+assert.match(shell,/if\(playingMode==="bot"\)\{reset\(\);return;\}/,
+  "Solo bot exit must reset immediately without waiting for child acknowledgement");
 assert.match(shell,/id="roomChessTime"/);
 assert.match(shell,/roomChessTime/);
 assert.match(social,/arenaSocialChessTime/);

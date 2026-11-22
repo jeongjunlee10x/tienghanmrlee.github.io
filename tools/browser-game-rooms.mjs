@@ -271,7 +271,8 @@ try{
      console.log("ROOM MOBILE LAYERS",JSON.stringify(layout));
     }
     await page.locator("#roomExitGame").click({timeout:9000});
-    await page.locator("#roomLobby").waitFor({state:"visible",timeout:10000});
+    // Local bot exits tear down the iframe immediately; no 10s stalled return.
+    await page.locator("#roomLobby").waitFor({state:"visible",timeout:3500});
     assert.equal(await page.locator("#roomPlay").isVisible(),false);
     assert.deepEqual(errors,[],"JS exceptions for "+pageFile+": "+errors.join(" | "));
     console.log("PASS "+pageFile+" "+width+"x"+height+" verified G and playable bot + return");
