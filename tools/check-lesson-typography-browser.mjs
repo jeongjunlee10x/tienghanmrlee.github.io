@@ -74,7 +74,10 @@ try{
         width:Math.round(row.width),height:Math.round(row.height),
         isGrid:getComputedStyle(card).display==='grid',
         hasMP3:card.querySelectorAll('audio.mr-v5-audio-main[controls][src]').length===1,
-        ttsCount:card.querySelectorAll('button[data-play]').length,
+        playCount:card.querySelectorAll('button.mr-lesson-play').length,
+        legacyTtsCount:card.querySelectorAll('button[data-play]').length,
+        playReady:[...card.querySelectorAll('button.mr-lesson-play')].every(btn=>
+          !btn.disabled&&getComputedStyle(btn).display!=='none'&&btn.getBoundingClientRect().width>0),
         recordCount:card.querySelectorAll('button[data-record]').length,
         hiddenRecording:card.querySelector('audio[data-audio]')?.hidden===true,
         hasKorean:!!card.querySelector('.mr-v5-sentence-ko[lang="ko"]'),
@@ -107,7 +110,7 @@ try{
    assert(result.grammarCount>=3,'Grammar did not render '+url); // SC2 Bài 1 has three existing approved grammar entries.
    assert.equal(result.speakingCount,10,'Listening/speaking list lost a lesson');
    assert.equal(result.speakingCards.length,10,'Ten cards are required');
-   assert(result.speakingCards.every(c=>c.isGrid&&c.hasMP3&&c.ttsCount===1&&
+   assert(result.speakingCards.every(c=>c.isGrid&&c.hasMP3&&c.playCount===1&&c.playReady&&c.legacyTtsCount===0&&
       c.recordCount===1&&c.hiddenRecording&&c.hasKorean&&c.hasVietnamese&&
       c.duplicateAudioBars===0&&c.hasAudioOptout&&c.contentFits),
      'Speaking controls duplicated, missing or clipped '+JSON.stringify(result.speakingCards));
