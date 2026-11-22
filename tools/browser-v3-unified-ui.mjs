@@ -1,7 +1,7 @@
 /**
  * MR LEE V3 — browser visual smoke across the active learning ecosystem.
  * Local fixture only: blocks external requests and any non-GET operations.
- * 13 representative pages × Fresh/Future × desktop/mobile = 52 cases.
+ * 13 representative pages × Fresh/Future × 320px/mobile/desktop = 78 cases.
  */
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
@@ -41,7 +41,7 @@ const pages=[
  ['student','trung-tam-hoc-vien.html','site'],
  ['admin','admin.html','admin'],['games','mrlee-game-arena.html','game']
 ];
-const sizes=[['mobile',390,844],['desktop',1440,900]];
+const sizes=[['compact',320,568],['mobile',390,844],['desktop',1440,900]];
 await fs.mkdir('artifacts/v3-ui',{recursive:true});
 let count=0,overflowWarnings=[];
 try{
@@ -72,7 +72,7 @@ try{
     const root=document.documentElement;
     const style=getComputedStyle(root);
     const link=document.querySelector('link[data-mrlee-v3-ui]');
-    const setNames=['--v3-page','--v3-ink','--v3-line','--v3-ring'];
+    const setNames=['--v3-page','--v3-ink','--v3-line','--v3-ring','--v3-brand'];
     const sample=root.dataset.mrleeV3Scope==='site'?
        document.querySelector('.mr-new-panel,.lessonBlock,.tv-listen-card,.mrlee-next-card,.tv-panel,.v10-card,.ts-panel'):
        root.dataset.mrleeV3Scope==='admin'?document.querySelector('#app .panel,#app .kpi'):
@@ -98,6 +98,7 @@ try{
    assert(result.loaded>60,label+' CSS did not parse: '+result.loaded);
    assert(Object.values(result.tokens).every(v=>v.length>0),label+' missing design tokens '+JSON.stringify(result.tokens));
    assert(result.tokens['--v3-page']!==result.tokens['--v3-ink'],label+' foreground/background conflict');
+   assert.equal(result.tokens['--v3-brand'],theme==='future'?'#64deed':'#096d78',label+' theme token not updated');
    assert(result.viewport>=width-2&&result.viewport<=width+2,label+' unexpected viewport');
    if(result.scrollWidth>width+6){
      overflowWarnings.push({label,excess:result.scrollWidth-width});
@@ -106,7 +107,7 @@ try{
     assert(result.sample.radius!=='0px',label+' representative card has no rounding');
    }
    // Render evidence for each page/theme on mobile, plus all desktop primary flows.
-   if(size==='mobile'||['home','learning','topik','admissions','admin','games'].includes(area)){
+   if(size!=='desktop'||['home','learning','topik','admissions','admin','games'].includes(area)){
     await page.screenshot({path:'artifacts/v3-ui/'+area+'-'+size+'-'+theme+'.png',
       animations:'disabled',timeout:30000});
    }
