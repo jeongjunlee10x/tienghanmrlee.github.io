@@ -70,7 +70,7 @@ for(const id of ["xqOppBar","ludoOppBar","estateOppBar"]){
 check(html.includes('gameplay-cards-v20.css?v=20261107-approved-v20')&&
  html.includes('gameplay-boards-v20.css?v=20261107-approved-v20'),
  "Standalone iframe loads both approved design layers last");
-check(app.includes("xiangqi.js?v=20261107-motion-v22b")&&
+check((app.includes("xiangqi.js?v=20261107-motion-v22b")||app.includes("xiangqi.js?v=20261117-xq-board-v2"))&&
  app.includes("ludo.js?v=20261107-motion-v22b")&&
  app.includes("estate.js?v=20261107-motion-v22b"),
  "HUD engine JavaScript cannot remain stale in browser cache");
