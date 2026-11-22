@@ -10,6 +10,16 @@ on:
       - 'assets/arena/daily-rewards.js'
       - 'tools/browser-arena-reference.mjs'
       - '.github/workflows/mrlee-arena-reference-qa.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'mrlee-game-arena.html'
+      - 'assets/arena/reference-v1.css'
+      - 'assets/arena/reference-v1.js'
+      - 'assets/arena/discovery.js'
+      - 'assets/arena/daily-rewards.js'
+      - 'tools/browser-arena-reference.mjs'
+      - '.github/workflows/mrlee-arena-reference-qa.yml'
   workflow_dispatch:
 jobs:
   verify:
