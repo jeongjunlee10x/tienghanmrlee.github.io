@@ -1,0 +1,49 @@
+name: MR LEE V3 - TOPIK Pedagogical Data QA
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/topik-v8/bank.json'
+      - 'assets/topik-v10/mock-bank-v8.json'
+      - 'assets/topik-v9/lessons.json'
+      - 'tools/audit-topik-pedagogy-v3.mjs'
+      - '.github/workflows/mrlee-v3-topik-pedagogy-qa.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'assets/topik-v8/bank.json'
+      - 'assets/topik-v10/mock-bank-v8.json'
+      - 'assets/topik-v9/lessons.json'
+      - 'tools/audit-topik-pedagogy-v3.mjs'
+      - '.github/workflows/mrlee-v3-topik-pedagogy-qa.yml'
+permissions:
+  contents: read
+concurrency:
+  group: mrlee-v3-topik-pedagogy-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  pedagogical-data:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate editor audit syntax
+        run: node --check tools/audit-topik-pedagogy-v3.mjs
+      - name: Check 170 simulated exam questions, mirrored banks and 180 V9 exercises
+        run: node tools/audit-topik-pedagogy-v3.mjs
+      - name: Check TOPIK page and site integrity
+        run: |
+          node tools/check-topik-contrast.mjs
+          node tools/check-site.mjs
+      - name: Upload human editorial follow-up report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mrlee-v3-topik-pedagogy-report
+          path: artifacts/v3-topik-pedagogy/report.md
+          if-no-files-found: warn
+          retention-days: 30
