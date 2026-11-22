@@ -917,7 +917,7 @@
     "오천 원"
    ],
    "answer": 3,
-   "explain": "Tổng tiền được nói sau từ 모두.",
+   "explain": "Trong hội thoại, “모두 오천 원입니다” nghĩa là tổng cộng 5.000 won. “모두” nhấn mạnh tổng tiền của ba chiếc bánh; chọn 오천 원, không phải đơn giá một chiếc.",
    "source": "MR LEE · tự biên soạn",
    "difficulty": 1
   },
@@ -934,7 +934,7 @@
     "오천 원"
    ],
    "answer": 2,
-   "explain": "Tổng tiền được nói sau từ 모두.",
+   "explain": "“우유 두 개 주세요” là mua hai hộp sữa; “모두 삼천 원입니다” cho biết tổng tiền 3.000 won. Đáp án là 삼천 원.",
    "source": "MR LEE · tự biên soạn",
    "difficulty": 1
   },
@@ -951,7 +951,7 @@
     "오천 원"
    ],
    "answer": 1,
-   "explain": "Tổng tiền được nói sau từ 모두.",
+   "explain": "Người mua gọi bốn quả táo (사과 네 개); câu “모두 팔천 원입니다” nói tổng cộng 8.000 won. Chọn 팔천 원.",
    "source": "MR LEE · tự biên soạn",
    "difficulty": 1
   },
@@ -968,7 +968,7 @@
     "삼천 원"
    ],
    "answer": 0,
-   "explain": "Tổng tiền được nói sau từ 모두.",
+   "explain": "“물 한 병 주세요” là xin một chai nước. Người bán nói “모두 천 원입니다” tức tổng tiền 1.000 won; đáp án 천 원.",
    "source": "MR LEE · tự biên soạn",
    "difficulty": 1
   },
@@ -985,7 +985,7 @@
     "육천 원"
    ],
    "answer": 3,
-   "explain": "Tổng tiền được nói sau từ 모두.",
+   "explain": "Người mua xin hai chai nước ép (주스 두 병). “모두 육천 원입니다” nghĩa là tổng cộng 6.000 won; chọn 육천 원.",
    "source": "MR LEE · tự biên soạn",
    "difficulty": 1
   },
@@ -1002,7 +1002,7 @@
     "학교"
    ],
    "answer": 2,
-   "explain": "Xác định địa điểm ngay sau 에 가요.",
+   "explain": "“우체국에 가요” nghĩa là đi đến bưu điện. Địa điểm 우체국 đứng trước trợ từ chỉ hướng đến 에; “편지를 보내려고요” (định gửi thư) xác nhận đáp án 우체국.",
    "source": "MR LEE · tự biên soạn",
    "difficulty": 1
   },
@@ -1019,7 +1019,7 @@
     "학교"
    ],
    "answer": 1,
-   "explain": "Xác định địa điểm ngay sau 에 가요.",
+   "explain": "“은행에 가요” nghĩa là đi đến ngân hàng. 은행 đứng trước trợ từ 에, không phải sau “에 가요”; “돈을 찾으려고요” (định rút tiền) củng cố đáp án 은행.",
    "source": "MR LEE · tự biên soạn",
    "difficulty": 1
   },
@@ -1036,7 +1036,7 @@
     "학교"
    ],
    "answer": 0,
-   "explain": "Xác định địa điểm ngay sau 에 가요.",
+   "explain": "“약국에 가요” nghĩa là đi đến hiệu thuốc. 약국 đứng trước trợ từ chỉ nơi đến 에; “약을 사려고요” (định mua thuốc) củng cố đáp án 약국.",
    "source": "MR LEE · tự biên soạn",
    "difficulty": 1
   },
@@ -1053,7 +1053,7 @@
     "서점"
    ],
    "answer": 3,
-   "explain": "Xác định địa điểm ngay sau 에 가요.",
+   "explain": "“서점에 가요” nghĩa là đi đến hiệu sách. 서점 đứng trước trợ từ 에; “책을 사려고요” (định mua sách) xác nhận đáp án 서점.",
    "source": "MR LEE · tự biên soạn",
    "difficulty": 1
   },
