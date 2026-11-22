@@ -175,9 +175,13 @@ function reset(){
 }
 function leave(){
  if(stage.hidden)return;
+ // Solo bot matches hold no multiplayer escrow or server-authoritative room.
+ // Tear down their sandbox iframe immediately, even if a child postMessage is
+ // delayed or dropped on mobile. PvP still requires its normal server leave flow.
+ if(playingMode==="bot"){reset();return;}
  if(!frameLoaded||!frame.contentWindow){reset();return;}
  frame.contentWindow.postMessage({marker:"mrlee-game-room",command:"leave"},location.origin);
- playStatus(playingMode==="bot"?"Đang trở về chọn chế độ…":"Đang rời phòng an toàn. Nếu có G đã giữ, vui lòng xác nhận thoát trong bàn.");
+ playStatus("Đang rời phòng an toàn. Nếu có G đã giữ, vui lòng xác nhận thoát trong bàn.");
 }
 frame.addEventListener("load",()=>{
  frameLoaded=true;
