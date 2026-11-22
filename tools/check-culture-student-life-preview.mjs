@@ -8,6 +8,18 @@ const match=slides.match(/const topics=(\[[^\n]+\]);\s*const \$=/);
 assert(match,'Missing embedded topics dataset');
 const topics=JSON.parse(match[1]);
 assert.equal(topics.length,8,'Exactly eight approved topics required');
+const catalog=JSON.parse(fs.readFileSync('assets/culture/student-life-catalog-v1.json','utf8'));
+assert.equal(catalog.lessons.length,20,'Catalog must have 20 topics');
+assert.equal(catalog.lessons.filter(x=>x.status==='preview').length,8,'Exactly 8 published-to-preview lessons');
+assert.equal(catalog.lessons.filter(x=>x.status==='planned').length,12,'Exactly 12 future lessons');
+assert.equal(catalog.policy.oldSlugs.length,22,'Preserve all 22 original routes');
+assert.equal(new Set(catalog.lessons.map(x=>x.slug)).size,20,'No duplicate new identifiers');
+assert.equal(new Set(catalog.policy.oldSlugs).size,22,'No duplicate old identifiers');
+assert.equal(catalog.policy.preserveLegacyLessons,true,'Must preserve legacy lessons');
+assert.equal(catalog.policy.preserveLegacyCompletionSlugs,true,'Must preserve learning progress');
+assert.deepEqual(catalog.lessons.filter(x=>x.status==='preview').map(x=>x.slug),topics.map(x=>x.id),'Deck IDs must match preview catalog');
+assert(catalog.lessons.every(x=>x.public===false),'Draft lessons must not be marked public');
+
 assert.equal(new Set(topics.map(t=>t.id)).size,8,'Topic IDs must be unique');
 for(const t of topics){
  assert.equal(t.terms.length,10,t.id+': vocabulary');
