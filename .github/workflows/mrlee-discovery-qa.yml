@@ -12,6 +12,18 @@ on:
       - 'assets/arena/rooms-play.js'
       - 'tools/browser-arena-discovery.mjs'
       - '.github/workflows/mrlee-discovery-qa.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'mrlee-game-arena.html'
+      - 'assets/arena/discovery.css'
+      - 'assets/arena/discovery.js'
+      - 'assets/arena/game-polish.css'
+      - 'assets/arena/chess-ui.js'
+      - 'assets/arena/tienlen-ui.js'
+      - 'assets/arena/rooms-play.js'
+      - 'tools/browser-arena-discovery.mjs'
+      - '.github/workflows/mrlee-discovery-qa.yml'
   workflow_dispatch:
 jobs:
   verify:
