@@ -6,6 +6,7 @@ on:
       - 'van-hoa-du-hoc-sinh-slides.html'
       - 'assets/culture/student-life-catalog-v1.json'
       - 'tools/check-culture-student-life-preview.mjs'
+      - 'tools/browser-culture-student-life.mjs'
       - '.github/workflows/culture-student-life-qa.yml'
   workflow_dispatch:
 permissions:
@@ -21,3 +22,26 @@ jobs:
           node-version: '22'
       - name: Validate 8 topics, 360 slides and JavaScript syntax
         run: node tools/check-culture-student-life-preview.mjs
+  browser:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save --no-audit --no-fund --package-lock=false playwright@1.56.1
+          npx playwright install chromium
+      - name: Test Fresh/Future previews and slide decks at two widths
+        run: node tools/browser-culture-student-life.mjs
+      - name: Upload browser QA screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mrlee-student-life-visual-qa
+          path: artifacts/culture-student-life/*
+          if-no-files-found: ignore
+          retention-days: 14
