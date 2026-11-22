@@ -16,11 +16,13 @@ h2{font-size:clamp(1.5rem,3vw,2rem);margin:0 0 5px}h3{margin:27px 0 12px}.ko{col
 .goal{line-height:1.7}.words{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.word{padding:12px;border:1px solid #e1eaf2;border-radius:10px;display:flex;flex-direction:column;gap:4px}.word strong{font-size:1.1rem}
 .phrase{background:#f5f8fd;border-radius:12px;padding:14px;margin:10px 0}.phrase p{margin:6px 0}.speak,.choice{border:1px solid #bdd5e9;border-radius:8px;background:white;color:#13528a;padding:8px 12px}.speak{margin-top:4px}.choice{display:block;width:100%;text-align:left;margin:8px 0;min-height:44px}
 .choice:focus-visible,.topic:focus-visible,.speak:focus-visible{outline:3px solid #edb849;outline-offset:2px}.choice:disabled{opacity:.78;cursor:default}.feedback{min-height:28px;font-weight:750}.footer{margin-top:28px;padding-top:15px;border-top:1px solid #e2e8f0;font-size:.92rem;color:#4c657a}
+.lesson-link{display:inline-block;padding:12px 16px;border-radius:10px;background:#0c5794;color:white;font-weight:750;text-decoration:none;margin:10px 0}
+.lesson-link:focus-visible{outline:3px solid #edb849;outline-offset:2px}
 @media(max-width:720px){.layout{grid-template-columns:1fr}nav{grid-template-columns:repeat(2,minmax(0,1fr))}.topic{font-size:.88rem;padding:10px}.words{grid-template-columns:1fr}}
 @media(max-width:390px){nav{grid-template-columns:1fr}}
 </style></head><body>
 <header><div class="eyebrow">MR LEE · Bản xem trước / Preview</div><h1>Văn hóa & Kỹ năng sống tại Hàn Quốc</h1><p>8 chủ đề ưu tiên cho du học sinh Việt Nam. Nội dung thử nghiệm trong PR, không thay thế hoặc xóa 22 bài văn hóa hiện tại.</p><a href="van-hoa-han-quoc.html">← Về chuyên mục hiện tại</a></header>
-<main><div class="note"><strong>Phạm vi giai đoạn đầu:</strong> 8 bài mẫu có từ vựng, hội thoại Hàn–Việt, phát âm qua giọng tiếng Hàn của thiết bị và kiểm tra nhanh. Chưa phải bộ slide 40–50 trang hoặc khóa học hoàn chỉnh. Nội dung pháp lý và phí dịch vụ cần đối chiếu nguồn chính thức trước khi xuất bản.</div>
+<main><div class="note"><strong>Phạm vi giai đoạn đầu:</strong> 8 bài mẫu có từ vựng, hội thoại Hàn–Việt, phát âm qua giọng tiếng Hàn của thiết bị và kiểm tra nhanh. Bộ 45 slide/chủ đề hiện là bản giảng dạy thử nghiệm; chưa có đầy đủ ảnh tình huống HD, chưa kiểm tra giao diện trên thiết bị thật. Nội dung pháp lý và phí dịch vụ cần đối chiếu nguồn chính thức trước khi xuất bản.</div>
 <p style="margin:0 0 22px"><a href="van-hoa-du-hoc-sinh-slides.html" style="display:inline-block;padding:13px 19px;background:#0b5795;color:white;border-radius:12px;text-decoration:none;font-weight:750">▶ Mở bộ trình chiếu 45 slide / bài (8 chủ đề)</a></p>
 <div class="layout"><nav id="topics" aria-label="Danh sách 8 chủ đề"></nav><article id="lesson" aria-live="polite"></article></div>
 </main>
@@ -36,14 +38,13 @@ function show(id){
  const wordHtml=t.words.map(w=>'<div class="word"><strong lang="ko">'+esc(w[0])+'</strong><span>'+esc(w[1])+'</span></div>').join("");
  const phrases=t.phrases.map(p=>'<div class="phrase"><p lang="ko"><strong>'+esc(p[0])+'</strong></p><p>'+esc(p[1])+'</p><button class="speak" type="button" data-speech="'+esc(p[0])+'">🔊 Nghe tiếng Hàn</button></div>').join("");
  const quiz=t.quiz.choices.map((c,i)=>'<button class="choice" type="button" data-answer="'+i+'">'+esc(c)+'</button>').join("");
- lesson.innerHTML='<div class="tag">Bài mẫu · 01/08 giai đoạn đầu</div><h2>'+t.icon+' '+esc(t.title)+'</h2><p class="ko" lang="ko">'+esc(t.ko)+'</p><p class="goal">'+esc(t.goal)+'</p><h3>1. Từ vựng thiết yếu</h3><div class="words">'+wordHtml+'</div><h3>2. Hội thoại thực tế</h3>'+phrases+'<h3>3. Lưu ý khi sinh sống</h3><p class="goal">'+esc(t.tip)+'</p><h3>4. Kiểm tra nhanh</h3><p lang="ko"><strong>'+esc(t.quiz.question)+'</strong></p>'+quiz+'<p class="feedback" id="feedback" role="status"></p><div class="footer">Bản xem trước chưa ghi điểm, không sử dụng đăng nhập hoặc sửa dữ liệu học viên. Giọng phát âm phụ thuộc trình duyệt/thiết bị.</div>';
+ lesson.innerHTML='<div class="tag">Bài mẫu · 01/08 giai đoạn đầu</div><h2>'+t.icon+' '+esc(t.title)+'</h2><p class="ko" lang="ko">'+esc(t.ko)+'</p><p class="goal">'+esc(t.goal)+'</p><a class="lesson-link" href="van-hoa-du-hoc-sinh-slides.html#'+encodeURIComponent(t.id)+'/1">▶ Trình chiếu 45 slide của chủ đề này</a><h3>1. Từ vựng thiết yếu</h3><div class="words">'+wordHtml+'</div><h3>2. Hội thoại thực tế</h3>'+phrases+'<h3>3. Lưu ý khi sinh sống</h3><p class="goal">'+esc(t.tip)+'</p><h3>4. Kiểm tra nhanh</h3><p lang="ko"><strong>'+esc(t.quiz.question)+'</strong></p>'+quiz+'<p class="feedback" id="feedback" role="status"></p><div class="footer">Bản xem trước chưa ghi điểm, không sử dụng đăng nhập hoặc sửa dữ liệu học viên. Giọng phát âm phụ thuộc trình duyệt/thiết bị.</div>';
  document.title=t.title+" | Xem trước MR LEE";
  nav.querySelectorAll("[data-id]").forEach(b=>b.addEventListener("click",()=>show(b.dataset.id)));
  lesson.querySelectorAll("[data-speech]").forEach(b=>b.addEventListener("click",()=>{
   if(!("speechSynthesis" in window)){alert("Thiết bị chưa hỗ trợ phát âm.");return;}
   const voices=speechSynthesis.getVoices(),voice=voices.find(v=>v.lang.toLowerCase().startsWith("ko"));
-  if(!voice){alert("Thiết bị chưa có giọng đọc tiếng Hàn (ko-KR).");return;}
-  speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(b.dataset.speech);u.lang="ko-KR";u.voice=voice;u.rate=.85;speechSynthesis.speak(u);
+   speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(b.dataset.speech);u.lang="ko-KR";if(voice)u.voice=voice;u.rate=.85;u.onerror=()=>alert("Không phát được âm thanh. Hãy kiểm tra giọng đọc tiếng Hàn trong cài đặt thiết bị.");speechSynthesis.speak(u);
  }));
  lesson.querySelectorAll("[data-answer]").forEach(b=>b.addEventListener("click",()=>{
   const right=Number(b.dataset.answer)===t.quiz.answer;
