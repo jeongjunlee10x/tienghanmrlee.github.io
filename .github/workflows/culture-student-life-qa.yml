@@ -4,6 +4,7 @@ on:
     paths:
       - 'van-hoa-du-hoc-sinh-preview.html'
       - 'van-hoa-du-hoc-sinh-slides.html'
+      - 'assets/culture/student-life-catalog-v1.json'
       - 'tools/check-culture-student-life-preview.mjs'
       - '.github/workflows/culture-student-life-qa.yml'
   workflow_dispatch:
