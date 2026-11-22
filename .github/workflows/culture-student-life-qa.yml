@@ -1,0 +1,22 @@
+name: MR LEE Culture Student Life QA
+on:
+  pull_request:
+    paths:
+      - 'van-hoa-du-hoc-sinh-preview.html'
+      - 'van-hoa-du-hoc-sinh-slides.html'
+      - 'tools/check-culture-student-life-preview.mjs'
+      - '.github/workflows/culture-student-life-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate 8 topics, 360 slides and JavaScript syntax
+        run: node tools/check-culture-student-life-preview.mjs
