@@ -3,6 +3,22 @@ on:
   push:
     branches: [main]
     paths:
+      - 'assets/mrlee-ui2027/v3-unified.css'
+      - 'assets/mrlee-ui2027/v3-runtime.js'
+      - 'hoc-theo-bai.html'
+      - 'mrlee-lesson-page.js'
+      - 'mrlee-sc-lesson-data.js'
+      - 'mrlee-advanced-lesson-data.js'
+      - 'assets/branding/lesson-typography-v2.css'
+      - 'assets/branding/lesson-directory-first-v1.css'
+      - 'tools/check-lesson-typography-browser.mjs'
+      - 'tools/check-lesson-directory-first.mjs'
+      - '.github/workflows/mrlee-lesson-typography.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/mrlee-ui2027/v3-unified.css'
+      - 'assets/mrlee-ui2027/v3-runtime.js'
       - 'hoc-theo-bai.html'
       - 'mrlee-lesson-page.js'
       - 'mrlee-sc-lesson-data.js'
@@ -16,7 +32,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: mrlee-lesson-typography-qa
+  group: mrlee-lesson-typography-qa-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   lesson-fonts:

@@ -51,7 +51,8 @@ try{
    assert.equal(await page.locator(".arena-game-card.playable:visible").count(),1);
    if(await page.locator("#arenaRefMoreFilters").isVisible())await page.locator("#arenaRefMoreFilters").click();
    await page.locator('[data-arena-filter="online"]').click();
-   assert.equal(await page.locator(".arena-game-card.playable:visible").count(),3);
+   // Colors, Chess, Tien Len and Xiangqi all have online rooms now.
+   assert.equal(await page.locator(".arena-game-card.playable:visible").count(),4);
    await page.locator('[data-arena-filter="all"]').click();
    await page.locator("#arenaGameSearch").fill("tien");
    assert.equal(await page.locator(".arena-game-card.playable:visible").count(),1);

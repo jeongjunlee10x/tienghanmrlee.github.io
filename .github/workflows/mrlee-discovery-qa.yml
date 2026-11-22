@@ -3,6 +3,22 @@ on:
   push:
     branches: [main]
     paths:
+      - 'assets/mrlee-ui2027/v3-unified.css'
+      - 'assets/mrlee-ui2027/v3-runtime.js'
+      - 'mrlee-game-arena.html'
+      - 'assets/arena/discovery.css'
+      - 'assets/arena/discovery.js'
+      - 'assets/arena/game-polish.css'
+      - 'assets/arena/chess-ui.js'
+      - 'assets/arena/tienlen-ui.js'
+      - 'assets/arena/rooms-play.js'
+      - 'tools/browser-arena-discovery.mjs'
+      - '.github/workflows/mrlee-discovery-qa.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/mrlee-ui2027/v3-unified.css'
+      - 'assets/mrlee-ui2027/v3-runtime.js'
       - 'mrlee-game-arena.html'
       - 'assets/arena/discovery.css'
       - 'assets/arena/discovery.js'

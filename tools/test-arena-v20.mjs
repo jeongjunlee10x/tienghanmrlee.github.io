@@ -70,7 +70,7 @@ for(const id of ["xqOppBar","ludoOppBar","estateOppBar"]){
 check(html.includes('gameplay-cards-v20.css?v=20261107-approved-v20')&&
  html.includes('gameplay-boards-v20.css?v=20261107-approved-v20'),
  "Standalone iframe loads both approved design layers last");
-check(app.includes("xiangqi.js?v=20261107-motion-v22b")&&
+check((app.includes("xiangqi.js?v=20261107-motion-v22b")||app.includes("xiangqi.js?v=20261117-xq-board-v2"))&&
  app.includes("ludo.js?v=20261107-motion-v22b")&&
  app.includes("estate.js?v=20261107-motion-v22b"),
  "HUD engine JavaScript cannot remain stale in browser cache");
@@ -78,7 +78,9 @@ for(const name of ["game-bai-mau.html","game-tien-len.html","game-co-vua.html",
  "game-co-tuong.html","game-co-ca-ngua.html","game-dia-oc.html"]){
  const page=await read(name);
  check(page.includes('game-room-v20.css?v=20261107-approved-v20')&&
- page.includes('game-room-shell.js?v=20261107-'+(name==="game-tien-len.html"?"rule-v26b":"approved-v20")),
+ page.includes('game-room-shell.js?v='+(name==="game-tien-len.html"?
+  "20261107-rule-v26b":name==="game-co-tuong.html"?
+  "20261111-xq-pvp-v1":"20261107-approved-v20")),
  name+" includes the new standalone room layout and script");
 }
 // Game rules still apply in the unchanged engines.

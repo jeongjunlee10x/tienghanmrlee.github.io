@@ -3,6 +3,30 @@ on:
   push:
     branches: [main]
     paths:
+      - 'assets/mrlee-ui2027/v3-unified.css'
+      - 'assets/mrlee-ui2027/v3-runtime.js'
+      - 'game-bai-mau.html'
+      - 'game-co-vua.html'
+      - 'game-tien-len.html'
+      - 'game-co-ca-ngua.html'
+      - 'game-co-tuong.html'
+      - 'game-dia-oc.html'
+      - 'assets/arena/game-room-shell.css'
+      - 'assets/arena/tienlen-approved-v24.css'
+      - 'assets/arena/tienlen-approved-board-v24.css'
+      - 'assets/arena/game-room-shell.js'
+      - 'assets/arena/game-room-embed.css'
+      - 'assets/arena/game-room-embed.js'
+      - 'assets/arena/app.js'
+      - 'assets/arena/reference-v1.js'
+      - 'mrlee-game-arena.html'
+      - 'tools/browser-game-rooms.mjs'
+      - '.github/workflows/mrlee-game-rooms-qa.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'assets/mrlee-ui2027/v3-unified.css'
+      - 'assets/mrlee-ui2027/v3-runtime.js'
       - 'game-bai-mau.html'
       - 'game-co-vua.html'
       - 'game-tien-len.html'

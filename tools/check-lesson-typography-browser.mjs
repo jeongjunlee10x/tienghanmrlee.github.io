@@ -74,7 +74,10 @@ try{
         width:Math.round(row.width),height:Math.round(row.height),
         isGrid:getComputedStyle(card).display==='grid',
         hasMP3:card.querySelectorAll('audio.mr-v5-audio-main[controls][src]').length===1,
-        ttsCount:card.querySelectorAll('button[data-play]').length,
+        playCount:card.querySelectorAll('button.mr-lesson-play').length,
+        legacyTtsCount:card.querySelectorAll('button[data-play]').length,
+        playReady:[...card.querySelectorAll('button.mr-lesson-play')].every(btn=>
+          !btn.disabled&&getComputedStyle(btn).display!=='none'&&btn.getBoundingClientRect().width>0),
         recordCount:card.querySelectorAll('button[data-record]').length,
         hiddenRecording:card.querySelector('audio[data-audio]')?.hidden===true,
         hasKorean:!!card.querySelector('.mr-v5-sentence-ko[lang="ko"]'),
@@ -85,7 +88,9 @@ try{
         contentFits:sentence?.bottom<=row.bottom+2&&tools?.bottom<=row.bottom+2
        };
       }),
-      workbookCount:document.querySelectorAll('#lessonWorkbook > a').length,
+      // 15 original Workbook links now live in three expandable five-link groups.
+      workbookCount:document.querySelectorAll('#lessonWorkbook .mr-lesson-workbook-grid > a[href]').length,
+      workbookGroups:document.querySelectorAll('#lessonWorkbook details.mr-lesson-fold').length,
       lessonTitle:one('#lessonTitle')?.textContent,
       hasReplacementChar:one('#lessonContent')?.textContent?.includes('\uFFFD')||false,
       viewport:innerWidth,scrollWidth:document.documentElement.scrollWidth,
@@ -107,7 +112,7 @@ try{
    assert(result.grammarCount>=3,'Grammar did not render '+url); // SC2 Bài 1 has three existing approved grammar entries.
    assert.equal(result.speakingCount,10,'Listening/speaking list lost a lesson');
    assert.equal(result.speakingCards.length,10,'Ten cards are required');
-   assert(result.speakingCards.every(c=>c.isGrid&&c.hasMP3&&c.ttsCount===1&&
+   assert(result.speakingCards.every(c=>c.isGrid&&c.hasMP3&&c.playCount===1&&c.playReady&&c.legacyTtsCount===0&&
       c.recordCount===1&&c.hiddenRecording&&c.hasKorean&&c.hasVietnamese&&
       c.duplicateAudioBars===0&&c.hasAudioOptout&&c.contentFits),
      'Speaking controls duplicated, missing or clipped '+JSON.stringify(result.speakingCards));
@@ -117,6 +122,7 @@ try{
      'Desktop speaking sentence / player must stay in two neat columns');
 
    assert.equal(result.workbookCount,15,'Workbook missing a set');
+   assert.equal(result.workbookGroups,3,'Workbook requires three groups of five links');
    assert(!result.hasReplacementChar,'Broken replacement glyph U+FFFD found in lesson');
    assert(!result.clipped.length,'Clipped lesson font '+JSON.stringify(result.clipped));
    assert(result.scrollWidth<=result.viewport+3,'Mobile horizontal overflow '+JSON.stringify(result));
