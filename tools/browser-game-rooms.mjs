@@ -55,7 +55,7 @@ const GAMES=[
  ["game-co-vua.html","chess","arenaChess",true],
  ["game-tien-len.html","tienlen","arenaTienLen",true],
  ["game-co-ca-ngua.html","ludo","arenaLudo",false],
- ["game-co-tuong.html","xiangqi","arenaXiangqi",true] // Xiangqi PvP released 2026-11-17,
+ ["game-co-tuong.html","xiangqi","arenaXiangqi",true], // Xiangqi PvP released 2026-11-17,
  ["game-dia-oc.html","estate","arenaEstate",false]
 ].filter(([,game])=>!process.env.ARENA_ONLY_GAME||game===process.env.ARENA_ONLY_GAME);
 await mkdir(path.join(ROOT,"artifacts","game-rooms"),{recursive:true});
