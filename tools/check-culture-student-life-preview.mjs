@@ -9,20 +9,32 @@ const imageContext={window:{}};
 vm.runInNewContext(imageSource,imageContext,{timeout:1000});
 const imageMap=imageContext.window.MRLEE_STUDENT_LIFE_IMAGES_V1?.topicImages;
 assert(imageMap,'Missing student-life image registry');
-assert.deepEqual(Object.keys(imageMap).sort(),['an-uong','giao-thong','mua-sam'],'Only three verified image groups expected at this stage');
+assert.deepEqual(Object.keys(imageMap).sort(),['an-uong','dien-thoai','giao-thong','ky-tuc-xa','mua-sam'],'Only verified image groups expected');
 let imageCount=0;
 for(const [slug,items] of Object.entries(imageMap)){
  assert(items.length>=2,slug+': insufficient image diversity');
  for(const item of items){
-  assert(/^images\/culture-v(?:20-hd|23-ai)\/[a-z-]+\/\d{2}\.webp$/.test(item.src),slug+': unexpected image path');
+  assert(/^(?:images|assets)\/[a-z0-9/-]+\.webp$/.test(item.src)&&!item.src.includes('..'),slug+': unexpected image path');
   assert(fs.existsSync(item.src),slug+': missing asset '+item.src);
   assert(fs.statSync(item.src).size>10000,slug+': suspiciously small image');
-  assert(item.alt.includes('AI minh họa')&&item.caption.length>=15,slug+': missing source disclosure');
+  assert(item.caption.length>=15&&item.alt.length>=15,slug+': missing caption/alt');
+  if(item.kind==='licensed-photo'){
+   assert(item.author&&item.license&&item.source&&item.licenseUrl,slug+': incomplete attribution');
+   assert(item.source.startsWith('https://commons.wikimedia.org/wiki/File:'),slug+': source must be original photo page');
+   assert(item.licenseUrl.startsWith('https://creativecommons.org/licenses/'),slug+': license URL required');
+  }else{
+   assert.equal(item.kind,'existing-ai-artwork',slug+': unexpected provenance');
+   assert(item.alt.includes('AI minh họa'),slug+': AI artwork needs explicit disclosure');
+  }
   imageCount++;
  }
 }
-assert.equal(imageCount,10,'10 existing approved AI assets required');
+assert.equal(imageCount,15,'15 existing verified image assets required');
+assert.equal(imageMap['dien-thoai'].filter(x=>x.kind==='licensed-photo').length,3,'Phone photos require attribution');
+assert(preview.includes('photoCredit(v)'),'Preview must show licenses on photo captions');
 assert.equal(imageMap['nha-o'],undefined,'Housing pack not on PR yet; avoid broken image links');
+assert.equal(imageMap['ngan-hang'],undefined,'Unverified bank photo must not display');
+assert.equal(imageMap['mua-online'],undefined,'Unverified online shopping photo must not display');
 const sceneContext={window:{}};
 vm.runInNewContext(sceneSource,sceneContext,{timeout:1000});
 const scenes=sceneContext.window.MRLEE_STUDENT_LIFE_SCENES_V1?.topics;
@@ -73,6 +85,7 @@ for(const t of topics){
 assert(preview.includes('href="van-hoa-du-hoc-sinh-slides.html"'),'Preview must link to slides');
 assert(slides.includes('assets/culture/student-life-scenes-v1.js'),'Slide page must load scene data before runtime');
 assert(slides.includes('assets/culture/student-life-images-v1.js'),'Slide page must load image registry');
+assert(slides.includes('photoCredit(visual)'),'Slides must show photo attribution');
 assert(preview.includes('assets/culture/student-life-images-v1.js'),'Preview must load image registry');
 for(const html of [preview,slides]){
  assert(html.includes('noindex,nofollow'),'Draft content must not be indexed');
