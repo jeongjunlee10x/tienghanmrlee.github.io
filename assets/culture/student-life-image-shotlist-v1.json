@@ -1,0 +1,203 @@
+{
+  "version": 1,
+  "forPR": 89,
+  "stage": "pending-individual-HD-assets",
+  "updated": "2026-11-23",
+  "constraints": {
+    "minimumWidth": 1536,
+    "minimumHeight": 1024,
+    "aspectRatio": "3:2",
+    "format": "WebP",
+    "distinctImagePerScene": true,
+    "collageAllowed": false,
+    "upscaleCollageTiles": false,
+    "realPersonalDataAllowed": false,
+    "brandLogosAllowed": false,
+    "readableFinancialOrLegalTextAllowed": false,
+    "publishOnlyAfterIntegrityAndVisualQA": true
+  },
+  "plannedTopics": [
+    {
+      "id": "nha-o",
+      "title": "Nhà ở tại Hàn Quốc",
+      "target": 5
+    },
+    {
+      "id": "ngan-hang",
+      "title": "Ngân hàng và tài chính",
+      "target": 5
+    },
+    {
+      "id": "mua-online",
+      "title": "Mua hàng online và giao nhận",
+      "target": 5
+    }
+  ],
+  "images": [
+    {
+      "topic": "nha-o",
+      "number": 1,
+      "scene": "Xem phòng trọ studio",
+      "assetPath": "images/culture-student-life-v1/nha-o/01.webp",
+      "description": "Du học sinh tham quan studio Hàn Quốc có giường, bếp nhỏ, ánh sáng tự nhiên; người dẫn xem phòng, không có chữ trên giấy tờ",
+      "caption": "Mô tả phòng và hỏi điều kiện thuê",
+      "alt": "Xem phòng trọ studio của du học sinh tại Hàn Quốc — ảnh AI tái hiện tình huống",
+      "status": "pending",
+      "sourceKind": "single-scene-ai-illustration"
+    },
+    {
+      "topic": "nha-o",
+      "number": 2,
+      "scene": "Xem kỹ hợp đồng",
+      "assetPath": "images/culture-student-life-v1/nha-o/02.webp",
+      "description": "Du học sinh và nhân viên môi giới ngồi đối diện, trao đổi hợp đồng thuê trên bàn; không có thông tin cá nhân hay số tiền đọc được",
+      "caption": "Hỏi thời hạn, tiền cọc và điều khoản",
+      "alt": "Xem kỹ hợp đồng của du học sinh tại Hàn Quốc — ảnh AI tái hiện tình huống",
+      "status": "pending",
+      "sourceKind": "single-scene-ai-illustration"
+    },
+    {
+      "topic": "nha-o",
+      "number": 3,
+      "scene": "Kiểm tra phí quản lý",
+      "assetPath": "images/culture-student-life-v1/nha-o/03.webp",
+      "description": "Du học sinh dùng máy tính và hóa đơn mẫu không đọc được để tính tiền điện, nước, Internet, 관리비",
+      "caption": "Hỏi chi phí cố định và biến đổi",
+      "alt": "Kiểm tra phí quản lý của du học sinh tại Hàn Quốc — ảnh AI tái hiện tình huống",
+      "status": "pending",
+      "sourceKind": "single-scene-ai-illustration"
+    },
+    {
+      "topic": "nha-o",
+      "number": 4,
+      "scene": "Kiểm tra tình trạng căn hộ",
+      "assetPath": "images/culture-student-life-v1/nha-o/04.webp",
+      "description": "Du học sinh quan sát cửa sổ, khóa cửa, khu vực bếp và nước nóng trước khi bàn giao phòng",
+      "caption": "Lập danh sách kiểm tra phòng trước khi chuyển vào",
+      "alt": "Kiểm tra tình trạng căn hộ của du học sinh tại Hàn Quốc — ảnh AI tái hiện tình huống",
+      "status": "pending",
+      "sourceKind": "single-scene-ai-illustration"
+    },
+    {
+      "topic": "nha-o",
+      "number": 5,
+      "scene": "Báo hỏng thiết bị",
+      "assetPath": "images/culture-student-life-v1/nha-o/05.webp",
+      "description": "Du học sinh trao đổi lịch sự với chủ nhà trong phòng tắm khô ráo về thiết bị vòi nước cần sửa",
+      "caption": "Miêu tả sự cố và hẹn thời gian sửa",
+      "alt": "Báo hỏng thiết bị của du học sinh tại Hàn Quốc — ảnh AI tái hiện tình huống",
+      "status": "pending",
+      "sourceKind": "single-scene-ai-illustration"
+    },
+    {
+      "topic": "ngan-hang",
+      "number": 1,
+      "scene": "Hỏi mở tài khoản",
+      "assetPath": "images/culture-student-life-v1/ngan-hang/01.webp",
+      "description": "Du học sinh trao đổi với nhân viên tại quầy dịch vụ ngân hàng hiện đại ở Hàn Quốc, không có thương hiệu cụ thể",
+      "caption": "Hỏi giấy tờ để mở tài khoản",
+      "alt": "Hỏi mở tài khoản của du học sinh tại Hàn Quốc — ảnh AI tái hiện tình huống",
+      "status": "pending",
+      "sourceKind": "single-scene-ai-illustration"
+    },
+    {
+      "topic": "ngan-hang",
+      "number": 2,
+      "scene": "Tìm hiểu phí chuyển tiền",
+      "assetPath": "images/culture-student-life-v1/ngan-hang/02.webp",
+      "description": "Du học sinh và nhân viên ngân hàng xem biểu phí mẫu không có chữ/số đọc được",
+      "caption": "Xác nhận phí giao dịch và phương thức chuyển",
+      "alt": "Tìm hiểu phí chuyển tiền của du học sinh tại Hàn Quốc — ảnh AI tái hiện tình huống",
+      "status": "pending",
+      "sourceKind": "single-scene-ai-illustration"
+    },
+    {
+      "topic": "ngan-hang",
+      "number": 3,
+      "scene": "Giao dịch tại ATM",
+      "assetPath": "images/culture-student-life-v1/ngan-hang/03.webp",
+      "description": "Du học sinh sử dụng máy ATM trong sảnh an toàn, màn hình không hiển thị dữ liệu tài khoản, không có PIN",
+      "caption": "Dùng ATM và bảo vệ thông tin",
+      "alt": "Giao dịch tại ATM của du học sinh tại Hàn Quốc — ảnh AI tái hiện tình huống",
+      "status": "pending",
+      "sourceKind": "single-scene-ai-illustration"
+    },
+    {
+      "topic": "ngan-hang",
+      "number": 4,
+      "scene": "Kiểm tra khoản chi tiêu",
+      "assetPath": "images/culture-student-life-v1/ngan-hang/04.webp",
+      "description": "Du học sinh lập ngân sách với bảng tính vô danh trên laptop, hóa đơn không chứa thông tin cá nhân",
+      "caption": "Theo dõi số dư và quản lý ngân sách",
+      "alt": "Kiểm tra khoản chi tiêu của du học sinh tại Hàn Quốc — ảnh AI tái hiện tình huống",
+      "status": "pending",
+      "sourceKind": "single-scene-ai-illustration"
+    },
+    {
+      "topic": "ngan-hang",
+      "number": 5,
+      "scene": "Phòng tránh lừa đảo",
+      "assetPath": "images/culture-student-life-v1/ngan-hang/05.webp",
+      "description": "Du học sinh nhìn thông báo đáng ngờ trên điện thoại, không hiển thị mã OTP hoặc đường link thật, với nhân viên hỗ trợ",
+      "caption": "Nhận biết và báo cáo yêu cầu OTP giả mạo",
+      "alt": "Phòng tránh lừa đảo của du học sinh tại Hàn Quốc — ảnh AI tái hiện tình huống",
+      "status": "pending",
+      "sourceKind": "single-scene-ai-illustration"
+    },
+    {
+      "topic": "mua-online",
+      "number": 1,
+      "scene": "Kiểm tra đơn trên ứng dụng",
+      "assetPath": "images/culture-student-life-v1/mua-online/01.webp",
+      "description": "Du học sinh duyệt trang đặt hàng không có tên sàn, không có giá hay thông tin cá nhân đọc được",
+      "caption": "Kiểm tra người bán, mô tả và phí vận chuyển",
+      "alt": "Kiểm tra đơn trên ứng dụng của du học sinh tại Hàn Quốc — ảnh AI tái hiện tình huống",
+      "status": "pending",
+      "sourceKind": "single-scene-ai-illustration"
+    },
+    {
+      "topic": "mua-online",
+      "number": 2,
+      "scene": "Nhập địa chỉ nhận hàng",
+      "assetPath": "images/culture-student-life-v1/mua-online/02.webp",
+      "description": "Du học sinh đối chiếu địa chỉ giao tại ký túc xá trên điện thoại với bảng ghi chú mẫu vô danh",
+      "caption": "Xác nhận địa chỉ nhận hàng đúng",
+      "alt": "Nhập địa chỉ nhận hàng của du học sinh tại Hàn Quốc — ảnh AI tái hiện tình huống",
+      "status": "pending",
+      "sourceKind": "single-scene-ai-illustration"
+    },
+    {
+      "topic": "mua-online",
+      "number": 3,
+      "scene": "Nhận bưu kiện tại ký túc xá",
+      "assetPath": "images/culture-student-life-v1/mua-online/03.webp",
+      "description": "Sinh viên nhận một hộp carton không logo từ nhân viên chuyển phát tại quầy lễ tân ký túc xá",
+      "caption": "Thực hành nhận hàng và xác nhận người nhận",
+      "alt": "Nhận bưu kiện tại ký túc xá của du học sinh tại Hàn Quốc — ảnh AI tái hiện tình huống",
+      "status": "pending",
+      "sourceKind": "single-scene-ai-illustration"
+    },
+    {
+      "topic": "mua-online",
+      "number": 4,
+      "scene": "Theo dõi vận đơn",
+      "assetPath": "images/culture-student-life-v1/mua-online/04.webp",
+      "description": "Du học sinh kiểm tra kiện hàng và ứng dụng tracking mô phỏng không có mã vận đơn đọc được",
+      "caption": "Hỏi tình trạng giao hàng khi trễ",
+      "alt": "Theo dõi vận đơn của du học sinh tại Hàn Quốc — ảnh AI tái hiện tình huống",
+      "status": "pending",
+      "sourceKind": "single-scene-ai-illustration"
+    },
+    {
+      "topic": "mua-online",
+      "number": 5,
+      "scene": "Đóng gói hoàn trả",
+      "assetPath": "images/culture-student-life-v1/mua-online/05.webp",
+      "description": "Du học sinh đặt món đồ còn nguyên trong hộp, chuẩn bị băng keo và phiếu trả hàng không có thông tin cá nhân",
+      "caption": "Hỏi điều kiện đổi trả và phí hoàn hàng",
+      "alt": "Đóng gói hoàn trả của du học sinh tại Hàn Quốc — ảnh AI tái hiện tình huống",
+      "status": "pending",
+      "sourceKind": "single-scene-ai-illustration"
+    }
+  ]
+}
