@@ -8,7 +8,8 @@
  const preview=new URLSearchParams(location.search).get('mr4preview');
  const rawPage=(location.pathname.split('/').pop()||'index.html').replace(/^mrlee-preview-(home|.*)\.html$/,(x,k)=>k==='home'?'index.html':k+'.html');const page=rawPage.endsWith('.html')?rawPage:rawPage+'.html';
  let saved;try{saved=localStorage.getItem(KEY)}catch{}
- let theme=choices.includes(preview)?preview:choices.includes(saved)?saved:(choices.includes(window.MRLEE4_DEFAULT_THEME)?window.MRLEE4_DEFAULT_THEME:'fresh');
+ let legacy;try{legacy=localStorage.getItem(LEGACY)}catch{}
+ let theme=choices.includes(preview)?preview:choices.includes(saved)?saved:(legacy==='future'?'future':(choices.includes(window.MRLEE4_DEFAULT_THEME)?window.MRLEE4_DEFAULT_THEME:'fresh'));
  function apply(){
   root.dataset.mr4Theme=theme;
   root.dataset.mrleeTheme=theme==='future'?'future':'fresh';
