@@ -75,7 +75,7 @@ try{
     assert(await page.locator('#answer').isVisible(),lesson.slug+': show bilingual translations');
     assert.match(await page.locator('#answer').innerText(),/Bản dịch Hàn–Việt/,lesson.slug+': Vietnamese reference');
     await page.locator('#speak').click();
-    assert(await page.evaluate(()=>window.__mrleeSpoken.some(x=>x.includes('\\n'))),lesson.slug+': Korean multi-turn speech');
+    assert(await page.evaluate(()=>window.__mrleeSpoken.some(x=>x.includes('\n'))),lesson.slug+': Korean multi-turn speech');
     if(lesson.slug===active[0].slug){
      await page.screenshot({path:path.join(out,mode+'-'+viewport.width+'-roleplay.png')});
     }
