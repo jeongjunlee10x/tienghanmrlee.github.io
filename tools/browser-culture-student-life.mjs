@@ -67,11 +67,23 @@ try{
      assert(await page.evaluate(()=>window.__mrleeSpoken.length>0),'Korean voice button');
      await page.screenshot({path:path.join(out,mode+'-'+viewport.width+'-slide.png')});
     }
+    await page.goto(host+'/van-hoa-du-hoc-sinh-slides.html#'+lesson.slug+'/25',{waitUntil:'domcontentloaded'});
+    assert.equal((await page.locator('#counter').textContent()).trim(),'25 / 45',lesson.slug+': contextual roleplay slide');
+    assert.equal(await page.locator('.body.roleplay').count(),1,lesson.slug+': roleplay rendered');
+    assert.match(await page.locator('.body.roleplay').innerText(),/[가-힣]/u,lesson.slug+': Korean dialogue');
+    await page.locator('#reveal').click();
+    assert(await page.locator('#answer').isVisible(),lesson.slug+': show bilingual translations');
+    assert.match(await page.locator('#answer').innerText(),/Bản dịch Hàn–Việt/,lesson.slug+': Vietnamese reference');
+    await page.locator('#speak').click();
+    assert(await page.evaluate(()=>window.__mrleeSpoken.some(x=>x.includes('\\n'))),lesson.slug+': Korean multi-turn speech');
+    if(lesson.slug===active[0].slug){
+     await page.screenshot({path:path.join(out,mode+'-'+viewport.width+'-roleplay.png')});
+    }
     await page.goto(host+'/van-hoa-du-hoc-sinh-preview.html',{waitUntil:'domcontentloaded'});
    }
    assert.deepEqual(errors,[],mode+' '+viewport.width+': browser page errors');
    await context.close();
-   console.log('PASS Chromium '+mode+' '+viewport.width+'px: 8 active / 12 planned, 8 slide links, TTS stub, no overflow, no page errors');
+   console.log('PASS Chromium '+mode+' '+viewport.width+'px: 8 active / 12 planned, 8 slide links, bilingual roleplays, TTS stub, no overflow, no page errors');
   }
  }
 }finally{
