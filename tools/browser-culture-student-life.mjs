@@ -73,10 +73,13 @@ try{
     await page.goto(new URL(href,host+'/').href,{waitUntil:'domcontentloaded'});
     assert.equal((await page.locator('#counter').textContent()).trim(),'1 / 45',lesson.slug+': start');
     assert.equal(await page.locator('.studentSlideVisual img').count(),expected>0?1:0,lesson.slug+': image on opening slide');
+    assert.equal(await page.locator('#slide.hasMedia').count(),expected>0?1:0,lesson.slug+': image layout mode');
     if(expected>0){
       assert.equal(await page.locator('.studentSlideVisual .studentPhotoCredit').count(),lesson.slug==='dien-thoai'?1:0,lesson.slug+': opening slide attribution');
-      const dimensions=await page.locator('.studentSlideVisual img').evaluate(async img=>{await img.decode();return {w:img.naturalWidth,h:img.naturalHeight}});
+      if(lesson.slug==='dien-thoai')assert.match(await page.locator('.studentSlideVisual .changeNote').innerText(),/WebP/,lesson.slug+': CC modification notice');
+      const dimensions=await page.locator('.studentSlideVisual img').evaluate(async img=>{await img.decode();return {w:img.naturalWidth,h:img.naturalHeight,displayWidth:img.getBoundingClientRect().width}});
       assert(dimensions.w>=640&&dimensions.h>=320,lesson.slug+': broken cover image');
+      assert(dimensions.displayWidth>=(viewport.width<600?250:420),lesson.slug+': illustrated slide image displayed too small ('+Math.round(dimensions.displayWidth)+'px)');
     }
     await page.locator('#next').click();
     assert.equal((await page.locator('#counter').textContent()).trim(),'2 / 45',lesson.slug+': next');
