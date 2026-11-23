@@ -73,7 +73,7 @@ assert(slides.includes('.slide:fullscreen'),'Fullscreen layout missing');
 const inlineSlideScript=slides.match(/<script>([\s\S]*?)<\/script>/)?.[1];
 assert(inlineSlideScript,'Slide runtime missing');
 for(const topic of topics){
- const els={};let spoken=[],fullscreen=false;const errors=[],keyboard={};
+ const els={};let spoken=[],fullscreen=false;const errors=[],keyboard={},windowEvents={};
  for(const key of ['topic','slide','prev','next','reveal','speak','counter','progress','fullscreen','answer']){
   els[key]={value:0,innerHTML:'',textContent:'',disabled:false,hidden:false,options:[],events:{},
     classList:{toggle(){return true}},
@@ -86,7 +86,7 @@ for(const topic of topics){
  const tts={getVoices:()=>[{lang:'ko-KR'}],cancel(){},speak(u){spoken.push(u.text)}};
  vm.runInNewContext(inlineSlideScript,{
   document,location,history:{replaceState:(a,b,url)=>{location.hash=url}},
-  window:{speechSynthesis:tts,MRLEE_STUDENT_LIFE_SCENES_V1:{topics:scenes}},speechSynthesis:tts,
+  window:{speechSynthesis:tts,MRLEE_STUDENT_LIFE_SCENES_V1:{topics:scenes},addEventListener:(event,cb)=>{windowEvents[event]=cb}},speechSynthesis:tts,
   SpeechSynthesisUtterance:function(text){this.text=text},
   Option:function(label,value){this.label=label;this.value=value},
   alert:message=>errors.push(message)
@@ -120,6 +120,11 @@ for(const topic of topics){
  els.speak.onclick();
  assert.equal(spoken.length,2,topic.id+': contextual Korean TTS');
  assert(spoken[1].includes(scenes[topic.id][0].lines[0].ko),topic.id+': contextual TTS content');
+ assert.equal(typeof windowEvents.hashchange,'function',topic.id+': hashchange listener');
+ location.hash='#'+topic.id+'/33';windowEvents.hashchange();
+ assert.equal(els.counter.textContent,'33 / 45',topic.id+': deep link updates same document');
+ location.hash='#'+topic.id+'/25';windowEvents.hashchange();
+ assert.equal(els.counter.textContent,'25 / 45',topic.id+': deep link back');
  assert.equal(errors.length,0,topic.id+': unexpected alert');
 }
 console.log('PASS runtime: 8 topics, slide nav, swipe, keyboard, speech, fullscreen, source links');
