@@ -30,9 +30,9 @@ for(const [slug,items] of Object.entries(imageMap)){
  }
 }
 assert.equal(imageCount,19,'19 existing verified image assets required');
-assert.deepEqual(imageMap['mua-online'].map(x=>x.src),['images/culture-speaking/food-delivery.webp'],'Online delivery is only one partial illustration');
-assert.deepEqual(imageContext.window.MRLEE_STUDENT_LIFE_IMAGES_V1.pendingTopics,['nha-o','ngan-hang'],'Unillustrated topics must remain flagged');
-assert.deepEqual(imageContext.window.MRLEE_STUDENT_LIFE_IMAGES_V1.partiallyIllustratedTopics,['mua-online'],'Partial media needs review');
+assert.deepEqual(Array.from(imageMap['mua-online'],x=>x.src),['images/culture-speaking/food-delivery.webp'],'Online delivery is only one partial illustration');
+assert.deepEqual(Array.from(imageContext.window.MRLEE_STUDENT_LIFE_IMAGES_V1.pendingTopics),['nha-o','ngan-hang'],'Unillustrated topics must remain flagged');
+assert.deepEqual(Array.from(imageContext.window.MRLEE_STUDENT_LIFE_IMAGES_V1.partiallyIllustratedTopics),['mua-online'],'Partial media needs review');
 for(const [slug,items] of Object.entries(imageMap)){
  for(const item of items.filter(x=>x.src.startsWith('images/culture-speaking/'))){
   const image=fs.readFileSync(item.src);
