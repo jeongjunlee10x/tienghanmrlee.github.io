@@ -7,6 +7,7 @@ on:
       - 'assets/culture/student-life-catalog-v1.json'
       - 'assets/culture/student-life-scenes-v1.js'
       - 'assets/culture/student-life-images-v1.js'
+      - 'assets/culture/student-life-image-shotlist-v1.json'
       - 'tools/check-culture-student-life-preview.mjs'
       - 'tools/browser-culture-student-life.mjs'
       - '.github/workflows/culture-student-life-qa.yml'
