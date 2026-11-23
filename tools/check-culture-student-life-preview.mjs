@@ -3,6 +3,26 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const preview=fs.readFileSync('van-hoa-du-hoc-sinh-preview.html','utf8');
+const sceneSource=fs.readFileSync('assets/culture/student-life-scenes-v1.js','utf8');
+const sceneContext={window:{}};
+vm.runInNewContext(sceneSource,sceneContext,{timeout:1000});
+const scenes=sceneContext.window.MRLEE_STUDENT_LIFE_SCENES_V1?.topics;
+assert(scenes,'Scene module missing');
+assert.equal(Object.keys(scenes).length,8,'Eight scene groups expected');
+let turnCount=0;
+for(const [slug,items] of Object.entries(scenes)){
+ assert.equal(items.length,3,slug+': needs three realistic scenes');
+ for(const scene of items){
+  assert(scene.title&&scene.objective&&scene.setting,'Scene metadata is incomplete');
+  assert.equal(scene.lines.length,4,'Each scene must have four dialogue lines');
+  for(const line of scene.lines){
+   assert(['A','B'].includes(line.speaker),'Unknown speaker');
+   assert(/[가-힣]/u.test(line.ko)&&line.vi.length>5,'Missing bilingual dialogue');
+   turnCount++;
+  }
+ }
+}
+assert.equal(turnCount,96,'24 dialogues × four turns');
 const slides=fs.readFileSync('van-hoa-du-hoc-sinh-slides.html','utf8');
 const match=slides.match(/const topics=(\[[^\n]+\]);\s*const \$=/);
 assert(match,'Missing embedded topics dataset');
@@ -32,6 +52,7 @@ for(const t of topics){
  assert.equal(1+2+3+t.terms.length+t.sentences.length+t.cases.length+8+4,45);
 }
 assert(preview.includes('href="van-hoa-du-hoc-sinh-slides.html"'),'Preview must link to slides');
+assert(slides.includes('assets/culture/student-life-scenes-v1.js'),'Slide page must load scene data before runtime');
 for(const html of [preview,slides]){
  assert(html.includes('noindex,nofollow'),'Draft content must not be indexed');
  assert(!html.includes('localStorage.setItem'),'Must not change legacy learning records');
@@ -65,7 +86,7 @@ for(const topic of topics){
  const tts={getVoices:()=>[{lang:'ko-KR'}],cancel(){},speak(u){spoken.push(u.text)}};
  vm.runInNewContext(inlineSlideScript,{
   document,location,history:{replaceState:(a,b,url)=>{location.hash=url}},
-  window:{speechSynthesis:tts},speechSynthesis:tts,
+  window:{speechSynthesis:tts,MRLEE_STUDENT_LIFE_SCENES_V1:{topics:scenes}},speechSynthesis:tts,
   SpeechSynthesisUtterance:function(text){this.text=text},
   Option:function(label,value){this.label=label;this.value=value},
   alert:message=>errors.push(message)
@@ -91,6 +112,14 @@ for(const topic of topics){
  assert(/[가-힣]/u.test(spoken[0]),topic.id+': spoken Korean text');
  els.fullscreen.onclick();
  assert(fullscreen,topic.id+': fullscreen');
+ for(let i=0;i<18;i++)els.next.onclick();
+ assert.equal(els.counter.textContent,'25 / 45',topic.id+': scenario 1 starts at slide 25');
+ assert(els.slide.innerHTML.includes('roleplay'),topic.id+': contextual dialogue style');
+ assert(els.slide.innerHTML.includes(scenes[topic.id][0].lines[0].ko),topic.id+': specific scene text');
+ assert.equal(els.reveal.textContent,'Hiện bản dịch',topic.id+': translation toggle');
+ els.speak.onclick();
+ assert.equal(spoken.length,2,topic.id+': contextual Korean TTS');
+ assert(spoken[1].includes(scenes[topic.id][0].lines[0].ko),topic.id+': contextual TTS content');
  assert.equal(errors.length,0,topic.id+': unexpected alert');
 }
 console.log('PASS runtime: 8 topics, slide nav, swipe, keyboard, speech, fullscreen, source links');
