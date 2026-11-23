@@ -1,0 +1,31 @@
+
+/* MR LEE 4.0 — 3 THEMES; non-destructive visual layer */
+:root[data-mr4-theme="fresh"]{--mr4-bg:#eaf4fe;--mr4-paper:#f8fcff;--mr4-ink:#173756;--mr4-sub:#466787;--mr4-accent:#176dcc;--mr4-outline:#b9d6ec;--mr4-hero-shade:linear-gradient(92deg,rgba(240,248,255,.98) 0%,rgba(240,248,255,.91) 33%,rgba(240,248,255,.27) 61%,transparent 100%);--mr4-ambient:radial-gradient(circle at 9% 14%,#b8e0fbbb,transparent 34%),radial-gradient(circle at 91% 25%,#b9f0e999,transparent 33%),#eaf4fe}
+:root[data-mr4-theme="future"]{--mr4-bg:#07172d;--mr4-paper:#122945;--mr4-ink:#f0faff;--mr4-sub:#c2d8e9;--mr4-accent:#74e5ee;--mr4-outline:#345b7c;--mr4-hero-shade:linear-gradient(92deg,rgba(5,18,39,.98) 0%,rgba(6,23,45,.88) 35%,rgba(3,20,46,.2) 72%,transparent 100%);--mr4-ambient:radial-gradient(circle at 12% 8%,#1e4f88a6,transparent 38%),radial-gradient(circle at 90% 8%,#463b85a8,transparent 36%),#07172d}
+:root[data-mr4-theme="campus"]{--mr4-bg:#f5eee6;--mr4-paper:#fffbf3;--mr4-ink:#42343a;--mr4-sub:#6b5960;--mr4-accent:#a03950;--mr4-outline:#e0cabb;--mr4-hero-shade:linear-gradient(92deg,rgba(255,249,238,.98) 0%,rgba(255,244,229,.91) 35%,rgba(253,238,225,.3) 65%,transparent 100%);--mr4-ambient:radial-gradient(circle at 8% 8%,#f5d7c5a9,transparent 36%),radial-gradient(circle at 93% 22%,#efd5dfa8,transparent 30%),#f5eee6}
+html[data-mr4-theme] body{background:var(--mr4-ambient)!important;color:var(--mr4-ink)}
+html[data-mr4-theme] #mrleeNewHome{background:transparent!important;color:var(--mr4-ink)!important}
+html[data-mr4-theme] #mrleeNewHome .mr27-hero{position:relative!important;isolation:isolate;background-color:var(--mr4-paper)!important;background-image:var(--mr4-hero-shade),var(--mr4-hero-art)!important;background-position:center,center!important;background-size:cover!important;background-repeat:no-repeat!important;border:1px solid var(--mr4-outline)!important;min-height:450px!important;overflow:hidden}
+html[data-mr4-theme] #mrleeNewHome .mr27-hero::before{opacity:0!important}
+html[data-mr4-theme] #mrleeNewHome .mr27-hero-copy{background:transparent!important;z-index:3!important;min-height:450px!important;justify-content:center!important}
+html[data-mr4-theme] #mrleeNewHome .mr27-hero h1,html[data-mr4-theme] #mrleeNewHome .mr27-section-title h2,html[data-mr4-theme] #mrleeNewHome .mr27-overline{color:var(--mr4-ink)!important}
+html[data-mr4-theme] #mrleeNewHome .mr27-hero h1 em{color:var(--mr4-accent)!important;background:none!important;-webkit-text-fill-color:var(--mr4-accent)!important}
+html[data-mr4-theme] #mrleeNewHome .mr27-hero p,html[data-mr4-theme] #mrleeNewHome .mr27-section-title p{color:var(--mr4-sub)!important}
+html[data-mr4-theme] #mrleeNewHome .mr27-hero-media{background:transparent!important;position:relative!important;z-index:2!important}
+html[data-mr4-theme] #mrleeNewHome .mr27-hero-media img{opacity:0!important}
+html[data-mr4-theme] #mrleeNewHome .mr27-hero-media::before{background:none!important}
+html[data-mr4-theme] #mrleeNewHome .mr27-actions a:first-child{background:var(--mr4-accent)!important;border-color:var(--mr4-accent)!important;color:var(--mr4-paper)!important}
+html[data-mr4-theme="future"] #mrleeNewHome .mr27-actions a:first-child{color:#082238!important}
+html[data-mr4-theme="campus"] #mrleeNewHome .mr27-grid .mr27-tile{border-color:var(--mr4-outline)!important}
+.mr4-page-banner{box-sizing:border-box;max-width:1420px;margin:18px auto 25px;padding:26px 34px;min-height:195px;position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;border:1px solid var(--mr4-outline);border-radius:24px;background-color:var(--mr4-paper);background-image:var(--mr4-hero-shade),var(--mr4-banner-photo);background-size:cover;background-position:center;box-shadow:0 15px 45px rgba(20,49,83,.11);font-family:"Be Vietnam Pro","Noto Sans KR",Arial,sans-serif}
+.mr4-page-banner-text{position:relative;z-index:2;max-width:720px}.mr4-page-banner-kicker{display:block;font-size:11px;font-weight:850;letter-spacing:.16em;color:var(--mr4-accent)}.mr4-page-banner h2{margin:9px 0;font-size:clamp(22px,2.7vw,39px);font-weight:900;color:var(--mr4-ink);line-height:1.2}.mr4-page-banner p{margin:0;max-width:600px;color:var(--mr4-sub);line-height:1.7;font-size:14px}
+#mr4-switcher{position:fixed;bottom:16px;left:16px;z-index:9000;font-family:"Be Vietnam Pro",Arial,sans-serif}
+#mr4-switcher button{cursor:pointer}
+#mr4-switcher-toggle{background:var(--mr4-paper);border:1px solid var(--mr4-outline);padding:12px 16px;border-radius:100px;box-shadow:0 12px 34px #0b214d42;color:var(--mr4-ink);font-size:12px;font-weight:850;min-height:44px}
+#mr4-switcher-menu{position:absolute;bottom:54px;left:0;min-width:224px;display:grid;gap:8px;background:var(--mr4-paper);border:1px solid var(--mr4-outline);padding:12px;border-radius:16px;box-shadow:0 12px 40px #0b214d38}
+#mr4-switcher-menu[hidden]{display:none!important}
+#mr4-switcher-menu button{border:1px solid var(--mr4-outline);background:transparent;border-radius:10px;color:var(--mr4-ink);text-align:left;padding:12px;font-weight:700}
+#mr4-switcher-menu button[aria-pressed="true"]{border-color:var(--mr4-accent);background:color-mix(in srgb,var(--mr4-accent) 12%,transparent)}
+@media(max-width:800px){html[data-mr4-theme] #mrleeNewHome .mr27-hero{background-position:55% center!important}html[data-mr4-theme] #mrleeNewHome .mr27-hero-copy{min-height:410px!important}.mr4-page-banner{margin:12px 10px;padding:22px;min-height:168px}}
+@media(max-width:600px){html[data-mr4-theme] #mrleeNewHome .mr27-hero{background-image:linear-gradient(180deg,var(--mr4-paper) 0%,color-mix(in srgb,var(--mr4-paper) 92%,transparent) 41%,transparent 100%),var(--mr4-hero-art)!important;background-position:center,65% center!important;min-height:620px!important;display:block!important}html[data-mr4-theme] #mrleeNewHome .mr27-hero-copy{min-height:380px!important;padding:22px!important}html[data-mr4-theme] #mrleeNewHome .mr27-hero-media{height:0!important}.mr4-page-banner{background-image:linear-gradient(90deg,var(--mr4-paper) 0%,color-mix(in srgb,var(--mr4-paper) 78%,transparent) 70%,transparent 100%),var(--mr4-banner-photo)}.mr4-page-banner h2{font-size:23px}.mr4-page-banner p{font-size:12px}}
+@media(prefers-reduced-motion:reduce){#mr4-switcher *{transition:none!important}}
