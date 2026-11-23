@@ -11,6 +11,8 @@
 .studentSlideVisual{position:relative;z-index:1;width:min(100%,520px);margin:16px 0 0;border:1px solid #cddfed;border-radius:16px;overflow:hidden;background:#e6f0f6;box-shadow:0 7px 22px rgba(10,44,78,.10)}
 .studentSlideVisual img{display:block;width:100%;height:auto;aspect-ratio:16/9;max-height:230px;object-fit:cover}
 .studentSlideVisual figcaption{font-size:.78rem;line-height:1.55;color:#244f72;background:white;padding:9px 12px}
+.studentPhotoCredit{margin-top:6px;border-top:1px solid #ddeaf5;padding-top:6px;font-size:.74rem}
+.studentPhotoCredit a{color:#0b5a94;text-decoration:underline;text-underline-offset:2px;font-weight:700}
 @media(max-width:650px){.studentSlideVisual{margin-top:12px}.studentSlideVisual img{max-height:180px}}
 .body.roleplay{font-size:clamp(1.07rem,2.1vw,1.55rem);line-height:1.75;max-width:980px;white-space:pre-wrap}
 .slide:has(.body.roleplay) .answer{font-size:clamp(.98rem,1.55vw,1.15rem);line-height:1.6;white-space:pre-wrap;max-width:980px;padding:10px 16px}
@@ -35,6 +37,7 @@ const sources={
 };
 const scenes=window.MRLEE_STUDENT_LIFE_SCENES_V1?.topics||{};
 const media=window.MRLEE_STUDENT_LIFE_IMAGES_V1?.topicImages||{};
+const photoCredit=v=>v.kind==="licensed-photo"?'<div class="studentPhotoCredit">Ảnh: '+esc(v.author)+' · <a href="'+esc(v.licenseUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(v.license)+'</a> · <a href="'+esc(v.source)+'" target="_blank" rel="noopener noreferrer">Nguồn ảnh</a></div>':'';
 let current=0,active=0,deck=[],speech="";
 function make(t){
  const s=[];const add=(type,title,main,sub="",answer="")=>s.push({type,title,main,sub,answer});
@@ -74,7 +77,7 @@ function render(){
  const t=topics[active],s=deck[current];speech=s.type.startsWith("Đóng vai")?s.main.replace(/^[AB]: /gm,""):(s.title.match(/[가-힣]+(?:\s+[가-힣]+)*/u)||[])[0]||"";
  const visuals=media[t.id]||[];
  const visual=(visuals.length&&(s.type==="Bắt đầu"||s.type==="Bối cảnh"))?visuals[current%visuals.length]:null;
- const figure=visual?'<figure class="studentSlideVisual"><img src="'+esc(visual.src)+'" alt="'+esc(visual.alt)+'" width="960" height="640" decoding="async" loading="lazy"><figcaption>'+esc(visual.caption)+'</figcaption></figure>':'';
+ const figure=visual?'<figure class="studentSlideVisual"><img src="'+esc(visual.src)+'" alt="'+esc(visual.alt)+'" width="960" height="640" decoding="async" loading="lazy"><figcaption>'+esc(visual.caption)+photoCredit(visual)+'</figcaption></figure>':'';
  $("slide").innerHTML='<div class="kicker">'+esc(s.type)+' · '+(current+1)+'/45</div><div class="topicName">'+esc(t.icon+" "+t.vi)+'</div><h2'+(speech?' class="ko" lang="ko"':'')+'>'+esc(s.title)+'</h2><div class="body'+(/[\uac00-\ud7a3]/.test(s.main)?' ko':'')+(s.type.startsWith("Đóng vai")?' roleplay':'')+'">'+esc(s.main)+'</div>'+(s.sub?'<div class="secondary">'+esc(s.sub)+'</div>':'')+figure+(s.answer?'<div class="answer" id="answer">'+esc(s.answer)+'</div>':'')+'<div class="bottom"><span>MR LEE · Giáo trình xem trước</span><a target="_blank" rel="noopener noreferrer" href="'+esc(sources[t.id].url)+'">'+esc(sources[t.id].label)+' ↗</a><span>'+esc(t.ko)+'</span></div>';
  $("counter").textContent=(current+1)+" / 45";$("progress").value=current+1;$("prev").disabled=current===0;$("next").disabled=current===44;$("reveal").hidden=!s.answer;$("reveal").textContent=s.type.startsWith("Đóng vai")?"Hiện bản dịch":"Hiện đáp án";$("speak").disabled=!speech;
  history.replaceState(null,"","#"+encodeURIComponent(t.id)+"/"+(current+1));
