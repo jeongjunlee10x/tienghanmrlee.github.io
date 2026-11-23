@@ -51,6 +51,8 @@ try{
    await page.screenshot({path:path.join(out,mode+'-'+viewport.width+'-library.png'),fullPage:true});
    for(const lesson of active){
     await page.locator('#topics .topic[data-id="'+lesson.slug+'"]').click();
+    assert.equal(await page.locator('.scene-line').count(),4,lesson.slug+': four-turn preview');
+    assert.match(await page.locator('.scene-line').first().innerText(),/[가-힣]/u,lesson.slug+': preview Korean');
     const href=await page.locator('.lesson-link').getAttribute('href');
     assert(href.endsWith('#'+lesson.slug+'/1'),lesson.slug+': wrong slide deep link');
     await page.goto(new URL(href,host+'/').href,{waitUntil:'domcontentloaded'});
