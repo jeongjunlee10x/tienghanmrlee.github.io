@@ -8,6 +8,7 @@ import {chromium} from 'playwright';
 const root=process.cwd();
 const catalog=JSON.parse(fs.readFileSync('assets/culture/student-life-catalog-v1.json','utf8'));
 const active=catalog.lessons.filter(x=>x.status==='preview');
+const expectedMedia={'giao-thong':4,'mua-sam':2,'an-uong':4};
 const out='artifacts/culture-student-life';
 fs.mkdirSync(out,{recursive:true});
 const mime={'.html':'text/html; charset=utf-8','.js':'application/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.woff2':'font/woff2'};
@@ -52,11 +53,24 @@ try{
    for(const lesson of active){
     await page.locator('#topics .topic[data-id="'+lesson.slug+'"]').click();
     assert.equal(await page.locator('.scene-line').count(),4,lesson.slug+': four-turn preview');
+    const expected=expectedMedia[lesson.slug]||0;
+    assert.equal(await page.locator('.studentGallery img').count(),expected,lesson.slug+': image gallery count');
+    for(const photo of await page.locator('.studentGallery img').all()){
+      await photo.scrollIntoViewIfNeeded();
+      const dimensions=await photo.evaluate(async img=>{await img.decode();return {w:img.naturalWidth,h:img.naturalHeight}});
+      assert(dimensions.w>=640&&dimensions.h>=320,lesson.slug+': low-resolution or broken gallery image');
+      assert((await photo.getAttribute('alt')).length>=15,lesson.slug+': missing alt text');
+    }
     assert.match(await page.locator('.scene-line').first().innerText(),/[가-힣]/u,lesson.slug+': preview Korean');
     const href=await page.locator('.lesson-link').getAttribute('href');
     assert(href.endsWith('#'+lesson.slug+'/1'),lesson.slug+': wrong slide deep link');
     await page.goto(new URL(href,host+'/').href,{waitUntil:'domcontentloaded'});
     assert.equal((await page.locator('#counter').textContent()).trim(),'1 / 45',lesson.slug+': start');
+    assert.equal(await page.locator('.studentSlideVisual img').count(),expected>0?1:0,lesson.slug+': image on opening slide');
+    if(expected>0){
+      const dimensions=await page.locator('.studentSlideVisual img').evaluate(async img=>{await img.decode();return {w:img.naturalWidth,h:img.naturalHeight}});
+      assert(dimensions.w>=640&&dimensions.h>=320,lesson.slug+': broken cover image');
+    }
     await page.locator('#next').click();
     assert.equal((await page.locator('#counter').textContent()).trim(),'2 / 45',lesson.slug+': next');
     await page.locator('#prev').click();
