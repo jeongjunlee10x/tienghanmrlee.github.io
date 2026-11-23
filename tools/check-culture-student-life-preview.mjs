@@ -19,7 +19,7 @@ for(const [slug,items] of Object.entries(imageMap)){
   assert(fs.statSync(item.src).size>10000,slug+': suspiciously small image');
   assert(item.caption.length>=15&&item.alt.length>=15,slug+': missing caption/alt');
   if(item.kind==='licensed-photo'){
-   assert(item.author&&item.license&&item.source&&item.licenseUrl,slug+': incomplete attribution');
+   assert(item.author&&item.license&&item.source&&item.licenseUrl&&item.changes,slug+': incomplete attribution including modifications');
    assert(item.source.startsWith('https://commons.wikimedia.org/wiki/File:'),slug+': source must be original photo page');
    assert(item.licenseUrl.startsWith('https://creativecommons.org/licenses/'),slug+': license URL required');
   }else{
@@ -86,6 +86,7 @@ assert(preview.includes('href="van-hoa-du-hoc-sinh-slides.html"'),'Preview must 
 assert(slides.includes('assets/culture/student-life-scenes-v1.js'),'Slide page must load scene data before runtime');
 assert(slides.includes('assets/culture/student-life-images-v1.js'),'Slide page must load image registry');
 assert(slides.includes('photoCredit(visual)'),'Slides must show photo attribution');
+assert(preview.includes('changeNote')&&slides.includes('changeNote'),'Photograph modifications must be visible');
 assert(preview.includes('assets/culture/student-life-images-v1.js'),'Preview must load image registry');
 for(const html of [preview,slides]){
  assert(html.includes('noindex,nofollow'),'Draft content must not be indexed');
