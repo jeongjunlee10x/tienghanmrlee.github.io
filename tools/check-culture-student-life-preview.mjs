@@ -9,10 +9,10 @@ const imageContext={window:{}};
 vm.runInNewContext(imageSource,imageContext,{timeout:1000});
 const imageMap=imageContext.window.MRLEE_STUDENT_LIFE_IMAGES_V1?.topicImages;
 assert(imageMap,'Missing student-life image registry');
-assert.deepEqual(Object.keys(imageMap).sort(),['an-uong','dien-thoai','giao-thong','ky-tuc-xa','mua-sam'],'Only verified image groups expected');
+assert.deepEqual(Object.keys(imageMap).sort(),['an-uong','dien-thoai','giao-thong','ky-tuc-xa','mua-online','mua-sam'],'Only verified image groups expected');
 let imageCount=0;
 for(const [slug,items] of Object.entries(imageMap)){
- assert(items.length>=2,slug+': insufficient image diversity');
+ assert(items.length>= (slug==='mua-online'?1:2),slug+': insufficient image diversity');
  for(const item of items){
   assert(/^(?:images|assets)\/[a-z0-9/-]+\.webp$/.test(item.src)&&!item.src.includes('..'),slug+': unexpected image path');
   assert(fs.existsSync(item.src),slug+': missing asset '+item.src);
@@ -29,12 +29,27 @@ for(const [slug,items] of Object.entries(imageMap)){
   imageCount++;
  }
 }
-assert.equal(imageCount,15,'15 existing verified image assets required');
+assert.equal(imageCount,19,'19 existing verified image assets required');
+assert.deepEqual(imageMap['mua-online'].map(x=>x.src),['images/culture-speaking/food-delivery.webp'],'Online delivery is only one partial illustration');
+assert.deepEqual(imageContext.window.MRLEE_STUDENT_LIFE_IMAGES_V1.pendingTopics,['nha-o','ngan-hang'],'Unillustrated topics must remain flagged');
+assert.deepEqual(imageContext.window.MRLEE_STUDENT_LIFE_IMAGES_V1.partiallyIllustratedTopics,['mua-online'],'Partial media needs review');
+for(const [slug,items] of Object.entries(imageMap)){
+ for(const item of items.filter(x=>x.src.startsWith('images/culture-speaking/'))){
+  const image=fs.readFileSync(item.src);
+  assert.equal(image.toString('ascii',0,4),'RIFF',slug+': invalid WebP');
+  assert.equal(image.toString('ascii',8,12),'WEBP',slug+': invalid WebP');
+  const format=image.toString('ascii',12,16);
+  assert.equal(format,'VP8 ',slug+': unexpected WebP encoder');
+  const w=image.readUInt16LE(26)&0x3fff,h=image.readUInt16LE(28)&0x3fff;
+  assert(w>=1536&&h>=1024,slug+': new illustrated scene below 1536 × 1024');
+ }
+}
+
 assert.equal(imageMap['dien-thoai'].filter(x=>x.kind==='licensed-photo').length,3,'Phone photos require attribution');
 assert(preview.includes('photoCredit(v)'),'Preview must show licenses on photo captions');
 assert.equal(imageMap['nha-o'],undefined,'Housing pack not on PR yet; avoid broken image links');
 assert.equal(imageMap['ngan-hang'],undefined,'Unverified bank photo must not display');
-assert.equal(imageMap['mua-online'],undefined,'Unverified online shopping photo must not display');
+assert.equal(imageMap['mua-online'].length,1,'Only one verified online delivery photo is available');
 const sceneContext={window:{}};
 vm.runInNewContext(sceneSource,sceneContext,{timeout:1000});
 const scenes=sceneContext.window.MRLEE_STUDENT_LIFE_SCENES_V1?.topics;
@@ -64,6 +79,12 @@ assert.equal(catalog.lessons.length,20,'Catalog must have 20 topics');
 assert.equal(catalog.lessons.filter(x=>x.status==='preview').length,8,'Exactly 8 published-to-preview lessons');
 assert.equal(catalog.lessons.filter(x=>x.status==='planned').length,12,'Exactly 12 future lessons');
 assert.equal(catalog.policy.oldSlugs.length,22,'Preserve all 22 original routes');
+const legacySource=fs.readFileSync('mrlee-culture-v13-data.js','utf8');
+const legacyMatch=legacySource.match(/window\.MRLEE_CULTURE_V13=(\[[\s\S]*\]);?\s*$/);
+assert(legacyMatch,'Original 22-topic dataset missing or altered');
+const legacySlugs=JSON.parse(legacyMatch[1]).map(row=>row.slug);
+assert.deepEqual(catalog.policy.oldSlugs,legacySlugs,'Legacy slugs must exactly match the original source and ordering');
+
 assert.equal(new Set(catalog.lessons.map(x=>x.slug)).size,20,'No duplicate new identifiers');
 assert.equal(new Set(catalog.policy.oldSlugs).size,22,'No duplicate old identifiers');
 assert.equal(catalog.policy.preserveLegacyLessons,true,'Must preserve legacy lessons');
