@@ -26,6 +26,9 @@ h2{font-size:clamp(1.5rem,3vw,2rem);margin:0 0 5px}h3{margin:27px 0 12px}.ko{col
 .studentGallery img{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;background:#e6eff6}
 .studentGallery figcaption{padding:12px 13px;font-size:.88rem;line-height:1.65;color:#3b566e}
 .studentGalleryNotice{font-size:.81rem;color:#647b90;line-height:1.5}
+.studentPhotoCredit{margin-top:7px;padding-top:7px;border-top:1px solid #e6eff7;font-size:.78rem;line-height:1.55;color:#506a82}
+.studentPhotoCredit a{color:#10578b;font-weight:700;text-decoration:underline;text-underline-offset:2px}
+.studentPhotoCredit a:focus-visible{outline:3px solid #edb849;outline-offset:2px}
 @media(max-width:520px){.studentGallery{grid-template-columns:1fr}}
 .scene{border:1px solid #d4e6f7;border-radius:14px;background:linear-gradient(135deg,#f4faff,#fff);padding:16px;display:grid;gap:12px}
 .scene-intro{font-size:.93rem;color:#376b95;line-height:1.6;margin:0 0 4px}
@@ -60,6 +63,7 @@ const topics=[{"id":"nha-o","icon":"🏠","title":"Nhà ở tại Hàn Quốc","
 const nav=document.getElementById("topics"),lesson=document.getElementById("lesson");
 const scenes=window.MRLEE_STUDENT_LIFE_SCENES_V1?.topics||{};
 const media=window.MRLEE_STUDENT_LIFE_IMAGES_V1?.topicImages||{};
+const photoCredit=v=>v.kind==="licensed-photo"?'<div class="studentPhotoCredit">Ảnh: '+esc(v.author)+' · <a target="_blank" rel="noopener noreferrer" href="'+esc(v.licenseUrl)+'">'+esc(v.license)+'</a> · <a target="_blank" rel="noopener noreferrer" href="'+esc(v.source)+'">Nguồn ảnh</a></div>':'';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function show(id){
  const t=topics.find(t=>t.id===id)||topics[0];
@@ -68,7 +72,7 @@ function show(id){
  const wordHtml=t.words.map(w=>'<div class="word"><strong lang="ko">'+esc(w[0])+'</strong><span>'+esc(w[1])+'</span></div>').join("");
  const phrases=t.phrases.map(p=>'<div class="phrase"><p lang="ko"><strong>'+esc(p[0])+'</strong></p><p>'+esc(p[1])+'</p><button class="speak" type="button" data-speech="'+esc(p[0])+'">🔊 Nghe tiếng Hàn</button></div>').join("");
  const imageList=media[t.id]||[];
- const gallery=imageList.length?'<section class="studentGallerySection" aria-label="Ảnh minh họa bài học"><h3>Ảnh minh họa tình huống · '+imageList.length+' ảnh</h3><div class="studentGallery">'+imageList.map((v,i)=>'<figure><img loading="lazy" decoding="async" src="'+esc(v.src)+'" alt="'+esc(v.alt)+'" width="640" height="420"><figcaption><strong>Ảnh '+(i+1)+'.</strong> '+esc(v.caption)+'</figcaption></figure>').join('')+'</div><p class="studentGalleryNotice">Hình AI nhằm hỗ trợ học tập, không phải ảnh tư liệu; chữ trên ảnh không thay thế thông tin chính thức.</p></section>':'';
+ const gallery=imageList.length?'<section class="studentGallerySection" aria-label="Ảnh minh họa bài học"><h3>Ảnh minh họa tình huống · '+imageList.length+' ảnh</h3><div class="studentGallery">'+imageList.map((v,i)=>'<figure><img loading="lazy" decoding="async" src="'+esc(v.src)+'" alt="'+esc(v.alt)+'" width="640" height="420"><figcaption><strong>Ảnh '+(i+1)+'.</strong> '+esc(v.caption)+photoCredit(v)+'</figcaption></figure>').join('')+'</div><p class="studentGalleryNotice">Ảnh AI chỉ tái hiện tình huống; ảnh chụp có ghi tác giả và giấy phép. Không dùng chữ trong ảnh để xác định điều kiện dịch vụ.</p></section>':'';
  const scene=(scenes[t.id]||[])[0];
  const sceneHtml=scene?'<h3>3. Tình huống mô phỏng · '+esc(scene.title)+'</h3><div class="scene"><p class="scene-intro">'+esc(scene.setting)+' — '+esc(scene.objective)+'</p>'+scene.lines.map((line,i)=>'<div class="scene-line"><span class="scene-speaker">'+esc(line.speaker)+'</span><div><strong lang="ko">'+esc(line.ko)+'</strong><p>'+esc(line.vi)+'</p><button type="button" class="speak" data-speech="'+esc(line.ko)+'">🔊 Nghe câu '+(i+1)+'</button></div></div>').join('')+'</div>':'';
  const quiz=t.quiz.choices.map((c,i)=>'<button class="choice" type="button" data-answer="'+i+'">'+esc(c)+'</button>').join("");
