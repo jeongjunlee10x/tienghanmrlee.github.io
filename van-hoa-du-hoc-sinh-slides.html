@@ -12,6 +12,7 @@
 .studentSlideVisual img{display:block;width:100%;height:auto;aspect-ratio:16/9;max-height:230px;object-fit:cover}
 .studentSlideVisual figcaption{font-size:.78rem;line-height:1.55;color:#244f72;background:white;padding:9px 12px}
 .studentPhotoCredit{margin-top:6px;border-top:1px solid #ddeaf5;padding-top:6px;font-size:.74rem}
+.studentPhotoCredit .changeNote{display:block;margin-top:3px;font-size:.95em;color:#526c82}
 .studentPhotoCredit a{color:#0b5a94;text-decoration:underline;text-underline-offset:2px;font-weight:700}
 @media(max-width:650px){.studentSlideVisual{margin-top:12px}.studentSlideVisual img{max-height:180px}}
 .body.roleplay{font-size:clamp(1.07rem,2.1vw,1.55rem);line-height:1.75;max-width:980px;white-space:pre-wrap}
@@ -37,7 +38,7 @@ const sources={
 };
 const scenes=window.MRLEE_STUDENT_LIFE_SCENES_V1?.topics||{};
 const media=window.MRLEE_STUDENT_LIFE_IMAGES_V1?.topicImages||{};
-const photoCredit=v=>v.kind==="licensed-photo"?'<div class="studentPhotoCredit">Ảnh: '+esc(v.author)+' · <a href="'+esc(v.licenseUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(v.license)+'</a> · <a href="'+esc(v.source)+'" target="_blank" rel="noopener noreferrer">Nguồn ảnh</a></div>':'';
+const photoCredit=v=>v.kind==="licensed-photo"?'<div class="studentPhotoCredit">Ảnh: '+esc(v.author)+' · <a href="'+esc(v.licenseUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(v.license)+'</a> · <a href="'+esc(v.source)+'" target="_blank" rel="noopener noreferrer">Nguồn ảnh</a><small class="changeNote">'+esc(v.changes||'')+'</small></div>':'';
 let current=0,active=0,deck=[],speech="";
 function make(t){
  const s=[];const add=(type,title,main,sub="",answer="")=>s.push({type,title,main,sub,answer});
