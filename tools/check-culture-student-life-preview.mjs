@@ -30,6 +30,26 @@ for(const [slug,items] of Object.entries(imageMap)){
  }
 }
 assert.equal(imageCount,19,'19 existing verified image assets required');
+const upcoming=JSON.parse(fs.readFileSync('assets/culture/student-life-image-shotlist-v1.json','utf8'));
+assert.equal(upcoming.images.length,15,'Five images each for housing, banking and parcel delivery');
+assert.deepEqual(upcoming.plannedTopics.map(x=>x.id),['nha-o','ngan-hang','mua-online']);
+assert(upcoming.constraints.minimumWidth>=1536&&upcoming.constraints.minimumHeight>=1024,'Source images must be real full-res single scenes');
+assert.equal(upcoming.constraints.collageAllowed,false,'Collages cannot be substituted for scene photos');
+assert.equal(upcoming.constraints.upscaleCollageTiles,false,'Collage tiles cannot be upscaled into alleged HD');
+const pendingPaths=new Set();
+const liveSources=new Set(Object.values(imageMap).flat().map(x=>x.src));
+for(const v of upcoming.images){
+ assert.equal(v.status,'pending','Unapproved individual scene cannot be published');
+ assert(v.assetPath.startsWith('images/culture-student-life-v1/'+v.topic+'/'),'Unexpected shotlist path');
+ assert(!pendingPaths.has(v.assetPath),'Duplicate photo path in shotlist');
+ pendingPaths.add(v.assetPath);
+ assert(!liveSources.has(v.assetPath),'Pending photo linked to public preview before approval');
+ assert(v.description.length>35&&v.caption.length>18&&v.alt.length>18,'Incomplete shotlist text');
+}
+for(const topic of upcoming.plannedTopics){
+ assert.equal(upcoming.images.filter(x=>x.topic===topic.id).length,5,topic.id+': five individual scenes required');
+}
+
 assert.deepEqual(Array.from(imageMap['mua-online'],x=>x.src),['images/culture-speaking/food-delivery.webp'],'Online delivery is only one partial illustration');
 assert.deepEqual(Array.from(imageContext.window.MRLEE_STUDENT_LIFE_IMAGES_V1.pendingTopics),['nha-o','ngan-hang'],'Unillustrated topics must remain flagged');
 assert.deepEqual(Array.from(imageContext.window.MRLEE_STUDENT_LIFE_IMAGES_V1.partiallyIllustratedTopics),['mua-online'],'Partial media needs review');
