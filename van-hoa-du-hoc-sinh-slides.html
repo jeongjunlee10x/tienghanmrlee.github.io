@@ -76,7 +76,16 @@ $("reveal").onclick=()=>{const a=$("answer");if(a)a.classList.toggle("revealed")
 $("speak").onclick=()=>{if(!speech||!("speechSynthesis" in window)){alert("Không có chức năng phát âm trên thiết bị.");return;}const v=speechSynthesis.getVoices().find(v=>v.lang.toLowerCase().startsWith("ko"));speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(speech);u.lang="ko-KR";if(v)u.voice=v;u.rate=.85;u.onerror=()=>{alert("Không phát được âm thanh. Vui lòng bật giọng tiếng Hàn trong cài đặt thiết bị.")};speechSynthesis.speak(u);};
 $("fullscreen").onclick=()=>{const el=$("slide");if(document.fullscreenElement)document.exitFullscreen?.();else el.requestFullscreen?.();};
 document.addEventListener("keydown",e=>{if(e.target.tagName==="SELECT")return;if(e.key==="ArrowRight"&&current<44){current++;render();}if(e.key==="ArrowLeft"&&current>0){current--;render();}});
-let match=[];try{match=decodeURIComponent(location.hash.slice(1)).split("/")}catch{match=[]}const idx=topics.findIndex(t=>t.id===match[0]);loadTopic(idx<0?0:idx);const n=Number(match[1]);if(Number.isInteger(n)&&n>=1&&n<=45){current=n-1;render();}
+function syncFromHash(){
+ let parts=[];try{parts=decodeURIComponent(location.hash.slice(1)).split("/")}catch{parts=[]}
+ const index=topics.findIndex(t=>t.id===parts[0]);
+ const target=index<0?0:index;
+ if(target!==active||!deck.length)loadTopic(target);
+ const n=Number(parts[1]);
+ if(Number.isInteger(n)&&n>=1&&n<=slideCount&&n!==current+1){current=n-1;render();}
+}
+syncFromHash();
+window.addEventListener?.("hashchange",syncFromHash);
 let touchStart=null;
 $("slide").addEventListener("touchstart",e=>{if(e.touches.length===1)touchStart={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});
 $("slide").addEventListener("touchend",e=>{
