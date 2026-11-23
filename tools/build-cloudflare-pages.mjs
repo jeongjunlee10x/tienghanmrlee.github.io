@@ -283,12 +283,24 @@ await writeFile(join(out,'_redirects'),
 // Browser caching is limited to non-sensitive media. HTML and JS/CSS retain
 // Cloudflare Pages' ETag revalidation, avoiding stale website updates.
 await writeFile(join(out,'_headers'),
-  '# Only cache public media in the visitor browser for one hour\n'+
+  '# Safe baseline for static responses; preserve explicit media cache below.\n'+
+  '/*\n'+
+  '  X-Frame-Options: SAMEORIGIN\n'+
+  '  X-Content-Type-Options: nosniff\n'+
+  '  Referrer-Policy: strict-origin-when-cross-origin\n'+
+  '  Permissions-Policy: payment=(), usb=()\n'+
+  '# Cache public media only; HTML and application scripts revalidate normally.\n'+
   '/images/*\n  Cache-Control: public, max-age=3600, must-revalidate\n'+
   '/MRLEE_AUDIO/*\n  Cache-Control: public, max-age=3600, must-revalidate\n'+
   '/MRLEE_PRO_AUDIO/*\n  Cache-Control: public, max-age=3600, must-revalidate\n'+
   '/assets/topik-v10/audio/*\n  Cache-Control: public, max-age=3600, must-revalidate\n'+
   '/assets/branding/logo-mrlee.png\n  Cache-Control: public, max-age=3600, must-revalidate\n','utf8');
+// A real 404 page prevents missing routes from silently rendering the homepage.
+const notFoundTemplate=await readFile(join(root,'tools/templates/cloudflare-404.html'),'utf8');
+if(!notFoundTemplate.includes('{{ORIGIN}}')||!notFoundTemplate.includes('noindex')){
+ throw new Error('Cloudflare 404 template is missing its origin token or noindex');
+}
+await writeFile(join(out,'404.html'),notFoundTemplate.replaceAll('{{ORIGIN}}',origin),'utf8');
 // Generate the same public URL list used for Cloudflare-only SEO metadata.
 const available=new Set(input.map(x=>x.rel));
 const sitemap='<?xml version="1.0" encoding="UTF-8"?>\n'+
@@ -299,7 +311,7 @@ await writeFile(join(out,'sitemap.xml'),sitemap,'utf8');
 await writeFile(join(out,'robots.txt'),
  'User-agent: *\nAllow: /\n'+
  `Sitemap: ${origin}/sitemap.xml\n`,'utf8');
-const count=input.length+4; // _redirects, _headers, sitemap.xml, robots.txt
+const count=input.length+5; // _redirects, _headers, 404.html, sitemap.xml, robots.txt
 if(count>maxFiles)throw new Error('Output exceeds Cloudflare free safety threshold');
 const bytes=input.reduce((n,f)=>n+f.size,0);
 const mp3=input.filter(f=>f.ext==='.mp3').length;

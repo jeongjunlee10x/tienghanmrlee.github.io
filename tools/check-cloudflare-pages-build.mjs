@@ -27,7 +27,7 @@ const required=[
  'tuyen-sinh.html','ban-do-dai-hoc-han-quoc.html','admin.html',
  'auth-guard.js','firebase-config.js',
  'mrlee-sc-lesson-data.js','MRLEE_AUDIO','MRLEE_PRO_AUDIO',
- 'assets/branding/site-logo.js','_redirects','_headers','robots.txt','sitemap.xml'
+ 'assets/branding/site-logo.js','_redirects','_headers','404.html','robots.txt','sitemap.xml'
 ];
 for(const p of required){
  const isDir=!p.includes('.') && !p.startsWith('_');
@@ -77,6 +77,17 @@ assert(index.includes(`<link rel="canonical" href="${expectedOrigin}/">`),
  'Canonical homepage URL is missing or inconsistent');
 const robots=await readFile(join(dist,'robots.txt'),'utf8');
 const sitemap=await readFile(join(dist,'sitemap.xml'),'utf8');
+const notFound=await readFile(join(dist,'404.html'),'utf8');
+assert(/<meta\s+name="robots"\s+content="noindex,nofollow"/i.test(notFound),
+ '404 must instruct search engines not to index the error page');
+assert(notFound.includes(`href="${expectedOrigin}/"`),
+ '404 page does not link to the Cloudflare production homepage');
+assert(notFound.includes('Không tìm thấy trang') && notFound.includes('lang="vi"'),
+ '404 page needs readable Vietnamese content');
+assert(!sitemap.includes('<loc>'+expectedOrigin+'/404</loc>'),
+ '404 page must not appear in sitemap');
+assert(!notFound.includes('{{ORIGIN}}'), '404 origin placeholder was not replaced');
+
 assert(robots.includes(`Sitemap: ${expectedOrigin}/sitemap.xml`), 'robots.txt sitemap mismatch');
 assert(sitemap.includes(`<loc>${expectedOrigin}/</loc>`), 'sitemap root URL mismatch');
 
@@ -196,6 +207,18 @@ assert(!share.includes('https://jeongjunlee10x.github.io/tienghanmrlee.github.io
 assert(redirects.includes('/images/logo.png /assets/branding/logo-mrlee.png 302'),
  'Legacy logo must be available through the approved asset redirect');
 const headers=await readFile(join(dist,'_headers'),'utf8');
+for(const requiredHeader of [
+ 'X-Frame-Options: SAMEORIGIN',
+ 'X-Content-Type-Options: nosniff',
+ 'Referrer-Policy: strict-origin-when-cross-origin',
+ 'Permissions-Policy: payment=(), usb=()'
+]){
+ assert(headers.includes(requiredHeader), 'Missing safe static response header: '+requiredHeader);
+}
+assert(!/^\s*(?:X-Robots-Tag|Content-Security-Policy|Cache-Control):/mi.test(headers),
+ 'Do not add blanket crawl, CSP or cache policy');
+assert(!/\b(?:microphone|camera|geolocation)\s*=\s*\(\)/i.test(headers),
+ 'Do not disable microphone, camera or geolocation');
 for(const mediaPath of ['/images/*','/MRLEE_AUDIO/*','/MRLEE_PRO_AUDIO/*',
  '/assets/topik-v10/audio/*','/assets/branding/logo-mrlee.png']){
  assert(headers.includes(mediaPath+'\n  Cache-Control: public, max-age=3600, must-revalidate'),
