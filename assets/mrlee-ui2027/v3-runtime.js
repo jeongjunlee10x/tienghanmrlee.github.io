@@ -18,3 +18,14 @@
   root.dataset.mrleeTheme=theme;
  }
 })();
+
+/* MR LEE UI40: load visual-only theme pack for public pages */
+(()=>{'use strict';
+ const name=decodeURIComponent(location.pathname.split('/').pop()||'index.html');
+ if(/^(?:admin|dang-nhap|quan-tri-tro-choi|kiem-thu-chuc-nang|kiem-tra-website|noi-dung-bao-mat|game-[\w-]+)(?:\.html)?$/i.test(name))return;
+ if(document.querySelector('link[data-mr4-launch]'))return;
+ const root='assets/mrlee-skinpack/';
+ const link=document.createElement('link');link.rel='stylesheet';link.href=root+'skinpack.css?v=20261123';link.dataset.mr4Launch='1';document.head.append(link);
+ const load=(f,next)=>{const el=document.createElement('script');el.src=root+f+'?v=20261123';el.onload=()=>{if(next)next()};el.onerror=()=>console.warn('MRLEE4 asset missing:',f);document.head.append(el)};
+ load('theme-default.js',()=>load('page-images.js',()=>load('skinpack.js')));
+})();
