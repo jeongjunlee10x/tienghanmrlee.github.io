@@ -4,6 +4,25 @@ import vm from 'node:vm';
 
 const preview=fs.readFileSync('van-hoa-du-hoc-sinh-preview.html','utf8');
 const sceneSource=fs.readFileSync('assets/culture/student-life-scenes-v1.js','utf8');
+const imageSource=fs.readFileSync('assets/culture/student-life-images-v1.js','utf8');
+const imageContext={window:{}};
+vm.runInNewContext(imageSource,imageContext,{timeout:1000});
+const imageMap=imageContext.window.MRLEE_STUDENT_LIFE_IMAGES_V1?.topicImages;
+assert(imageMap,'Missing student-life image registry');
+assert.deepEqual(Object.keys(imageMap).sort(),['an-uong','giao-thong','mua-sam'],'Only three verified image groups expected at this stage');
+let imageCount=0;
+for(const [slug,items] of Object.entries(imageMap)){
+ assert(items.length>=2,slug+': insufficient image diversity');
+ for(const item of items){
+  assert(/^images\/culture-v(?:20-hd|23-ai)\/[a-z-]+\/\d{2}\.webp$/.test(item.src),slug+': unexpected image path');
+  assert(fs.existsSync(item.src),slug+': missing asset '+item.src);
+  assert(fs.statSync(item.src).size>10000,slug+': suspiciously small image');
+  assert(item.alt.includes('AI minh họa')&&item.caption.length>=15,slug+': missing source disclosure');
+  imageCount++;
+ }
+}
+assert.equal(imageCount,10,'10 existing approved AI assets required');
+assert.equal(imageMap['nha-o'],undefined,'Housing pack not on PR yet; avoid broken image links');
 const sceneContext={window:{}};
 vm.runInNewContext(sceneSource,sceneContext,{timeout:1000});
 const scenes=sceneContext.window.MRLEE_STUDENT_LIFE_SCENES_V1?.topics;
@@ -53,6 +72,8 @@ for(const t of topics){
 }
 assert(preview.includes('href="van-hoa-du-hoc-sinh-slides.html"'),'Preview must link to slides');
 assert(slides.includes('assets/culture/student-life-scenes-v1.js'),'Slide page must load scene data before runtime');
+assert(slides.includes('assets/culture/student-life-images-v1.js'),'Slide page must load image registry');
+assert(preview.includes('assets/culture/student-life-images-v1.js'),'Preview must load image registry');
 for(const html of [preview,slides]){
  assert(html.includes('noindex,nofollow'),'Draft content must not be indexed');
  assert(!html.includes('localStorage.setItem'),'Must not change legacy learning records');
@@ -86,7 +107,7 @@ for(const topic of topics){
  const tts={getVoices:()=>[{lang:'ko-KR'}],cancel(){},speak(u){spoken.push(u.text)}};
  vm.runInNewContext(inlineSlideScript,{
   document,location,history:{replaceState:(a,b,url)=>{location.hash=url}},
-  window:{speechSynthesis:tts,MRLEE_STUDENT_LIFE_SCENES_V1:{topics:scenes},addEventListener:(event,cb)=>{windowEvents[event]=cb}},speechSynthesis:tts,
+  window:{speechSynthesis:tts,MRLEE_STUDENT_LIFE_SCENES_V1:{topics:scenes},MRLEE_STUDENT_LIFE_IMAGES_V1:{topicImages:imageMap},addEventListener:(event,cb)=>{windowEvents[event]=cb}},speechSynthesis:tts,
   SpeechSynthesisUtterance:function(text){this.text=text},
   Option:function(label,value){this.label=label;this.value=value},
   alert:message=>errors.push(message)
@@ -95,6 +116,7 @@ for(const topic of topics){
  assert.equal(els.counter.textContent,'1 / 45',topic.id+': initial');
  assert(els.prev.disabled,topic.id+': prev disabled at first slide');
  assert(els.slide.innerHTML.includes('studyinkorea.go.kr'),topic.id+': source reference');
+ assert.equal(els.slide.innerHTML.includes('studentSlideVisual'),!!imageMap[topic.id]?.length,topic.id+': conditional contextual visual');
  for(let i=0;i<44;i++)els.next.onclick();
  assert.equal(els.counter.textContent,'45 / 45',topic.id+': finish');
  assert(els.next.disabled,topic.id+': next disabled at last slide');
