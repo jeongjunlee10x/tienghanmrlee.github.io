@@ -27,6 +27,7 @@ h2{font-size:clamp(1.5rem,3vw,2rem);margin:0 0 5px}h3{margin:27px 0 12px}.ko{col
 .studentGallery figcaption{padding:12px 13px;font-size:.88rem;line-height:1.65;color:#3b566e}
 .studentGalleryNotice{font-size:.81rem;color:#647b90;line-height:1.5}
 .studentPhotoCredit{margin-top:7px;padding-top:7px;border-top:1px solid #e6eff7;font-size:.78rem;line-height:1.55;color:#506a82}
+.studentPhotoCredit .changeNote{display:block;margin-top:3px;font-size:.95em;color:#526c82}
 .studentPhotoCredit a{color:#10578b;font-weight:700;text-decoration:underline;text-underline-offset:2px}
 .studentPhotoCredit a:focus-visible{outline:3px solid #edb849;outline-offset:2px}
 @media(max-width:520px){.studentGallery{grid-template-columns:1fr}}
@@ -63,7 +64,7 @@ const topics=[{"id":"nha-o","icon":"🏠","title":"Nhà ở tại Hàn Quốc","
 const nav=document.getElementById("topics"),lesson=document.getElementById("lesson");
 const scenes=window.MRLEE_STUDENT_LIFE_SCENES_V1?.topics||{};
 const media=window.MRLEE_STUDENT_LIFE_IMAGES_V1?.topicImages||{};
-const photoCredit=v=>v.kind==="licensed-photo"?'<div class="studentPhotoCredit">Ảnh: '+esc(v.author)+' · <a target="_blank" rel="noopener noreferrer" href="'+esc(v.licenseUrl)+'">'+esc(v.license)+'</a> · <a target="_blank" rel="noopener noreferrer" href="'+esc(v.source)+'">Nguồn ảnh</a></div>':'';
+const photoCredit=v=>v.kind==="licensed-photo"?'<div class="studentPhotoCredit">Ảnh: '+esc(v.author)+' · <a target="_blank" rel="noopener noreferrer" href="'+esc(v.licenseUrl)+'">'+esc(v.license)+'</a> · <a target="_blank" rel="noopener noreferrer" href="'+esc(v.source)+'">Nguồn ảnh</a><small class="changeNote">'+esc(v.changes||'')+'</small></div>':'';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function show(id){
  const t=topics.find(t=>t.id===id)||topics[0];
