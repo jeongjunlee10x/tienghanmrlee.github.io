@@ -20,7 +20,7 @@
  const meta=window.MRLEE4_PAGE_IMAGES||{};
  const secured=/^(?:admin|dang-nhap|quan-tri-tro-choi|kiem-thu-chuc-nang|kiem-tra-website|noi-dung-bao-mat|google[\da-f]+|game-[\w-]+)\.html$/i;
  function installBanner(){
-  if(page==='index.html'||secured.test(page)||!meta[page]||doc.getElementById('mr4-page-banner'))return;
+  if(page==='index.html'||/^(?:lo-trinh-|so-cap-|hoc-theo-bai|bai-hoc)/.test(page)||secured.test(page)||!meta[page]||doc.getElementById('mr4-page-banner'))return;
   const hdr=doc.querySelector('body > header,header.site-header,header.head');
   const main=doc.querySelector('main,#mainContent');
   if(!hdr&&!main)return;
