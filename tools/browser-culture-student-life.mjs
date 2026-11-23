@@ -8,7 +8,7 @@ import {chromium} from 'playwright';
 const root=process.cwd();
 const catalog=JSON.parse(fs.readFileSync('assets/culture/student-life-catalog-v1.json','utf8'));
 const active=catalog.lessons.filter(x=>x.status==='preview');
-const expectedMedia={'giao-thong':4,'mua-sam':2,'an-uong':4};
+const expectedMedia={'giao-thong':4,'mua-sam':2,'an-uong':4,'ky-tuc-xa':2,'dien-thoai':3};
 const out='artifacts/culture-student-life';
 fs.mkdirSync(out,{recursive:true});
 const mime={'.html':'text/html; charset=utf-8','.js':'application/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.woff2':'font/woff2'};
@@ -55,6 +55,12 @@ try{
     assert.equal(await page.locator('.scene-line').count(),4,lesson.slug+': four-turn preview');
     const expected=expectedMedia[lesson.slug]||0;
     assert.equal(await page.locator('.studentGallery img').count(),expected,lesson.slug+': image gallery count');
+    const expectedCredited=lesson.slug==='dien-thoai'?3:0;
+    assert.equal(await page.locator('.studentGallery .studentPhotoCredit').count(),expectedCredited,lesson.slug+': photographer credits');
+    if(expectedCredited){
+     assert.equal(await page.locator('.studentPhotoCredit a[href*="creativecommons.org"]').count(),3,lesson.slug+': CC license links');
+     assert.equal(await page.locator('.studentPhotoCredit a[href*="commons.wikimedia.org"]').count(),3,lesson.slug+': original photo links');
+    }
     for(const photo of await page.locator('.studentGallery img').all()){
       await photo.scrollIntoViewIfNeeded();
       const dimensions=await photo.evaluate(async img=>{await img.decode();return {w:img.naturalWidth,h:img.naturalHeight}});
@@ -68,6 +74,7 @@ try{
     assert.equal((await page.locator('#counter').textContent()).trim(),'1 / 45',lesson.slug+': start');
     assert.equal(await page.locator('.studentSlideVisual img').count(),expected>0?1:0,lesson.slug+': image on opening slide');
     if(expected>0){
+      assert.equal(await page.locator('.studentSlideVisual .studentPhotoCredit').count(),lesson.slug==='dien-thoai'?1:0,lesson.slug+': opening slide attribution');
       const dimensions=await page.locator('.studentSlideVisual img').evaluate(async img=>{await img.decode();return {w:img.naturalWidth,h:img.naturalHeight}});
       assert(dimensions.w>=640&&dimensions.h>=320,lesson.slug+': broken cover image');
     }
