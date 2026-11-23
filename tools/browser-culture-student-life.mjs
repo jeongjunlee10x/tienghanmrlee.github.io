@@ -8,7 +8,7 @@ import {chromium} from 'playwright';
 const root=process.cwd();
 const catalog=JSON.parse(fs.readFileSync('assets/culture/student-life-catalog-v1.json','utf8'));
 const active=catalog.lessons.filter(x=>x.status==='preview');
-const expectedMedia={'giao-thong':4,'mua-sam':2,'an-uong':4,'ky-tuc-xa':2,'dien-thoai':3};
+const expectedMedia={'giao-thong':4,'mua-sam':3,'an-uong':6,'ky-tuc-xa':2,'dien-thoai':3,'mua-online':1};
 const out='artifacts/culture-student-life';
 fs.mkdirSync(out,{recursive:true});
 const mime={'.html':'text/html; charset=utf-8','.js':'application/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.woff2':'font/woff2'};
