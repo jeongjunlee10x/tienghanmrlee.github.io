@@ -1,0 +1,49 @@
+name: MR LEE 4.0 exact-source archive
+on:
+  push:
+    branches:
+      - release/mrlee-ui40-v3-source-20261124
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  export:
+    name: Archive exact frontend files
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            index.html
+            mrlee-theme-gallery.html
+            assets/mrlee-ui40/
+            assets/mrlee-skinpack/
+            assets/mrlee-ui2027/v3-runtime.js
+            docs/MRLEE4_3_THEME_AGENT_2026-11-23.md
+      - name: Assemble only source files changed for UI 4.0
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release/assets/mrlee-ui2027 release/docs
+          cp index.html mrlee-theme-gallery.html release/
+          cp -r assets/mrlee-ui40 assets/mrlee-skinpack release/assets/
+          cp assets/mrlee-ui2027/v3-runtime.js release/assets/mrlee-ui2027/
+          cp docs/MRLEE4_3_THEME_AGENT_2026-11-23.md release/docs/
+          cat > release/README_SOURCE.txt <<'END'
+          MR LEE 4.0 V3 — SOURCE BACKUP
+          Website: https://mrlee-b6a.pages.dev/
+          Github: https://github.com/jeongjunlee10x/tienghanmrlee.github.io
+          Source commit: 88c122ee406cdc3375591c6c89b3090a4d109f07
+          Contents: index.html, live-v3 CSS/JS, skinpack theme files and 91 image assets, gallery, runtime.
+          This package is an exact snapshot of the listed source files from that commit.
+          It is NOT a copy of the entire website, audio or backend.
+          END
+          find release -type f | sort > /tmp/mrlee-source-files.txt
+          cat /tmp/mrlee-source-files.txt | wc -l
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MRLEE4_SOURCE_EXACT_88c122e
+          path: release/
+          retention-days: 30
