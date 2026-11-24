@@ -35,7 +35,7 @@ jobs:
           MR LEE 4.0 V3 — SOURCE BACKUP
           Website: https://mrlee-b6a.pages.dev/
           Github: https://github.com/jeongjunlee10x/tienghanmrlee.github.io
-          Source commit: 3a51a5da8684f2c03e69e92adb4cb9e6d4210352
+          Source commit: caca5458efc6bfe5a6adb8bcaf04d9eac8bbecaa
           Contents: index.html, live-v3 CSS/JS, skinpack theme files and 91 image assets, gallery, runtime.
           This package is an exact snapshot of the listed source files from that commit.
           It is NOT a copy of the entire website, audio or backend.
@@ -44,6 +44,6 @@ jobs:
           cat /tmp/mrlee-source-files.txt | wc -l
       - uses: actions/upload-artifact@v4
         with:
-          name: MRLEE4_SOURCE_EXACT_3a51a5d
+          name: MRLEE4_SOURCE_EXACT_caca545
           path: release/
           retention-days: 30
