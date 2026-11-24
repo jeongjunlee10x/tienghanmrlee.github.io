@@ -1,0 +1,8 @@
+MR LEE UI 4.0 | CLOUDFLARE PRODUCTION DIAGNOSTIC
+Created: 2026-11-24 (Asia/Ho_Chi_Minh)
+Expected merge commit: 4a0cf4965beb2d7f36639dbae1d8edbed6bea94f
+Deployment source: main
+Visual themes: Fresh / Future / Campus
+Expected stylesheet: /assets/mrlee-skinpack/skinpack.css
+Expected gallery: /mrlee-theme-gallery.html
+Purpose: diagnostic marker only, does not modify lesson, media, or backend data.
