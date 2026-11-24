@@ -15,7 +15,7 @@
   root.dataset.mrleeTheme=theme==='future'?'future':'fresh';
   const sources={fresh:'home-fresh.webp',future:'home-future.webp',campus:'home-campus.webp'};
   root.style.setProperty('--mr4-hero-art','url("assets/mrlee-skinpack/images/'+sources[theme]+'")');
-  doc.querySelectorAll('#mr4-switcher-menu button[data-theme]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.theme===theme)));
+  doc.querySelectorAll('#mr4-switcher-menu button[data-mr4-theme]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mr4Theme===theme)));
  }
  apply();
  const meta=window.MRLEE4_PAGE_IMAGES||{};
@@ -41,7 +41,7 @@
   const btn=doc.createElement('button');btn.type='button';btn.id='mr4-switcher-toggle';btn.textContent='◐ Giao diện';btn.setAttribute('aria-expanded','false');
   const menu=doc.createElement('div');menu.id='mr4-switcher-menu';menu.hidden=true;
   [['fresh','☀ Fresh'],['future','✦ Future'],['campus','❖ Campus']].forEach(([key,label])=>{
-   const item=doc.createElement('button');item.type='button';item.textContent=label;item.dataset.theme=key;item.setAttribute('aria-pressed',String(theme===key));
+   const item=doc.createElement('button');item.type='button';item.textContent=label;item.dataset.mr4Theme=key;item.setAttribute('aria-pressed',String(theme===key));
    item.addEventListener('click',()=>{
     if(choices.includes(preview)){const u=new URL(location.href);u.searchParams.set('mr4preview',key);location.assign(u.href);return;}
     theme=key;try{localStorage.setItem(KEY,key);localStorage.setItem(LEGACY,key==='future'?'future':'fresh');sessionStorage.setItem('MRLEE.THEME.ENTRY.V1',key==='future'?'future':'fresh')}catch{}
