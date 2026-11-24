@@ -68,3 +68,27 @@ html[data-mrlee-ui40-live="v3"] #mrleeNewHome .mr27-hero .mr27-hero-media{grid-a
 /* MRLEE4 clean mobile UX: theme choices already visible in the header ribbon */
 html[data-mrlee-ui40-live="v3"] #mr4-switcher{display:none!important}
 @media(max-width:650px){html[data-mrlee-ui40-live="v3"] #mrleeNewHome .mr4-release-sign>span:last-child{display:none!important}html[data-mrlee-ui40-live="v3"] #mrleeNewHome .mr4-release{justify-content:space-between!important}html[data-mrlee-ui40-live="v3"] #mrleeNewHome .mr4-theme-row{flex:1 1 100%!important}}
+
+/* MRLEE4 PHOTO FIX: override V3 gradient-only background at higher specificity */
+html[data-mrlee-ui40-live="v3"][data-mrlee-v3-scope="site"] #mrleeNewHome .mr27-hero{
+ background-image:linear-gradient(90deg,rgba(229,245,255,.98) 0%,rgba(232,245,255,.95) 35%,rgba(232,245,255,.57) 59%,rgba(232,245,255,.09) 83%),url("../images/heroes/01-trang-chu-fresh.webp")!important;
+ background-position:center center!important;background-repeat:no-repeat!important;background-size:cover!important;
+}
+html[data-mrlee-ui40-live="v3"][data-mrlee-v3-scope="site"][data-mr4-theme="future"] #mrleeNewHome .mr27-hero{
+ background-image:linear-gradient(90deg,rgba(6,20,42,.98) 0%,rgba(7,22,48,.89) 35%,rgba(7,27,58,.52) 62%,rgba(6,23,49,.12) 86%),url("../images/heroes/01-trang-chu-future.webp")!important;
+}
+html[data-mrlee-ui40-live="v3"][data-mrlee-v3-scope="site"][data-mr4-theme="campus"] #mrleeNewHome .mr27-hero{
+ background-image:linear-gradient(90deg,rgba(255,250,242,.98) 0%,rgba(255,245,234,.93) 35%,rgba(255,233,223,.48) 65%,rgba(255,228,214,.10) 90%),url("../v306/images/feature-1-tuyen-sinh.webp")!important;
+}
+@media(max-width:650px){
+ html[data-mrlee-ui40-live="v3"][data-mrlee-v3-scope="site"] #mrleeNewHome .mr27-hero{
+  background-image:linear-gradient(180deg,rgba(230,246,255,.99) 0%,rgba(230,245,255,.94) 42%,rgba(230,245,255,.16) 78%,rgba(230,245,255,0) 100%),url("../images/heroes/01-trang-chu-fresh.webp")!important;
+  background-position:center,60% center!important;
+ }
+ html[data-mrlee-ui40-live="v3"][data-mrlee-v3-scope="site"][data-mr4-theme="future"] #mrleeNewHome .mr27-hero{
+  background-image:linear-gradient(180deg,rgba(6,20,42,.99) 0%,rgba(7,22,48,.96) 44%,rgba(7,27,58,.28) 76%,rgba(7,27,58,0) 100%),url("../images/heroes/01-trang-chu-future.webp")!important;
+ }
+ html[data-mrlee-ui40-live="v3"][data-mrlee-v3-scope="site"][data-mr4-theme="campus"] #mrleeNewHome .mr27-hero{
+  background-image:linear-gradient(180deg,rgba(255,250,242,.99) 0%,rgba(255,245,234,.95) 44%,rgba(255,233,223,.24) 76%,rgba(255,233,223,0) 100%),url("../v306/images/feature-1-tuyen-sinh.webp")!important;
+ }
+}
