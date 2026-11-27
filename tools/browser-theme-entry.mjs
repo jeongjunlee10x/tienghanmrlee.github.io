@@ -29,52 +29,37 @@ try{
   const page=await context.newPage();
   const label=viewport.width+'px / '+selected;
   try{
-   await page.goto(origin+'/index.html',{waitUntil:'domcontentloaded',timeout:20000});
-   const dialog=page.locator('dialog#mrlee-theme-entry');
-   await dialog.waitFor({state:'visible',timeout:8000});
-   if(!await page.evaluate(()=>document.getElementById('mrlee-theme-entry')?.matches(':modal')))
-    throw Error('Initial chooser must be a blocking native modal');
-   if(await page.locator('.mrlee-theme-switch').count())throw Error('Old header theme selector still present');
-   const opts=dialog.locator('button[data-theme]');
-   if(await opts.count()!==2)throw Error('Need exactly 2 choices, only in entry modal');
-   const layout=await dialog.evaluate(el=>{
-    const a=el.getBoundingClientRect();
-    const buttons=[...el.querySelectorAll('button[data-theme]')].map(b=>{const r=b.getBoundingClientRect();return {x:r.x,right:r.right,y:r.y,bottom:r.bottom}});
-    return {left:a.left,right:a.right,top:a.top,bottom:a.bottom,viewport:innerWidth,buttons,scrollHeight:el.scrollHeight,clientHeight:el.clientHeight};
-   });
-   if(layout.left<0||layout.right>viewport.width+1||layout.buttons.some(b=>b.x<layout.left-1||b.right>layout.right+1))
-    throw Error('Modal/card horizontally clipped on mobile: '+JSON.stringify(layout));
-   const photo=await page.locator('.feature-card img,.mrlee-v4-card img').evaluateAll(a=>a.map(i=>i.getAttribute('src')));
-   await dialog.locator('button[data-theme="'+selected+'"]').click();
-   await dialog.waitFor({state:'detached',timeout:8000});
-   const chosen=await page.evaluate(()=>({
-    theme:document.documentElement.dataset.mrleeTheme,
-    session:sessionStorage.getItem('MRLEE.THEME.ENTRY.V1'),
-    saved:localStorage.getItem('MRLEE.THEME.V1')
-   }));
-   if(chosen.theme!==selected||chosen.session!==selected||chosen.saved!==selected)
-    throw Error('Theme was not stored/activated: '+JSON.stringify(chosen));
-   await page.reload({waitUntil:'domcontentloaded'});
-   if(await page.locator('#mrlee-theme-entry').count())throw Error('Page reload showed chooser again');
-   if(await page.locator('.mrlee-theme-switch').count())throw Error('Header switcher reappeared on reload');
-   const after=await page.locator('.feature-card img,.mrlee-v4-card img').evaluateAll(a=>a.map(i=>i.getAttribute('src')));
-   if(JSON.stringify(photo)!==JSON.stringify(after))throw Error('Theme picker changed course image sources');
-   await page.goto(origin+'/ban-do-han-quoc.html',{waitUntil:'domcontentloaded'});
-   if(await page.locator('.mrlee-theme-switch').count())throw Error('Child page still has theme buttons');
-   if(await page.locator('#mrlee-theme-entry').count())throw Error('Child page asks again');
-   if(await page.evaluate(()=>document.documentElement.dataset.mrleeTheme)!==selected)throw Error('Selection did not persist to child page');
-   await page.goto(origin+'/index.html',{waitUntil:'domcontentloaded'});
-   if(await page.locator('#mrlee-theme-entry').count())throw Error('Returning home asks again in same tab');
-   const newTab=await context.newPage();
-   await newTab.goto(origin+'/index.html',{waitUntil:'domcontentloaded'});
-   await newTab.locator('dialog#mrlee-theme-entry').waitFor({state:'visible',timeout:8000});
+   const own=selected==='fresh'?'index.html':'future.html';
    const alternate=selected==='fresh'?'future':'fresh';
-   await newTab.locator('button[data-theme="'+alternate+'"]').click();
-   if(await newTab.evaluate(()=>document.documentElement.dataset.mrleeTheme)!==alternate)throw Error('New tab could not choose independently');
+   const other=alternate==='fresh'?'index.html':'future.html';
+   await page.goto(origin+'/'+own,{waitUntil:'domcontentloaded',timeout:20000});
+   const nav=page.locator('#mrleeNewHome .mr4-theme-row');
+   await nav.waitFor({state:'visible'});
+   if(await nav.locator('a').count()!==2||await nav.locator('a[aria-current="page"]').getAttribute('href')!==own)throw Error('Missing native home routes');
+   if(await page.locator('#mrlee-theme-entry,.mrlee-theme-switch').count())throw Error('Duplicate legacy selector');
+   for(const box of await nav.locator('a').evaluateAll(nodes=>nodes.map(n=>{const r=n.getBoundingClientRect();return {x:r.x,right:r.right,height:r.height}})))
+    if(box.x<0||box.right>viewport.width+1||box.height<44)throw Error('Clipped or small route target');
+   const chosen=await page.evaluate(()=>({theme:document.documentElement.dataset.mrleeTheme,session:sessionStorage.getItem('MRLEE.THEME.ENTRY.V1'),saved:localStorage.getItem('MRLEE.THEME.V1')}));
+   if(chosen.theme!==selected||chosen.session!==selected||chosen.saved!==selected)throw Error('URL theme not persisted');
+   const photos=await page.locator('.mr27-tile img').evaluateAll(a=>a.map(i=>i.getAttribute('src')));
+   await nav.locator('a[href="'+other+'"]').click();
+   await page.waitForURL('**/'+other);
+   if(await page.locator('html').getAttribute('data-mrlee-home-mode')!==alternate)throw Error('Switch did not navigate');
+   const after=await page.locator('.mr27-tile img').evaluateAll(a=>a.map(i=>i.getAttribute('src')));
+   if(JSON.stringify(photos)!==JSON.stringify(after))throw Error('Theme changed shared card images');
+   await page.goBack();
    await page.reload({waitUntil:'domcontentloaded'});
-   if(await page.evaluate(()=>document.documentElement.dataset.mrleeTheme)!==selected)throw Error('First tab changed when second tab chose theme');
-   if(await page.locator('#mrlee-theme-entry').count())throw Error('Original tab asked a second time');
-   console.log('PASS ENTRY PICKER '+label+' dialog/keyboard-safe sizing, one choice, reload/navigation, new tab independent, same images');
+   if(await page.locator('html').getAttribute('data-mrlee-theme')!==selected)throw Error('Reload/back lost route theme');
+   await page.goto(origin+'/ban-do-han-quoc.html',{waitUntil:'domcontentloaded'});
+   if(await page.locator('#mrlee-theme-entry,.mrlee-theme-switch').count())throw Error('Child legacy chooser');
+   if(await page.evaluate(()=>document.documentElement.dataset.mrleeTheme)!==selected)throw Error('Child theme not retained');
+   await page.goto(origin+'/'+own,{waitUntil:'domcontentloaded'});
+   const newTab=await context.newPage();
+   await newTab.goto(origin+'/'+other,{waitUntil:'domcontentloaded'});
+   if(await newTab.locator('html').getAttribute('data-mrlee-theme')!==alternate)throw Error('Second tab route not independent');
+   await page.reload({waitUntil:'domcontentloaded'});
+   if(await page.locator('html').getAttribute('data-mrlee-theme')!==selected)throw Error('First tab changed');
+   console.log('PASS MPA ENTRY '+label+' native links, sizing, back/reload, child and independent tabs');
    passed++;
    await newTab.close();
   }catch(e){failed++;console.error('FAIL ENTRY PICKER '+label+' '+e.stack)}
