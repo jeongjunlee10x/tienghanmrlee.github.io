@@ -4,7 +4,7 @@
  const doc=document,root=doc.documentElement;
  if(root.dataset.mr4Booted==='1')return;root.dataset.mr4Booted='1';
  const KEY='MRLEE.SKINPACK.THEME.V1';const LEGACY='MRLEE.THEME.V1';
- const choices=['fresh','future','campus'];
+ const choices=['fresh','future'];
  const preview=new URLSearchParams(location.search).get('mr4preview');
  const rawPage=(location.pathname.split('/').pop()||'index.html').replace(/^mrlee-preview-(home|.*)\.html$/,(x,k)=>k==='home'?'index.html':k+'.html');const page=rawPage.endsWith('.html')?rawPage:rawPage+'.html';
  let saved;try{saved=localStorage.getItem(KEY)}catch{}
@@ -40,12 +40,10 @@
   const wrap=doc.createElement('div');wrap.id='mr4-switcher';
   const btn=doc.createElement('button');btn.type='button';btn.id='mr4-switcher-toggle';btn.textContent='◐ Giao diện';btn.setAttribute('aria-expanded','false');
   const menu=doc.createElement('div');menu.id='mr4-switcher-menu';menu.hidden=true;
-  [['fresh','☀ Fresh'],['future','✦ Future'],['campus','❖ Campus']].forEach(([key,label])=>{
+  [['fresh','☀ Fresh'],['future','✦ Future']].forEach(([key,label])=>{
    const item=doc.createElement('button');item.type='button';item.textContent=label;item.dataset.mr4Theme=key;item.setAttribute('aria-pressed',String(theme===key));
    item.addEventListener('click',()=>{
-    if(choices.includes(preview)){const u=new URL(location.href);u.searchParams.set('mr4preview',key);location.assign(u.href);return;}
-    theme=key;try{localStorage.setItem(KEY,key);localStorage.setItem(LEGACY,key==='future'?'future':'fresh');sessionStorage.setItem('MRLEE.THEME.ENTRY.V1',key==='future'?'future':'fresh')}catch{}
-    location.reload();
+    location.assign(key==='future'?'future.html':'index.html');
    });menu.append(item);
   });
   btn.addEventListener('click',()=>{menu.hidden=!menu.hidden;btn.setAttribute('aria-expanded',String(!menu.hidden))});
