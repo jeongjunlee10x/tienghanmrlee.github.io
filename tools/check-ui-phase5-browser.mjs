@@ -91,6 +91,15 @@ try{
       assert(visibleContent.length>0&&visibleContent.every(x=>x.fits),
        'Clipped learning/TOPIK hero text or CTA: '+test.file+' '+JSON.stringify(visibleContent));
      }
+     if(['learning','topik'].includes(test.kind)){
+      const visual=await page.locator('.mr27-cards').evaluate(el=>({columns:getComputedStyle(el).gridTemplateColumns.split(' ').length,art:getComputedStyle(el.querySelector('.mr27-item img')).position}));
+      assert.equal(visual.columns,theme==='future'?(width<=650?1:2):(width<900?2:3),test.file+' distinct Fresh/Future columns');
+      assert.equal(visual.art,'static',test.file+' photo must be separated from copy');
+     }
+     if(test.kind==='culture'){
+      await page.waitForFunction(()=>{const img=document.querySelector('.cat43-culture-cover');return img?.complete&&img.naturalWidth>=800});
+      assert.equal(await page.locator('form.cat43-slides').getAttribute('action'),'van-hoa-bai-hoc.html');
+     }
      if(test.cards){
       assert.equal(await page.locator(test.cards).count(),test.count,test.file+' navigation');
      }
