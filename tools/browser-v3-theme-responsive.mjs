@@ -39,37 +39,18 @@ try{
    try{
     const page=await context.newPage();
     const label=size+' '+theme;
-    await page.goto(url,{waitUntil:'domcontentloaded',timeout:30000});
-    const dialog=page.locator('#mrlee-theme-entry');
-    await dialog.waitFor({state:'visible',timeout:10000});
-    assert.equal(await page.evaluate(()=>document.getElementById('mrlee-theme-entry')?.matches(':modal')),true,label+' native modal');
-    const buttons=dialog.locator('button[data-theme]');
-    assert.equal(await buttons.count(),2,label+' options');
-    for(const index of [0,1])assert.equal(await buttons.nth(index).getAttribute('aria-pressed'),null,label+' no preselected option');
-    const rect=await dialog.evaluate(el=>{
-      const dialogBox=el.getBoundingClientRect();
-      const optionBoxes=[...el.querySelectorAll('button[data-theme]')].map(node=>{
-       const b=node.getBoundingClientRect();return{x:b.x,right:b.right,height:b.height};
-      });
-      return{dialogBox:{x:dialogBox.x,y:dialogBox.y,right:dialogBox.right,bottom:dialogBox.bottom},
-       width:innerWidth,height:innerHeight,optionBoxes,scrollHeight:el.scrollHeight,clientHeight:el.clientHeight};
-    });
-    assert(rect.dialogBox.x>=-1&&rect.dialogBox.right<=width+1,label+' horizontal modal overflow '+JSON.stringify(rect));
-    assert(rect.dialogBox.y>=-1&&rect.dialogBox.bottom<=height+1,label+' vertical modal overflow '+JSON.stringify(rect));
-    assert(rect.optionBoxes.every(b=>b.x>=rect.dialogBox.x-2&&b.right<=rect.dialogBox.right+2&&b.height>=44),
-      label+' clipped option/touch target '+JSON.stringify(rect));
-    await buttons.first().focus();
-    await page.keyboard.press('ArrowRight');
-    assert.equal(await page.evaluate(()=>document.activeElement?.dataset.theme),'future',label+' ArrowRight');
-    await page.keyboard.press('Home');
-    assert.equal(await page.evaluate(()=>document.activeElement?.dataset.theme),'fresh',label+' Home');
-    await page.keyboard.press('End');
-    assert.equal(await page.evaluate(()=>document.activeElement?.dataset.theme),'future',label+' End');
-    await page.keyboard.press('ArrowLeft');
-    assert.equal(await page.evaluate(()=>document.activeElement?.dataset.theme),'fresh',label+' ArrowLeft');
-    await buttons.nth(theme==='fresh'?0:1).focus();
-    await page.keyboard.press('Enter');
-    await dialog.waitFor({state:'detached',timeout:10000});
+    const own=theme==='fresh'?'index.html':'future.html';
+    const alternate=theme==='fresh'?'future':'fresh';
+    const other=alternate==='fresh'?'index.html':'future.html';
+    await context.addInitScript(opposite=>{try{localStorage.setItem('MRLEE.THEME.V1',opposite);sessionStorage.setItem('MRLEE.THEME.ENTRY.V1',opposite)}catch{}},alternate);
+    await page.goto(url.replace('index.html',own),{waitUntil:'domcontentloaded',timeout:30000});
+    const nav=page.locator('#mrleeNewHome .mr4-theme-row');
+    await nav.waitFor({state:'visible'});
+    assert.equal(await nav.locator('a').count(),2,label+' native route options');
+    assert.equal(await nav.locator('a[aria-current="page"]').getAttribute('href'),own);
+    assert.equal(await page.locator('#mrlee-theme-entry').count(),0,label+' legacy popup');
+    for(const box of await nav.locator('a').evaluateAll(nodes=>nodes.map(n=>{const b=n.getBoundingClientRect();return{x:b.x,right:b.right,height:b.height}})))
+     assert(box.x>=-1&&box.right<=width+1&&box.height>=44,label+' route target/overflow');
     const photo=await page.evaluate(()=>{
      const imgs=[...document.querySelectorAll('#mrleeNewHome .mr27-hero-media img')];
      return {theme:document.documentElement.dataset.mrleeTheme,
@@ -85,9 +66,7 @@ try{
     assert(photo.current[0].src.includes('01-trang-chu-'+theme+'.webp'),label+' theme-specific photo');
     assert.equal(photo.current[0].loading,'eager',label+' active photo eager');
     assert.equal(photo.current[0].priority,'high',label+' active photo high priority');
-    assert.equal(photo.inactive.length,1,label+' inactive artwork preserved');
-    assert.equal(photo.inactive[0].loading,'lazy',label+' inactive photo lazy');
-    assert.equal(photo.inactive[0].priority,'low',label+' inactive photo low priority');
+    assert.equal(photo.inactive.length,0,label+' inactive image not loaded');
     await page.waitForFunction(name=>{
       const img=document.querySelector('#mrleeNewHome .mr27-art-'+name);
       return Boolean(img&&img.complete&&img.naturalWidth>=800);
@@ -104,27 +83,18 @@ try{
 
     await page.reload({waitUntil:'domcontentloaded'});
     assert.equal(await page.locator('#mrlee-theme-entry').count(),0,label+' chooser repeated on reload');
-    const changeTheme=page.locator('#mrlee27ThemeChange');
-    assert.equal(await changeTheme.count(),1,label+' change-theme button missing');
-    await changeTheme.click();
-    await page.waitForURL('**/index.html?select-theme=1',{timeout:10000});
-    await dialog.waitFor({state:'visible',timeout:10000});
-    const selected=dialog.locator('button[data-theme="'+theme+'"]');
-    assert.equal(await selected.getAttribute('aria-pressed'),'true',label+' current choice not indicated');
-    assert.equal(await dialog.locator('button[data-theme="'+(theme==='fresh'?'future':'fresh')+'"]').getAttribute('aria-pressed'),'false');
-    assert.equal(await page.evaluate(()=>document.activeElement?.dataset.theme),theme,label+' current option not focused');
-    await dialog.screenshot({path:'artifacts/v3-theme/'+size+'-'+theme+'-chooser.png',animations:'disabled'});
-    const marker=await selected.locator('.mrlee-entry-option-copy').evaluate(el=>getComputedStyle(el,'::after').content);
-    assert(marker.includes('Đang sử dụng'),label+' current-choice indicator missing');
-    await page.keyboard.press(theme==='fresh'?'ArrowRight':'ArrowLeft');
-    const alternate=theme==='fresh'?'future':'fresh';
-    assert.equal(await page.evaluate(()=>document.activeElement?.dataset.theme),alternate,label+' switch focus');
+    const next=nav.locator('a[href="'+other+'"]');
+    await next.focus();
     await page.keyboard.press('Enter');
-    await dialog.waitFor({state:'detached'});
-    assert.equal(await page.evaluate(()=>document.documentElement.dataset.mrleeTheme),alternate,label+' explicit reselect');
-    assert.equal(new URL(page.url()).searchParams.has('select-theme'),false,label+' reopen URL not cleaned');
-    assert.equal(await page.locator('.mrlee-theme-switch').count(),0,label+' duplicate header buttons');
-    console.log('PASS V3 THEME '+label+' modal/viewport/keyboard/current-choice/HD-priority');
+    await page.waitForURL('**/'+other);
+    assert.equal(await page.locator('html').getAttribute('data-mrlee-home-mode'),alternate);
+    assert.equal(await nav.locator('a[aria-current="page"]').getAttribute('href'),other);
+    assert.equal(await page.locator('#mrlee-theme-entry').count(),0);
+    await page.goBack();
+    assert.equal(await page.locator('html').getAttribute('data-mrlee-home-mode'),theme);
+    await page.reload({waitUntil:'domcontentloaded'});
+    assert.equal(await page.locator('html').getAttribute('data-mrlee-theme'),theme);
+    console.log('PASS V4.1 MPA '+label+' URL lock/keyboard/back/reload/HD-priority');
     pass++;
    }finally{await context.close()}
   }
