@@ -12,7 +12,7 @@ for(const [mode,width,height] of [['desktop',1440,900],['tablet',768,1024],['mob
     sessionStorage.setItem('MRLEE.THEME.ENTRY.V1',themeName);
   },theme);
   const page=await context.newPage();
-  await page.goto(pageUrl,{waitUntil:'domcontentloaded',timeout:50000});
+  await page.goto(theme==='future'?pageUrl.replace('index.html','future.html'):pageUrl,{waitUntil:'domcontentloaded',timeout:50000});
   await page.locator('#mrleeNewHome').waitFor({state:'visible',timeout:30000});
   await page.waitForFunction(()=>document.documentElement.dataset.mrleeTheme==='fresh'||document.documentElement.dataset.mrleeTheme==='future',null,{timeout:15000});
   await page.locator('#mrleeNewHome .mr27-tile img').evaluateAll(imgs=>imgs.forEach(img=>img.loading='eager'));
@@ -37,7 +37,7 @@ for(const [mode,width,height] of [['desktop',1440,900],['tablet',768,1024],['mob
       oldHeroHidden:!original||getComputedStyle(original).display==='none',
       width:v.width,windowWidth:innerWidth,docWidth:document.documentElement.scrollWidth,
       oneVisibleH1:getComputedStyle(heading).display!=='none',
-      buttons:[!!document.querySelector('#mrlee27ThemeChange'),!!document.querySelector('#mrlee27Expand')],
+      buttons:[!!document.querySelector('.mr41-theme-route[href]'),!!home.querySelector('a[href="huong-dan-hoc-tieng-han.html"]')],
       allTextNoBars:[...nodes].every(n=>{
         const t=n.querySelector('.mr27-tile-copy strong');const st=getComputedStyle(t);
         return st.backgroundColor==='rgba(0, 0, 0, 0)'||st.backgroundColor==='transparent';
@@ -71,10 +71,13 @@ for(const [mode,width,height] of [['desktop',1440,900],['tablet',768,1024],['mob
   assert(result.cardRects.slice(0,cardsPerRow).every(r=>Math.abs(r.y-result.cardRects[0].y)<3),
     mode+' primary navigation cards not aligned in a row: '+JSON.stringify(result.cardRects));
   await page.locator('#mrleeNewHome').screenshot({path:'artifacts/mrlee-home-v2-'+mode+'-'+theme+'.png',animations:'disabled'});
-  await page.locator('#mrlee27Expand').click();
-  await page.waitForFunction(()=>document.documentElement.dataset.mrleeSmartExpanded==='true');
-  await page.locator('#mrlee27Expand').click();
-  await page.waitForFunction(()=>document.documentElement.dataset.mrleeSmartExpanded==='false');
+  const alternate=theme==='fresh'?'future':'fresh';
+  await page.locator('.mr41-theme-route').click();
+  await page.waitForURL('**/'+(alternate==='future'?'future.html':'index.html'));
+  assert.equal(await page.locator('html').getAttribute('data-mrlee-home-mode'),alternate);
+  assert.equal(await page.locator('#mrlee-theme-entry').count(),0);
+  await page.goBack();
+  assert.equal(await page.locator('html').getAttribute('data-mrlee-home-mode'),theme);
   console.log('PASS MR LEE V2 '+mode+' '+theme+' '+JSON.stringify({width:result.width,photos:result.heroPhotos,cards:result.cards}));
   await context.close();
  }

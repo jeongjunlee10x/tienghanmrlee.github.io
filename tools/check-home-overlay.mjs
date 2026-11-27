@@ -1,14 +1,17 @@
+import { assertHomeRoutes } from './home-mpa-contract.mjs';
 /* Home hero QA for 2027 V2 (the pre-2027 overlay stylesheet was removed). */
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 const html=fs.readFileSync('index.html','utf8');
+assertHomeRoutes();
 const css=fs.readFileSync('assets/mrlee-ui2027/rebuild-home-v2.css','utf8');
 assert(html.includes('id="mrleeNewHome"'),'New editorial homepage absent');
 assert(html.includes('class="mr27-hero-copy"')&&html.includes('class="mr27-hero-media"'),
  'Separate text and photograph regions are required');
 for(const image of ['01-trang-chu-fresh.webp','01-trang-chu-future.webp']){
  const src='assets/images/heroes/'+image;
- assert(html.includes('src="'+src+'"'),'Independent theme image not in markup: '+src);
+ const own=fs.readFileSync(image.includes('future')?'future.html':'index.html','utf8');
+ assert(own.includes('src="'+src+'"'),'Independent theme image not in own markup: '+src);
  const data=fs.readFileSync(src);
  assert(data.length>100000 && data.toString('ascii',0,4)==='RIFF'&&data.toString('ascii',8,12)==='WEBP',
   'Missing valid high-definition theme image '+src);

@@ -1,3 +1,4 @@
+import { assertHomeRoutes } from './home-mpa-contract.mjs';
 /* UI Phase 5: deterministic audit of currently active V2/V3 pages.
  * Checks source invariants only; it cannot certify live GitHub Pages or backend auth.
  */
@@ -7,6 +8,7 @@ import {spawnSync} from 'node:child_process';
 const read=(name)=>fs.readFileSync(name,'utf8');
 const pages=[
  ['index.html','data-mrlee-redesign="v2"',8,'mr27-tile'],
+ ['future.html','data-mrlee-redesign="v2"',8,'mr27-tile'],
  ['hoc-tieng-han.html','data-mrlee-hub-v2="learning"',6,'mr27-item'],
  ['giao-tiep-phong-van.html','data-mrlee-hub-v2="talk"',4,'mr27-item'],
  ['kiem-tra-topik.html','data-mrlee-hub-v2="topik"',5,'mr27-item'],
@@ -36,7 +38,7 @@ for(const [path,flag,expectedCards,cardClass] of pages){
 const homeHTML=read('index.html');
 for(const cover of ['assets/images/heroes/01-trang-chu-fresh.webp','assets/images/heroes/01-trang-chu-future.webp']){
  assert(fs.existsSync(cover),'Missing original theme hero '+cover);
- assert(homeHTML.includes('src="'+cover+'"'),'Homepage hero must use original theme cover '+cover);
+ assert(read(cover.includes('future')?'future.html':'index.html').includes('src="'+cover+'"'),'Dedicated homepage hero '+cover);
  const buf=fs.readFileSync(cover);
  assert(buf.length>20000,'Hero unexpectedly small '+cover);
  assert.equal(buf.toString('ascii',0,4),'RIFF','Wrong image format '+cover);
@@ -44,8 +46,7 @@ for(const cover of ['assets/images/heroes/01-trang-chu-fresh.webp','assets/image
 }
 for(const unused of ['home-hero-overlay-v3.css','home-hero-split-v2.css','assets/v31/premium-gallery.js'])
  assert(!homeHTML.includes(unused),'Rebuilt homepage still loads obsolete '+unused);
-for(const id of ['mrleeNewHome','mrlee27Expand','mrlee27ThemeChange'])
- assert(read('index.html').includes('id="'+id+'"'),'Home interaction missing '+id);
+assertHomeRoutes();
 const cultureData=read('mrlee-culture-v13-data.js');
 const covers=[...cultureData.matchAll(/"image":"([^"]+)"/g)].map(x=>x[1]);
 assert.equal(covers.length,22,'Culture must expose 22 independent cover images');
@@ -134,7 +135,7 @@ assert(nativeLoader.includes('contact-native-v5.css?v=20261104-native-v5'),
  'Native contact CSS version not loaded on child pages');
 assert(read('mrlee-redesign.js').includes("q('#mrleeContactNative')"),
  'Legacy three-channel rail must not duplicate the native contact');
-const nativePages=['index.html',...Object.keys(layoutPages).filter(p=>p!=='admin.html'),...innerPages];
+const nativePages=['index.html','future.html',...Object.keys(layoutPages).filter(p=>p!=='admin.html'),...innerPages];
 for(const page of nativePages){
  const html=read(page);
  assert(html.includes('id="mrleeContactNative"'),'HTML contact button absent: '+page);

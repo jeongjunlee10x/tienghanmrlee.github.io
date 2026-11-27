@@ -22,6 +22,7 @@
 /* MR LEE UI40: load visual-only theme pack for public pages */
 (()=>{'use strict';
  const name=decodeURIComponent(location.pathname.split('/').pop()||'index.html');
+ if(['fresh','future'].includes(document.documentElement.dataset.mrleeHomeMode))return; // Dedicated home pages use their own static artwork and switch links.
  if(/^(?:admin|dang-nhap|quan-tri-tro-choi|kiem-thu-chuc-nang|kiem-tra-website|noi-dung-bao-mat|game-[\w-]+)(?:\.html)?$/i.test(name))return;
  if(document.querySelector('link[data-mr4-launch]'))return;
  const root='assets/mrlee-skinpack/';

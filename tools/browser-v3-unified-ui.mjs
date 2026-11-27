@@ -63,7 +63,7 @@ try{
     route.continue();
    });
    const page=await ctx.newPage();
-   await page.goto(origin+'/'+file,{waitUntil:'domcontentloaded',timeout:40000});
+   await page.goto(origin+'/'+(area==='home'&&theme==='future'?'future.html':file),{waitUntil:'domcontentloaded',timeout:40000});
    await page.waitForFunction(()=>{
     const link=document.querySelector('link[data-mrlee-v3-ui]');
     return !!(link?.sheet&&link.sheet.cssRules.length>60);

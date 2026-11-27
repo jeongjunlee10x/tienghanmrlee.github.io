@@ -1,0 +1,68 @@
+/* MR LEE V4.1 — shared visual refinement.
+ * Progressive, opt-in public page shell. Never alters auth, scoring, maps or games.
+ * Maintains Fresh/Future themes and respects reduced motion. */
+html[data-mrlee-v41="1"] {
+  --m41-radius:18px;--m41-radius-large:26px;
+  --m41-ease:cubic-bezier(.2,.7,.2,1);
+  font-synthesis:none;text-rendering:optimizeLegibility;
+}
+html[data-mrlee-v41="1"][data-mrlee-v3-scope="site"] {
+  scrollbar-gutter:stable;
+}
+html[data-mrlee-v41="1"][data-mrlee-v3-scope="site"] :where(h1,h2,h3) {
+  text-wrap:balance;overflow-wrap:break-word;
+}
+html[data-mrlee-v41="1"][data-mrlee-v3-scope="site"] :lang(ko) {
+  font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  word-break:keep-all;line-height:1.65;
+}
+html[data-mrlee-v41="1"][data-mrlee-v3-scope="site"] :where(.site-header,.site-top,.ts-header) :where(a,button) {
+  text-underline-offset:4px;
+}
+html[data-mrlee-v41="1"][data-mrlee-v3-scope="site"] :where(.mr27-actions a,.mr27-cta a,.ts-hero-buttons a,.mr27-shortcuts a,.mr27-shortcuts button,.mr4-theme-row button) {
+  box-sizing:border-box;min-height:44px;display:inline-flex;align-items:center;justify-content:center;
+  gap:8px;line-height:1.35;white-space:normal;text-align:center;
+  transition:background-color .2s var(--m41-ease),border-color .2s var(--m41-ease),box-shadow .2s var(--m41-ease),transform .2s var(--m41-ease);
+}
+html[data-mrlee-v41="1"][data-mrlee-v3-scope="site"] :where(.mr27-grid,.mr27-cards,.mr4-advantages) > a {
+  min-width:0;isolation:isolate;
+}
+html[data-mrlee-v41="1"][data-mrlee-v3-scope="site"] :where(.mr27-tile,.mr27-item) img {
+  display:block;width:100%;height:100%;object-fit:cover;object-position:center;
+  image-rendering:auto;
+}
+html[data-mrlee-v41="1"][data-mrlee-v3-scope="site"] :where(.mr27-subphoto,.mr27-hero-media,.ts-cover-photo) img {
+  max-width:100%;object-fit:cover;image-rendering:auto;
+}
+html[data-mrlee-v41="1"][data-mrlee-v3-scope="site"] :where(.mr27-grid,.mr27-cards) :where(strong,small) {
+  overflow-wrap:anywhere;
+}
+html[data-mrlee-v41="1"][data-mrlee-v3-scope="site"] :where(a,button,input,select,textarea):focus-visible {
+  outline:3px solid var(--v3-ring,#f5a343)!important;outline-offset:3px!important;
+}
+html[data-mrlee-v41="1"][data-mrlee-v3-scope="site"] :where(img[loading="lazy"]) {
+  content-visibility:auto;
+}
+@media(max-width:760px){
+  html[data-mrlee-v41="1"][data-mrlee-v3-scope="site"] :where(.mr27-actions,.mr27-cta,.ts-hero-buttons) {
+    display:flex;flex-wrap:wrap;gap:10px;
+  }
+  html[data-mrlee-v41="1"][data-mrlee-v3-scope="site"] :where(.mr27-actions a,.mr27-cta a,.ts-hero-buttons a) {
+    flex:1 1 160px;
+  }
+  html[data-mrlee-v41="1"][data-mrlee-v3-scope="site"] :where(.mr27-hero,.mr27-subhero,.ts-hero-grid) {
+    min-width:0;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  html[data-mrlee-v41="1"][data-mrlee-v3-scope="site"] :where(.mr27-actions a,.mr27-cta a,.ts-hero-buttons a,.mr27-shortcuts a,.mr27-shortcuts button,.mr4-theme-row button) {
+    transition:none!important;animation:none!important;
+  }
+}
+
+/* URL-based home switch: real anchors; no theme-toggle JS. */
+html[data-mrlee-home-mode] #mrleeNewHome .mr4-theme-row a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;box-sizing:border-box;padding:9px 18px;border-radius:100px;color:var(--v4-muted);font:800 13px/1.3 "Be Vietnam Pro",sans-serif;text-decoration:none;white-space:nowrap}
+html[data-mrlee-home-mode] #mrleeNewHome .mr4-theme-row a[aria-current="page"]{background:#174a77;color:#fff}
+html[data-mrlee-home-mode="future"] #mrleeNewHome .mr4-theme-row a[aria-current="page"]{background:#70def1;color:#0d3248}
+html[data-mrlee-home-mode] #mrleeNewHome .mr27-bottom-links a{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+@media(max-width:650px){html[data-mrlee-home-mode] #mrleeNewHome .mr4-theme-row a{flex:1;padding:10px 5px}}

@@ -1,3 +1,4 @@
+import { assertHomeRoutes } from './home-mpa-contract.mjs';
 /* MR LEE final Git hygiene gate, 2026-11-02.
  * Read-only. Checks proven UI cleanup, stable links and preservation of data.
  */
@@ -28,11 +29,10 @@ for(const f of oldCss)assert(!has(f),'Obsolete UI module unexpectedly re-added: 
 const home=read('index.html');
 for(const redundant of ['id="mrleeFutureStart"','class="feature-cards"','class="journey"'])
  assert(!home.includes(redundant),'Duplicate expanded homepage component still exists '+redundant);
-for(const core of ['id="mrleeNewHome"','id="schoolSearchForm"','id="ranking"','id="rankSlider"','id="contactDialog"','id="openContactHero"','id="mrlee27ThemeChange"','id="mrlee27Expand"'])
+for(const core of ['id="mrleeNewHome"','id="schoolSearchForm"','id="ranking"','id="rankSlider"','id="contactDialog"','id="openContactHero"'])
  assert(home.includes(core),'Critical homepage function lost '+core);
 assert.equal((home.match(/class="mr27-tile"/g)||[]).length,8,'Homepage must keep exactly eight unique modules');
-for(const img of ['assets/images/heroes/01-trang-chu-fresh.webp','assets/images/heroes/01-trang-chu-future.webp'])
- assert(has(img)&&home.includes('src="'+img+'"'),'Independent Fresh/Future hero missing: '+img);
+assertHomeRoutes();
 for(const folder of ['MRLEE_AUDIO','MRLEE_PRO_AUDIO']){
  const catalog=has(folder)?fs.readdirSync(folder,{recursive:true}):[];
  const mp3=catalog.filter(name=>/\.mp3$/i.test(name)).length;

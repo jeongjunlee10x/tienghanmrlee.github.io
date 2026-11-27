@@ -26,7 +26,8 @@ for(const file of pages){
  if(!document.includes('data-mrlee-v3-ui="1"'))errors.push(file+': missing V3 root marker');
  if(!document.includes('data-mrlee-v3-scope="'+scope+'"'))errors.push(file+': missing '+scope+' scope');
  const cssLinks=html.match(/<link\b[^>]*href="assets\/mrlee-ui2027\/v3-unified\.css\?v=20261122-fresh-future-v4"[^>]*>/g)||[];
- const scripts=html.match(/<script\b[^>]*src="assets\/mrlee-ui2027\/v3-runtime\.js\?v=20261122-ui-v3"[^>]*><\/script>/g)||[];
+ const scripts=html.match(/<script\b[^>]*src="assets\/mrlee-ui2027\/v3-runtime\.js\?v=(?:20261122-ui-v3|20261127-mpa)"[^>]*><\/script>/g)||[];
+ if(['index.html','future.html'].includes(file)&&!html.includes('v3-runtime.js?v=20261127-mpa'))errors.push(file+': MPA runtime version missing');
  if(cssLinks.length!==1)errors.push(file+': expected 1 new stylesheet, found '+cssLinks.length);
  if(scripts.length!==1)errors.push(file+': expected 1 new runtime, found '+scripts.length);
  if(cssLinks.length===1 && scripts.length===1 && html.indexOf(cssLinks[0])>html.indexOf(scripts[0]))

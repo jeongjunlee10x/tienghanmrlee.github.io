@@ -1,3 +1,4 @@
+import { assertHomeRoutes } from './home-mpa-contract.mjs';
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
@@ -7,7 +8,8 @@ const js=fs.readFileSync('assets/branding/home-ranking-repair.js','utf8');
 assert.ok(html.includes('home-ranking-repair.css'),'Existing live leaderboard repair stylesheet must remain loaded');
 assert.ok(html.includes('assets/mrlee-ui2027/rebuild-home-v2.css'),'Current homepage V2 must be loaded');
 assert.ok(html.indexOf('home-ranking-repair.css')<html.indexOf('rebuild-home-v2.css'),'2027 homepage styles must be last');
-assert.ok(html.includes('id="mrlee27Expand"') && fs.readFileSync('assets/mrlee-ui2027/rebuild-home-v2.js','utf8').includes('mrleeSmartExpanded'),'Users must still be able to expand the live leaderboard');
+assertHomeRoutes();
+assert(fs.existsSync('bang-diem-tuan-v12.html'),'Dedicated ranking page missing');
 assert.match(html,/home-ranking-repair\.js/,'Live badge moving script must load on homepage');
 for(const needle of ['#mainContent>.mrlee-bottom-pair','grid-template-rows:auto minmax(75px,1fr)',
   '.rank-strip-wrap','.rank-controls','.mrlee-rank-v304-card','#mrleeV12Widget',

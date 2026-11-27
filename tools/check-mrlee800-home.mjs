@@ -1,3 +1,4 @@
+import { assertHomeRoutes } from './home-mpa-contract.mjs';
 /* MR LEE 2027 — verify the *current* homepage and rebuilt subpage heroes.
  * Replaces the superseded MR LEE 800 auto-hero loader requirement.
  * Does not touch login, rewards, interviews or admin data.
@@ -27,13 +28,13 @@ const home=read('index.html');
 const css=read('assets/mrlee-ui2027/rebuild-home-v2.css');
 const homeJS=read('assets/mrlee-ui2027/rebuild-home-v2.js');
 assert.equal((home.match(/class="mr27-tile"/g)||[]).length,8,'Home must have eight modules');
-assert(home.includes('id="mrlee27Expand"')&&home.includes('id="mrlee27ThemeChange"'),'Progressive navigation or theme chooser absent');
+assertHomeRoutes();
 assert(home.includes('id="ranking"')&&home.includes('id="contactDialog"'),'Legacy live ranking or consultation modal lost');
 for(const img of [
  'assets/images/heroes/01-trang-chu-fresh.webp',
  'assets/images/heroes/01-trang-chu-future.webp'
 ]){
- assert(home.includes('src="'+img+'"'),'Unique home photo missing from page: '+img);
+ assert(read(img.includes('future')?'future.html':'index.html').includes('src="'+img+'"'),'Unique home photo missing from page: '+img);
  const bin=fs.readFileSync(img);
  assert(bin.length>20000 && bin.toString('ascii',0,4)==='RIFF' && bin.toString('ascii',8,12)==='WEBP',
   'Image is too small/corrupt '+img);

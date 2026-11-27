@@ -2,7 +2,9 @@
 (()=>{'use strict';
 const VISIT_KEY='MRLEE.THEME.ENTRY.V1';
 const KEY='MRLEE.THEME.V1',ROOT='assets/mrlee-dual-ui/cards/',doc=document,html=doc.documentElement;
-const path=decodeURIComponent(location.pathname.split('/').filter(Boolean).pop()||'index.html');
+const rawPath=decodeURIComponent(location.pathname.split('/').filter(Boolean).pop()||'index.html');
+const homeMode=html.dataset.mrleeHomeMode;
+const path=homeMode==='fresh'||homeMode==='future'?'index.html':rawPath;
 const entryStyle=doc.createElement('link');entryStyle.rel='stylesheet';entryStyle.href='assets/mrlee-dual-ui/entry-picker.css?v=20261121-v3phase2';doc.head.append(entryStyle);
 /* Shared 2027 visual foundations, load for every page that uses dual themes. */
 const foundationStyle=doc.createElement('link');
@@ -53,7 +55,7 @@ function prioritizeHeroPhoto(selected){
   img.decoding='async';
  }
 }
-function update(v){theme=v==='future'?'future':'fresh';html.dataset.mrleeTheme=theme;try{localStorage.setItem(KEY,theme)}catch{}
+function update(v){theme=homeMode==='future'||homeMode==='fresh'?homeMode:v==='future'?'future':'fresh';html.dataset.mrleeTheme=theme;try{localStorage.setItem(KEY,theme)}catch{}
  doc.querySelectorAll('.mrlee-theme-switch button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.theme===theme)));
  doc.querySelectorAll('[data-mrlee-original]').forEach(el=>{if(el.dataset.mrleeOriginal===el.dataset.mrleeFuture)return;const src=theme==='future'?el.dataset.mrleeFuture:el.dataset.mrleeOriginal;if(el.getAttribute('src')!==src)el.src=src});
  prioritizeHeroPhoto(theme);
@@ -104,7 +106,7 @@ function decorate(){
 // sessionStorage survives same-tab navigation/reload, but not a new standalone tab.
 // Do not interrupt protected lessons, Firebase sign-in, or Admin with a marketing dialog.
 function entryPicker(){
- if(admin||path!=='index.html'||doc.getElementById('mrlee-theme-entry'))return;
+ if(homeMode==='fresh'||homeMode==='future'||admin||path!=='index.html'||doc.getElementById('mrlee-theme-entry'))return;
  const explicitSelection=new URLSearchParams(location.search).get('select-theme')==='1';
  if(!explicitSelection){try { if(['fresh','future'].includes(sessionStorage.getItem(VISIT_KEY)))return; } catch{}}
  const dialog=doc.createElement('dialog');
@@ -258,13 +260,20 @@ function primaryNav(){
  const head=doc.querySelector('.site-header,.site-top,header.head,.v10-header,.topbar,.pro-header,.mlb-topbar');
  if(head?.parentNode)head.after(nav);else doc.body.prepend(nav);
 }
+function routeHomeLinks(){
+ if(admin||homeMode==='fresh'||homeMode==='future')return;
+ if(theme!=='future')return;
+ doc.querySelectorAll('a[href="index.html"],a[href="./index.html"]').forEach(a=>{a.href='future.html'});
+}
 function run(){
+ if(homeMode==='fresh'||homeMode==='future'){update(homeMode);return;}
  // Admin uses its own navigation, charts and authentication; no public overlays.
  if(admin){update(theme);return;}
  if(path==='hoc-theo-bai.html'){
   // Lesson directory owns the first screen: no duplicate mega-menu, portal,
   // decorative hero or image layers before the 15 native lesson links.
   update(theme);
+  routeHomeLinks();
   return;
  }
  const modern=html.matches('[data-mrlee-redesign="v2"],[data-mrlee-hub-v2],[data-mrlee-culture-v2],[data-mrlee-phase3]');
@@ -272,10 +281,11 @@ function run(){
   // The new pages supply their own verified navigation and photographs.
   // Avoid injecting a second primary menu, portal, or decorative cards.
   update(theme);
+  routeHomeLinks();
   entryPicker();
   return;
  }
- primaryNav();decorate();portal();update(theme);entryPicker();
+ primaryNav();decorate();portal();update(theme);routeHomeLinks();entryPicker();
 }
 if(doc.readyState==='loading')doc.addEventListener('DOMContentLoaded',run,{once:true});else run();
 })();

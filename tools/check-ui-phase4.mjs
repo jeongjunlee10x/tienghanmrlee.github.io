@@ -1,3 +1,4 @@
+import { assertHomeRoutes } from './home-mpa-contract.mjs';
 /* MR LEE UI 2027 Phase 4 — deterministic static regression audit.
  * It verifies repository source, not live deployment or Firebase/Supabase authorization.
  */
@@ -24,7 +25,7 @@ const scriptPath='assets/mrlee-dual-ui/theme.js';
 const theme=read(scriptPath);
 assert(theme.includes("const modern=html.matches("),'New page theme guard');
 assert(theme.includes('if(modern){'),'Modern theme early return');
-assert(theme.includes('primaryNav();decorate();portal();update(theme);entryPicker();'),'Old pages still supported');
+assert(theme.includes('primaryNav();decorate();portal();update(theme);routeHomeLinks();entryPicker();'),'Old pages still supported');
 const themeVersion='assets/mrlee-dual-ui/theme.js?v=20261102-phase4';
 for(const [filename,kind,cards] of rebuilt){
  const s=read(filename);
@@ -59,8 +60,9 @@ for(const [filename,kind,cards] of rebuilt){
  console.log('PASS clean rebuilt page',filename,'module cards:',cards);
 }
 const homepage=read('index.html');
-assert(homepage.includes('assets/mrlee-dual-ui/theme.js?v=20261121-v3phase2'),
- 'Homepage must load approved V3.0 theme picker runtime');
+assert(homepage.includes('assets/mrlee-dual-ui/theme.js?v=20261127-mpa'),
+ 'Homepage must load MPA theme runtime');
+assertHomeRoutes();
 assert(homepage.includes('id="mrleeNewHome"'),'Homepage V2 present');
 assert(!homepage.includes('assets/mrlee-v2/smart-shell.js'),'Obsolete Smart Hub V1 JavaScript still loaded');
 assert(!homepage.includes('assets/mrlee-v2/smart-shell.css'),'Obsolete Smart Hub V1 CSS still loaded');

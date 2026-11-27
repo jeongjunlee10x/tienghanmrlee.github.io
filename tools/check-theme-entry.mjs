@@ -1,3 +1,4 @@
+import { assertHomeRoutes } from './home-mpa-contract.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
 const root=fs.readdirSync('.').filter(f=>f.endsWith('.html'));
 const js=fs.readFileSync('assets/mrlee-dual-ui/theme.js','utf8');
@@ -10,9 +11,11 @@ assert.match(js,/dialog\.showModal\(\)/,'Must use accessible native modal');
 assert.match(js,/dialog\.addEventListener\('cancel',e=>e\.preventDefault\(\)\)/);
 assert.match(js,/path!=='index\.html'/,'Prompt only on website landing, not while taking exams');
 assert.match(js,/const modern=html\.matches\(/,'Rebuilt pages must be recognized by shared theme runtime');
-assert.match(js,/primaryNav\(\);decorate\(\);portal\(\);update\(theme\);entryPicker\(\)/,'Old pages must retain their legacy navigation fallback');
-assert.match(js,/entryPicker\(\);/,'New pages must also open the theme picker');
-assert.match(js,/explicitSelection/,'Subpage change-theme shortcut must reopen the selector');
+assert.match(js,/primaryNav\(\);decorate\(\);portal\(\);update\(theme\);routeHomeLinks\(\);entryPicker\(\)/,'Old pages must retain their legacy navigation fallback');
+assertHomeRoutes();
+assert(js.includes("if(homeMode==='fresh'||homeMode==='future'){update(homeMode);return;}"),'Dedicated home skips old picker');
+assert(js.includes("if(homeMode==='fresh'||homeMode==='future'||admin"),'Legacy picker skips both home routes');
+assert(fs.readFileSync('assets/mrlee-skinpack/skinpack.js','utf8').includes("location.assign(key==='future'?'future.html':'index.html')"),'Native child switch route');
 assert.doesNotMatch(js,/function controls\(/,'Legacy floating theme selector must not be constructed');
 assert.doesNotMatch(js,/nav\.className='mrlee-theme-switch'/);
 assert.match(css,/\.mrlee-theme-switch\{display:none!important\}/,'No top page switchers');
@@ -34,15 +37,15 @@ for(const file of root){
  const content=fs.readFileSync(file,'utf8');
  if(!content.includes('assets/mrlee-dual-ui/theme.js?v='))continue;
  themed++;
- if(/assets\/mrlee-dual-ui\/theme\.js\?v=(?:20261102-phase4|20261121-v3phase2)/.test(content))currentVersions.push(file);
+ if(/assets\/mrlee-dual-ui\/theme\.js\?v=(?:20261102-phase4|20261121-v3phase2|20261127-mpa)/.test(content))currentVersions.push(file);
 }
 assert.ok(themed>=45,'Shared theme runtime lost pages: '+themed);
-assert(html.includes('assets/mrlee-dual-ui/theme.js?v=20261121-v3phase2'),
+assert(html.includes('assets/mrlee-dual-ui/theme.js?v=20261127-mpa'),
  'Homepage does not request the latest accessible theme picker');
-for(const file of ['index.html','hoc-tieng-han.html','kiem-tra-topik.html',
+for(const file of ['index.html','future.html','hoc-tieng-han.html','kiem-tra-topik.html',
  'van-hoa-han-quoc.html','trung-tam-hoc-vien.html','admin.html']){
  assert(currentVersions.includes(file),'Shared theme runtime lost from '+file);
 }
 assert.ok(currentVersions.length>=9,'Modern pages must load a versioned shared theme.js');
 assert.doesNotMatch(js,/aria-label="Vào giao diện (?:Tươi mới|Viễn tưởng)"/,'Theme choice accessible names must match visible button labels');
-console.log('PASS theme chooser: '+themed+' HTML routes use current shared runtime; modal once per tab, no duplicate header buttons, both image previews and mobile layouts');
+console.log('PASS theme chooser: '+themed+' HTML routes use current shared runtime; native routes, no home modal, preserved legacy accessibility');

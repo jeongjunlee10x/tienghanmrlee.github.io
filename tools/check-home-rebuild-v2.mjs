@@ -1,3 +1,4 @@
+import { assertHomeRoutes } from './home-mpa-contract.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -9,7 +10,7 @@ assert(html.includes('data-mrlee-redesign="v2"'),'V2 root switch not present');
 assert.equal((html.match(/id="mrleeNewHome"/g)||[]).length,1);
 assert(html.includes('rebuild-home-v2.css?v=20261103-nav-density-v10'));
 assert(html.includes('rebuild-home-v2.js?v=20261121-v3phase2'));
-assert(html.includes('theme.js?v=20261121-v3phase2'),'Homepage theme picker runtime cache must be current');
+assert(html.includes('theme.js?v=20261127-mpa'),'Homepage theme picker runtime cache must be current');
 const root=html.match(/<section id="mrleeNewHome"[\s\S]*?<\/section>/)?.[0];
 assert(root,'new design missing');
 const cards=[...root.matchAll(/<a class="mr27-tile" data-key="([^"]+)" href="([^"]+)"[^>]*>[\s\S]*?<img src="([^"]+)"/g)];
@@ -41,13 +42,8 @@ for(const s of [
  '@media(prefers-reduced-motion:reduce)',
  'html[data-mrlee-redesign="v2"]:not([data-mrlee-smart-expanded="true"])'
 ]) assert(css.includes(s),'missing design selector '+s);
-assert(js.includes("target.searchParams.set('select-theme','1')"),
- 'Change-theme button must reopen the shared chooser explicitly');
-assert(!js.includes("sessionStorage.removeItem('MRLEE.THEME.ENTRY.V1')"),
- 'Change-theme button must preserve this tab\'s current selection');
-assert(js.includes("root.dataset.mrleeSmartExpanded=String(open)"));
-assert(root.includes('id="mrlee27Expand"'));
-assert(root.includes('id="mrlee27ThemeChange"'));
+assertHomeRoutes();
+assert(!js.includes("sessionStorage.removeItem('MRLEE.THEME.ENTRY.V1')"),'Preserve tab choice');
 assert(html.includes('id="mrlee-auth2-dialog"'),'lost login dialog');
 assert(html.includes('id="contactDialog"'),'lost consultation dialog');
 assert(html.includes('mrlee-score-v12/widget.js'),'lost score engine');
