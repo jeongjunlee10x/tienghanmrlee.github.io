@@ -43,6 +43,9 @@ for(const [mode,width,height] of [['desktop',1440,900],['tablet',768,1024],['mob
         return st.backgroundColor==='rgba(0, 0, 0, 0)'||st.backgroundColor==='transparent';
       }),
       orderedRoutes:nodes.map(n=>n.dataset.key),
+      gridColumns:getComputedStyle(home.querySelector('.mr27-grid')).gridTemplateColumns.split(' ').length,
+      heroOpacity:getComputedStyle(home.querySelector('.mr27-hero-media img')).opacity,
+      cardImagePosition:getComputedStyle(nodes[0].querySelector('img')).position,
       cardRects:nodes.map(n=>{const r=n.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height}}),
       heroCTAClipped:[...home.querySelectorAll('.mr27-hero-copy :is(h1,p,.mr27-actions a)')]
        .some(el=>el.getBoundingClientRect().bottom>home.querySelector('.mr27-hero').getBoundingClientRect().bottom+2),
@@ -67,7 +70,10 @@ for(const [mode,width,height] of [['desktop',1440,900],['tablet',768,1024],['mob
   assert(result.duplicateStatsAbsent,mode+' duplicate statistic strip should be removed');
   assert(result.heroToGridGap>=-2&&result.heroToGridGap<=64,mode+' excessive hero-to-actions gap '+result.heroToGridGap);
   assert(result.brandGlow&&result.brandGlow!=='none',mode+' original logo outline not applied');
-  const cardsPerRow=mode==='desktop'?4:2;
+  const cardsPerRow=theme==='future'?(mode==='mobile'?1:2):(mode==='desktop'?4:2);
+  assert.equal(result.gridColumns,cardsPerRow,mode+' '+theme+' distinct layout columns');
+  assert.equal(result.heroOpacity,'1',mode+' hero is actually visible');
+  assert.equal(result.cardImagePosition,'static',mode+' card art must be separate from text');
   assert(result.cardRects.slice(0,cardsPerRow).every(r=>Math.abs(r.y-result.cardRects[0].y)<3),
     mode+' primary navigation cards not aligned in a row: '+JSON.stringify(result.cardRects));
   await page.locator('#mrleeNewHome').screenshot({path:'artifacts/mrlee-home-v2-'+mode+'-'+theme+'.png',animations:'disabled'});
