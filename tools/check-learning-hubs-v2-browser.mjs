@@ -32,6 +32,9 @@ for(const [file,kind,count] of routes){
     const visual=page.locator('#topicSection .sectionHeading');
     await visual.waitFor({state:'visible',timeout:20000});
     await page.waitForFunction(()=>document.querySelectorAll('#topics a.topic').length===22,null,{timeout:30000});
+    assert.equal(await page.locator('html').getAttribute('data-mrlee-catalogue'),'v43');
+    await page.waitForFunction(()=>{const img=document.querySelector('.cat43-culture-cover');return img?.complete&&img.naturalWidth>=800});
+    assert.equal(await page.locator('#topicSection form.cat43-slides').getAttribute('action'),'van-hoa-bai-hoc.html');
     const all=await page.locator('#topics a.topic').count();
     assert.equal(all,22,'Culture list lost topics');
     await page.locator('[data-filter="life"]').click();
@@ -77,6 +80,10 @@ for(const [file,kind,count] of routes){
       return {
        theme:document.documentElement.dataset.mrleeTheme,
        cardCount:cards.length,
+       catalogue:document.documentElement.dataset.mrleeCatalogue,
+       columns:getComputedStyle(section.querySelector('.mr27-cards')).gridTemplateColumns.split(' ').length,
+       artPosition:getComputedStyle(cards[0].querySelector('img')).position,
+       artOpacity:getComputedStyle(cards[0].querySelector('img')).opacity,
        photosLoaded:[...section.querySelectorAll('img')].every(img=>img.naturalWidth>0),
        cardLinks:[...new Set(cards.map(x=>x.getAttribute('href')))].length,
        contentWidth:section.getBoundingClientRect().width,
@@ -116,6 +123,10 @@ for(const [file,kind,count] of routes){
      assert(hero.height<440,file+' unnecessarily tall desktop banner '+JSON.stringify(hero));
     }
     assert.equal(state.cardCount,count,file+' cards');
+    assert.equal(state.catalogue,'v43',file+' redesigned catalogue');
+    assert.equal(state.columns,theme==='future'?(width<=650?1:2):(width<=350?1:width<900?2:3),file+' distinct catalogue geometry');
+    assert.equal(state.artPosition,'static',file+' image must not sit behind text');
+    assert.equal(state.artOpacity,'1',file+' image must be visible');
     assert.equal(state.theme,theme,file+' theme');
     assert(state.photosLoaded,file+' broken photos');
     assert.equal(state.cardLinks,count,file+' duplicate routes');
