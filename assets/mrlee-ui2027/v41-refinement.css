@@ -59,3 +59,10 @@ html[data-mrlee-v41="1"][data-mrlee-v3-scope="site"] :where(img[loading="lazy"])
     transition:none!important;animation:none!important;
   }
 }
+
+/* URL-based home switch: real anchors; no theme-toggle JS. */
+html[data-mrlee-home-mode] #mrleeNewHome .mr4-theme-row a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;box-sizing:border-box;padding:9px 18px;border-radius:100px;color:var(--v4-muted);font:800 13px/1.3 "Be Vietnam Pro",sans-serif;text-decoration:none;white-space:nowrap}
+html[data-mrlee-home-mode] #mrleeNewHome .mr4-theme-row a[aria-current="page"]{background:#174a77;color:#fff}
+html[data-mrlee-home-mode="future"] #mrleeNewHome .mr4-theme-row a[aria-current="page"]{background:#70def1;color:#0d3248}
+html[data-mrlee-home-mode] #mrleeNewHome .mr27-bottom-links a{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+@media(max-width:650px){html[data-mrlee-home-mode] #mrleeNewHome .mr4-theme-row a{flex:1;padding:10px 5px}}
