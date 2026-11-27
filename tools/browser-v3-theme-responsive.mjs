@@ -77,7 +77,7 @@ try{
        copy:box('#mrleeNewHome .mr27-hero-copy'),media:box('#mrleeNewHome .mr27-hero-media')};
     });
     assert(hero.hero.x>=-2&&hero.hero.right<=width+2,label+' hero extends beyond viewport '+JSON.stringify(hero));
-    if(width<=650)assert(hero.media.y>=hero.copy.bottom-5,label+' mobile hero photo overlaps text');
+    if(width<900)assert(hero.media.y>=hero.copy.bottom-5,label+' mobile hero photo overlaps text');
     else assert(hero.copy.right<=hero.media.x+5,label+' tablet/desktop hero copy overlaps photo');
     await page.screenshot({path:'artifacts/v3-theme/'+size+'-'+theme+'-home.png',animations:'disabled'});
 
