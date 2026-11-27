@@ -26,7 +26,7 @@ const init=()=>{
  document.getElementById('mrlee27HubTheme')?.addEventListener('click',()=>{
   try{sessionStorage.removeItem('MRLEE.THEME.ENTRY.V1')}catch{}
   /* The native picker is on home and remains the only one. */
-  location.assign('index.html?select-theme=1');
+  location.assign(document.documentElement.dataset.mrleeTheme==='future'?'index.html':'future.html');
  });
  document.querySelectorAll('.mrlee27-subhub .mr27-item img,.mrlee27-subhub .mr27-subphoto img,.mrlee27-workintro img').forEach(img=>{
   img.addEventListener('error',()=>{
