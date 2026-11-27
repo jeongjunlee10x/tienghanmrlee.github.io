@@ -40,7 +40,7 @@ try{
     }
     const page=await context.newPage();
     try{
-     await page.goto('http://127.0.0.1:8765/'+test.file,{waitUntil:'domcontentloaded',timeout:60000});
+     await page.goto('http://127.0.0.1:8765/'+(test.kind==='home'&&theme==='future'?'future.html':test.file),{waitUntil:'domcontentloaded',timeout:60000});
      await page.locator(test.box).waitFor({state:'visible',timeout:30000});
      if(test.kind==='lessons'){
       await page.waitForFunction(()=>document.querySelectorAll('#lessonGrid .mr-new-card').length===15,null,{timeout:30000});
@@ -119,6 +119,7 @@ try{
        appHidden:document.querySelector('#app')?.classList.contains('hidden')??null
       };
      },test);
+     assert.equal(geometry.theme,theme,'Incorrect theme '+test.file);
      assert(geometry.box&&geometry.box.width>0&&geometry.box.height>0,'Layout invisible '+test.file);
      assert(geometry.box.width<=geometry.viewport+2,'Layout horizontal overflow '+test.file+' '+JSON.stringify(geometry));
      if(test.kind==='admin'){
